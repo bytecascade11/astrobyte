@@ -1,0 +1,24 @@
+{
+  "name": "ReviByte Opinions",
+  "short_name": "ReviByte",
+  "description": "ReviByte Technology Opinions delivers the latest tech news, gadget reviews, Android updates, and in-depth guides.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#000000",
+  "theme_color": "#ff0000",  // Change to your brand color (e.g., #000000 black, #ff0000 red, #0066ff blue)
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/android-chrome-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable any"
+    },
+    {
+      "src": "/android-chrome-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable any"
+    }
+  ]
+}
