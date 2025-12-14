@@ -1,8 +1,9 @@
 ---
 title: "First Post – ReviByte is Live!"
 description: "Testing that posts finally show up on the homepage."
-publishDate: "2025-12-07"
-pinned: true
+pubDatetime: 2025-12-14T00:00:00Z
+slug: first-post-revibyte-live
+featured: true
 draft: false
 tags:
   - news
@@ -21,5 +22,3 @@ From Samsung to Xiaomi, iPhone to OnePlus, budget devices to premium beasts — 
 
 Thanks for checking out the very first post.  
 More fire reviews and comparisons are coming soon. Stay tuned!
-
-
