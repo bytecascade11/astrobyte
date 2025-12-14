@@ -1,23 +1,28 @@
 export const SITE = {
-  website: "https://revibyte.blog/", // replace this with your deployed domain
+  website: "https://revibyte.blog/", // Your live domain – perfect
   author: "iSamuel",
-  profile: "https://pin.it/1NYS28vrR",
-  desc: "ReviByte Technology Opinions delivers the latest tech news, gadget Opinions, Android updates, and in-depth guides to keep you informed and ahead in the digital world..",
-  title: "ReviByte Opinions",
-  ogImage: "astropaper-og.jpg",
+  profile: "https://pin.it/1NYS28vrR", // Your Pinterest (already in socials too)
+  desc: "ReviByte Technology Opinions delivers the latest tech news, gadget reviews, Android updates, and in-depth guides to keep you informed and ahead in the digital world.",
+  title: "ReviByte Opinions", // This shows in header and browser tabs
+  ogImage: "astropaper-og.jpg", // Optional: replace with your own image later (upload to public/)
   lightAndDarkMode: true,
-  postPerIndex: 4,
-  postPerPage: 4,
+  postPerIndex: 4, // Posts shown on homepage
+  postPerPage: 4,  // Posts per category page
   scheduledPostMargin: 15 * 60 * 1000, // 15 minutes
   showArchives: true,
-  showBackButton: true, // show back button in post detail
+  showBackButton: true,
   editPost: {
     enabled: true,
     text: "Edit page",
-    url: "https://github.com/satnaing/astro-paper/edit/main/",
+    url: "https://github.com/bytecascade11/astrobyte/edit/main/", // Update to YOUR repo path
   },
   dynamicOgImage: true,
-  dir: "ltr", // "rtl" | "auto"
-  lang: "en", // html lang code. Set this empty and default will be "en"
-  timezone: "Asia/Bangkok", // Default global timezone (IANA format) https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
+  dir: "ltr",
+  lang: "en",
+  timezone: "Asia/Bangkok",
+
+  // ← ADD THIS NEW SECTION FOR ANALYTICS
+  analytics: {
+    googleAnalyticsId: "G-2MH0T4DFR3", // Your GA4 ID – tracking starts immediately
+  },
 } as const;
