@@ -13,14 +13,27 @@ const { noMarginTop = false } = Astro.props;
 
 <footer class:list={["w-full", { "mt-auto": !noMarginTop }]}>
   <Hr noPadding />
-  <div
-    class="flex flex-col items-center justify-between py-6 sm:flex-row-reverse sm:py-4"
-  >
-    <Socials centered />
-    <div class="my-2 flex flex-col items-center whitespace-nowrap sm:flex-row">
-      <span>Copyright &#169; {currentYear}</span>
-      <span class="hidden sm:inline">&nbsp;|&nbsp;</span>
+  <div class="py-6 sm:py-8 px-4 max-w-4xl mx-auto">
+    <!-- Social Icons -->
+    <div class="flex justify-center mb-6">
+      <Socials centered />
+    </div>
+
+    <!-- Copyright -->
+    <div class="text-center text-sm text-gray-600 dark:text-gray-400 mb-4">
+      <span>Copyright © {currentYear}</span>
+      <span class="hidden sm:inline mx-2">|</span>
       <span>All rights reserved.</span>
     </div>
+
+    <!-- New Footer Links -->
+    <nav class="text-center">
+      <ul class="flex flex-wrap justify-center gap-x-4 gap-y-2 text-sm text-gray-600 dark:text-gray-400">
+        <li><a href="/about" class="hover:underline">About the Editor</a></li>
+        <li><a href="/privacy-policy" class="hover:underline">Privacy Policy</a></li>
+        <li><a href="/terms-and-conditions" class="hover:underline">Terms & Conditions</a></li>
+        <li><a href="/disclaimer" class="hover:underline">Disclaimer</a></li>
+      </ul>
+    </nav>
   </div>
 </footer>
