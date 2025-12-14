@@ -1,12 +1,13 @@
 ---
 import BaseLayout from "../layouts/Base.astro";
-import profileImg from "../assets/images/isamuel.jpg"; // ONLY THIS LINE ADDED
+import profileImg from "../assets/images/isamuel.jpg";
 
 const meta = {
   title: "About ReviByte Opinion — My Story, My Promise | Oke iSamuel",
   description: "Honest, physics-backed tech analysis for real people in Nigeria and beyond. No hype, no paid praise — just deep, practical insight from Oke Sunday Samuel (iSamuel)."
 };
 ---
+
 
 <BaseLayout meta={meta}>
   <article class="prose prose-lg mx-auto max-w-4xl px-6 py-16 dark:prose-invert">
