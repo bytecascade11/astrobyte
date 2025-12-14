@@ -67,3 +67,27 @@ html[data-theme="dark"] {
 :target {
   scroll-margin-block: 1rem;
 }
+
+/* ============================================= */
+/* CUSTOM BACKGROUND – SUBTLE GRADIENT + NOISE   */
+/* No upload needed – everything is pure CSS or external URL */
+/* ============================================= */
+
+body {
+  background: linear-gradient(to bottom, #0f172a 0%, #1e293b 100%); /* Dark mode: deep slate blue-gray */
+}
+
+html[data-theme="light"] body {
+  background: linear-gradient(to bottom, #f8fafc 0%, #e2e8f0 100%); /* Light mode: soft gray */
+}
+
+/* Optional subtle noise overlay for depth (loads from external free texture – no upload) */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background: url('https://www.transparenttextures.com/patterns/noise.png');
+  opacity: 0.03;
+  pointer-events: none;
+  z-index: -1;
+}
