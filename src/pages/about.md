@@ -1,6 +1,6 @@
 ---
 import BaseLayout from "../layouts/Base.astro";
-import profileImg from "../assets/images/isamuel.jpg";   {/* ← ONLY THIS LINE ADDED */}
+import profileImg from "../assets/images/isamuel.jpg"; // ONLY THIS LINE ADDED
 
 const meta = {
   title: "About ReviByte Opinion — My Story, My Promise | Oke iSamuel",
