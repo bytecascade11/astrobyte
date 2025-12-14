@@ -1,37 +1,154 @@
 ---
-layout: ../layouts/AboutLayout.astro
-title: "About"
+import BaseLayout from "../layouts/Base.astro";
+import profileImg from "../assets/images/isamuel.jpg";   {/* ← ONLY THIS LINE ADDED */}
+
+const meta = {
+  title: "About ReviByte Opinion — My Story, My Promise | Oke iSamuel",
+  description: "Honest, physics-backed tech analysis for real people in Nigeria and beyond. No hype, no paid praise — just deep, practical insight from Oke Sunday Samuel (iSamuel)."
+};
 ---
 
-AstroPaper is a minimal, accessible and SEO-friendly blog theme built with [Astro](https://astro.build/) and [Tailwind CSS](https://tailwindcss.com/).
+<BaseLayout meta={meta}>
+  <article class="prose prose-lg mx-auto max-w-4xl px-6 py-16 dark:prose-invert">
+    <h1 class="mb-4 text-4xl font-bold">About ReviByte Opinion — My Story, My Promise</h1>
+    <p class="lead text-xl text-gray-600 dark:text-gray-300">
+      I’m <strong>Oke Sunday Samuel</strong> (most people call me <em>iSamuel</em>). I study Physics & Electronics and write practical, <strong>expert technology analysis and insight</strong> for real people in Nigeria and beyond.
+    </p>
 
-![Astro Paper](public/astropaper-og.jpg)
+    <div class="my-16 flex flex-col items-center gap-10 md:flex-row">
+      <img
+  src="/images/isamuel.jpg"
+  alt="Oke iSamuel — Founder & Technology Analyst at ReviByte Opinion"
+  class="h-56 w-56 rounded-full object-cover shadow-2xl ring-4 ring-blue-100 dark:ring-blue-900"
+  loading="lazy"
+/>
+      <div class="text-lg leading-relaxed">
+        <p>
+          ReviByte began as a practical experiment: observe, take notes, and explain. I had no professional studio, no PR contacts — just curiosity, a deep understanding of physics and electronics, and a stubborn desire to analyze technology slowly and properly.
+        </p>
+        <p class="mt-4">
+          That small habit of writing plain, useful <strong>analytical notes</strong> turned into a blog built not for clicks — but for clarity, honesty, and real-world usefulness.
+        </p>
+      </div>
+    </div>
 
-AstroPaper provides a solid foundation for blogs, or even portfolios\_ with full markdown support, built-in dark mode, and a clean layout that works out-of-the-box.
+    <p>
+      This page brings everything together — the origin, the analytical methods I use, what I publish, the values I hold dear, and how you can be part of this journey.
+    </p>
 
-The blog posts in this theme also serve as guides, docs or example articles\_ making AstroPaper a flexible starting point for your next content-driven site.
+    <h2>How it started: a notebook, a deep research habit, and a stubborn question</h2>
+    <p>
+      The very first ReviByte posts were scribbles in a small notebook. I’d write about battery theory, camera physics, and small details tech writers often ignore: how a device <em>should</em> perform based on its specs, how its screen <em>should</em> handle sunlight in Lagos, or whether a charging standard <em>will</em> work reliably with local plugs.
+    </p>
+    <p>
+      I realized most mainstream coverage treats devices superficially — leaving a huge gap for everyday users who need <strong>deep technical context</strong>. So I published honest notes out of curiosity. No SEO tricks. No promotion. Just truth.
+    </p>
+    <p>
+      People read them, shared them, and soon messages arrived messages like:
+    </p>
+    <blockquote class="border-l-4 border-blue-600 bg-blue-50 p-6 dark:bg-blue-950/30">
+      “This helped me <strong>understand the technology</strong>.”<br>
+      “You explained something better than the shopkeeper.”
+    </blockquote>
+    <p>
+      Those small messages felt meaningful. <strong>ReviByte Opinion</strong> grew naturally from those conversations.
+    </p>
 
-## Features
+    <h2>What I write — and who it is for</h2>
+    <p>
+      <strong>ReviByte Opinion</strong> is for people who want practical <strong>analysis</strong> — not jargon, not empty hype. The blog focuses on:
+    </p>
+    <ul>
+      <li>Expert analysis on phone and gadget technology with real-world application</li>
+      <li>Short how-tos that solve immediate problems (battery tips, camera settings, quick fixes)</li>
+      <li>Buying guides that match real budgets and repair realities in Nigeria and surrounding markets</li>
+      <li>Industry deep dives that provide long-term context and forecast future trends</li>
+    </ul>
+    <p>
+      If you’re choosing a phone where power outages, limited data, and repair costs matter — you’ll find insight here that reflects <em>your</em> reality.
+    </p>
 
-AstroPaper comes with a set of useful features that make content publishing easy and effective:
+    <h2>How I Analyze Technology — Methods, Honesty, and Limits</h2>
+    <p>I’m fully transparent. I <strong>do not claim to physically test every device</strong>. Instead, I use proven analytical methods:</p>
 
-- SEO-friendly
-- Fast performance
-- Light & dark mode
-- Highly customizable
-- Organizable blog posts
-- Responsive & accessible
-- Static search with [PageFind](https://pagefind.app/)
-- Automatic social image generation
+    <h3>First-Party Technical Analysis</h3>
+    <p>Leveraging my Physics & Electronics background, I analyze spec sheets, teardowns, and white papers to understand potential performance, design compromises, and long-term behavior.</p>
 
-and so much more.
+    <h3>Industry Cross-Reference</h3>
+    <p>I cross-check data from verified global tech journalists and labs. This synthesis forms the foundation of my expert opinion.</p>
 
-## Show your support
+    <h3>Community & Long-Term Reports</h3>
+    <p>I read forums, long-term comments, and reader messages to uncover issues short reviews miss — overheating, battery degradation, repair problems.</p>
 
-If you like [AstroPaper](https://github.com/satnaing/astro-paper), consider giving it a star ⭐️.
+    <h3>Real-World Scenario Modeling</h3>
+    <p>I model typical daily usage: messaging, social apps, light streaming, GPS. Battery claims always include the exact model and conditions used.</p>
 
-Found a bug 🐛 or have an improvement ✨ in mind? Feel free to open an [issue](https://github.com/satnaing/astro-paper/issues), submit a [pull request](https://github.com/satnaing/astro-paper/pulls) or start a [discussion](https://github.com/satnaing/astro-paper/discussions).
+    <h3>Research & Cross-Checks</h3>
+    <p>Update histories, patch notes, and reputable sources help verify if issues are bugs or persistent flaws.</p>
 
-If you find this theme helpful, you can also [sponsor me on GitHub](https://github.com/sponsors/satnaing) or [buy me a coffee](https://buymeacoffee.com/satnaing) to show your support — every penny counts.
+    <h3>Limitations (what I admit openly)</h3>
+    <p>I don’t have thermal chambers or pro camera labs. My focus: <strong>Will this phone meet daily needs, and is its spec sheet justified by its price?</strong> Where lab tests matter, I link to specialists.</p>
 
-Kyay zuu! 🙏🏼
+    <h2>Local context — why it matters</h2>
+    <p>Nigeria and similar markets have realities most reviews ignore:</p>
+    <ul>
+      <li><strong>Power outages:</strong> Constant charging isn’t realistic</li>
+      <li><strong>Prepaid data:</strong> Forced downloads hurt wallets</li>
+      <li><strong>Repairability:</strong> Spare parts and local skills matter</li>
+      <li><strong>Resale value:</strong> Local brand strength > global hype</li>
+    </ul>
+    <p>I analyze devices with these truths in mind — so you don’t buy paper specs that fail in real life.</p>
+
+    <h2>Reader stories — messages that shaped ReviByte</h2>
+    <blockquote class="border-l-4 border-blue-600 bg-blue-50 p-6 dark:bg-blue-950/30">
+      “Your <strong>technical breakdown</strong> helped me choose a phone that finally lasts until evening. I no longer worry about charging during the day.”<br>
+      — anonymous reader
+    </blockquote>
+
+    <h2>Ethics, sponsorships, and trust</h2>
+    <p>Trust is everything. My rules:</p>
+    <ul>
+      <li><strong>Disclosure:</strong> Every sponsored post or review unit is clearly labelled</li>
+      <li><strong>No forced conclusions:</strong> I walk away from demands for fake praise</li>
+      <li><strong>Full editorial control:</strong> Always mine</li>
+    </ul>
+
+    <h2>Long-term vision — practical growth</h2>
+    <p>My goal for <strong>ReviByte Opinion</strong> is simple: expand coverage while keeping the same honest, analytical voice through:</p>
+    <ul>
+      <li>Reader-sourced 6+ month reports</li>
+      <li>Short explainer videos (battery physics, durability, teardowns)</li>
+      <li>A small team of trusted local contributors</li>
+    </ul>
+    <p>Growth will be gradual and deliberate — more usefulness, never more noise.</p>
+
+    <h2>How you can help ReviByte Opinion</h2>
+    <ul>
+      <li>Comment — even one sentence helps me know what to analyze next</li>
+      <li>Share posts with friends who need honest advice</li>
+      <li>Send long-term device reports</li>
+      <li>Subscribe for short, useful emails (no spam)</li>
+    </ul>
+
+    <h2>FAQ — short answers</h2>
+    <dl class="space-y-6">
+      <dt class="font-bold">Do you physically test every phone you write about?</dt>
+      <dd>No. I use technical analysis, industry reports, and community data. I always disclose if a device was provided.</dd>
+
+      <dt class="font-bold">Are your posts sponsored?</dt>
+      <dd>When they are, I label them clearly. Editorial control stays with me.</dd>
+
+      <dt class="font-bold">How do you analyze batteries?</dt>
+      <dd>Via specifications, charging standards, component quality, and real-world modeling — then I tell you how long it <em>should</em> last.</dd>
+
+      <dt class="font-bold">Can I suggest a device for analysis?</dt>
+      <dd>Yes! Repeated requests go straight to the top of my list.</dd>
+    </dl>
+
+    <p class="mt-16 text-center text-lg italic text-gray-600 dark:text-gray-400">
+      Thank you for taking the time to read my story.<br>
+      If <strong>ReviByte Opinion</strong> ever helps you make a better tech decision — please share it with someone who needs it.<br><br>
+      — <strong>Oke "iSamuel"</strong>, Founder of ReviByte Opinion
+    </p>
+  </article>
+</BaseLayout>
