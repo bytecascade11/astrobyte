@@ -1,8 +1,8 @@
 export const SITE = {
-  website: "https://astro-paper.pages.dev/", // replace this with your deployed domain
+  website: "https://revibyte.blog/", // replace this with your deployed domain
   author: "iSamuel",
   profile: "https://satnaing.dev/",
-  desc: "A minimal, responsive and SEO-friendly Astro blog theme.",
+  desc: "ReviByte Technology Opinions delivers the latest tech news, gadget Opinions, Android updates, and in-depth guides to keep you informed and ahead in the digital world..",
   title: "ReviByte Opinions",
   ogImage: "astropaper-og.jpg",
   lightAndDarkMode: true,
