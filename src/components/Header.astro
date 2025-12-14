@@ -69,40 +69,30 @@ const isActive = (path: string) => {
           ]}
         >
           <li class="col-span-2">
-            <a href="/posts" class:list={{ "active-nav": isActive("/posts") }}>
-              Posts
-            </a>
+            <a href="/" class:list={{ "active-nav": isActive("/") }}>Home</a>
           </li>
           <li class="col-span-2">
-            <a href="/tags" class:list={{ "active-nav": isActive("/tags") }}>
-              Tags
-            </a>
+            <a href="/news" class:list={{ "active-nav": isActive("/news") }}>News</a>
           </li>
           <li class="col-span-2">
-            <a href="/about" class:list={{ "active-nav": isActive("/about") }}>
-              About
-            </a>
+            <a href="/samsung" class:list={{ "active-nav": isActive("/samsung") }}>Samsung</a>
           </li>
-          {
-            SITE.showArchives && (
-              <li class="col-span-2">
-                <LinkButton
-                  href="/archives"
-                  class:list={[
-                    "focus-outline flex justify-center p-3 sm:p-1",
-                    {
-                      "active-nav [&>svg]:stroke-accent": isActive("/archives"),
-                    },
-                  ]}
-                  ariaLabel="archives"
-                  title="Archives"
-                >
-                  <IconArchive class="hidden sm:inline-block" />
-                  <span class="sm:sr-only">Archives</span>
-                </LinkButton>
-              </li>
-            )
-          }
+          <li class="col-span-2">
+            <a href="/apple" class:list={{ "active-nav": isActive("/apple") }}>Apple</a>
+          </li>
+          <li class="col-span-2">
+            <a href="/android" class:list={{ "active-nav": isActive("/android") }}>Android</a>
+          </li>
+          <li class="col-span-2">
+            <a href="/games" class:list={{ "active-nav": isActive("/games") }}>Games</a>
+          </li>
+          <li class="col-span-2">
+            <a href="/ai" class:list={{ "active-nav": isActive("/ai") }}>AI</a>
+          </li>
+          <li class="col-span-2">
+            <a href="/opinions" class:list={{ "active-nav": isActive("/opinions") }}>Opinions</a>
+          </li>
+
           <li class="col-span-1 flex items-center justify-center">
             <LinkButton
               href="/search"
