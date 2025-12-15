@@ -33,26 +33,27 @@ const {
   timezone,
   tags,
   hideEditPost,
-  coverImage,        // ← Added
-  coverImageAlt,     // ← Added
+  coverImage,        // ← NEW: for visible hero image
+  coverImageAlt,     // ← NEW: alt text
 } = post.data;
 
 const { Content } = await render(post);
 
 let ogImageUrl: string | undefined;
 
-// Determine OG image source (unchanged)
+// Determine OG image source
 if (typeof initOgImage === "string") {
-  ogImageUrl = initOgImage;
+  ogImageUrl = initOgImage; // Remote OG image (absolute URL)
 } else if (initOgImage?.src) {
-  ogImageUrl = initOgImage.src;
+  ogImageUrl = initOgImage.src; // Local asset
 }
 
-// Use dynamic OG image if enabled and no custom ogImage
+// Use dynamic OG image if enabled and no remote|local ogImage
 if (!ogImageUrl && SITE.dynamicOgImage) {
   ogImageUrl = `${getPath(post.id, post.filePath)}/index.png`;
 }
 
+// Resolve OG image URL (or fallback to SITE.ogImage / default `og.png`)
 const ogImage = ogImageUrl
   ? new URL(ogImageUrl, Astro.url.origin).href
   : undefined;
@@ -69,6 +70,7 @@ const layoutProps = {
 };
 
 /* ========== Prev/Next Posts ========== */
+
 const allPosts = posts.map(({ data: { title }, id, filePath }) => ({
   id,
   title,
@@ -99,7 +101,6 @@ const nextPost =
     >
       {title}
     </h1>
-
     <div class="my-2 flex items-center gap-2">
       <Datetime {pubDatetime} {modDatetime} {timezone} size="lg" />
       <span
@@ -112,7 +113,7 @@ const nextPost =
       <EditPost {hideEditPost} {post} class="max-sm:hidden" />
     </div>
 
-    <!-- Cover / Hero Image -->
+    <!-- NEW: Visible Cover / Hero Image -->
     {coverImage && (
       <div class="mt-10 mb-12 overflow-hidden rounded-xl shadow-xl">
         <img
