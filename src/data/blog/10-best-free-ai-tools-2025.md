@@ -14,9 +14,10 @@ tags:
   - Reviews
   - Nigeria Tech
   - Africa Tech
-coverImage: 10-free-ai-2025-cover.jpg
+coverImage: "/assets/10-free-ai-2025-cover.jpg"
 coverImageAlt: "MacBook Pro in a Lagos apartment with multiple free AI tools open late at night"
-ogImage: 10-free-ai-2025-og.jpg
+ogImage: "/assets/10-free-ai-2025-og.jpg"
+
 ---
 
 ## The 10 Free AI Agents That Will Replace Your Monthly Subscriptions in 2025
