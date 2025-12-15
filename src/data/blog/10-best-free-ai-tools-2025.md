@@ -15,9 +15,11 @@ tags:
   - Nigeria Tech
   - Africa Tech
 ---
+
 coverImage: "/assets/10-free-ai-2025-cover.jpg"
 coverImageAlt: "My actual MacBook dock at 3:12 a.m."
 ogImage: "/assets/10-free-ai-2025-og.jpg"
+
 ---
 
 ## The 10 Free AI Agents That Will Replace Your Monthly Subscriptions in 2025
