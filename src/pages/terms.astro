@@ -1,39 +1,14 @@
 ---
+import Layout from "@/layouts/Layout.astro";
+
 const title = "Terms and Conditions – ReviByte Opinion";
 const description = "Legal terms governing your use of ReviByte Opinion.";
-const lastUpdated = "December 08, 2025";
+const lastUpdated = "December 15, 2025";
 ---
 
-<head>
-  <meta name="description" content={description} />
-  <meta name="robots" content="index, follow" />
-
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
-
-  <!-- Open Graph -->
-  <meta property="og:title" content={title} />
-  <meta property="og:description" content={description} />
-  <meta property="og:type" content="website" />
-
-  <script type="application/ld+json">
-    {JSON.stringify({
-      "@context": "https://schema.org",
-      "@type": "WebPage",
-      "name": title,
-      "url": "https://www.revibyte.blog/terms",
-      "description": description,
-      "publisher": {
-        "@type": "Organization",
-        "name": "ReviByte Opinion",
-        "email": "revibyte20@gmail.com"
-      },
-      "datePublished": "2025-12-08",
-      "dateModified": "2025-12-08"
-    })}
-  </script>
-
-  <title>{title}</title>
+<Layout title={title} description={description}>
+  <!-- Your terms and conditions content goes here -->
+</Layout>
 </head>
 
 <style>
