@@ -1,13 +1,11 @@
 ---
-import BaseLayout from "../layouts/Base.astro";
+import Layout from "@/layouts/Layout.astro";
 
-const meta = {
-  title: "Contact – ReviByte Technology Opinion",
-  description: "Get in touch with Oke iSamuel – questions, tips, long-term reports, or just say hi."
-};
+const title = "Contact – ReviByte Technology Opinion";
+const description = "Get in touch with Oke iSamuel – questions, tips, long-term reports, or just say hi.";
 ---
 
-<BaseLayout meta={meta}>
+<Layout title={title} description={description}>
   <article class="prose prose-lg mx-auto max-w-4xl px-6 py-16 dark:prose-invert">
     <h1>Contact Oke “iSamuel”</h1>
     <p class="lead text-xl text-gray-600 dark:text-gray-300">
@@ -35,4 +33,4 @@ const meta = {
       Prefer direct email? Reach me anytime.
     </p>
   </article>
-</BaseLayout>
+</Layout>
