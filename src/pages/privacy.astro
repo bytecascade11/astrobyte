@@ -1,13 +1,12 @@
 ---
-import BaseLayout from "../layouts/Base.astro";
+---
+import Layout from "@/layouts/Layout.astro";
 
-const meta = {
-  title: "Privacy Policy | ReviByte Opinion",
-  description: "Transparent privacy practices at ReviByte Opinion – we collect almost nothing, never sell your data, and put your trust first."
-};
+const title = "Privacy Policy | ReviByte Opinion";
+const description = "Transparent privacy practices at ReviByte Opinion – we collect almost nothing, never sell your data, and put your trust first.";
 ---
 
-<BaseLayout meta={meta}>
+<Layout title={title} description={description}>
   <article class="prose prose-lg mx-auto max-w-4xl px-6 py-16 dark:prose-invert">
     <header class="text-center">
       <h1 class="mb-4 text-4xl font-bold">Privacy Policy – ReviByte Opinion</h1>
@@ -19,11 +18,13 @@ const meta = {
       </p>
       <p class="mt-2">
         Questions? Email us at 
-        <a href="mailto:hello@revibyte.online" class="font-semibold text-blue-600 hover:underline">
-          hello@revibyte.online
+        <a href="mailto:revibyte20@gmail.com" class="font-semibold text-blue-600 hover:underline">
+          revibyte20@gmail.com
         </a>
       </p>
     </header>
+  </article>
+</Layout>
 
     <div class="my-12 rounded-xl bg-blue-50 p-8 dark:bg-blue-950/30">
       <h2 class="mb-4 flex items-center text-2xl font-bold">
