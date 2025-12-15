@@ -1,14 +1,11 @@
 ---
-import BaseLayout from "../layouts/Base.astro";
-import profileImg from "../assets/images/isamuel.jpg";   {/* ← ONLY THIS LINE ADDED */}
+import Layout from "@/layouts/Layout.astro";
 
-const meta = {
-  title: "About ReviByte Opinion — My Story, My Promise | Oke iSamuel",
-  description: "Honest, physics-backed tech analysis for real people in Nigeria and beyond. No hype, no paid praise — just deep, practical insight from Oke Sunday Samuel (iSamuel)."
-};
+const title = "About ReviByte Opinion — My Story, My Promise | Oke iSamuel";
+const description = "Honest, physics-backed tech analysis for real people in Nigeria and beyond. No hype, no paid praise — just deep, practical insight from Oke Sunday Samuel (iSamuel).";
 ---
 
-<BaseLayout meta={meta}>
+<Layout title={title} description={description}>
   <article class="prose prose-lg mx-auto max-w-4xl px-6 py-16 dark:prose-invert">
     <h1 class="mb-4 text-4xl font-bold">About ReviByte Opinion — My Story, My Promise</h1>
     <p class="lead text-xl text-gray-600 dark:text-gray-300">
@@ -17,11 +14,11 @@ const meta = {
 
     <div class="my-16 flex flex-col items-center gap-10 md:flex-row">
       <img
-  src="/images/isamuel.jpg"
-  alt="Oke iSamuel — Founder & Technology Analyst at ReviByte Opinion"
-  class="h-56 w-56 rounded-full object-cover shadow-2xl ring-4 ring-blue-100 dark:ring-blue-900"
-  loading="lazy"
-/>
+        src="/images/isamuel.jpg"
+        alt="Oke iSamuel — Founder & Technology Analyst at ReviByte Opinion"
+        class="h-56 w-56 rounded-full object-cover shadow-2xl ring-4 ring-blue-100 dark:ring-blue-900"
+        loading="lazy"
+      />
       <div class="text-lg leading-relaxed">
         <p>
           ReviByte began as a practical experiment: observe, take notes, and explain. I had no professional studio, no PR contacts — just curiosity, a deep understanding of physics and electronics, and a stubborn desire to analyze technology slowly and properly.
@@ -31,7 +28,6 @@ const meta = {
         </p>
       </div>
     </div>
-
     <p>
       This page brings everything together — the origin, the analytical methods I use, what I publish, the values I hold dear, and how you can be part of this journey.
     </p>
