@@ -16,7 +16,7 @@ tags:
   - Africa Tech
 ---
 coverImage: "/assets/10-free-ai-2025-cover.jpg"
-coverImageAlt: "MacBook Pro in a Lagos apartment with multiple free AI tools open late at night"
+coverImageAlt: "My actual MacBook dock at 3:12 a.m."
 ogImage: "/assets/10-free-ai-2025-og.jpg"
 ---
 
