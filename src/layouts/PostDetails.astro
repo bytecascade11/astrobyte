@@ -33,31 +33,32 @@ const {
   timezone,
   tags,
   hideEditPost,
+  coverImage,        // ← Added
+  coverImageAlt,     // ← Added
 } = post.data;
 
 const { Content } = await render(post);
 
 let ogImageUrl: string | undefined;
 
-// Determine OG image source
+// Determine OG image source (unchanged)
 if (typeof initOgImage === "string") {
-  ogImageUrl = initOgImage; // Remote OG image (absolute URL)
+  ogImageUrl = initOgImage;
 } else if (initOgImage?.src) {
-  ogImageUrl = initOgImage.src; // Local asset
+  ogImageUrl = initOgImage.src;
 }
 
-// Use dynamic OG image if enabled and no remote|local ogImage
+// Use dynamic OG image if enabled and no custom ogImage
 if (!ogImageUrl && SITE.dynamicOgImage) {
   ogImageUrl = `${getPath(post.id, post.filePath)}/index.png`;
 }
 
-// Resolve OG image URL (or fallback to SITE.ogImage / default `og.png`)
 const ogImage = ogImageUrl
   ? new URL(ogImageUrl, Astro.url.origin).href
   : undefined;
 
 const layoutProps = {
-  title: `${title} | ${SITE.title}`,
+  title: `\( {title} | \){SITE.title}`,
   author,
   description,
   pubDatetime,
@@ -68,7 +69,6 @@ const layoutProps = {
 };
 
 /* ========== Prev/Next Posts ========== */
-
 const allPosts = posts.map(({ data: { title }, id, filePath }) => ({
   id,
   title,
@@ -79,7 +79,7 @@ const currentPostIndex = allPosts.findIndex(a => a.id === post.id);
 
 const prevPost = currentPostIndex !== 0 ? allPosts[currentPostIndex - 1] : null;
 const nextPost =
-  currentPostIndex !== allPosts.length ? allPosts[currentPostIndex + 1] : null;
+  currentPostIndex !== allPosts.length - 1 ? allPosts[currentPostIndex + 1] : null;
 ---
 
 <Layout {...layoutProps}>
@@ -99,6 +99,7 @@ const nextPost =
     >
       {title}
     </h1>
+
     <div class="my-2 flex items-center gap-2">
       <Datetime {pubDatetime} {modDatetime} {timezone} size="lg" />
       <span
@@ -110,6 +111,19 @@ const nextPost =
       >
       <EditPost {hideEditPost} {post} class="max-sm:hidden" />
     </div>
+
+    <!-- Cover / Hero Image -->
+    {coverImage && (
+      <div class="mt-10 mb-12 overflow-hidden rounded-xl shadow-xl">
+        <img
+          src={typeof coverImage === "string" ? coverImage : coverImage.src}
+          alt={coverImageAlt || title}
+          class="w-full object-cover aspect-video md:aspect-[21/9]"
+          loading="eager"
+        />
+      </div>
+    )}
+
     <article
       id="article"
       class="app-prose mx-auto mt-8 max-w-app prose-pre:bg-(--shiki-light-bg) dark:prose-pre:bg-(--shiki-dark-bg)"
@@ -167,29 +181,22 @@ const nextPost =
 </Layout>
 
 <script is:inline data-astro-rerun>
-  /** Create a progress indicator
-   *  at the top */
+  /** Create a progress indicator at the top */
   function createProgressBar() {
-    // Create the main container div
     const progressContainer = document.createElement("div");
     progressContainer.className =
       "progress-container fixed top-0 z-10 h-1 w-full bg-background";
 
-    // Create the progress bar div
     const progressBar = document.createElement("div");
     progressBar.className = "progress-bar h-1 w-0 bg-accent";
     progressBar.id = "myBar";
 
-    // Append the progress bar to the progress container
     progressContainer.appendChild(progressBar);
-
-    // Append the progress container to the document body or any other desired parent element
     document.body.appendChild(progressContainer);
   }
   createProgressBar();
 
-  /** Update the progress bar
-   *  when user scrolls */
+  /** Update the progress bar when user scrolls */
   function updateScrollProgress() {
     document.addEventListener("scroll", () => {
       const winScroll =
@@ -198,18 +205,15 @@ const nextPost =
         document.documentElement.scrollHeight -
         document.documentElement.clientHeight;
       const scrolled = (winScroll / height) * 100;
-      if (document) {
-        const myBar = document.getElementById("myBar");
-        if (myBar) {
-          myBar.style.width = scrolled + "%";
-        }
+      const myBar = document.getElementById("myBar");
+      if (myBar) {
+        myBar.style.width = scrolled + "%";
       }
     });
   }
   updateScrollProgress();
 
-  /** Attaches links to headings in the document,
-   *  allowing sharing of sections easily */
+  /** Attaches links to headings */
   function addHeadingLinks() {
     const headings = Array.from(
       document.querySelectorAll("h2, h3, h4, h5, h6")
@@ -230,8 +234,7 @@ const nextPost =
   }
   addHeadingLinks();
 
-  /** Attaches copy buttons to code blocks in the document,
-   * allowing users to copy code easily. */
+  /** Attaches copy buttons to code blocks */
   function attachCopyButtons() {
     const copyButtonLabel = "Copy";
     const codeBlocks = Array.from(document.querySelectorAll("pre"));
@@ -240,12 +243,10 @@ const nextPost =
       const wrapper = document.createElement("div");
       wrapper.style.position = "relative";
 
-      // Check if --file-name-offset custom property exists
       const computedStyle = getComputedStyle(codeBlock);
       const hasFileNameOffset =
         computedStyle.getPropertyValue("--file-name-offset").trim() !== "";
 
-      // Determine the top positioning class
       const topClass = hasFileNameOffset
         ? "top-(--file-name-offset)"
         : "-top-3";
@@ -254,11 +255,10 @@ const nextPost =
       copyButton.className = `copy-code absolute end-3 ${topClass} rounded bg-muted border border-muted px-2 py-1 text-xs leading-4 text-foreground font-medium`;
       copyButton.innerHTML = copyButtonLabel;
       codeBlock.setAttribute("tabindex", "0");
-      codeBlock.appendChild(copyButton);
 
-      // wrap codebock with relative parent element
       codeBlock?.parentNode?.insertBefore(wrapper, codeBlock);
       wrapper.appendChild(codeBlock);
+      wrapper.appendChild(copyButton);
 
       copyButton.addEventListener("click", async () => {
         await copyCode(codeBlock, copyButton);
@@ -271,7 +271,6 @@ const nextPost =
 
       await navigator.clipboard.writeText(text ?? "");
 
-      // visual feedback that task is completed
       button.innerText = "Copied";
 
       setTimeout(() => {
