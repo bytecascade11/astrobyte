@@ -11,7 +11,7 @@ tags:
   - Rumors
   - Android
 coverImage:
-  src: "Public/s26-ultra-concept.jpg"
+  src: " ./s26-ultra-concept.jpg"
   alt: "Samsung Galaxy S26 Ultra concept render"
 ogImage: "s26-ultra-concept.jpg"
 ---
