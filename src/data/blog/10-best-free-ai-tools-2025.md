@@ -1,7 +1,7 @@
 ---
 title: "The 10 Best Truly Free AI Tools in 2025"
 description: "After testing 90+ tools in client projects and side hustles across Nigeria—from Lagos content creation to remote freelancing—these 10 remain 100% free, unlimited where it counts, and optimized for African workflows (low data, reliable access)."
-pubDatetime: "2025-12-12T00:00:00Z"
+pubDate: 2025-12-15
 slug: "best-free-ai-tools-2025-no-paywalls"
 featured: true
 draft: false
@@ -14,10 +14,9 @@ tags:
   - Reviews
   - Nigeria Tech
   - Africa Tech
-coverImage:
-  src: "Public/10-free-ai-2025-cover.jpg"
-  alt: "MacBook Pro in a Lagos apartment with multiple free AI tools open late at night"
-ogImage: "10-free-ai-2025-og.jpg"
+coverImage: ./10-free-ai-2025-cover.jpg
+coverImageAlt: "MacBook Pro in a Lagos apartment with multiple free AI tools open late at night"
+ogImage: ./10-free-ai-2025-og.jpg
 ---
 
 ## The 10 Free AI Agents That Will Replace Your Monthly Subscriptions in 2025
