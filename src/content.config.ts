@@ -20,6 +20,10 @@ const blog = defineCollection({
       canonicalURL: z.string().optional(),
       hideEditPost: z.boolean().optional(),
       timezone: z.string().optional(),
+
+      // ← THESE TWO ARE NEW – FOR VISIBLE COVER/HERO IMAGE
+      coverImage: image().or(z.string()).optional(),
+      coverImageAlt: z.string().optional(),
     }),
 });
 
