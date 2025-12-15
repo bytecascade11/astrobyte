@@ -47,7 +47,7 @@ I tested 93 tools this year. Only these ten survived daily abuse and still live 
   </ol>
 </div>
 
-![My actual MacBook dock at 3:12 a.m. — everything here is 100% free and production-ready](/images/real-dock-late-night.jpg)
+![My actual MacBook dock at 3:12 a.m. — everything here is 100% free and production-ready](/assets/real-dock-late-night.jpg)
 
 <h2 id="the-market-shift-why-this-list-matters">The Market Shift: Why This List Matters</h2>
 
