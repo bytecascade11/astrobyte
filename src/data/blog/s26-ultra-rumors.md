@@ -11,9 +11,9 @@ tags:
   - Rumors
   - Android
 coverImage:
-  src: "/images/s26-ultra-concept.jpg"
+  src: "s26-ultra-concept.jpg"
   alt: "Samsung Galaxy S26 Ultra concept render"
-ogImage: "/images/s26-ultra-concept.jpg"
+ogImage: "s26-ultra-concept.jpg"
 ---
 
 # Samsung Galaxy S26 Ultra: Early 2026 Rumors Are Already Here
