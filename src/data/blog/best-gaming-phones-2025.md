@@ -18,7 +18,6 @@ tags:
   - Opinions
     
 ogImage: "/assets/best-gaming-phones-2025-og.jpg"
----
 ![All 7 gaming phones lined up with RGB glowing in dark room](/assets/best-gaming-phones-2025.jpg)
 
 # Best Gaming Phones 2025 (PUBG, Genshin & CODM) — Global Thermal Stress Test
