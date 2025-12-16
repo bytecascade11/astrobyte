@@ -10,9 +10,11 @@ tags:
   - Reviews
   - Comparison
   - Opinions
+
 ---
 ogImage: "/assets/iphone-comparison-og.jpg"
 ---
+
 ![iPhone 14 vs iPhone 15 vs iPhone 16 side-by-side comparison](/assets/iphone-compare.jpg)
 
 **Published on December 11, 2025 • ReviByte — Research & Opinions**
