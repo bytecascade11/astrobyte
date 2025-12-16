@@ -6,7 +6,9 @@ slug: best-gaming-phones-2025
 featured: true
 draft: false
 tags:
+  - news
   - Games
+  - apple 
   - Android
   - Reviews
   - Gaming Phones
