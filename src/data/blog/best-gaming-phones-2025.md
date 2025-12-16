@@ -18,9 +18,7 @@ tags:
   - Naija Gamers
   - Global Gaming
   - Opinions
-
----  
-ogImage: "/assets/best-gaming-phones-2025-og.jpg"
+ogImage: /assets/best-gaming-phones-2025-og.jpg   # Moved inside, no quotes
 ---
 ![All 7 gaming phones lined up with RGB glowing in dark room](/assets/best-gaming-phones-2025.jpg)
 
