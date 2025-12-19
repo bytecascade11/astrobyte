@@ -4,16 +4,16 @@ description: "A straightforward, no-nonsense guide to Android security as we hea
 author: "iSamuel"
 pubDatetime: 2025-12-19T00:00:00Z
 slug: do-you-really-need-paid-antivirus-android-2026
+draft: false
 tags:
   - android-security
   - google-play-protect
   - mobile-malware
   - antivirus-advice
   - cybersecurity
-draft: false
 ---
 
-![Smartphone protected by a digital security shield](/assets/android-security-2026.jpg)
+![Smartphone protected by a digital security shield](/assets/android-security.jpg)
 
 It’s December 2025, and the antivirus debate on Android still feels stuck in a time loop. Every few months, a new scare story breaks — a banking Trojan here, spyware lurking there — and suddenly the same question pops up again:
 
