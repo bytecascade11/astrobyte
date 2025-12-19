@@ -15,7 +15,6 @@ tags:
   - Nigeria Tech
   - Africa Tech
 ---
-# No ogImage here – let AstroPaper generate it dynamically!
 
 ![My actual MacBook dock at 3:12 a.m.](/assets/10-free-ai-2025-cover.jpg)
 
