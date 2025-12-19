@@ -1,50 +1,27 @@
 ---
-import { Image } from "astro:assets";
-import type { CollectionEntry } from "astro:content";
+import { type CollectionEntry, getCollection } from "astro:content";
+import PostDetails from "@/layouts/PostDetails.astro";
+import getSortedPosts from "@/utils/getSortedPosts";
+import { getPath } from "@/utils/getPath";
 
-const { post, posts } = Astro.props;
-const featuredImage = post.data.featuredImage || null; // Use frontmatter featured image
-const featuredAlt = post.data.featuredImageAlt || post.data.title;
+export interface Props {
+  post: CollectionEntry<"blog">;
+}
+
+export async function getStaticPaths() {
+  const posts = await getCollection("blog", ({ data }) => !data.draft);
+  const postResult = posts.map(post => ({
+    params: { slug: getPath(post.id, post.filePath, false) },
+    props: { post },
+  }));
+
+  return postResult;
+}
+
+const { post } = Astro.props;
+
+const posts = await getCollection("blog");
+const sortedPosts = getSortedPosts(posts);
 ---
 
-<article class="post">
-
-  <!-- Featured / Hero Image -->
-  {featuredImage && (
-    <figure class="post-hero">
-      <Image
-        src={featuredImage}
-        alt={featuredAlt}
-        width={1200}
-        height={630}
-        format="webp"
-        loading="eager"
-      />
-      {featuredAlt && <figcaption>{featuredAlt}</figcaption>}
-    </figure>
-  )}
-
-  <!-- Post Title -->
-  <h1>{post.data.title}</h1>
-
-  <!-- Post Date -->
-  <p class="post-date">{new Date(post.data.date).toLocaleDateString()}</p>
-
-  <!-- Post Content -->
-  <div class="post-content">
-    <slot />
-  </div>
-
-  <!-- Related Posts -->
-  <aside class="related-posts">
-    <h2>Other posts</h2>
-    <ul>
-      {posts.map(p => (
-        <li>
-          <a href={`/posts/${p.slug}`}>{p.data.title}</a>
-        </li>
-      ))}
-    </ul>
-  </aside>
-
-</article>
+<PostDetails post={post} posts={sortedPosts} />
