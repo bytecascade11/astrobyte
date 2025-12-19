@@ -10,7 +10,6 @@ tags:
   - mobile-malware
   - antivirus-advice
   - cybersecurity
-image: "/assets/android-security-2026.jpg"
 draft: false
 ---
 
