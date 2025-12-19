@@ -14,7 +14,6 @@ draft: false
 ---
 
 ![Smartphone protected by a digital security shield](/assets/android-security-2026.jpg)
-*<small>A modern smartphone guarded by layered digital defenses — closer to today’s Android reality than many people realize.</small>*
 
 It’s December 2025, and the antivirus debate on Android still feels stuck in a time loop. Every few months, a new scare story breaks — a banking Trojan here, spyware lurking there — and suddenly the same question pops up again:
 
