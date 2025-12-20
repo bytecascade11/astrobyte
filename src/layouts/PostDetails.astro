@@ -1,4 +1,4 @@
----
+ ---
 import { render, type CollectionEntry } from "astro:content";
 import Layout from "@/layouts/Layout.astro";
 import Header from "@/components/Header.astro";
@@ -33,33 +33,30 @@ const {
   timezone,
   tags,
   hideEditPost,
-  coverImage,        // ← NEW: for visible hero image
-  coverImageAlt,     // ← NEW: alt text
+  coverImage,
+  coverImageAlt,
 } = post.data;
 
 const { Content } = await render(post);
 
 let ogImageUrl: string | undefined;
 
-// Determine OG image source
 if (typeof initOgImage === "string") {
-  ogImageUrl = initOgImage; // Remote OG image (absolute URL)
+  ogImageUrl = initOgImage;
 } else if (initOgImage?.src) {
-  ogImageUrl = initOgImage.src; // Local asset
+  ogImageUrl = initOgImage.src;
 }
 
-// Use dynamic OG image if enabled and no remote|local ogImage
 if (!ogImageUrl && SITE.dynamicOgImage) {
   ogImageUrl = `${getPath(post.id, post.filePath)}/index.png`;
 }
 
-// Resolve OG image URL (or fallback to SITE.ogImage / default `og.png`)
 const ogImage = ogImageUrl
   ? new URL(ogImageUrl, Astro.url.origin).href
   : undefined;
 
 const layoutProps = {
-  title: `\( {title} | \){SITE.title}`,
+  title: `${title} | ${SITE.title}`,
   author,
   description,
   pubDatetime,
@@ -70,7 +67,6 @@ const layoutProps = {
 };
 
 /* ========== Prev/Next Posts ========== */
-
 const allPosts = posts.map(({ data: { title }, id, filePath }) => ({
   id,
   title,
@@ -87,6 +83,17 @@ const nextPost =
 <Layout {...layoutProps}>
   <Header />
   <BackButton />
+
+  <!-- Floating Top-Right Panel: Back to Top + Share Links -->
+  <div class="fixed top-20 right-4 z-50 flex flex-col gap-4 md:top-24">
+    <BackToTopButton class="shadow-lg rounded-full bg-background/90 backdrop-blur-sm p-3" />
+
+    <div class="flex flex-col gap-3 rounded-lg bg-background/90 backdrop-blur-sm p-4 shadow-lg border border-border">
+      <span class="text-sm font-medium opacity-80">Share this post</span>
+      <ShareLinks />
+    </div>
+  </div>
+
   <main
     id="main-content"
     class:list={[
@@ -113,7 +120,7 @@ const nextPost =
       <EditPost {hideEditPost} {post} class="max-sm:hidden" />
     </div>
 
-    <!-- NEW: Visible Cover / Hero Image -->
+    <!-- Cover / Hero Image -->
     {coverImage && (
       <div class="mt-10 mb-12 overflow-hidden rounded-xl shadow-xl">
         <img
@@ -140,13 +147,35 @@ const nextPost =
       {tags.map(tag => <Tag tag={slugifyStr(tag)} tagName={tag} />)}
     </ul>
 
-    <BackToTopButton />
+    <hr class="my-6 border-dashed" />
 
-    <ShareLinks />
+    <!-- Giscus Comments Section -->
+    <section aria-label="Comments" class="mt-16">
+      <h2 class="text-2xl font-bold mb-8">Comments</h2>
+      
+      <div class="giscus"></div>
+      
+      <script src="https://giscus.app/client.js"
+              data-repo="bytecascade11/astrobyte"
+              data-repo-id="R_kgDOQobjBQ"
+              data-category="General"
+              data-category-id="DIC_kwDOQobjBc4C0Dd5"
+              data-mapping="pathname"
+              data-strict="1"
+              data-reactions-enabled="1"
+              data-emit-metadata="0"
+              data-input-position="bottom"
+              data-theme="light"
+              data-lang="en"
+              data-loading="lazy"
+              crossorigin="anonymous"
+              async>
+      </script>
+    </section>
 
     <hr class="my-6 border-dashed" />
 
-    <!-- Previous/Next Post Buttons -->
+    <!-- Previous/Next Post Navigation -->
     <div data-pagefind-ignore class="grid grid-cols-1 gap-6 sm:grid-cols-2">
       {
         prevPost && (
@@ -178,111 +207,112 @@ const nextPost =
       }
     </div>
   </main>
+
   <Footer />
-</Layout>
 
-<script is:inline data-astro-rerun>
-  /** Create a progress indicator at the top */
-  function createProgressBar() {
-    const progressContainer = document.createElement("div");
-    progressContainer.className =
-      "progress-container fixed top-0 z-10 h-1 w-full bg-background";
+  <script is:inline data-astro-rerun>
+    /** Create a progress indicator at the top */
+    function createProgressBar() {
+      const progressContainer = document.createElement("div");
+      progressContainer.className =
+        "progress-container fixed top-0 z-10 h-1 w-full bg-background";
 
-    const progressBar = document.createElement("div");
-    progressBar.className = "progress-bar h-1 w-0 bg-accent";
-    progressBar.id = "myBar";
+      const progressBar = document.createElement("div");
+      progressBar.className = "progress-bar h-1 w-0 bg-accent";
+      progressBar.id = "myBar";
 
-    progressContainer.appendChild(progressBar);
-    document.body.appendChild(progressContainer);
-  }
-  createProgressBar();
-
-  /** Update the progress bar when user scrolls */
-  function updateScrollProgress() {
-    document.addEventListener("scroll", () => {
-      const winScroll =
-        document.body.scrollTop || document.documentElement.scrollTop;
-      const height =
-        document.documentElement.scrollHeight -
-        document.documentElement.clientHeight;
-      const scrolled = (winScroll / height) * 100;
-      const myBar = document.getElementById("myBar");
-      if (myBar) {
-        myBar.style.width = scrolled + "%";
-      }
-    });
-  }
-  updateScrollProgress();
-
-  /** Attaches links to headings */
-  function addHeadingLinks() {
-    const headings = Array.from(
-      document.querySelectorAll("h2, h3, h4, h5, h6")
-    );
-    for (const heading of headings) {
-      heading.classList.add("group");
-      const link = document.createElement("a");
-      link.className =
-        "heading-link ms-2 no-underline opacity-75 md:opacity-0 md:group-hover:opacity-100 md:focus:opacity-100";
-      link.href = "#" + heading.id;
-
-      const span = document.createElement("span");
-      span.ariaHidden = "true";
-      span.innerText = "#";
-      link.appendChild(span);
-      heading.appendChild(link);
+      progressContainer.appendChild(progressBar);
+      document.body.appendChild(progressContainer);
     }
-  }
-  addHeadingLinks();
+    createProgressBar();
 
-  /** Attaches copy buttons to code blocks */
-  function attachCopyButtons() {
-    const copyButtonLabel = "Copy";
-    const codeBlocks = Array.from(document.querySelectorAll("pre"));
-
-    for (const codeBlock of codeBlocks) {
-      const wrapper = document.createElement("div");
-      wrapper.style.position = "relative";
-
-      const computedStyle = getComputedStyle(codeBlock);
-      const hasFileNameOffset =
-        computedStyle.getPropertyValue("--file-name-offset").trim() !== "";
-
-      const topClass = hasFileNameOffset
-        ? "top-(--file-name-offset)"
-        : "-top-3";
-
-      const copyButton = document.createElement("button");
-      copyButton.className = `copy-code absolute end-3 ${topClass} rounded bg-muted border border-muted px-2 py-1 text-xs leading-4 text-foreground font-medium`;
-      copyButton.innerHTML = copyButtonLabel;
-      codeBlock.setAttribute("tabindex", "0");
-
-      codeBlock?.parentNode?.insertBefore(wrapper, codeBlock);
-      wrapper.appendChild(codeBlock);
-      wrapper.appendChild(copyButton);
-
-      copyButton.addEventListener("click", async () => {
-        await copyCode(codeBlock, copyButton);
+    /** Update the progress bar when user scrolls */
+    function updateScrollProgress() {
+      document.addEventListener("scroll", () => {
+        const winScroll =
+          document.body.scrollTop || document.documentElement.scrollTop;
+        const height =
+          document.documentElement.scrollHeight -
+          document.documentElement.clientHeight;
+        const scrolled = (winScroll / height) * 100;
+        const myBar = document.getElementById("myBar");
+        if (myBar) {
+          myBar.style.width = scrolled + "%";
+        }
       });
     }
+    updateScrollProgress();
 
-    async function copyCode(block, button) {
-      const code = block.querySelector("code");
-      const text = code?.innerText;
+    /** Attaches links to headings */
+    function addHeadingLinks() {
+      const headings = Array.from(
+        document.querySelectorAll("h2, h3, h4, h5, h6")
+      );
+      for (const heading of headings) {
+        heading.classList.add("group");
+        const link = document.createElement("a");
+        link.className =
+          "heading-link ms-2 no-underline opacity-75 md:opacity-0 md:group-hover:opacity-100 md:focus:opacity-100";
+        link.href = "#" + heading.id;
 
-      await navigator.clipboard.writeText(text ?? "");
-
-      button.innerText = "Copied";
-
-      setTimeout(() => {
-        button.innerText = copyButtonLabel;
-      }, 700);
+        const span = document.createElement("span");
+        span.ariaHidden = "true";
+        span.innerText = "#";
+        link.appendChild(span);
+        heading.appendChild(link);
+      }
     }
-  }
-  attachCopyButtons();
+    addHeadingLinks();
 
-  /* Go to page start after page swap */
-  document.addEventListener("astro:after-swap", () =>
-    window.scrollTo({ left: 0, top: 0, behavior: "instant" })
-  );
-</script>
+    /** Attaches copy buttons to code blocks */
+    function attachCopyButtons() {
+      const copyButtonLabel = "Copy";
+      const codeBlocks = Array.from(document.querySelectorAll("pre"));
+
+      for (const codeBlock of codeBlocks) {
+        const wrapper = document.createElement("div");
+        wrapper.style.position = "relative";
+
+        const computedStyle = getComputedStyle(codeBlock);
+        const hasFileNameOffset =
+          computedStyle.getPropertyValue("--file-name-offset").trim() !== "";
+
+        const topClass = hasFileNameOffset
+          ? "top-(--file-name-offset)"
+          : "-top-3";
+
+        const copyButton = document.createElement("button");
+        copyButton.className = `copy-code absolute end-3 ${topClass} rounded bg-muted border border-muted px-2 py-1 text-xs leading-4 text-foreground font-medium`;
+        copyButton.innerHTML = copyButtonLabel;
+        codeBlock.setAttribute("tabindex", "0");
+
+        codeBlock?.parentNode?.insertBefore(wrapper, codeBlock);
+        wrapper.appendChild(codeBlock);
+        wrapper.appendChild(copyButton);
+
+        copyButton.addEventListener("click", async () => {
+          await copyCode(codeBlock, copyButton);
+        });
+      }
+
+      async function copyCode(block, button) {
+        const code = block.querySelector("code");
+        const text = code?.innerText;
+
+        await navigator.clipboard.writeText(text ?? "");
+
+        button.innerText = "Copied";
+
+        setTimeout(() => {
+          button.innerText = copyButtonLabel;
+        }, 700);
+      }
+    }
+    attachCopyButtons();
+
+    /* Go to page start after page swap */
+    document.addEventListener("astro:after-swap", () =>
+      window.scrollTo({ left: 0, top: 0, behavior: "instant" })
+    );
+  </script>
+</Layout>
