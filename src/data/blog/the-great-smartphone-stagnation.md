@@ -7,7 +7,7 @@ author: "iSamuel"
 slug: the-great-smartphone-stagnation
 tags: ["Technology", "Consumerism", "Sustainability", "Hardware", Opinions, Apple, Samsung, Android,Ai]
 ---
-![A lineup of modern smartphones looking nearly identical year to year](/images/smartphone-stagnation-hero.jpg)
+![A lineup of modern smartphones looking nearly identical year to year](/assets/smartphone-stagnation.jpg)
 
 The marketing machine behind consumer electronics is one of the most sophisticated systems of psychological persuasion ever built. Every year, we are treated to a polished spectacle where executives—often in casual knitwear—tell us that the slab of glass in our pocket, purchased just twelve months ago, is suddenly obsolete.
 
