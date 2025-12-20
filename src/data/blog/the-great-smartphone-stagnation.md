@@ -43,7 +43,7 @@ Buying a 2025 flagship for these tasks is like buying a Ferrari to commute throu
 
 ## RAM, AI, and the Rise of Feature Bloat
 
-![Illustration of smartphone memory being filled by AI features](/assets/ram-ai-feature-bloat.jpg)
+![Illustration of smartphone memory being filled by AI features](/assets/ram-ai-bloat.jpg)
 
 Modern phones now ship with 12GB or even 16GB of RAM. This isn’t because Android or iOS suddenly became inefficient—it’s because **on-device generative AI features are extremely memory-hungry**.
 
