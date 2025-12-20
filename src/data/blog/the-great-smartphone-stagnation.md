@@ -43,7 +43,7 @@ Buying a 2025 flagship for these tasks is like buying a Ferrari to commute throu
 
 ## RAM, AI, and the Rise of Feature Bloat
 
-![Illustration of smartphone memory being filled by AI features](/assets/ram-bloat.jpg)
+![Illustration of smartphone memory being filled by AI features](/assets/ram-bloat.jpg)hbkn
 
 Modern phones now ship with 12GB or even 16GB of RAM. This isn’t because Android or iOS suddenly became inefficient—it’s because **on-device generative AI features are extremely memory-hungry**.
 
@@ -118,7 +118,7 @@ For most users, this single repair delivers more real-world improvement than upg
 
 ## The Subscription Trap: When Ownership Disappeared
 
-![Smartphone shown with monthly payment icons and contracts](/assets/smartphone-upgrade-cycle.jpg)
+![Smartphone shown with monthly payment icons and contracts](/assets/smartphone-upgrade-cycle.jpg)n. nnn
 
 Modern pricing hides the true cost of phones behind monthly installments. This transforms ownership into a perpetual lease.
 
