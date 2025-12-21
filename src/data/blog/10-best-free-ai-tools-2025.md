@@ -5,7 +5,7 @@ pubDatetime: 2025-12-15T00:00:00Z
 slug: best-free-ai-tools-2025-no-paywalls
 featured: true
 draft: false
-ogImage: "/assets/10-free-ai-2025.jpg"
+ogImage: "assets/10-free-ai-2025.jpg"
 tags:
   - AI
   - AI Tools
@@ -17,7 +17,7 @@ tags:
   - Africa Tech
 ---
 
-![My actual MacBook dock at 3:12 a.m.](/assets/10-free-ai-2025-cover.jpg)m
+![My actual MacBook dock at 3:12 a.m.](/assets/10-free-ai-2025-cover.jpg)
 ## The 10 Free AI Agents That Will Replace Your Monthly Subscriptions in 2025
 
 I’m not some Silicon Valley bro with unlimited credits. I’m a Nigerian creator paying NEPA bills and running client work from Ikeja. Every kobo counts, and every Naira spent on a subscription must yield a profit.
