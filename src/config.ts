@@ -11,7 +11,13 @@ export const SITE = {
   scheduledPostMargin: 15 * 60 * 1000, 
   showArchives: true,
   showBackButton: true,
-
+    // --- EDIT PAGE SECTION START ---
+  editPost: {
+    enabled: false, // Set this to false to hide the "Edit page" link
+    text: "Edit page",
+    url: "https://github.com/bytecascade11/astrobyte/edit/main/",
+  },
+  // --- EDIT PAGE SECTION END ---
   dynamicOgImage: true,
   dir: "ltr",
   lang: "en",
