@@ -154,7 +154,6 @@ Want my exact Notion template with:
 Drop “SEND TEMPLATE” in the comments or DM me on X → **@revibyte**. I’ll send it tonight.
 
 Now stop reading and go build something great.
-![Me drinking garri while AI pays my bills](/images/garri-and-ai-money.jpg)
 ---
 ### Frequently Asked Questions (FAQ)
 
