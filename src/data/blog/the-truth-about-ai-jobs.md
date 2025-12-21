@@ -13,7 +13,8 @@ tags:
   - Ai
   - Opinions 
 ---
-heroImage: "/assets/ai-future-of-work-hero.jpg"
+
+![Human worker and an AI system facing each other across a digital workspace](/assets/ai-future-of-work.jpg)
 
 For the past three years, the tech-media ecosystem has survived on two emotionally charged but equally misleading headlines.
 
