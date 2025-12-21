@@ -5,6 +5,7 @@ pubDatetime: 2025-12-15T00:00:00Z
 slug: best-free-ai-tools-2025-no-paywalls
 featured: true
 draft: false
+ogImage: "/assets/10-free-ai-2025.jpg"
 tags:
   - AI
   - AI Tools
