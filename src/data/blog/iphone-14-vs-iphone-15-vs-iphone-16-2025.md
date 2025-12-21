@@ -2,7 +2,6 @@
 title: "iPhone 14 vs 15 vs 16 (2025) – Which to Buy?"
 description: "Real-world battery, camera, and performance comparison after using all three in Nigeria for months. No specs sheet nonsense — just the truth."
 pubDatetime: 2025-12-16T00:00:00Z
-upDatetime: 2025-12-16T00:00:00Z
 slug: iphone-14-vs-iphone-15-vs-iphone-16-2025
 tags:
   - Apple
@@ -10,9 +9,6 @@ tags:
   - Reviews
   - Comparison
   - Opinions
-
----
-ogImage: "/assets/iphone-comparison-og.jpg"
 ---
 
 ![iPhone 14 vs iPhone 15 vs iPhone 16 side-by-side comparison](/assets/iphone-compare.jpg)
