@@ -1,28 +1,29 @@
 export const SITE = {
-  website: "https://www.revibyte.blog/", // Your live domain – perfect
+  website: "https://www.revibyte.blog/", 
   author: "iSamuel",
-  profile: "https://pin.it/1NYS28vrR", // Your Pinterest (already in socials too)
+  profile: "https://pin.it/1NYS28vrR",
   desc: "ReviByte Technology Opinions delivers the latest tech news, gadget reviews, Android updates, and in-depth guides to keep you informed and ahead in the digital world.",
-  title: "ReviByte Opinions", // This shows in header and browser tabs
-  ogImage: "astropaper-og.jpg", // Optional: replace with your own image later (upload to public/)
+  title: "ReviByte Opinions",
+  ogImage: "astropaper-og.jpg",
   lightAndDarkMode: true,
-  postPerIndex: 4, // Posts shown on homepage
-  postPerPage: 4,  // Posts per category page
-  scheduledPostMargin: 15 * 60 * 1000, // 15 minutes
+  postPerIndex: 4,
+  postPerPage: 4,
+  scheduledPostMargin: 15 * 60 * 1000, 
   showArchives: true,
   showBackButton: true,
+  // --- EDIT PAGE SECTION START ---
   editPost: {
-    enabled: true,
+    enabled: false, // Set this to false to hide the "Edit page" link
     text: "Edit page",
-    url: "https://github.com/bytecascade11/astrobyte/edit/main/", // Update to YOUR repo path
+    url: "https://github.com/bytecascade11/astrobyte/edit/main/",
   },
+  // --- EDIT PAGE SECTION END ---
   dynamicOgImage: true,
   dir: "ltr",
   lang: "en",
-  timezone: "Asia/Bangkok",
+  timezone: "Africa/Lagos", 
 
-  // ← ADD THIS NEW SECTION FOR ANALYTICS
   analytics: {
-    googleAnalyticsId: "G-2MH0T4DFR3", // Your GA4 ID – tracking starts immediately
+    googleAnalyticsId: "G-2MH0T4DFR3",
   },
 } as const;
