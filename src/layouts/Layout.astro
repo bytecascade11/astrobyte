@@ -21,21 +21,27 @@ const {
   author = SITE.author,
   profile = SITE.profile,
   description = SITE.desc,
-  ogImage = SITE.ogImage ? `/${SITE.ogImage}` : "/og.png",
+  ogImage, // We get this from the frontmatter
   canonicalURL = new URL(Astro.url.pathname, Astro.url),
   pubDatetime,
   modDatetime,
   scrollSmooth = false,
 } = Astro.props;
 
-const socialImageURL = new URL(ogImage, Astro.url);
+// Logic to prioritize your manual photo over the generated white box
+// 1. If ogImage exists in frontmatter, use it.
+// 2. If it's the home page, use SITE.ogImage.
+// 3. Otherwise, use the AstroPaper generated .png image.
+const socialImageURL = new URL(
+  ogImage ?? (title === SITE.title ? SITE.ogImage : `${Astro.url.pathname.replace(/\/+$/, "")}.png`),
+  Astro.url.origin
+).href;
 
-// Fixed: Only add dates to JSON-LD if they actually exist to prevent "undefined" strings
 const structuredData = {
   "@context": "https://schema.org",
   "@type": "BlogPosting",
   headline: title,
-  image: socialImageURL.href,
+  image: socialImageURL,
   ...(pubDatetime && { datePublished: pubDatetime.toISOString() }),
   ...(modDatetime && { dateModified: modDatetime.toISOString() }),
   author: [
@@ -47,7 +53,6 @@ const structuredData = {
   ],
 };
 
-// Logic to decide if we show "Title | Site" or just "Site"
 const pageTitle = title === SITE.title ? title : `${title} | ${SITE.title}`;
 ---
 
@@ -93,8 +98,6 @@ const pageTitle = title === SITE.title ? title : `${title} | ${SITE.title}`;
       href={new URL("rss.xml", Astro.site)}
     />
 
-    <meta name="theme-color" content="" />
-
     {PUBLIC_GOOGLE_SITE_VERIFICATION && (
       <meta name="google-site-verification" content={PUBLIC_GOOGLE_SITE_VERIFICATION} />
     )}
@@ -106,11 +109,3 @@ const pageTitle = title === SITE.title ? title : `${title} | ${SITE.title}`;
     <slot />
   </body>
 </html>
-
-<style>
-  html, body {
-    margin: 0;
-    width: 100%;
-    height: 100%;
-  }
-</style>
