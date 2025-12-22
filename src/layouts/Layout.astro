@@ -33,7 +33,7 @@ const {
 // 2. If it's the home page, use SITE.ogImage.
 // 3. Otherwise, use the AstroPaper generated .png image.
 const socialImageURL = new URL(
-  ogImage ?? (title === SITE.title ? SITE.ogImage : `${Astro.url.pathname.replace(/\/+$/, "")}.png`),
+  ogImage ?? (title === SITE.title ? SITE.ogImage : `\( {Astro.url.pathname.replace(/\/+ \)/, "")}.png`),
   Astro.url.origin
 ).href;
 
@@ -101,6 +101,16 @@ const pageTitle = title === SITE.title ? title : `${title} | ${SITE.title}`;
     {PUBLIC_GOOGLE_SITE_VERIFICATION && (
       <meta name="google-site-verification" content={PUBLIC_GOOGLE_SITE_VERIFICATION} />
     )}
+
+    <!-- Google AdSense Auto Ads -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4896561037705299"
+         crossorigin="anonymous"></script>
+    <script>
+      (adsbygoogle = window.adsbygoogle || []).push({
+        google_ad_client: "ca-pub-4896561037705299",
+        enable_page_level_ads: true
+      });
+    </script>
 
     <ClientRouter />
     <script is:inline src="/toggle-theme.js"></script>
