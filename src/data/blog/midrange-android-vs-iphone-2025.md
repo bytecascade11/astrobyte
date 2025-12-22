@@ -4,7 +4,7 @@ description: "Smartphone innovation has plateaued. In 2025, mid-range Android ph
 pubDatetime: 2025-12-22T00:00:00Z
 slug: midrange-android-vs-iphone-2025
 author: "iSamuel"
-tags: ["android", "iphone", "smartphones", "tech-analysis", "google-discover", "2025", "opinions, "android", "samsung", ]
+tags: ["android", "iphone", "smartphones", "tech-analysis", "google-discover", "2025", "opinions, "android", "samsung"]
 ---
 
 <!--
