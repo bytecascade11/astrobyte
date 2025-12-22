@@ -21,17 +21,13 @@ const {
   author = SITE.author,
   profile = SITE.profile,
   description = SITE.desc,
-  ogImage, // We get this from the frontmatter
+  ogImage,
   canonicalURL = new URL(Astro.url.pathname, Astro.url),
   pubDatetime,
   modDatetime,
   scrollSmooth = false,
 } = Astro.props;
 
-// Logic to prioritize your manual photo over the generated white box
-// 1. If ogImage exists in frontmatter, use it.
-// 2. If it's the home page, use SITE.ogImage.
-// 3. Otherwise, use the AstroPaper generated .png image.
 const socialImageURL = new URL(
   ogImage ?? (title === SITE.title ? SITE.ogImage : `\( {Astro.url.pathname.replace(/\/+ \)/, "")}.png`),
   Astro.url.origin
@@ -102,14 +98,12 @@ const pageTitle = title === SITE.title ? title : `${title} | ${SITE.title}`;
       <meta name="google-site-verification" content={PUBLIC_GOOGLE_SITE_VERIFICATION} />
     )}
 
-    <!-- Google AdSense Auto Ads -->
+    <!-- Google AdSense Auto Ads - Fixed for Astro build -->
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4896561037705299"
          crossorigin="anonymous"></script>
-    <script>
-      (adsbygoogle = window.adsbygoogle || []).push({
-        google_ad_client: "ca-pub-4896561037705299",
-        enable_page_level_ads: true
-      });
+
+    <script is:inline>
+      (window.adsbygoogle = window.adsbygoogle || []).push({});
     </script>
 
     <ClientRouter />
