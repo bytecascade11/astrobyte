@@ -7,12 +7,7 @@ author: "iSamuel"
 tags: ["android", "iphone", "smartphones", "tech-analysis", "google-discover", "2025", "opinions", "android", "samsung"]
 ---
 
-<!--
-HERO IMAGE PLACEHOLDER
-File name: midrange-android-2025.jpg
-Description: Editorial-style image showing a premium-looking Android phone with slim bezels, bright OLED display, and minimalist background. No visible branding.
-Google Discover note: High-contrast, human-friendly, non-collage image.
--->
+![Editorial-style image showing a premium-looking Android phone with slim bezels, bright OLED display, and minimalist background](/assets/midrange-android-2025.jpg)
 
 # Why Mid-Range Android Phones Beat iPhones for Most People in 2025
 
