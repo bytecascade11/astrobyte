@@ -98,13 +98,28 @@ const pageTitle = title === SITE.title ? title : `${title} | ${SITE.title}`;
       <meta name="google-site-verification" content={PUBLIC_GOOGLE_SITE_VERIFICATION} />
     )}
 
-    <!-- Google AdSense Auto Ads - Fixed for Astro build -->
+    <!-- Google AdSense Auto Ads -->
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4896561037705299"
          crossorigin="anonymous"></script>
 
     <script is:inline>
       (window.adsbygoogle = window.adsbygoogle || []).push({});
     </script>
+
+    <!-- Google Analytics (GA4) - Only loads in production -->
+    {import.meta.env.PROD && (
+      <>
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-2MH0T4DFR3" />
+        <script define:vars={{ gaID: "G-2MH0T4DFR3" }} is:inline>
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', gaID, {
+            page_path: window.location.pathname,
+          });
+        </script>
+      </>
+    )}
 
     <ClientRouter />
     <script is:inline src="/toggle-theme.js"></script>
