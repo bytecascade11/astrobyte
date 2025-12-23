@@ -106,15 +106,15 @@ const pageTitle = title === SITE.title ? title : `${title} | ${SITE.title}`;
       (window.adsbygoogle = window.adsbygoogle || []).push({});
     </script>
 
-    <!-- Google Analytics (GA4) - Only loads in production -->
+    <!-- Google tag (gtag.js) - Official GA4 code -->
     {import.meta.env.PROD && (
       <>
-        <script async src="https://www.googletagmanager.com/gtag/js?id=G-2MH0T4DFR3" />
-        <script define:vars={{ gaID: "G-2MH0T4DFR3" }} is:inline>
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-2MH0T4DFR3"></script>
+        <script is:inline>
           window.dataLayer = window.dataLayer || [];
           function gtag(){dataLayer.push(arguments);}
           gtag('js', new Date());
-          gtag('config', gaID, {
+          gtag('config', 'G-2MH0T4DFR3', {
             page_path: window.location.pathname,
           });
         </script>
