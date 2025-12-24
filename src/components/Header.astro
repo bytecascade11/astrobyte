@@ -11,20 +11,21 @@ import { getCollection } from "astro:content";
 
 const { pathname } = Astro.url;
 
-// Normalize path (remove trailing slash except root)
+// Normalize path
 const currentPath =
   pathname !== "/" && pathname.endsWith("/") ? pathname.slice(0, -1) : pathname;
 
-// Active matcher (supports /tags/samsung/*)
+// Active matcher
 const isActive = (path: string) => {
   if (path === "/") return currentPath === "/";
   return currentPath === path || currentPath.startsWith(path + "/");
 };
 
-// Fetch all unique tags dynamically from published posts
+// Fetch all unique tags from published posts
 const posts = await getCollection("blog", ({ data }) => !data.draft);
-const allTags = [...new Set(posts.flatMap((post) => post.data.tags ?? []))];
-allTags.sort();  // Alphabetical order
+const rawTags = posts.flatMap((post) => post.data.tags ?? []);
+const uniqueRawTags = [...new Set(rawTags)];
+uniqueRawTags.sort((a, b) => a.localeCompare(b)); // Alphabetical by display name
 ---
 
 <header>
@@ -141,35 +142,41 @@ allTags.sort();  // Alphabetical order
     </div>
   </div>
 
-  <!-- Dynamic Tag Cloud - Collapsible -->
+  <!-- Dynamic Tag Cloud - Fixed 404s with slugified URLs -->
   <div class="mx-auto max-w-app px-4 pb-6">
     <div class="flex flex-wrap gap-3 justify-center">
-      <!-- First 12 tags always visible -->
-      {allTags.slice(0, 12).map((tag) => (
-        <a
-          href={`/tags/${tag}/`}
-          class="px-4 py-2 text-sm font-medium bg-gray-200 dark:bg-gray-700 rounded-full hover:bg-accent hover:text-white dark:hover:bg-accent transition"
-        >
-          #{tag}
-        </a>
-      ))}
+      <!-- First 12 tags (always visible) -->
+      {uniqueRawTags.slice(0, 12).map((displayTag) => {
+        const slug = displayTag.toLowerCase().trim().replace(/\s+/g, "-");
+        return (
+          <a
+            href={`/tags/${slug}/`}
+            class="px-4 py-2 text-sm font-medium bg-gray-200 dark:bg-gray-700 rounded-full hover:bg-accent hover:text-white dark:hover:bg-accent transition"
+          >
+            #{displayTag}
+          </a>
+        );
+      })}
 
-      <!-- Collapsible section if more than 12 tags -->
-      {allTags.length > 12 && (
+      <!-- Collapsible "More topics" if >12 tags -->
+      {uniqueRawTags.length > 12 && (
         <details class="contents">
           <summary class="px-4 py-2 text-sm font-medium bg-gray-300 dark:bg-gray-600 rounded-full cursor-pointer list-none hover:bg-accent hover:text-white dark:hover:bg-accent transition select-none">
             More topics →
           </summary>
 
           <div class="flex flex-wrap gap-3 justify-center mt-4 w-full">
-            {allTags.slice(12).map((tag) => (
-              <a
-                href={`/tags/${tag}/`}
-                class="px-4 py-2 text-sm font-medium bg-gray-200 dark:bg-gray-700 rounded-full hover:bg-accent hover:text-white dark:hover:bg-accent transition"
-              >
-                #{tag}
-              </a>
-            ))}
+            {uniqueRawTags.slice(12).map((displayTag) => {
+              const slug = displayTag.toLowerCase().trim().replace(/\s+/g, "-");
+              return (
+                <a
+                  href={`/tags/${slug}/`}
+                  class="px-4 py-2 text-sm font-medium bg-gray-200 dark:bg-gray-700 rounded-full hover:bg-accent hover:text-white dark:hover:bg-accent transition"
+                >
+                  #{displayTag}
+                </a>
+              );
+            })}
           </div>
         </details>
       )}
