@@ -21,10 +21,10 @@ const isActive = (path: string) => {
   return currentPath === path || currentPath.startsWith(path + "/");
 };
 
-// Fetch all unique tags dynamically
+// Fetch all unique tags dynamically from published posts
 const posts = await getCollection("blog", ({ data }) => !data.draft);
 const allTags = [...new Set(posts.flatMap((post) => post.data.tags ?? []))];
-allTags.sort();  // Alphabetical order (optional)
+allTags.sort();  // Alphabetical order
 ---
 
 <header>
@@ -141,10 +141,11 @@ allTags.sort();  // Alphabetical order (optional)
     </div>
   </div>
 
-  <!-- Dynamic Tag Cloud (new addition) -->
+  <!-- Dynamic Tag Cloud - Collapsible -->
   <div class="mx-auto max-w-app px-4 pb-6">
     <div class="flex flex-wrap gap-3 justify-center">
-      {allTags.map((tag) => (
+      <!-- First 12 tags always visible -->
+      {allTags.slice(0, 12).map((tag) => (
         <a
           href={`/tags/${tag}/`}
           class="px-4 py-2 text-sm font-medium bg-gray-200 dark:bg-gray-700 rounded-full hover:bg-accent hover:text-white dark:hover:bg-accent transition"
@@ -152,6 +153,26 @@ allTags.sort();  // Alphabetical order (optional)
           #{tag}
         </a>
       ))}
+
+      <!-- Collapsible section if more than 12 tags -->
+      {allTags.length > 12 && (
+        <details class="contents">
+          <summary class="px-4 py-2 text-sm font-medium bg-gray-300 dark:bg-gray-600 rounded-full cursor-pointer list-none hover:bg-accent hover:text-white dark:hover:bg-accent transition select-none">
+            More topics →
+          </summary>
+
+          <div class="flex flex-wrap gap-3 justify-center mt-4 w-full">
+            {allTags.slice(12).map((tag) => (
+              <a
+                href={`/tags/${tag}/`}
+                class="px-4 py-2 text-sm font-medium bg-gray-200 dark:bg-gray-700 rounded-full hover:bg-accent hover:text-white dark:hover:bg-accent transition"
+              >
+                #{tag}
+              </a>
+            ))}
+          </div>
+        </details>
+      )}
     </div>
   </div>
 
