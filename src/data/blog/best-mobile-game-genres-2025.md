@@ -1,17 +1,17 @@
 ---
 title: "Best Mobile Game Genres in 2025: What’s Actually Dominating the Charts"
 description: "An opinion-driven breakdown of the mobile game genres that truly won 2025 — from Hybrid-Casual and 4X Strategy to the evolution of Gacha RPGs and Mobile Esports."
-pubDatetime: 2025-12-25T10:06:00Z
+date: "2025-12-25T10:06:00Z"
 author: "iSamuel"
-slug: best-mobile-game-genres-2025
-tags: 
-   - Gaming Industry
-   - Games
-   - Opinions
-   - Apple
-   - Android
-   - News
-   - 2025
+slug: "best-mobile-game-genres-2025"
+tags:
+  - Gaming Industry
+  - Games
+  - Opinions
+  - Apple
+  - Android
+  - News
+  - 2025
 ---
 ![Editorial-style illustration showing diverse mobile game genres—strategy maps, puzzle elements, RPG characters, and competitive esports visuals—blended into a modern mobile gaming ecosystem](/assets/best-mobile-game-genres-2025.jpg)
 
