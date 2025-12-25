@@ -70,7 +70,8 @@ Many top 4X titles now advertise themselves as:
 
 Only later do they reveal the full alliance-driven warfare loop.
 
-### Why 4X Keeps Growing
+### Why 4X Keeps Growing![119831](https://github.com/user-attachments/assets/5f3b6b37-1547-4a57-a288-0fed8ed2fce7)
+
 
 1. **Alliance vs Alliance (AvA) LiveOps**  
    Spending is driven by social obligation, not personal desire.
