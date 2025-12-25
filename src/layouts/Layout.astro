@@ -1,6 +1,6 @@
 ---
 import { ClientRouter } from "astro:transitions";
-import { PUBLIC_GOOGLE_SITE_VERIFICATION, PUBLIC_BING_SITE_VERIFICATION } from "astro:env/client";
+import { PUBLIC_GOOGLE_SITE_VERIFICATION } from "astro:env/client";
 import { SITE } from "@/config";
 import "@/styles/global.css";
 
@@ -98,10 +98,6 @@ const pageTitle = title === SITE.title ? title : `${title} | ${SITE.title}`;
       <meta name="google-site-verification" content={PUBLIC_GOOGLE_SITE_VERIFICATION} />
     )}
 
-    {PUBLIC_BING_SITE_VERIFICATION && (
-      <meta name="msvalidate.01" content={PUBLIC_BING_SITE_VERIFICATION} />
-    )}
-
     <!-- Google AdSense Auto Ads -->
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4896561037705299"
          crossorigin="anonymous"></script>
@@ -132,3 +128,4 @@ const pageTitle = title === SITE.title ? title : `${title} | ${SITE.title}`;
     <slot />
   </body>
 </html>
+
