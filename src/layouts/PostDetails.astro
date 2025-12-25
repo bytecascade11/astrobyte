@@ -1,4 +1,4 @@
- ---
+---
 import { render, type CollectionEntry } from "astro:content";
 import Layout from "@/layouts/Layout.astro";
 import Header from "@/components/Header.astro";
@@ -78,11 +78,65 @@ const currentPostIndex = allPosts.findIndex(a => a.id === post.id);
 const prevPost = currentPostIndex !== 0 ? allPosts[currentPostIndex - 1] : null;
 const nextPost =
   currentPostIndex !== allPosts.length - 1 ? allPosts[currentPostIndex + 1] : null;
+
+/* ========== BREADCRUMBS ========== */
+const currentUrlPath = Astro.url.pathname.replace(/\/+$/, ""); // Remove trailing slash
+const segments = currentUrlPath.split("/").slice(1); // ['posts', 'your-post-slug']
+
+const breadcrumbList: string[] = [];
+
+// Home is always first (but we handle it separately in HTML)
+if (segments[0] === "posts" || segments[0] === "blog") {
+  breadcrumbList.push("Blog");           // Middle level: Blog
+  if (segments.length === 2) {
+    breadcrumbList.push(title);          // Last level: actual post title
+  }
+}
+// (Add more cases here later if you want breadcrumbs on tags/search/etc.)
 ---
 
 <Layout {...layoutProps}>
   <Header />
   <BackButton />
+
+  <!-- Breadcrumbs -->
+  <nav class="mx-auto mt-8 mb-6 w-full max-w-app px-4" aria-label="breadcrumb">
+    <ol class="flex flex-wrap items-center gap-2 text-sm font-light opacity-90">
+      <li>
+        <a href="/" class="hover:opacity-100 opacity-80 transition">Home</a>
+      </li>
+      <li>
+        <span class="opacity-60" aria-hidden="true">»</span>
+      </li>
+      {
+        breadcrumbList.map((crumb, index) => {
+          const isLast = index === breadcrumbList.length - 1;
+          const href = index === 0 ? "/posts/" : undefined; // "Blog" links to posts index
+
+          return (
+            <>
+              <li>
+                {isLast ? (
+                  <span class="font-medium opacity-75" aria-current="page">
+                    {crumb}
+                  </span>
+                ) : (
+                  <a href={href} class="hover:opacity-100 opacity-70 transition">
+                    {crumb}
+                  </a>
+                )}
+              </li>
+              {!isLast && (
+                <li>
+                  <span class="opacity-60" aria-hidden="true">»</span>
+                </li>
+              )}
+            </>
+          );
+        })
+      }
+    </ol>
+  </nav>
 
   <!-- Floating Top-Right Panel: Back to Top + Share Links -->
   <div class="fixed top-20 right-4 z-50 flex flex-col gap-4 md:top-24">
