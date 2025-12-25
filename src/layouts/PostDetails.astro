@@ -80,16 +80,15 @@ const nextPost =
   currentPostIndex !== allPosts.length - 1 ? allPosts[currentPostIndex + 1] : null;
 
 /* ========== BREADCRUMBS ========== */
-const currentUrlPath = Astro.url.pathname.replace(/\/+$/, ""); // Remove trailing slash
-const segments = currentUrlPath.split("/").slice(1); // ['posts', 'your-post-slug']
+const currentUrlPath = Astro.url.pathname.replace(/\/+$/, "");
+const segments = currentUrlPath.split("/").slice(1); // ['posts', 'slug']
 
 const breadcrumbList: string[] = [];
 
-// Home is always first (handled separately in HTML)
 if (segments[0] === "posts" || segments[0] === "blog") {
-  breadcrumbList.push("Blog");           // Middle level: Blog
+  breadcrumbList.push("Blog");
   if (segments.length === 2) {
-    breadcrumbList.push(title);          // Last level: actual post title
+    breadcrumbList.push(title);
   }
 }
 ---
@@ -110,7 +109,7 @@ if (segments[0] === "posts" || segments[0] === "blog") {
       {
         breadcrumbList.map((crumb, index) => {
           const isLast = index === breadcrumbList.length - 1;
-          const href = index === 0 ? "/posts/" : undefined; // "Blog" links to posts index
+          const href = index === 0 ? "/posts/" : undefined;
 
           return (
             <>
@@ -137,9 +136,8 @@ if (segments[0] === "posts" || segments[0] === "blog") {
     </ol>
   </nav>
 
-  <!-- SEO: Breadcrumb Structured Data (JSON-LD) -->
-  <script type="application/ld+json" is:inline>
-  {JSON.stringify({
+  <!-- FIXED: Breadcrumb Structured Data (JSON-LD) -->
+  <script type="application/ld+json" set:html={JSON.stringify({
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     "itemListElement": [
@@ -162,8 +160,7 @@ if (segments[0] === "posts" || segments[0] === "blog") {
         "item": Astro.url.href
       }
     ]
-  })}
-  </script>
+  })} />
 
   <!-- Floating Top-Right Panel: Back to Top + Share Links -->
   <div class="fixed top-20 right-4 z-50 flex flex-col gap-4 md:top-24">
