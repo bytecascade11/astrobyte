@@ -11,7 +11,6 @@ tags:
   - Apple
   - Android
   - News
-  - 2025
 ---
 ![Editorial-style illustration showing diverse mobile game genres—strategy maps, puzzle elements, RPG characters, and competitive esports visuals—blended into a modern mobile gaming ecosystem](/assets/best-mobile-game-genres-2025.jpg)
 
