@@ -85,14 +85,13 @@ const segments = currentUrlPath.split("/").slice(1); // ['posts', 'your-post-slu
 
 const breadcrumbList: string[] = [];
 
-// Home is always first (but we handle it separately in HTML)
+// Home is always first (handled separately in HTML)
 if (segments[0] === "posts" || segments[0] === "blog") {
   breadcrumbList.push("Blog");           // Middle level: Blog
   if (segments.length === 2) {
     breadcrumbList.push(title);          // Last level: actual post title
   }
 }
-// (Add more cases here later if you want breadcrumbs on tags/search/etc.)
 ---
 
 <Layout {...layoutProps}>
@@ -137,6 +136,34 @@ if (segments[0] === "posts" || segments[0] === "blog") {
       }
     </ol>
   </nav>
+
+  <!-- SEO: Breadcrumb Structured Data (JSON-LD) -->
+  <script type="application/ld+json" is:inline>
+  {JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": Astro.site?.href || new URL("/", Astro.url.origin).href
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Blog",
+        "item": new URL("/posts/", Astro.url.origin).href
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "name": title,
+        "item": Astro.url.href
+      }
+    ]
+  })}
+  </script>
 
   <!-- Floating Top-Right Panel: Back to Top + Share Links -->
   <div class="fixed top-20 right-4 z-50 flex flex-col gap-4 md:top-24">
