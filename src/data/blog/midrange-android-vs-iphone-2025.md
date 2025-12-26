@@ -31,7 +31,7 @@ The display is the single most interacted-with component of any smartphone. It d
 Once users experience 120Hz scrolling, returning to 60Hz feels immediately dated. This is not a spec-sheet advantage—it is a **daily sensory difference**.
 
 For a deeper breakdown of why refresh rate matters more than raw CPU power, see:  
-→ **/blog/why-120hz-displays-matter-2025**
+→ **/posts/why-120hz-displays-matter-2025**
 
 ---
 
@@ -52,7 +52,7 @@ Fast charging changes behavior. A 10–15 minute charge before leaving home beco
 This is not convenience—it is **battery independence**.
 
 For readers curious how fast charging actually works and why Apple limits it:  
-→ **/blog/fast-charging-explained-2025**
+→ **/posts/fast-charging-explained-2025**
 
 ---
 
@@ -89,7 +89,7 @@ The **Pixel A-series**, in particular, uses the same computational photography p
 Unless your workflow depends on cinematic video modes, mid-range Android cameras already exceed everyday needs.
 
 Related deep dive:  
-→ **/blog/pixel-a-vs-iphone-camera-real-world**
+→ **/posts/pixel-a-vs-iphone-camera-real-world**
 
 ---
 
