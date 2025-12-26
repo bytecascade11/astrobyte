@@ -4,7 +4,6 @@ description: "A deep dive into the technical, physiological, and practical reaso
 pubDatetime: 2025-12-26T06:54:00Z
 slug: why-120hz-displays-matter-2025
 author: iSamuel
-layout: "../../layouts/MarkdownPostLayout.astro"
 tags:
   - news
   - Games
