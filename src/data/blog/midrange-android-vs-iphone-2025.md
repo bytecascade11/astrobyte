@@ -31,7 +31,7 @@ The display is the single most interacted-with component of any smartphone. It d
 Once users experience 120Hz scrolling, returning to 60Hz feels immediately dated. This is not a spec-sheet advantage—it is a **daily sensory difference**.
 
 For a deeper breakdown of why refresh rate matters more than raw CPU power, see:  
-→ **/posts/why-120hz-displays-matter-2025**
+→ **[why 120hz displays matter 2025](/posts/why-120hz-displays-matter-2025)**
 
 ---
 
