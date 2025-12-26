@@ -14,10 +14,7 @@ tags:
 layout: "../../layouts/MarkdownPostLayout.astro"
 ---
 
-<!-- IMAGE PLACEHOLDER (TOP CONTENT IMAGE)
-File name: 120hz-fluidity-frontier-top.jpg
-Description: Editorial-style image showing smooth UI motion trails on a smartphone and laptop display, visual comparison of fluid scrolling, minimalist dark background, high contrast, no visible branding, optimized for Google Discover.
--->
+![Editorial-style image showing smooth UI motion trails on a smartphone and laptop display](/assets/120hz-fluidity-frontier-top.jpg)
 
 # The Fluidity Frontier: Why 120Hz is the Absolute Standard in 2025
 
