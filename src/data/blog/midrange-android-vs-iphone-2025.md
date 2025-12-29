@@ -52,7 +52,7 @@ Fast charging changes behavior. A 10–15 minute charge before leaving home beco
 This is not convenience—it is **battery independence**.
 
 For readers curious how fast charging actually works and why Apple limits it:  
-→ **/posts/fast-charging-explained-2025**
+→ **[fast charging 2025 explained](/posts/fast-charging-explained-2025)**
 
 ---
 
