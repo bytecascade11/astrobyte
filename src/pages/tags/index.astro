@@ -1,24 +1,53 @@
 ---
+// src/pages/tags/index.astro  (or src/pages/tags.astro)
+
 import { getCollection } from "astro:content";
+import type { CollectionEntry } from "astro:content";
+
 import Main from "@/layouts/Main.astro";
 import Layout from "@/layouts/Layout.astro";
 import Tag from "@/components/Tag.astro";
 import Header from "@/components/Header.astro";
 import Footer from "@/components/Footer.astro";
+
 import getUniqueTags from "@/utils/getUniqueTags";
+import getSortedPosts from "@/utils/getSortedPosts"; // Recommended for consistency
 import { SITE } from "@/config";
 
-const posts = await getCollection("blog");
+// Fetch all posts and exclude drafts
+const allPosts = await getCollection("blog", ({ data }) => !data.draft);
 
-let tags = getUniqueTags(posts);
+// Optional but recommended: sort posts before extracting tags (ensures consistent order)
+const sortedPosts = getSortedPosts(allPosts);
+
+// Get unique tags with display names and post counts
+const tags = getUniqueTags(sortedPosts);
 ---
 
 <Layout title={`Tags | ${SITE.title}`}>
   <Header />
-  <Main pageTitle="Tags" pageDesc="All the tags used in posts.">
-    <ul>
-      {tags.map(({ tag, tagName }) => <Tag {tag} {tagName} size="lg" />)}
-    </ul>
+
+  <Main pageTitle="Tags" pageDesc="All tags used across published posts.">
+    {tags.length === 0 ? (
+      <p class="text-center py-12">No tags found yet.</p>
+    ) : (
+      <ul class="tags-list grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
+        {tags.map(({ tag, tagName, count }) => (
+          <li>
+            <Tag tag={tag} tagName={tagName} count={count} size="lg" />
+          </li>
+        ))}
+      </ul>
+    )}
   </Main>
+
   <Footer />
 </Layout>
+
+<style>
+  .tags-list {
+    list-style: none;
+    padding: 0;
+    margin: 2rem 0;
+  }
+</style>
