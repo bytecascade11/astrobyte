@@ -1,5 +1,5 @@
 // src/utils/getPath.ts
-import { BLOG_PATH } from "@/content/config"; // ← Removed .ts extension
+import { BLOG_PATH } from "@/content/config.ts"; // ← Use .ts extension for reliable TS resolution
 import { slugifyStr } from "./slugify";
 
 /**
