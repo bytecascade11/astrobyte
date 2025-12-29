@@ -1,36 +1,70 @@
 ---
+// src/components/Tag.astro
+
 import IconHash from "@/assets/icons/IconHash.svg";
 
 export interface Props {
-  tag: string;
-  tagName: string;
-  size?: "sm" | "lg";
+  tag: string;          // slugified version for URL
+  tagName: string;      // human-readable tag name
+  count?: number;       // optional post count (for tag cloud)
+  size?: "sm" | "md" | "lg";  // now supports md!
 }
 
-const { tag, tagName, size = "sm" } = Astro.props;
+const { tag, tagName, count, size = "sm" } = Astro.props;
 ---
 
 <li
   class:list={[
-    "group inline-block group-hover:cursor-pointer",
-    size === "sm" ? "my-1 underline-offset-4" : "mx-1 my-3 underline-offset-8",
+    "group inline-block transition-all",
+    {
+      "my-1": size === "sm",
+      "my-2": size === "md",
+      "my-3": size === "lg",
+    },
   ]}
 >
   <a
     href={`/tags/${tag}/`}
     transition:name={tag}
     class:list={[
-      "relative pe-2 text-lg underline decoration-dashed group-hover:-top-0.5 group-hover:text-accent focus-visible:p-1 focus-visible:no-underline",
-      { "text-sm": size === "sm" },
+      "relative inline-flex items-center gap-1 pe-2 no-underline hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent rounded",
+      "decoration-dashed underline underline-offset-4 hover:underline-offset-8",
+      "group-hover:-top-0.5 transition-all",
+      {
+        "text-sm": size === "sm",
+        "text-base": size === "md",
+        "text-lg font-medium": size === "lg",
+      },
     ]}
   >
     <IconHash
       class:list={[
-        "inline-block opacity-80",
-        { "-me-3.5 size-4": size === "sm" },
-        { "-me-5 size-6": size === "lg" },
+        "inline-block opacity-80 flex-none",
+        {
+          "-ms-3.5 size-4": size === "sm",
+          "-ms-4 size-5": size === "md",
+          "-ms-5 size-6": size === "lg",
+        },
       ]}
+      aria-hidden="true"
     />
-    &nbsp;<span>{tagName}</span>
+    <span>{tagName}</span>
+
+    <!-- Optional count badge (e.g., for tag index page) -->
+    {count !== undefined && (
+      <span
+        class:list={[
+          "ml-2 rounded-full px-2 py-0.5 text-xs font-medium opacity-70",
+          "bg-muted/50",
+          {
+            "text-xs": size === "sm" || size === "md",
+            "text-sm": size === "lg",
+          },
+        ]}
+        aria-label={`${count} posts`}
+      >
+        {count}
+      </span>
+    )}
   </a>
 </li>
