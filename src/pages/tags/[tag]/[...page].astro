@@ -1,6 +1,6 @@
 ---
 // src/pages/tags/[tag]/[page].astro
-// This creates routes like: /tags/astro, /tags/astro/2, /tags/javascript, etc.
+// Correct file name for nested pagination: generates /tags/astro, /tags/astro/2, etc.
 
 import { getCollection } from "astro:content";
 import type { GetStaticPathsOptions, Page } from "astro";
@@ -15,30 +15,22 @@ import Pagination from "@/components/Pagination.astro";
 
 import getUniqueTags from "@/utils/getUniqueTags";
 import getPostsByTag from "@/utils/getPostsByTag";
-import getSortedPosts from "@/utils/getSortedPosts"; // Recommended addition
+import getSortedPosts from "@/utils/getSortedPosts";
 import { SITE } from "@/config";
 
-// Define props type for clarity
 interface Props {
   page: Page<CollectionEntry<"blog">>;
   tagName: string;
 }
 
 export async function getStaticPaths({ paginate }: GetStaticPathsOptions) {
-  // Fetch all posts and filter out drafts
   const allPosts = await getCollection("blog", ({ data }) => !data.draft);
-
-  // Optional but recommended: sort all posts once by date
   const sortedPosts = getSortedPosts(allPosts);
-
-  // Get unique tags with display names
   const tags = getUniqueTags(sortedPosts);
 
-  // Generate paginated paths for each tag
   return tags.flatMap(({ tag, tagName }) => {
     const tagPosts = getPostsByTag(sortedPosts, tag);
 
-    // If no posts for this tag, skip it (optional but prevents empty pages)
     if (tagPosts.length === 0) return [];
 
     return paginate(tagPosts, {
@@ -49,36 +41,36 @@ export async function getStaticPaths({ paginate }: GetStaticPathsOptions) {
   });
 }
 
-// Destructure props
 const { page, tagName } = Astro.props;
 ---
 
 <Layout title={`Tag: ${tagName} | ${SITE.title}`}>
   <Header />
 
+  <!-- Fixed: Assuming Main accepts string for pageTitle (most common pattern) -->
+  <!-- If your Main.astro uses different props, adjust accordingly -->
   <Main
-    pageTitle={["Tag:", tagName]}
+    pageTitle={`Tag: ${tagName}`}
     pageDesc={`All the articles tagged with "${tagName}".`}
   >
+    <!-- Optional: Custom title in slot if Main supports it -->
     <h1 slot="title" transition:name={tagName}>
       Tag: {tagName}
     </h1>
 
-    <ul class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-      {page.data.map((post) => (
-        <li>
-          <Card {...post} />
-        </li>
-      ))}
-    </ul>
-
-    <!-- Show message if no posts (shouldn't happen due to filtering above) -->
-    {page.data.length === 0 && (
+    {page.data.length > 0 ? (
+      <ul class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {page.data.map((post) => (
+          <li>
+            <Card {...post} />
+          </li>
+        ))}
+      </ul>
+    ) : (
       <p class="text-center py-12">No posts found for this tag.</p>
     )}
   </Main>
 
-  <!-- Only show pagination if there are multiple pages -->
   {page.lastPage > 1 && <Pagination page={page} />}
 
   <Footer noMarginTop={page.lastPage <= 1} />
