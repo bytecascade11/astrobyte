@@ -1,50 +1,85 @@
 ---
+// src/pages/tags/[tag]/[page].astro
+// This creates routes like: /tags/astro, /tags/astro/2, /tags/javascript, etc.
+
 import { getCollection } from "astro:content";
-import type { GetStaticPathsOptions } from "astro";
+import type { GetStaticPathsOptions, Page } from "astro";
+import type { CollectionEntry } from "astro:content";
+
 import Main from "@/layouts/Main.astro";
 import Layout from "@/layouts/Layout.astro";
 import Header from "@/components/Header.astro";
 import Footer from "@/components/Footer.astro";
 import Card from "@/components/Card.astro";
 import Pagination from "@/components/Pagination.astro";
+
 import getUniqueTags from "@/utils/getUniqueTags";
 import getPostsByTag from "@/utils/getPostsByTag";
+import getSortedPosts from "@/utils/getSortedPosts"; // Recommended addition
 import { SITE } from "@/config";
 
-export async function getStaticPaths({ paginate }: GetStaticPathsOptions) {
-  const posts = await getCollection("blog");
-  const tags = getUniqueTags(posts);
+// Define props type for clarity
+interface Props {
+  page: Page<CollectionEntry<"blog">>;
+  tagName: string;
+}
 
+export async function getStaticPaths({ paginate }: GetStaticPathsOptions) {
+  // Fetch all posts and filter out drafts
+  const allPosts = await getCollection("blog", ({ data }) => !data.draft);
+
+  // Optional but recommended: sort all posts once by date
+  const sortedPosts = getSortedPosts(allPosts);
+
+  // Get unique tags with display names
+  const tags = getUniqueTags(sortedPosts);
+
+  // Generate paginated paths for each tag
   return tags.flatMap(({ tag, tagName }) => {
-    const tagPosts = getPostsByTag(posts, tag);
+    const tagPosts = getPostsByTag(sortedPosts, tag);
+
+    // If no posts for this tag, skip it (optional but prevents empty pages)
+    if (tagPosts.length === 0) return [];
 
     return paginate(tagPosts, {
       params: { tag },
       props: { tagName },
-      pageSize: SITE.postPerPage,
+      pageSize: SITE.postPerPage || 10,
     });
   });
 }
 
-const params = Astro.params;
-const { tag } = params;
+// Destructure props
 const { page, tagName } = Astro.props;
 ---
 
 <Layout title={`Tag: ${tagName} | ${SITE.title}`}>
   <Header />
+
   <Main
-    pageTitle={[`Tag:`, `${tagName}`]}
-    titleTransition={tag}
-    pageDesc={`All the articles with the tag "${tagName}".`}
+    pageTitle={["Tag:", tagName]}
+    pageDesc={`All the articles tagged with "${tagName}".`}
   >
-    <h1 slot="title" transition:name={tag}>{`Tag:${tag}`}</h1>
-    <ul>
-      {page.data.map(data => <Card {...data} />)}
+    <h1 slot="title" transition:name={tagName}>
+      Tag: {tagName}
+    </h1>
+
+    <ul class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      {page.data.map((post) => (
+        <li>
+          <Card {...post} />
+        </li>
+      ))}
     </ul>
+
+    <!-- Show message if no posts (shouldn't happen due to filtering above) -->
+    {page.data.length === 0 && (
+      <p class="text-center py-12">No posts found for this tag.</p>
+    )}
   </Main>
 
-  <Pagination {page} />
+  <!-- Only show pagination if there are multiple pages -->
+  {page.lastPage > 1 && <Pagination page={page} />}
 
-  <Footer noMarginTop={page.lastPage > 1} />
+  <Footer noMarginTop={page.lastPage <= 1} />
 </Layout>
