@@ -1,6 +1,7 @@
 // src/utils/getPath.ts
-import { BLOG_PATH } from "../content/config";
 import { slugifyStr } from "./slugify";
+
+const BLOG_PATH = "/src/data/blog";
 
 /**
  * Generate a clean, nested URL path for a blog post
