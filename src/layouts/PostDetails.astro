@@ -1,5 +1,9 @@
 ---
-import { render, type CollectionEntry } from "astro:content";
+// src/layouts/PostDetails.astro
+
+import type { CollectionEntry } from "astro:content";
+import { render } from "astro:content";
+
 import Layout from "@/layouts/Layout.astro";
 import Header from "@/components/Header.astro";
 import Footer from "@/components/Footer.astro";
@@ -9,6 +13,7 @@ import EditPost from "@/components/EditPost.astro";
 import ShareLinks from "@/components/ShareLinks.astro";
 import BackButton from "@/components/BackButton.astro";
 import BackToTopButton from "@/components/BackToTopButton.astro";
+
 import { getPath } from "@/utils/getPath";
 import { slugifyStr } from "@/utils/slugify";
 import IconChevronLeft from "@/assets/icons/IconChevronLeft.svg";
@@ -17,7 +22,7 @@ import { SITE } from "@/config";
 
 export interface Props {
   post: CollectionEntry<"blog">;
-  posts: CollectionEntry<"blog">[];
+  posts: CollectionEntry<"blog">[]; // All published posts for prev/next navigation
 }
 
 const { post, posts } = Astro.props;
@@ -31,30 +36,32 @@ const {
   pubDatetime,
   modDatetime,
   timezone,
-  tags,
+  tags = [],
   hideEditPost,
   coverImage,
   coverImageAlt,
 } = post.data;
 
+// Render the Markdown/MDX content
 const { Content } = await render(post);
 
-let ogImageUrl: string | undefined;
+// Resolve OG image URL
+let ogImage: string | undefined;
 
 if (typeof initOgImage === "string") {
-  ogImageUrl = initOgImage;
+  ogImage = initOgImage;
 } else if (initOgImage?.src) {
-  ogImageUrl = initOgImage.src;
+  ogImage = initOgImage.src;
 }
 
-if (!ogImageUrl && SITE.dynamicOgImage) {
-  ogImageUrl = `${getPath(post.id, post.filePath)}/index.png`;
+// Fallback dynamic OG image (if enabled in config)
+if (!ogImage && SITE.dynamicOgImage) {
+  ogImage = `${getPath(post.id, post.filePath, true)}/open-graph.png`;
 }
 
-const ogImage = ogImageUrl
-  ? new URL(ogImageUrl, Astro.url.origin).href
-  : undefined;
+const ogImageUrl = ogImage ? new URL(ogImage, Astro.url.origin).href : undefined;
 
+// Layout metadata
 const layoutProps = {
   title: `${title} | ${SITE.title}`,
   author,
@@ -62,335 +69,239 @@ const layoutProps = {
   pubDatetime,
   modDatetime,
   canonicalURL,
-  ogImage,
+  ogImage: ogImageUrl,
   scrollSmooth: true,
 };
 
 /* ========== Prev/Next Posts ========== */
-const allPosts = posts.map(({ data: { title }, id, filePath }) => ({
-  id,
-  title,
-  filePath,
-}));
+const sortedPosts = posts.sort((a, b) => 
+  (b.data.modDatetime ?? b.data.pubDatetime).getTime() - 
+  (a.data.modDatetime ?? a.data.pubDatetime).getTime()
+);
 
-const currentPostIndex = allPosts.findIndex(a => a.id === post.id);
+const currentIndex = sortedPosts.findIndex(p => p.id === post.id);
+const prevPost = currentIndex > 0 ? sortedPosts[currentIndex - 1] : null;
+const nextPost = currentIndex < sortedPosts.length - 1 ? sortedPosts[currentIndex + 1] : null;
 
-const prevPost = currentPostIndex !== 0 ? allPosts[currentPostIndex - 1] : null;
-const nextPost =
-  currentPostIndex !== allPosts.length - 1 ? allPosts[currentPostIndex + 1] : null;
-
-/* ========== BREADCRUMBS ========== */
-const currentUrlPath = Astro.url.pathname.replace(/\/+$/, "");
-const segments = currentUrlPath.split("/").slice(1); // ['posts', 'slug']
-
-const breadcrumbList: string[] = [];
-
-if (segments[0] === "posts" || segments[0] === "blog") {
-  breadcrumbList.push("Blog");
-  if (segments.length === 2) {
-    breadcrumbList.push(title);
-  }
-}
+/* ========== Breadcrumbs ========== */
+const isBlogRoute = Astro.url.pathname.startsWith("/posts/") || Astro.url.pathname.startsWith("/blog/");
+const breadcrumbItems = [
+  { name: "Home", url: "/" },
+  ...(isBlogRoute ? [{ name: "Blog", url: "/posts/" }] : []),
+  { name: title, url: Astro.url.pathname },
+];
 ---
 
 <Layout {...layoutProps}>
   <Header />
-  <BackButton />
+  {SITE.showBackButton && <BackButton />}
 
   <!-- Breadcrumbs -->
-  <nav class="mx-auto mt-8 mb-6 w-full max-w-app px-4" aria-label="breadcrumb">
-    <ol class="flex flex-wrap items-center gap-2 text-sm font-light opacity-90">
-      <li>
-        <a href="/" class="hover:opacity-100 opacity-80 transition">Home</a>
-      </li>
-      <li>
-        <span class="opacity-60" aria-hidden="true">»</span>
-      </li>
-      {
-        breadcrumbList.map((crumb, index) => {
-          const isLast = index === breadcrumbList.length - 1;
-          const href = index === 0 ? "/posts/" : undefined;
-
+  {isBlogRoute && (
+    <nav class="mx-auto mt-8 mb-6 w-full max-w-app px-4" aria-label="Breadcrumb">
+      <ol class="flex flex-wrap items-center gap-2 text-sm font-light opacity-90">
+        {breadcrumbItems.map((item, index) => {
+          const isLast = index === breadcrumbItems.length - 1;
           return (
             <>
               <li>
                 {isLast ? (
                   <span class="font-medium opacity-75" aria-current="page">
-                    {crumb}
+                    {item.name}
                   </span>
                 ) : (
-                  <a href={href} class="hover:opacity-100 opacity-70 transition">
-                    {crumb}
+                  <a href={item.url} class="hover:opacity-100 opacity-80 transition">
+                    {item.name}
                   </a>
                 )}
               </li>
               {!isLast && (
                 <li>
-                  <span class="opacity-60" aria-hidden="true">»</span>
+                  <span class="opacity-60" aria-hidden="true">›</span>
                 </li>
               )}
             </>
           );
-        })
-      }
-    </ol>
-  </nav>
+        })}
+      </ol>
+    </nav>
+  )}
 
-  <!-- FIXED: Breadcrumb Structured Data (JSON-LD) -->
-  <script type="application/ld+json" set:html={JSON.stringify({
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    "itemListElement": [
-      {
+  <!-- Breadcrumb Structured Data (JSON-LD) -->
+  {isBlogRoute && (
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      itemListElement: breadcrumbItems.map((item, index) => ({
         "@type": "ListItem",
-        "position": 1,
-        "name": "Home",
-        "item": Astro.site?.href || new URL("/", Astro.url.origin).href
-      },
-      {
-        "@type": "ListItem",
-        "position": 2,
-        "name": "Blog",
-        "item": new URL("/posts/", Astro.url.origin).href
-      },
-      {
-        "@type": "ListItem",
-        "position": 3,
-        "name": title,
-        "item": Astro.url.href
-      }
-    ]
-  })} />
+        position: index + 1,
+        name: item.name,
+        item: new URL(item.url, Astro.url.origin).href,
+      })),
+    })} />
+  )}
 
-  <!-- Floating Top-Right Panel: Back to Top + Share Links -->
+  <!-- Floating Controls -->
   <div class="fixed top-20 right-4 z-50 flex flex-col gap-4 md:top-24">
-    <BackToTopButton class="shadow-lg rounded-full bg-background/90 backdrop-blur-sm p-3" />
-
+    <BackToTopButton class="rounded-full bg-background/90 backdrop-blur-sm p-3 shadow-lg" />
+    
     <div class="flex flex-col gap-3 rounded-lg bg-background/90 backdrop-blur-sm p-4 shadow-lg border border-border">
-      <span class="text-sm font-medium opacity-80">Share this post</span>
-      <ShareLinks />
+      <span class="text-sm font-medium opacity-80">Share</span>
+      <ShareLinks title={title} url={Astro.url.href} />
     </div>
   </div>
 
   <main
     id="main-content"
-    class:list={[
-      "mx-auto w-full max-w-app px-4 pb-12",
-      { "mt-8": !SITE.showBackButton },
-    ]}
+    class="mx-auto w-full max-w-app px-4 pb-12 mt-8"
     data-pagefind-body
   >
     <h1
       transition:name={slugifyStr(title)}
-      class="inline-block text-2xl font-bold text-accent sm:text-3xl"
+      class="text-2xl sm:text-3xl font-bold text-accent inline-block"
     >
       {title}
     </h1>
-    <div class="my-2 flex items-center gap-2">
+
+    <div class="my-2 flex flex-wrap items-center gap-3 text-sm">
       <Datetime {pubDatetime} {modDatetime} {timezone} size="lg" />
-      <span
-        aria-hidden="true"
-        class:list={[
-          "max-sm:hidden",
-          { hidden: !SITE.editPost.enabled || hideEditPost },
-        ]}>|</span
-      >
-      <EditPost {hideEditPost} {post} class="max-sm:hidden" />
+      
+      {SITE.editPost?.enabled && !hideEditPost && (
+        <>
+          <span class="max-sm:hidden opacity-60" aria-hidden="true">|</span>
+          <EditPost {post} class="max-sm:hidden" />
+        </>
+      )}
     </div>
 
-    <!-- Cover / Hero Image -->
+    <!-- Cover Image -->
     {coverImage && (
-      <div class="mt-10 mb-12 overflow-hidden rounded-xl shadow-xl">
+      <figure class="mt-10 mb-12 overflow-hidden rounded-xl shadow-xl">
         <img
           src={typeof coverImage === "string" ? coverImage : coverImage.src}
           alt={coverImageAlt || title}
           class="w-full object-cover aspect-video md:aspect-[21/9]"
           loading="eager"
+          width="1200"
+          height="630"
         />
-      </div>
+        {coverImageAlt && <figcaption class="text-center text-sm opacity-70 mt-2">{coverImageAlt}</figcaption>}
+      </figure>
     )}
 
+    <!-- Article Content -->
     <article
       id="article"
-      class="app-prose mx-auto mt-8 max-w-app prose-pre:bg-(--shiki-light-bg) dark:prose-pre:bg-(--shiki-dark-bg)"
+      class="app-prose mx-auto mt-12 prose-pre:bg-(--shiki-light-bg) dark:prose-pre:bg-(--shiki-dark-bg)"
     >
       <Content />
     </article>
 
-    <hr class="my-8 border-dashed" />
+    <hr class="my-12 border-dashed border-border/50" />
 
-    <EditPost class="sm:hidden" {hideEditPost} {post} />
+    <!-- Mobile Edit Link -->
+    {SITE.editPost?.enabled && !hideEditPost && <EditPost class="sm:hidden mb-8" {post} />}
 
-    <ul class="mt-4 mb-8 sm:my-8">
-      {tags.map(tag => <Tag tag={slugifyStr(tag)} tagName={tag} />)}
-    </ul>
+    <!-- Tags -->
+    {tags.length > 0 && (
+      <ul class="mt-4 mb-8 flex flex-wrap gap-3">
+        {tags.map((tag) => (
+          <li>
+            <Tag tag={slugifyStr(tag)} tagName={tag} size="md" />
+          </li>
+        ))}
+      </ul>
+    )}
 
-    <hr class="my-6 border-dashed" />
+    <hr class="my-12 border-dashed border-border/50" />
 
-    <!-- Giscus Comments Section -->
+    <!-- Comments -->
     <section aria-label="Comments" class="mt-16">
       <h2 class="text-2xl font-bold mb-8">Comments</h2>
-      
       <div class="giscus"></div>
-      
-      <script src="https://giscus.app/client.js"
-              data-repo="bytecascade11/astrobyte"
-              data-repo-id="R_kgDOQobjBQ"
-              data-category="General"
-              data-category-id="DIC_kwDOQobjBc4C0Dd5"
-              data-mapping="pathname"
-              data-strict="1"
-              data-reactions-enabled="1"
-              data-emit-metadata="0"
-              data-input-position="bottom"
-              data-theme="light"
-              data-lang="en"
-              data-loading="lazy"
-              crossorigin="anonymous"
-              async>
-      </script>
     </section>
 
-    <hr class="my-6 border-dashed" />
+    <hr class="my-12 border-dashed border-border/50" />
 
-    <!-- Previous/Next Post Navigation -->
-    <div data-pagefind-ignore class="grid grid-cols-1 gap-6 sm:grid-cols-2">
-      {
-        prevPost && (
-          <a
-            href={getPath(prevPost.id, prevPost.filePath)}
-            class="flex w-full gap-1 hover:opacity-75"
-          >
-            <IconChevronLeft class="inline-block flex-none rtl:rotate-180" />
-            <div>
-              <span>Previous Post</span>
-              <div class="text-sm text-accent/85">{prevPost.title}</div>
-            </div>
-          </a>
-        )
-      }
-      {
-        nextPost && (
-          <a
-            href={getPath(nextPost.id, nextPost.filePath)}
-            class="flex w-full justify-end gap-1 text-end hover:opacity-75 sm:col-start-2"
-          >
-            <div>
-              <span>Next Post</span>
-              <div class="text-sm text-accent/85">{nextPost.title}</div>
-            </div>
-            <IconChevronRight class="inline-block flex-none rtl:rotate-180" />
-          </a>
-        )
-      }
-    </div>
+    <!-- Prev/Next Navigation -->
+    <nav class="grid grid-cols-1 sm:grid-cols-2 gap-8" aria-label="Post navigation">
+      {prevPost && (
+        <a
+          href={getPath(prevPost.id, prevPost.filePath)}
+          class="flex items-center gap-3 hover:opacity-75 transition"
+        >
+          <IconChevronLeft class="w-6 h-6 flex-none rtl:rotate-180" />
+          <div>
+            <div class="text-sm opacity-70">Previous</div>
+            <div class="font-medium">{prevPost.data.title}</div>
+          </div>
+        </a>
+      )}
+
+      {nextPost && (
+        <a
+          href={getPath(nextPost.id, nextPost.filePath)}
+          class="flex items-center justify-end gap-3 text-right hover:opacity-75 transition sm:col-start-2"
+        >
+          <div>
+            <div class="text-sm opacity-70">Next</div>
+            <div class="font-medium">{nextPost.data.title}</div>
+          </div>
+          <IconChevronRight class="w-6 h-6 flex-none rtl:rotate-180" />
+        </a>
+      )}
+    </nav>
   </main>
 
   <Footer />
 
+  <!-- Client-side Enhancements -->
   <script is:inline data-astro-rerun>
-    /** Create a progress indicator at the top */
-    function createProgressBar() {
-      const progressContainer = document.createElement("div");
-      progressContainer.className =
-        "progress-container fixed top-0 z-10 h-1 w-full bg-background";
+    // Reading progress bar
+    const progressBar = document.createElement("div");
+    progressBar.id = "reading-progress";
+    progressBar.className = "fixed top-0 left-0 h-1 bg-accent z-50 transition-all duration-150";
+    document.body.prepend(progressBar);
 
-      const progressBar = document.createElement("div");
-      progressBar.className = "progress-bar h-1 w-0 bg-accent";
-      progressBar.id = "myBar";
+    const updateProgress = () => {
+      const { scrollTop, scrollHeight } = document.documentElement;
+      const height = scrollHeight - window.innerHeight;
+      const progress = (scrollTop / height) * 100;
+      progressBar.style.width = `${Math.min(100, Math.max(0, progress))}%`;
+    };
 
-      progressContainer.appendChild(progressBar);
-      document.body.appendChild(progressContainer);
-    }
-    createProgressBar();
+    window.addEventListener("scroll", updateProgress);
+    document.addEventListener("astro:page-load", updateProgress);
 
-    /** Update the progress bar when user scrolls */
-    function updateScrollProgress() {
-      document.addEventListener("scroll", () => {
-        const winScroll =
-          document.body.scrollTop || document.documentElement.scrollTop;
-        const height =
-          document.documentElement.scrollHeight -
-          document.documentElement.clientHeight;
-        const scrolled = (winScroll / height) * 100;
-        const myBar = document.getElementById("myBar");
-        if (myBar) {
-          myBar.style.width = scrolled + "%";
-        }
-      });
-    }
-    updateScrollProgress();
+    // Anchor links on headings
+    document.querySelectorAll("h2[id], h3[id], h4[id]").forEach(heading => {
+      heading.classList.add("group", "relative");
+      const link = document.createElement("a");
+      link.href = `#${heading.id}`;
+      link.className = "absolute -left-6 opacity-0 group-hover:opacity-100 transition opacity-75 pr-2";
+      link.innerHTML = "#";
+      link.setAttribute("aria-label", `Permalink to ${heading.textContent}`);
+      heading.prepend(link);
+    });
 
-    /** Attaches links to headings */
-    function addHeadingLinks() {
-      const headings = Array.from(
-        document.querySelectorAll("h2, h3, h4, h5, h6")
-      );
-      for (const heading of headings) {
-        heading.classList.add("group");
-        const link = document.createElement("a");
-        link.className =
-          "heading-link ms-2 no-underline opacity-75 md:opacity-0 md:group-hover:opacity-100 md:focus:opacity-100";
-        link.href = "#" + heading.id;
+    // Copy buttons for code blocks
+    document.querySelectorAll("pre").forEach(pre => {
+      const button = document.createElement("button");
+      button.className = "copy-btn absolute top-2 right-2 px-3 py-1 text-xs bg-muted border rounded opacity-80 hover:opacity-100";
+      button.textContent = "Copy";
+      button.onclick = async () => {
+        const code = pre.querySelector("code")?.innerText || "";
+        await navigator.clipboard.writeText(code);
+        button.textContent = "Copied!";
+        setTimeout(() => button.textContent = "Copy", 2000);
+      };
+      pre.style.position = "relative";
+      pre.appendChild(button);
+    });
 
-        const span = document.createElement("span");
-        span.ariaHidden = "true";
-        span.innerText = "#";
-        link.appendChild(span);
-        heading.appendChild(link);
-      }
-    }
-    addHeadingLinks();
-
-    /** Attaches copy buttons to code blocks */
-    function attachCopyButtons() {
-      const copyButtonLabel = "Copy";
-      const codeBlocks = Array.from(document.querySelectorAll("pre"));
-
-      for (const codeBlock of codeBlocks) {
-        const wrapper = document.createElement("div");
-        wrapper.style.position = "relative";
-
-        const computedStyle = getComputedStyle(codeBlock);
-        const hasFileNameOffset =
-          computedStyle.getPropertyValue("--file-name-offset").trim() !== "";
-
-        const topClass = hasFileNameOffset
-          ? "top-(--file-name-offset)"
-          : "-top-3";
-
-        const copyButton = document.createElement("button");
-        copyButton.className = `copy-code absolute end-3 ${topClass} rounded bg-muted border border-muted px-2 py-1 text-xs leading-4 text-foreground font-medium`;
-        copyButton.innerHTML = copyButtonLabel;
-        codeBlock.setAttribute("tabindex", "0");
-
-        codeBlock?.parentNode?.insertBefore(wrapper, codeBlock);
-        wrapper.appendChild(codeBlock);
-        wrapper.appendChild(copyButton);
-
-        copyButton.addEventListener("click", async () => {
-          await copyCode(codeBlock, copyButton);
-        });
-      }
-
-      async function copyCode(block, button) {
-        const code = block.querySelector("code");
-        const text = code?.innerText;
-
-        await navigator.clipboard.writeText(text ?? "");
-
-        button.innerText = "Copied";
-
-        setTimeout(() => {
-          button.innerText = copyButtonLabel;
-        }, 700);
-      }
-    }
-    attachCopyButtons();
-
-    /* Go to page start after page swap */
-    document.addEventListener("astro:after-swap", () =>
-      window.scrollTo({ left: 0, top: 0, behavior: "instant" })
-    );
+    // Scroll to top after view transition
+    document.addEventListener("astro:after-swap", () => {
+      window.scrollTo(0, 0);
+    });
   </script>
 </Layout>
