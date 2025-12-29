@@ -1,23 +1,30 @@
+// src/utils/getUniqueTags.ts
 import type { CollectionEntry } from "astro:content";
-import { slugifyStr } from "./slugify";
-import postFilter from "./postFilter";
 
-interface Tag {
-  tag: string;
-  tagName: string;
+export default function getUniqueTags(posts: CollectionEntry<"blog">[]) {
+  const tagMap = new Map<string, { count: number; tagName: string }>();
+
+  posts.forEach((post) => {
+    const postTags = post.data.tags ?? [];
+    postTags.forEach((tag) => {
+      const lowerTag = tag.toLowerCase().trim();
+      if (lowerTag) {
+        const current = tagMap.get(lowerTag);
+        const displayName = tag; // Preserve original casing
+        tagMap.set(lowerTag, {
+          count: (current?.count ?? 0) + 1,
+          tagName: displayName,
+        });
+      }
+    });
+  });
+
+  // Sort by count descending, then alphabetically
+  return Array.from(tagMap.entries())
+    .map(([tag, info]) => ({
+      tag,
+      tagName: info.tagName,
+      count: info.count,
+    }))
+    .sort((a, b) => b.count - a.count || a.tagName.localeCompare(b.tagName));
 }
-
-const getUniqueTags = (posts: CollectionEntry<"blog">[]) => {
-  const tags: Tag[] = posts
-    .filter(postFilter)
-    .flatMap(post => post.data.tags)
-    .map(tag => ({ tag: slugifyStr(tag), tagName: tag }))
-    .filter(
-      (value, index, self) =>
-        self.findIndex(tag => tag.tag === value.tag) === index
-    )
-    .sort((tagA, tagB) => tagA.tag.localeCompare(tagB.tag));
-  return tags;
-};
-
-export default getUniqueTags;
