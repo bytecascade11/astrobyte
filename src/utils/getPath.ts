@@ -1,30 +1,21 @@
 // src/utils/getPath.ts
-import { BLOG_PATH } from "@/content/config.ts"; // ← Use .ts extension for reliable TS resolution
+import { BLOG_PATH } from "../content/config";
 import { slugifyStr } from "./slugify";
 
 /**
  * Generate a clean, nested URL path for a blog post
- * 
- * Examples:
- * - File: src/data/blog/hello-world.md                  → /posts/hello-world
- * - File: src/data/blog/2024-01-01-my-post.md           → /posts/my-post
- * - File: src/data/blog/projects/astro-guide.md        → /posts/projects/astro-guide
- * 
- * @param id - The entry.id from getCollection()
- * @param filePath - The full file path (provided by Astro)
- * @param includeBase - Whether to include "/posts" at the root (default: true)
- * @returns Clean URL path like "/posts/projects/my-post"
  */
 export function getPath(
   id: string,
   filePath: string | undefined,
   includeBase = true
 ): string {
+  const basePath = includeBase ? "/posts" : "";
+
   // Safety fallback
   if (!filePath || !id) {
     const cleanSlug = stripDatePrefix(id);
-    const basePath = includeBase ? "/posts" : "";
-    return `\( {basePath}/ \){cleanSlug}`.replace(/\/+/g, "/");
+    return `${basePath}/${cleanSlug}`.replace(/\/+/g, "/");
   }
 
   // Extract relative path inside BLOG_PATH
@@ -46,7 +37,6 @@ export function getPath(
   const cleanSlug = stripDatePrefix(id.split("/").pop() || id);
 
   // Build final path
-  const basePath = includeBase ? "/posts" : "";
   const pathParts = [basePath, ...cleanDirSegments, cleanSlug].filter(Boolean);
 
   return pathParts.join("/");
