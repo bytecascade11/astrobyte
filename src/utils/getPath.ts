@@ -1,5 +1,5 @@
 // src/utils/getPath.ts
-import { BLOG_PATH } from "@/content/config"; // Fixed import path
+import { BLOG_PATH } from "@/content/config.ts"; // ← Added .ts extension
 import { slugifyStr } from "./slugify";
 
 /**
@@ -12,7 +12,7 @@ import { slugifyStr } from "./slugify";
  * - File: src/data/blog/_drafts/unfinished.md          → ignored (filtered by glob)
  * 
  * @param id - The entry.id from getCollection() (e.g., "2024-01-01-my-post" or "projects/astro-guide")
- * @param filePath - The full file path (provided by Astro, e.g., "/path/to/project/src/data/blog/projects/astro-guide.md")
+ * @param filePath - The full file path (provided by Astro)
  * @param includeBase - Whether to include "/posts" at the root (default: true)
  * @returns Clean URL path like "/posts/projects/my-post"
  */
@@ -21,29 +21,29 @@ export function getPath(
   filePath: string | undefined,
   includeBase = true
 ): string {
-  // Safety: if no filePath, fall back to just using the id
+  // Safety fallback if no filePath or id
   if (!filePath || !id) {
-    const slug = stripDatePrefix(id);
+    const cleanSlug = stripDatePrefix(id);
     const base = includeBase ? "/posts" : "";
-    return `\( {base}/ \){slug}`.replace(/\/+/g, "/"); // avoid double slashes
+    return `\( {base}/ \){cleanSlug}`.replace(/\/+/g, "/");
   }
 
-  // Normalize and extract directory segments inside BLOG_PATH
+  // Extract relative path inside BLOG_PATH
   const relativePath = filePath
-    .replace(BLOG_PATH, "")        // Remove the base blog folder
-    .replace(/^\//, "")            // Remove leading slash
-    .split("/")                    // Split into segments
-    .filter(Boolean);              // Remove empty strings
+    .replace(BLOG_PATH, "")
+    .replace(/^\//, "")
+    .split("/")
+    .filter(Boolean); // remove empty segments
 
-  // Remove the filename (last segment)
+  // Drop the filename (last segment)
   const dirSegments = relativePath.slice(0, -1);
 
-  // Filter out any directories starting with _ (private/drafts)
+  // Clean directory segments: skip _prefixed folders and slugify
   const cleanDirSegments = dirSegments
     .filter((segment) => !segment.startsWith("_"))
     .map((segment) => slugifyStr(segment));
 
-  // Extract clean slug from id (remove date prefix if present)
+  // Clean slug: take the last part of id and strip date prefix
   const cleanSlug = stripDatePrefix(id.split("/").pop() || id);
 
   // Build final path
@@ -58,4 +58,4 @@ export function getPath(
  */
 function stripDatePrefix(slug: string): string {
   return slug.replace(/^\d{4}-\d{2}-\d{2}-/, "");
-                         }
+}
