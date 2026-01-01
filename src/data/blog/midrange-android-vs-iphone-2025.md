@@ -31,7 +31,7 @@ The display is the single most interacted-with component of any smartphone. It d
 Once users experience 120Hz scrolling, returning to 60Hz feels immediately dated. This is not a spec-sheet advantage—it is a **daily sensory difference**.
 
 For a deeper breakdown of why refresh rate matters more than raw CPU power, see:  
-→ **[why 120hz displays matter 2025](/posts/why-120hz-displays-matter-2025)**
+→ **[why 120hz displays matter 2025](/posts/src/data/blog/why-120hz-displays-matter-2025)**
 
 ---
 
@@ -88,7 +88,7 @@ The **Pixel A-series**, in particular, uses the same computational photography p
 Unless your workflow depends on cinematic video modes, mid-range Android cameras already exceed everyday needs.
 
 Related deep dive:  
-→ **/posts/pixel-a-vs-iphone-camera-real-world**
+→ **[Pixel a vs iPhone camera real world](/posts/src/data/blog/pixel-a-vs-iphone-camera-real-world)**
 
 ---
 
