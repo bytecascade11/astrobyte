@@ -22,16 +22,19 @@ const {
   profile = SITE.profile,
   description = SITE.desc,
   ogImage,
-  canonicalURL = new URL(Astro.url.pathname, Astro.url),
+  canonicalURL = new URL(Astro.url.pathname, Astro.url.origin).href,
   pubDatetime,
   modDatetime,
   scrollSmooth = false,
 } = Astro.props;
 
-const socialImageURL = new URL(
-  ogImage ?? (title === SITE.title ? SITE.ogImage : `\( {Astro.url.pathname.replace(/\/+ \)/, "")}.png`),
-  Astro.url.origin
-).href;
+// Correct OG image logic:
+// 1. Use explicit ogImage from frontmatter if provided
+// 2. Otherwise fall back to the site-wide default (astropaper-og.jpg)
+// 3. Let AstroPaper's built-in dynamic generation handle unique per-post cards if enabled
+const socialImageURL = ogImage
+  ? new URL(ogImage, Astro.url.origin).href
+  : new URL(SITE.ogImage, Astro.url.origin).href;
 
 const structuredData = {
   "@context": "https://schema.org",
@@ -71,19 +74,22 @@ const pageTitle = title === SITE.title ? title : `${title} | ${SITE.title}`;
     <meta name="author" content={author} />
     <link rel="sitemap" href="/sitemap-index.xml" />
 
+    <!-- Open Graph / Facebook -->
     <meta property="og:title" content={pageTitle} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonicalURL} />
     <meta property="og:image" content={socialImageURL} />
+    <meta property="og:type" content="article" />
 
-    {pubDatetime && <meta property="article:published_time" content={pubDatetime.toISOString()} />}
-    {modDatetime && <meta property="article:modified_time" content={modDatetime.toISOString()} />}
-
+    <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image" />
     <meta property="twitter:url" content={canonicalURL} />
     <meta property="twitter:title" content={pageTitle} />
     <meta property="twitter:description" content={description} />
     <meta property="twitter:image" content={socialImageURL} />
+
+    {pubDatetime && <meta property="article:published_time" content={pubDatetime.toISOString()} />}
+    {modDatetime && <meta property="article:modified_time" content={modDatetime.toISOString()} />}
 
     <script type="application/ld+json" is:inline set:html={JSON.stringify(structuredData)} />
 
@@ -101,12 +107,11 @@ const pageTitle = title === SITE.title ? title : `${title} | ${SITE.title}`;
     <!-- Google AdSense Auto Ads -->
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4896561037705299"
          crossorigin="anonymous"></script>
-
     <script is:inline>
       (window.adsbygoogle = window.adsbygoogle || []).push({});
     </script>
 
-    <!-- Google tag (gtag.js) - Official GA4 code -->
+    <!-- Google Analytics (GA4) -->
     {import.meta.env.PROD && (
       <>
         <script async src="https://www.googletagmanager.com/gtag/js?id=G-2MH0T4DFR3"></script>
@@ -128,4 +133,3 @@ const pageTitle = title === SITE.title ? title : `${title} | ${SITE.title}`;
     <slot />
   </body>
 </html>
-
