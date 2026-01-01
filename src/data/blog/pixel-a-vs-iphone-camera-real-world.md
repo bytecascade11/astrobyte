@@ -5,20 +5,22 @@ pubDatetime: 2026-01-01T00:00:00Z
 author: "iSamuel"
 slug: pixel-a-vs-iphone-camera-real-world
 featured: true
+draft: false
 tags:
-  - smartphone cameras
-  - google pixel
+  - smartphone-cameras
+  - google-pixel
   - iphone
   - apple
   - opinions
-  - android 
-  - mobile photography
-  - camera comparison
-  - computational photography
-  - smartphone reviews
-  - tech comparison
-  - photography tips
+  - android
+  - mobile-photography
+  - camera-comparison
+  - computational-photography
+  - smartphone-reviews
+  - tech-comparison
+  - photography-tips
 layout: "../../layouts/MarkdownPostLayout.astro"
+heroImage: "/images/pixel-vs-iphone-camera-hero.jpg"  # ← Change to your exact filename
 ---
 ![Google Pixel vs iPhone Camera Comparison – Real-World Photography Test](/assets/pixel-vs-iphone-camera-showdown-hero.jpg)
 
