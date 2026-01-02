@@ -139,9 +139,9 @@ Newer = many more years of major iOS updates. iPhone 16 will be supported the lo
 
 ## Who should choose each phone?
 
-![iPhone 14](/src/image/iphone-14.png)
-![iPhone 15](/src/image/iphone-15.jpg)
-![iPhone 16](/src/image/iphone-16.png)
+![iPhone 14](/assets/iphone-14.png)
+![iPhone 15](/assets/iphone-15.jpg)
+![iPhone 16](/assets/iphone-16.png)
 
 ### Buy iPhone 14 if…
 - You want maximum savings or a secondary phone
