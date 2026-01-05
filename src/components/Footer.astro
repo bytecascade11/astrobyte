@@ -1,21 +1,19 @@
 ---
 // src/pages/sitemap.astro
 
-// Load posts from your folder (src/data/blog/)
-const posts = await Astro.glob('../data/blog/**/*.md');
+// Try common AstroPaper / blog folder paths
+let posts = await Astro.glob('../data/blog/**/*.md');
+
+// Fallback to Content Collections path if needed
+if (posts.length === 0) {
+  posts = await Astro.glob('../content/blog/**/*.md');
+}
 
 // Sort by newest first
 posts.sort((a, b) => 
   new Date(b.frontmatter.pubDatetime).getTime() - 
   new Date(a.frontmatter.pubDatetime).getTime()
 );
-
-// Properly typed helper function to generate the correct URL
-function getPostUrl(filePath: string): string {
-  // filePath example: ../data/blog/pixel-a-vs-iphone-camera-real-world.md
-  const slug = filePath.split('/').pop()?.replace('.md', '') || '';
-  return `/posts/src/data/blog/${slug}`;
-}
 ---
 
 <!DOCTYPE html>
@@ -24,14 +22,16 @@ function getPostUrl(filePath: string): string {
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Sitemap - ReviByte Opinions</title>
-    <meta name="description" content="Complete clickable sitemap of all blog posts and pages" />
+    <meta name="description" content="Complete clickable sitemap of all pages and blog posts on ReviByte Opinions" />
+    
+    <!-- Your theme's global styles -->
     <link rel="stylesheet" href="/global.css" />
   </head>
   <body class="bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100 min-h-screen">
     <main class="max-w-4xl mx-auto px-6 py-12 prose prose-lg dark:prose-invert">
       <h1 class="text-4xl font-bold mb-8">Sitemap</h1>
       <p class="mb-12 text-lg text-slate-600 dark:text-slate-400">
-        Click any title to read the full post.
+        A complete clickable overview of all content on ReviByte Opinions.
       </p>
 
       <section class="mb-16">
@@ -49,14 +49,17 @@ function getPostUrl(filePath: string): string {
         <h2 class="text-2xl font-semibold mb-6">All Blog Posts ({posts.length})</h2>
         
         {posts.length === 0 ? (
-          <p class="text-red-600 dark:text-red-400">No posts found in src/data/blog/</p>
+          <p class="text-red-600 dark:text-red-400">
+            No posts found. Check your folder: try <code>src/data/blog/</code> or <code>src/content/blog/</code>.
+          </p>
         ) : (
           <ul class="list-disc pl-8 space-y-4">
             {posts.map((post) => (
               <li class="leading-relaxed">
+                <!-- This is the key: the title is now a real clickable link! -->
                 <a 
-                  href={getPostUrl(post.file)} 
-                  class="text-blue-600 dark:text-blue-400 hover:underline font-medium text-lg"
+                  href={post.url} 
+                  class="text-blue-600 dark:text-blue-400 hover:underline font-medium text-lg no-underline hover:no-underline"
                 >
                   {post.frontmatter.title}
                 </a>
