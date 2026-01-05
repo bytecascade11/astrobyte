@@ -1,14 +1,12 @@
 ---
 /**
  * AdsterraAd.astro
- * A reusable component for your 320x50 Adsterra banner.
- * You can add props later if you want multiple ad units.
+ * Reusable component for your 320x50 Adsterra ad unit
  */
 ---
 
 <div class="adsterra-ad-container my-8 text-center overflow-hidden">
-  {@html `
-    <script type="text/javascript">
+  {@html `<script type="text/javascript">
       atOptions = {
         'key' : '2b0c33ae294502978b9bfb23cc9b43f0',
         'format' : 'iframe',
@@ -17,23 +15,13 @@
         'params' : {}
       };
     </script>
-    <script type="text/javascript" src="https://www.highperformanceformat.com/2b0c33ae294502978b9bfb23cc9b43f0/invoke.js"></script>
-  `}
+    <script type="text/javascript" src="https://www.highperformanceformat.com/2b0c33ae294502978b9bfb23cc9b43f0/invoke.js"></script>`}
 </div>
 
 <style>
   .adsterra-ad-container {
     margin: 2rem auto;
     max-width: 100%;
-    line-height: 0; /* Removes unwanted space below iframe */
+    line-height: 0; /* Removes extra space below the iframe */
   }
-  
-  /* Optional: Add a subtle label if you want transparency */
-  /* .adsterra-ad-container::before {
-    content: "Advertisement";
-    display: block;
-    font-size: 0.75rem;
-    color: var(--theme-text-lighter);
-    margin-bottom: 0.5rem;
-  } */
 </style>
