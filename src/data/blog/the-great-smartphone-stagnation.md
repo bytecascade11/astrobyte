@@ -1,5 +1,4 @@
 ---
-layout: ../../layouts/PostLayout.astro
 title: "The Great Smartphone Stagnation: Why You Don’t Need the 2025 Flagship"
 description: "An in-depth analysis of hardware plateaus, the psychology of planned obsolescence, and why your 3-year-old phone is likely all you'll ever need."
 pubDatetime: 2025-12-20T10:00:00Z
