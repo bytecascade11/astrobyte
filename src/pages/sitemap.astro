@@ -1,8 +1,19 @@
 ---
-const posts = await Astro.glob('../data/blog/**/*.md');  // This is the standard AstroPaper path for blog posts
+// src/pages/sitemap.astro
 
-// Sort by newest first
-posts.sort((a, b) => new Date(b.frontmatter.pubDatetime).getTime() - new Date(a.frontmatter.pubDatetime).getTime());
+// Try the standard AstroPaper path first
+let posts = await Astro.glob('../data/blog/**/*.md');
+
+// If no posts found, fall back to the common Content Collections path
+if (posts.length === 0) {
+  posts = await Astro.glob('../content/blog/**/*.md');
+}
+
+// Sort by newest first (using pubDatetime from frontmatter)
+posts.sort((a, b) => 
+  new Date(b.frontmatter.pubDatetime).getTime() - 
+  new Date(a.frontmatter.pubDatetime).getTime()
+);
 ---
 
 <!DOCTYPE html>
@@ -10,43 +21,63 @@ posts.sort((a, b) => new Date(b.frontmatter.pubDatetime).getTime() - new Date(a.
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Sitemap</title>
-    <meta name="description" content="Complete list of all pages and posts" />
-    <!-- AstroPaper global styles -->
+    <title>Sitemap - ReviByte Opinions</title>
+    <meta name="description" content="Complete list of all pages and blog posts on ReviByte Opinions" />
+    
+    <!-- AstroPaper global styles (adjust if your path is different) -->
     <link rel="stylesheet" href="/global.css" />
   </head>
-  <body class="bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100">
+  <body class="bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100 min-h-screen">
     <main class="max-w-4xl mx-auto px-6 py-12 prose prose-lg dark:prose-invert">
       <h1 class="text-4xl font-bold mb-8">Sitemap</h1>
-      <p class="mb-12">A complete overview of all content on the site.</p>
+      <p class="mb-12 text-lg text-slate-600 dark:text-slate-400">
+        A complete overview of all content on ReviByte Opinions.
+      </p>
 
-      <section class="mb-12">
-        <h2 class="text-2xl font-semibold mb-4">Main Pages</h2>
-        <ul class="list-disc pl-6 space-y-2">
-          <li><a href="/">Home</a></li>
-          <li><a href="/posts">Posts</a></li>
-          <li><a href="/about">About</a></li>
-          <li><a href="/contact">Contact</a></li>
-          <li><a href="/tags">Tags</a></li>
-          <!-- Add more static pages here if you have them -->
+      <section class="mb-16">
+        <h2 class="text-2xl font-semibold mb-6">Main Pages</h2>
+        <ul class="list-disc pl-8 space-y-3 text-lg">
+          <li><a href="/" class="text-blue-600 dark:text-blue-400 hover:underline">Home</a></li>
+          <li><a href="/posts" class="text-blue-600 dark:text-blue-400 hover:underline">All Posts</a></li>
+          <li><a href="/about" class="text-blue-600 dark:text-blue-400 hover:underline">About</a></li>
+          <li><a href="/contact" class="text-blue-600 dark:text-blue-400 hover:underline">Contact</a></li>
+          <li><a href="/tags" class="text-blue-600 dark:text-blue-400 hover:underline">Tags</a></li>
+          <!-- Add more static pages here if you create them -->
         </ul>
       </section>
 
-      <section class="mb-12">
-        <h2 class="text-2xl font-semibold mb-4">All Blog Posts</h2>
-        <ul class="list-disc pl-6 space-y-2">
-          {posts.length === 0 ? <p>No posts found — try changing the glob path to '../content/blog/**/*.md' if your posts are there.</p> : null}
-          {posts.map((post) => (
-            <li>
-              <a href={post.url}>
-                {post.frontmatter.title}
-              </a>
-              <small class="text-gray-600 dark:text-gray-400">
-                — {new Date(post.frontmatter.pubDatetime).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
-              </small>
-            </li>
-          ))}
-        </ul>
+      <section>
+        <h2 class="text-2xl font-semibold mb-6">All Blog Posts ({posts.length})</h2>
+        
+        {posts.length === 0 ? (
+          <p class="text-red-600 dark:text-red-400">
+            No posts found. Check your blog folder path — common locations are 
+            <code class="bg-slate-200 dark:bg-slate-800 px-2 py-1 rounded">src/data/blog/</code> 
+            or 
+            <code class="bg-slate-200 dark:bg-slate-800 px-2 py-1 rounded">src/content/blog/</code>.
+          </p>
+        ) : (
+          <ul class="list-disc pl-8 space-y-4">
+            {posts.map((post) => (
+              <li class="leading-relaxed">
+                <a 
+                  href={post.url} 
+                  class="text-blue-600 dark:text-blue-400 hover:underline font-medium text-lg"
+                >
+                  {post.frontmatter.title}
+                </a>
+                <br />
+                <small class="text-slate-600 dark:text-slate-400">
+                  {new Date(post.frontmatter.pubDatetime).toLocaleDateString('en-US', {
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric'
+                  })}
+                </small>
+              </li>
+            ))}
+          </ul>
+        )}
       </section>
     </main>
   </body>
