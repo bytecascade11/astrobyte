@@ -1,16 +1,14 @@
 ---
 // src/pages/sitemap.astro
 
-// Load your posts
 const posts = await Astro.glob('../data/blog/**/*.md');
 
-// Sort newest first
 posts.sort((a, b) => 
   new Date(b.frontmatter.pubDatetime).getTime() - 
   new Date(a.frontmatter.pubDatetime).getTime()
 );
 
-// Fixed: Explicit TypeScript types added
+// Add these types → fixes the TS7006 error completely
 function getPostUrl(filePath: string): string {
   const slug = filePath.split('/').pop()?.replace('.md', '') || '';
   return `/posts/src/data/blog/${slug}`;
@@ -54,7 +52,7 @@ function getPostUrl(filePath: string): string {
             {posts.map((post) => (
               <li class="leading-relaxed">
                 <a 
-                  href={getPostUrl(post.file)} 
+                  href={getPostUrl(post.file)}
                   class="text-blue-600 dark:text-blue-400 hover:underline font-medium text-lg"
                 >
                   {post.frontmatter.title}
