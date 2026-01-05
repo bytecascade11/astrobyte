@@ -14,16 +14,16 @@ rawPosts = await Astro.glob<Frontmatter>('../data/blog/**/*.md');
 
 // Fallback 1: Older AstroPaper or custom setups
 if (rawPosts.length === 0) {
-  rawPosts = await Astro.glob<Frontmatter>('../content/blog/**/*.md');
+  rawPosts = await Astro.glob<Frontmatter>('../data/blog/**/*.md');
 }
 
 // Fallback 2: Content collections
 if (rawPosts.length === 0) {
-  rawPosts = await Astro.glob<Frontmatter>('../../src/content/blog/**/*.md');
+  rawPosts = await Astro.glob<Frontmatter>('../../src/data/blog/**/*.md');
 }
 
 const posts = rawPosts
-  .filter((post): post is MarkdownInstance<Frontmatter> & { url: string } => !!post.url)
+  .filter((post): post is MarkdownInstance<Frontmatter> & { url: string } => !!posts.url)
   .sort((a, b) => 
     new Date(b.frontmatter.pubDatetime).getTime() - 
     new Date(a.frontmatter.pubDatetime).getTime()
