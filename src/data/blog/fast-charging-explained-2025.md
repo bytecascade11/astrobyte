@@ -12,7 +12,6 @@ tags:
   - mobile phone
   - battery
   - breaking
-  - 🌟🌟🌟🌟
 ---
 ![Close-up editorial image of a modern smartphone connected to a USB-C fast charger, with subtle visual cues of power flow and heat dissipation](/assets/fast-charging-2025-explained.jpg)
 
