@@ -14,6 +14,9 @@ import ShareLinks from "@/components/ShareLinks.astro";
 import BackButton from "@/components/BackButton.astro";
 import BackToTopButton from "@/components/BackToTopButton.astro";
 
+// === ADD THIS LINE ===
+import AdsterraAd from "@/components/AdsterraAd.astro";
+
 import { getPath } from "@/utils/getPath";
 import { slugifyStr } from "@/utils/slugify";
 import IconChevronLeft from "@/assets/icons/IconChevronLeft.svg";
@@ -187,6 +190,11 @@ const breadcrumbItems = [
     <!-- Article Content -->
     <article id="article" class="app-prose mx-auto mt-16">
       <Content />
+
+      <!-- === FIRST AD: Right after the post content (mid-article) === -->
+      <div class="my-20 text-center">
+        <AdsterraAd client:load />
+      </div>
     </article>
 
     <hr class="my-16 border-dashed border-border/40" />
@@ -195,6 +203,11 @@ const breadcrumbItems = [
     {SITE.editPost?.enabled && !hideEditPost && (
       <EditPost post={post} class="sm:hidden mb-8" />
     )}
+
+    <!-- === SECOND AD: Bottom of post, before tags === -->
+    <div class="my-20 text-center">
+      <AdsterraAd client:load />
+    </div>
 
     <!-- Tags -->
     {tags.length > 0 && (
