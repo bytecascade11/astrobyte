@@ -1,6 +1,7 @@
 ---
-const posts = await Astro.glob('../content/blog/**/*.md');  // Change to '../data/blog/**/*.md' if your posts are there
+const posts = await Astro.glob('../data/blog/**/*.md');  // This is the standard AstroPaper path for blog posts
 
+// Sort by newest first
 posts.sort((a, b) => new Date(b.frontmatter.pubDatetime).getTime() - new Date(a.frontmatter.pubDatetime).getTime());
 ---
 
@@ -9,10 +10,10 @@ posts.sort((a, b) => new Date(b.frontmatter.pubDatetime).getTime() - new Date(a.
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Sitemap - Your Site Name</title>
+    <title>Sitemap</title>
     <meta name="description" content="Complete list of all pages and posts" />
-    <link rel="stylesheet" href="/global.css" /> <!-- AstroPaper's global styles -->
-    <link rel="stylesheet" href="/theme.css" /> <!-- If you have theme.css -->
+    <!-- AstroPaper global styles -->
+    <link rel="stylesheet" href="/global.css" />
   </head>
   <body class="bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100">
     <main class="max-w-4xl mx-auto px-6 py-12 prose prose-lg dark:prose-invert">
@@ -27,13 +28,14 @@ posts.sort((a, b) => new Date(b.frontmatter.pubDatetime).getTime() - new Date(a.
           <li><a href="/about">About</a></li>
           <li><a href="/contact">Contact</a></li>
           <li><a href="/tags">Tags</a></li>
+          <!-- Add more static pages here if you have them -->
         </ul>
       </section>
 
       <section class="mb-12">
         <h2 class="text-2xl font-semibold mb-4">All Blog Posts</h2>
         <ul class="list-disc pl-6 space-y-2">
-          {posts.length === 0 && <p>No posts found — check the glob path.</p>}
+          {posts.length === 0 ? <p>No posts found — try changing the glob path to '../content/blog/**/*.md' if your posts are there.</p> : null}
           {posts.map((post) => (
             <li>
               <a href={post.url}>
