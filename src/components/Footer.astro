@@ -8,11 +8,11 @@ posts.sort((a, b) =>
   new Date(a.frontmatter.pubDatetime).getTime()
 );
 
-// Add these types → fixes the TS7006 error completely
-function getPostUrl(filePath: string): string {
+// This line fixes the TS7006 error — explicit types required in strict mode
+const getPostUrl = (filePath: string): string => {
   const slug = filePath.split('/').pop()?.replace('.md', '') || '';
   return `/posts/src/data/blog/${slug}`;
-}
+};
 ---
 
 <!DOCTYPE html>
