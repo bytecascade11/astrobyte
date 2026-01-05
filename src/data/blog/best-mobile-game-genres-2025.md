@@ -26,6 +26,8 @@ This was the year of **genre hybridization**. The walls between casual, mid-core
 
 Below are the mobile game genres that didn’t just survive 2025 — they **defined it**.
 
+import AdsterraAd from '../../components/AdsterraAd.astro';
+
 ---
 
 ## 1. Hybrid-Casual Didn’t Save Hyper-Casual — It Replaced It
