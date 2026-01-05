@@ -4,23 +4,21 @@
 import type { CollectionEntry } from "astro:content";
 import { render } from "astro:content";
 
-import Layout from "./Layout.astro";  // Same folder as PostDetails
-import Header from "../components/Header.astro";
-import Footer from "../components/Footer.astro";
-import Tag from "../components/Tag.astro";
-import Datetime from "../components/Datetime.astro";
-import EditPost from "../components/EditPost.astro";
-import ShareLinks from "../components/ShareLinks.astro";
-import BackButton from "../components/BackButton.astro";
-import BackToTopButton from "../components/BackToTopButton.astro";
+import Layout from "@/layouts/Layout.astro";
+import Header from "@/components/Header.astro";
+import Footer from "@/components/Footer.astro";
+import Tag from "@/components/Tag.astro";
+import Datetime from "@/components/Datetime.astro";
+import EditPost from "@/components/EditPost.astro";
+import ShareLinks from "@/components/ShareLinks.astro";
+import BackButton from "@/components/BackButton.astro";
+import BackToTopButton from "@/components/BackToTopButton.astro";
 
-import AdsterraAd from "../components/AdsterraAd.astro";  // Fixed import
-
-import { getPath } from "../utils/getPath";  // utils folder is at src/utils
-import { slugifyStr } from "../utils/slugify";
-import IconChevronLeft from "../assets/icons/IconChevronLeft.svg";
-import IconChevronRight from "../assets/icons/IconChevronRight.svg";
-import { SITE } from "../config";  // config.ts is at src/config.ts
+import { getPath } from "@/utils/getPath";
+import { slugifyStr } from "@/utils/slugify";
+import IconChevronLeft from "@/assets/icons/IconChevronLeft.svg";
+import IconChevronRight from "@/assets/icons/IconChevronRight.svg";
+import { SITE } from "@/config";
 
 export interface Props {
   post: CollectionEntry<"blog">;
@@ -128,7 +126,7 @@ const breadcrumbItems = [
     </nav>
   )}
 
-  <!-- JSON-LD Breadcrumb -->
+  <!-- JSON-LD Breadcrumb (fixed warning) -->
   {isBlogRoute && (
     <script type="application/ld+json" is:inline set:html={JSON.stringify({
       "@context": "https://schema.org",
@@ -189,11 +187,6 @@ const breadcrumbItems = [
     <!-- Article Content -->
     <article id="article" class="app-prose mx-auto mt-16">
       <Content />
-
-      <!-- FIRST AD: Right after the post content -->
-      <div class="my-20 text-center">
-        <AdsterraAd client:load />
-      </div>
     </article>
 
     <hr class="my-16 border-dashed border-border/40" />
@@ -202,11 +195,6 @@ const breadcrumbItems = [
     {SITE.editPost?.enabled && !hideEditPost && (
       <EditPost post={post} class="sm:hidden mb-8" />
     )}
-
-    <!-- SECOND AD: Before tags -->
-    <div class="my-20 text-center">
-      <AdsterraAd client:load />
-    </div>
 
     <!-- Tags -->
     {tags.length > 0 && (
@@ -231,7 +219,7 @@ const breadcrumbItems = [
 
     <hr class="my-16 border-dashed border-border/40" />
 
-    <!-- Prev/Next Navigation -->
+    <!-- Prev/Next Navigation – Card Style (like tag pages) -->
     <section aria-label="Continue reading" class="my-20">
       <h2 class="text-2xl font-bold mb-12 text-center">Continue Reading</h2>
 
@@ -320,7 +308,7 @@ const breadcrumbItems = [
 
     window.addEventListener("scroll", updateProgress);
     document.addEventListener("astro:page-load", updateProgress);
-    updateProgress();
+    updateProgress(); // Initial call
 
     // Heading permalinks
     document.querySelectorAll("h2[id], h3[id], h4[id]").forEach(heading => {
