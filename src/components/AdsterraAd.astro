@@ -1,9 +1,9 @@
 ---
-/* Adsterra 320x50 Ad Component */
+/* Adsterra 320x50 Ad Component - Safe version using is:inline */
 ---
 
 <div class="adsterra-ad-container my-8 text-center overflow-hidden">
-  {@html `<script type="text/javascript">
+  <script is:inline type="text/javascript">
     atOptions = {
       'key' : '2b0c33ae294502978b9bfb23cc9b43f0',
       'format' : 'iframe',
@@ -12,13 +12,13 @@
       'params' : {}
     };
   </script>
-  <script type="text/javascript" src="https://www.highperformanceformat.com/2b0c33ae294502978b9bfb23cc9b43f0/invoke.js"></script>`}
+  <script is:inline type="text/javascript" src="https://www.highperformanceformat.com/2b0c33ae294502978b9bfb23cc9b43f0/invoke.js"></script>
 </div>
 
 <style>
   .adsterra-ad-container {
     margin: 2rem auto;
     max-width: 100%;
-    line-height: 0;
+    line-height: 0; /* Prevents extra space below the ad */
   }
 </style>
