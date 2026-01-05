@@ -1,5 +1,5 @@
 ---
-import BaseLayout from '@/layouts/BaseLayout.astro';
+import BaseLayout from '../layouts/BaseLayout.astro';
 import { getCollection } from 'astro:content';
 
 // Get all blog posts and sort by newest first
@@ -9,7 +9,7 @@ posts.sort((a, b) =>
 );
 ---
 
-<BaseLayout title="Sitemap" description="Complete list of all pages and posts">
+<BaseLayout title="Sitemap" description="Complete list of all pages and posts on the site">
   <main class="max-w-4xl mx-auto px-6 py-12 prose prose-lg dark:prose-invert">
     <h1 class="text-4xl font-bold mb-8">Sitemap</h1>
     <p class="mb-12">A complete overview of all content on the site.</p>
@@ -22,7 +22,7 @@ posts.sort((a, b) =>
         <li><a href="/about">About</a></li>
         <li><a href="/contact">Contact</a></li>
         <li><a href="/tags">Tags</a></li>
-        <li><a href="/categories">Categories</a></li> <!-- Remove if you don't have categories -->
+        <!-- Add/remove based on your actual pages -->
       </ul>
     </section>
 
