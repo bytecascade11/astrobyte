@@ -14,8 +14,8 @@ import ShareLinks from "@/components/ShareLinks.astro";
 import BackButton from "@/components/BackButton.astro";
 import BackToTopButton from "@/components/BackToTopButton.astro";
 
-// === ADD THIS LINE ===
-import AdsterraAd from "@/components/AdsterraAd.astro";
+// === CORRECT IMPORT: Relative path (fixes the build error) ===
+import AdsterraAd from "../components/AdsterraAd.astro";
 
 import { getPath } from "@/utils/getPath";
 import { slugifyStr } from "@/utils/slugify";
@@ -129,7 +129,7 @@ const breadcrumbItems = [
     </nav>
   )}
 
-  <!-- JSON-LD Breadcrumb (fixed warning) -->
+  <!-- JSON-LD Breadcrumb -->
   {isBlogRoute && (
     <script type="application/ld+json" is:inline set:html={JSON.stringify({
       "@context": "https://schema.org",
@@ -191,7 +191,7 @@ const breadcrumbItems = [
     <article id="article" class="app-prose mx-auto mt-16">
       <Content />
 
-      <!-- === FIRST AD: Right after the post content (mid-article) === -->
+      <!-- FIRST AD: Right after content (mid-post) -->
       <div class="my-20 text-center">
         <AdsterraAd client:load />
       </div>
@@ -204,7 +204,7 @@ const breadcrumbItems = [
       <EditPost post={post} class="sm:hidden mb-8" />
     )}
 
-    <!-- === SECOND AD: Bottom of post, before tags === -->
+    <!-- SECOND AD: Bottom area -->
     <div class="my-20 text-center">
       <AdsterraAd client:load />
     </div>
@@ -232,7 +232,7 @@ const breadcrumbItems = [
 
     <hr class="my-16 border-dashed border-border/40" />
 
-    <!-- Prev/Next Navigation – Card Style (like tag pages) -->
+    <!-- Prev/Next Navigation -->
     <section aria-label="Continue reading" class="my-20">
       <h2 class="text-2xl font-bold mb-12 text-center">Continue Reading</h2>
 
@@ -321,7 +321,7 @@ const breadcrumbItems = [
 
     window.addEventListener("scroll", updateProgress);
     document.addEventListener("astro:page-load", updateProgress);
-    updateProgress(); // Initial call
+    updateProgress();
 
     // Heading permalinks
     document.querySelectorAll("h2[id], h3[id], h4[id]").forEach(heading => {
