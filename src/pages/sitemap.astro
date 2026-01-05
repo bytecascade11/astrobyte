@@ -1,17 +1,15 @@
 ---
-import BaseLayout from '../layouts/BaseLayout.astro';
+import BaseLayout from '@/layouts/BaseLayout.astro';
 import { getCollection } from 'astro:content';
 
-// Get all blog posts (adjust 'blog' if your collection is named differently, e.g., 'posts')
-const posts = (await getCollection('blog')).sort(
-  (a, b) => new Date(b.data.pubDate).getTime() - new Date(a.data.pubDate).getTime()
+// Get all blog posts and sort by newest first
+const posts = await getCollection('blog');
+posts.sort((a, b) => 
+  new Date(b.data.pubDatetime).getTime() - new Date(a.data.pubDatetime).getTime()
 );
-
-// Optional: Get other collections if you have them (e.g., 'pages')
-const staticPages = await getCollection('pages') || [];
 ---
 
-<BaseLayout title="Sitemap - Your Site Name" description="Complete sitemap of all pages and posts">
+<BaseLayout title="Sitemap" description="Complete list of all pages and posts">
   <main class="max-w-4xl mx-auto px-6 py-12 prose prose-lg dark:prose-invert">
     <h1 class="text-4xl font-bold mb-8">Sitemap</h1>
     <p class="mb-12">A complete overview of all content on the site.</p>
@@ -24,7 +22,7 @@ const staticPages = await getCollection('pages') || [];
         <li><a href="/about">About</a></li>
         <li><a href="/contact">Contact</a></li>
         <li><a href="/tags">Tags</a></li>
-        <li><a href="/categories">Categories</a></li> <!-- If you have them -->
+        <li><a href="/categories">Categories</a></li> <!-- Remove if you don't have categories -->
       </ul>
     </section>
 
@@ -33,22 +31,13 @@ const staticPages = await getCollection('pages') || [];
       <ul class="list-disc pl-6 space-y-2">
         {posts.map((post) => (
           <li>
-            <a href={`/\( {post.collection}/ \){post.slug}`}>
+            <a href={`/blog/${post.slug}`}>
               {post.data.title}
             </a>
             <small class="text-gray-600 dark:text-gray-400">
-              — {new Date(post.data.pubDate).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
+              — {new Date(post.data.pubDatetime).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
             </small>
           </li>
-        ))}
-      </ul>
-    </section>
-
-    <section>
-      <h2 class="text-2xl font-semibold mb-4">Other Pages</h2>
-      <ul class="list-disc pl-6 space-y-2">
-        {staticPages.map((page) => (
-          <li><a href={`/\( {page.collection}/ \){page.slug}`}>{page.data.title || page.slug}</a></li>
         ))}
       </ul>
     </section>
