@@ -26,7 +26,18 @@ This was the year of **genre hybridization**. The walls between casual, mid-core
 
 Below are the mobile game genres that didn’t just survive 2025 — they **defined it**.
 
-import AdsterraAd from '../../components/AdsterraAd.astro';
+<div class="my-20 text-center">
+  <script is:inline type="text/javascript">
+    atOptions = {
+      'key' : '2b0c33ae294502978b9bfb23cc9b43f0',
+      'format' : 'iframe',
+      'height' : 50,
+      'width' : 320,
+      'params' : {}
+    };
+  </script>
+  <script is:inline type="text/javascript" src="https://www.highperformanceformat.com/2b0c33ae294502978b9bfb23cc9b43f0/invoke.js"></script>
+</div>
 
 ---
 
