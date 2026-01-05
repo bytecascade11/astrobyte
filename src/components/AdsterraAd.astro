@@ -1,27 +1,24 @@
 ---
-/**
- * AdsterraAd.astro
- * Reusable component for your 320x50 Adsterra ad unit
- */
+/* Adsterra 320x50 Ad Component */
 ---
 
 <div class="adsterra-ad-container my-8 text-center overflow-hidden">
   {@html `<script type="text/javascript">
-      atOptions = {
-        'key' : '2b0c33ae294502978b9bfb23cc9b43f0',
-        'format' : 'iframe',
-        'height' : 50,
-        'width' : 320,
-        'params' : {}
-      };
-    </script>
-    <script type="text/javascript" src="https://www.highperformanceformat.com/2b0c33ae294502978b9bfb23cc9b43f0/invoke.js"></script>`}
+    atOptions = {
+      'key' : '2b0c33ae294502978b9bfb23cc9b43f0',
+      'format' : 'iframe',
+      'height' : 50,
+      'width' : 320,
+      'params' : {}
+    };
+  </script>
+  <script type="text/javascript" src="https://www.highperformanceformat.com/2b0c33ae294502978b9bfb23cc9b43f0/invoke.js"></script>`}
 </div>
 
 <style>
   .adsterra-ad-container {
     margin: 2rem auto;
     max-width: 100%;
-    line-height: 0; /* Removes extra space below the iframe */
+    line-height: 0;
   }
 </style>
