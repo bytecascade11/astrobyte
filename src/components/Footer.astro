@@ -10,11 +10,7 @@ const rawPosts = await Astro.glob<Frontmatter>('../data/blog/**/*.md');
 
 const posts = rawPosts
   .filter((post): post is MarkdownInstance<Frontmatter> & { url: string } => !!post.url)
-  .sort((a, b) => {
-    const dateA = new Date(a.frontmatter.pubDatetime).getTime();
-    const dateB = new Date(b.frontmatter.pubDatetime).getTime();
-    return dateB - dateA;
-  });
+  .sort((a, b) => new Date(b.frontmatter.pubDatetime).getTime() - new Date(a.frontmatter.pubDatetime).getTime());
 ---
 
 <!DOCTYPE html>
@@ -29,7 +25,6 @@ const posts = rawPosts
   <body class="bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100">
     <main class="max-w-4xl mx-auto px-6 py-12 prose prose-lg dark:prose-invert">
       <h1 class="text-4xl font-bold mb-8">Sitemap</h1>
-      <p class="mb-12">A complete overview of all content on the site.</p>
 
       <section class="mb-12">
         <h2 class="text-2xl font-semibold mb-4">Main Pages</h2>
@@ -43,35 +38,26 @@ const posts = rawPosts
       </section>
 
       <section class="mb-12">
-        <h2 class="text-2xl font-semibold mb-4">All Blog Posts ({posts.length})</h2>
-
+        <h2 class="text-2xl font-semibold mb-4">Blog Posts ({posts.length})</h2>
         {posts.length === 0 ? (
           <p class="text-amber-600 dark:text-amber-400">
-            No posts found. Try checking the glob path: <code>../data/blog/**/*.md</code>
-            <br />
-            Common alternatives: <code>../content/blog/**/*.md</code> or <code>../src/content/blog/**/*.md</code>
+            No posts found — check the glob path "../data/blog/**/*.md"
           </p>
         ) : (
           <ul class="list-disc pl-6 space-y-3">
             {posts.map((post) => {
-              const formattedDate = new Date(post.frontmatter.pubDatetime).toLocaleDateString('en-US', {
+              const date = new Date(post.frontmatter.pubDatetime).toLocaleDateString('en-US', {
                 year: 'numeric',
                 month: 'long',
                 day: 'numeric'
               });
               return (
                 <li class="flex flex-col sm:flex-row sm:items-baseline gap-2">
-                  <a 
-                    href={post.url}
-                    class="font-medium hover:underline hover:text-blue-600 dark:hover:text-blue-400 transition"
-                  >
+                  <a href={post.url} class="font-medium hover:underline">
                     {post.frontmatter.title}
                   </a>
-                  <a 
-                    href={post.url}
-                    class="text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200 hover:underline transition"
-                  >
-                    {formattedDate}
+                  <a href={post.url} class="text-sm text-gray-600 dark:text-gray-400 hover:underline">
+                    {date}
                   </a>
                 </li>
               );
