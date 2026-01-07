@@ -12,7 +12,7 @@ tags:
   - redmi
   - gaming-guide-2026
   - games
-  - opinion
+  - opinions
 ---
 ![High refresh rate mobile gaming on modern Android smartphones](/assets/gaming-banner.jpg)
 
