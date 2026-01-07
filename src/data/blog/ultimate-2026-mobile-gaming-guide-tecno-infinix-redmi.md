@@ -13,7 +13,7 @@ tags:
   - gaming-guide-2026
   - games
   - opinions
-coverImage: "/assets/gaming-banner.jpg"
+coverImage: "assets/gaming-banner.jpg"
 coverImageAlt: "High refresh rate mobile gaming on Tecno, Infinix, and Redmi smartphones"
 ---
 
