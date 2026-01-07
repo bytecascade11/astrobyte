@@ -1,3 +1,4 @@
+---
 // src/layouts/PostDetails.astro
 
 import type { CollectionEntry } from "astro:content";
@@ -168,24 +169,23 @@ const breadcrumbItems = [
     </div>
 
     <!-- Cover Image -->
-    {coverImage && (
-      <figure class="mt-12 mb-16 overflow-hidden rounded-2xl shadow-2xl">
-        <img
-          src={coverImage}
-          alt={coverImageAlt || title}
-          class="w-full object-cover aspect-video md:aspect-[21/9]"
-          loading="eager"
-          width="1200"
-          height="630"
-        />
-        {coverImageAlt && (
-          <figcaption class="text-center text-sm opacity-70 mt-3 italic">
-            {coverImageAlt}
-          </figcaption>
-        )}
-      </figure>
+{coverImage && (
+  <figure class="mt-12 mb-16 overflow-hidden rounded-2xl shadow-2xl">
+    <img
+      src={coverImage}
+      alt={coverImageAlt || title}
+      class="w-full object-cover aspect-video md:aspect-[21/9]"
+      loading="eager"
+      width="1200"
+      height="630"
+    />
+    {coverImageAlt && (
+      <figcaption class="text-center text-sm opacity-70 mt-3 italic">
+        {coverImageAlt}
+      </figcaption>
     )}
-
+  </figure>
+)}
     <!-- Article Content -->
     <article id="article" class="app-prose mx-auto mt-16">
       <Content />
@@ -195,7 +195,23 @@ const breadcrumbItems = [
 
     <!-- Mobile Edit Link -->
     {SITE.editPost?.enabled && !hideEditPost && (
-      <EditPost post={post} class="sm:hidden mb-8" />
+      <EditPost post={post} cla{coverImage && (
+  <figure class="mt-12 mb-16 overflow-hidden rounded-2xl shadow-2xl">
+    <img
+      src={coverImage}
+      alt={coverImageAlt || title}
+      class="w-full object-cover aspect-video md:aspect-[21/9]"
+      loading="eager"
+      width="1200"
+      height="630"
+    />
+    {coverImageAlt && (
+      <figcaption class="text-center text-sm opacity-70 mt-3 italic">
+        {coverImageAlt}
+      </figcaption>
+    )}
+  </figure>
+)}ss="sm:hidden mb-8" />
     )}
 
     <!-- Tags -->
