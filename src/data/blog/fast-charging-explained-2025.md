@@ -12,9 +12,9 @@ tags:
   - mobile phone
   - battery
   - breaking
+coverImage: "/images/posts/fast-charging-2025-explained.jpg"
+coverImageAlt: "Close-up editorial image of a modern smartphone connected to a USB-C fast charger, with subtle visual cues of power flow and heat dissipation"
 ---
-![Close-up editorial image of a modern smartphone connected to a USB-C fast charger, with subtle visual cues of power flow and heat dissipation](/assets/fast-charging-2025-explained.jpg)
-
 
 
 > **TL;DR:** In 2025, fast charging is safer and healthier for batteries than slow charging was a decade ago — thanks to dual-cell architectures, silicon-carbon anodes, and intelligent power negotiation.
