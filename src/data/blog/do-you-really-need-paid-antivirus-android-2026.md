@@ -11,9 +11,9 @@ tags:
   - mobile-malware
   - antivirus-advice
   - cybersecurity
+coverImage: "/images/posts/android-security.jpg"
+coverImageAlt: "Smartphone protected by a digital security shield"
 ---
-
-![Smartphone protected by a digital security shield](/assets/android-security.jpg)
 
 It’s December 2025, and the antivirus debate on Android still feels stuck in a time loop. Every few months, a new scare story breaks — a banking Trojan here, spyware lurking there — and suddenly the same question pops up again:
 
