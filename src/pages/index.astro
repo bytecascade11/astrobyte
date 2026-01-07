@@ -1,118 +1,133 @@
----
+ ---
 import { getCollection } from "astro:content";
 import Layout from "@/layouts/Layout.astro";
 import Header from "@/components/Header.astro";
 import Footer from "@/components/Footer.astro";
 import Socials from "@/components/Socials.astro";
 import LinkButton from "@/components/LinkButton.astro";
-import Card from "@/components/Card.astro";
 import Hr from "@/components/Hr.astro";
-import getSortedPosts from "@/utils/getSortedPosts";
 import IconRss from "@/assets/icons/IconRss.svg";
 import IconArrowRight from "@/assets/icons/IconArrowRight.svg";
 import { SITE } from "@/config";
 import { SOCIALS } from "@/constants";
+import { getPath } from "@/utils/getPath"; // For correct post links
 
 const posts = await getCollection("blog");
+const sortedPosts = posts.sort((a, b) => b.data.pubDatetime.valueOf() - a.data.pubDatetime.valueOf());
 
-const sortedPosts = getSortedPosts(posts);
-const featuredPosts = sortedPosts.filter(({ data }) => data.featured);
-const recentPosts = sortedPosts.filter(({ data }) => !data.featured);
+const latestPost = sortedPosts[0];
+const recentPosts = sortedPosts.slice(1);
 ---
 
 <Layout>
   <Header />
-  <main id="main-content" data-layout="index">
-    <section id="hero" class="pt-8 pb-6">
-      <h1 class="my-4 inline-block text-4xl font-bold sm:my-8 sm:text-5xl">
-        WELCOME👋
-      </h1>
-      <a
-        target="_blank"
-        href="/rss.xml"
-        class="inline-block"
-        aria-label="rss feed"
-        title="RSS Feed"
-      >
-        <IconRss
-          width={20}
-          height={20}
-          class="scale-125 stroke-accent stroke-3 rtl:-rotate-90"
-        />
-        <span class="sr-only">RSS Feed</span>
+  <main class="mx-auto w-full max-w-app px-4 py-12">
+    <!-- Hero Welcome Section (kept minimal like your current one) -->
+    <section class="text-center mb-16">
+      <h1 class="my-8 text-4xl sm:text-5xl font-bold">WELCOME👋</h1>
+      <a target="_blank" href="/rss.xml" class="inline-block" aria-label="rss feed">
+        <IconRss width={20} height={20} class="scale-125 stroke-accent stroke-3" />
       </a>
-
-      <p>
-        ReviByte Technology Opinions delivers the latest tech news, gadget Opinions, Android updates, and in-depth guides to keep you informed and ahead in the digital world.
-      </p>
-      <p class="mt-2">
+      <p class="mt-6 text-lg">ReviByte Technology Opinions delivers the latest tech news, gadget Opinions, Android updates, and in-depth guides.</p>
+      <p class="mt-4">
         Read the blog posts or check
-        <LinkButton
-          class="underline decoration-dashed underline-offset-4 hover:text-accent"
-          href="https://github.com/bytecascade11/astrobyte#readme"
-        >
+        <LinkButton href="https://github.com/bytecascade11/astrobyte#readme" class="underline">
           README
         </LinkButton> for more info.
       </p>
-      {
-        // only display if at least one social link is enabled
-        SOCIALS.length > 0 && (
-          <div class="mt-4 flex flex-col sm:flex-row sm:items-center">
-            <div class="me-2 mb-1 whitespace-nowrap sm:mb-0">Social Links:</div>
-            <Socials />
-          </div>
-        )
-      }
+      {SOCIALS.length > 0 && (
+        <div class="mt-6">
+          <span class="me-2">Social Links:</span>
+          <Socials />
+        </div>
+      )}
     </section>
 
     <Hr />
 
-    {
-      featuredPosts.length > 0 && (
-        <>
-          <section id="featured" class="pt-12 pb-6">
-            <h2 class="text-2xl font-semibold tracking-wide">Featured</h2>
-            <ul>
-              {featuredPosts.map(data => (
-                <Card variant="h3" {...data} />
+    <!-- Featured Latest Post (Big Hero Card like your Hugo screenshot) -->
+    {latestPost && (
+      <article class="mb-20 overflow-hidden rounded-2xl shadow-2xl bg-card">
+        {latestPost.data.coverImage && (
+          <img
+            src={typeof latestPost.data.coverImage === "string" ? latestPost.data.coverImage : latestPost.data.coverImage.src}
+            alt={latestPost.data.coverImageAlt || latestPost.data.title}
+            class="w-full object-cover aspect-video md:aspect-[21/9]"
+            loading="eager"
+          />
+        )}
+        <div class="p-8 md:p-12">
+          <h1 class="text-3xl md:text-5xl font-bold mb-6">
+            <a href={getPath(latestPost.id, latestPost.filePath)} class="hover:text-accent transition">
+              {latestPost.data.title}
+            </a>
+          </h1>
+          <div class="flex flex-wrap items-center gap-4 text-sm text-muted-foreground mb-6">
+            <time>{latestPost.data.pubDatetime.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</time>
+            {/* Optional: Add word count / read time here if you calculate it */}
+          </div>
+          {latestPost.data.tags?.length > 0 && (
+            <div class="flex flex-wrap gap-2 mb-6">
+              {latestPost.data.tags.map(tag => (
+                <a href={`/tags/${tag}/`} class="rounded-full px-4 py-2 bg-muted/50 text-sm hover:bg-accent hover:text-background transition">
+                  {tag}
+                </a>
               ))}
-            </ul>
-          </section>
-          {recentPosts.length > 0 && <Hr />}
-        </>
-      )
-    }
+            </div>
+          )}
+          {latestPost.data.description && (
+            <p class="text-lg text-muted-foreground line-clamp-4">
+              {latestPost.data.description}
+            </p>
+          )}
+        </div>
+      </article>
+    )}
 
-    {
-      recentPosts.length > 0 && (
-        <section id="recent-posts" class="pt-12 pb-6">
-          <h2 class="text-2xl font-semibold tracking-wide">Recent Posts</h2>
-          <ul>
-            {recentPosts.map(
-              (data, index) =>
-                index < SITE.postPerIndex && <Card variant="h3" {...data} />
-            )}
-          </ul>
-        </section>
-      )
-    }
+    <!-- Recent Posts Grid -->
+    {recentPosts.length > 0 && (
+      <>
+        <h2 class="text-2xl font-bold mb-8">Recent Posts</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
+          {recentPosts.map(post => (
+            <article class="overflow-hidden rounded-2xl shadow-lg bg-card hover:shadow-xl transition">
+              {post.data.coverImage && (
+                <a href={getPath(post.id, post.filePath)}>
+                  <img
+                    src={typeof post.data.coverImage === "string" ? post.data.coverImage : post.data.coverImage.src}
+                    alt={post.data.coverImageAlt || post.data.title}
+                    class="w-full object-cover aspect-video"
+                    loading="lazy"
+                  />
+                </a>
+              )}
+              <div class="p-6">
+                <h3 class="text-xl font-semibold mb-2">
+                  <a href={getPath(post.id, post.filePath)} class="hover:text-accent transition">
+                    {post.data.title}
+                  </a>
+                </h3>
+                <time class="text-sm text-muted-foreground block mb-3">
+                  {post.data.pubDatetime.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
+                </time>
+                {post.data.description && (
+                  <p class="text-muted-foreground line-clamp-3">
+                    {post.data.description}
+                  </p>
+                )}
+              </div>
+            </article>
+          ))}
+        </div>
+      </>
+    )}
 
-    <div class="my-8 text-center">
+    <div class="text-center">
       <LinkButton href="/posts/">
         All Posts
-        <IconArrowRight class="inline-block rtl:-rotate-180" />
+        <IconArrowRight class="inline-block" />
       </LinkButton>
     </div>
   </main>
   <Footer />
 </Layout>
-
-<script>
-  document.addEventListener("astro:page-load", () => {
-    const indexLayout = (document.querySelector("#main-content") as HTMLElement)
-      ?.dataset?.layout;
-    if (indexLayout) {
-      sessionStorage.setItem("backUrl", "/");
-    }
-  });
-</script>
