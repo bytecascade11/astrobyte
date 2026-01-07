@@ -1,5 +1,6 @@
 ---
 import { getCollection } from 'astro:content';
+import { getPath } from '@/utils/getPath'; // NEW: Import the utility
 
 const { post } = Astro.props;
 
@@ -14,16 +15,15 @@ const related = allPosts
 ---
 
 {related.length > 0 && (
-  <section class="mt-12 pt-8 border-t border-border">
+  <section class="mt-20">
     <h2 class="text-2xl font-bold mb-8">Related Posts</h2>
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
       {related.map(relatedPost => {
-        // Derive slug from id (e.g., "my-post.md" → "my-post")
-        const slug = relatedPost.id.replace(/\.md$/, '');
-        const link = `/posts/${slug}/`;
+        // CORRECT: Use getPath() just like the rest of your site
+        const link = getPath(relatedPost.id, relatedPost.filePath);
         const { title, description = '', pubDatetime, tags = [] } = relatedPost.data;
         return (
-          <article class="flex flex-col gap-3">
+          <article class="flex flex-col gap-3 p-6 rounded-2xl bg-card/80 backdrop-blur shadow-lg hover:shadow-xl transition-all">
             <header>
               <a href={link} class="font-semibold text-lg hover:text-accent transition-colors">
                 {title}
