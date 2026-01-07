@@ -1,12 +1,11 @@
---- 
+---
 import { getCollection } from 'astro:content';
-import PostPreview from './PostPreview.astro'; // Correct name for AstroPaper
 
 const { post } = Astro.props;
 
 const allPosts = await getCollection('blog');
 
-// Related: share at least one tag, exclude current, newest first, up to 5
+// Related posts: share at least one tag, exclude current, newest first, up to 5
 const related = allPosts
   .filter(p => p.id !== post.id)
   .filter(p => p.data.tags?.some(tag => post.data.tags?.includes(tag)))
@@ -16,11 +15,42 @@ const related = allPosts
 
 {related.length > 0 && (
   <section class="mt-12 pt-8 border-t border-border">
-    <h2 class="text-2xl font-bold mb-6">Related Posts</h2>
+    <h2 class="text-2xl font-bold mb-8">Related Posts</h2>
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-      {related.map(relatedPost => (
-        <PostPreview post={relatedPost} />
-      ))}
+      {related.map(relatedPost => {
+        const link = `/posts/${relatedPost.slug}/`;
+        const { title, description = '', pubDatetime, tags = [] } = relatedPost.data;
+        return (
+          <article class="flex flex-col gap-3">
+            <header>
+              <a 
+                href={link} 
+                class="font-semibold text-lg hover:text-accent transition-colors"
+              >
+                {title}
+              </a>
+            </header>
+            <time class="text-sm text-muted-foreground">
+              {new Date(pubDatetime).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
+            </time>
+            {description && (
+              <p class="text-muted-foreground line-clamp-3">
+                {description}
+              </p>
+            )}
+            <footer class="flex flex-wrap gap-2 mt-auto">
+              {tags.map(tag => (
+                <a 
+                  href={`/tags/${tag}/`} 
+                  class="text-xs rounded-full px-3 py-1 bg-muted/50 hover:bg-accent hover:text-background transition-colors"
+                >
+                  {tag}
+                </a>
+              ))}
+            </footer>
+          </article>
+        );
+      })}
     </div>
   </section>
 )}
