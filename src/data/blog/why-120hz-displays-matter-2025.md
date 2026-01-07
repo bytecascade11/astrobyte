@@ -11,9 +11,9 @@ tags:
   - Android
   - Reviews
   - opinions
+coverImage: "/images/posts/120hz-fluidity-frontier-top.jpg"
+coverImageAlt: "Editorial-style image showing smooth UI motion trails on a smartphone and laptop display"
 ---
-
-![Editorial-style image showing smooth UI motion trails on a smartphone and laptop display](/assets/120hz-fluidity-frontier-top.jpg)
 
 # The Fluidity Frontier: Why 120Hz is the Absolute Standard in 2025
 
