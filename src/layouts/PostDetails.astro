@@ -170,22 +170,22 @@ const breadcrumbItems = [
 
     <!-- Cover Image -->
     {coverImage && (
-      <figure class="mt-12 mb-16 overflow-hidden rounded-2xl shadow-2xl">
-        <img
-          src={typeof coverImage === "string" ? coverImage : coverImage.src}
-          alt={coverImageAlt || title}
-          class="w-full object-cover aspect-video md:aspect-[21/9]"
-          loading="eager"
-          width="1200"
-          height="630"
-        />
-        {coverImageAlt && (
-          <figcaption class="text-center text-sm opacity-70 mt-3 italic">
-            {coverImageAlt}
-          </figcaption>
-        )}
-      </figure>
+  <figure class="mt-12 mb-16 overflow-hidden rounded-2xl shadow-2xl">
+    <img
+      src={coverImage}  <!-- Just use the string directly -->
+      alt={coverImageAlt || title}
+      class="w-full object-cover aspect-video md:aspect-[21/9]"
+      loading="eager"
+      width="1200"
+      height="630"
+    />
+    {coverImageAlt && (
+      <figcaption class="text-center text-sm opacity-70 mt-3 italic">
+        {coverImageAlt}
+      </figcaption>
     )}
+  </figure>
+)}
 
     <!-- Article Content -->
     <article id="article" class="app-prose mx-auto mt-16">
