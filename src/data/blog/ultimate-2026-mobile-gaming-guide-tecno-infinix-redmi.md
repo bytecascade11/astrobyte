@@ -1,8 +1,6 @@
 ---
-import gamingBanner from "@/assets/gaming-banner.jpg";  # ← This line at the top
-
 title: "The Ultimate 2026 Gaming Guide: Best Games for Tecno, Infinix & Redmi"
-description: "A deep dive into the best-optimized mobile games..."
+description: "A deep dive into the best-optimized mobile games for Tecno, Infinix, and Redmi smartphones in 2026 — including performance tips, thermal strategies, and hardware-to-game matchups."
 pubDatetime: 2026-01-07T07:20:00Z
 author: "iSamuel"
 tags:
@@ -15,8 +13,13 @@ tags:
   - gaming-guide-2026
   - games
   - opinions
-coverImage: { src: gamingBanner, alt: "High refresh rate mobile gaming on Tecno, Infinix, and Redmi smartphones" }
+coverImage: "/assets/gaming-banner.jpg"
+coverImageAlt: "High refresh rate mobile gaming on Tecno, Infinix, and Redmi smartphones"
 ---
+
+<!-- Now outside frontmatter — safe to put Markdown here -->
+![High refresh rate mobile gaming on Tecno, Infinix, and Redmi smartphones](/assets/gaming-banner.jpg)
+
 # The Ultimate 2026 Mobile Gaming Guide  
 *Best Games & Optimization Tips for Tecno, Infinix, and Redmi Devices*
 
