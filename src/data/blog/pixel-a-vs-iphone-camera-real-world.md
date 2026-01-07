@@ -19,8 +19,7 @@ tags:
   - smartphone-reviews
   - tech-comparison
   - photography-tips
-coverImage: "/pixel-vs-iphone-camera-showdown-hero.jpg
-"
+coverImage: "/pixel-vs-iphone-camera-showdown-hero.jpg"
 coverImageAlt: "Google Pixel vs iPhone Camera Comparison – Real-World Photography Test"
 ---
 
