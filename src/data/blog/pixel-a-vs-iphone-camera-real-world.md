@@ -19,8 +19,10 @@ tags:
   - smartphone-reviews
   - tech-comparison
   - photography-tips
+coverImage: "/pixel-vs-iphone-camera-showdown-hero.jpg
+"
+coverImageAlt: "Google Pixel vs iPhone Camera Comparison – Real-World Photography Test"
 ---
-![Google Pixel vs iPhone Camera Comparison – Real-World Photography Test](/assets/pixel-vs-iphone-camera-showdown-hero.jpg)
 
 *This comparison is based on hands-on experience with recent Google Pixel “a” series devices and modern iPhone models, combined with real-world shooting scenarios such as low light, moving subjects, portraits, and social media usage. Where newer models are referenced, conclusions are drawn from established platform behavior, camera system evolution, and long-term usage patterns rather than speculation.*
 
