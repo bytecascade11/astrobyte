@@ -1,25 +1,25 @@
 --- 
 import { getCollection } from 'astro:content';
-import PostCard from './PostCard.astro'; // Or whatever card component AstroPaper uses for post previews
+import PostCard from '../components/PostCard.astro'; // Adjust path if needed (check your AstroPaper structure)
 
-const { post } = Astro.props; // You'll pass the current post to this component
+const { post } = Astro.props;
 
 const allPosts = await getCollection('blog');
 
-// Find related: same tags, exclude current post, limit to 3-5
+// Find related posts: share at least one tag, exclude current post, newest first, limit to 5
 const related = allPosts
   .filter(p => p.id !== post.id)
   .filter(p => p.data.tags?.some(tag => post.data.tags?.includes(tag)))
   .sort((a, b) => b.data.pubDatetime.valueOf() - a.data.pubDatetime.valueOf())
-  .slice(0, 5); // Show up to 5 related
+  .slice(0, 5);
 ---
 
 {related.length > 0 && (
   <section class="mt-12 border-t pt-8">
     <h2 class="text-2xl font-bold mb-6">Related Posts</h2>
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
       {related.map(relatedPost => (
-        <PostCard post={relatedPost} /> {/* Reuse your existing post preview card */}
+        <PostCard post={relatedPost} />
       ))}
     </div>
   </section>
