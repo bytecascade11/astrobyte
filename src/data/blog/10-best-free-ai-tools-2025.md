@@ -14,9 +14,10 @@ tags:
   - Reviews
   - Nigeria Tech
   - Africa Tech
+coverImage: "/images/posts/10-free-ai-2025-cover.jpg"
+coverImageAlt: "My actual MacBook dock at 3:12 a.m."
 ---
 
-![My actual MacBook dock at 3:12 a.m.](/assets/10-free-ai-2025-cover.jpg)
 ## The 10 Free AI Agents That Will Replace Your Monthly Subscriptions in 2025
 
 I’m not some Silicon Valley bro with unlimited credits. I’m a Nigerian creator paying NEPA bills and running client work from Ikeja. Every kobo counts, and every Naira spent on a subscription must yield a profit.
