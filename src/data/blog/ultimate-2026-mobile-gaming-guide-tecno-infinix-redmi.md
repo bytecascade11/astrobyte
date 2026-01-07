@@ -1,3 +1,4 @@
+![136756](https://github.com/user-attachments/assets/95fda13e-31f0-4f70-b787-23aafd03c935)
 ---
 title: "The Ultimate 2026 Gaming Guide: Best Games for Tecno, Infinix & Redmi"
 description: "A deep dive into the best-optimized mobile games for Tecno, Infinix, and Redmi smartphones in 2026 — including performance tips, thermal strategies, and hardware-to-game matchups."
