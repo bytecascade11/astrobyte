@@ -11,6 +11,8 @@ tags:
   - infinix
   - redmi
   - gaming-guide-2026
+  - games
+  - opinion
 ---
 ![High refresh rate mobile gaming on modern Android smartphones](/assets/gaming-banner.jpg)
 
