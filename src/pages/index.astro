@@ -49,7 +49,7 @@ const recentPosts = sortedPosts.slice(1);
       <article class="mb-20 overflow-hidden rounded-2xl shadow-2xl bg-card">
         {latestPost.data.coverImage && (
           <img
-            src={typeof latestPost.data.coverImage === "string" ? latestPost.data.coverImage : latestPost.data.coverImage.src}
+            src={latestPost.data.coverImage}
             alt={latestPost.data.coverImageAlt || latestPost.data.title}
             class="w-full object-cover aspect-video md:aspect-[21/9]"
             loading="eager"
@@ -93,7 +93,7 @@ const recentPosts = sortedPosts.slice(1);
               {post.data.coverImage && (
                 <a href={getPath(post.id, post.filePath)}>
                   <img
-                    src={typeof post.data.coverImage === "string" ? post.data.coverImage : post.data.coverImage.src}
+                    src={post.data.coverImage}
                     alt={post.data.coverImageAlt || post.data.title}
                     class="w-full object-cover aspect-video"
                     loading="lazy"
