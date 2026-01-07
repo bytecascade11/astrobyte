@@ -11,10 +11,11 @@ tags:
   - Economics
   - Technology
   - Ai
-  - Opinions 
+  - Opinions
+coverImage: "/images/posts/ai-future-of-work.jpg"
+coverImageAlt: "Human worker and an AI system facing each other across a digital workspace"
 ---
 
-![Human worker and an AI system facing each other across a digital workspace](/assets/ai-future-of-work.jpg)
 
 For the past three years, the tech-media ecosystem has survived on two emotionally charged but equally misleading headlines.
 
