@@ -5,9 +5,10 @@ pubDatetime: 2025-12-22T00:00:00Z
 slug: midrange-android-vs-iphone-2025
 author: "iSamuel"
 tags: ["android", "iphone", "smartphones", "tech-analysis", "google-discover", "2025", "opinions", "android", "samsung", iphone"]
+coverImage: "/images/posts/midrange-android-2025.jpg"
+coverImageAlt: "Editorial-style image showing a premium-looking Android phone with slim bezels, bright OLED display, and minimalist background"
 ---
 
-![Editorial-style image showing a premium-looking Android phone with slim bezels, bright OLED display, and minimalist background](/assets/midrange-android-2025.jpg)
 
 # Why Mid-Range Android Phones Beat iPhones for Most People in 2025
 
