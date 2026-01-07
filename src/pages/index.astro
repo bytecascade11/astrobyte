@@ -1,4 +1,4 @@
- ---
+---
 import { getCollection } from "astro:content";
 import Layout from "@/layouts/Layout.astro";
 import Header from "@/components/Header.astro";
@@ -9,7 +9,7 @@ import Hr from "@/components/Hr.astro";
 import IconRss from "@/assets/icons/IconRss.svg";
 import IconArrowRight from "@/assets/icons/IconArrowRight.svg";
 import { SOCIALS } from "@/constants";
-import { getPath } from "@/utils/getPath"; // For correct post links
+import { getPath } from "@/utils/getPath";
 
 const posts = await getCollection("blog");
 const sortedPosts = posts.sort((a, b) => b.data.pubDatetime.valueOf() - a.data.pubDatetime.valueOf());
@@ -21,13 +21,15 @@ const recentPosts = sortedPosts.slice(1);
 <Layout>
   <Header />
   <main class="mx-auto w-full max-w-app px-4 py-12">
-    <!-- Hero Welcome Section (kept minimal like your current one) -->
+    <!-- Hero Welcome Section -->
     <section class="text-center mb-16">
       <h1 class="my-8 text-4xl sm:text-5xl font-bold">WELCOME👋</h1>
-      <a target="_blank" href="/rss.xml" class="inline-block" aria-label="rss feed">
+      <a target="_blank" href="/rss.xml" class="inline-block" aria-label="RSS feed">
         <IconRss width={20} height={20} class="scale-125 stroke-accent stroke-3" />
       </a>
-      <p class="mt-6 text-lg">ReviByte Technology Opinions delivers the latest tech news, gadget Opinions, Android updates, and in-depth guides.</p>
+      <p class="mt-6 text-lg">
+        ReviByte Technology Opinions delivers the latest tech news, gadget opinions, Android updates, and in-depth guides.
+      </p>
       <p class="mt-4">
         Read the blog posts or check
         <LinkButton href="https://github.com/bytecascade11/astrobyte#readme" class="underline">
@@ -44,7 +46,7 @@ const recentPosts = sortedPosts.slice(1);
 
     <Hr />
 
-    <!-- Featured Latest Post (Big Hero Card like your Hugo screenshot) -->
+    <!-- Featured Latest Post – Big Hero Card -->
     {latestPost && (
       <article class="mb-20 overflow-hidden rounded-2xl shadow-2xl bg-card">
         {latestPost.data.coverImage && (
@@ -62,13 +64,21 @@ const recentPosts = sortedPosts.slice(1);
             </a>
           </h1>
           <div class="flex flex-wrap items-center gap-4 text-sm text-muted-foreground mb-6">
-            <time>{latestPost.data.pubDatetime.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</time>
-            {/* Optional: Add word count / read time here if you calculate it */}
+            <time>
+              {latestPost.data.pubDatetime.toLocaleDateString('en-US', {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+              })}
+            </time>
           </div>
           {latestPost.data.tags?.length > 0 && (
             <div class="flex flex-wrap gap-2 mb-6">
               {latestPost.data.tags.map(tag => (
-                <a href={`/tags/${tag}/`} class="rounded-full px-4 py-2 bg-muted/50 text-sm hover:bg-accent hover:text-background transition">
+                <a
+                  href={`/tags/${tag}/`}
+                  class="rounded-full px-4 py-2 bg-muted/50 text-sm hover:bg-accent hover:text-background transition"
+                >
                   {tag}
                 </a>
               ))}
@@ -107,7 +117,11 @@ const recentPosts = sortedPosts.slice(1);
                   </a>
                 </h3>
                 <time class="text-sm text-muted-foreground block mb-3">
-                  {post.data.pubDatetime.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
+                  {post.data.pubDatetime.toLocaleDateString('en-US', {
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric'
+                  })}
                 </time>
                 {post.data.description && (
                   <p class="text-muted-foreground line-clamp-3">
@@ -121,6 +135,7 @@ const recentPosts = sortedPosts.slice(1);
       </>
     )}
 
+    <!-- All Posts Button -->
     <div class="text-center">
       <LinkButton href="/posts/">
         All Posts
