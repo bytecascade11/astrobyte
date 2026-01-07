@@ -97,29 +97,29 @@ const breadcrumbItems = [
   <Header />
   {SITE.showBackButton && <BackButton />}
 
-  <!-- Breadcrumbs - Fixed version to avoid compiler panic -->
+  <!-- Breadcrumbs - Alternative safe version without .map() in complex expressions -->
   {isBlogRoute && (
     <nav class="mx-auto mt-8 mb-6 w-full max-w-app px-4" aria-label="Breadcrumb">
       <ol class="flex flex-wrap items-center gap-2 text-sm font-light opacity-90">
-        {breadcrumbItems.map((item, index) => {
-          const isLast = index === breadcrumbItems.length - 1;
-          return (
-            <li key={index}>
-              {index > 0 && (
-                <span class="opacity-60 mx-2" aria-hidden="true">›</span>
-              )}
-              {isLast ? (
-                <span class="font-medium opacity-75" aria-current="page">
-                  {item.name}
-                </span>
-              ) : (
-                <a href={item.url} class="hover:opacity-100 opacity-80 transition">
-                  {item.name}
-                </a>
-              )}
+        <li>
+          <a href="/" class="hover:opacity-100 opacity-80 transition">Home</a>
+        </li>
+        {isBlogRoute && (
+          <>
+            <li>
+              <span class="opacity-60 mx-2" aria-hidden="true">›</span>
             </li>
-          );
-        })}
+            <li>
+              <a href="/posts/" class="hover:opacity-100 opacity-80 transition">Blog</a>
+            </li>
+          </>
+        )}
+        <li>
+          <span class="opacity-60 mx-2" aria-hidden="true">›</span>
+        </li>
+        <li>
+          <span class="font-medium opacity-75" aria-current="page">{title}</span>
+        </li>
       </ol>
     </nav>
   )}
