@@ -14,6 +14,9 @@ import ShareLinks from "@/components/ShareLinks.astro";
 import BackButton from "@/components/BackButton.astro";
 import BackToTopButton from "@/components/BackToTopButton.astro";
 
+// NEW: Import RelatedPosts component
+import RelatedPosts from "@/components/RelatedPosts.astro";
+
 import { getPath } from "@/utils/getPath";
 import { slugifyStr } from "@/utils/slugify";
 import IconChevronLeft from "@/assets/icons/IconChevronLeft.svg";
@@ -126,7 +129,7 @@ const breadcrumbItems = [
     </nav>
   )}
 
-  <!-- JSON-LD Breadcrumb (fixed warning) -->
+  <!-- JSON-LD Breadcrumb -->
   {isBlogRoute && (
     <script type="application/ld+json" is:inline set:html={JSON.stringify({
       "@context": "https://schema.org",
@@ -219,7 +222,12 @@ const breadcrumbItems = [
 
     <hr class="my-16 border-dashed border-border/40" />
 
-    <!-- Prev/Next Navigation – Card Style (like tag pages) -->
+    <!-- NEW: Related Posts (tag-based) -->
+    <RelatedPosts post={post} />
+
+    <hr class="my-16 border-dashed border-border/40" />
+
+    <!-- Prev/Next Navigation – Card Style -->
     <section aria-label="Continue reading" class="my-20">
       <h2 class="text-2xl font-bold mb-12 text-center">Continue Reading</h2>
 
@@ -308,7 +316,7 @@ const breadcrumbItems = [
 
     window.addEventListener("scroll", updateProgress);
     document.addEventListener("astro:page-load", updateProgress);
-    updateProgress(); // Initial call
+    updateProgress();
 
     // Heading permalinks
     document.querySelectorAll("h2[id], h3[id], h4[id]").forEach(heading => {
