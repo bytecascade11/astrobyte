@@ -28,10 +28,6 @@ const {
   scrollSmooth = false,
 } = Astro.props;
 
-// Correct OG image logic:
-// 1. Use explicit ogImage from frontmatter if provided
-// 2. Otherwise fall back to the site-wide default (astropaper-og.jpg)
-// 3. Let AstroPaper's built-in dynamic generation handle unique per-post cards if enabled
 const socialImageURL = ogImage
   ? new URL(ogImage, Astro.url.origin).href
   : new URL(SITE.ogImage, Astro.url.origin).href;
@@ -104,17 +100,17 @@ const pageTitle = title === SITE.title ? title : `${title} | ${SITE.title}`;
       <meta name="google-site-verification" content={PUBLIC_GOOGLE_SITE_VERIFICATION} />
     )}
 
-    <!-- Google AdSense Auto Ads -->
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4896561037705299"
+    <!-- Google AdSense Auto Ads - FIXED -->
+    <script is:inline async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4896561037705299"
          crossorigin="anonymous"></script>
     <script is:inline>
       (window.adsbygoogle = window.adsbygoogle || []).push({});
     </script>
 
-    <!-- Google Analytics (GA4) -->
+    <!-- Google Analytics (GA4) - FIXED -->
     {import.meta.env.PROD && (
       <>
-        <script async src="https://www.googletagmanager.com/gtag/js?id=G-2MH0T4DFR3"></script>
+        <script is:inline async src="https://www.googletagmanager.com/gtag/js?id=G-2MH0T4DFR3"></script>
         <script is:inline>
           window.dataLayer = window.dataLayer || [];
           function gtag(){dataLayer.push(arguments);}
