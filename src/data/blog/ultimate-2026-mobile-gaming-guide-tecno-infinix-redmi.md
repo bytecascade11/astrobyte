@@ -13,17 +13,15 @@ tags:
   - gaming-guide-2026
   - games
   - opinions
-coverImage: "/assets/gaming-banner.jpg"
+coverImage: "/images/posts/gaming-banner.jpg"
 coverImageAlt: "High refresh rate mobile gaming on Tecno, Infinix, and Redmi smartphones"
 ---
 
-<!-- Now safe — Markdown starts here -->
-![High refresh rate mobile gaming on Tecno, Infinix, and Redmi smartphones](/assets/gaming-banner.jpg)
+<!-- Markdown content starts safely below -->
+
+![High refresh rate mobile gaming on Tecno, Infinix, and Redmi smartphones](/images/posts/gaming-banner.jpg)
 
 # The Ultimate 2026 Gaming Guide: Best Games for Tecno, Infinix & Redmi
-
-
-# The Ultimate 2026 Mobile Gaming Guide  
 *Best Games & Optimization Tips for Tecno, Infinix, and Redmi Devices*
 
 By 2026, mobile gaming has reached a point where the traditional gap between *mid-range* and *flagship* smartphones has nearly disappeared. Devices from **Tecno**, **Infinix**, and **Redmi** now feature high-refresh-rate AMOLED displays, advanced cooling systems, and gaming-focused software layers that enable console-like experiences on Android.
