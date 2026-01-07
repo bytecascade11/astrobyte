@@ -1,7 +1,7 @@
 ---
 title: "The Ultimate 2026 Gaming Guide: Best Games for Tecno, Infinix & Redmi"
 description: "A deep dive into the best-optimized mobile games for Tecno, Infinix, and Redmi smartphones in 2026 — including performance tips, thermal strategies, and hardware-to-game matchups."
-pubDate: "2026-01-07"
+pubDatetime: 2026-01-07T07:20:00Z
 author: "iSamuel"
 tags:
   - gaming
@@ -11,10 +11,8 @@ tags:
   - infinix
   - redmi
   - gaming-guide-2026
-image:
-  url: "/assets/gaming-banner.jpg"
-  alt: "High refresh rate mobile gaming on modern Android smartphones"
 ---
+![High refresh rate mobile gaming on modern Android smartphones](/assets/gaming-banner.jpg)
 
 # The Ultimate 2026 Mobile Gaming Guide  
 *Best Games & Optimization Tips for Tecno, Infinix, and Redmi Devices*
