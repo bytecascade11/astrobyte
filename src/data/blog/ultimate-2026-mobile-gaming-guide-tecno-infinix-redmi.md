@@ -17,10 +17,6 @@ coverImage: "/images/posts/gaming-banner.jpg"
 coverImageAlt: "High refresh rate mobile gaming on Tecno, Infinix, and Redmi smartphones"
 ---
 
-<!-- Markdown content starts safely below -->
-
-![High refresh rate mobile gaming on Tecno, Infinix, and Redmi smartphones](/images/posts/gaming-banner.jpg)
-
 # The Ultimate 2026 Gaming Guide: Best Games for Tecno, Infinix & Redmi
 *Best Games & Optimization Tips for Tecno, Infinix, and Redmi Devices*
 
