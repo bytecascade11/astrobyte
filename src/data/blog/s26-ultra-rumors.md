@@ -10,9 +10,9 @@ tags:
   - Galaxy S26
   - Rumors
   - Android
+coverImage: "/images/posts/s26-ultra-concept.jpg"
+coverImageAlt: "Samsung's 2026 Flagship"
 ---
-
-![Samsung's 2026 Flagship](/assets/s26-ultra-concept.jpg)
 
 # Samsung Galaxy S26 Ultra: Early 2026 Rumors Are Already Here
 
