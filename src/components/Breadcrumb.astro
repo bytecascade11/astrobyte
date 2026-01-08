@@ -1,47 +1,48 @@
 ---
 const currentUrlPath = Astro.url.pathname.replace(/\/+$/, "");
-const segments = currentUrlPath.split("/").filter(Boolean); // Remove empty from leading slash
+const segments = currentUrlPath.split("/").filter(Boolean); // Remove empty strings
 
 let breadcrumbItems: { label: string; href: string | null }[] = [
   { label: "Home", href: "/" }
 ];
 
-if (segments.length === 0) {
-  // Homepage — only Home
-} else if (segments[0] === "posts") {
-  breadcrumbItems.push({ label: "Posts", href: "/posts/" });
+if (segments.length > 0) {
+  if (segments[0] === "posts") {
+    breadcrumbItems.push({ label: "Posts", href: "/posts/" });
 
-  if (segments.length > 1) {
-    // Individual post page: /posts/slug
-    const postTitle = segments[1]
-      .split("-")
+    if (segments.length > 1) {
+      // Individual post page: /posts/slug
+      const postTitle = segments.slice(1)
+        .map(seg => decodeURIComponent(seg))
+        .join(" ")
+        .split("-")
+        .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+        .join(" ");
+
+      breadcrumbItems.push({ label: postTitle, href: null });
+    }
+  } else if (segments[0] === "tags") {
+    breadcrumbItems.push({ label: "Tags", href: "/tags/" });
+
+    if (segments.length > 1) {
+      const rawTag = decodeURIComponent(segments[1]);
+      const tagName = rawTag.replace(/-/g, " ");
+      const pagePart = segments[2] ? ` (page ${segments[2]})` : "";
+      const tagLabel = tagName.charAt(0).toUpperCase() + tagName.slice(1) + pagePart;
+
+      breadcrumbItems.push({ label: tagLabel, href: null });
+    }
+  } else {
+    // Fallback for other pages
+    const label = segments
+      .map(seg => decodeURIComponent(seg).replace(/-/g, " "))
+      .join(" > ")
+      .split(" ")
       .map(word => word.charAt(0).toUpperCase() + word.slice(1))
       .join(" ");
 
-    breadcrumbItems.push({ label: postTitle, href: null }); // Current page
-  } else if (segments.length === 1 && !isNaN(Number(segments[0]))) {
-    // Paginated: /posts/2 → replace with "Posts (page 2)"
-    breadcrumbItems[1] = { 
-      label: `Posts (page ${segments[0]})`, 
-      href: null 
-    };
+    breadcrumbItems.push({ label, href: null });
   }
-} else if (segments[0] === "tags") {
-  breadcrumbItems.push({ label: "Tags", href: "/tags/" });
-
-  if (segments.length > 1) {
-    const tagName = decodeURIComponent(segments[1]).replace(/-/g, " ");
-    breadcrumbItems.push({ 
-      label: `\( {tagName.charAt(0).toUpperCase() + tagName.slice(1)} \){segments[2] ? ` (page ${segments[2]})` : ""}`, 
-      href: null 
-    });
-  }
-} else {
-  // Fallback for any other page (e.g., /about, etc.)
-  breadcrumbItems.push({ 
-    label: segments.map(s => decodeURIComponent(s).replace(/-/g, " ")).join(" > "), 
-    href: null 
-  });
 }
 ---
 
@@ -50,15 +51,15 @@ if (segments.length === 0) {
     {breadcrumbItems.map((item, index) => (
       <li class="flex items-center">
         {item.href ? (
-          <a 
-            href={item.href} 
-            class="opacity-80 hover:opacity-100 transition capitalize"
+          <a
+            href={item.href}
+            class="opacity-80 hover:opacity-100 transition"
           >
             {item.label}
           </a>
         ) : (
-          <span 
-            class="opacity-75" 
+          <span
+            class="opacity-75"
             aria-current={index === breadcrumbItems.length - 1 ? "page" : undefined}
           >
             {item.label}
