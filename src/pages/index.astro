@@ -60,7 +60,7 @@ const recentPosts = sortedPosts.slice(1);
         )}
         <div class="p-8 md:p-12">
           <h1 class="text-3xl md:text-5xl font-bold mb-6">
-            <a href={`/posts/${latestPost.slug}`} class="hover:text-accent transition">
+            <a href={`/posts/${latestPost.id}`} class="hover:text-accent transition">
               {latestPost.data.title}
             </a>
           </h1>
@@ -102,7 +102,7 @@ const recentPosts = sortedPosts.slice(1);
           {recentPosts.map(post => (
             <article class="overflow-hidden rounded-2xl shadow-lg bg-card hover:shadow-xl transition">
               {post.data.coverImage && (
-                <a href={`/posts/${post.slug}`}>
+                <a href={`/posts/${post.id}`}>
                   <img
                     src={post.data.coverImage}
                     alt={post.data.coverImageAlt || post.data.title}
@@ -113,7 +113,7 @@ const recentPosts = sortedPosts.slice(1);
               )}
               <div class="p-6">
                 <h3 class="text-xl font-semibold mb-2">
-                  <a href={`/posts/${post.slug}`} class="hover:text-accent transition">
+                  <a href={`/posts/${post.id}`} class="hover:text-accent transition">
                     {post.data.title}
                   </a>
                 </h3>
