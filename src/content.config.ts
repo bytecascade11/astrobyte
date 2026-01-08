@@ -1,16 +1,11 @@
 // src/content/config.ts
 import { defineCollection, z } from "astro:content";
-import { glob } from "astro/loaders";
 import { SITE } from "@/config";
 
-// Define the base path for your blog posts
-export const BLOG_PATH = "src/data/blog";
-
 const blog = defineCollection({
-  loader: glob({
-    pattern: "**/[^_]*.md",
-    base: `./${BLOG_PATH}`,
-  }),
+  // Standard: no loader needed for default content collections
+  // Astro automatically loads all .md files in src/content/blog/
+  type: "content",
 
   schema: ({ image }) =>
     z.object({
@@ -27,7 +22,7 @@ const blog = defineCollection({
 
       ogImage: image()
         .refine((img) => img.width >= 1200 && img.height >= 630, {
-          message: "OG image should be at least 1200×630 pixels for best social sharing",
+          message: "OG image should be at least 1200×630 pixels!",
         })
         .optional()
         .or(z.string().url().optional()),
@@ -39,7 +34,6 @@ const blog = defineCollection({
       hideEditPost: z.boolean().optional(),
       timezone: z.string().optional(),
 
-      // FIXED: Allow any string for coverImage (public folder, external URL, or imported)
       coverImage: z.string().optional(),
       coverImageAlt: z.string().optional(),
     }),
