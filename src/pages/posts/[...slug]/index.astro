@@ -1,33 +1,28 @@
 ---
-// src/pages/posts/[slug].astro   (or src/pages/blog/[slug].astro – adjust folder as needed)
+// src/pages/posts/[slug].astro
 
 import { getCollection, type CollectionEntry } from "astro:content";
 import PostDetails from "@/layouts/PostDetails.astro";
 import getSortedPosts from "@/utils/getSortedPosts";
-import { getPath } from "@/utils/getPath";
 
 export interface Props {
   post: CollectionEntry<"blog">;
 }
 
 export async function getStaticPaths() {
-  // Only include published (non-draft) posts
   const posts = await getCollection("blog", ({ data }) => !data.draft);
 
   return posts.map((post) => ({
     params: {
-      // Use getPath with includeBase = false because the route already provides /posts/
-      slug: getPath(post.id, post.filePath, false),
+      // Use clean slug: from frontmatter slug or filename
+      slug: post.slug,
     },
     props: { post },
   }));
 }
 
-// The current post – safely pulled from props (passed during static generation)
 const { post } = Astro.props;
 
-// Fetch all posts once, filter drafts, then sort
-// This is efficient and consistent with getStaticPaths
 const allPosts = await getCollection("blog", ({ data }) => !data.draft);
 const sortedPosts = getSortedPosts(allPosts);
 ---
