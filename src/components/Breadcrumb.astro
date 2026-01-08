@@ -1,57 +1,73 @@
 ---
-// Remove current url path and remove trailing slash if exists
 const currentUrlPath = Astro.url.pathname.replace(/\/+$/, "");
+const segments = currentUrlPath.split("/").filter(Boolean); // Remove empty from leading slash
 
-// Get url array from path
-// eg: /tags/tailwindcss => ['tags', 'tailwindcss']
-const breadcrumbList = currentUrlPath.split("/").slice(1);
+let breadcrumbItems: { label: string; href: string | null }[] = [
+  { label: "Home", href: "/" }
+];
 
-// if breadcrumb is Home > Posts > 1 <etc>
-// replace Posts with Posts (page number)
-if (breadcrumbList[0] === "posts") {
-  breadcrumbList.splice(0, 2, `Posts (page ${breadcrumbList[1] || 1})`);
-}
+if (segments.length === 0) {
+  // Homepage — only Home
+} else if (segments[0] === "posts") {
+  breadcrumbItems.push({ label: "Posts", href: "/posts/" });
 
-// if breadcrumb is Home > Tags > [tag] > [page] <etc>
-// replace [tag] > [page] with [tag] (page number)
-if (breadcrumbList[0] === "tags" && !isNaN(Number(breadcrumbList[2]))) {
-  breadcrumbList.splice(
-    1,
-    3,
-    `${breadcrumbList[1]} ${Number(breadcrumbList[2]) === 1 ? "" : "(page " + breadcrumbList[2] + ")"}`
-  );
+  if (segments.length > 1) {
+    // Individual post page: /posts/slug
+    const postTitle = segments[1]
+      .split("-")
+      .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+      .join(" ");
+
+    breadcrumbItems.push({ label: postTitle, href: null }); // Current page
+  } else if (segments.length === 1 && !isNaN(Number(segments[0]))) {
+    // Paginated: /posts/2 → replace with "Posts (page 2)"
+    breadcrumbItems[1] = { 
+      label: `Posts (page ${segments[0]})`, 
+      href: null 
+    };
+  }
+} else if (segments[0] === "tags") {
+  breadcrumbItems.push({ label: "Tags", href: "/tags/" });
+
+  if (segments.length > 1) {
+    const tagName = decodeURIComponent(segments[1]).replace(/-/g, " ");
+    breadcrumbItems.push({ 
+      label: `\( {tagName.charAt(0).toUpperCase() + tagName.slice(1)} \){segments[2] ? ` (page ${segments[2]})` : ""}`, 
+      href: null 
+    });
+  }
+} else {
+  // Fallback for any other page (e.g., /about, etc.)
+  breadcrumbItems.push({ 
+    label: segments.map(s => decodeURIComponent(s).replace(/-/g, " ")).join(" > "), 
+    href: null 
+  });
 }
 ---
 
 <nav class="mx-auto mt-8 mb-1 w-full max-w-app px-4" aria-label="breadcrumb">
-  <ul
-    class="font-light [&>li]:inline [&>li:not(:last-child)>a]:hover:opacity-100"
-  >
-    <li>
-      <a href="/" class="opacity-80">Home</a>
-      <span aria-hidden="true" class="opacity-80">&raquo;</span>
-    </li>
-    {
-      breadcrumbList.map((breadcrumb, index) =>
-        index + 1 === breadcrumbList.length ? (
-          <li>
-            <span
-              class:list={["capitalize opacity-75", { lowercase: index > 0 }]}
-              aria-current="page"
-            >
-              {/* make the last part lowercase in Home > Tags > some-tag */}
-              {decodeURIComponent(breadcrumb)}
-            </span>
-          </li>
+  <ol class="inline-flex items-center space-x-2 font-light text-sm">
+    {breadcrumbItems.map((item, index) => (
+      <li class="flex items-center">
+        {item.href ? (
+          <a 
+            href={item.href} 
+            class="opacity-80 hover:opacity-100 transition capitalize"
+          >
+            {item.label}
+          </a>
         ) : (
-          <li>
-            <a href={`/${breadcrumb}/`} class="capitalize opacity-70">
-              {breadcrumb}
-            </a>
-            <span aria-hidden="true">&raquo;</span>
-          </li>
-        )
-      )
-    }
-  </ul>
+          <span 
+            class="opacity-75" 
+            aria-current={index === breadcrumbItems.length - 1 ? "page" : undefined}
+          >
+            {item.label}
+          </span>
+        )}
+        {index < breadcrumbItems.length - 1 && (
+          <span class="mx-2 opacity-80" aria-hidden="true">&raquo;</span>
+        )}
+      </li>
+    ))}
+  </ol>
 </nav>
