@@ -1,7 +1,6 @@
 ---
 import Hr from "./Hr.astro";
 import Socials from "./Socials.astro";
-import FollowItSubscribe from "./FollowItSubscribe.astro";
 
 const currentYear = new Date().getFullYear();
 
@@ -20,10 +19,36 @@ const { noMarginTop = false } = Astro.props;
       <Socials centered />
     </div>
 
-    <!-- Subscription Form -->
-    <div class="max-w-md mx-auto mb-10">
-      <FollowItSubscribe />
-    </div>
+    <!-- Custom Newsletter Subscription Form -->
+    <section class="max-w-md mx-auto mb-12 text-center">
+      <h3 class="text-lg font-semibold mb-2">Get new posts by email</h3>
+      <p class="text-sm opacity-80 mb-6">Stay updated with the latest tech reviews, guides, and opinions — delivered straight to your inbox.</p>
+
+      <form 
+        action="https://api.follow.it/subscription-form/YOUR_FOLLOW_IT_ENDPOINT_HERE" 
+        method="post" 
+        target="_blank"
+        class="flex flex-col sm:flex-row gap-3"
+      >
+        <!-- Replace YOUR_FOLLOW_IT_ENDPOINT_HERE with your actual follow.it form action URL -->
+        <input
+          type="email"
+          name="email"
+          placeholder="Enter your email"
+          required
+          class="flex-1 px-5 py-3 rounded-lg bg-background/80 border border-border focus:border-accent focus:outline-none transition-colors"
+          aria-label="Email address"
+        />
+        <button
+          type="submit"
+          class="px-8 py-3 bg-accent text-foreground font-medium rounded-lg hover:bg-accent/90 transition shadow-md"
+        >
+          Subscribe
+        </button>
+      </form>
+
+      <p class="text-xs opacity-60 mt-4">No spam ever. Unsubscribe anytime.</p>
+    </section>
 
     <!-- Footer Navigation Links -->
     <nav class="text-center mb-8">
@@ -36,16 +61,6 @@ const { noMarginTop = false } = Astro.props;
         <li><a href="/sitemap" class="hover:underline">Sitemap</a></li>
       </ul>
     </nav>
-
-    <!-- Subscribe Button (Prominent CTA) -->
-    <div class="text-center mb-10">
-      <a 
-        href="#followit-subscribe" 
-        class="inline-block px-10 py-4 bg-gradient-to-r from-blue-600 to-indigo-600 text-white text-lg font-bold rounded-xl shadow-lg hover:from-blue-700 hover:to-indigo-700 transition transform hover:scale-105"
-      >
-        Subscribe to Newsletter →
-      </a>
-    </div>
 
     <!-- Copyright -->
     <div class="text-center text-sm text-gray-600 dark:text-gray-400">
