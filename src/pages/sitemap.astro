@@ -2,8 +2,10 @@
 import { getCollection } from "astro:content";
 
 const posts = await getCollection("blog");
+
+// Filter out drafts and sort by newest first
 const sortedPosts = posts
-  .filter(post => !post.data.draft)
+  .filter((post) => !post.data.draft)
   .sort((a, b) => b.data.pubDatetime.valueOf() - a.data.pubDatetime.valueOf());
 ---
 
@@ -44,7 +46,7 @@ const sortedPosts = posts
             {sortedPosts.map((post) => (
               <li class="leading-relaxed">
                 <a 
-                  href={`/posts/${post.slug || post.id}`} 
+                  href={`/posts/${post.id}`} 
                   class="text-blue-600 dark:text-blue-400 hover:underline font-medium text-lg"
                 >
                   {post.data.title}
