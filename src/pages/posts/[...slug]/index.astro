@@ -1,5 +1,5 @@
 ---
-// src/pages/posts/[slug].astro
+// src/pages/posts/[slug].astro  (change to your exact filename/folder if different)
 
 import { getCollection, type CollectionEntry } from "astro:content";
 import PostDetails from "@/layouts/PostDetails.astro";
@@ -14,8 +14,8 @@ export async function getStaticPaths() {
 
   return posts.map((post) => ({
     params: {
-      // Use the automatically computed slug (from filename or frontmatter slug)
-      slug: post.slug,
+      // Derive clean slug from post.id (removes .mdx extension and folder if needed)
+      slug: post.id.replace(/\.mdx?$/, ""),
     },
     props: { post },
   }));
