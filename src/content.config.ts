@@ -1,45 +1,40 @@
----
-import type { GetStaticPaths } from "astro";
-import { getCollection } from "astro:content";  // ← Important: from "astro:content"
-import Layout from "@/layouts/Layout.astro";
-import Header from "@/components/Header.astro";
-import Footer from "@/components/Footer.astro";
-import Card from "@/components/Card.astro";
-import Pagination from "@/components/Pagination.astro";
-import getSortedPosts from "@/utils/getSortedPosts";
+// src/content/config.ts
+import { defineCollection, z } from "astro:content";
 import { SITE } from "@/config";
 
-export const getStaticPaths = (async ({ paginate }) => {
-  const posts = await getCollection("blog", ({ data }) => !data.draft);
-  const sortedPosts = getSortedPosts(posts);
-  return paginate(sortedPosts, { pageSize: SITE.postPerPage });
-}) satisfies GetStaticPaths;
+const blog = defineCollection({
+  schema: ({ image }) =>
+    z.object({
+      author: z.string().default(SITE.author),
 
-const { page } = Astro.props;
----
+      pubDatetime: z.coerce.date(),
+      modDatetime: z.coerce.date().optional().nullable(),
 
-<Layout title={`Posts | ${SITE.title}`}>
-  <Header />
-  <main class="wrapper">
-    <h1>Posts</h1>
-    <p>All the articles I've posted.</p>
-    <hr />
+      title: z.string(),
+      featured: z.boolean().optional(),
+      draft: z.boolean().optional(),
 
-    <ul>
-      {page.data.map((post) => (
-        <Card 
-          href={`/posts/${post.slug}`} 
-          title={post.data.title} 
-          description={post.data.description}
-          pubDate={post.data.pubDatetime}
-          tags={post.data.tags}
-          // add other props your Card needs
-        />
-      ))}
-    </ul>
+      tags: z.array(z.string()).default(["others"]),
 
-    <Pagination {page} />
-  </main>
+      ogImage: image()
+        .refine((img) => img.width >= 1200 && img.height >= 630, {
+          message: "OG image should be at least 1200×630 pixels!",
+        })
+        .optional()
+        .or(z.string().url().optional()),
 
-  <Footer noMarginTop={page.url.next == null} />
-</Layout>
+      description: z.string(),
+
+      canonicalURL: z.string().url().optional(),
+
+      hideEditPost: z.boolean().optional(),
+      timezone: z.string().optional(),
+
+      coverImage: z.string().optional(),
+      coverImageAlt: z.string().optional(),
+    }),
+});
+
+export const collections = {
+  blog,
+};
