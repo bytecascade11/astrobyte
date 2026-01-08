@@ -12,7 +12,10 @@ import { SITE } from "@/config";
 export const getStaticPaths = (async ({ paginate }) => {
   const posts = await getCollection("blog", ({ data }) => !data.draft);
   const sortedPosts = getSortedPosts(posts);
-  return paginate(sortedPosts, { pageSize: SITE.postPerPage });
+
+  return paginate(sortedPosts, {
+    pageSize: SITE.postPerPage,
+  });
 }) satisfies GetStaticPaths;
 
 const { page } = Astro.props;
@@ -20,24 +23,27 @@ const { page } = Astro.props;
 
 <Layout title={`Posts | ${SITE.title}`}>
   <Header />
-  
+
   <main class="wrapper mt-10">
     <h1 class="text-3xl font-bold">Posts</h1>
-    <p class="mt-2 text-gray-600 dark:text-gray-400">All the articles I've posted.</p>
+    <p class="mt-2 text-gray-600 dark:text-gray-400">
+      All the articles I've posted.
+    </p>
+
     <hr class="my-6" />
 
     <ul class="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
       {page.data.map((post) => (
         <li>
-          <Card 
+          <Card
             title={post.data.title}
             description={post.data.description}
             pubDate={post.data.pubDatetime}
             tags={post.data.tags}
+            author={post.data.author}
             coverImage={post.data.coverImage}
             coverImageAlt={post.data.coverImageAlt}
-            author={post.data.author}
-            // Add any other props your Card expects (check src/components/Card.astro if unsure)
+            slug={post.slug}
           />
         </li>
       ))}
