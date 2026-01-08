@@ -14,7 +14,7 @@ export async function getStaticPaths() {
 
   return posts.map((post) => ({
     params: {
-      // Use clean slug: from frontmatter slug or filename
+      // Use the automatically computed slug (from filename or frontmatter slug)
       slug: post.slug,
     },
     props: { post },
