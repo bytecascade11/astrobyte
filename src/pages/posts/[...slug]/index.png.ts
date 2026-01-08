@@ -1,34 +1,24 @@
+---
 import type { APIRoute } from "astro";
-import { getCollection, type CollectionEntry } from "astro:content";
-import { getPath } from "@/utils/getPath";
-import { generateOgImageForPost } from "@/utils/generateOgImages";
 import { SITE } from "@/config";
 
+// Disabled dynamic OG image generation
+// We now rely on coverImage for social previews (cleaner and what you want)
+
 export async function getStaticPaths() {
-  if (!SITE.dynamicOgImage) {
-    return [];
-  }
-
-  const posts = await getCollection("blog").then(p =>
-    p.filter(({ data }) => !data.draft && !data.ogImage)
-  );
-
-  return posts.map(post => ({
-    params: { slug: getPath(post.id, post.filePath, false) },
-    props: post,
-  }));
+  // Return empty — no routes generated
+  return [];
 }
 
-export const GET: APIRoute = async ({ props }) => {
-  if (!SITE.dynamicOgImage) {
-    return new Response(null, {
-      status: 404,
-      statusText: "Not found",
-    });
+export const GET: APIRoute = async () => {
+  if (SITE.dynamicOgImage) {
+    // This won't run because we set dynamicOgImage: false in config
+    return new Response(null, { status: 404 });
   }
 
-  const buffer = await generateOgImageForPost(props as CollectionEntry<"blog">);
-  return new Response(new Uint8Array(buffer), {
-    headers: { "Content-Type": "image/png" },
+  // Always return 404 — no dynamic cards
+  return new Response(null, {
+    status: 404,
+    statusText: "Dynamic OG images disabled",
   });
 };
