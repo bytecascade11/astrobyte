@@ -20,22 +20,30 @@ const { page } = Astro.props;
 
 <Layout title={`Posts | ${SITE.title}`}>
   <Header />
-  <Main pageTitle="Posts" pageDesc="All the articles I've posted.">
-    <ul>
+  
+  <!-- Removed <Main> since it's missing/not imported — most AstroPaper forks don't need it here -->
+  <main class="wrapper mt-10">  <!-- Or use your existing classes -->
+    <h1 class="text-3xl font-bold">Posts</h1>
+    <p class="mt-2 text-gray-600 dark:text-gray-400">All the articles I've posted.</p>
+    <hr class="my-6" />
+
+    <ul class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
       {page.data.map((post) => (
-        <Card
-          href={`/posts/${post.slug}`}
-          title={post.data.title}
-          description={post.data.description}
-          pubDate={post.data.pubDatetime}
-          tags={post.data.tags}
-          coverImage={post.data.coverImage}
-          coverImageAlt={post.data.coverImageAlt}
-          // Add any other props your Card component expects
-        />
+        <li>
+          <Card
+            href={`/posts/${post.slug}`}
+            title={post.data.title}
+            description={post.data.description}
+            pubDate={post.data.pubDatetime}
+            tags={post.data.tags}
+            coverImage={post.data.coverImage}
+            coverImageAlt={post.data.coverImageAlt}
+            <!-- Add any other props your Card expects, e.g. author={post.data.author} -->
+          />
+        </li>
       ))}
     </ul>
-  </Main>
+  </main>
 
   <Pagination {page} />
 
