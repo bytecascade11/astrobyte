@@ -50,7 +50,7 @@ const structuredData = {
 
 const pageTitle = title === SITE.title ? title : `${title} | ${SITE.title}`;
 
-// NEW: Build BreadcrumbList array safely in code
+// FIXED: Build BreadcrumbList safely in code (no JSON syntax errors)
 const breadcrumbItems = [
   {
     "@type": "ListItem",
@@ -60,24 +60,25 @@ const breadcrumbItems = [
   }
 ];
 
-const isBlogSection = Astro.url.pathname.startsWith('/posts/');
-if (isBlogSection) {
+const segments = Astro.url.pathname.split('/').filter(Boolean);
+
+if (segments[0] === "posts") {
   breadcrumbItems.push({
     "@type": "ListItem",
     "position": 2,
     "name": "Blog",  // Change to "Posts" if you prefer
     "item": "https://www.revibyte.blog/posts/"
   });
-}
 
-const segments = Astro.url.pathname.split('/').filter(Boolean);
-if (isBlogSection && segments.length > 2) {
-  breadcrumbItems.push({
-    "@type": "ListItem",
-    "position": 3,
-    "name": title,
-    "item": canonicalURL
-  });
+  if (segments.length > 1) {
+    // Individual post page
+    breadcrumbItems.push({
+      "@type": "ListItem",
+      "position": 3,
+      "name": title,
+      "item": canonicalURL
+    });
+  }
 }
 
 const breadcrumbStructuredData = {
@@ -126,7 +127,7 @@ const breadcrumbStructuredData = {
     <!-- BlogPosting structured data -->
     <script type="application/ld+json" is:inline set:html={JSON.stringify(structuredData)} />
 
-    <!-- FIXED: BreadcrumbList structured data (built safely in code) -->
+    <!-- FIXED BreadcrumbList structured data -->
     <script type="application/ld+json" is:inline set:html={JSON.stringify(breadcrumbStructuredData)} />
 
     <link
