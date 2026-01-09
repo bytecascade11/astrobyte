@@ -10,39 +10,37 @@ import Layout from "@/layouts/Layout.astro";
 import Header from "@/components/Header.astro";
 import Footer from "@/components/Footer.astro";
 import Pagination from "@/components/Pagination.astro";
-
-// If you still have these utils, keep them; otherwise, inline logic below
 import getSortedPosts from "@/utils/getSortedPosts";
 import { SITE } from "@/config";
 
 interface Props {
   page: {
     data: CollectionEntry<"blog">[];
-    /** Current page number */
     currentPage: number;
-    /** Total number of pages */
     lastPage: number;
-    /** URL for the next page */
     url: {
       next: string | undefined;
       prev: string | undefined;
     };
+    /** These are added by paginate() */
+    start: number;
+    end: number;
+    total: number;
+    size: number;
   };
-  tag: string;  // normalized lowercase tag
-  tagName: string; // display name (capitalized)
+  tagName: string;
 }
 
 export const getStaticPaths: GetStaticPaths = async ({ paginate }) => {
   const allPosts = await getCollection("blog", ({ data }) => !data.draft);
   const sortedPosts = getSortedPosts(allPosts);
 
-  // Collect unique tags
-  const tagMap = new Map<string, string>(); // lowercase -> display name
+  const tagMap = new Map<string, string>();
   sortedPosts.forEach((post) => {
     post.data.tags?.forEach((tag) => {
       const lower = tag.toLowerCase();
       if (!tagMap.has(lower)) {
-        tagMap.set(lower, tag); // store original casing
+        tagMap.set(lower, tag);
       }
     });
   });
@@ -56,7 +54,7 @@ export const getStaticPaths: GetStaticPaths = async ({ paginate }) => {
 
     return paginate(tagPosts, {
       params: { tag: lowerTag },
-      props: { tag: lowerTag, tagName: displayTag },
+      props: { tagName: displayTag },
       pageSize: SITE.postPerPage || 10,
     });
   });
@@ -80,11 +78,6 @@ const { page, tagName } = Astro.props;
       <ul class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         {page.data.map((post) => (
           <li>
-            <!-- Replace with your preferred card style -->
-            <!-- Option 1: Use your existing Card component if it accepts full post -->
-            <!-- <Card post={post} /> -->
-
-            <!-- Option 2: Manual card (safe and matches your /posts page) -->
             <article class="overflow-hidden rounded-2xl shadow-lg bg-card hover:shadow-xl transition">
               {post.data.coverImage && (
                 <a href={`/posts/${post.id}`}>
@@ -123,8 +116,9 @@ const { page, tagName } = Astro.props;
       <p class="text-center py-12 text-lg">No posts found for this tag.</p>
     )}
 
-    {/* Pagination */}
+    {/* Pagination - now type-safe */}
     {page.lastPage > 1 && <Pagination page={page} />}
+
   </main>
 
   <Footer noMarginTop={page.lastPage <= 1} />
