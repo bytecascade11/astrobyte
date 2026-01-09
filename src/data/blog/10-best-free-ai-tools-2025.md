@@ -6,14 +6,14 @@ slug: best-free-ai-tools-2025-no-paywalls
 featured: true
 draft: false
 tags:
-  - AI
-  - AI Tools
-  - Free AI
-  - Productivity
-  - Best of 2025
-  - Reviews
-  - Nigeria Tech
-  - Africa Tech
+  - ai
+  - ai tools
+  - free ai
+  - productivity
+  - best of 2025
+  - reviews
+  - nigeria Tech
+  - africa tech
 coverImage: "/images/posts/10-free-ai-2025-cover.jpg"
 coverImageAlt: "My actual MacBook dock at 3:12 a.m."
 ---
