@@ -7,17 +7,17 @@ featured: true
 draft: false
 tags:
   - news
-  - Games
+  - games
   - apple 
-  - Android
-  - Reviews
-  - Gaming Phones
-  - PUBG Mobile
-  - Genshin Impact
-  - CODM
-  - Naija Gamers
-  - Global Gaming
-  - Opinions
+  - android
+  - reviews
+  - gaming Phones
+  - pubg mobile
+  - genshin impact
+  - comd
+  - naija gamers
+  - global gaming
+  - opinions
 coverImage: "/images/posts/best-gaming-phones-2025.jpg"
 coverImageAlt: "All 7 gaming phones lined up with RGB glowing in dark room"
 ---
