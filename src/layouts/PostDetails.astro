@@ -26,12 +26,12 @@ export interface Props {
 
 const { post, posts } = Astro.props;
 
+// Destructure frontmatter
 const {
   title,
   author,
   description,
   ogImage: initOgImage,
-  canonicalURL,
   pubDatetime,
   modDatetime,
   timezone,
@@ -41,57 +41,68 @@ const {
   coverImageAlt,
 } = post.data;
 
+// Render Markdown/MDX content
 const { Content } = await render(post);
 
+// ---------------------------
+// 1️⃣ OG Image Fallback Logic
+// ---------------------------
 let ogImage: string | undefined;
 
-// 1. Manual ogImage from frontmatter (highest priority)
 if (typeof initOgImage === "string") ogImage = initOgImage;
 else if (initOgImage?.src) ogImage = initOgImage.src;
 
-// 2. Use coverImage if exists (your custom covers show on social shares)
-if (!ogImage && coverImage) {
-  ogImage = coverImage;
-}
-
-// 3. Fallback to dynamic generator
-if (!ogImage && SITE.dynamicOgImage) {
+if (!ogImage && coverImage) ogImage = coverImage;
+if (!ogImage && SITE.dynamicOgImage)
   ogImage = `${getPath(post.id, post.filePath, true)}/open-graph.png`;
-}
-
-// 4. Final fallback to site default
-if (!ogImage) {
-  ogImage = "/astropaper-og.jpg";  // Your default in /public
-}
+if (!ogImage) ogImage = "/astropaper-og.jpg"; // default
 
 const ogImageUrl = ogImage
-  ? new URL(ogImage.startsWith("http") ? ogImage : ogImage, Astro.url.origin).href
+  ? new URL(
+      ogImage.startsWith("http") ? ogImage : ogImage,
+      Astro.url.origin
+    ).href
   : undefined;
 
+// ---------------------------
+// 2️⃣ Canonical URL (must-have)
+// ---------------------------
+const canonicalPath = getPath(post.id, post.filePath);
+const canonicalUrl = new URL(canonicalPath, Astro.site).href;
+
+// ---------------------------
+// 3️⃣ Layout props
+// ---------------------------
 const layoutProps = {
   title: `${title} | ${SITE.title}`,
   author,
   description,
   pubDatetime,
   modDatetime,
-  canonicalURL,
+  canonicalURL: canonicalUrl,
   ogImage: ogImageUrl,
   scrollSmooth: true,
 };
 
+// ---------------------------
+// 4️⃣ Prev / Next Posts
+// ---------------------------
 const sortedPosts = [...posts].sort(
   (a, b) =>
     (b.data.modDatetime ?? b.data.pubDatetime).getTime() -
     (a.data.modDatetime ?? a.data.pubDatetime).getTime()
 );
 
-const currentIndex = sortedPosts.findIndex(p => p.id === post.id);
+const currentIndex = sortedPosts.findIndex((p) => p.id === post.id);
 const prevPost = currentIndex > 0 ? sortedPosts[currentIndex - 1] : null;
 const nextPost =
   currentIndex < sortedPosts.length - 1
     ? sortedPosts[currentIndex + 1]
     : null;
 
+// ---------------------------
+// 5️⃣ Breadcrumb items
+// ---------------------------
 const isBlogRoute =
   Astro.url.pathname.startsWith("/posts/") ||
   Astro.url.pathname.startsWith("/blog/");
@@ -99,7 +110,7 @@ const isBlogRoute =
 const breadcrumbItems = [
   { name: "Home", url: "/" },
   ...(isBlogRoute ? [{ name: "Blog", url: "/posts/" }] : []),
-  { name: title, url: Astro.url.pathname },
+  { name: title, url: canonicalPath }, // Use canonical
 ];
 ---
 
@@ -131,6 +142,7 @@ const breadcrumbItems = [
     </nav>
   )}
 
+  {/* Back to top + share links */}
   <div class="fixed top-20 right-4 z-50 flex flex-col gap-4">
     <BackToTopButton class="rounded-full p-3 shadow-lg bg-background/90" />
     <div class="rounded-lg p-4 shadow-lg bg-background/90">
@@ -190,7 +202,7 @@ const breadcrumbItems = [
 
     <hr class="my-16 border-dashed border-border/40" />
 
-    <!-- Comments Section with Giscus -->
+    <!-- Comments Section -->
     <section class="my-20">
       <h2 class="text-2xl font-bold mb-10">Comments</h2>
       <div class="giscus"></div>
