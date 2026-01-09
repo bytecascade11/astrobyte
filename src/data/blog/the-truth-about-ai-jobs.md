@@ -5,13 +5,13 @@ pubDatetime: 2025-12-21T00:00:00Z
 author: "iSamuel"
 slug: the-truth-about-ai-jobs
 tags:
-  - Future of Work
-  - Artificial Intelligence
-  - AI Ethics
-  - Economics
-  - Technology
-  - Ai
-  - Opinions
+  - future of work
+  - artificial intelligence
+  - ai ethics
+  - economics
+  - technology
+  - ai
+  - opinions
 coverImage: "/images/posts/ai-future-of-work.jpg"
 coverImageAlt: "Human worker and an AI system facing each other across a digital workspace"
 ---
