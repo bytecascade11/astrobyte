@@ -4,7 +4,7 @@ description: "Welcome to ReviByte — honest tech opinions on Samsung, Apple, An
 pubDatetime: 2025-12-15T00:00:00Z
 slug: first-post-revibyte-live
 featured: true
-slug: samurai-revibyte
+slug: revibyte-samuel
 draft: false
 tags:
   - news
