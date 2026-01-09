@@ -8,7 +8,7 @@ tags:
   - news
   - fast charging
   - opinions
-  - Technology
+  - technology
   - mobile phone
   - battery
   - breaking
