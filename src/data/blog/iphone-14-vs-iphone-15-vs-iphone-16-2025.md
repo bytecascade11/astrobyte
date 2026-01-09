@@ -4,11 +4,11 @@ description: "Real-world battery, camera, and performance comparison after using
 pubDatetime: 2025-12-16T00:00:00Z
 slug: iphone-14-vs-iphone-15-vs-iphone-16-2025
 tags:
-  - Apple
+  - apple
   - iPhone
-  - Reviews
-  - Comparison
-  - Opinions
+  - reviews
+  - comparison
+  - opinions
 coverImage: "/images/posts/iphone-compare.jpg"
 coverImageAlt: "iPhone 14 vs iPhone 15 vs iPhone 16 side-by-side comparison"
 ---
