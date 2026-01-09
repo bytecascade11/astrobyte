@@ -247,3 +247,4 @@ A: Yes. Minimal data transmission and no live analytics make them privacy-friend
 ---
 
 Quickly read my last gaming post [Best Mobile Game Genres 2025](/posts/best-mobile-game-genres-2025) and my reviews **[Pixel A vs iPhone Camera Real-World Comparison](/posts/pixel-a-vs-iphone-camera-real-world)**
+[The Great Smartphone Stagnation](/posts/the-great-smartphone-stagnation)
