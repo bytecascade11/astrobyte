@@ -31,7 +31,7 @@ The display is the component you interact with most. It defines **how modern and
 > From personal experience, once you scroll on a 120Hz display, going back to 60Hz feels sluggish—like driving a sports car then returning to a sedan. This isn’t marketing fluff—it’s a perceptible difference you feel every day.
 
 For a deeper dive:  
-→ **[Why 120Hz Displays Matter in 2025](/posts/src/data/blog/why-120hz-displays-matter-2025)**
+→ **[Why 120Hz Displays Matter in 2025](/posts/why-120hz-displays-matter-2025)**
 
 ---
 
@@ -50,7 +50,7 @@ Battery life still depends on **physical capacity**. Most mid-range Android phon
 > Personally, the convenience of a 15-minute top-up for a full day’s use is **liberating**. It changes your daily routine and reduces dependency on overnight charging.  
 
 For technical context:  
-→ **[Fast Charging Explained 2025](/posts/src/data/blog/fast-charging-explained-2025)**
+→ **[Fast Charging Explained 2025](/posts/fast-charging-explained-2025)**
 
 ---
 
@@ -80,7 +80,7 @@ Mid-range phones have caught up. Google’s **Pixel A-series** uses the same com
 > In 2025, paying more doesn’t necessarily mean better everyday photos. If you’re not producing cinematic video, the camera gap is practically invisible.
 
 Related read:  
-→ **[Pixel A vs iPhone Camera Real-World Comparison](/posts/src/data/blog/pixel-a-vs-iphone-camera-real-world)**
+→ **[Pixel A vs iPhone Camera Real-World Comparison](/posts/pixel-a-vs-iphone-camera-real-world)**
 
 ---
 
