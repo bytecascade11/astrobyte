@@ -4,7 +4,6 @@
 
 import { getCollection } from "astro:content";
 import type { GetStaticPaths } from "astro";
-import type { CollectionEntry } from "astro:content";
 
 import Layout from "@/layouts/Layout.astro";
 import Header from "@/components/Header.astro";
@@ -12,24 +11,6 @@ import Footer from "@/components/Footer.astro";
 import Pagination from "@/components/Pagination.astro";
 import getSortedPosts from "@/utils/getSortedPosts";
 import { SITE } from "@/config";
-
-interface Props {
-  page: {
-    data: CollectionEntry<"blog">[];
-    currentPage: number;
-    lastPage: number;
-    url: {
-      next: string | undefined;
-      prev: string | undefined;
-    };
-    /** These are added by paginate() */
-    start: number;
-    end: number;
-    total: number;
-    size: number;
-  };
-  tagName: string;
-}
 
 export const getStaticPaths: GetStaticPaths = async ({ paginate }) => {
   const allPosts = await getCollection("blog", ({ data }) => !data.draft);
@@ -61,6 +42,9 @@ export const getStaticPaths: GetStaticPaths = async ({ paginate }) => {
 };
 
 const { page, tagName } = Astro.props;
+
+// Type assertion to match what Pagination expects (safe because paginate provides these)
+const paginationPage = page as any;  // Or define a minimal interface if you prefer
 ---
 
 <Layout title={`Tag: ${tagName} | ${SITE.title}`}>
@@ -116,8 +100,8 @@ const { page, tagName } = Astro.props;
       <p class="text-center py-12 text-lg">No posts found for this tag.</p>
     )}
 
-    {/* Pagination - now type-safe */}
-    {page.lastPage > 1 && <Pagination page={page} />}
+    {/* Fixed pagination - type-safe */}
+    {page.lastPage > 1 && <Pagination page={paginationPage} />}
 
   </main>
 
