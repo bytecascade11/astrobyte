@@ -16,16 +16,16 @@ export const getStaticPaths: GetStaticPaths = async ({ paginate }) => {
   const allPosts = await getCollection("blog", ({ data }) => !data.draft);
   const sortedPosts = getSortedPosts(allPosts);
 
+  // Map lowercase tag => display capitalization
   const tagMap = new Map<string, string>();
-
-  // Map tags → lowercase slug, keep display name
   sortedPosts.forEach((post) => {
     post.data.tags?.forEach((tag) => {
       const lower = tag.toLowerCase();
-      if (!tagMap.has(lower)) tagMap.set(lower, tag);
+      if (!tagMap.has(lower)) tagMap.set(lower, tag); // preserve display
     });
   });
 
+  // Generate paginated paths for each tag
   return Array.from(tagMap).flatMap(([lowerTag, displayTag]) => {
     const tagPosts = sortedPosts.filter((post) =>
       post.data.tags?.some((t) => t.toLowerCase() === lowerTag)
@@ -34,18 +34,24 @@ export const getStaticPaths: GetStaticPaths = async ({ paginate }) => {
     if (!tagPosts.length) return [];
 
     return paginate(tagPosts, {
-      params: { tag: lowerTag }, // lowercase slug for URL
+      params: { tag: lowerTag }, // lowercase for URL
       props: { tagName: displayTag },
       pageSize: SITE.postPerPage ?? 10,
     });
   });
 };
 
-// Explicit typing for TS
+// Props typing
 const { page, tagName } = Astro.props as {
   page: Page<BlogPost>;
   tagName: string;
 };
+
+// ✅ Redirect uppercase URLs to lowercase
+const requestedTag = Astro.params.tag;
+if (requestedTag !== requestedTag.toLowerCase()) {
+  return Astro.redirect(`/tags/${requestedTag.toLowerCase()}/`, 301);
+}
 ---
 
 <Layout title={`Tag: ${tagName} | ${SITE.title}`}>
@@ -105,9 +111,7 @@ const { page, tagName } = Astro.props as {
         ))}
       </ul>
     ) : (
-      <p class="text-center py-12 text-lg">
-        No posts found for this tag.
-      </p>
+      <p class="text-center py-12 text-lg">No posts found for this tag.</p>
     )}
 
     {/* Pagination */}
