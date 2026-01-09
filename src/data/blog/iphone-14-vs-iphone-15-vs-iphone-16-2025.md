@@ -200,4 +200,5 @@ If this comparison helped, bookmark the site — more in-depth guides coming eve
   .legend-color{width:22px;height:22px;border-radius:6px}
 </style>
 
-
+Also check my post here:
+[Pixel A Vs iPhone Camera Real World](/posts/pixel-a-vs-iphone-camera-real-world)
