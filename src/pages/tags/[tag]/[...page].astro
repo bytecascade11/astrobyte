@@ -6,8 +6,8 @@ import Layout from "@/layouts/Layout.astro";
 import Header from "@/components/Header.astro";
 import Footer from "@/components/Footer.astro";
 import Pagination from "@/components/Pagination.astro";
-import { SITE } from "@/config";
 import getSortedPosts from "@/utils/getSortedPosts";
+import { SITE } from "@/config";
 import { slugifyStr } from "@/utils/slugify";
 
 type BlogPost = CollectionEntry<"blog">;
@@ -16,32 +16,32 @@ export const getStaticPaths: GetStaticPaths = async ({ paginate }) => {
   const allPosts = await getCollection("blog", ({ data }) => !data.draft);
   const sortedPosts = getSortedPosts(allPosts);
 
-  // Map tags to lowercase slugs
   const tagMap = new Map<string, string>();
+
+  // Map tags → lowercase slug, keep display name
   sortedPosts.forEach((post) => {
     post.data.tags?.forEach((tag) => {
       const lower = tag.toLowerCase();
-      if (!tagMap.has(lower)) tagMap.set(lower, tag); // store original capitalization for display
+      if (!tagMap.has(lower)) tagMap.set(lower, tag);
     });
   });
 
-  // Generate paginated paths for each tag
   return Array.from(tagMap).flatMap(([lowerTag, displayTag]) => {
     const tagPosts = sortedPosts.filter((post) =>
       post.data.tags?.some((t) => t.toLowerCase() === lowerTag)
     );
 
-    if (tagPosts.length === 0) return [];
+    if (!tagPosts.length) return [];
 
     return paginate(tagPosts, {
-      params: { tag: lowerTag }, // use lowercase for URL
+      params: { tag: lowerTag }, // lowercase slug for URL
       props: { tagName: displayTag },
       pageSize: SITE.postPerPage ?? 10,
     });
   });
 };
 
-// Explicit typing fixes TS errors
+// Explicit typing for TS
 const { page, tagName } = Astro.props as {
   page: Page<BlogPost>;
   tagName: string;
@@ -110,7 +110,7 @@ const { page, tagName } = Astro.props as {
       </p>
     )}
 
-    {/* Type-safe pagination */}
+    {/* Pagination */}
     {page.lastPage > 1 && <Pagination page={page} />}
   </main>
 
