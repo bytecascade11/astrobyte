@@ -4,7 +4,7 @@ description: "An in-depth analysis of hardware plateaus, the psychology of plann
 pubDatetime: 2025-12-20T10:00:00Z
 author: "iSamuel"
 slug: the-great-smartphone-stagnation
-tags: ["Technology", "Consumerism", "Sustainability", "Hardware", Opinions, Apple, Samsung, Android,Ai]
+tags: ["technology", "consumerism", "sustainability", "hardware", opinions, apple, samsung, android,ai]
 coverImage: "/images/posts/smartphone-stagnation.webp"
 coverImageAlt: "A lineup of modern smartphones looking nearly identical year to year
 "
