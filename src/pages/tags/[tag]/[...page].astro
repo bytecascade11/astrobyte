@@ -8,7 +8,6 @@ import Footer from "@/components/Footer.astro";
 import Pagination from "@/components/Pagination.astro";
 import getSortedPosts from "@/utils/getSortedPosts";
 import { SITE } from "@/config";
-import { slugifyStr } from "@/utils/slugify";
 
 type BlogPost = CollectionEntry<"blog">;
 
@@ -16,25 +15,23 @@ export const getStaticPaths: GetStaticPaths = async ({ paginate }) => {
   const allPosts = await getCollection("blog", ({ data }) => !data.draft);
   const sortedPosts = getSortedPosts(allPosts);
 
-  // Map lowercase tag => display capitalization
   const tagMap = new Map<string, string>();
   sortedPosts.forEach((post) => {
     post.data.tags?.forEach((tag) => {
-      const lower = tag.toLowerCase();
-      if (!tagMap.has(lower)) tagMap.set(lower, tag); // preserve display
+      const lower = String(tag).toLowerCase();
+      if (!tagMap.has(lower)) tagMap.set(lower, String(tag));
     });
   });
 
-  // Generate paginated paths for each tag
   return Array.from(tagMap).flatMap(([lowerTag, displayTag]) => {
     const tagPosts = sortedPosts.filter((post) =>
-      post.data.tags?.some((t) => t.toLowerCase() === lowerTag)
+      post.data.tags?.some((t) => String(t).toLowerCase() === lowerTag)
     );
 
     if (!tagPosts.length) return [];
 
     return paginate(tagPosts, {
-      params: { tag: lowerTag }, // lowercase for URL
+      params: { tag: lowerTag }, // lowercase URL
       props: { tagName: displayTag },
       pageSize: SITE.postPerPage ?? 10,
     });
@@ -49,7 +46,7 @@ const { page, tagName } = Astro.props as {
 
 // ✅ Redirect uppercase URLs to lowercase
 const requestedTag = Astro.params.tag;
-if (requestedTag !== requestedTag.toLowerCase()) {
+if (typeof requestedTag === "string" && requestedTag !== requestedTag.toLowerCase()) {
   return Astro.redirect(`/tags/${requestedTag.toLowerCase()}/`, 301);
 }
 ---
@@ -114,7 +111,6 @@ if (requestedTag !== requestedTag.toLowerCase()) {
       <p class="text-center py-12 text-lg">No posts found for this tag.</p>
     )}
 
-    {/* Pagination */}
     {page.lastPage > 1 && <Pagination page={page} />}
   </main>
 
