@@ -6,10 +6,10 @@ slug: s26-ultra-early-rumors-2026
 featured: true
 draft: false
 tags:
-  - Samsung
-  - Galaxy S26
-  - Rumors
-  - Android
+  - samsung
+  - galaxy S26
+  - rumors
+  - android
 coverImage: "/images/posts/s26-ultra-concept.jpg"
 coverImageAlt: "Samsung's 2026 Flagship"
 ---
