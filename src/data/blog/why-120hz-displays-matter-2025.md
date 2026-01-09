@@ -6,10 +6,10 @@ slug: why-120hz-displays-matter-2025
 author: iSamuel
 tags:
   - news
-  - Games
+  - games
   - apple 
-  - Android
-  - Reviews
+  - android
+  - reviews
   - opinions
 coverImage: "/images/posts/120hz-fluidity-frontier-top.jpg"
 coverImageAlt: "Editorial-style image showing smooth UI motion trails on a smartphone and laptop display"
