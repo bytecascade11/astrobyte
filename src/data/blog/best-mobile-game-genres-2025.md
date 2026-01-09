@@ -5,12 +5,12 @@ pubDatetime: 2025-12-25T10:06:00Z
 author: "iSamuel"
 slug: best-mobile-game-genres-2025
 tags:
-  - Gaming Industry
-  - Games
-  - Opinions
-  - Apple
-  - Android
-  - News
+  - gaming industry
+  - games
+  - opinions
+  - apple
+  - android
+  - news
 coverImage: "/images/posts/best-mobile-game-genres-2025.jpg"
 coverImageAlt: "Editorial-style illustration showing diverse mobile game genres—strategy maps, puzzle elements, RPG characters, and competitive esports visuals—blended into a modern mobile gaming ecosystem
 "
