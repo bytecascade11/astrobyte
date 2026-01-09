@@ -1,5 +1,5 @@
 ---
-title: "First Post – ReviByte is Live!"
+title: "First Post!"
 description: "Welcome to ReviByte — honest tech opinions on Samsung, Apple, Android, gaming, AI, and more."
 pubDatetime: 2025-12-15T00:00:00Z
 slug: first-post-revibyte-live
