@@ -28,6 +28,7 @@ const blog = defineCollection({
       canonicalURL: z.string().url().optional(),
       hideEditPost: z.boolean().optional(),
       timezone: z.string().optional(),
+      slug: z.string().optional(), // ✅ allow custom slug
       coverImage: z.string().optional(),
       coverImageAlt: z.string().optional(),
     }),
