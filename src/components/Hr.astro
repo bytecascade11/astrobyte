@@ -1,12 +1,28 @@
 ---
-export interface Props {
+// src/components/Hr.astro
+
+// 1. Import Astro's HTML attributes type
+import type { HTMLAttributes } from 'astro/types';
+
+// 2. Extend with your custom props + allow all <hr> attributes
+interface Props extends HTMLAttributes<'hr'> {
   noPadding?: boolean;
   ariaHidden?: boolean;
 }
 
-const { noPadding = false, ariaHidden = true } = Astro.props;
+// 3. Use the typed props
+const {
+  noPadding = false,
+  ariaHidden = true,
+  class: className = '',           // allow class override
+  ...rest                          // catch all other HTML attributes
+} = Astro.props;
 ---
 
 <div class:list={["mx-auto max-w-app", noPadding ? "px-0" : "px-4"]}>
-  <hr class="border-border" aria-hidden={ariaHidden} />
+  <hr
+    class:list={["border-border", className]}
+    aria-hidden={ariaHidden}
+    {...rest}
+  />
 </div>
