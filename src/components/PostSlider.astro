@@ -16,14 +16,7 @@ interface PostType {
 ---
 
 <section class="relative w-full">
-  <swiper-container
-    class="mySwiper"
-    slides-per-view="1"
-    loop
-    autoplay='{"delay": 3000, "disableOnInteraction": false}'
-    navigation
-    pagination='{"clickable": true}'
-  >
+  <swiper-container class="mySwiper">
     {posts.map((post: PostType) => (
       <swiper-slide key={post.id}>
         <a href={`/posts/${post.id}`} class="relative block">
@@ -65,4 +58,16 @@ interface PostType {
   import { register } from 'swiper/element/bundle';
 
   register();
+
+  // Wait until DOM is ready
+  const swiperEl = document.querySelector('swiper-container');
+
+  if (swiperEl) {
+    // Set JS properties instead of HTML attributes
+    swiperEl.slidesPerView = 1;
+    swiperEl.loop = true;
+    swiperEl.navigation = true;
+    swiperEl.pagination = { clickable: true };
+    swiperEl.autoplay = { delay: 3000, disableOnInteraction: false };
+  }
 </script>
