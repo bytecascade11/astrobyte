@@ -1,26 +1,34 @@
 ---
-// PostSlider.astro – Web Components version (no astro-swiper needed)
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
-import { register } from 'swiper/element/bundle';
 
 const { posts } = Astro.props;
 
-// We register once (safe to call multiple times)
-register();
+interface PostType {
+  id: string;
+  data: {
+    title: string;
+    description?: string;
+    coverImage?: string;
+    coverImageAlt?: string;
+    pubDatetime: Date;
+    tags?: string[];
+    draft?: boolean;
+  };
+}
 ---
 
 <section class="relative w-full">
   <swiper-container
+    class="mySwiper"
     navigation="true"
     pagination='{"clickable": true}'
     autoplay='{"delay": 4000, "disableOnInteraction": false}'
     loop="true"
     slides-per-view="1"
-    class="mySwiper"
   >
-    {posts.map(post => (
+    {posts.map((post: PostType) => (
       <swiper-slide key={post.id}>
         <a href={`/posts/${post.id}`} class="relative block">
           {post.data.coverImage && (
@@ -43,15 +51,18 @@ register();
   </swiper-container>
 </section>
 
-<script>
-  // Optional: more fine-grained control if needed
-  document.addEventListener('astro:page-load', () => {
-    const swiper = document.querySelector('swiper-container.mySwiper');
-    if (swiper) swiper.initialize?.();
-  });
-</script>
-
 <style>
-  .swiper-button-next, .swiper-button-prev { color: #f97316; }
-  .swiper-pagination-bullet { background: #f97316; }
+  .swiper-button-next,
+  .swiper-button-prev {
+    color: #f97316; /* accent orange */
+  }
+  .swiper-pagination-bullet,
+  .swiper-pagination-bullet-active {
+    background: #f97316;
+  }
 </style>
+
+<script>
+  import { register } from 'swiper/element/bundle';
+  register();
+</script>
