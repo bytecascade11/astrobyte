@@ -10,7 +10,7 @@ interface PostType {
   };
 }
 
-// Take first 5–8 posts (more = smoother loop)
+// Take first 5–8 posts for ticker
 const breakingPosts = posts.slice(0, 8);
 ---
 
@@ -18,7 +18,7 @@ const breakingPosts = posts.slice(0, 8);
   <swiper-container
     id="breaking-slider"
     class="mySwiper"
-    init="false" <!-- manual initialization -->
+    init="false" <!-- we initialize manually -->
   ></swiper-container>
 </section>
 
@@ -29,8 +29,8 @@ const breakingPosts = posts.slice(0, 8);
 
   register();
 
-  // Safe Astro injection
-  const posts = JSON.parse(${JSON.stringify(breakingPosts)});
+  // ✅ Safe injection of server-side posts into client-side JS
+  const posts = JSON.parse(`<!--${JSON.stringify(breakingPosts)}-->`.replace(/^<!--|-->$/g, ''));
 
   const swiperEl = document.querySelector('#breaking-slider');
 
@@ -66,11 +66,8 @@ const breakingPosts = posts.slice(0, 8);
       loop: true,
       freeMode: true,
       allowTouchMove: false,
-      speed: 12000, // adjust for ticker speed
-      autoplay: {
-        delay: 0,
-        disableOnInteraction: false
-      },
+      speed: 12000,
+      autoplay: { delay: 0, disableOnInteraction: false },
       navigation: false
     });
 
@@ -83,7 +80,7 @@ const breakingPosts = posts.slice(0, 8);
   swiper-container {
     --swiper-pagination-color: #f97316;
     height: 40px;
-    line-height: 40px; /* prevents vertical misalignment */
+    line-height: 40px; /* aligns text vertically */
     width: 100%;
   }
 
@@ -92,7 +89,7 @@ const breakingPosts = posts.slice(0, 8);
   }
 
   .ticker-slide {
-    width: auto !important;        /* slide width = content width */
+    width: auto !important;  /* content determines width */
     height: 40px;
     display: flex;
     align-items: center;
