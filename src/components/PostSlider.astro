@@ -26,14 +26,16 @@ interface PostType {
           <img
             src={post.data.coverImage}
             alt={post.data.coverImageAlt || post.data.title}
-            class="w-full h-[380px] object-cover"
+            class="w-full h-[380px] md:h-[480px] object-cover"
             loading="eager"
           />
         )}
 
-        <div class="absolute bottom-0 left-0 right-0 bg-black/60 text-white p-6">
+        <div class="absolute bottom-0 left-0 right-0 bg-black/60 text-white p-6 md:p-8">
           <h2 class="text-xl md:text-2xl font-bold">{post.data.title}</h2>
-          <p class="mt-2 text-sm line-clamp-2">{post.data.description}</p>
+          {post.data.description && (
+            <p class="mt-2 text-sm md:text-base line-clamp-2">{post.data.description}</p>
+          )}
         </div>
       </a>
     ))}
@@ -41,11 +43,17 @@ interface PostType {
 </section>
 
 <style>
+  /* Hide scrollbars */
   .no-scrollbar::-webkit-scrollbar {
     display: none;
   }
   .no-scrollbar {
     -ms-overflow-style: none;
     scrollbar-width: none;
+  }
+
+  /* Optional: smooth swipe on mobile */
+  .scroll-smooth {
+    scroll-behavior: smooth;
   }
 </style>
