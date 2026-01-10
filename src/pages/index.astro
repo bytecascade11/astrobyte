@@ -6,7 +6,6 @@ import Footer from "@/components/Footer.astro";
 import LinkButton from "@/components/LinkButton.astro";
 import Hr from "@/components/Hr.astro";
 import IconArrowRight from "@/assets/icons/IconArrowRight.svg";
-import PostSlider from "../components/PostSlider.astro";
 
 const posts = await getCollection("blog");
 
@@ -22,11 +21,6 @@ const recentPosts = sortedPosts.slice(1, 9);
   <Header />
 
   <main class="mx-auto w-full max-w-app px-4 py-12">
-
-    <!-- Post Slider -->
-    {sortedPosts.length > 0 && <PostSlider posts={sortedPosts} />}
-
-    <Hr class="my-12" />
 
     <!-- Featured Latest Post -->
     {latestPost && (
