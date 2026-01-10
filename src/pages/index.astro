@@ -6,7 +6,7 @@ import Footer from "@/components/Footer.astro";
 import LinkButton from "@/components/LinkButton.astro";
 import Hr from "@/components/Hr.astro";
 import IconArrowRight from "@/assets/icons/IconArrowRight.svg";
-import PostSlider from "../components/PostSlider.astro"; // ✅ fixed relative import
+import PostSlider from "../components/PostSlider.astro";
 
 const posts = await getCollection("blog");
 
@@ -14,7 +14,6 @@ const sortedPosts = posts
   .filter(post => !post.data.draft)
   .sort((a, b) => b.data.pubDatetime.valueOf() - a.data.pubDatetime.valueOf());
 
-// Split posts
 const latestPost = sortedPosts[0] ?? null;
 const recentPosts = sortedPosts.slice(1, 9);
 ---
@@ -82,7 +81,6 @@ const recentPosts = sortedPosts.slice(1, 9);
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 mb-12">
           {recentPosts.map((post) => (
             <article
-              key={post.id} // ✅ added key to satisfy TS
               class="overflow-hidden rounded-2xl shadow-lg bg-card hover:shadow-xl transition-shadow duration-300"
             >
               {post.data.coverImage && (
