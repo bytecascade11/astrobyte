@@ -16,7 +16,7 @@ tags:
   - android
   - samsung 
 coverImage: "/images/posts/balatro-vs-lbal-cover.jpg"
-coverImageAlt: "High refresh rate mobile gaming on Tecno, Infinix, and Redmi smartphones"
+coverImageAlt: "Balatro vs Luck be a Landlord offline mobile game comparison"
 ---
 
 Yesterday on 10 January i wrote about [Top 15 Offline Mobile Games in 2026](/posts/2026-definitive-guide-top-offline-mobile-games), but let us also consider this offline games too.
