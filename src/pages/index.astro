@@ -15,9 +15,9 @@ const sortedPosts = posts
   .filter(post => !post.data.draft)
   .sort((a, b) => b.data.pubDatetime.valueOf() - a.data.pubDatetime.valueOf());
 
-// Take latest 8 posts
+// Take 9 posts: latest + 8 more
 const latestPost = sortedPosts[0];
-const recentPosts = sortedPosts.slice(1, 8);
+const recentPosts = sortedPosts.slice(1, 9);
 ---
 
 <Layout>
@@ -108,7 +108,7 @@ const recentPosts = sortedPosts.slice(1, 8);
       </>
     )}
 
-    <!-- Social + RSS -->
+    <!-- Social + RSS (footer only) -->
     {SOCIALS.length > 0 && (
       <div class="flex gap-4 justify-center mt-8">
         <Socials />
