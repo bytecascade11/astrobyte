@@ -8,11 +8,12 @@ import Hr from "@/components/Hr.astro";
 import IconArrowRight from "@/assets/icons/IconArrowRight.svg";
 
 const posts = await getCollection("blog");
+
 const sortedPosts = posts
   .filter(post => !post.data.draft)
   .sort((a, b) => b.data.pubDatetime.valueOf() - a.data.pubDatetime.valueOf());
 
-// Take 9 posts: latest + 8 more
+// Latest post + next 8
 const latestPost = sortedPosts[0];
 const recentPosts = sortedPosts.slice(1, 9);
 ---
@@ -22,7 +23,7 @@ const recentPosts = sortedPosts.slice(1, 9);
 
   <main class="mx-auto w-full max-w-app px-4 py-12">
 
-    <!-- Featured Latest Post – Hero Card -->
+    <!-- Featured Latest Post -->
     {latestPost && (
       <article class="mb-16 overflow-hidden rounded-2xl shadow-2xl bg-card">
         {latestPost.data.coverImage && (
@@ -33,25 +34,35 @@ const recentPosts = sortedPosts.slice(1, 9);
             loading="eager"
           />
         )}
+
         <div class="p-8 md:p-12">
           <h1 class="text-3xl md:text-5xl font-bold mb-4">
-            <a href={`/posts/${latestPost.id}`} class="hover:text-accent transition">
+            <a
+              href={`/posts/${latestPost.id}`}
+              class="hover:text-accent transition"
+            >
               {latestPost.data.title}
             </a>
           </h1>
+
           <time class="text-sm text-muted-foreground mb-4 block">
-            {latestPost.data.pubDatetime.toLocaleDateString('en-US', {
-              year: 'numeric',
-              month: 'long',
-              day: 'numeric'
+            {latestPost.data.pubDatetime.toLocaleDateString("en-US", {
+              year: "numeric",
+              month: "long",
+              day: "numeric",
             })}
           </time>
+
           {latestPost.data.description && (
             <p class="text-lg text-muted-foreground line-clamp-4 mb-6">
               {latestPost.data.description}
             </p>
           )}
-          <LinkButton href={`/posts/${latestPost.id}`} class="mt-2 inline-block">
+
+          <LinkButton
+            href={`/posts/${latestPost.id}`}
+            class="mt-2 inline-block"
+          >
             Read more →
           </LinkButton>
         </div>
@@ -60,16 +71,16 @@ const recentPosts = sortedPosts.slice(1, 9);
 
     <Hr class="mb-16" />
 
-    <!-- Recent Posts Grid -->
+    <!-- Recent Posts -->
     {recentPosts.length > 0 && (
       <>
-        <h2 class="text-2xl font-bold mb-10 text-center md:text-left">Recent Posts</h2>
+        <h2 class="text-2xl font-bold mb-10 text-center md:text-left">
+          Recent Posts
+        </h2>
+
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
           {recentPosts.map(post => (
-            <article
-              key={post.id}
-              class="overflow-hidden rounded-2xl shadow-lg bg-card hover:shadow-xl transition duration-300"
-            >
+            <article class="overflow-hidden rounded-2xl shadow-lg bg-card hover:shadow-xl transition duration-300">
               {post.data.coverImage && (
                 <a href={`/posts/${post.id}`}>
                   <img
@@ -80,25 +91,35 @@ const recentPosts = sortedPosts.slice(1, 9);
                   />
                 </a>
               )}
+
               <div class="p-6">
                 <h3 class="text-xl font-semibold mb-3">
-                  <a href={`/posts/${post.id}`} class="hover:text-accent transition">
+                  <a
+                    href={`/posts/${post.id}`}
+                    class="hover:text-accent transition"
+                  >
                     {post.data.title}
                   </a>
                 </h3>
+
                 <time class="text-sm text-muted-foreground block mb-4">
-                  {post.data.pubDatetime.toLocaleDateString('en-US', {
-                    year: 'numeric',
-                    month: 'long',
-                    day: 'numeric'
+                  {post.data.pubDatetime.toLocaleDateString("en-US", {
+                    year: "numeric",
+                    month: "long",
+                    day: "numeric",
                   })}
                 </time>
+
                 {post.data.description && (
                   <p class="text-muted-foreground line-clamp-3 mb-4">
                     {post.data.description}
                   </p>
                 )}
-                <LinkButton href={`/posts/${post.id}`} class="mt-2 inline-block">
+
+                <LinkButton
+                  href={`/posts/${post.id}`}
+                  class="mt-2 inline-block"
+                >
                   Read more →
                 </LinkButton>
               </div>
@@ -108,7 +129,7 @@ const recentPosts = sortedPosts.slice(1, 9);
       </>
     )}
 
-    <!-- All Posts Button -->
+    <!-- View All -->
     <div class="text-center">
       <LinkButton href="/posts/">
         View All Posts
