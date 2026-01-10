@@ -10,7 +10,7 @@ interface PostType {
   };
 }
 
-// Only take first 5 posts for breaking slider
+// Take first 5 posts for the breaking slider
 const breakingPosts = posts.slice(0, 5);
 ---
 
@@ -18,11 +18,7 @@ const breakingPosts = posts.slice(0, 5);
   <swiper-container id="breaking-slider" class="mySwiper"></swiper-container>
 </section>
 
-<!-- Pass posts to client via JSON -->
-<script id="breaking-posts-data" type="application/json">
-  {JSON.stringify(breakingPosts)}
-</script>
-
+<!-- Pass posts to client as a JS variable -->
 <script is:inline type="module">
   import 'swiper/css';
   import 'swiper/css/navigation';
@@ -31,9 +27,10 @@ const breakingPosts = posts.slice(0, 5);
 
   register();
 
+  // Pass server-side posts to client
+  const posts = JSON.parse(`{{JSON.stringify(breakingPosts)}}`.replaceAll('\\u2028',''));
+
   const swiperEl = document.querySelector('#breaking-slider');
-  const dataEl = document.querySelector('#breaking-posts-data');
-  const posts = dataEl ? JSON.parse(dataEl.textContent) : [];
 
   if (swiperEl && posts.length > 0) {
     posts.forEach((post) => {
@@ -48,17 +45,16 @@ const breakingPosts = posts.slice(0, 5);
       swiperEl.appendChild(slide);
     });
 
-    // JS properties for slider
+    // Proper Swiper JS props
     swiperEl.slidesPerView = 1;
     swiperEl.loop = true;
     swiperEl.autoplay = { delay: 2500, disableOnInteraction: false };
-    swiperEl.navigation = false; // optional
-    swiperEl.pagination = { clickable: true }; // optional
+    swiperEl.navigation = false;
+    swiperEl.pagination = { clickable: true };
   }
 </script>
 
 <style>
-  /* Small horizontal slider styling */
   swiper-container {
     display: block;
     height: 40px;
@@ -67,7 +63,6 @@ const breakingPosts = posts.slice(0, 5);
   swiper-slide a {
     display: flex;
     align-items: center;
-    justify-content: flex-start;
     height: 40px;
   }
 
