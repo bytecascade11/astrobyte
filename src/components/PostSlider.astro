@@ -1,10 +1,10 @@
 ---
-import "swiper/css";
-import "swiper/css/navigation";
-import "swiper/css/pagination";
+// src/components/PostSlider.astro
 
-import { Swiper, SwiperSlide } from "swiper/astro";
-import { Navigation, Pagination, Autoplay } from "swiper";
+import { Swiper, SwiperSlide } from 'astro-swiper';
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
 
 const { posts } = Astro.props;
 
@@ -24,13 +24,13 @@ interface PostType {
 
 <section class="relative w-full">
   <Swiper
-    modules={[Navigation, Pagination, Autoplay]}
     navigation
     pagination={{ clickable: true }}
     autoplay={{ delay: 4000, disableOnInteraction: false }}
     loop
-    class="mySwiper"
     slidesPerView={1}
+    spaceBetween={0}
+    class="mySwiper"
   >
     {posts.map((post: PostType) => (
       <SwiperSlide key={post.id}>
@@ -45,7 +45,9 @@ interface PostType {
           )}
           <div class="absolute bottom-0 left-0 right-0 bg-black/60 text-white p-6 rounded-b-2xl">
             <h2 class="text-xl md:text-2xl font-bold">{post.data.title}</h2>
-            <p class="mt-2 text-sm line-clamp-2">{post.data.description}</p>
+            {post.data.description && (
+              <p class="mt-2 text-sm line-clamp-2">{post.data.description}</p>
+            )}
           </div>
         </a>
       </SwiperSlide>
@@ -54,12 +56,15 @@ interface PostType {
 </section>
 
 <style>
-  /* Optional: style arrows and dots */
+  /* Optional: customize navigation arrows & pagination */
   .swiper-button-next,
   .swiper-button-prev {
-    color: #f97316; /* accent orange */
+    color: #f97316; /* your accent color */
   }
   .swiper-pagination-bullet {
+    background: #f97316;
+  }
+  .swiper-pagination-bullet-active {
     background: #f97316;
   }
 </style>
