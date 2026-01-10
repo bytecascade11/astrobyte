@@ -8,6 +8,7 @@ import IconMenuDeep from "@/assets/icons/IconMenuDeep.svg";
 import LinkButton from "./LinkButton.astro";
 import { SITE } from "@/config";
 import { getCollection } from "astro:content";
+import getUniqueTags from "@/utils/getUniqueTags";  // ← using your util for popularity sort
 
 const { pathname } = Astro.url;
 
@@ -21,11 +22,13 @@ const isActive = (path: string) => {
   return currentPath === path || currentPath.startsWith(path + "/");
 };
 
-// Fetch all unique tags from published posts
+// Fetch published posts and get sorted unique tags by popularity
 const posts = await getCollection("blog", ({ data }) => !data.draft);
-const rawTags = posts.flatMap((post) => post.data.tags ?? []);
-const uniqueRawTags = [...new Set(rawTags)];
-uniqueRawTags.sort((a, b) => a.localeCompare(b)); // Alphabetical by display name
+const uniqueTags = getUniqueTags(posts); // already sorted by count desc, then alpha
+
+// Use original display names (tagName), take top 8 initially
+const initialTags = uniqueTags.slice(0, 8);
+const remainingTags = uniqueTags.slice(8);
 ---
 
 <header>
@@ -142,45 +145,45 @@ uniqueRawTags.sort((a, b) => a.localeCompare(b)); // Alphabetical by display nam
     </div>
   </div>
 
-  <!-- Dynamic Tag Cloud - Fixed 404s with slugified URLs -->
+  <!-- Improved Tag Cloud: Popularity sorted, limited initial display -->
   <div class="mx-auto max-w-app px-4 pb-6">
+    <h3 class="text-center text-lg font-semibold mb-4 text-muted-foreground">
+      Popular Topics
+    </h3>
     <div class="flex flex-wrap gap-3 justify-center">
-      <!-- First 12 tags (always visible) -->
-      {uniqueRawTags.slice(0, 12).map((displayTag) => {
-        const slug = displayTag.toLowerCase().trim().replace(/\s+/g, "-");
+      {initialTags.map(({ tagName }) => {
+        const slug = tagName.toLowerCase().trim().replace(/\s+/g, "-");
         return (
           <a
             href={`/tags/${slug}/`}
             class="px-4 py-2 text-sm font-medium bg-gray-200 dark:bg-gray-700 rounded-full hover:bg-accent hover:text-white dark:hover:bg-accent transition"
           >
-            #{displayTag}
+            #{tagName}
           </a>
         );
       })}
-
-      <!-- Collapsible "More topics" if >12 tags -->
-      {uniqueRawTags.length > 12 && (
-        <details class="contents">
-          <summary class="px-4 py-2 text-sm font-medium bg-gray-300 dark:bg-gray-600 rounded-full cursor-pointer list-none hover:bg-accent hover:text-white dark:hover:bg-accent transition select-none">
-            More topics →
-          </summary>
-
-          <div class="flex flex-wrap gap-3 justify-center mt-4 w-full">
-            {uniqueRawTags.slice(12).map((displayTag) => {
-              const slug = displayTag.toLowerCase().trim().replace(/\s+/g, "-");
-              return (
-                <a
-                  href={`/tags/${slug}/`}
-                  class="px-4 py-2 text-sm font-medium bg-gray-200 dark:bg-gray-700 rounded-full hover:bg-accent hover:text-white dark:hover:bg-accent transition"
-                >
-                  #{displayTag}
-                </a>
-              );
-            })}
-          </div>
-        </details>
-      )}
     </div>
+
+    {remainingTags.length > 0 && (
+      **Summary:**
+
+          More topics →
+        
+
+        <div class="flex flex-wrap gap-3 justify-center mt-4 w-full">
+          {remainingTags.map(({ tagName }) => {
+            const slug = tagName.toLowerCase().trim().replace(/\s+/g, "-");
+            return (
+              <a
+                href={`/tags/${slug}/`}
+                class="px-4 py-2 text-sm font-medium bg-gray-200 dark:bg-gray-700 rounded-full hover:bg-accent hover:text-white dark:hover:bg-accent transition"
+              >
+                #{tagName}
+              </a>
+            );
+          })}
+        </div>
+    )}
   </div>
 
   <Hr />
