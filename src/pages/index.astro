@@ -3,12 +3,9 @@ import { getCollection } from "astro:content";
 import Layout from "@/layouts/Layout.astro";
 import Header from "@/components/Header.astro";
 import Footer from "@/components/Footer.astro";
-import Socials from "@/components/Socials.astro";
 import LinkButton from "@/components/LinkButton.astro";
 import Hr from "@/components/Hr.astro";
-import IconRss from "@/assets/icons/IconRss.svg";
 import IconArrowRight from "@/assets/icons/IconArrowRight.svg";
-import { SOCIALS } from "@/constants";
 
 const posts = await getCollection("blog");
 const sortedPosts = posts
@@ -25,9 +22,9 @@ const recentPosts = sortedPosts.slice(1, 9);
 
   <main class="mx-auto w-full max-w-app px-4 py-12">
 
-    <!-- Featured Latest Post -->
+    <!-- Featured Latest Post – Hero Card -->
     {latestPost && (
-      <article class="mb-12 overflow-hidden rounded-2xl shadow-2xl bg-card">
+      <article class="mb-16 overflow-hidden rounded-2xl shadow-2xl bg-card">
         {latestPost.data.coverImage && (
           <img
             src={latestPost.data.coverImage}
@@ -50,7 +47,7 @@ const recentPosts = sortedPosts.slice(1, 9);
             })}
           </time>
           {latestPost.data.description && (
-            <p class="text-lg text-muted-foreground line-clamp-4 mb-4">
+            <p class="text-lg text-muted-foreground line-clamp-4 mb-6">
               {latestPost.data.description}
             </p>
           )}
@@ -61,15 +58,18 @@ const recentPosts = sortedPosts.slice(1, 9);
       </article>
     )}
 
-    <Hr />
+    <Hr class="mb-16" />
 
     <!-- Recent Posts Grid -->
     {recentPosts.length > 0 && (
       <>
-        <h2 class="text-2xl font-bold mb-8">Recent Posts</h2>
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
+        <h2 class="text-2xl font-bold mb-10 text-center md:text-left">Recent Posts</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
           {recentPosts.map(post => (
-            <article class="overflow-hidden rounded-2xl shadow-lg bg-card hover:shadow-xl transition">
+            <article
+              key={post.id}
+              class="overflow-hidden rounded-2xl shadow-lg bg-card hover:shadow-xl transition duration-300"
+            >
               {post.data.coverImage && (
                 <a href={`/posts/${post.id}`}>
                   <img
@@ -81,12 +81,12 @@ const recentPosts = sortedPosts.slice(1, 9);
                 </a>
               )}
               <div class="p-6">
-                <h3 class="text-xl font-semibold mb-2">
+                <h3 class="text-xl font-semibold mb-3">
                   <a href={`/posts/${post.id}`} class="hover:text-accent transition">
                     {post.data.title}
                   </a>
                 </h3>
-                <time class="text-sm text-muted-foreground block mb-3">
+                <time class="text-sm text-muted-foreground block mb-4">
                   {post.data.pubDatetime.toLocaleDateString('en-US', {
                     year: 'numeric',
                     month: 'long',
@@ -94,7 +94,7 @@ const recentPosts = sortedPosts.slice(1, 9);
                   })}
                 </time>
                 {post.data.description && (
-                  <p class="text-muted-foreground line-clamp-3 mb-2">
+                  <p class="text-muted-foreground line-clamp-3 mb-4">
                     {post.data.description}
                   </p>
                 )}
@@ -108,21 +108,11 @@ const recentPosts = sortedPosts.slice(1, 9);
       </>
     )}
 
-    <!-- Social + RSS (footer only) -->
-    {SOCIALS.length > 0 && (
-      <div class="flex gap-4 justify-center mt-8">
-        <Socials />
-        <a href="/rss.xml" target="_blank" aria-label="RSS Feed">
-          <IconRss class="w-6 h-6 text-accent hover:text-orange-500 transition" />
-        </a>
-      </div>
-    )}
-
     <!-- All Posts Button -->
-    <div class="text-center mt-12">
+    <div class="text-center">
       <LinkButton href="/posts/">
-        All Posts
-        <IconArrowRight class="inline-block" />
+        View All Posts
+        <IconArrowRight class="inline-block ml-2" />
       </LinkButton>
     </div>
 
