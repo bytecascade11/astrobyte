@@ -5,19 +5,23 @@ interface PostType {
   id: string;
   data: {
     title: string;
-    description?: string;
     coverImage?: string;
     coverImageAlt?: string;
-    pubDatetime: Date;
-    tags?: string[];
-    draft?: boolean;
   };
 }
+
+// Only take first 5 posts for breaking slider
+const breakingPosts = posts.slice(0, 5);
 ---
 
-<section class="relative w-full max-w-3xl mx-auto">
-  <swiper-container class="mySwiper"></swiper-container>
+<section class="w-full max-w-xl mx-auto my-4">
+  <swiper-container id="breaking-slider" class="mySwiper"></swiper-container>
 </section>
+
+<!-- Pass posts to client via JSON -->
+<script id="breaking-posts-data" type="application/json">
+  {JSON.stringify(breakingPosts)}
+</script>
 
 <script is:inline type="module">
   import 'swiper/css';
@@ -27,44 +31,46 @@ interface PostType {
 
   register();
 
-  // Wait until DOM is ready
-  const swiperEl = document.querySelector('swiper-container');
+  const swiperEl = document.querySelector('#breaking-slider');
+  const dataEl = document.querySelector('#breaking-posts-data');
+  const posts = dataEl ? JSON.parse(dataEl.textContent) : [];
 
-  if (swiperEl) {
-    // Add slides dynamically
-    const posts = JSON.parse(`${
-      JSON.stringify(posts)
-    }`);
-
+  if (swiperEl && posts.length > 0) {
     posts.forEach((post) => {
       const slide = document.createElement('swiper-slide');
 
       slide.innerHTML = `
-        <a href="/posts/${post.id}" class="block relative">
-          ${post.data.coverImage ? `<img src="${post.data.coverImage}" alt="${post.data.coverImageAlt || post.data.title}" class="w-full h-[300px] md:h-[380px] object-cover rounded-2xl"/>` : ''}
-          <div class="absolute bottom-0 left-0 right-0 bg-black/60 text-white p-4 md:p-6 rounded-b-2xl">
-            <h2 class="text-lg md:text-xl font-bold line-clamp-2">${post.data.title}</h2>
-            ${post.data.description ? `<p class="mt-1 text-sm md:text-base line-clamp-2">${post.data.description}</p>` : ''}
-          </div>
+        <a href="/posts/${post.id}" class="block px-4 py-2 bg-gray-800 text-white rounded-md text-sm truncate">
+          ${post.data.title}
         </a>
       `;
+
       swiperEl.appendChild(slide);
     });
 
-    // Set JS properties for autoplay slider
+    // JS properties for slider
     swiperEl.slidesPerView = 1;
     swiperEl.loop = true;
-    swiperEl.autoplay = { delay: 3000, disableOnInteraction: false };
-    swiperEl.navigation = true;
-    swiperEl.pagination = { clickable: true };
+    swiperEl.autoplay = { delay: 2500, disableOnInteraction: false };
+    swiperEl.navigation = false; // optional
+    swiperEl.pagination = { clickable: true }; // optional
   }
 </script>
 
 <style>
-  .swiper-button-next,
-  .swiper-button-prev {
-    color: #f97316;
+  /* Small horizontal slider styling */
+  swiper-container {
+    display: block;
+    height: 40px;
   }
+
+  swiper-slide a {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    height: 40px;
+  }
+
   .swiper-pagination-bullet,
   .swiper-pagination-bullet-active {
     background: #f97316;
