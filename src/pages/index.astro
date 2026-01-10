@@ -3,19 +3,16 @@ import { getCollection } from "astro:content";
 import Layout from "@/layouts/Layout.astro";
 import Header from "@/components/Header.astro";
 import Footer from "@/components/Footer.astro";
-import Socials from "@/components/Socials.astro";
 import LinkButton from "@/components/LinkButton.astro";
 import Hr from "@/components/Hr.astro";
-import IconRss from "@/assets/icons/IconRss.svg";
 import IconArrowRight from "@/assets/icons/IconArrowRight.svg";
-import { SOCIALS } from "@/constants";
 
 const posts = await getCollection("blog");
 const sortedPosts = posts
   .filter(post => !post.data.draft)
   .sort((a, b) => b.data.pubDatetime.valueOf() - a.data.pubDatetime.valueOf());
 
-// Take 9 posts: latest + 8 more
+// Take 9 posts: 1 featured + 8 recent
 const latestPost = sortedPosts[0];
 const recentPosts = sortedPosts.slice(1, 9);
 ---
@@ -107,6 +104,7 @@ const recentPosts = sortedPosts.slice(1, 9);
         </div>
       </>
     )}
+
     <!-- All Posts Button -->
     <div class="text-center mt-12">
       <LinkButton href="/posts/">
