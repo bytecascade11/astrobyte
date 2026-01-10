@@ -15,41 +15,19 @@ const sortedPosts = posts
   .filter(post => !post.data.draft)
   .sort((a, b) => b.data.pubDatetime.valueOf() - a.data.pubDatetime.valueOf());
 
+// Take latest 8 posts
 const latestPost = sortedPosts[0];
-const recentPosts = sortedPosts.slice(1);
+const recentPosts = sortedPosts.slice(1, 8);
 ---
 
 <Layout>
   <Header />
+
   <main class="mx-auto w-full max-w-app px-4 py-12">
-    <!-- Hero Welcome Section -->
-    <section class="text-center mb-16">
-      <h1 class="my-8 text-4xl sm:text-5xl font-bold">WELCOME👋</h1>
-      <a target="_blank" href="/rss.xml" class="inline-block" aria-label="RSS feed">
-        <IconRss width={20} height={20} class="scale-125 stroke-accent stroke-3" />
-      </a>
-      <p class="mt-6 text-lg">
-        ReviByte Technology Opinions delivers the latest tech news, gadget opinions, Android updates, and in-depth guides.
-      </p>
-      <p class="mt-4">
-        Read the blog posts or check
-        <LinkButton href="https://github.com/bytecascade11/astrobyte#readme" class="underline">
-          README
-        </LinkButton> for more info.
-      </p>
-      {SOCIALS.length > 0 && (
-        <div class="mt-6">
-          <span class="me-2">Social Links:</span>
-          <Socials />
-        </div>
-      )}
-    </section>
 
-    <Hr />
-
-    <!-- Featured Latest Post – Big Hero Card -->
+    <!-- Featured Latest Post -->
     {latestPost && (
-      <article class="mb-20 overflow-hidden rounded-2xl shadow-2xl bg-card">
+      <article class="mb-12 overflow-hidden rounded-2xl shadow-2xl bg-card">
         {latestPost.data.coverImage && (
           <img
             src={latestPost.data.coverImage}
@@ -59,40 +37,31 @@ const recentPosts = sortedPosts.slice(1);
           />
         )}
         <div class="p-8 md:p-12">
-          <h1 class="text-3xl md:text-5xl font-bold mb-6">
+          <h1 class="text-3xl md:text-5xl font-bold mb-4">
             <a href={`/posts/${latestPost.id}`} class="hover:text-accent transition">
               {latestPost.data.title}
             </a>
           </h1>
-          <div class="flex flex-wrap items-center gap-4 text-sm text-muted-foreground mb-6">
-            <time>
-              {latestPost.data.pubDatetime.toLocaleDateString('en-US', {
-                year: 'numeric',
-                month: 'long',
-                day: 'numeric'
-              })}
-            </time>
-          </div>
-          {latestPost.data.tags?.length > 0 && (
-            <div class="flex flex-wrap gap-2 mb-6">
-              {latestPost.data.tags.map(tag => (
-                <a
-                  href={`/tags/${tag}/`}
-                  class="rounded-full px-4 py-2 bg-muted/50 text-sm hover:bg-accent hover:text-background transition"
-                >
-                  {tag}
-                </a>
-              ))}
-            </div>
-          )}
+          <time class="text-sm text-muted-foreground mb-4 block">
+            {latestPost.data.pubDatetime.toLocaleDateString('en-US', {
+              year: 'numeric',
+              month: 'long',
+              day: 'numeric'
+            })}
+          </time>
           {latestPost.data.description && (
-            <p class="text-lg text-muted-foreground line-clamp-4">
+            <p class="text-lg text-muted-foreground line-clamp-4 mb-4">
               {latestPost.data.description}
             </p>
           )}
+          <LinkButton href={`/posts/${latestPost.id}`} class="mt-2 inline-block">
+            Read more →
+          </LinkButton>
         </div>
       </article>
     )}
+
+    <Hr />
 
     <!-- Recent Posts Grid -->
     {recentPosts.length > 0 && (
@@ -125,10 +94,13 @@ const recentPosts = sortedPosts.slice(1);
                   })}
                 </time>
                 {post.data.description && (
-                  <p class="text-muted-foreground line-clamp-3">
+                  <p class="text-muted-foreground line-clamp-3 mb-2">
                     {post.data.description}
                   </p>
                 )}
+                <LinkButton href={`/posts/${post.id}`} class="mt-2 inline-block">
+                  Read more →
+                </LinkButton>
               </div>
             </article>
           ))}
@@ -136,13 +108,25 @@ const recentPosts = sortedPosts.slice(1);
       </>
     )}
 
+    <!-- Social + RSS -->
+    {SOCIALS.length > 0 && (
+      <div class="flex gap-4 justify-center mt-8">
+        <Socials />
+        <a href="/rss.xml" target="_blank" aria-label="RSS Feed">
+          <IconRss class="w-6 h-6 text-accent hover:text-orange-500 transition" />
+        </a>
+      </div>
+    )}
+
     <!-- All Posts Button -->
-    <div class="text-center">
+    <div class="text-center mt-12">
       <LinkButton href="/posts/">
         All Posts
         <IconArrowRight class="inline-block" />
       </LinkButton>
     </div>
+
   </main>
+
   <Footer />
 </Layout>
