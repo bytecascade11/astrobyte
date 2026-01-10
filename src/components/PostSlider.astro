@@ -10,63 +10,105 @@ interface PostType {
   };
 }
 
-// Take first 5 posts for the breaking slider
-const breakingPosts = posts.slice(0, 5);
+// Take first 5–8 posts (more = smoother loop)
+const breakingPosts = posts.slice(0, 8);
 ---
 
-<section class="w-full max-w-xl mx-auto my-4">
-  <swiper-container id="breaking-slider" class="mySwiper"></swiper-container>
+<section class="w-full max-w-xl mx-auto my-4 overflow-hidden">
+  <swiper-container
+    id="breaking-slider"
+    class="mySwiper"
+    init="false"           <!-- Important: we initialize manually -->
+  ></swiper-container>
 </section>
 
-<!-- Pass posts to client as a JS variable -->
 <script is:inline type="module">
   import 'swiper/css';
-  import 'swiper/css/navigation';
   import 'swiper/css/pagination';
   import { register } from 'swiper/element/bundle';
 
   register();
 
-  // Pass server-side posts to client
+  // Safely get posts (your escaping method is good)
   const posts = JSON.parse(`{{JSON.stringify(breakingPosts)}}`.replaceAll('\\u2028',''));
 
   const swiperEl = document.querySelector('#breaking-slider');
 
   if (swiperEl && posts.length > 0) {
+    // Create slides – wider text + nowrap for ticker feel
     posts.forEach((post) => {
       const slide = document.createElement('swiper-slide');
-
+      slide.className = 'ticker-slide';
+      
       slide.innerHTML = `
-        <a href="/posts/${post.id}" class="block px-4 py-2 bg-gray-800 text-white rounded-md text-sm truncate">
-          ${post.data.title}
+        <a href="/posts/${post.id}" 
+           class="inline-block px-6 py-2 bg-gray-800 text-white text-sm font-medium whitespace-nowrap">
+          ${post.data.title}        •       
         </a>
       `;
-
+      
       swiperEl.appendChild(slide);
     });
 
-    // Proper Swiper JS props
-    swiperEl.slidesPerView = 1;
-    swiperEl.loop = true;
-    swiperEl.autoplay = { delay: 2500, disableOnInteraction: false };
-    swiperEl.navigation = false;
-    swiperEl.pagination = { clickable: true };
+    // Duplicate slides for seamless infinite loop (recommended for ticker)
+    // This helps avoid any tiny visible jump
+    posts.forEach((post) => {
+      const slide = document.createElement('swiper-slide');
+      slide.className = 'ticker-slide';
+      slide.innerHTML = `
+        <a href="/posts/${post.id}" 
+           class="inline-block px-6 py-2 bg-gray-800 text-white text-sm font-medium whitespace-nowrap">
+          ${post.data.title}        •       
+        </a>
+      `;
+      swiperEl.appendChild(slide);
+    });
+
+    // ── Modern ticker configuration ───────────────────────────────
+    Object.assign(swiperEl, {
+      slidesPerView: 'auto',          // Very important!
+      spaceBetween: 0,
+      loop: true,
+      freeMode: true,                 // Allows smooth momentum
+      allowTouchMove: false,          // News ticker → no user drag
+      speed: 12000,                   // Adjust: lower = faster
+      autoplay: {
+        delay: 0,                     // No pause between "slides"
+        disableOnInteraction: false,
+      },
+      // Optional: direction: 'horizontal' (default)
+      // pagination: false,
+      navigation: false,
+    });
+
+    // Now initialize!
+    swiperEl.initialize();
   }
 </script>
 
 <style>
   swiper-container {
-    display: block;
+    --swiper-pagination-color: #f97316;
     height: 40px;
+    width: 100%;
   }
 
-  swiper-slide a {
+  swiper-container::part(wrapper) {
+    transition-timing-function: linear !important;  /* THE MOST IMPORTANT RULE */
+  }
+
+  .ticker-slide {
+    width: auto !important;        /* Let content decide width */
+    height: 40px;
     display: flex;
     align-items: center;
-    height: 40px;
   }
 
-  .swiper-pagination-bullet,
+  .ticker-slide a:hover {
+    text-decoration: underline;
+    background-color: #4b5563;
+  }
+
   .swiper-pagination-bullet-active {
     background: #f97316;
   }
