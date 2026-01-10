@@ -8,7 +8,7 @@ import IconMenuDeep from "@/assets/icons/IconMenuDeep.svg";
 import LinkButton from "./LinkButton.astro";
 import { SITE } from "@/config";
 import { getCollection } from "astro:content";
-import getUniqueTags from "@/utils/getUniqueTags";  // ← using your util for popularity sort
+import getUniqueTags from "@/utils/getUniqueTags";
 
 const { pathname } = Astro.url;
 
@@ -24,9 +24,9 @@ const isActive = (path: string) => {
 
 // Fetch published posts and get sorted unique tags by popularity
 const posts = await getCollection("blog", ({ data }) => !data.draft);
-const uniqueTags = getUniqueTags(posts); // already sorted by count desc, then alpha
+const uniqueTags = getUniqueTags(posts); // sorted by count desc, then alpha
 
-// Use original display names (tagName), take top 8 initially
+// Use original display names, limit initial display to 8 popular tags
 const initialTags = uniqueTags.slice(0, 8);
 const remainingTags = uniqueTags.slice(8);
 ---
@@ -145,23 +145,20 @@ const remainingTags = uniqueTags.slice(8);
     </div>
   </div>
 
-  <!-- Improved Tag Cloud: Popularity sorted, limited initial display -->
+  <!-- Tag Cloud: Popularity-sorted, 8 initial tags + collapsible rest -->
   <div class="mx-auto max-w-app px-4 pb-6">
     <h3 class="text-center text-lg font-semibold mb-4 text-muted-foreground">
       Popular Topics
     </h3>
     <div class="flex flex-wrap gap-3 justify-center">
-      {initialTags.map(({ tagName }) => {
-        const slug = tagName.toLowerCase().trim().replace(/\s+/g, "-");
-        return (
-          <a
-            href={`/tags/${slug}/`}
-            class="px-4 py-2 text-sm font-medium bg-gray-200 dark:bg-gray-700 rounded-full hover:bg-accent hover:text-white dark:hover:bg-accent transition"
-          >
-            #{tagName}
-          </a>
-        );
-      })}
+      {initialTags.map(({ tagName }) => (
+        <a
+          href={`/tags/${tagName.toLowerCase().trim().replace(/\s+/g, "-")}/`}
+          class="px-4 py-2 text-sm font-medium bg-gray-200 dark:bg-gray-700 rounded-full hover:bg-accent hover:text-white dark:hover:bg-accent transition"
+        >
+          #{tagName}
+        </a>
+      ))}
     </div>
 
     {remainingTags.length > 0 && (
@@ -171,17 +168,14 @@ const remainingTags = uniqueTags.slice(8);
         
 
         <div class="flex flex-wrap gap-3 justify-center mt-4 w-full">
-          {remainingTags.map(({ tagName }) => {
-            const slug = tagName.toLowerCase().trim().replace(/\s+/g, "-");
-            return (
-              <a
-                href={`/tags/${slug}/`}
-                class="px-4 py-2 text-sm font-medium bg-gray-200 dark:bg-gray-700 rounded-full hover:bg-accent hover:text-white dark:hover:bg-accent transition"
-              >
-                #{tagName}
-              </a>
-            );
-          })}
+          {remainingTags.map(({ tagName }) => (
+            <a
+              href={`/tags/${tagName.toLowerCase().trim().replace(/\s+/g, "-")}/`}
+              class="px-4 py-2 text-sm font-medium bg-gray-200 dark:bg-gray-700 rounded-full hover:bg-accent hover:text-white dark:hover:bg-accent transition"
+            >
+              #{tagName}
+            </a>
+          ))}
         </div>
     )}
   </div>
