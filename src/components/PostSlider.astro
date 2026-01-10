@@ -15,41 +15,9 @@ interface PostType {
 }
 ---
 
-<section class="relative w-full">
-  <swiper-container class="mySwiper">
-    {posts.map((post: PostType) => (
-      <swiper-slide key={post.id}>
-        <a href={`/posts/${post.id}`} class="relative block">
-          {post.data.coverImage && (
-            <img
-              src={post.data.coverImage}
-              alt={post.data.coverImageAlt || post.data.title}
-              class="w-full h-[300px] md:h-[380px] object-cover rounded-2xl"
-              loading="eager"
-            />
-          )}
-          <div class="absolute bottom-0 left-0 right-0 bg-black/60 text-white p-4 md:p-6 rounded-b-2xl">
-            <h2 class="text-lg md:text-xl font-bold line-clamp-2">{post.data.title}</h2>
-            {post.data.description && (
-              <p class="mt-1 text-sm md:text-base line-clamp-2">{post.data.description}</p>
-            )}
-          </div>
-        </a>
-      </swiper-slide>
-    ))}
-  </swiper-container>
+<section class="relative w-full max-w-3xl mx-auto">
+  <swiper-container class="mySwiper"></swiper-container>
 </section>
-
-<style>
-  .swiper-button-next,
-  .swiper-button-prev {
-    color: #f97316;
-  }
-  .swiper-pagination-bullet,
-  .swiper-pagination-bullet-active {
-    background: #f97316;
-  }
-</style>
 
 <script is:inline type="module">
   import 'swiper/css';
@@ -63,11 +31,42 @@ interface PostType {
   const swiperEl = document.querySelector('swiper-container');
 
   if (swiperEl) {
-    // Set JS properties instead of HTML attributes
+    // Add slides dynamically
+    const posts = JSON.parse(`${
+      JSON.stringify(posts)
+    }`);
+
+    posts.forEach((post) => {
+      const slide = document.createElement('swiper-slide');
+
+      slide.innerHTML = `
+        <a href="/posts/${post.id}" class="block relative">
+          ${post.data.coverImage ? `<img src="${post.data.coverImage}" alt="${post.data.coverImageAlt || post.data.title}" class="w-full h-[300px] md:h-[380px] object-cover rounded-2xl"/>` : ''}
+          <div class="absolute bottom-0 left-0 right-0 bg-black/60 text-white p-4 md:p-6 rounded-b-2xl">
+            <h2 class="text-lg md:text-xl font-bold line-clamp-2">${post.data.title}</h2>
+            ${post.data.description ? `<p class="mt-1 text-sm md:text-base line-clamp-2">${post.data.description}</p>` : ''}
+          </div>
+        </a>
+      `;
+      swiperEl.appendChild(slide);
+    });
+
+    // Set JS properties for autoplay slider
     swiperEl.slidesPerView = 1;
     swiperEl.loop = true;
+    swiperEl.autoplay = { delay: 3000, disableOnInteraction: false };
     swiperEl.navigation = true;
     swiperEl.pagination = { clickable: true };
-    swiperEl.autoplay = { delay: 3000, disableOnInteraction: false };
   }
 </script>
+
+<style>
+  .swiper-button-next,
+  .swiper-button-prev {
+    color: #f97316;
+  }
+  .swiper-pagination-bullet,
+  .swiper-pagination-bullet-active {
+    background: #f97316;
+  }
+</style>
