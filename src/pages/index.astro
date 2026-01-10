@@ -13,7 +13,7 @@ const sortedPosts = posts
   .filter(post => !post.data.draft)
   .sort((a, b) => b.data.pubDatetime.valueOf() - a.data.pubDatetime.valueOf());
 
-// Latest post + next 8
+// Latest + next 8 posts
 const latestPost = sortedPosts[0];
 const recentPosts = sortedPosts.slice(1, 9);
 ---
