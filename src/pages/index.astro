@@ -3,17 +3,19 @@ import { getCollection } from "astro:content";
 import Layout from "@/layouts/Layout.astro";
 import Header from "@/components/Header.astro";
 import Footer from "@/components/Footer.astro";
+import Socials from "@/components/Socials.astro";
 import LinkButton from "@/components/LinkButton.astro";
 import Hr from "@/components/Hr.astro";
+import IconRss from "@/assets/icons/IconRss.svg";
 import IconArrowRight from "@/assets/icons/IconArrowRight.svg";
+import { SOCIALS } from "@/constants";
 
 const posts = await getCollection("blog");
-
 const sortedPosts = posts
   .filter(post => !post.data.draft)
   .sort((a, b) => b.data.pubDatetime.valueOf() - a.data.pubDatetime.valueOf());
 
-// Latest + next 8 posts
+// Take 9 posts: latest + 8 more
 const latestPost = sortedPosts[0];
 const recentPosts = sortedPosts.slice(1, 9);
 ---
@@ -25,7 +27,7 @@ const recentPosts = sortedPosts.slice(1, 9);
 
     <!-- Featured Latest Post -->
     {latestPost && (
-      <article class="mb-16 overflow-hidden rounded-2xl shadow-2xl bg-card">
+      <article class="mb-12 overflow-hidden rounded-2xl shadow-2xl bg-card">
         {latestPost.data.coverImage && (
           <img
             src={latestPost.data.coverImage}
@@ -34,53 +36,40 @@ const recentPosts = sortedPosts.slice(1, 9);
             loading="eager"
           />
         )}
-
         <div class="p-8 md:p-12">
           <h1 class="text-3xl md:text-5xl font-bold mb-4">
-            <a
-              href={`/posts/${latestPost.id}`}
-              class="hover:text-accent transition"
-            >
+            <a href={`/posts/${latestPost.id}`} class="hover:text-accent transition">
               {latestPost.data.title}
             </a>
           </h1>
-
           <time class="text-sm text-muted-foreground mb-4 block">
-            {latestPost.data.pubDatetime.toLocaleDateString("en-US", {
-              year: "numeric",
-              month: "long",
-              day: "numeric",
+            {latestPost.data.pubDatetime.toLocaleDateString('en-US', {
+              year: 'numeric',
+              month: 'long',
+              day: 'numeric'
             })}
           </time>
-
           {latestPost.data.description && (
-            <p class="text-lg text-muted-foreground line-clamp-4 mb-6">
+            <p class="text-lg text-muted-foreground line-clamp-4 mb-4">
               {latestPost.data.description}
             </p>
           )}
-
-          <LinkButton
-            href={`/posts/${latestPost.id}`}
-            class="mt-2 inline-block"
-          >
+          <LinkButton href={`/posts/${latestPost.id}`} class="mt-2 inline-block">
             Read more →
           </LinkButton>
         </div>
       </article>
     )}
 
-    <Hr class="mb-16" />
+    <Hr />
 
-    <!-- Recent Posts -->
+    <!-- Recent Posts Grid -->
     {recentPosts.length > 0 && (
       <>
-        <h2 class="text-2xl font-bold mb-10 text-center md:text-left">
-          Recent Posts
-        </h2>
-
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
+        <h2 class="text-2xl font-bold mb-8">Recent Posts</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
           {recentPosts.map(post => (
-            <article class="overflow-hidden rounded-2xl shadow-lg bg-card hover:shadow-xl transition duration-300">
+            <article class="overflow-hidden rounded-2xl shadow-lg bg-card hover:shadow-xl transition">
               {post.data.coverImage && (
                 <a href={`/posts/${post.id}`}>
                   <img
@@ -91,35 +80,25 @@ const recentPosts = sortedPosts.slice(1, 9);
                   />
                 </a>
               )}
-
               <div class="p-6">
-                <h3 class="text-xl font-semibold mb-3">
-                  <a
-                    href={`/posts/${post.id}`}
-                    class="hover:text-accent transition"
-                  >
+                <h3 class="text-xl font-semibold mb-2">
+                  <a href={`/posts/${post.id}`} class="hover:text-accent transition">
                     {post.data.title}
                   </a>
                 </h3>
-
-                <time class="text-sm text-muted-foreground block mb-4">
-                  {post.data.pubDatetime.toLocaleDateString("en-US", {
-                    year: "numeric",
-                    month: "long",
-                    day: "numeric",
+                <time class="text-sm text-muted-foreground block mb-3">
+                  {post.data.pubDatetime.toLocaleDateString('en-US', {
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric'
                   })}
                 </time>
-
                 {post.data.description && (
-                  <p class="text-muted-foreground line-clamp-3 mb-4">
+                  <p class="text-muted-foreground line-clamp-3 mb-2">
                     {post.data.description}
                   </p>
                 )}
-
-                <LinkButton
-                  href={`/posts/${post.id}`}
-                  class="mt-2 inline-block"
-                >
+                <LinkButton href={`/posts/${post.id}`} class="mt-2 inline-block">
                   Read more →
                 </LinkButton>
               </div>
@@ -128,12 +107,11 @@ const recentPosts = sortedPosts.slice(1, 9);
         </div>
       </>
     )}
-
-    <!-- View All -->
-    <div class="text-center">
+    <!-- All Posts Button -->
+    <div class="text-center mt-12">
       <LinkButton href="/posts/">
-        View All Posts
-        <IconArrowRight class="inline-block ml-2" />
+        All Posts
+        <IconArrowRight class="inline-block" />
       </LinkButton>
     </div>
 
