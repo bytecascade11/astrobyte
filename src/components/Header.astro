@@ -6,9 +6,6 @@ import IconSearch from "@/assets/icons/IconSearch.svg";
 import IconSunHigh from "@/assets/icons/IconSunHigh.svg";
 import IconMenuDeep from "@/assets/icons/IconMenuDeep.svg";
 import LinkButton from "./LinkButton.astro";
-import TwitterIcon from "@/assets/icons/TwitterIcon.svg";
-import GitHubIcon from "@/assets/icons/GitHubIcon.svg";
-import RssIcon from "@/assets/icons/RssIcon.svg";
 import { SITE } from "@/config";
 
 const { pathname } = Astro.url;
@@ -123,19 +120,6 @@ const isActive = (path: string) => {
           }
         </ul>
       </nav>
-
-      <!-- Social + RSS -->
-      <div class="hidden sm:flex gap-3 items-center ml-4">
-        <a href="https://twitter.com/yourhandle" target="_blank" aria-label="Twitter">
-          <TwitterIcon class="w-5 h-5 hover:text-blue-500 transition" />
-        </a>
-        <a href="https://github.com/yourhandle" target="_blank" aria-label="GitHub">
-          <GitHubIcon class="w-5 h-5 hover:text-gray-700 transition" />
-        </a>
-        <a href="/rss.xml" target="_blank" aria-label="RSS Feed">
-          <RssIcon class="w-5 h-5 text-accent hover:text-orange-500 transition" />
-        </a>
-      </div>
     </div>
   </div>
 
