@@ -1,10 +1,23 @@
 ---
 const { posts } = Astro.props;
+
+interface PostType {
+  id: string;
+  data: {
+    title: string;
+    description?: string;
+    coverImage?: string;
+    coverImageAlt?: string;
+    pubDatetime: Date;
+    tags?: string[];
+    draft?: boolean;
+  };
+}
 ---
 
 <section class="relative overflow-hidden rounded-2xl shadow-xl">
   <div class="flex overflow-x-auto snap-x snap-mandatory scroll-smooth no-scrollbar">
-    {posts.map((post) => (
+    {posts.map((post: PostType) => (
       <a
         href={`/posts/${post.id}`}
         class="min-w-full snap-start relative block"
@@ -12,7 +25,7 @@ const { posts } = Astro.props;
         {post.data.coverImage && (
           <img
             src={post.data.coverImage}
-            alt={post.data.title}
+            alt={post.data.coverImageAlt || post.data.title}
             class="w-full h-[380px] object-cover"
             loading="eager"
           />
