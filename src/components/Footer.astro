@@ -1,6 +1,7 @@
 ---
 import Hr from "./Hr.astro";
 import Socials from "./Socials.astro";
+import IconRss from "@/assets/icons/IconRss.svg";
 
 const currentYear = new Date().getFullYear();
 
@@ -14,15 +15,21 @@ const { noMarginTop = false } = Astro.props;
 <footer class:list={["w-full", { "mt-auto": !noMarginTop }]}>
   <Hr noPadding />
   <div class="py-6 sm:py-8 px-4 max-w-4xl mx-auto">
-    <!-- Social Icons -->
-    <div class="flex justify-center mb-8">
+
+    <!-- Social Icons + RSS (ONLY PLACE) -->
+    <div class="flex justify-center items-center gap-4 mb-8">
       <Socials centered />
+      <a href="/rss.xml" aria-label="RSS Feed" title="RSS Feed">
+        <IconRss class="h-6 w-6 text-accent hover:scale-110 transition" />
+      </a>
     </div>
 
-    <!-- Custom Newsletter Subscription Form -->
+    <!-- Newsletter -->
     <section class="max-w-md mx-auto mb-12 text-center">
       <h3 class="text-lg font-semibold mb-2">Get new posts by email</h3>
-      <p class="text-sm opacity-80 mb-6">Stay updated with the latest tech reviews, guides, and opinions — delivered straight to your inbox.</p>
+      <p class="text-sm opacity-80 mb-6">
+        Stay updated with the latest tech reviews, guides, and opinions — delivered straight to your inbox.
+      </p>
 
       <form 
         action="https://api.follow.it/subscription-form/bWZOckxmelNNL2wyVVpERE50M0MxMWVhRC9ON2dBQnBKTEJzTlZJTGNIencrSFYrZVFpQ3FPY211M0dGVVJvZkxoWkcxUjd0TThLYmpMMnJuV1dMN3kzaC9uSkorZXlCYWdEZURrTmkxYW9aRGIxKzBJVW1pQXBVbDNBbGxjM098UDVxajlvNmc3NHYyc2ZJRFp4T1pDRncwNS9hMTBmajBaUlU0L1VrbW9XWT0=/8" 
@@ -49,7 +56,7 @@ const { noMarginTop = false } = Astro.props;
       <p class="text-xs opacity-60 mt-4">No spam ever. Unsubscribe anytime.</p>
     </section>
 
-    <!-- Footer Navigation Links -->
+    <!-- Footer Navigation -->
     <nav class="text-center mb-8">
       <ul class="flex flex-wrap justify-center gap-x-4 gap-y-2 text-sm text-gray-600 dark:text-gray-400">
         <li><a href="/about" class="hover:underline">About the Editor</a></li>
@@ -67,5 +74,6 @@ const { noMarginTop = false } = Astro.props;
       <span class="hidden sm:inline mx-2">|</span>
       <span>All rights reserved.</span>
     </div>
+
   </div>
 </footer>
