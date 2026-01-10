@@ -1,5 +1,5 @@
 ---
-// src/components/LinkButton.astro  (or whatever name you use)
+// src/components/LinkButton.astro
 
 import type { HTMLAttributes } from 'astro/types';
 
@@ -10,9 +10,8 @@ interface Props extends HTMLAttributes<'a'> {
   ariaLabel?: string;
   title?: string;
   disabled?: boolean;
-  // Optional: you can add more props later
-  // variant?: 'primary' | 'secondary' | 'outline';
-  // size?: 'sm' | 'md' | 'lg';
+  variant?: 'primary' | 'secondary' | 'outline';
+  size?: 'sm' | 'md' | 'lg'; // ✅ add size
 }
 
 const {
@@ -22,18 +21,34 @@ const {
   ariaLabel,
   title,
   disabled = false,
+  variant = 'primary', // default variant
+  size = 'md',         // default size
   ...rest
 } = Astro.props;
+
+// Map size prop to Tailwind padding/text classes
+const sizeClasses = {
+  sm: 'px-3 py-1 text-sm',
+  md: 'px-4 py-2 text-base',
+  lg: 'px-6 py-3 text-lg',
+}[size];
+
+// Map variant prop to Tailwind colors
+const variantClasses = {
+  primary: 'bg-accent text-white hover:bg-accent-dark',
+  secondary: 'bg-gray-200 text-gray-800 hover:bg-gray-300',
+  outline: 'border border-accent text-accent hover:bg-accent hover:text-white',
+}[variant];
 ---
 
 {
   disabled ? (
     <span
       id={id}
-      class:list={["inline-block cursor-not-allowed opacity-60", className]}
+      class:list={["inline-block cursor-not-allowed opacity-60", sizeClasses, className]}
       title={title}
       aria-disabled="true"
-      role="link"           <!-- helps screen readers -->
+      role="link"
       {...rest}
     >
       <slot />
@@ -42,7 +57,12 @@ const {
     <a
       id={id}
       href={href}
-      class:list={["inline-block transition hover:text-accent focus-visible:outline focus-visible:outline-2 focus-visible:outline-accent focus-visible:outline-offset-2", className]}
+      class:list={[
+        "inline-block transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-accent focus-visible:outline-offset-2",
+        sizeClasses,
+        variantClasses,
+        className
+      ]}
       aria-label={ariaLabel}
       title={title}
       {...rest}
