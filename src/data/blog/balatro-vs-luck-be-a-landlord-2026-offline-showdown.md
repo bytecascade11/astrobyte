@@ -5,11 +5,6 @@ pubDatetime: 2026-01-10T10:00:00Z
 author: "iSamuel"
 slug: "balatro-vs-luck-be-a-landlord-2026-offline-showdown"
 tags:
-  - mobile gaming
-  - offline Games
-  - balatro
-  - luck be a landlord
-  - roguelike
   - games
   - opinions
   - apple
