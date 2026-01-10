@@ -1,20 +1,28 @@
 ---
-export interface Props {
-  id?: string;
+// src/components/LinkButton.astro  (or whatever name you use)
+
+import type { HTMLAttributes } from 'astro/types';
+
+interface Props extends HTMLAttributes<'a'> {
   href: string;
+  id?: string;
   class?: string;
   ariaLabel?: string;
   title?: string;
   disabled?: boolean;
+  // Optional: you can add more props later
+  // variant?: 'primary' | 'secondary' | 'outline';
+  // size?: 'sm' | 'md' | 'lg';
 }
 
 const {
-  id,
   href,
-  class: className = "",
+  id,
+  class: className = '',
   ariaLabel,
   title,
   disabled = false,
+  ...rest
 } = Astro.props;
 ---
 
@@ -22,19 +30,22 @@ const {
   disabled ? (
     <span
       id={id}
-      class:list={["group inline-block", className]}
+      class:list={["inline-block cursor-not-allowed opacity-60", className]}
       title={title}
-      aria-disabled={disabled}
+      aria-disabled="true"
+      role="link"           <!-- helps screen readers -->
+      {...rest}
     >
       <slot />
     </span>
   ) : (
     <a
       id={id}
-      {href}
-      class:list={["group inline-block hover:text-accent", className]}
+      href={href}
+      class:list={["inline-block transition hover:text-accent focus-visible:outline focus-visible:outline-2 focus-visible:outline-accent focus-visible:outline-offset-2", className]}
       aria-label={ariaLabel}
       title={title}
+      {...rest}
     >
       <slot />
     </a>
