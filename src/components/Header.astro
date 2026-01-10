@@ -1,4 +1,4 @@
----
+ ---
 import Hr from "./Hr.astro";
 import IconX from "@/assets/icons/IconX.svg";
 import IconMoon from "@/assets/icons/IconMoon.svg";
@@ -7,8 +7,6 @@ import IconSunHigh from "@/assets/icons/IconSunHigh.svg";
 import IconMenuDeep from "@/assets/icons/IconMenuDeep.svg";
 import LinkButton from "./LinkButton.astro";
 import { SITE } from "@/config";
-import { getCollection } from "astro:content";
-import getUniqueTags from "@/utils/getUniqueTags";
 
 const { pathname } = Astro.url;
 
@@ -21,14 +19,6 @@ const isActive = (path: string) => {
   if (path === "/") return currentPath === "/";
   return currentPath === path || currentPath.startsWith(path + "/");
 };
-
-// Fetch published posts and get sorted unique tags by popularity
-const posts = await getCollection("blog", ({ data }) => !data.draft);
-const uniqueTags = getUniqueTags(posts); // sorted by count desc, then alpha
-
-// Limit initial display to 8 popular tags
-const initialTags = uniqueTags.slice(0, 8);
-const remainingTags = uniqueTags.slice(8);
 ---
 
 <header>
@@ -79,24 +69,31 @@ const remainingTags = uniqueTags.slice(8);
           <li class="col-span-2">
             <a href="/" class:list={{ "active-nav": isActive("/") }}>Home</a>
           </li>
+
           <li class="col-span-2">
             <a href="/tags/news" class:list={{ "active-nav": isActive("/tags/news") }}>News</a>
           </li>
+
           <li class="col-span-2">
             <a href="/tags/samsung" class:list={{ "active-nav": isActive("/tags/samsung") }}>Samsung</a>
           </li>
+
           <li class="col-span-2">
             <a href="/tags/apple" class:list={{ "active-nav": isActive("/tags/apple") }}>Apple</a>
           </li>
+
           <li class="col-span-2">
             <a href="/tags/android" class:list={{ "active-nav": isActive("/tags/android") }}>Android</a>
           </li>
+
           <li class="col-span-2">
             <a href="/tags/games" class:list={{ "active-nav": isActive("/tags/games") }}>Games</a>
           </li>
+
           <li class="col-span-2">
             <a href="/tags/ai" class:list={{ "active-nav": isActive("/tags/ai") }}>AI</a>
           </li>
+
           <li class="col-span-2">
             <a href="/tags/opinions" class:list={{ "active-nav": isActive("/tags/opinions") }}>Opinions</a>
           </li>
@@ -136,43 +133,6 @@ const remainingTags = uniqueTags.slice(8);
         </ul>
       </nav>
     </div>
-  </div>
-
-  <!-- Tag Cloud -->
-  <div class="mx-auto max-w-app px-4 pb-6">
-    <h3 class="text-center text-lg font-semibold mb-4 text-muted-foreground">
-      Popular Topics
-    </h3>
-
-    <div class="flex flex-wrap gap-3 justify-center">
-      {initialTags.map(({ tagName }) => (
-        <a
-          href={`/tags/${tagName.toLowerCase().trim().replace(/\s+/g, "-")}/`}
-          class="px-4 py-2 text-sm font-medium bg-gray-200 dark:bg-gray-700 rounded-full hover:bg-accent hover:text-white dark:hover:bg-accent transition"
-        >
-          #{tagName}
-        </a>
-      ))}
-    </div>
-
-    {remainingTags.length > 0 && (
-      <>
-        <p class="mt-4 text-center font-semibold text-muted-foreground">
-          More topics →
-        </p>
-
-        <div class="flex flex-wrap gap-3 justify-center mt-4 w-full">
-          {remainingTags.map(({ tagName }) => (
-            <a
-              href={`/tags/${tagName.toLowerCase().trim().replace(/\s+/g, "-")}/`}
-              class="px-4 py-2 text-sm font-medium bg-gray-200 dark:bg-gray-700 rounded-full hover:bg-accent hover:text-white dark:hover:bg-accent transition"
-            >
-              #{tagName}
-            </a>
-          ))}
-        </div>
-      </>
-    )}
   </div>
 
   <Hr />
