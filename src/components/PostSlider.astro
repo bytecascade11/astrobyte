@@ -1,39 +1,27 @@
 ---
-// src/components/PostSlider.astro
-
-import { Swiper, SwiperSlide } from 'astro-swiper';
+// PostSlider.astro – Web Components version (no astro-swiper needed)
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
+import { register } from 'swiper/element/bundle';
 
 const { posts } = Astro.props;
 
-interface PostType {
-  id: string;
-  data: {
-    title: string;
-    description?: string;
-    coverImage?: string;
-    coverImageAlt?: string;
-    pubDatetime: Date;
-    tags?: string[];
-    draft?: boolean;
-  };
-}
+// We register once (safe to call multiple times)
+register();
 ---
 
 <section class="relative w-full">
-  <Swiper
-    navigation
-    pagination={{ clickable: true }}
-    autoplay={{ delay: 4000, disableOnInteraction: false }}
-    loop
-    slidesPerView={1}
-    spaceBetween={0}
+  <swiper-container
+    navigation="true"
+    pagination='{"clickable": true}'
+    autoplay='{"delay": 4000, "disableOnInteraction": false}'
+    loop="true"
+    slides-per-view="1"
     class="mySwiper"
   >
-    {posts.map((post: PostType) => (
-      <SwiperSlide key={post.id}>
+    {posts.map(post => (
+      <swiper-slide key={post.id}>
         <a href={`/posts/${post.id}`} class="relative block">
           {post.data.coverImage && (
             <img
@@ -50,21 +38,20 @@ interface PostType {
             )}
           </div>
         </a>
-      </SwiperSlide>
+      </swiper-slide>
     ))}
-  </Swiper>
+  </swiper-container>
 </section>
 
+<script>
+  // Optional: more fine-grained control if needed
+  document.addEventListener('astro:page-load', () => {
+    const swiper = document.querySelector('swiper-container.mySwiper');
+    if (swiper) swiper.initialize?.();
+  });
+</script>
+
 <style>
-  /* Optional: customize navigation arrows & pagination */
-  .swiper-button-next,
-  .swiper-button-prev {
-    color: #f97316; /* your accent color */
-  }
-  .swiper-pagination-bullet {
-    background: #f97316;
-  }
-  .swiper-pagination-bullet-active {
-    background: #f97316;
-  }
+  .swiper-button-next, .swiper-button-prev { color: #f97316; }
+  .swiper-pagination-bullet { background: #f97316; }
 </style>
