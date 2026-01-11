@@ -56,7 +56,7 @@ const breadcrumbItems = [
     "@type": "ListItem",
     "position": 1,
     "name": "Home",
-    "item": "https://www.revibyte.blog/"
+    "item": "https://www.revivbyte.blog/"
   }
 ];
 
@@ -67,7 +67,7 @@ if (segments[0] === "posts") {
     "@type": "ListItem",
     "position": 2,
     "name": "Blog",  // Change to "Posts" if you prefer
-    "item": "https://www.revibyte.blog/posts/"
+    "item": "https://www.revivbyte.blog/posts/"
   });
 
   if (segments.length > 1) {
@@ -95,6 +95,23 @@ const breadcrumbStructuredData = {
   class={`${scrollSmooth && "scroll-smooth"}`}
 >
   <head>
+    <!-- CookieScript Consent Banner – MUST be the FIRST script in <head> -->
+    <script type="text/javascript" charset="UTF-8" src="https://cdn.cookie-script.com/s/7a0b474b3ae1aadcbad72904cd6f17e5.js"></script>
+
+    <!-- Google Consent Mode v2 defaults – required for GA4 & AdSense compliance -->
+    <script is:inline>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('consent', 'default', {
+        'ad_storage': 'denied',
+        'analytics_storage': 'denied',
+        'ad_user_data': 'denied',
+        'ad_personalization': 'denied',
+        'wait_for_update': 500
+      });
+      gtag('set', 'ads_data_redaction', true);
+    </script>
+
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
