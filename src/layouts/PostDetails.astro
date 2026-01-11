@@ -13,7 +13,7 @@ import BackButton from "@/components/BackButton.astro";
 import BackToTopButton from "@/components/BackToTopButton.astro";
 import RelatedPosts from "@/components/RelatedPosts.astro";
 
-import { getPath } from "@/utils/getPath";
+import { getPath } from "@/utils/getPath";          // ← we still import it (used below for prev/next)
 import { slugifyStr } from "@/utils/slugify";
 import IconChevronLeft from "@/assets/icons/IconChevronLeft.svg";
 import IconChevronRight from "@/assets/icons/IconChevronRight.svg";
@@ -65,10 +65,10 @@ const ogImageUrl = ogImage
   : undefined;
 
 // ---------------------------
-// 2️⃣ Canonical URL (must-have)
+// 2️⃣ Canonical URL – FIXED VERSION
 // ---------------------------
-const canonicalPath = getPath(post.id, post.filePath);
-const canonicalUrl = new URL(canonicalPath, Astro.site).href;
+const canonicalPath = Astro.url.pathname;                    // ← This is the clean current URL
+const canonicalUrl = new URL(canonicalPath, Astro.site).href; // absolute canonical
 
 // ---------------------------
 // 3️⃣ Layout props
@@ -110,7 +110,7 @@ const isBlogRoute =
 const breadcrumbItems = [
   { name: "Home", url: "/" },
   ...(isBlogRoute ? [{ name: "Blog", url: "/posts/" }] : []),
-  { name: title, url: canonicalPath }, // Use canonical
+  { name: title, url: canonicalPath }, // Now correct
 ];
 ---
 
