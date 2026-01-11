@@ -3,7 +3,7 @@ title: "Why 8GB RAM Is the Real Minimum for Smartphones in 2026"
 description: "An opinion-based deep dive into why 4GB RAM phones are obsolete in 2026 and why 8GB RAM is now the true minimum for a smooth Android and iOS experience."
 pubDatetime: 2026-01-11T00:00:00Z
 tags: [android, news, opinions]
-coverImage: "/images/posts/8gb-ram-2026-cover.jpg"
+coverImage: "/images/posts/8gb-ram-smartphones-2026-cover.jpg"
 coverImageAlt: "Modern smartphones stacked together showing performance differences by RAM size"
 ---
 
@@ -58,7 +58,7 @@ Android developers noticed. App developers noticed. And low-RAM devices were lef
 
 In 2026, your phone isn’t just running apps. It’s running **AI systems in the background**.
 
-![Illustration of AI processes running on a smartphone](/assets/on-device-ai-ram-usage.jpg)
+![Illustration of AI processes running on a smartphone](/assets/on-device-ai-ram-usage-smartphone.jpg)
 
 Features like live translation, photo enhancement, voice recognition, smart summaries, and contextual suggestions don’t live in the cloud alone anymore. They sit in memory—constantly.
 
@@ -92,8 +92,7 @@ This isn’t lag. It’s memory starvation.
 
 One of the most frustrating trends I’ve seen is the rise of **“virtual RAM” marketing**.
 
-![Virtual RAM marketing comparison graphic](/assets/virtual-ram-marketing.jpg)
-
+![Virtual RAM marketing comparison graphic](/assets/virtual-ram-marketing-vs-physical-ram.jpg)
 Manufacturers proudly advertise:
 > “12GB RAM (4GB + 8GB Virtual)”
 @
