@@ -250,4 +250,15 @@ Modern lithium batteries, when stored at 40-60% charge in cool, dry conditions, 
 ### Would major manufacturers actually do this?
 
 They will if forced by regulation (EU's 2027 mandate) or market pressure. Some brands might lead voluntarily to differentiate themselves and capture the growing repairability-focused market segment. History shows companies resist until they can't—but the momentum is building fast.
+
+---
+
+## Older posts: 
+[Ultimate 2026 Mobile Gaming-guide Tecno infinix Redmi](/posts/ultimate-2026-mobile-gaming-guide-tecno-infinix-redmi)
+
+[2026 Definitive guide Top Offline Mobile Games](/posts/2026-definitive-guide-top-offline-mobile-games)
+
+[Balatro Vs Luck Be a Landlord 2026 Offline Showdown](/posts/balatro-vs-luck-be-a-landlord-2026-offline-showdown)
+
+[Why 8gb Ram is The Real Minimum for Smartphones in-2026](/posts/why-8gb-ram-is-the-real-minimum-for-smartphones-in-2026)
 ```
