@@ -1,23 +1,51 @@
 ---
-import { SHARE_LINKS } from "@/constants";
 import LinkButton from "./LinkButton.astro";
 
-const currentUrl: string = new URL(Astro.url.pathname, Astro.url.origin).href;
+// Props: optional custom URL and title, fallback to current page
+interface Props {
+  url?: string;
+  title?: string;
+}
+
+const pageUrl = Astro.props.url ?? new URL(Astro.url.pathname, Astro.url.origin).href;
+const pageTitle = Astro.props.title ?? document.title;
+
+// Define social share links
+const SHARE_LINKS = [
+  {
+    name: "Twitter",
+    href: "https://twitter.com/intent/tweet?url=",
+    linkTitle: "Share on Twitter",
+    icon: TwitterIcon, // replace with your SVG/component
+  },
+  {
+    name: "Facebook",
+    href: "https://www.facebook.com/sharer/sharer.php?u=",
+    linkTitle: "Share on Facebook",
+    icon: FacebookIcon,
+  },
+  {
+    name: "LinkedIn",
+    href: "https://www.linkedin.com/sharing/share-offsite/?url=",
+    linkTitle: "Share on LinkedIn",
+    icon: LinkedInIcon,
+  },
+];
 ---
 
 {SHARE_LINKS.length > 0 && (
-  <div class="flex flex-none flex-col items-center justify-center gap-1 md:items-start">
-    <span class="italic">Share this post on:</span>
-    <div class="text-center">
+  <div class="flex flex-col items-center md:items-start gap-2 mt-4">
+    <span class="italic text-sm">Share this post on:</span>
+    <div class="flex space-x-3">
       {SHARE_LINKS.map((social) => (
         <LinkButton
-          href={`${social.href}${encodeURIComponent(currentUrl)}`}
-          class="scale-90 p-2 hover:rotate-6 sm:p-1"
+          href={`${social.href}${encodeURIComponent(pageUrl)}&text=${encodeURIComponent(pageTitle)}`}
+          class="px-3 py-1 bg-gray-200 dark:bg-gray-800 rounded hover:opacity-80 transition"
           title={social.linkTitle}
           target="_blank"
           rel="noopener noreferrer"
         >
-          <social.icon class="inline-block size-6 scale-125 fill-transparent stroke-current stroke-2 opacity-90 group-hover:fill-transparent sm:scale-110" />
+          <social.icon class="w-5 h-5 inline-block mr-1 fill-current" />
           <span class="sr-only">{social.linkTitle}</span>
         </LinkButton>
       ))}
