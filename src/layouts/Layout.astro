@@ -4,6 +4,9 @@ import { PUBLIC_GOOGLE_SITE_VERIFICATION } from "astro:env/client";
 import { SITE } from "@/config";
 import "@/styles/global.css";
 
+// NEW: Virtual import from @vite-pwa/astro – auto-injects manifest link, theme-color, etc.
+import { pwaAssetsHead } from 'virtual:pwa-assets/head';
+
 export interface Props {
   title?: string;
   author?: string;
@@ -115,12 +118,13 @@ const breadcrumbStructuredData = {
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
 
-    <!-- Favicon set from RealFaviconGenerator (or similar) -->
+    <!-- Favicon set from your generator -->
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
-    <!-- Uncomment next line if you have site.webmanifest in public/ (for Android/Chrome PWA) -->
-    <!-- <link rel="manifest" href="/site.webmanifest" /> -->
+
+    <!-- PWA: Auto-injects manifest link, theme-color meta, and any extra icons -->
+    {pwaAssetsHead()}
 
     <link rel="canonical" href={canonicalURL} />
     <meta name="generator" content={Astro.generator} />
