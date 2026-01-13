@@ -1,11 +1,13 @@
 ---
 import LinkButton from "./LinkButton.astro";
 
+// Import SVGs (download from Simple Icons or inline)
 import TwitterIcon from "@/assets/icons/twitter.svg";
 import FacebookIcon from "@/assets/icons/facebook.svg";
 import LinkedInIcon from "@/assets/icons/linkedin.svg";
+import WhatsAppIcon from "@/assets/icons/whatsapp.svg";
+import InstagramIcon from "@/assets/icons/instagram.svg";
 
-// Props: optional custom URL and title
 interface Props {
   url?: string;
   title?: string;
@@ -14,45 +16,47 @@ interface Props {
 const pageUrl: string = Astro.props.url ?? new URL(Astro.url.pathname, Astro.url.origin).href;
 const pageTitle: string = Astro.props.title ?? "ReviByte";
 
-// Define social share links
 const SHARE_LINKS = [
   {
     name: "Twitter",
     href: "https://twitter.com/intent/tweet?url=",
-    linkTitle: "Share on Twitter",
     icon: TwitterIcon,
   },
   {
     name: "Facebook",
     href: "https://www.facebook.com/sharer/sharer.php?u=",
-    linkTitle: "Share on Facebook",
     icon: FacebookIcon,
   },
   {
     name: "LinkedIn",
     href: "https://www.linkedin.com/sharing/share-offsite/?url=",
-    linkTitle: "Share on LinkedIn",
     icon: LinkedInIcon,
+  },
+  {
+    name: "WhatsApp",
+    href: "https://api.whatsapp.com/send?text=",
+    icon: WhatsAppIcon,
+  },
+  {
+    name: "Instagram",
+    href: "https://www.instagram.com/?url=", // Instagram doesn’t support direct share via URL; usually just profile link
+    icon: InstagramIcon,
   },
 ];
 ---
 
-{SHARE_LINKS.length > 0 && (
-  <div class="flex flex-col items-center md:items-start gap-2 mt-4">
-    <span class="italic text-sm">Share this post on:</span>
-    <div class="flex space-x-3">
-      {SHARE_LINKS.map((social) => (
-        <LinkButton
-          href={`${social.href}${encodeURIComponent(pageUrl)}&text=${encodeURIComponent(pageTitle)}`}
-          class="px-3 py-1 bg-gray-200 dark:bg-gray-800 rounded hover:opacity-80 transition"
-          title={social.linkTitle}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <social.icon class="w-5 h-5 inline-block mr-1 fill-current" />
-          <span class="sr-only">{social.linkTitle}</span>
-        </LinkButton>
-      ))}
-    </div>
-  </div>
-)}
+<div class="flex flex-row items-center space-x-2 mt-4 text-sm">
+  <span class="italic">Share:</span>
+  {SHARE_LINKS.map((social) => (
+    <LinkButton
+      href={`${social.href}${encodeURIComponent(pageUrl)}${social.name === "WhatsApp" ? "&text=" + encodeURIComponent(pageTitle) : ""}`}
+      target="_blank"
+      rel="noopener noreferrer"
+      title={`Share on ${social.name}`}
+      class="p-1 hover:opacity-80 transition"
+    >
+      <social.icon class="w-5 h-5 fill-current" />
+      <span class="sr-only">Share on {social.name}</span>
+    </LinkButton>
+  ))}
+</div>
