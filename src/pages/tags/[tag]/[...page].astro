@@ -9,8 +9,12 @@ import Pagination from "@/components/Pagination.astro";
 import getSortedPosts from "@/utils/getSortedPosts";
 import { SITE } from "@/config";
 
+// ✅ Use your existing tagMetadata
+import { tagMetadata } from "@/data/tagMetadata";
+
 type BlogPost = CollectionEntry<"blog">;
 
+// --- Generate static paths ---
 export const getStaticPaths: GetStaticPaths = async ({ paginate }) => {
   const allPosts = await getCollection("blog", ({ data }) => !data.draft);
   const sortedPosts = getSortedPosts(allPosts);
@@ -38,7 +42,7 @@ export const getStaticPaths: GetStaticPaths = async ({ paginate }) => {
   });
 };
 
-// Props typing
+// --- Props typing ---
 const { page, tagName } = Astro.props as {
   page: Page<BlogPost>;
   tagName: string;
@@ -49,14 +53,20 @@ const requestedTag = Astro.params.tag;
 if (typeof requestedTag === "string" && requestedTag !== requestedTag.toLowerCase()) {
   return Astro.redirect(`/tags/${requestedTag.toLowerCase()}/`, 301);
 }
+
+// --- Use SEO metadata from tagMetadata ---
+const meta = tagMetadata[tagName.toLowerCase()] || {
+  title: `${tagName} – ReviByte Opinions`,
+  description: `All posts about ${tagName} on ReviByte.`,
+};
 ---
 
-<Layout title={`Tag: ${tagName} | ${SITE.title}`}>
+<Layout title={meta.title} description={meta.description}>
   <Header />
 
   <main class="wrapper mt-10">
     <h1 class="text-3xl font-bold capitalize mb-4">
-      Posts tagged "#{tagName}"
+      {meta.title}
     </h1>
 
     <p class="text-lg text-gray-600 dark:text-gray-400 mb-8">
