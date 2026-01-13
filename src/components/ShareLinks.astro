@@ -1,14 +1,18 @@
 ---
 import LinkButton from "./LinkButton.astro";
 
-// Props: optional custom URL and title, fallback to current page
+import TwitterIcon from "@/assets/icons/twitter.svg";
+import FacebookIcon from "@/assets/icons/facebook.svg";
+import LinkedInIcon from "@/assets/icons/linkedin.svg";
+
+// Props: optional custom URL and title
 interface Props {
   url?: string;
   title?: string;
 }
 
-const pageUrl = Astro.props.url ?? new URL(Astro.url.pathname, Astro.url.origin).href;
-const pageTitle = Astro.props.title ?? document.title;
+const pageUrl: string = Astro.props.url ?? new URL(Astro.url.pathname, Astro.url.origin).href;
+const pageTitle: string = Astro.props.title ?? "ReviByte";
 
 // Define social share links
 const SHARE_LINKS = [
@@ -16,7 +20,7 @@ const SHARE_LINKS = [
     name: "Twitter",
     href: "https://twitter.com/intent/tweet?url=",
     linkTitle: "Share on Twitter",
-    icon: TwitterIcon, // replace with your SVG/component
+    icon: TwitterIcon,
   },
   {
     name: "Facebook",
