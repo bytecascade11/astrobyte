@@ -50,6 +50,9 @@ const structuredData = {
 
 const pageTitle = title === SITE.title ? title : `${title} | ${SITE.title}`;
 
+// -----------------------------
+// Breadcrumbs for posts & tags
+// -----------------------------
 const breadcrumbItems = [
   {
     "@type": "ListItem",
@@ -61,12 +64,32 @@ const breadcrumbItems = [
 
 const segments = Astro.url.pathname.split('/').filter(Boolean);
 
+// Breadcrumbs for blog posts
 if (segments[0] === "posts") {
   breadcrumbItems.push({
     "@type": "ListItem",
     "position": 2,
     "name": "Blog",
     "item": "https://www.revivbyte.blog/posts/"
+  });
+
+  if (segments.length > 1) {
+    breadcrumbItems.push({
+      "@type": "ListItem",
+      "position": 3,
+      "name": title,
+      "item": canonicalURL
+    });
+  }
+}
+
+// Breadcrumbs for tag pages
+else if (segments[0] === "tags") {
+  breadcrumbItems.push({
+    "@type": "ListItem",
+    "position": 2,
+    "name": "Tags",
+    "item": "https://www.revivbyte.blog/tags/"
   });
 
   if (segments.length > 1) {
@@ -96,7 +119,7 @@ const breadcrumbStructuredData = {
     <!-- CookieScript Consent Banner – MUST be the FIRST script in <head> -->
     <script type="text/javascript" charset="UTF-8" src="https://cdn.cookie-script.com/s/7a0b474b3ae1aadcbad72904cd6f17e5.js"></script>
 
-    <!-- Google Consent Mode v2 defaults – required for GA4 & AdSense compliance -->
+    <!-- Google Consent Mode v2 defaults -->
     <script is:inline>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
@@ -113,12 +136,10 @@ const breadcrumbStructuredData = {
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
 
-    <!-- Favicon set from your generator -->
+    <!-- Favicon -->
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
-
-    <!-- Basic theme color for browsers -->
     <meta name="theme-color" content="#ffffff" />
 
     <link rel="canonical" href={canonicalURL} />
