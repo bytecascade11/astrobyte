@@ -2,7 +2,7 @@
 import { SHARE_LINKS } from "@/constants";
 import LinkButton from "./LinkButton.astro";
 
-const URL = new URL(Astro.url.pathname, Astro.url.origin).href;
+const currentUrl: string = new URL(Astro.url.pathname, Astro.url.origin).href;
 ---
 
 {SHARE_LINKS.length > 0 && (
@@ -11,7 +11,7 @@ const URL = new URL(Astro.url.pathname, Astro.url.origin).href;
     <div class="text-center">
       {SHARE_LINKS.map((social) => (
         <LinkButton
-          href={`${social.href}${encodeURIComponent(URL)}`}
+          href={`${social.href}${encodeURIComponent(currentUrl)}`}
           class="scale-90 p-2 hover:rotate-6 sm:p-1"
           title={social.linkTitle}
           target="_blank"
