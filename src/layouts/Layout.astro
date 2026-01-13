@@ -4,9 +4,6 @@ import { PUBLIC_GOOGLE_SITE_VERIFICATION } from "astro:env/client";
 import { SITE } from "@/config";
 import "@/styles/global.css";
 
-// NEW: Virtual import from @vite-pwa/astro – auto-injects manifest link, theme-color, etc.
-import { pwaAssetsHead } from 'virtual:pwa-assets/head';
-
 export interface Props {
   title?: string;
   author?: string;
@@ -53,7 +50,6 @@ const structuredData = {
 
 const pageTitle = title === SITE.title ? title : `${title} | ${SITE.title}`;
 
-// FIXED: Build BreadcrumbList safely in code (no JSON syntax errors)
 const breadcrumbItems = [
   {
     "@type": "ListItem",
@@ -69,12 +65,11 @@ if (segments[0] === "posts") {
   breadcrumbItems.push({
     "@type": "ListItem",
     "position": 2,
-    "name": "Blog",  // Change to "Posts" if you prefer
+    "name": "Blog",
     "item": "https://www.revivbyte.blog/posts/"
   });
 
   if (segments.length > 1) {
-    // Individual post page
     breadcrumbItems.push({
       "@type": "ListItem",
       "position": 3,
@@ -123,8 +118,8 @@ const breadcrumbStructuredData = {
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
 
-    <!-- PWA: Auto-injects manifest link, theme-color meta, and any extra icons -->
-    {pwaAssetsHead()}
+    <!-- Basic theme color for browsers -->
+    <meta name="theme-color" content="#ffffff" />
 
     <link rel="canonical" href={canonicalURL} />
     <meta name="generator" content={Astro.generator} />
@@ -155,7 +150,7 @@ const breadcrumbStructuredData = {
     <!-- BlogPosting structured data -->
     <script type="application/ld+json" is:inline set:html={JSON.stringify(structuredData)} />
 
-    <!-- FIXED BreadcrumbList structured data -->
+    <!-- BreadcrumbList structured data -->
     <script type="application/ld+json" is:inline set:html={JSON.stringify(breadcrumbStructuredData)} />
 
     <link
