@@ -10,80 +10,64 @@ import {
 } from "@shikijs/transformers";
 import { transformerFileName } from "./src/utils/transformers/fileName";
 import { SITE } from "./src/config";
-import indexnow from "./src/integrations/indexnow";
-import AstroPWA from "@vite-pwa/astro";
+import indexnow from "./src/integrations/indexnow";  // ← Your custom integration
+
+import AstroPWA from '@vite-pwa/astro';  // ← New import for PWA
 
 // https://astro.build/config
 export default defineConfig({
   site: SITE.website,
-
   integrations: [
     sitemap({
-      filter: (page) => SITE.showArchives || !page.endsWith("/archives"),
+      filter: page => SITE.showArchives || !page.endsWith("/archives"),
     }),
-
-    indexnow(),
-
+    indexnow(),  // ← Your IndexNow integration
     AstroPWA({
-      registerType: "autoUpdate",
-
+      // Recommended minimal config – customize as needed
+      registerType: 'autoUpdate',          // Auto-updates SW when new version deployed
       includeAssets: [
-        "favicon.ico",
-        "favicon-16x16.png",
-        "favicon-32x32.png",
-        "apple-touch-icon.png",
-        "android-chrome-192x192.png",
-        "android-chrome-512x512.png",
+        'favicon.ico',
+        'favicon-16x16.png',
+        'favicon-32x32.png',
+        'apple-touch-icon.png',
+        'android-chrome-192x192.png',
+        'android-chrome-512x512.png',
       ],
-
       manifest: {
-        name: "RevivByte Blog",
-        short_name: "RevivByte",
-        description:
-          "Insights on revival, tech, personal growth, and more from Benin City.",
-        theme_color: "#ffffff",
-        background_color: "#ffffff",
-        display: "standalone",
-        scope: "/",
-        start_url: "/",
+        name: 'RevivByte Blog',              // Full app name
+        short_name: 'RevivByte',             // Short label on home screen
+        description: 'Insights on revival, tech, personal growth, and more from Benin City.',
+        theme_color: '#ffffff',              // Match your site's theme (change if needed, e.g. to your primary color)
+        background_color: '#ffffff',
+        display: 'standalone',               // Opens like a native app (no browser UI)
+        scope: '/',
+        start_url: '/',
         icons: [
           {
-            src: "/android-chrome-192x192.png",
-            sizes: "192x192",
-            type: "image/png",
+            src: '/android-chrome-192x192.png',
+            sizes: '192x192',
+            type: 'image/png',
+            purpose: 'any'
           },
           {
-            src: "/android-chrome-512x512.png",
-            sizes: "512x512",
-            type: "image/png",
-            purpose: "any maskable",
+            src: '/android-chrome-512x512.png',
+            sizes: '512x512',
+            type: 'image/png',
+            purpose: 'any maskable'          // Rounded/masked icon support
           },
         ],
       },
-
       workbox: {
-        navigateFallback: "/",
-        globPatterns: [
-          "**/*.{js,css,html,svg,png,ico,jpg,jpeg,webp,woff,woff2}",
-        ],
+        navigateFallback: '/',               // Serve home for unmatched routes (good for SPA feel)
+        globPatterns: ['**/*.{js,css,html,svg,png,ico,jpg,webp,woff,woff2}'],  // Cache your assets
       },
-
-      // Enable only if you want PWA active in dev/preview
-      // devOptions: { enabled: true },
+      // devOptions: { enabled: true },     // Uncomment ONLY for local dev testing of PWA (not for production builds)
     }),
   ],
-
   markdown: {
-    remarkPlugins: [
-      remarkToc,
-      [remarkCollapse, { test: "Table of contents" }],
-    ],
-
+    remarkPlugins: [remarkToc, [remarkCollapse, { test: "Table of contents" }]],
     shikiConfig: {
-      themes: {
-        light: "min-light",
-        dark: "night-owl",
-      },
+      themes: { light: "min-light", dark: "night-owl" },
       defaultColor: false,
       wrap: false,
       transformers: [
@@ -94,19 +78,16 @@ export default defineConfig({
       ],
     },
   },
-
   vite: {
     plugins: [tailwindcss()],
     optimizeDeps: {
       exclude: ["@resvg/resvg-js"],
     },
   },
-
   image: {
     responsiveStyles: true,
     layout: "constrained",
   },
-
   env: {
     schema: {
       PUBLIC_GOOGLE_SITE_VERIFICATION: envField.string({
@@ -116,7 +97,6 @@ export default defineConfig({
       }),
     },
   },
-
   experimental: {
     preserveScriptOrder: true,
   },
