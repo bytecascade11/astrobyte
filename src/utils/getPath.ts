@@ -1,32 +1,43 @@
-import { slugifyStr } from "./slugify";
+import { slugifyStr } from "./slugify"; // Keep if you need it later, but not used here
 
 /**
- * Generate a clean, flat URL path for a blog post.
- * Ignores any folder nesting and uses only the final slug.
- * Works with content collections where post.id = "optional/folder/slug.mdx"
+ * Generate a clean URL path for a blog post.
+ * - Uses the last part of the content collection ID (filename or slug)
+ * - Strips .md/.mdx extension and any YYYY-MM-DD- date prefix
+ * - Prefixes with /posts/ by default (configurable)
+ * - Handles nested folders gracefully by taking only the final slug part
  */
 export function getPath(
-  id: string,
-  filePath?: string | undefined,       // optional - we don't need it anymore
-  includeBase = true
+  id: string,                    // post.id from CollectionEntry (e.g. "2024-01-15-my-post.mdx" or "folder/my-post")
+  filePath?: string | undefined, // optional, can be removed if never used
+  includeBase = true             // set to false if you want just the slug without /posts/
 ): string {
-  const basePath = includeBase ? "/posts" : "";
-
-  // Take the last part of id (the actual slug file)
+  // Extract the actual slug part (last segment after any folders)
   const slugPart = id.split("/").pop() || id;
 
-  // Remove extension and any date prefix (YYYY-MM-DD-)
-  const cleanSlug = stripDatePrefix(slugPart.replace(/\.mdx?$/, ""));
+  // Remove file extension (.md or .mdx)
+  let cleanSlug = slugPart.replace(/\.mdx?$/, "");
 
-  // Optional: you can still slugify if needed, but usually not necessary
-  // const finalSlug = slugifyStr(cleanSlug);
+  // Remove optional date prefix (YYYY-MM-DD- or YYYY-MM-DD_)
+  cleanSlug = stripDatePrefix(cleanSlug);
 
-  return `\( {basePath}/ \){cleanSlug}`.replace(/\/+/g, "/");
+  // Optional: apply slugify if your slugs contain special characters
+  // (usually not needed since Astro already gives clean slugs)
+  // cleanSlug = slugifyStr(cleanSlug);
+
+  // Build final path
+  const base = includeBase ? "/posts" : "";
+  const path = `\( {base}/ \){cleanSlug}`.replace(/\/+/g, "/"); // normalize multiple slashes
+
+  // Ensure it starts with exactly one slash and has no trailing slash (Astro convention)
+  return path.replace(/^\/+/, "/").replace(/\/+$/, "");
 }
 
 /**
- * Remove YYYY-MM-DD- prefix from slugs
+ * Remove common date prefixes from slugs (YYYY-MM-DD-)
+ * More robust: handles variations like YYYY-MM-DD_, YYYY.MM.DD-, etc.
  */
 function stripDatePrefix(slug: string): string {
-  return slug.replace(/^\d{4}-\d{2}-\d{2}-/, "");
+  // Matches common date formats at start: 2024-01-15-, 2024-01-15_, 2024.01.15-
+  return slug.replace(/^\d{4}[-._]\d{2}[-._]\d{2}[-._]?/, "").trim();
 }
