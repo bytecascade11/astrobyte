@@ -5,7 +5,6 @@ pubDatetime: 2025-12-25T10:06:00Z
 author: "iSamuel"
 slug: best-mobile-game-genres-2025
 tags:
-  - gaming industry
   - games
   - opinions
   - apple
