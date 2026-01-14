@@ -6,11 +6,10 @@ pubDatetime: 2025-12-19T00:00:00Z
 slug: do-you-really-need-paid-antivirus-android-2026
 draft: false
 tags:
-  - android-security
-  - google-play-protect
-  - mobile-malware
-  - antivirus-advice
-  - cybersecurity
+  - opinions
+  - android
+  - apple
+  - technology
 coverImage: "/images/posts/android-security.jpg"
 coverImageAlt: "Smartphone protected by a digital security shield"
 ---
