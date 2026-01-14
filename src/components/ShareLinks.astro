@@ -1,22 +1,13 @@
 ---
 import LinkButton from "./LinkButton.astro";
 
-// Brand SVG icons (official colors)
 import TwitterIcon from "@/assets/icons/twitter.svg";
 import FacebookIcon from "@/assets/icons/facebook.svg";
 import LinkedInIcon from "@/assets/icons/linkedin.svg";
 import WhatsAppIcon from "@/assets/icons/whatsapp.svg";
-import InstagramIcon from "@/assets/icons/instagram.svg";
 
-interface Props {
-  url?: string;
-  title?: string;
-}
-
-const pageUrl =
-  Astro.props.url ?? new URL(Astro.url.pathname, Astro.url.origin).href;
-
-const pageTitle = Astro.props.title ?? "ReviByte";
+const pageUrl = new URL(Astro.url.pathname, Astro.url.origin).href;
+const pageTitle = "ReviByte";
 
 const SHARE_LINKS = [
   {
@@ -47,28 +38,59 @@ const SHARE_LINKS = [
     )}`,
     icon: WhatsAppIcon,
   },
-  {
-    name: "Instagram",
-    href: "https://www.instagram.com/", // Instagram does NOT support URL sharing
-    icon: InstagramIcon,
-  },
 ];
 ---
 
-<div class="flex items-center gap-3 mt-4 text-sm">
-  <span class="italic opacity-80">Share:</span>
+<div class="relative inline-block">
+  <!-- Toggle Button -->
+  <button
+    id="share-toggle"
+    class="flex items-center gap-2 text-sm opacity-80 hover:opacity-100 transition"
+    aria-expanded="false"
+  >
+    🔗 Share
+  </button>
 
-  {SHARE_LINKS.map((social) => (
-    <LinkButton
-      href={social.href}
-      target="_blank"
-      rel="noopener noreferrer"
-      title={`Share on ${social.name}`}
-      class="p-1 hover:scale-110 transition"
-    >
-      <!-- IMPORTANT: no fill-current, no stroke-current -->
-      <social.icon class="w-5 h-5" />
-      <span class="sr-only">Share on {social.name}</span>
-    </LinkButton>
-  ))}
+  <!-- Share Panel -->
+  <div
+    id="share-panel"
+    class="absolute z-30 mt-2 hidden rounded-xl border bg-background p-3 shadow-lg"
+  >
+    <div class="flex gap-3">
+      {SHARE_LINKS.map((social) => (
+        <LinkButton
+          href={social.href}
+          target="_blank"
+          rel="noopener noreferrer"
+          title={`Share on ${social.name}`}
+          class="hover:scale-110 transition"
+        >
+          <social.icon class="w-5 h-5" />
+        </LinkButton>
+      ))}
+    </div>
+  </div>
 </div>
+
+<script is:inline>
+  const toggle = document.getElementById("share-toggle");
+  const panel = document.getElementById("share-panel");
+
+  let lastScrollY = window.scrollY;
+
+  toggle?.addEventListener("click", () => {
+    panel?.classList.toggle("hidden");
+    toggle.setAttribute(
+      "aria-expanded",
+      panel?.classList.contains("hidden") ? "false" : "true"
+    );
+  });
+
+  window.addEventListener("scroll", () => {
+    if (window.scrollY !== lastScrollY) {
+      panel?.classList.add("hidden");
+      toggle?.setAttribute("aria-expanded", "false");
+    }
+    lastScrollY = window.scrollY;
+  });
+</script>
