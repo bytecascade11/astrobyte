@@ -14,6 +14,7 @@ coverImage: "/images/posts/cover-image-xiaomi-17-pro-max.jpg"
 coverImageAlt: "Xiaomi 17 Pro Max Hero Image"
 ---
 
+
 # What You Really Need to Know About the Xiaomi 17 Pro Max: RAM, Camera, and Beyond
 
 *Xiaomi’s Pro Max lineup traditionally focuses on maximum performance, premium materials, and camera-first design.*
