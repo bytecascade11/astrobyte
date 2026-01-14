@@ -5,6 +5,8 @@ import TwitterIcon from "@/assets/icons/twitter.svg";
 import FacebookIcon from "@/assets/icons/facebook.svg";
 import LinkedInIcon from "@/assets/icons/linkedin.svg";
 import WhatsAppIcon from "@/assets/icons/whatsapp.svg";
+import InstagramIcon from "@/assets/icons/instagram.svg";
+import LinkIcon from "@/assets/icons/link.svg"; // copy icon
 
 const pageUrl = new URL(Astro.url.pathname, Astro.url.origin).href;
 const pageTitle = "ReviByte";
@@ -38,10 +40,15 @@ const SHARE_LINKS = [
     )}`,
     icon: WhatsAppIcon,
   },
+  {
+    name: "Instagram",
+    href: "https://www.instagram.com/revibyte/",
+    icon: InstagramIcon,
+  },
 ];
 ---
 
-<!-- Toggle button (stays in flow) -->
+<!-- Toggle Button -->
 <button
   id="share-toggle"
   class="mt-4 inline-flex items-center gap-2 text-sm opacity-80 hover:opacity-100 transition"
@@ -50,29 +57,53 @@ const SHARE_LINKS = [
   🔗 Share
 </button>
 
-<!-- Floating overlay panel -->
+<!-- Floating Share Panel -->
 <div
   id="share-panel"
   class="fixed top-24 left-1/2 z-50 hidden -translate-x-1/2 rounded-2xl border bg-background px-5 py-3 shadow-xl backdrop-blur"
 >
-  <div class="flex gap-4">
+  <div class="flex gap-4 items-center">
     {SHARE_LINKS.map((social) => (
       <LinkButton
         href={social.href}
         target="_blank"
         rel="noopener noreferrer"
-        title={`Share on ${social.name}`}
+        title={
+          social.name === "Instagram"
+            ? "Visit ReviByte on Instagram"
+            : `Share on ${social.name}`
+        }
         class="hover:scale-110 transition"
       >
         <social.icon class="h-6 w-6" />
       </LinkButton>
     ))}
+
+    <!-- Copy Link -->
+    <button
+      id="copy-link"
+      class="hover:scale-110 transition"
+      title="Copy link"
+      aria-label="Copy link"
+    >
+      <LinkIcon class="h-6 w-6" />
+    </button>
   </div>
+
+  <!-- Copy feedback -->
+  <p
+    id="copy-feedback"
+    class="mt-2 hidden text-center text-xs text-muted-foreground"
+  >
+    Link copied!
+  </p>
 </div>
 
 <script is:inline>
   const toggle = document.getElementById("share-toggle");
   const panel = document.getElementById("share-panel");
+  const copyBtn = document.getElementById("copy-link");
+  const feedback = document.getElementById("copy-feedback");
 
   let lastScrollY = window.scrollY;
 
@@ -90,5 +121,15 @@ const SHARE_LINKS = [
       toggle?.setAttribute("aria-expanded", "false");
     }
     lastScrollY = window.scrollY;
+  });
+
+  copyBtn?.addEventListener("click", async () => {
+    try {
+      await navigator.clipboard.writeText(window.location.href);
+      feedback?.classList.remove("hidden");
+      setTimeout(() => feedback?.classList.add("hidden"), 2000);
+    } catch (err) {
+      alert("Failed to copy link");
+    }
   });
 </script>
