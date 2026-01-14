@@ -7,18 +7,9 @@ slug: pixel-a-vs-iphone-camera-real-world
 featured: true
 draft: false
 tags:
-  - smartphone-cameras
-  - google-pixel
-  - iphone
   - apple
   - opinions
   - android
-  - mobile-photography
-  - camera-comparison
-  - computational-photography
-  - smartphone-reviews
-  - tech-comparison
-  - photography-tips
 coverImage: "/images/posts/pixel-vs-iphone-camera-showdown-hero.jpg"
 coverImageAlt: "Google Pixel vs iPhone Camera Comparison – Real-World Photography Test"
 ---
