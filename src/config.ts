@@ -7,13 +7,13 @@ export const SITE = {
   ogImage: "astropaper-og.jpg",
   lightAndDarkMode: true,
   postPerIndex: 4,
-  postPerPage: 12, // CHANGED from 4 to 12
+  postPerPage: 20, // CHANGED from 12 to 20
   scheduledPostMargin: 15 * 60 * 1000, 
   showArchives: true,
   showBackButton: true,
     // --- EDIT PAGE SECTION START ---
   editPost: {
-    enabled: false, // Set this to false to hide the "Edit page" link
+    enabled: false,
     text: "Edit page",
     url: "https://github.com/bytecascade11/astrobyte/edit/main/",
   },
