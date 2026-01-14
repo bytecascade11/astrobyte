@@ -7,13 +7,10 @@ featured: true
 draft: false
 tags:
   - ai
-  - ai tools
-  - free ai
   - productivity
-  - best of 2025
   - reviews
-  - nigeria tech
-  - africa tech
+  - opinions
+  - technology 
 coverImage: "/images/posts/10-free-ai-2025-cover.jpg"
 coverImageAlt: "My actual MacBook dock at 3:12 a.m."
 ---
