@@ -7,7 +7,6 @@ tags:
   - apple
   - iPhone
   - reviews
-  - comparison
   - opinions
 coverImage: "/images/posts/iphone-compare.jpg"
 coverImageAlt: "iPhone 14 vs iPhone 15 vs iPhone 16 side-by-side comparison"
