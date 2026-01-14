@@ -41,34 +41,32 @@ const SHARE_LINKS = [
 ];
 ---
 
-<div class="relative inline-block">
-  <!-- Toggle Button -->
-  <button
-    id="share-toggle"
-    class="flex items-center gap-2 text-sm opacity-80 hover:opacity-100 transition"
-    aria-expanded="false"
-  >
-    🔗 Share
-  </button>
+<!-- Toggle button (stays in flow) -->
+<button
+  id="share-toggle"
+  class="mt-4 inline-flex items-center gap-2 text-sm opacity-80 hover:opacity-100 transition"
+  aria-expanded="false"
+>
+  🔗 Share
+</button>
 
-  <!-- Share Panel -->
-  <div
-    id="share-panel"
-    class="absolute z-30 mt-2 hidden rounded-xl border bg-background p-3 shadow-lg"
-  >
-    <div class="flex gap-3">
-      {SHARE_LINKS.map((social) => (
-        <LinkButton
-          href={social.href}
-          target="_blank"
-          rel="noopener noreferrer"
-          title={`Share on ${social.name}`}
-          class="hover:scale-110 transition"
-        >
-          <social.icon class="w-5 h-5" />
-        </LinkButton>
-      ))}
-    </div>
+<!-- Floating overlay panel -->
+<div
+  id="share-panel"
+  class="fixed top-24 left-1/2 z-50 hidden -translate-x-1/2 rounded-2xl border bg-background px-5 py-3 shadow-xl backdrop-blur"
+>
+  <div class="flex gap-4">
+    {SHARE_LINKS.map((social) => (
+      <LinkButton
+        href={social.href}
+        target="_blank"
+        rel="noopener noreferrer"
+        title={`Share on ${social.name}`}
+        class="hover:scale-110 transition"
+      >
+        <social.icon class="h-6 w-6" />
+      </LinkButton>
+    ))}
   </div>
 </div>
 
