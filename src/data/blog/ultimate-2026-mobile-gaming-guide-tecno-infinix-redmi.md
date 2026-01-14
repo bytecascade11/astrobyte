@@ -4,7 +4,6 @@ description: "A deep dive into the best-optimized mobile games for Tecno, Infini
 pubDatetime: 2026-01-07T07:20:00Z
 author: "iSamuel"
 tags:
-  - gaming
   - android
   - mobile-gaming
   - tecno
