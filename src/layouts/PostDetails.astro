@@ -9,6 +9,8 @@ import Tag from "@/components/Tag.astro";
 import Datetime from "@/components/Datetime.astro";
 import EditPost from "@/components/EditPost.astro";
 import RelatedPosts from "@/components/RelatedPosts.astro";
+import BackToTopButton from "@/components/BackToTopButton.astro";
+import ShareLinks from "@/components/ShareLinks.astro";
 
 import { getPath } from "@/utils/getPath";
 import { slugifyStr } from "@/utils/slugify";
@@ -74,6 +76,22 @@ const nextPost = currentIndex < sortedPosts.length - 1 ? sortedPosts[currentInde
 >
   <Header />
 
+  <!-- Floating Share + Back-to-Top buttons (JS-only for normal browsers) -->
+  <div class="js-only fixed top-20 right-4 z-50 flex flex-col gap-4">
+    <BackToTopButton class="rounded-full p-3 shadow-lg bg-background/90" />
+    <div class="rounded-lg p-4 shadow-lg bg-background/90">
+      <span class="text-sm opacity-80">Share</span>
+      <ShareLinks title={title} url={Astro.url.href} />
+    </div>
+  </div>
+
+  <!-- Fallback for Opera Mini / no-JS -->
+  <noscript>
+    <p class="text-sm opacity-70 mt-4">
+      Use your browser’s share feature to share this post.
+    </p>
+  </noscript>
+
   <main class="mx-auto max-w-app px-4 pb-12 mt-8" data-pagefind-body>
     <h1 class="text-3xl font-bold">{title}</h1>
 
@@ -98,7 +116,7 @@ const nextPost = currentIndex < sortedPosts.length - 1 ? sortedPosts[currentInde
       </figure>
     )}
 
-    <!-- ✅ MAIN CONTENT (Opera Mini reads this perfectly) -->
+    <!-- MAIN CONTENT -->
     <article class="app-prose mx-auto mt-10">
       <Content />
     </article>
@@ -115,7 +133,7 @@ const nextPost = currentIndex < sortedPosts.length - 1 ? sortedPosts[currentInde
       </section>
     )}
 
-    <!-- ✅ COMMENTS FALLBACK -->
+    <!-- COMMENTS -->
     <section class="my-16">
       <h2 class="text-xl font-bold mb-4">Comments</h2>
 
@@ -126,7 +144,6 @@ const nextPost = currentIndex < sortedPosts.length - 1 ? sortedPosts[currentInde
         </p>
       </noscript>
 
-      <!-- JS comments only load on capable browsers -->
       <div class="js-only">
         <script
           src="https://giscus.app/client.js"
