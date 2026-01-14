@@ -6,11 +6,8 @@ slug: fast-charging-explained-2025
 author: iSamuel 
 tags:
   - news
-  - fast charging
   - opinions
   - technology
-  - mobile phone
-  - battery
   - breaking
 coverImage: "/images/posts/fast-charging-2025-explained (1).jpg"
 coverImageAlt: "Close-up editorial image of a modern smartphone connected to a USB-C fast charger, with subtle visual cues of power flow and heat dissipation"
