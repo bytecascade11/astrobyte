@@ -4,6 +4,7 @@ description: "An honest, in-depth look at the Xiaomi 17 Pro Max's key featuresâ€
 pubDatetime: 2025-01-14T00:00:00Z
 slug: "xiaomi-17-pro-max-review-ram-camera-features"
 author: iSamuel 
+draft: false 
 tags: 
   - reviews
   - android
