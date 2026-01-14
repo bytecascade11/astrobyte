@@ -7,7 +7,6 @@ featured: true
 draft: false
 tags:
   - samsung
-  - galaxy S26
   - rumors
   - android
 coverImage: "/images/posts/s26-ultra-concept.jpg"
