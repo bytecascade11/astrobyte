@@ -1,6 +1,6 @@
 ---
 import Hr from "./Hr.astro";
-
+import IconX from "@/assets/icons/IconX.svg";
 import IconMoon from "@/assets/icons/IconMoon.svg";
 import IconSearch from "@/assets/icons/IconSearch.svg";
 import IconSunHigh from "@/assets/icons/IconSunHigh.svg";
@@ -156,9 +156,10 @@ const isActive = (path: string) => {
       closeIcon.classList.toggle("hidden");
     });
 
-    // Close menu when a link is clicked (UX improvement)
+    // Close menu when a link is clicked (TypeScript-safe)
     menu.addEventListener("click", (e) => {
-      if (e.target.closest("a")) {
+      const target = e.target as HTMLElement | null;
+      if (target?.closest("a")) {
         menu.classList.add("hidden");
         openIcon.classList.remove("hidden");
         closeIcon.classList.add("hidden");
