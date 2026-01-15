@@ -1,6 +1,6 @@
 ---
 title: "Why Removable Batteries Should Make a Comeback in 2026"
-description: "An in-depth look at why smartphone removable batteries need to return—exploring the environmental impact, economic benefits, and why the 'premium design' excuse is holding us back from true device ownership."
+description: "Why smartphone removable batteries need to return: environmental impact, economic benefits, and why 'premium design' excuses block true device ownership."
 pubDatetime: 2026-01-12T00:00:00Z
 slug: why-removable-batteries-should-make-comeback-2026
 author: iSamuel
