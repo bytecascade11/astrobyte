@@ -1,12 +1,101 @@
 ---
-import { getCollection } from 'astro:content';
-import { getPath } from '@/utils/getPath'; // NEW: Import the utility
+import type { CollectionEntry } from "astro:content";
+import { render, getCollection } from "astro:content";
 
-const { post } = Astro.props;
+import Layout from "@/layouts/Layout.astro";
+import Header from "@/components/Header.astro";
+import Footer from "@/components/Footer.astro";
+import Tag from "@/components/Tag.astro";
+import Datetime from "@/components/Datetime.astro";
+import EditPost from "@/components/EditPost.astro";
+import ShareLinks from "@/components/ShareLinks.astro";
+import BackButton from "@/components/BackButton.astro";
+import BackToTopButton from "@/components/BackToTopButton.astro";
+import RelatedPosts from "@/components/RelatedPosts.astro";
 
+import { getPath } from "@/utils/getPath";
+import { slugifyStr } from "@/utils/slugify";
+import IconChevronLeft from "@/assets/icons/IconChevronLeft.svg";
+import IconChevronRight from "@/assets/icons/IconChevronRight.svg";
+import { SITE } from "@/config";
+
+export interface Props {
+  post: CollectionEntry<"blog">;
+  posts: CollectionEntry<"blog">[];
+}
+
+const { post, posts } = Astro.props;
+
+// Frontmatter destructuring
+const {
+  title,
+  author,
+  description,
+  ogImage: initOgImage,
+  pubDatetime,
+  modDatetime,
+  timezone,
+  tags = [],
+  hideEditPost,
+  coverImage,
+  coverImageAlt,
+} = post.data;
+
+// Render Markdown/MDX content
+const { Content } = await render(post);
+
+// Meta description
+let metaDescription = description?.trim() || "";
+if (!metaDescription) {
+  const bodyText = post.body ? post.body.replace(/\n+/g, " ").replace(/\s+/g, " ").trim() : "";
+  metaDescription = bodyText.slice(0, 160).trim();
+}
+if (!metaDescription) metaDescription = SITE.desc?.trim() || "Tech reviews, opinions, and news on smartphones, AI, games, and more.";
+
+// OG Image
+let ogImage: string | undefined;
+if (typeof initOgImage === "string") ogImage = initOgImage;
+else if (initOgImage?.src) ogImage = initOgImage.src;
+if (!ogImage && coverImage) ogImage = coverImage;
+if (!ogImage && SITE.dynamicOgImage) ogImage = `${getPath(post.id, post.filePath, true)}/open-graph.png`;
+if (!ogImage) ogImage = "/astropaper-og.jpg";
+const ogImageUrl = ogImage ? new URL(ogImage.startsWith("http") ? ogImage : ogImage, Astro.url.origin).href : undefined;
+
+// Canonical URL
+let canonicalPath = Astro.url.pathname;
+if (canonicalPath !== "/" && canonicalPath.endsWith("/")) canonicalPath = canonicalPath.slice(0, -1);
+const canonicalUrl = new URL(canonicalPath, Astro.site).href;
+
+// Layout props
+const layoutProps = {
+  title: `${title} | ${SITE.title}`,
+  author,
+  description: metaDescription,
+  pubDatetime,
+  modDatetime,
+  canonicalURL: canonicalUrl,
+  ogImage: ogImageUrl,
+  scrollSmooth: true,
+};
+
+// Prev / Next posts
+const sortedPosts = [...posts].sort(
+  (a, b) => (b.data.modDatetime ?? b.data.pubDatetime).getTime() - (a.data.modDatetime ?? a.data.pubDatetime).getTime()
+);
+const currentIndex = sortedPosts.findIndex((p) => p.id === post.id);
+const prevPost = currentIndex > 0 ? sortedPosts[currentIndex - 1] : null;
+const nextPost = currentIndex < sortedPosts.length - 1 ? sortedPosts[currentIndex + 1] : null;
+
+// Breadcrumbs
+const isBlogRoute = Astro.url.pathname.startsWith("/posts/") || Astro.url.pathname.startsWith("/blog/");
+const breadcrumbItems = [
+  { name: "Home", url: "/" },
+  ...(isBlogRoute ? [{ name: "Blog", url: "/posts/" }] : []),
+  { name: title, url: canonicalPath },
+];
+
+// Related posts
 const allPosts = await getCollection('blog', ({ data }) => !data.draft);
-
-// Related posts: share at least one tag, exclude current, newest first, up to 5
 const related = allPosts
   .filter(p => p.id !== post.id)
   .filter(p => p.data.tags?.some(tag => post.data.tags?.includes(tag)))
@@ -14,40 +103,157 @@ const related = allPosts
   .slice(0, 5);
 ---
 
-{related.length > 0 && (
-  <section class="mt-20">
-    <h2 class="text-2xl font-bold mb-8">Related Posts</h2>
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-      {related.map(relatedPost => {
-        // CORRECT: Use getPath() just like the rest of your site
-        const link = getPath(relatedPost.id, relatedPost.filePath);
-        const { title, description = '', pubDatetime, tags = [] } = relatedPost.data;
-        return (
-          <article class="flex flex-col gap-3 p-6 rounded-2xl bg-card/80 backdrop-blur shadow-lg hover:shadow-xl transition-all">
-            <header>
-              <a href={link} class="font-semibold text-lg hover:text-accent transition-colors">
-                {title}
-              </a>
-            </header>
-            <time class="text-sm text-muted-foreground">
-              {new Date(pubDatetime).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
-            </time>
-            {description && (
-              <p class="text-muted-foreground line-clamp-3">
-                {description}
-              </p>
-            )}
-            <footer class="flex flex-wrap gap-2 mt-auto">
-              {tags.map(tag => (
-                <a href={`/tags/${tag}/`} class="text-xs rounded-full px-3 py-1 bg-muted/50 hover:bg-accent hover:text-background transition-colors">
-                  {tag}
-                </a>
-              ))}
-            </footer>
-          </article>
-        );
-      })}
+<Layout {...layoutProps}>
+  <Header />
+  {SITE.showBackButton && <BackButton />}
+
+  {isBlogRoute && (
+    <nav class="mx-auto mt-8 mb-6 max-w-app px-4" aria-label="Breadcrumb">
+      <ol class="flex flex-wrap items-center gap-2 text-sm opacity-90">
+        {breadcrumbItems.map((item, index) => {
+          const isLast = index === breadcrumbItems.length - 1;
+          return (
+            <li class="flex items-center gap-2">
+              {isLast ? (
+                <span aria-current="page" class="font-medium opacity-75">{item.name}</span>
+              ) : (
+                <a href={item.url} class="opacity-80 hover:opacity-100">{item.name}</a>
+              )}
+              {!isLast && <span aria-hidden="true">›</span>}
+            </li>
+          );
+        })}
+      </ol>
+    </nav>
+  )}
+
+  <div class="fixed top-20 right-4 z-50 flex flex-col gap-4">
+    <BackToTopButton class="rounded-full p-3 shadow-lg bg-background/90" />
+    <div class="rounded-lg p-4 shadow-lg bg-background/90">
+      <span class="text-sm opacity-80">Share</span>
+      <ShareLinks title={title} url={Astro.url.href} />
     </div>
-  </section>
-)}
-}
+  </div>
+
+  <main class="mx-auto max-w-app px-4 pb-12 mt-8" data-pagefind-body id="main-content">
+    <h1 class="text-3xl font-bold text-accent">{title}</h1>
+
+    <div class="my-4 flex items-center gap-4 text-sm">
+      <Datetime pubDatetime={pubDatetime} modDatetime={modDatetime} timezone={timezone} />
+      {SITE.editPost?.enabled && !hideEditPost && <EditPost post={post} class="hidden sm:inline" />}
+    </div>
+
+    {coverImage && (
+      <figure class="mt-12 mb-16 overflow-hidden rounded-2xl shadow-2xl">
+        <img src={coverImage} alt={coverImageAlt || title} class="w-full object-cover aspect-video" width="1200" height="630" loading="eager" />
+        {coverImageAlt && <figcaption class="mt-3 text-center text-sm opacity-70 italic">{coverImageAlt}</figcaption>}
+      </figure>
+    )}
+
+    <article class="app-prose mx-auto mt-16">
+      <Content />
+    </article>
+
+    <hr class="my-16 border-dashed border-border/40" />
+
+    {tags.length > 0 && (
+      <section class="my-12">
+        <ul class="flex flex-wrap gap-3">
+          {tags.map((tag) => (
+            <li>
+              <Tag tag={slugifyStr(tag)} tagName={tag} />
+            </li>
+          ))}
+        </ul>
+      </section>
+    )}
+
+    <hr class="my-16 border-dashed border-border/40" />
+
+    {/* Related Posts */}
+    {related.length > 0 && (
+      <section class="mt-20">
+        <h2 class="text-2xl font-bold mb-8">Related Posts</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {related.map(relatedPost => {
+            const link = getPath(relatedPost.id, relatedPost.filePath);
+            const { title, description = '', pubDatetime, tags = [] } = relatedPost.data;
+            return (
+              <article class="flex flex-col gap-3 p-6 rounded-2xl bg-card/80 backdrop-blur shadow-lg hover:shadow-xl transition-all">
+                <header>
+                  <a href={link} class="font-semibold text-lg hover:text-accent transition-colors">{title}</a>
+                </header>
+                <time class="text-sm text-muted-foreground">
+                  {new Date(pubDatetime).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
+                </time>
+                {description && <p class="text-muted-foreground line-clamp-3">{description}</p>}
+                <footer class="flex flex-wrap gap-2 mt-auto">
+                  {tags.map(tag => (
+                    <a href={`/tags/${tag}/`} class="text-xs rounded-full px-3 py-1 bg-muted/50 hover:bg-accent hover:text-background transition-colors">{tag}</a>
+                  ))}
+                </footer>
+              </article>
+            );
+          })}
+        </div>
+      </section>
+    )}
+
+    <hr class="my-16 border-dashed border-border/40" />
+
+    {/* Giscus Comments */}
+    <section class="my-20 max-w-3xl mx-auto">
+      <h2 class="text-2xl font-bold mb-6">Comments</h2>
+
+      <script
+        src="https://giscus.app/client.js"
+        data-repo="bytecascade11/astrobyte"
+        data-repo-id="R_kgDOQobjBQ"
+        data-category="Announcements"
+        data-category-id="DIC_kwDOQobjBc4C0Dd4"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="bottom"
+        data-theme="preferred-color-scheme"
+        data-lang="en"
+        data-loading="lazy"
+        crossorigin="anonymous"
+        async
+      ></script>
+    </section>
+
+    <hr class="my-16 border-dashed border-border/40" />
+
+    {/* Continue Reading */}
+    <section class="my-20">
+      <h2 class="text-2xl font-bold text-center mb-12">Continue Reading</h2>
+      <div class="grid md:grid-cols-2 gap-10 max-w-5xl mx-auto">
+        {prevPost && (
+          <a href={getPath(prevPost.id, prevPost.filePath)} class="rounded-2xl p-8 shadow-lg">
+            <IconChevronLeft class="inline w-5 h-5" /> Previous
+            <h3 class="mt-3 font-semibold">{prevPost.data.title}</h3>
+          </a>
+        )}
+        {nextPost && (
+          <a href={getPath(nextPost.id, nextPost.filePath)} class="rounded-2xl p-8 shadow-lg text-right">
+            Next <IconChevronRight class="inline w-5 h-5" />
+            <h3 class="mt-3 font-semibold">{nextPost.data.title}</h3>
+          </a>
+        )}
+      </div>
+    </section>
+
+  </main>
+
+  <Footer />
+
+  {/* Cookie Script */}
+  <script
+    type="text/javascript"
+    charset="UTF-8"
+    src="https://cdn.cookie-script.com/s/7a0b474b3ae1aadcbad72904cd6f17e5.js"
+    is:inline
+  ></script>
+</Layout>
