@@ -1,5 +1,5 @@
 export const SITE = {
-  website: "https://www.revibyte.blog", 
+  website: "https://www.revibyte.blog/", 
   author: "iSamuel",
   profile: "https://pin.it/1NYS28vrR",
   desc: "ReviByte Technology Opinions delivers the latest tech news, gadget reviews, Android updates, and in-depth guides to keep you informed and ahead in the digital world.",
