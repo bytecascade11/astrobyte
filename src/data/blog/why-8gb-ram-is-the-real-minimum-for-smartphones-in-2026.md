@@ -1,6 +1,6 @@
 ---
 title: "Why 8GB RAM Is the Real Minimum for Smartphones in 2026"
-description: "An opinion-based deep dive into why 4GB RAM phones are obsolete in 2026 and why 8GB RAM is now the true minimum for a smooth Android and iOS experience."
+description: "Why 4GB RAM phones are obsolete in 2026 and 8GB RAM is now the true minimum for smooth Android and iOS performance. An opinion-based deep dive."
 pubDatetime: 2026-01-11T00:00:00Z
 author: iSamuel 
 tags: [android, news, opinions]
