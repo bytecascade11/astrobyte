@@ -10,11 +10,17 @@ import { SITE } from "@/config";
 
 const { pathname } = Astro.url;
 
-// Normalize path
+// ---------------------------
+// Normalize current path
+// ---------------------------
 const currentPath =
-  pathname !== "/" && pathname.endsWith("/") ? pathname.slice(0, -1) : pathname;
+  pathname !== "/" && pathname.endsWith("/")
+    ? pathname.slice(0, -1)
+    : pathname;
 
-// Active matcher
+// ---------------------------
+// Active link matcher
+// ---------------------------
 const isActive = (path: string) => {
   if (path === "/") return currentPath === "/";
   return currentPath === path || currentPath.startsWith(path + "/");
@@ -22,6 +28,7 @@ const isActive = (path: string) => {
 ---
 
 <header>
+  <!-- Skip link -->
   <a
     id="skip-to-content"
     href="#main-content"
@@ -32,6 +39,7 @@ const isActive = (path: string) => {
 
   <div class="mx-auto flex max-w-app flex-col sm:flex-row items-center justify-between">
     <div class="relative flex w-full items-baseline justify-between bg-background p-4 sm:items-center sm:py-6">
+      
       <!-- Logo -->
       <a href="/" class="absolute py-1 text-xl font-semibold sm:static sm:text-2xl">
         {SITE.title}
@@ -39,7 +47,8 @@ const isActive = (path: string) => {
 
       <!-- Navigation -->
       <nav class="flex w-full flex-col sm:flex-row sm:justify-end sm:gap-x-5">
-        <!-- Mobile toggle -->
+        
+        <!-- Mobile menu toggle -->
         <button
           id="menu-btn"
           class="self-end p-2 sm:hidden"
@@ -58,7 +67,7 @@ const isActive = (path: string) => {
             "mt-4 grid w-44 grid-cols-2 gap-2 text-center",
             "[&>li>a]:block [&>li>a]:px-4 [&>li>a]:py-3 [&>li>a]:font-medium [&>li>a]:hover:text-accent",
             "hidden",
-            "sm:mt-0 sm:flex sm:w-auto sm:gap-x-5 sm:gap-y-0 sm:[&>li>a]:px-2 sm:[&>li>a]:py-1",
+            "sm:mt-0 sm:flex sm:w-auto sm:gap-x-5 sm:[&>li>a]:px-2 sm:[&>li>a]:py-1",
           ]}
         >
           <li class="col-span-2">
@@ -83,7 +92,9 @@ const isActive = (path: string) => {
             <a href="/tags/ai" class:list={{ "active-nav": isActive("/tags/ai") }}>AI</a>
           </li>
           <li class="col-span-2">
-            <a href="/tags/opinions" class:list={{ "active-nav": isActive("/tags/opinions") }}>Opinions</a>
+            <a href="/tags/opinions" class:list={{ "active-nav": isActive("/tags/opinions") }}>
+              Opinions
+            </a>
           </li>
 
           <!-- Search -->
@@ -103,21 +114,19 @@ const isActive = (path: string) => {
           </li>
 
           <!-- Theme toggle -->
-          {
-            SITE.lightAndDarkMode && (
-              <li class="col-span-1 flex justify-center">
-                <button
-                  id="theme-btn"
-                  class="relative size-12 p-4 sm:size-8 hover:[&>svg]:stroke-accent"
-                  title="Toggle theme"
-                  aria-label="Toggle theme"
-                >
-                  <IconMoon class="absolute inset-1/2 -translate-x-1/2 -translate-y-1/2 transition-all dark:scale-0" />
-                  <IconSunHigh class="absolute inset-1/2 -translate-x-1/2 -translate-y-1/2 scale-0 transition-all dark:scale-100" />
-                </button>
-              </li>
-            )
-          }
+          {SITE.lightAndDarkMode && (
+            <li class="col-span-1 flex justify-center">
+              <button
+                id="theme-btn"
+                class="relative size-12 p-4 sm:size-8 hover:[&>svg]:stroke-accent"
+                title="Toggle theme"
+                aria-label="Toggle theme"
+              >
+                <IconMoon class="absolute inset-1/2 -translate-x-1/2 -translate-y-1/2 transition-all dark:scale-0" />
+                <IconSunHigh class="absolute inset-1/2 -translate-x-1/2 -translate-y-1/2 scale-0 transition-all dark:scale-100" />
+              </button>
+            </li>
+          )}
         </ul>
       </nav>
     </div>
@@ -126,6 +135,7 @@ const isActive = (path: string) => {
   <Hr />
 </header>
 
+<!-- Mobile menu logic -->
 <script>
   function initNav() {
     const btn = document.querySelector("#menu-btn");
@@ -137,12 +147,24 @@ const isActive = (path: string) => {
 
     btn.addEventListener("click", () => {
       const open = btn.getAttribute("aria-expanded") === "true";
+
       btn.setAttribute("aria-expanded", String(!open));
       btn.setAttribute("aria-label", open ? "Open Menu" : "Close Menu");
 
       menu.classList.toggle("hidden");
       openIcon.classList.toggle("hidden");
       closeIcon.classList.toggle("hidden");
+    });
+
+    // Close menu when a link is clicked (UX improvement)
+    menu.addEventListener("click", (e) => {
+      if (e.target.closest("a")) {
+        menu.classList.add("hidden");
+        openIcon.classList.remove("hidden");
+        closeIcon.classList.add("hidden");
+        btn.setAttribute("aria-expanded", "false");
+        btn.setAttribute("aria-label", "Open Menu");
+      }
     });
   }
 
