@@ -47,13 +47,12 @@ const {
 const { Content } = await render(post);
 
 // ---------------------------
-// 1️⃣ Meta Description (FIX)
+// 1️⃣ Meta Description (FIXED)
 // ---------------------------
 const metaDescription =
   description ||
-  post.data.excerpt ||
   post.body?.slice(0, 155).replace(/\n/g, " ") ||
-  SITE.description;
+  SITE.desc;
 
 // ---------------------------
 // 2️⃣ OG Image Fallback Logic
@@ -161,7 +160,7 @@ const breadcrumbItems = [
     </div>
   </div>
 
-  <main class="mx-auto max-w-app px-4 pb-12 mt-8" data-pagefind-body>
+  <main class="mx-auto max-w-app px-4 pb-12 mt-8" data-pagefind-body id="main-content">
     <h1 class="text-3xl font-bold text-accent">{title}</h1>
 
     <div class="my-4 flex items-center gap-4 text-sm">
