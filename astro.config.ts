@@ -10,7 +10,7 @@ import {
 import { transformerFileName } from "./src/utils/transformers/fileName";
 import { SITE } from "./src/config";
 import indexnow from "./src/integrations/indexnow";
-import tailwindcss from "@tailwindcss/vite";   // ← Add this import
+import tailwindcss from "@tailwindcss/vite";
 
 export default defineConfig({
   site: SITE.website,
@@ -23,17 +23,24 @@ export default defineConfig({
   ],
 
   markdown: {
-    // ... (keep your existing markdown config)
+    remarkPlugins: [
+      remarkToc,        // ✅ Auto-generate TOC
+      remarkCollapse,   // Optional: collapsible sections
+    ],
+    shikiConfig: {
+      transformers: [
+        transformerNotationDiff(),
+        transformerNotationHighlight(),
+        transformerNotationWordHighlight(),
+        transformerFileName(),
+      ],
+    },
   },
 
   vite: {
-    plugins: [
-      tailwindcss(),   // ← Add this (handles Tailwind processing)
-    ],
+    plugins: [tailwindcss()],
     optimizeDeps: {
       exclude: ["@resvg/resvg-js"],
     },
   },
-
-  // ... keep the rest (image, env, experimental, etc.)
 });
