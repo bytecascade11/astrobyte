@@ -1,6 +1,5 @@
 ---
 import { ClientRouter } from "astro:transitions";
-import { PUBLIC_GOOGLE_SITE_VERIFICATION } from "astro:env/client"; // ✅ Correct for client
 import { SITE } from "@/config";
 import "@/styles/global.css";
 
@@ -50,19 +49,17 @@ const structuredData = {
 
 const pageTitle = title === SITE.title ? title : `${title} | ${SITE.title}`;
 
-const breadcrumbItems = [
-  {
-    "@type": "ListItem",
-    "position": 1,
-    "name": "Home",
-    "item": "https://www.revibyte.blog/"
-  }
-];
-
 const breadcrumbStructuredData = {
   "@context": "https://schema.org",
   "@type": "BreadcrumbList",
-  itemListElement: breadcrumbItems
+  itemListElement: [
+    {
+      "@type": "ListItem",
+      position: 1,
+      name: "Home",
+      item: "https://www.revibyte.blog/"
+    }
+  ]
 };
 ---
 
@@ -89,8 +86,8 @@ const breadcrumbStructuredData = {
 
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width" />
-  <title>{pageTitle}</title>
 
+  <title>{pageTitle}</title>
   <meta name="description" content={description} />
   <meta name="author" content={author} />
   <link rel="canonical" href={canonicalURL} />
@@ -102,7 +99,7 @@ const breadcrumbStructuredData = {
   <meta property="og:url" content={canonicalURL} />
   <meta property="og:image" content={socialImageURL} />
 
-  <!-- Twitter Card -->
+  <!-- Twitter -->
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content={pageTitle} />
   <meta name="twitter:description" content={description} />
@@ -115,18 +112,30 @@ const breadcrumbStructuredData = {
   <script type="application/ld+json" is:inline set:html={JSON.stringify(structuredData)} />
   <script type="application/ld+json" is:inline set:html={JSON.stringify(breadcrumbStructuredData)} />
 
-  <!-- Google Verification -->
-  {PUBLIC_GOOGLE_SITE_VERIFICATION && (
-    <meta name="google-site-verification" content={PUBLIC_GOOGLE_SITE_VERIFICATION} />
+  <!-- Google Site Verification (no astro:env import needed) -->
+  {import.meta.env.PUBLIC_GOOGLE_SITE_VERIFICATION && (
+    <meta
+      name="google-site-verification"
+      content={import.meta.env.PUBLIC_GOOGLE_SITE_VERIFICATION}
+    />
   )}
 
   <!-- AdSense -->
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4896561037705299" crossorigin="anonymous"></script>
+  <script
+    is:inline
+    async
+    src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4896561037705299"
+    crossorigin="anonymous">
+  </script>
 
   <!-- Google Analytics -->
   {import.meta.env.PROD && (
     <>
-      <script async src="https://www.googletagmanager.com/gtag/js?id=G-2MH0T4DFR3"></script>
+      <script
+        is:inline
+        async
+        src="https://www.googletagmanager.com/gtag/js?id=G-2MH0T4DFR3">
+      </script>
       <script is:inline>
         window.dataLayer = window.dataLayer || [];
         function gtag(){dataLayer.push(arguments);}
