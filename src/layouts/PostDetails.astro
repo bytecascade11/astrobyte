@@ -26,59 +26,52 @@ export interface Props {
 
 const { post, posts } = Astro.props;
 
-// Frontmatter destructuring with defaults for safety
+// Frontmatter
 const {
   title,
-  author = SITE.author,
-  description: frontmatterDesc,
+  author,
+  description,
   ogImage: initOgImage,
   pubDatetime,
   modDatetime,
   timezone,
   tags = [],
-  hideEditPost = false,
+  hideEditPost,
   coverImage,
   coverImageAlt,
 } = post.data;
 
-// Render Markdown/MDX content
 const { Content } = await render(post);
 
-// 1. Meta Description – prioritize frontmatter, then excerpt, then site fallback
+// Meta Description
 const metaDescription =
-  frontmatterDesc?.trim() ||
-  post.body?.slice(0, 155).replace(/\n/g, " ").trim() ||
+  description ||
+  post.body?.slice(0, 155).replace(/\n/g, " ") ||
   SITE.desc;
 
-// 2. OG Image fallback chain (improved readability & safety)
+// OG Image fallback
 let ogImage: string | undefined;
 
-if (typeof initOgImage === "string") {
-  ogImage = initOgImage;
-} else if (initOgImage?.src) {
-  ogImage = initOgImage.src;
-}
+if (typeof initOgImage === "string") ogImage = initOgImage;
+else if (initOgImage?.src) ogImage = initOgImage.src;
 
-if (!ogImage && coverImage) {
-  ogImage = coverImage;
-}
-
-if (!ogImage && SITE.dynamicOgImage) {
+if (!ogImage && coverImage) ogImage = coverImage;
+if (!ogImage && SITE.dynamicOgImage)
   ogImage = `${getPath(post.id, post.filePath, true)}/open-graph.png`;
-}
-
-if (!ogImage) {
-  ogImage = "/astropaper-og.jpg"; // default fallback
-}
+if (!ogImage) ogImage = "/astropaper-og.jpg";
 
 const ogImageUrl = ogImage
-  ? new URL(ogImage.startsWith("http") ? ogImage : ogImage, Astro.url.origin).href
+  ? new URL(
+      ogImage.startsWith("http") ? ogImage : ogImage,
+      Astro.url.origin
+    ).href
   : undefined;
 
-// 3. Canonical URL (robust)
-const canonicalUrl = new URL(Astro.url.pathname, Astro.site ?? Astro.url.origin).href;
+// Canonical
+const canonicalPath = Astro.url.pathname;
+const canonicalUrl = new URL(canonicalPath, Astro.site).href;
 
-// 4. Props to pass to base Layout
+// Layout Props
 const layoutProps = {
   title: `${title} | ${SITE.title}`,
   author,
@@ -90,7 +83,7 @@ const layoutProps = {
   scrollSmooth: true,
 };
 
-// 5. Prev / Next navigation (safe sorting & indexing)
+// Prev / Next
 const sortedPosts = [...posts].sort(
   (a, b) =>
     (b.data.modDatetime ?? b.data.pubDatetime).getTime() -
@@ -100,11 +93,11 @@ const sortedPosts = [...posts].sort(
 const currentIndex = sortedPosts.findIndex((p) => p.id === post.id);
 const prevPost = currentIndex > 0 ? sortedPosts[currentIndex - 1] : null;
 const nextPost =
-  currentIndex >= 0 && currentIndex < sortedPosts.length - 1
+  currentIndex < sortedPosts.length - 1
     ? sortedPosts[currentIndex + 1]
     : null;
 
-// 6. Breadcrumbs (consistent & safe)
+// Breadcrumbs
 const isBlogRoute =
   Astro.url.pathname.startsWith("/posts/") ||
   Astro.url.pathname.startsWith("/blog/");
@@ -112,7 +105,7 @@ const isBlogRoute =
 const breadcrumbItems = [
   { name: "Home", url: "/" },
   ...(isBlogRoute ? [{ name: "Blog", url: "/posts/" }] : []),
-  { name: title, url: Astro.url.pathname },
+  { name: title, url: canonicalPath },
 ];
 ---
 
@@ -174,7 +167,7 @@ const breadcrumbItems = [
           class="w-full object-cover aspect-video"
           width="1200"
           height="630"
-          loading="eager"  <!-- good for above-the-fold images -->
+          loading="eager"  // Valid attribute – good for performance
         />
         {coverImageAlt && (
           <figcaption class="mt-3 text-center text-sm opacity-70 italic">
@@ -194,7 +187,7 @@ const breadcrumbItems = [
       <section class="my-12">
         <ul class="flex flex-wrap gap-3">
           {tags.map((tag) => (
-            <li key={tag}>
+            <li>  <!-- Removed invalid key prop -->
               <Tag tag={slugifyStr(tag)} tagName={tag} />
             </li>
           ))}
@@ -217,10 +210,10 @@ const breadcrumbItems = [
         {prevPost && (
           <a
             href={getPath(prevPost.id, prevPost.filePath)}
-            class="rounded-2xl p-8 shadow-lg block hover:shadow-xl transition-shadow"
+            class="rounded-2xl p-8 shadow-lg"
           >
             <IconChevronLeft class="inline w-5 h-5" /> Previous
-            <h3 class="mt-3 font-semibold line-clamp-2">
+            <h3 class="mt-3 font-semibold">
               {prevPost.data.title}
             </h3>
           </a>
@@ -229,10 +222,10 @@ const breadcrumbItems = [
         {nextPost && (
           <a
             href={getPath(nextPost.id, nextPost.filePath)}
-            class="rounded-2xl p-8 shadow-lg block text-right hover:shadow-xl transition-shadow"
+            class="rounded-2xl p-8 shadow-lg text-right"
           >
             Next <IconChevronRight class="inline w-5 h-5" />
-            <h3 class="mt-3 font-semibold line-clamp-2">
+            <h3 class="mt-3 font-semibold">
               {nextPost.data.title}
             </h3>
           </a>
