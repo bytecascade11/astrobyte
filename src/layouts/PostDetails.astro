@@ -26,7 +26,9 @@ export interface Props {
 
 const { post, posts } = Astro.props;
 
+// ---------------------------
 // Frontmatter
+// ---------------------------
 const {
   title,
   author,
@@ -41,15 +43,18 @@ const {
   coverImageAlt,
 } = post.data;
 
+// Render post content
 const { Content } = await render(post);
 
-// Meta Description
+// ---------------------------
+// 1️⃣ Meta Description (dynamic)
+// ---------------------------
 const metaDescription =
-  description ||
-  post.body?.slice(0, 155).replace(/\n/g, " ") ||
-  SITE.desc;
+  description || post.body?.slice(0, 155).replace(/\n/g, " ") || SITE.desc;
 
-// OG Image fallback
+// ---------------------------
+// 2️⃣ OG Image Fallback Logic
+// ---------------------------
 let ogImage: string | undefined;
 
 if (typeof initOgImage === "string") ogImage = initOgImage;
@@ -61,17 +66,18 @@ if (!ogImage && SITE.dynamicOgImage)
 if (!ogImage) ogImage = "/astropaper-og.jpg";
 
 const ogImageUrl = ogImage
-  ? new URL(
-      ogImage.startsWith("http") ? ogImage : ogImage,
-      Astro.url.origin
-    ).href
+  ? new URL(ogImage.startsWith("http") ? ogImage : ogImage, Astro.url.origin).href
   : undefined;
 
-// Canonical
+// ---------------------------
+// 3️⃣ Canonical URL
+// ---------------------------
 const canonicalPath = Astro.url.pathname;
 const canonicalUrl = new URL(canonicalPath, Astro.site).href;
 
-// Layout Props
+// ---------------------------
+// 4️⃣ Layout Props
+// ---------------------------
 const layoutProps = {
   title: `${title} | ${SITE.title}`,
   author,
@@ -83,7 +89,9 @@ const layoutProps = {
   scrollSmooth: true,
 };
 
-// Prev / Next
+// ---------------------------
+// 5️⃣ Prev / Next Posts
+// ---------------------------
 const sortedPosts = [...posts].sort(
   (a, b) =>
     (b.data.modDatetime ?? b.data.pubDatetime).getTime() -
@@ -93,14 +101,13 @@ const sortedPosts = [...posts].sort(
 const currentIndex = sortedPosts.findIndex((p) => p.id === post.id);
 const prevPost = currentIndex > 0 ? sortedPosts[currentIndex - 1] : null;
 const nextPost =
-  currentIndex < sortedPosts.length - 1
-    ? sortedPosts[currentIndex + 1]
-    : null;
+  currentIndex < sortedPosts.length - 1 ? sortedPosts[currentIndex + 1] : null;
 
-// Breadcrumbs
+// ---------------------------
+// 6️⃣ Breadcrumbs
+// ---------------------------
 const isBlogRoute =
-  Astro.url.pathname.startsWith("/posts/") ||
-  Astro.url.pathname.startsWith("/blog/");
+  Astro.url.pathname.startsWith("/posts/") || Astro.url.pathname.startsWith("/blog/");
 
 const breadcrumbItems = [
   { name: "Home", url: "/" },
@@ -149,11 +156,7 @@ const breadcrumbItems = [
     <h1 class="text-3xl font-bold text-accent">{title}</h1>
 
     <div class="my-4 flex items-center gap-4 text-sm">
-      <Datetime
-        pubDatetime={pubDatetime}
-        modDatetime={modDatetime}
-        timezone={timezone}
-      />
+      <Datetime pubDatetime={pubDatetime} modDatetime={modDatetime} timezone={timezone} />
       {SITE.editPost?.enabled && !hideEditPost && (
         <EditPost post={post} class="hidden sm:inline" />
       )}
@@ -161,7 +164,6 @@ const breadcrumbItems = [
 
     {coverImage && (
       <figure class="mt-12 mb-16 overflow-hidden rounded-2xl shadow-2xl">
-        <!-- Loading eager for performance -->
         <img
           src={coverImage}
           alt={coverImageAlt || title}
@@ -203,26 +205,16 @@ const breadcrumbItems = [
     <hr class="my-16 border-dashed border-border/40" />
 
     <section class="my-20">
-      <h2 class="text-2xl font-bold text-center mb-12">
-        Continue Reading
-      </h2>
-
+      <h2 class="text-2xl font-bold text-center mb-12">Continue Reading</h2>
       <div class="grid md:grid-cols-2 gap-10 max-w-5xl mx-auto">
         {prevPost && (
-          <a
-            href={getPath(prevPost.id, prevPost.filePath)}
-            class="rounded-2xl p-8 shadow-lg"
-          >
+          <a href={getPath(prevPost.id, prevPost.filePath)} class="rounded-2xl p-8 shadow-lg">
             <IconChevronLeft class="inline w-5 h-5" /> Previous
             <h3 class="mt-3 font-semibold">{prevPost.data.title}</h3>
           </a>
         )}
-
         {nextPost && (
-          <a
-            href={getPath(nextPost.id, nextPost.filePath)}
-            class="rounded-2xl p-8 shadow-lg text-right"
-          >
+          <a href={getPath(nextPost.id, nextPost.filePath)} class="rounded-2xl p-8 shadow-lg text-right">
             Next <IconChevronRight class="inline w-5 h-5" />
             <h3 class="mt-3 font-semibold">{nextPost.data.title}</h3>
           </a>
