@@ -26,13 +26,11 @@ export interface Props {
 
 const { post, posts } = Astro.props;
 
-// ---------------------------
-// Frontmatter
-// ---------------------------
+// Frontmatter destructuring
 const {
   title,
   author,
-  description,
+  description,  // ← This is post.data.description (from frontmatter)
   ogImage: initOgImage,
   pubDatetime,
   modDatetime,
@@ -43,20 +41,29 @@ const {
   coverImageAlt,
 } = post.data;
 
-// Render post content
+// Render Markdown/MDX content
 const { Content } = await render(post);
 
-// ---------------------------
-// 1️⃣ Meta Description (dynamic)
-// ---------------------------
-const metaDescription =
-  description || post.body?.slice(0, 155).replace(/\n/g, " ") || SITE.desc;
+// Meta description with improved fallback & cleaning
+let metaDescription = description?.trim() || "";  // Prefer frontmatter first
 
-// ---------------------------
-// 2️⃣ OG Image Fallback Logic
-// ---------------------------
+if (!metaDescription) {
+  // Fallback to first ~155 chars of body content (cleaned)
+  const bodyText = post.body
+    ? post.body.replace(/\n+/g, " ").replace(/\s+/g, " ").trim()
+    : "";
+  metaDescription = bodyText.slice(0, 160).trim();
+}
+
+if (!metaDescription) {
+  metaDescription = SITE.desc?.trim() || "Tech reviews, opinions, and news on smartphones, AI, games, and more.";
+}
+
+// Ensure we never pass undefined/null to the layout
+if (!metaDescription) metaDescription = "Fallback site description";
+
+// OG Image logic (unchanged but cleaned up)
 let ogImage: string | undefined;
-
 if (typeof initOgImage === "string") ogImage = initOgImage;
 else if (initOgImage?.src) ogImage = initOgImage.src;
 
@@ -69,23 +76,18 @@ const ogImageUrl = ogImage
   ? new URL(ogImage.startsWith("http") ? ogImage : ogImage, Astro.url.origin).href
   : undefined;
 
-// ---------------------------
-// 3️⃣ Canonical URL (FIXED)
-// ---------------------------
+// Canonical URL (unchanged)
 let canonicalPath = Astro.url.pathname;
-// Normalize: remove trailing slash for consistency (except for homepage)
-if (canonicalPath !== '/' && canonicalPath.endsWith('/')) {
+if (canonicalPath !== "/" && canonicalPath.endsWith("/")) {
   canonicalPath = canonicalPath.slice(0, -1);
 }
 const canonicalUrl = new URL(canonicalPath, Astro.site).href;
 
-// ---------------------------
-// 4️⃣ Layout Props
-// ---------------------------
+// Layout props – make sure description is always defined
 const layoutProps = {
   title: `${title} | ${SITE.title}`,
   author,
-  description: metaDescription,
+  description: metaDescription,  // ← This feeds <meta name="description">
   pubDatetime,
   modDatetime,
   canonicalURL: canonicalUrl,
@@ -93,9 +95,7 @@ const layoutProps = {
   scrollSmooth: true,
 };
 
-// ---------------------------
-// 5️⃣ Prev / Next Posts
-// ---------------------------
+// Prev / Next posts logic (unchanged)
 const sortedPosts = [...posts].sort(
   (a, b) =>
     (b.data.modDatetime ?? b.data.pubDatetime).getTime() -
@@ -107,9 +107,7 @@ const prevPost = currentIndex > 0 ? sortedPosts[currentIndex - 1] : null;
 const nextPost =
   currentIndex < sortedPosts.length - 1 ? sortedPosts[currentIndex + 1] : null;
 
-// ---------------------------
-// 6️⃣ Breadcrumbs
-// ---------------------------
+// Breadcrumbs (unchanged)
 const isBlogRoute =
   Astro.url.pathname.startsWith("/posts/") || Astro.url.pathname.startsWith("/blog/");
 
@@ -121,6 +119,14 @@ const breadcrumbItems = [
 ---
 
 <Layout {...layoutProps}>
+  <!-- Optional: explicit head injection if Layout.astro doesn't handle description properly -->
+  <!-- Remove this block after confirming the tag appears via layoutProps -->
+  <!--
+  <meta name="description" content={metaDescription} slot="head" />
+  <meta property="og:description" content={metaDescription} slot="head" />
+  <meta name="twitter:description" content={metaDescription} slot="head" />
+  -->
+
   <Header />
   {SITE.showBackButton && <BackButton />}
 
@@ -148,6 +154,7 @@ const breadcrumbItems = [
     </nav>
   )}
 
+  <!-- Your fixed sidebar share/back-to-top (unchanged) -->
   <div class="fixed top-20 right-4 z-50 flex flex-col gap-4">
     <BackToTopButton class="rounded-full p-3 shadow-lg bg-background/90" />
     <div class="rounded-lg p-4 shadow-lg bg-background/90">
