@@ -70,9 +70,13 @@ const ogImageUrl = ogImage
   : undefined;
 
 // ---------------------------
-// 3️⃣ Canonical URL
+// 3️⃣ Canonical URL (FIXED)
 // ---------------------------
-const canonicalPath = Astro.url.pathname;
+let canonicalPath = Astro.url.pathname;
+// Normalize: remove trailing slash for consistency (except for homepage)
+if (canonicalPath !== '/' && canonicalPath.endsWith('/')) {
+  canonicalPath = canonicalPath.slice(0, -1);
+}
 const canonicalUrl = new URL(canonicalPath, Astro.site).href;
 
 // ---------------------------
