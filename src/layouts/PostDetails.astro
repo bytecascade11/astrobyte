@@ -1,6 +1,6 @@
 ---
 import type { CollectionEntry } from "astro:content";
-import { render } from "astro:content";
+import { render, getCollection } from "astro:content";
 
 import Layout from "@/layouts/Layout.astro";
 import Header from "@/components/Header.astro";
@@ -30,7 +30,7 @@ const { post, posts } = Astro.props;
 const {
   title,
   author,
-  description,  // ← This is post.data.description (from frontmatter)
+  description,
   ogImage: initOgImage,
   pubDatetime,
   modDatetime,
@@ -44,50 +44,33 @@ const {
 // Render Markdown/MDX content
 const { Content } = await render(post);
 
-// Meta description with improved fallback & cleaning
-let metaDescription = description?.trim() || "";  // Prefer frontmatter first
-
+// Meta description
+let metaDescription = description?.trim() || "";
 if (!metaDescription) {
-  // Fallback to first ~155 chars of body content (cleaned)
-  const bodyText = post.body
-    ? post.body.replace(/\n+/g, " ").replace(/\s+/g, " ").trim()
-    : "";
+  const bodyText = post.body ? post.body.replace(/\n+/g, " ").replace(/\s+/g, " ").trim() : "";
   metaDescription = bodyText.slice(0, 160).trim();
 }
+if (!metaDescription) metaDescription = SITE.desc?.trim() || "Tech reviews, opinions, and news on smartphones, AI, games, and more.";
 
-if (!metaDescription) {
-  metaDescription = SITE.desc?.trim() || "Tech reviews, opinions, and news on smartphones, AI, games, and more.";
-}
-
-// Ensure we never pass undefined/null to the layout
-if (!metaDescription) metaDescription = "Fallback site description";
-
-// OG Image logic (unchanged but cleaned up)
+// OG Image
 let ogImage: string | undefined;
 if (typeof initOgImage === "string") ogImage = initOgImage;
 else if (initOgImage?.src) ogImage = initOgImage.src;
-
 if (!ogImage && coverImage) ogImage = coverImage;
-if (!ogImage && SITE.dynamicOgImage)
-  ogImage = `${getPath(post.id, post.filePath, true)}/open-graph.png`;
+if (!ogImage && SITE.dynamicOgImage) ogImage = `${getPath(post.id, post.filePath, true)}/open-graph.png`;
 if (!ogImage) ogImage = "/astropaper-og.jpg";
+const ogImageUrl = ogImage ? new URL(ogImage.startsWith("http") ? ogImage : ogImage, Astro.url.origin).href : undefined;
 
-const ogImageUrl = ogImage
-  ? new URL(ogImage.startsWith("http") ? ogImage : ogImage, Astro.url.origin).href
-  : undefined;
-
-// Canonical URL (unchanged)
+// Canonical URL
 let canonicalPath = Astro.url.pathname;
-if (canonicalPath !== "/" && canonicalPath.endsWith("/")) {
-  canonicalPath = canonicalPath.slice(0, -1);
-}
+if (canonicalPath !== "/" && canonicalPath.endsWith("/")) canonicalPath = canonicalPath.slice(0, -1);
 const canonicalUrl = new URL(canonicalPath, Astro.site).href;
 
-// Layout props – make sure description is always defined
+// Layout props
 const layoutProps = {
   title: `${title} | ${SITE.title}`,
   author,
-  description: metaDescription,  // ← This feeds <meta name="description">
+  description: metaDescription,
   pubDatetime,
   modDatetime,
   canonicalURL: canonicalUrl,
@@ -95,38 +78,32 @@ const layoutProps = {
   scrollSmooth: true,
 };
 
-// Prev / Next posts logic (unchanged)
+// Prev / Next posts
 const sortedPosts = [...posts].sort(
-  (a, b) =>
-    (b.data.modDatetime ?? b.data.pubDatetime).getTime() -
-    (a.data.modDatetime ?? a.data.pubDatetime).getTime()
+  (a, b) => (b.data.modDatetime ?? b.data.pubDatetime).getTime() - (a.data.modDatetime ?? a.data.pubDatetime).getTime()
 );
-
 const currentIndex = sortedPosts.findIndex((p) => p.id === post.id);
 const prevPost = currentIndex > 0 ? sortedPosts[currentIndex - 1] : null;
-const nextPost =
-  currentIndex < sortedPosts.length - 1 ? sortedPosts[currentIndex + 1] : null;
+const nextPost = currentIndex < sortedPosts.length - 1 ? sortedPosts[currentIndex + 1] : null;
 
-// Breadcrumbs (unchanged)
-const isBlogRoute =
-  Astro.url.pathname.startsWith("/posts/") || Astro.url.pathname.startsWith("/blog/");
-
+// Breadcrumbs
+const isBlogRoute = Astro.url.pathname.startsWith("/posts/") || Astro.url.pathname.startsWith("/blog/");
 const breadcrumbItems = [
   { name: "Home", url: "/" },
   ...(isBlogRoute ? [{ name: "Blog", url: "/posts/" }] : []),
   { name: title, url: canonicalPath },
 ];
+
+// Related posts
+const allPosts = await getCollection('blog', ({ data }) => !data.draft);
+const related = allPosts
+  .filter(p => p.id !== post.id)
+  .filter(p => p.data.tags?.some(tag => post.data.tags?.includes(tag)))
+  .sort((a, b) => b.data.pubDatetime.valueOf() - a.data.pubDatetime.valueOf())
+  .slice(0, 5);
 ---
 
 <Layout {...layoutProps}>
-  <!-- Optional: explicit head injection if Layout.astro doesn't handle description properly -->
-  <!-- Remove this block after confirming the tag appears via layoutProps -->
-  <!--
-  <meta name="description" content={metaDescription} slot="head" />
-  <meta property="og:description" content={metaDescription} slot="head" />
-  <meta name="twitter:description" content={metaDescription} slot="head" />
-  -->
-
   <Header />
   {SITE.showBackButton && <BackButton />}
 
@@ -138,13 +115,9 @@ const breadcrumbItems = [
           return (
             <li class="flex items-center gap-2">
               {isLast ? (
-                <span aria-current="page" class="font-medium opacity-75">
-                  {item.name}
-                </span>
+                <span aria-current="page" class="font-medium opacity-75">{item.name}</span>
               ) : (
-                <a href={item.url} class="opacity-80 hover:opacity-100">
-                  {item.name}
-                </a>
+                <a href={item.url} class="opacity-80 hover:opacity-100">{item.name}</a>
               )}
               {!isLast && <span aria-hidden="true">›</span>}
             </li>
@@ -154,7 +127,6 @@ const breadcrumbItems = [
     </nav>
   )}
 
-  <!-- Your fixed sidebar share/back-to-top (unchanged) -->
   <div class="fixed top-20 right-4 z-50 flex flex-col gap-4">
     <BackToTopButton class="rounded-full p-3 shadow-lg bg-background/90" />
     <div class="rounded-lg p-4 shadow-lg bg-background/90">
@@ -168,26 +140,13 @@ const breadcrumbItems = [
 
     <div class="my-4 flex items-center gap-4 text-sm">
       <Datetime pubDatetime={pubDatetime} modDatetime={modDatetime} timezone={timezone} />
-      {SITE.editPost?.enabled && !hideEditPost && (
-        <EditPost post={post} class="hidden sm:inline" />
-      )}
+      {SITE.editPost?.enabled && !hideEditPost && <EditPost post={post} class="hidden sm:inline" />}
     </div>
 
     {coverImage && (
       <figure class="mt-12 mb-16 overflow-hidden rounded-2xl shadow-2xl">
-        <img
-          src={coverImage}
-          alt={coverImageAlt || title}
-          class="w-full object-cover aspect-video"
-          width="1200"
-          height="630"
-          loading="eager"
-        />
-        {coverImageAlt && (
-          <figcaption class="mt-3 text-center text-sm opacity-70 italic">
-            {coverImageAlt}
-          </figcaption>
-        )}
+        <img src={coverImage} alt={coverImageAlt || title} class="w-full object-cover aspect-video" width="1200" height="630" loading="eager" />
+        {coverImageAlt && <figcaption class="mt-3 text-center text-sm opacity-70 italic">{coverImageAlt}</figcaption>}
       </figure>
     )}
 
@@ -211,10 +170,63 @@ const breadcrumbItems = [
 
     <hr class="my-16 border-dashed border-border/40" />
 
-    <RelatedPosts post={post} />
+    {/* Related Posts */}
+    {related.length > 0 && (
+      <section class="mt-20">
+        <h2 class="text-2xl font-bold mb-8">Related Posts</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {related.map(relatedPost => {
+            const link = getPath(relatedPost.id, relatedPost.filePath);
+            const { title, description = '', pubDatetime, tags = [] } = relatedPost.data;
+            return (
+              <article class="flex flex-col gap-3 p-6 rounded-2xl bg-card/80 backdrop-blur shadow-lg hover:shadow-xl transition-all">
+                <header>
+                  <a href={link} class="font-semibold text-lg hover:text-accent transition-colors">{title}</a>
+                </header>
+                <time class="text-sm text-muted-foreground">
+                  {new Date(pubDatetime).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
+                </time>
+                {description && <p class="text-muted-foreground line-clamp-3">{description}</p>}
+                <footer class="flex flex-wrap gap-2 mt-auto">
+                  {tags.map(tag => (
+                    <a href={`/tags/${tag}/`} class="text-xs rounded-full px-3 py-1 bg-muted/50 hover:bg-accent hover:text-background transition-colors">{tag}</a>
+                  ))}
+                </footer>
+              </article>
+            );
+          })}
+        </div>
+      </section>
+    )}
 
     <hr class="my-16 border-dashed border-border/40" />
 
+    {/* Giscus Comments */}
+    <section class="my-20 max-w-3xl mx-auto">
+      <h2 class="text-2xl font-bold mb-6">Comments</h2>
+
+      <script
+        src="https://giscus.app/client.js"
+        data-repo="bytecascade11/astrobyte"
+        data-repo-id="R_kgDOQobjBQ"
+        data-category="Announcements"
+        data-category-id="DIC_kwDOQobjBc4C0Dd4"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="bottom"
+        data-theme="preferred-color-scheme"
+        data-lang="en"
+        data-loading="lazy"
+        crossorigin="anonymous"
+        async
+      ></script>
+    </section>
+
+    <hr class="my-16 border-dashed border-border/40" />
+
+    {/* Continue Reading */}
     <section class="my-20">
       <h2 class="text-2xl font-bold text-center mb-12">Continue Reading</h2>
       <div class="grid md:grid-cols-2 gap-10 max-w-5xl mx-auto">
@@ -232,15 +244,16 @@ const breadcrumbItems = [
         )}
       </div>
     </section>
+
   </main>
 
   <Footer />
 
-  <!-- Cookie Script -->
+  {/* Cookie Script */}
   <script
     type="text/javascript"
     charset="UTF-8"
     src="https://cdn.cookie-script.com/s/7a0b474b3ae1aadcbad72904cd6f17e5.js"
     is:inline
   ></script>
-</Layout>
+</Layout> 
