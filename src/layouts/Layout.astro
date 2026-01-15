@@ -1,6 +1,6 @@
 ---
 import { ClientRouter } from "astro:transitions";
-import { PUBLIC_GOOGLE_SITE_VERIFICATION } from "astro:env/client";
+import { GOOGLE_SITE_VERIFICATION } from "astro:env/client"; // ← FIXED: correct import (no PUBLIC_ prefix)
 import { SITE } from "@/config";
 import "@/styles/global.css";
 
@@ -8,7 +8,7 @@ export interface Props {
   title?: string;
   author?: string;
   profile?: string;
-  description?: string;          // ← This allows page-specific override
+  description?: string;
   ogImage?: string;
   canonicalURL?: string;
   pubDatetime?: Date;
@@ -20,7 +20,7 @@ const {
   title = SITE.title,
   author = SITE.author,
   profile = SITE.profile,
-  description = SITE.desc,       // ← Perfect fallback to your SITE.desc
+  description = SITE.desc,
   ogImage,
   canonicalURL = new URL(Astro.url.pathname, Astro.url.origin).href,
   pubDatetime,
@@ -50,19 +50,18 @@ const structuredData = {
 
 const pageTitle = title === SITE.title ? title : `${title} | ${SITE.title}`;
 
-// Breadcrumbs logic (your existing code – kept as-is)
+// Breadcrumbs logic
 const breadcrumbItems = [
   {
     "@type": "ListItem",
     "position": 1,
     "name": "Home",
-    "item": "https://www.revibyte.blog/"   // ← Fixed typo if it was "revivbyte" before
+    "item": "https://www.revibyte.blog/"
   }
 ];
 
-const segments = Astro.url.pathname.split('/').filter(Boolean);
-
-// ... (rest of your breadcrumb logic for posts & tags remains unchanged)
+// If you want to add more breadcrumb items later (posts, categories, etc.),
+// you can do it here — for now we keep it simple with just Home
 
 const breadcrumbStructuredData = {
   "@context": "https://schema.org",
@@ -79,7 +78,12 @@ const breadcrumbStructuredData = {
 >
   <head>
     <!-- CookieScript Consent Banner – MUST be first -->
-    <script type="text/javascript" charset="UTF-8" src="https://cdn.cookie-script.com/s/7a0b474b3ae1aadcbad72904cd6f17e5.js"></script>
+    <script 
+      is:inline 
+      type="text/javascript" 
+      charset="UTF-8" 
+      src="https://cdn.cookie-script.com/s/7a0b474b3ae1aadcbad72904cd6f17e5.js"
+    ></script>
 
     <!-- Google Consent Mode v2 -->
     <script is:inline>
@@ -110,7 +114,6 @@ const breadcrumbStructuredData = {
     <title>{pageTitle}</title>
     <meta name="title" content={pageTitle} />
     
-    <!-- Core SEO meta description – uses page-specific if passed, else SITE.desc -->
     <meta name="description" content={description} />
     <meta name="author" content={author} />
     <link rel="sitemap" href="/sitemap-index.xml" />
@@ -143,13 +146,17 @@ const breadcrumbStructuredData = {
       href={new URL("rss.xml", Astro.site)}
     />
 
-    {PUBLIC_GOOGLE_SITE_VERIFICATION && (
-      <meta name="google-site-verification" content={PUBLIC_GOOGLE_SITE_VERIFICATION} />
+    {GOOGLE_SITE_VERIFICATION && (
+      <meta name="google-site-verification" content={GOOGLE_SITE_VERIFICATION} />
     )}
 
     <!-- Google AdSense -->
-    <script is:inline async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4896561037705299"
-         crossorigin="anonymous"></script>
+    <script 
+      is:inline 
+      async 
+      src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4896561037705299"
+      crossorigin="anonymous"
+    ></script>
     <script is:inline>
       (window.adsbygoogle = window.adsbygoogle || []).push({});
     </script>
