@@ -16,8 +16,8 @@ coverImage: "/images/posts/cover-image-xiaomi-17-pro-max.jpg"
 coverImageAlt: "Xiaomi 17 Pro Max Hero Image"
 ---
 
-## Table of contents
-
+## Table of Contents
+[[toc]]
 *Xiaomi’s Pro Max lineup traditionally focuses on maximum performance, premium materials, and camera-first design.*
 
 I’ve been testing and using flagship smartphones for years now, and I’ve learned something important: **spec sheets don’t tell the full story**. They don’t exactly lie—but they rarely explain how a phone actually feels to live with.
