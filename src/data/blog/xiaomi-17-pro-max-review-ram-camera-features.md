@@ -1,6 +1,6 @@
 ---
 title: "What You Really Need to Know About the Xiaomi 17 Pro Max: RAM, Camera, and Beyond"
-description: "Honest review of Xiaomi 17 Pro Max: RAM performance, camera capabilities, battery life, and build quality. Real-world insights beyond the spec sheet."
+desc: "Honest review of Xiaomi 17 Pro Max: RAM performance, camera capabilities, battery life, and build quality. Real-world insights beyond the spec sheet."
 pubDatetime: 2026-01-14T00:00:00Z
 slug: "xiaomi-17-pro-max-review-ram-camera-features"
 author: iSamuel 
