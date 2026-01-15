@@ -2,12 +2,16 @@
 title: "The 2026 Definitive Guide: Top 15 Offline Mobile Games"
 description: "My Opinions and deep research-driven guide to the best premium offline mobile games in 2026 — no Wi-Fi, no ads, no compromises."
 pubDatetime: 2026-01-08T00:00:00Z
-slug: "2026-definitive-guide-top-offline-mobile-games"
+slug: 2026-definitive-guide-top-offline-mobile-games
 author: iSamuel
 tags: ["games", "android", "apple", "opinions", "reviews"]
 coverImage: "/images/posts/offline-mobile-gaming-2026-hero.jpg"
 coverImageAlt: "Hero image showing a smartphone in airplane mode surrounded by iconic game visuals"
 ---
+
+
+# Table Of Contents 
+[[toc]]
 
 ## The 2026 Definitive Guide: Top 15 Offline Mobile Games
 
