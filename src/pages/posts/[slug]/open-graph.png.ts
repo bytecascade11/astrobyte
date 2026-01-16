@@ -23,10 +23,22 @@ export const GET: APIRoute = async ({ props }) => {
     return new Response(null, { status: 404 });
   }
 
-  const post = props as CollectionEntry<"blog">;
-  const png = await generateOgImageForPost(post);
+  try {
+    const post = props as CollectionEntry<"blog">;
+    const pngBuffer = await generateOgImageForPost(post);
 
-  return new Response(png, {
-    headers: { "Content-Type": "image/png" },
-  });
+    // Convert Buffer<ArrayBufferLike> → Uint8Array for Response body compatibility
+    const body = new Uint8Array(pngBuffer);
+
+    return new Response(body, {
+      status: 200,
+      headers: {
+        "Content-Type": "image/png",
+        "Cache-Control": "public, max-age=31536000, immutable", // Optional: good for static OG images
+      },
+    });
+  } catch (error) {
+    console.error("OG image generation failed:", error);
+    return new Response("Failed to generate OG image", { status: 500 });
+  }
 };
