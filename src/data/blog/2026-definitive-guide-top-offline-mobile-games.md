@@ -14,7 +14,7 @@ coverImage: "/images/posts/offline-mobile-gaming-2026-hero.jpg"
 coverImageAlt: "Hero image showing a smartphone in airplane mode surrounded by iconic game visuals"
 ---
 
-
+## Table of contents
 ## Why Offline Gaming Matters More Than Ever
 
 Here's something that's been bothering me: we've somehow accepted that our phones need constant internet access just to play games. Somewhere along the way, the mobile gaming industry convinced us this was normal—that analytics tracking, ad networks, and always-online DRM were just part of the experience.
