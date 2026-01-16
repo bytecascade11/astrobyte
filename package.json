@@ -23,9 +23,6 @@
     "satori": "^0.15.2",
     "sharp": "^0.34.2",
     "tailwindcss": "^4.1.11"
-    // Removed: "remark-collapse": "^0.1.2",
-    // Removed: "remark-toc": "^9.0.0"
-    // If you need MDX later: "@astrojs/mdx": "^3.1.0" (add to integrations in astro.config)
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.4",
