@@ -1,7 +1,7 @@
 ---
 title: "Top 15 Offline Mobile Games"
 description: "After months of hands-on testing and late-night gaming sessions, I've compiled my personal guide to the best offline mobile games that actually respect your time, privacy, and data plan in 2026."
-pubDatetime: 2026-01-10T11:09:16Z
+pubDatetime: 2026-01-08T11:09:16Z
 author: "iSamuel"
 draft: false 
 tags: 
