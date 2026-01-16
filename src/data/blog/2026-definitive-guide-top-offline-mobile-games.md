@@ -10,7 +10,6 @@ tags:
    - apple
    - opinions
    - reviews
-   - mobile phone 
 coverImage: "/images/posts/offline-mobile-gaming-2026-hero.jpg"
 coverImageAlt: "Hero image showing a smartphone in airplane mode surrounded by iconic game visuals"
 ---
