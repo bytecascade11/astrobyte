@@ -7,8 +7,7 @@ tags: ["games", "opinions", "tecno", "android"]
 coverImage: "/images/posts/cod-2026-late-night-gaming-setup.jpg"
 coverImageAlt: "High refresh rate mobile gaming on Tecno, Infinix, and Redmi smartphones"
 ---
-## Table of Contents 
-[[toc]]
+
 
 # Why I Can't Stop Playing Call of Duty in 2026
 
