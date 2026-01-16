@@ -1,7 +1,6 @@
+// astro.config.mjs (or .ts)
 import { defineConfig, envField } from "astro/config";
 import sitemap from "@astrojs/sitemap";
-import remarkToc from "remark-toc";
-import remarkCollapse from "remark-collapse";
 import {
   transformerNotationDiff,
   transformerNotationHighlight,
@@ -23,10 +22,14 @@ export default defineConfig({
   ],
 
   markdown: {
-    remarkPlugins: [
-      remarkToc,        // ✅ Auto-generate TOC
-      remarkCollapse,   // Optional: collapsible sections
-    ],
+    // IMPORTANT: Removed remarkToc & remarkCollapse – these were likely causing empty <Content /> rendering
+    // If you want TOC later, use manual generation from headings (safer & more control):
+    //   const { headings } = await render(post); → then build your own TOC component
+    //
+    // remarkPlugins: [],  // ← empty is safe & default
+
+    extendDefaultPlugins: true, // Keeps Astro's built-in GFM + SmartyPants
+
     shikiConfig: {
       transformers: [
         transformerNotationDiff(),
