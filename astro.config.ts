@@ -1,5 +1,5 @@
-// astro.config.mjs (or .ts)
-import { defineConfig, envField } from "astro/config";
+// astro.config.ts (or .mjs)
+import { defineConfig } from "astro/config";
 import sitemap from "@astrojs/sitemap";
 import {
   transformerNotationDiff,
@@ -22,13 +22,8 @@ export default defineConfig({
   ],
 
   markdown: {
-    // IMPORTANT: Removed remarkToc & remarkCollapse – these were likely causing empty <Content /> rendering
-    // If you want TOC later, use manual generation from headings (safer & more control):
-    //   const { headings } = await render(post); → then build your own TOC component
-    //
-    // remarkPlugins: [],  // ← empty is safe & default
-
-    extendDefaultPlugins: true, // Keeps Astro's built-in GFM + SmartyPants
+    // IMPORTANT: Removed invalid extendDefaultPlugins
+    // Default remark + rehype plugins (GFM + Smartypants) are already included by Astro
 
     shikiConfig: {
       transformers: [
