@@ -5,7 +5,7 @@ pubDatetime: 2026-01-16T07:30:16Z
 author: "iSamuel"
 tags: ["games", "opinions", "tecno", "android"]
 coverImage: "/images/posts/cod-2026-late-night-gaming-setup.jpg"
-coverImageAlt: "High refresh rate mobile gaming on Tecno, Infinix, and Redmi smartphones"
+coverImageAlt: "Late night gaming desk with Call of Duty on screen"
 ---
 
 
