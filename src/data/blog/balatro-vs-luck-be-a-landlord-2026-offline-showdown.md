@@ -14,7 +14,7 @@ coverImage: "/images/posts/balatro-vs-lbal-cover.jpg"
 coverImageAlt: "Balatro vs Luck be a Landlord offline mobile game comparison"
 ---
 
-Yesterday on 10 January i wrote about [Top 15 Offline Mobile Games in 2026](/posts/2026-definitive-guide-top-offline-mobile-games), but let us also consider this offline games too.
+Yesterday on 10 January i wrote about [Ultimate 2026 Mobile Gaming-guide Tecno, infinix and Redmi#](/posts/ultimate-2026-mobile-gaming-guide-tecno-infinix-redmi)
 # Balatro vs. Luck be a Landlord: Which Is the Best Offline Deck-Builder in 2026?
 
 Offline mobile gaming has become a **luxury** in 2026.
