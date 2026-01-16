@@ -11,7 +11,7 @@ import EditPost from "@/components/EditPost.astro";
 import ShareLinks from "@/components/ShareLinks.astro";
 import BackButton from "@/components/BackButton.astro";
 import BackToTopButton from "@/components/BackToTopButton.astro";
-import RelatedPosts from "@/components/RelatedPosts.astro";
+// import RelatedPosts from "@/components/RelatedPosts.astro";  // ← commented to fix unused import warning
 
 import { getPath } from "@/utils/getPath";
 import { slugifyStr } from "@/utils/slugify";
@@ -41,22 +41,22 @@ const {
   coverImageAlt,
 } = post.data;
 
-// Render Markdown/MDX content – this should now work after removing bad plugins
+// Render Markdown/MDX content
 const rendered = await render(post);
 const { Content } = rendered;
 
-// Debug: This will show on the page – remove after fixing!
+// Debug info (remove the whole div after confirming body shows)
 const bodyLength = post.body?.length ?? 0;
 const bodyPreview = post.body ? post.body.slice(0, 200).replace(/\n/g, ' ') : 'NO BODY CONTENT FOUND';
 
-// Meta description fallback logic (your original is fine)
+// Meta description fallback
 let metaDescription = description?.trim() || "";
 if (!metaDescription && post.body) {
   metaDescription = post.body.replace(/\n+/g, " ").replace(/\s+/g, " ").trim().slice(0, 160);
 }
 if (!metaDescription) metaDescription = SITE.desc?.trim() || "Tech reviews, opinions, and news on smartphones, AI, games, and more.";
 
-// OG Image logic (unchanged)
+// OG Image
 let ogImage: string | undefined;
 if (typeof initOgImage === "string") ogImage = initOgImage;
 else if (initOgImage?.src) ogImage = initOgImage.src;
@@ -82,7 +82,7 @@ const layoutProps = {
   scrollSmooth: true,
 };
 
-// Prev / Next posts (unchanged)
+// Prev / Next posts
 const sortedPosts = [...posts].sort(
   (a, b) => (b.data.modDatetime ?? b.data.pubDatetime).getTime() - (a.data.modDatetime ?? a.data.pubDatetime).getTime()
 );
@@ -90,7 +90,7 @@ const currentIndex = sortedPosts.findIndex((p) => p.id === post.id);
 const prevPost = currentIndex > 0 ? sortedPosts[currentIndex - 1] : null;
 const nextPost = currentIndex < sortedPosts.length - 1 ? sortedPosts[currentIndex + 1] : null;
 
-// Breadcrumbs (unchanged)
+// Breadcrumbs
 const isBlogRoute = Astro.url.pathname.startsWith("/posts/") || Astro.url.pathname.startsWith("/blog/");
 const breadcrumbItems = [
   { name: "Home", url: "/" },
@@ -98,7 +98,7 @@ const breadcrumbItems = [
   { name: title, url: canonicalPath },
 ];
 
-// Related posts (unchanged – you have RelatedPosts component imported but not used; assuming you use it elsewhere or remove if unused)
+// Related posts (you can render them here if needed)
 const allPosts = await getCollection('blog', ({ data }) => !data.draft);
 const related = allPosts
   .filter(p => p.id !== post.id)
@@ -139,13 +139,13 @@ const related = allPosts
     </div>
   </div>
 
-  <!-- DEBUG BOX – shows body status. Remove after confirming fix -->
+  <!-- DEBUG BOX – remove after confirming body works -->
   <div class="mx-auto max-w-app px-4 my-8 p-6 bg-yellow-100 border-4 border-yellow-500 rounded-xl text-lg">
     <strong>DEBUG (remove me once body works):</strong><br />
     Post slug/ID: {post.id}<br />
     Raw body length: {bodyLength} characters<br />
     Body preview (first 200 chars): {bodyPreview || 'EMPTY – check your .md file!'}<br />
-    Content component ready? {Content ? 'YES' : 'NO – rendering failed'}
+    Content component ready? {Content !== undefined ? 'YES' : 'NO – rendering failed'}
   </div>
 
   <main class="mx-auto max-w-app px-4 pb-12 mt-8" data-pagefind-body id="main-content">
@@ -181,22 +181,37 @@ const related = allPosts
       </section>
     )}
 
-    <!-- Rest of your page (hr, related, comments, prev/next) unchanged -->
     <hr class="my-16 border-dashed border-border/40" />
 
     {related.length > 0 && (
       <section class="mt-20">
         <h2 class="text-2xl font-bold mb-8">Related Posts</h2>
-        <!-- Your related posts grid here – assuming you render it inline or via <RelatedPosts /> -->
+        <!-- Render related posts here if you want, or use <RelatedPosts related={related} /> -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {related.map((relatedPost) => {
+            const link = getPath(relatedPost.id, relatedPost.filePath);
+            const { title, description = '', pubDatetime, tags = [] } = relatedPost.data;
+            return (
+              <article key={relatedPost.id} class="p-6 rounded-2xl bg-card/80 shadow-lg hover:shadow-xl transition-all">
+                <a href={link} class="font-semibold text-lg hover:text-accent">{title}</a>
+                <time class="block text-sm text-muted-foreground mt-1">
+                  {new Date(pubDatetime).toLocaleDateString()}
+                </time>
+                {description && <p class="mt-2 text-muted-foreground line-clamp-3">{description}</p>}
+              </article>
+            );
+          })}
+        </div>
       </section>
     )}
 
     <hr class="my-16 border-dashed border-border/40" />
 
-    <!-- Giscus Comments (unchanged) -->
+    <!-- Giscus Comments -->
     <section class="my-20 max-w-3xl mx-auto">
       <h2 class="text-2xl font-bold mb-6">Comments</h2>
       <script
+        is:inline
         src="https://giscus.app/client.js"
         data-repo="bytecascade11/astrobyte"
         data-repo-id="R_kgDOQobjBQ"
@@ -235,12 +250,11 @@ const related = allPosts
         )}
       </div>
     </section>
-
   </main>
 
   <Footer />
 
-  <!-- Cookie Script (unchanged) -->
+  <!-- Cookie Script -->
   <script
     type="text/javascript"
     charset="UTF-8"
