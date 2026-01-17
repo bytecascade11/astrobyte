@@ -31,7 +31,7 @@ const months = [
 ];
 ---
 
-<Layout title={`Archives | ${SITE.title}`}>
+<BaseLayout title={`Archives | ${SITE.title}`}>
   <Header />
   <Main pageTitle="Archives" pageDesc="All the articles I've archived.">
     {
@@ -80,4 +80,4 @@ const months = [
     }
   </Main>
   <Footer />
-</Layout>
+<BaseLayout>
