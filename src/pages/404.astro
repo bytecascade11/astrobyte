@@ -1,4 +1,6 @@
 ---
+// src/pages/404.astro
+
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import Header from "@/components/Header.astro";
 import Footer from "@/components/Footer.astro";
@@ -6,20 +8,29 @@ import LinkButton from "@/components/LinkButton.astro";
 import { SITE } from "@/config";
 ---
 
-<BaseLayout title={`404 Not Found | ${SITE.title}`}>
+<BaseLayout 
+  title={`404 Not Found | ${SITE.title}`}
+  description="The page you are looking for doesn't exist or has been moved."
+>
   <Header />
 
   <main
     id="main-content"
-    class="mx-auto flex max-w-app flex-1 items-center justify-center"
+    class="mx-auto flex max-w-app flex-1 items-center justify-center min-h-[60vh]"
   >
-    <div class="mb-14 flex flex-col items-center justify-center">
+    <div class="mb-14 flex flex-col items-center justify-center text-center">
       <h1 class="text-9xl font-bold text-accent">404</h1>
-      <span aria-hidden="true">¯\_(ツ)_/¯</span>
-      <p class="mt-4 text-2xl sm:text-3xl">Page Not Found</p>
+      <span aria-hidden="true" class="text-6xl my-4">¯\_(ツ)_/¯</span>
+      <p class="mt-4 text-2xl sm:text-3xl font-medium">
+        Page Not Found
+      </p>
+      <p class="mt-2 text-lg text-gray-600 dark:text-gray-400">
+        The page you are looking for doesn't exist or has been moved.
+      </p>
+
       <LinkButton
         href="/"
-        class="my-6 text-lg underline decoration-dashed underline-offset-8"
+        class="my-8 text-lg underline decoration-dashed underline-offset-8 hover:no-underline transition"
       >
         Go back home
       </LinkButton>
@@ -27,4 +38,4 @@ import { SITE } from "@/config";
   </main>
 
   <Footer />
-<BaseLayout>
+</BaseLayout>
