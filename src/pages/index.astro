@@ -1,11 +1,11 @@
 ---
 import { getCollection } from "astro:content";
 import BaseLayout from "@/layouts/BaseLayout.astro";
-import Header from "@/components/Header.astro";
-import Footer from "@/components/Footer.astro";
 import LinkButton from "@/components/LinkButton.astro";
 import Hr from "@/components/Hr.astro";
 import IconArrowRight from "@/assets/icons/IconArrowRight.svg";
+
+import { SITE } from "@/config";
 
 const posts = await getCollection("blog");
 
@@ -15,11 +15,13 @@ const sortedPosts = posts
 
 const latestPost = sortedPosts[0] ?? null;
 const recentPosts = sortedPosts.slice(1, 9);
+
+// Page meta
+const title = "Home | ReviByte";
+const description = "Latest tech reviews, opinions, and news from ReviByte.";
 ---
 
-<BaseLayout title="Home">
-  <Header />
-
+<BaseLayout title={title} description={description}>
   <main class="mx-auto w-full max-w-app px-4 py-12">
 
     <!-- Featured Latest Post -->
@@ -31,6 +33,8 @@ const recentPosts = sortedPosts.slice(1, 9);
             alt={latestPost.data.coverImageAlt || latestPost.data.title}
             class="w-full object-cover aspect-video md:aspect-[21/9]"
             loading="eager"
+            width="1200"
+            height="630"
           />
         )}
 
@@ -84,6 +88,8 @@ const recentPosts = sortedPosts.slice(1, 9);
                     alt={post.data.coverImageAlt || post.data.title}
                     class="w-full object-cover aspect-video"
                     loading="lazy"
+                    width="600"
+                    height="400"
                   />
                 </a>
               )}
@@ -131,6 +137,4 @@ const recentPosts = sortedPosts.slice(1, 9);
     </div>
 
   </main>
-
-  <Footer />
-</Layout>
+</BaseLayout>
