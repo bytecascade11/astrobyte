@@ -1,6 +1,6 @@
 ---
+import Layout from "@/layouts/Layout.astro";
 import { getCollection } from "astro:content";
-import BaseLayout from "@/layouts/BaseLayout.astro";
 import LinkButton from "@/components/LinkButton.astro";
 import Hr from "@/components/Hr.astro";
 import IconArrowRight from "@/assets/icons/IconArrowRight.svg";
@@ -17,110 +17,120 @@ const latestPost = sortedPosts[0] ?? null;
 const recentPosts = sortedPosts.slice(1, 9);
 ---
 
-<BaseLayout title="Home | ReviByte">
-  <!-- Featured Latest Post -->
-  {latestPost && (
-    <article class="mb-12 overflow-hidden rounded-2xl shadow-2xl bg-card">
-      {latestPost.data.coverImage && (
-        <img
-          src={latestPost.data.coverImage}
-          alt={latestPost.data.coverImageAlt || latestPost.data.title}
-          class="w-full object-cover aspect-video md:aspect-[21/9]"
-          loading="eager"
-          width="1200"
-          height="630"
-        />
-      )}
+<Layout title={`Home | ${SITE.title}`}>
+  <main class="mx-auto w-full max-w-app px-4 py-12">
 
-      <div class="p-8 md:p-12">
-        <h1 class="text-3xl md:text-5xl font-bold mb-4">
-          <a href={`/posts/${latestPost.id}`} class="hover:text-accent transition-colors">
-            {latestPost.data.title}
-          </a>
-        </h1>
-
-        <time class="text-sm text-muted-foreground mb-4 block">
-          {latestPost.data.pubDatetime.toLocaleDateString("en-US", {
-            year: "numeric",
-            month: "long",
-            day: "numeric",
-          })}
-        </time>
-
-        {latestPost.data.description && (
-          <p class="text-lg text-muted-foreground line-clamp-4 mb-6">
-            {latestPost.data.description}
-          </p>
+    <!-- Featured Latest Post -->
+    {latestPost && (
+      <article class="mb-12 overflow-hidden rounded-2xl shadow-2xl bg-card">
+        {latestPost.data.coverImage && (
+          <img
+            src={latestPost.data.coverImage}
+            alt={latestPost.data.coverImageAlt || latestPost.data.title}
+            class="w-full object-cover aspect-video md:aspect-[21/9]"
+            loading="eager"
+            width="1200"
+            height="630"
+          />
         )}
 
-        <LinkButton href={`/posts/${latestPost.id}`} class="mt-2 inline-block">
-          Read more →
-        </LinkButton>
-      </div>
-    </article>
-  )}
+        <div class="p-8 md:p-12">
+          <h1 class="text-3xl md:text-5xl font-bold mb-4">
+            <a
+              href={`/posts/${latestPost.id}`}
+              class="hover:text-accent transition-colors"
+            >
+              {latestPost.data.title}
+            </a>
+          </h1>
 
-  <Hr class="my-12" />
+          <time class="text-sm text-muted-foreground mb-4 block">
+            {latestPost.data.pubDatetime.toLocaleDateString("en-US", {
+              year: "numeric",
+              month: "long",
+              day: "numeric",
+            })}
+          </time>
 
-  <!-- Recent Posts Grid -->
-  {recentPosts.length > 0 && (
-    <>
-      <h2 class="text-2xl md:text-3xl font-bold mb-8">Recent Posts</h2>
+          {latestPost.data.description && (
+            <p class="text-lg text-muted-foreground line-clamp-4 mb-6">
+              {latestPost.data.description}
+            </p>
+          )}
 
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 mb-12">
-        {recentPosts.map((post) => (
-          <article
-            class="overflow-hidden rounded-2xl shadow-lg bg-card hover:shadow-xl transition-shadow duration-300"
-          >
-            {post.data.coverImage && (
-              <a href={`/posts/${post.id}`}>
-                <img
-                  src={post.data.coverImage}
-                  alt={post.data.coverImageAlt || post.data.title}
-                  class="w-full object-cover aspect-video"
-                  loading="lazy"
-                  width="600"
-                  height="400"
-                />
-              </a>
-            )}
+          <LinkButton href={`/posts/${latestPost.id}`} class="mt-2 inline-block">
+            Read more →
+          </LinkButton>
+        </div>
+      </article>
+    )}
 
-            <div class="p-6">
-              <h3 class="text-xl font-semibold mb-2 line-clamp-2">
-                <a href={`/posts/${post.id}`} class="hover:text-accent transition-colors">
-                  {post.data.title}
+    <Hr class="my-12" />
+
+    <!-- Recent Posts Grid -->
+    {recentPosts.length > 0 && (
+      <>
+        <h2 class="text-2xl md:text-3xl font-bold mb-8">Recent Posts</h2>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 mb-12">
+          {recentPosts.map((post) => (
+            <article
+              class="overflow-hidden rounded-2xl shadow-lg bg-card hover:shadow-xl transition-shadow duration-300"
+            >
+              {post.data.coverImage && (
+                <a href={`/posts/${post.id}`}>
+                  <img
+                    src={post.data.coverImage}
+                    alt={post.data.coverImageAlt || post.data.title}
+                    class="w-full object-cover aspect-video"
+                    loading="lazy"
+                    width="600"
+                    height="400"
+                  />
                 </a>
-              </h3>
-
-              <time class="text-sm text-muted-foreground block mb-3">
-                {post.data.pubDatetime.toLocaleDateString("en-US", {
-                  year: "numeric",
-                  month: "long",
-                  day: "numeric",
-                })}
-              </time>
-
-              {post.data.description && (
-                <p class="text-muted-foreground line-clamp-3 mb-4">
-                  {post.data.description}
-                </p>
               )}
 
-              <LinkButton href={`/posts/${post.id}`} class="mt-2 inline-block">
-                Read more →
-              </LinkButton>
-            </div>
-          </article>
-        ))}
-      </div>
-    </>
-  )}
+              <div class="p-6">
+                <h3 class="text-xl font-semibold mb-2 line-clamp-2">
+                  <a
+                    href={`/posts/${post.id}`}
+                    class="hover:text-accent transition-colors"
+                  >
+                    {post.data.title}
+                  </a>
+                </h3>
 
-  <!-- All Posts Button -->
-  <div class="text-center mt-12">
-    <LinkButton href="/posts/" size="lg">
-      All Posts
-      <IconArrowRight class="inline-block ml-2 w-5 h-5" />
-    </LinkButton>
-  </div>
-</BaseLayout>
+                <time class="text-sm text-muted-foreground block mb-3">
+                  {post.data.pubDatetime.toLocaleDateString("en-US", {
+                    year: "numeric",
+                    month: "long",
+                    day: "numeric",
+                  })}
+                </time>
+
+                {post.data.description && (
+                  <p class="text-muted-foreground line-clamp-3 mb-4">
+                    {post.data.description}
+                  </p>
+                )}
+
+                <LinkButton href={`/posts/${post.id}`} class="mt-2 inline-block">
+                  Read more →
+                </LinkButton>
+              </div>
+            </article>
+          ))}
+        </div>
+      </>
+    )}
+
+    <!-- All Posts Button -->
+    <div class="text-center mt-12">
+      <LinkButton href="/posts/" size="lg">
+        All Posts
+        <IconArrowRight class="inline-block ml-2 w-5 h-5" />
+      </LinkButton>
+    </div>
+
+  </main>
+</Layout>
