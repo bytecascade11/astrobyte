@@ -2,6 +2,7 @@
 title: "Why I Can't Stop Playing Call of Duty in 2026"
 description: "It's 2:47 AM and I'm loading into another match, telling myself 'one more game' for the fourth time tonight. This is my honest confession about why Call of Duty has its hooks in me deeper than ever, and why I've finally stopped apologizing for it."
 pubDatetime: 2026-01-16T07:30:16Z
+modDatetime: 2026-01-16T07:30:16Z
 author: "iSamuel"
 tags: ["games", "opinions", "tecno", "android"]
 coverImage: "/images/posts/cod-2026-late-night-gaming-setup.jpg"
