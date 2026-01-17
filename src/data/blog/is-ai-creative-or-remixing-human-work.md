@@ -13,8 +13,6 @@ coverImage: "/images/posts/cover-ai-creativity.jpg"
 coverImageAlt: "Creative collaboration between human hand and robotic hand with paintbrush"
 ---
 
-# When Machines Make Art: The Messy Truth About AI and Creativity
-
 I've been wrestling with this question for months now, and honestly, the more I dig into it, the less certain I become about where the boundaries lie. It's one of those deceptively simple questions that unravels into something much more complicated the moment you start pulling at the threads.
 
 ## The Remix Argument Sounds Convincing at First
