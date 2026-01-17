@@ -1,5 +1,4 @@
 ---
-// src/layouts/BaseLayout.astro
 import { SITE } from "@/config";
 
 import Header from "@/components/Header.astro";
@@ -24,19 +23,59 @@ const {
 } = Astro.props;
 ---
 
-<html lang="en" class={scrollSmooth ? "scroll-smooth" : ""}>
+<html lang="en" class:list={[{ "scroll-smooth": scrollSmooth }]}>
   <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+    <!-- Recommended: prevent zoom on mobile -->
+    <meta name="format-detection" content="telephone=no" />
+
+    <!-- Title with site name fallback -->
     <title>{title}</title>
+
+    <!-- Description (very important for SEO & social previews) -->
     <meta name="description" content={description} />
+
+    <!-- Author (good for attribution) -->
     {author && <meta name="author" content={author} />}
+
+    <!-- Canonical URL (prevents duplicate content issues) -->
     <link rel="canonical" href={canonicalURL} />
-    {ogImage && <meta property="og:image" content={ogImage} />}
-    <!-- other meta, fonts, analytics etc -->
+
+    <!-- Open Graph basics (Facebook, LinkedIn, etc.) -->
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalURL} />
+    {ogImage && (
+      <>
+        <meta property="og:image" content={ogImage} />
+        <meta property="og:image:alt" content={title} />
+        <!-- Recommended sizes for better previews -->
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
+      </>
+    )}
+
+    <!-- Twitter Cards (X.com) -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    {ogImage && <meta name="twitter:image" content={ogImage} />}
+
+    <!-- Favicon (add your own later) -->
+    <link rel="icon" href="/favicon.ico" />
+    <!-- Add more: apple-touch-icon, manifest, etc. if needed -->
+
+    <!-- Performance & security headers (optional but recommended) -->
+    <meta name="referrer" content="strict-origin-when-cross-origin" />
+    <meta name="color-scheme" content="light dark" />
+
+    <!-- You can add Google Fonts, Tailwind, analytics, etc. here -->
   </head>
 
-  <body>
+  <body class="bg-background text-foreground antialiased">
     <Header />
     <slot />           <!-- ← page content goes here -->
     <Footer />
