@@ -1,39 +1,59 @@
-// src/content/config.ts  ← Keep it in src/content/ if that's where it is now
-import { defineCollection, z } from "astro:content";
+// src/content/config.ts
+import { defineCollection, z, reference } from "astro:content";
 import { glob } from "astro/loaders";
+
 import { SITE } from "@/config";
 
+// Recommended: keep this constant for easier maintenance
 export const BLOG_PATH = "src/data/blog";
 
 const blog = defineCollection({
+  // Loader: loads all .md / .mdx files except those starting with _
   loader: glob({
-    pattern: "**/[^_]*.md",
+    pattern: "**/[^_]*.{md,mdx}",
     base: `./${BLOG_PATH}`,
   }),
 
   schema: ({ image }) =>
     z.object({
+      // Core fields
+      title: z.string(),
+      description: z.string(),
       author: z.string().default(SITE.author),
+
+      // Dates
       pubDatetime: z.coerce.date(),
       modDatetime: z.coerce.date().optional().nullable(),
-      title: z.string(),
-      featured: z.boolean().optional(),
-      draft: z.boolean().optional(),
-      tags: z.array(z.string()).default(["others"]),
+      timezone: z.string().optional(),
+
+      // SEO / Social
       ogImage: image()
-        .refine((img) => img.width >= 1200 && img.height >= 630, { message: "OG image should be at least 1200×630 pixels!" })
+        .refine((img) => img.width >= 1200 && img.height >= 630, {
+          message: "OG image must be at least 1200×630 pixels!",
+        })
         .optional()
         .or(z.string().url().optional()),
-      description: z.string(),
+
       canonicalURL: z.string().url().optional(),
-      hideEditPost: z.boolean().optional(),
-      timezone: z.string().optional(),
-      slug: z.string().optional(), // ✅ allow custom slug
+
+      // Categorization & Control
+      tags: z.array(z.string()).default(["others"]),
+      featured: z.boolean().optional(),
+      draft: z.boolean().optional().default(false),
+
+      // Custom slug (very useful!)
+      slug: z.string().optional(),
+
+      // Cover / Featured image
       coverImage: z.string().optional(),
       coverImageAlt: z.string().optional(),
+
+      // UI/Behavior controls
+      hideEditPost: z.boolean().optional().default(false),
     }),
 });
 
+// Export collections
 export const collections = {
   blog,
 };
