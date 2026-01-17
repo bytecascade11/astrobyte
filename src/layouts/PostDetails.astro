@@ -84,9 +84,9 @@ if (canonicalPath !== "/" && canonicalPath.endsWith("/")) {
 
 const canonicalUrl = new URL(canonicalPath, Astro.site).href;
 
-/* ---------------- Layout props (IMPORTANT FIX) ---------------- */
+/* ---------------- Layout props ---------------- */
 const layoutProps = {
-  title, // ✅ ONLY post title — Layout adds site title
+  title, // ONLY post title, Layout adds SITE.title automatically
   author,
   description: metaDescription,
   pubDatetime,
@@ -219,6 +219,73 @@ const related = allPosts
       </section>
     )}
 
-    <Footer />
+    {related.length > 0 && (
+      <section class="mt-20">
+        <h2 class="text-2xl font-bold mb-8">Related Posts</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {related.map((relatedPost) => {
+            const link = getPath(
+              relatedPost.id,
+              relatedPost.filePath
+            );
+            const { title, description = "", pubDatetime } = relatedPost.data;
+            return (
+              <article class="p-6 rounded-2xl bg-card/80 shadow-lg hover:shadow-xl transition-all">
+                <a href={link} class="font-semibold text-lg hover:text-accent">
+                  {title}
+                </a>
+                <time class="block text-sm text-muted-foreground mt-1">
+                  {new Date(pubDatetime).toLocaleDateString()}
+                </time>
+                {description && (
+                  <p class="mt-2 text-muted-foreground line-clamp-3">
+                    {description}
+                  </p>
+                )}
+              </article>
+            );
+          })}
+        </div>
+      </section>
+    )}
+
+    <section class="my-20 max-w-3xl mx-auto">
+      <h2 class="text-2xl font-bold mb-6">Comments</h2>
+      <script
+        is:inline
+        src="https://giscus.app/client.js"
+        data-repo="bytecascade11/astrobyte"
+        data-repo-id="R_kgDOQobjBQ"
+        data-category="Announcements"
+        data-category-id="DIC_kwDOQobjBc4C0Dd4"
+        data-mapping="pathname"
+        data-theme="preferred-color-scheme"
+        data-lang="en"
+        crossorigin="anonymous"
+        async
+      ></script>
+    </section>
+
+    <section class="my-20">
+      <h2 class="text-2xl font-bold text-center mb-12">
+        Continue Reading
+      </h2>
+      <div class="grid md:grid-cols-2 gap-10 max-w-5xl mx-auto">
+        {prevPost && (
+          <a href={getPath(prevPost.id, prevPost.filePath)} class="rounded-2xl p-8 shadow-lg">
+            <IconChevronLeft class="inline w-5 h-5" /> Previous
+            <h3 class="mt-3 font-semibold">{prevPost.data.title}</h3>
+          </a>
+        )}
+        {nextPost && (
+          <a href={getPath(nextPost.id, nextPost.filePath)} class="rounded-2xl p-8 shadow-lg text-right">
+            Next <IconChevronRight class="inline w-5 h-5" />
+            <h3 class="mt-3 font-semibold">{nextPost.data.title}</h3>
+          </a>
+        )}
+      </div>
+    </section>
   </main>
+
+  <Footer />
 </Layout>
