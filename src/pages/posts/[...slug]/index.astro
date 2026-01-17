@@ -1,7 +1,6 @@
 ---
 // File: src/pages/posts/[...slug].astro
-// Use [...slug] for maximum flexibility (nested folders, categories, etc. in future)
-// If you prefer flat URLs only → you can rename to [slug].astro
+// Recommendation: Keep [...slug] for future flexibility (categories, years, etc.)
 
 import type { CollectionEntry } from 'astro:content';
 import { getCollection } from 'astro:content';
@@ -13,7 +12,11 @@ export async function getStaticPaths() {
 
   return posts.map(post => ({
     params: {
-      slug: post.slug,          // ← correct and preferred way
+      // Option A: Most common & safe (recommended right now)
+      slug: post.id.replace(/\.mdx?$/, ''),   // removes .md/.mdx extension
+
+      // Option B: If you defined slug in frontmatter or schema
+      // slug: post.slug || post.id.replace(/\.mdx?$/, '')
     },
     props: { post },
   }));
