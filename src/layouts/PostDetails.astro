@@ -25,7 +25,7 @@ export interface Props {
 
 const { post, posts } = Astro.props;
 
-// Frontmatter
+/* ---------------- Frontmatter ---------------- */
 const {
   title,
   author = SITE.author,
@@ -40,11 +40,12 @@ const {
   coverImageAlt,
 } = post.data;
 
-// Render markdown
+/* ---------------- Markdown ---------------- */
 const { Content } = await render(post);
 
-// Meta description fallback
+/* ---------------- Meta description ---------------- */
 let metaDescription = description?.trim() || "";
+
 if (!metaDescription && post.body) {
   metaDescription = post.body
     .replace(/\n+/g, " ")
@@ -52,34 +53,40 @@ if (!metaDescription && post.body) {
     .trim()
     .slice(0, 160);
 }
+
 if (!metaDescription) {
-  metaDescription = SITE.desc || "Tech reviews, opinions, and news.";
+  metaDescription = SITE.desc;
 }
 
-// OG image
+/* ---------------- OG image ---------------- */
 let ogImage: string | undefined;
+
 if (typeof initOgImage === "string") ogImage = initOgImage;
 else if (initOgImage?.src) ogImage = initOgImage.src;
+
 if (!ogImage && coverImage) ogImage = coverImage;
-if (!ogImage && SITE.dynamicOgImage)
+
+if (!ogImage && SITE.dynamicOgImage) {
   ogImage = `${getPath(post.id, post.filePath, true)}/open-graph.png`;
+}
+
 if (!ogImage) ogImage = "/astropaper-og.jpg";
 
-const ogImageUrl = new URL(
-  ogImage.startsWith("http") ? ogImage : ogImage,
-  Astro.url.origin
-).href;
+const ogImageUrl = ogImage.startsWith("http")
+  ? ogImage
+  : new URL(ogImage, Astro.site).href;
 
-// Canonical URL
+/* ---------------- Canonical URL ---------------- */
 let canonicalPath = Astro.url.pathname;
 if (canonicalPath !== "/" && canonicalPath.endsWith("/")) {
   canonicalPath = canonicalPath.slice(0, -1);
 }
+
 const canonicalUrl = new URL(canonicalPath, Astro.site).href;
 
-// Layout props
+/* ---------------- Layout props (IMPORTANT FIX) ---------------- */
 const layoutProps = {
-  title: `${title} | ${SITE.title}`,
+  title, // ✅ ONLY post title — Layout adds site title
   author,
   description: metaDescription,
   pubDatetime,
@@ -89,20 +96,21 @@ const layoutProps = {
   scrollSmooth: true,
 };
 
-// Prev / Next
+/* ---------------- Prev / Next ---------------- */
 const sortedPosts = [...posts].sort(
   (a, b) =>
     (b.data.modDatetime ?? b.data.pubDatetime).getTime() -
     (a.data.modDatetime ?? a.data.pubDatetime).getTime()
 );
-const currentIndex = sortedPosts.findIndex((p) => p.id === post.id);
+
+const currentIndex = sortedPosts.findIndex(p => p.id === post.id);
 const prevPost = currentIndex > 0 ? sortedPosts[currentIndex - 1] : null;
 const nextPost =
   currentIndex < sortedPosts.length - 1
     ? sortedPosts[currentIndex + 1]
     : null;
 
-// Breadcrumbs
+/* ---------------- Breadcrumbs ---------------- */
 const isBlogRoute =
   Astro.url.pathname.startsWith("/posts/") ||
   Astro.url.pathname.startsWith("/blog/");
@@ -113,11 +121,12 @@ const breadcrumbItems = [
   { name: title, url: canonicalPath },
 ];
 
-// Related posts
+/* ---------------- Related posts ---------------- */
 const allPosts = await getCollection("blog", ({ data }) => !data.draft);
+
 const related = allPosts
-  .filter((p) => p.id !== post.id)
-  .filter((p) => p.data.tags?.some((t) => tags.includes(t)))
+  .filter(p => p.id !== post.id)
+  .filter(p => p.data.tags?.some(t => tags.includes(t)))
   .sort((a, b) => b.data.pubDatetime.valueOf() - a.data.pubDatetime.valueOf())
   .slice(0, 5);
 ---
@@ -201,7 +210,7 @@ const related = allPosts
     {tags.length > 0 && (
       <section class="my-12">
         <ul class="flex flex-wrap gap-3">
-          {tags.map((tag) => (
+          {tags.map(tag => (
             <li>
               <Tag tag={slugifyStr(tag)} tagName={tag} />
             </li>
@@ -210,91 +219,6 @@ const related = allPosts
       </section>
     )}
 
-    {related.length > 0 && (
-      <section class="mt-20">
-        <h2 class="text-2xl font-bold mb-8">Related Posts</h2>
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {related.map((relatedPost) => {
-            const link = getPath(
-              relatedPost.id,
-              relatedPost.filePath
-            );
-            const {
-              title,
-              description = "",
-              pubDatetime,
-            } = relatedPost.data;
-
-            return (
-              <article class="p-6 rounded-2xl bg-card/80 shadow-lg hover:shadow-xl transition-all">
-                <a
-                  href={link}
-                  class="font-semibold text-lg hover:text-accent"
-                >
-                  {title}
-                </a>
-                <time class="block text-sm text-muted-foreground mt-1">
-                  {new Date(pubDatetime).toLocaleDateString()}
-                </time>
-                {description && (
-                  <p class="mt-2 text-muted-foreground line-clamp-3">
-                    {description}
-                  </p>
-                )}
-              </article>
-            );
-          })}
-        </div>
-      </section>
-    )}
-
-    <section class="my-20 max-w-3xl mx-auto">
-      <h2 class="text-2xl font-bold mb-6">Comments</h2>
-      <script
-        is:inline
-        src="https://giscus.app/client.js"
-        data-repo="bytecascade11/astrobyte"
-        data-repo-id="R_kgDOQobjBQ"
-        data-category="Announcements"
-        data-category-id="DIC_kwDOQobjBc4C0Dd4"
-        data-mapping="pathname"
-        data-theme="preferred-color-scheme"
-        data-lang="en"
-        crossorigin="anonymous"
-        async
-      ></script>
-    </section>
-
-    <section class="my-20">
-      <h2 class="text-2xl font-bold text-center mb-12">
-        Continue Reading
-      </h2>
-      <div class="grid md:grid-cols-2 gap-10 max-w-5xl mx-auto">
-        {prevPost && (
-          <a
-            href={getPath(prevPost.id, prevPost.filePath)}
-            class="rounded-2xl p-8 shadow-lg"
-          >
-            <IconChevronLeft class="inline w-5 h-5" /> Previous
-            <h3 class="mt-3 font-semibold">
-              {prevPost.data.title}
-            </h3>
-          </a>
-        )}
-        {nextPost && (
-          <a
-            href={getPath(nextPost.id, nextPost.filePath)}
-            class="rounded-2xl p-8 shadow-lg text-right"
-          >
-            Next <IconChevronRight class="inline w-5 h-5" />
-            <h3 class="mt-3 font-semibold">
-              {nextPost.data.title}
-            </h3>
-          </a>
-        )}
-      </div>
-    </section>
+    <Footer />
   </main>
-
-  <Footer />
 </Layout>
