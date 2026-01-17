@@ -77,9 +77,9 @@ if (canonicalPath !== "/" && canonicalPath.endsWith("/")) {
 }
 const canonicalUrl = new URL(canonicalPath, Astro.site).href;
 
-// Layout props
+// ✅ Layout props (FIXED: do NOT append SITE.title here)
 const layoutProps = {
-  title: `${title} | ${SITE.title}`,
+  title: title, // only post title, no site name
   author,
   description: metaDescription,
   pubDatetime,
