@@ -6,7 +6,7 @@ import LinkButton from "@/components/LinkButton.astro";
 import { SITE } from "@/config";
 ---
 
-<Layout title={`404 Not Found | ${SITE.title}`}>
+<BaseLayout title={`404 Not Found | ${SITE.title}`}>
   <Header />
 
   <main
@@ -27,4 +27,4 @@ import { SITE } from "@/config";
   </main>
 
   <Footer />
-</Layout>
+<BaseLayout>
