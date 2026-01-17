@@ -45,7 +45,7 @@ I keep coming back to cases that challenge my intuitions. If someone creates a p
 
 Or consider Brian Eno's generative music systems from the 1970s, long before modern AI. He created algorithmic compositions that would generate different variations each time they played, with outcomes he couldn't fully predict. Was the music creative only because Eno set up the system, or did creativity emerge from the system itself?
 
-![Image: A close-up of Jackson Pollock-style paint splatters on canvas transitioning into digital pixels and algorithm visualization, symbolizing the bridge between analog randomness and computational generation](images/posts/pollock-digital-transition.jpg)
+![Image: A close-up of Jackson Pollock-style paint splatters on canvas transitioning into digital pixels and algorithm visualization, symbolizing the bridge between analog randomness and computational](/images/posts/pollock-digital-transition.jpg)
 
 These edge cases make me wonder if we're being too restrictive in defining creativity solely through human-like intention and experience. Maybe creativity is better understood as a quality of the output rather than a requirement of the creator's internal state.
 
