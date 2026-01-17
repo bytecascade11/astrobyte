@@ -1,155 +1,303 @@
 ---
-import { ClientRouter } from "astro:transitions";
+import type { CollectionEntry } from "astro:content";
+import { render, getCollection } from "astro:content";
+
+import Layout from "@/layouts/Layout.astro";
+import Header from "@/components/Header.astro";
+import Footer from "@/components/Footer.astro";
+import Tag from "@/components/Tag.astro";
+import Datetime from "@/components/Datetime.astro";
+import EditPost from "@/components/EditPost.astro";
+import ShareLinks from "@/components/ShareLinks.astro";
+import BackButton from "@/components/BackButton.astro";
+import BackToTopButton from "@/components/BackToTopButton.astro";
+
+import { getPath } from "@/utils/getPath";
+import { slugifyStr } from "@/utils/slugify";
+import IconChevronLeft from "@/assets/icons/IconChevronLeft.svg";
+import IconChevronRight from "@/assets/icons/IconChevronRight.svg";
 import { SITE } from "@/config";
-import "@/styles/global.css";
 
 export interface Props {
-  title?: string;
-  author?: string;
-  profile?: string;
-  description?: string;
-  ogImage?: string;
-  canonicalURL?: string;
-  pubDatetime?: Date;
-  modDatetime?: Date | null;
-  scrollSmooth?: boolean;
+  post: CollectionEntry<"blog">;
+  posts: CollectionEntry<"blog">[];
 }
 
+const { post, posts } = Astro.props;
+
+// Frontmatter
 const {
-  title = SITE.title,
+  title,
   author = SITE.author,
-  profile = SITE.profile,
-  description = SITE.desc,
-  ogImage,
-  canonicalURL = new URL(Astro.url.pathname, Astro.url.origin).href,
+  description,
+  ogImage: initOgImage,
   pubDatetime,
   modDatetime,
-  scrollSmooth = false,
-} = Astro.props;
+  timezone,
+  tags = [],
+  hideEditPost = false,
+  coverImage,
+  coverImageAlt,
+} = post.data;
 
-const socialImageURL = ogImage
-  ? new URL(ogImage, Astro.url.origin).href
-  : new URL(SITE.ogImage, Astro.url.origin).href;
+// Render markdown
+const { Content } = await render(post);
 
-const structuredData = {
-  "@context": "https://schema.org",
-  "@type": "BlogPosting",
-  headline: title,
-  image: socialImageURL,
-  ...(pubDatetime && { datePublished: pubDatetime.toISOString() }),
-  ...(modDatetime && { dateModified: modDatetime.toISOString() }),
-  author: [
-    {
-      "@type": "Person",
-      name: author,
-      ...(profile && { url: profile }),
-    },
-  ],
+// Meta description fallback
+let metaDescription = description?.trim() || "";
+if (!metaDescription && post.body) {
+  metaDescription = post.body
+    .replace(/\n+/g, " ")
+    .replace(/\s+/g, " ")
+    .trim()
+    .slice(0, 160);
+}
+if (!metaDescription) {
+  metaDescription = SITE.desc || "Tech reviews, opinions, and news.";
+}
+
+// OG image
+let ogImage: string | undefined;
+if (typeof initOgImage === "string") ogImage = initOgImage;
+else if (initOgImage?.src) ogImage = initOgImage.src;
+if (!ogImage && coverImage) ogImage = coverImage;
+if (!ogImage && SITE.dynamicOgImage)
+  ogImage = `${getPath(post.id, post.filePath, true)}/open-graph.png`;
+if (!ogImage) ogImage = "/astropaper-og.jpg";
+
+const ogImageUrl = new URL(
+  ogImage.startsWith("http") ? ogImage : ogImage,
+  Astro.url.origin
+).href;
+
+// Canonical URL
+let canonicalPath = Astro.url.pathname;
+if (canonicalPath !== "/" && canonicalPath.endsWith("/")) {
+  canonicalPath = canonicalPath.slice(0, -1);
+}
+const canonicalUrl = new URL(canonicalPath, Astro.site).href;
+
+// ────────────────────────────────────────────────
+// FIXED: Pass only the raw post title
+// The base Layout.astro will correctly append " | ReviByte Opinions"
+// ────────────────────────────────────────────────
+const layoutProps = {
+  title,                        // ← changed: no more manual | ${SITE.title}
+  author,
+  description: metaDescription,
+  pubDatetime,
+  modDatetime,
+  canonicalURL: canonicalUrl,
+  ogImage: ogImageUrl,
+  scrollSmooth: true,
 };
 
-const pageTitle = title === SITE.title ? title : `${title} | ${SITE.title}`;
+// Prev / Next
+const sortedPosts = [...posts].sort(
+  (a, b) =>
+    (b.data.modDatetime ?? b.data.pubDatetime).getTime() -
+    (a.data.modDatetime ?? a.data.pubDatetime).getTime()
+);
+const currentIndex = sortedPosts.findIndex((p) => p.id === post.id);
+const prevPost = currentIndex > 0 ? sortedPosts[currentIndex - 1] : null;
+const nextPost =
+  currentIndex < sortedPosts.length - 1
+    ? sortedPosts[currentIndex + 1]
+    : null;
 
-const breadcrumbStructuredData = {
-  "@context": "https://schema.org",
-  "@type": "BreadcrumbList",
-  itemListElement: [
-    {
-      "@type": "ListItem",
-      position: 1,
-      name: "Home",
-      item: "https://www.revibyte.blog/"
-    }
-  ]
-};
+// Breadcrumbs
+const isBlogRoute =
+  Astro.url.pathname.startsWith("/posts/") ||
+  Astro.url.pathname.startsWith("/blog/");
+
+const breadcrumbItems = [
+  { name: "Home", url: "/" },
+  ...(isBlogRoute ? [{ name: "Blog", url: "/posts/" }] : []),
+  { name: title, url: canonicalPath },
+];
+
+// Related posts
+const allPosts = await getCollection("blog", ({ data }) => !data.draft);
+const related = allPosts
+  .filter((p) => p.id !== post.id)
+  .filter((p) => p.data.tags?.some((t) => tags.includes(t)))
+  .sort((a, b) => b.data.pubDatetime.valueOf() - a.data.pubDatetime.valueOf())
+  .slice(0, 5);
 ---
 
-<!doctype html>
-<html dir={SITE.dir} lang={SITE.lang ?? "en"} class={`${scrollSmooth && "scroll-smooth"}`}>
-<head>
+<Layout {...layoutProps}>
+  <Header />
+  {SITE.showBackButton && <BackButton />}
 
-  <!-- Cookie Consent -->
-  <script is:inline src="https://cdn.cookie-script.com/s/7a0b474b3ae1aadcbad72904cd6f17e5.js"></script>
-
-  <!-- Google Consent Mode v2 -->
-  <script is:inline>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('consent', 'default', {
-      ad_storage: 'denied',
-      analytics_storage: 'denied',
-      ad_user_data: 'denied',
-      ad_personalization: 'denied',
-      wait_for_update: 500
-    });
-    gtag('set', 'ads_data_redaction', true);
-  </script>
-
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width" />
-
-  <title>{pageTitle}</title>
-  <meta name="description" content={description} />
-  <meta name="author" content={author} />
-  <link rel="canonical" href={canonicalURL} />
-  <link rel="sitemap" href="/sitemap-index.xml" />
-
-  <!-- Open Graph -->
-  <meta property="og:title" content={pageTitle} />
-  <meta property="og:description" content={description} />
-  <meta property="og:url" content={canonicalURL} />
-  <meta property="og:image" content={socialImageURL} />
-
-  <!-- Twitter -->
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content={pageTitle} />
-  <meta name="twitter:description" content={description} />
-  <meta name="twitter:image" content={socialImageURL} />
-
-  {pubDatetime && <meta property="article:published_time" content={pubDatetime.toISOString()} />}
-  {modDatetime && <meta property="article:modified_time" content={modDatetime.toISOString()} />}
-
-  <!-- Schema -->
-  <script type="application/ld+json" is:inline set:html={JSON.stringify(structuredData)} />
-  <script type="application/ld+json" is:inline set:html={JSON.stringify(breadcrumbStructuredData)} />
-
-  <!-- Google Site Verification (no astro:env import needed) -->
-  {import.meta.env.PUBLIC_GOOGLE_SITE_VERIFICATION && (
-    <meta
-      name="google-site-verification"
-      content={import.meta.env.PUBLIC_GOOGLE_SITE_VERIFICATION}
-    />
+  {isBlogRoute && (
+    <nav class="mx-auto mt-8 mb-6 max-w-app px-4" aria-label="Breadcrumb">
+      <ol class="flex flex-wrap items-center gap-2 text-sm opacity-90">
+        {breadcrumbItems.map((item, index) => {
+          const isLast = index === breadcrumbItems.length - 1;
+          return (
+            <li class="flex items-center gap-2">
+              {isLast ? (
+                <span aria-current="page" class="font-medium opacity-75">
+                  {item.name}
+                </span>
+              ) : (
+                <a href={item.url} class="opacity-80 hover:opacity-100">
+                  {item.name}
+                </a>
+              )}
+              {!isLast && <span aria-hidden="true">›</span>}
+            </li>
+          );
+        })}
+      </ol>
+    </nav>
   )}
 
-  <!-- AdSense -->
-  <script
-    is:inline
-    async
-    src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4896561037705299"
-    crossorigin="anonymous">
-  </script>
+  <div class="fixed top-20 right-4 z-50 flex flex-col gap-4">
+    <BackToTopButton class="rounded-full p-3 shadow-lg bg-background/90" />
+    <div class="rounded-lg p-4 shadow-lg bg-background/90">
+      <span class="text-sm opacity-80">Share</span>
+      <ShareLinks title={title} url={Astro.url.href} />
+    </div>
+  </div>
 
-  <!-- Google Analytics -->
-  {import.meta.env.PROD && (
-    <>
+  <main
+    class="mx-auto max-w-app px-4 pb-12 mt-8"
+    data-pagefind-body
+    id="main-content"
+  >
+    <h1 class="text-3xl font-bold text-accent">{title}</h1>
+
+    <div class="my-4 flex items-center gap-4 text-sm">
+      <Datetime
+        pubDatetime={pubDatetime}
+        modDatetime={modDatetime}
+        timezone={timezone}
+      />
+      {SITE.editPost?.enabled && !hideEditPost && (
+        <EditPost post={post} class="hidden sm:inline" />
+      )}
+    </div>
+
+    {coverImage && (
+      <figure class="mt-12 mb-16 overflow-hidden rounded-2xl shadow-2xl">
+        <img
+          src={coverImage}
+          alt={coverImageAlt || title}
+          class="w-full aspect-video object-cover"
+          width="1200"
+          height="630"
+          loading="eager"
+        />
+        {coverImageAlt && (
+          <figcaption class="mt-3 text-center text-sm opacity-70 italic">
+            {coverImageAlt}
+          </figcaption>
+        )}
+      </figure>
+    )}
+
+    <article class="app-prose mx-auto mt-16 prose-headings:text-accent">
+      <Content />
+    </article>
+
+    {tags.length > 0 && (
+      <section class="my-12">
+        <ul class="flex flex-wrap gap-3">
+          {tags.map((tag) => (
+            <li>
+              <Tag tag={slugifyStr(tag)} tagName={tag} />
+            </li>
+          ))}
+        </ul>
+      </section>
+    )}
+
+    {related.length > 0 && (
+      <section class="mt-20">
+        <h2 class="text-2xl font-bold mb-8">Related Posts</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {related.map((relatedPost) => {
+            const link = getPath(
+              relatedPost.id,
+              relatedPost.filePath
+            );
+            const {
+              title,
+              description = "",
+              pubDatetime,
+            } = relatedPost.data;
+
+            return (
+              <article class="p-6 rounded-2xl bg-card/80 shadow-lg hover:shadow-xl transition-all">
+                <a
+                  href={link}
+                  class="font-semibold text-lg hover:text-accent"
+                >
+                  {title}
+                </a>
+                <time class="block text-sm text-muted-foreground mt-1">
+                  {new Date(pubDatetime).toLocaleDateString()}
+                </time>
+                {description && (
+                  <p class="mt-2 text-muted-foreground line-clamp-3">
+                    {description}
+                  </p>
+                )}
+              </article>
+            );
+          })}
+        </div>
+      </section>
+    )}
+
+    <section class="my-20 max-w-3xl mx-auto">
+      <h2 class="text-2xl font-bold mb-6">Comments</h2>
       <script
         is:inline
+        src="https://giscus.app/client.js"
+        data-repo="bytecascade11/astrobyte"
+        data-repo-id="R_kgDOQobjBQ"
+        data-category="Announcements"
+        data-category-id="DIC_kwDOQobjBc4C0Dd4"
+        data-mapping="pathname"
+        data-theme="preferred-color-scheme"
+        data-lang="en"
+        crossorigin="anonymous"
         async
-        src="https://www.googletagmanager.com/gtag/js?id=G-2MH0T4DFR3">
-      </script>
-      <script is:inline>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-        gtag('config', 'G-2MH0T4DFR3');
-      </script>
-    </>
-  )}
+      ></script>
+    </section>
 
-  <ClientRouter />
-  <script is:inline src="/toggle-theme.js"></script>
+    <section class="my-20">
+      <h2 class="text-2xl font-bold text-center mb-12">
+        Continue Reading
+      </h2>
+      <div class="grid md:grid-cols-2 gap-10 max-w-5xl mx-auto">
+        {prevPost && (
+          <a
+            href={getPath(prevPost.id, prevPost.filePath)}
+            class="rounded-2xl p-8 shadow-lg"
+          >
+            <IconChevronLeft class="inline w-5 h-5" /> Previous
+            <h3 class="mt-3 font-semibold">
+              {prevPost.data.title}
+            </h3>
+          </a>
+        )}
+        {nextPost && (
+          <a
+            href={getPath(nextPost.id, nextPost.filePath)}
+            class="rounded-2xl p-8 shadow-lg text-right"
+          >
+            Next <IconChevronRight class="inline w-5 h-5" />
+            <h3 class="mt-3 font-semibold">
+              {nextPost.data.title}
+            </h3>
+          </a>
+        )}
+      </div>
+    </section>
+  </main>
 
-</head>
-<body>
-  <slot />
-</body>
-</html>
+  <Footer />
+</Layout>
