@@ -1,4 +1,5 @@
 ---
+// src/layouts/BaseLayout.astro – final version
 import { SITE } from "@/config";
 
 import Header from "@/components/Header.astro";
@@ -26,18 +27,15 @@ const {
 <html lang="en" class:list={[{ "scroll-smooth": scrollSmooth }]}>
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="format-detection" content="telephone=no" />
 
-    <!-- Basic SEO -->
     <title>{title}</title>
     <meta name="description" content={description} />
     {author && <meta name="author" content={author} />}
-
-    <!-- Prevent search engines from indexing duplicate content -->
     <link rel="canonical" href={canonicalURL} />
 
-    <!-- Open Graph (Facebook, LinkedIn, WhatsApp, etc.) -->
+    <!-- OG / Twitter -->
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
@@ -50,45 +48,26 @@ const {
         <meta property="og:image:height" content="630" />
       </>
     )}
-
-    <!-- Twitter/X Cards -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
     {ogImage && <meta name="twitter:image" content={ogImage} />}
 
-    <!-- Robots (allow indexing, but customize per page if needed) -->
-    <meta name="robots" content="index, follow" />
-
-    <!-- Favicon – modern approach (SVG preferred) -->
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="icon" href="/favicon.png" type="image/png" />
-    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
 
-    <!-- Performance & security -->
-    <meta name="referrer" content="strict-origin-when-cross-origin" />
     <meta name="color-scheme" content="light dark" />
-
-    <!-- Optional: Preconnect to important third-parties (fonts, analytics, etc.) -->
-    <!-- <link rel="preconnect" href="https://fonts.googleapis.com" /> -->
   </head>
 
   <body class="bg-background text-foreground antialiased min-h-screen flex flex-col">
-    <!-- Accessibility: Skip link -->
-    <a 
-      href="#main-content" 
-      class="sr-only focus:not-sr-only focus:bg-accent focus:text-white focus:p-4 focus:fixed focus:top-0 focus:left-0 z-50"
-    >
+    <!-- Accessibility skip link -->
+    <a href="#main-content" class="sr-only focus:not-sr-only">
       Skip to main content
     </a>
 
     <Header />
 
-    <main 
-      id="main-content" 
-      role="main" 
-      class="flex-1"
-    >
+    <main id="main-content" class="flex-1">
       <slot />
     </main>
 
