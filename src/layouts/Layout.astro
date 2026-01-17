@@ -1,4 +1,30 @@
----  
+---
+import type { CollectionEntry } from 'astro:content';
+
+export interface Props {
+  title: string;
+  description?: string;
+  author?: string;
+  pubDatetime?: Date;
+  modDatetime?: Date | null;
+  canonicalURL?: string;
+  ogImage?: string;
+  scrollSmooth?: boolean;
+
+  // Optional - only some pages actually send these
+  post?: CollectionEntry<'blog'>;
+  posts?: CollectionEntry<'blog'>[];
+}
+
+// ↓↓↓ your existing variables and logic continue here ↓↓↓
+const {
+  title = 'Default Title',
+  description = 'Default description',
+  author = SITE.author,
+  // ... rest of your destructuring
+} = Astro.props;
+
+// ... rest of your Layout.astro code ...
 import type { CollectionEntry } from "astro:content";  
 import { render, getCollection } from "astro:content";  
   
