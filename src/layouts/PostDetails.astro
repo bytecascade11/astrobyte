@@ -1,4 +1,5 @@
 ---
+// src/layouts/PostDetails.astro
 import type { CollectionEntry } from "astro:content";
 import { render, getCollection } from "astro:content";
 
@@ -25,7 +26,7 @@ export interface Props {
 
 const { post, posts } = Astro.props;
 
-/* ---------------- Frontmatter ---------------- */
+// Frontmatter
 const {
   title,
   author = SITE.author,
@@ -40,10 +41,10 @@ const {
   coverImageAlt,
 } = post.data;
 
-/* ---------------- Markdown ---------------- */
+// Render markdown
 const { Content } = await render(post);
 
-/* ---------------- Meta description ---------------- */
+// Meta description fallback
 let metaDescription = description?.trim() || "";
 if (!metaDescription && post.body) {
   metaDescription = post.body
@@ -56,7 +57,7 @@ if (!metaDescription) {
   metaDescription = SITE.desc || "Tech reviews, opinions, and news.";
 }
 
-/* ---------------- OG image ---------------- */
+// OG image
 let ogImage: string | undefined;
 if (typeof initOgImage === "string") ogImage = initOgImage;
 else if (initOgImage?.src) ogImage = initOgImage.src;
@@ -70,16 +71,16 @@ const ogImageUrl = new URL(
   Astro.url.origin
 ).href;
 
-/* ---------------- Canonical URL ---------------- */
+// Canonical URL
 let canonicalPath = Astro.url.pathname;
 if (canonicalPath !== "/" && canonicalPath.endsWith("/")) {
   canonicalPath = canonicalPath.slice(0, -1);
 }
 const canonicalUrl = new URL(canonicalPath, Astro.site).href;
 
-/* ---------------- Layout props ---------------- */
+// Layout props (duplicate site name restored)
 const layoutProps = {
-  title, // ✅ only post title, not duplicate SITE.title
+  title: `${title} | ${SITE.title}`, // site name duplicated like before
   author,
   description: metaDescription,
   pubDatetime,
@@ -89,7 +90,7 @@ const layoutProps = {
   scrollSmooth: true,
 };
 
-/* ---------------- Prev / Next ---------------- */
+// Prev / Next
 const sortedPosts = [...posts].sort(
   (a, b) =>
     (b.data.modDatetime ?? b.data.pubDatetime).getTime() -
@@ -102,7 +103,7 @@ const nextPost =
     ? sortedPosts[currentIndex + 1]
     : null;
 
-/* ---------------- Breadcrumbs ---------------- */
+// Breadcrumbs
 const isBlogRoute =
   Astro.url.pathname.startsWith("/posts/") ||
   Astro.url.pathname.startsWith("/blog/");
@@ -113,7 +114,7 @@ const breadcrumbItems = [
   { name: title, url: canonicalPath },
 ];
 
-/* ---------------- Related posts ---------------- */
+// Related posts
 const allPosts = await getCollection("blog", ({ data }) => !data.draft);
 const related = allPosts
   .filter((p) => p.id !== post.id)
@@ -215,11 +216,22 @@ const related = allPosts
         <h2 class="text-2xl font-bold mb-8">Related Posts</h2>
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {related.map((relatedPost) => {
-            const link = getPath(relatedPost.id, relatedPost.filePath);
-            const { title, description = "", pubDatetime } = relatedPost.data;
+            const link = getPath(
+              relatedPost.id,
+              relatedPost.filePath
+            );
+            const {
+              title,
+              description = "",
+              pubDatetime,
+            } = relatedPost.data;
+
             return (
               <article class="p-6 rounded-2xl bg-card/80 shadow-lg hover:shadow-xl transition-all">
-                <a href={link} class="font-semibold text-lg hover:text-accent">
+                <a
+                  href={link}
+                  class="font-semibold text-lg hover:text-accent"
+                >
                   {title}
                 </a>
                 <time class="block text-sm text-muted-foreground mt-1">
@@ -260,15 +272,25 @@ const related = allPosts
       </h2>
       <div class="grid md:grid-cols-2 gap-10 max-w-5xl mx-auto">
         {prevPost && (
-          <a href={getPath(prevPost.id, prevPost.filePath)} class="rounded-2xl p-8 shadow-lg">
+          <a
+            href={getPath(prevPost.id, prevPost.filePath)}
+            class="rounded-2xl p-8 shadow-lg"
+          >
             <IconChevronLeft class="inline w-5 h-5" /> Previous
-            <h3 class="mt-3 font-semibold">{prevPost.data.title}</h3>
+            <h3 class="mt-3 font-semibold">
+              {prevPost.data.title}
+            </h3>
           </a>
         )}
         {nextPost && (
-          <a href={getPath(nextPost.id, nextPost.filePath)} class="rounded-2xl p-8 shadow-lg text-right">
+          <a
+            href={getPath(nextPost.id, nextPost.filePath)}
+            class="rounded-2xl p-8 shadow-lg text-right"
+          >
             Next <IconChevronRight class="inline w-5 h-5" />
-            <h3 class="mt-3 font-semibold">{nextPost.data.title}</h3>
+            <h3 class="mt-3 font-semibold">
+              {nextPost.data.title}
+            </h3>
           </a>
         )}
       </div>
