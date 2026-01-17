@@ -2,9 +2,7 @@
 title: "When Machines Make Art: The Messy Truth About AI and Creativity"
 description: "I spent months wrestling with whether AI can truly create or just cleverly remix. The answer isn't what I expected, and it changes everything about how we think about human imaginati on."
 pubDatetime: 2026-01-17T11:10:07Z
-modDatetime: 2026-01-17T11:10:07Z
 author: iSamuel 
-slug: is-ai-creative-or-remixing-human-work
 tags:
   - ai
   - opinions
