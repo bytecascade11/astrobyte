@@ -1,6 +1,7 @@
 ---
 import type { GetStaticPaths } from "astro";
 import { getCollection } from "astro:content";
+
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import Header from "@/components/Header.astro";
 import Footer from "@/components/Footer.astro";
@@ -13,14 +14,16 @@ export const getStaticPaths = (async ({ paginate }) => {
   const sortedPosts = getSortedPosts(posts);
 
   return paginate(sortedPosts, {
-    pageSize: SITE.postPerPage,
+    pageSize: SITE.postPerPage ?? 9, // fallback to 9 if not defined
   });
 }) satisfies GetStaticPaths;
 
 const { page } = Astro.props;
+const title = `Posts | ${SITE.title}`;
+const description = "All articles, tutorials, and thoughts I've shared.";
 ---
 
-<Layout title={`Posts | ${SITE.title}`}>
+<BaseLayout title={title} description={description}>
   <Header />
 
   <main class="wrapper mt-10">
@@ -29,55 +32,68 @@ const { page } = Astro.props;
       All the articles I've posted.
     </p>
 
-    <hr class="my-6" />
+    <hr class="my-6 border-gray-200 dark:border-gray-800" />
 
-    <ul class="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-      {page.data.map((post) => (
-        <li class="rounded-lg border border-gray-200 dark:border-gray-800 overflow-hidden hover:shadow-md transition">
-          
-          {post.data.coverImage && (
-            <a href={`/posts/${post.id}`}>
-              <img
-                src={post.data.coverImage}
-                alt={post.data.coverImageAlt ?? post.data.title}
-                class="w-full h-48 object-cover"
-                loading="lazy"
-              />
-            </a>
-          )}
-
-          <div class="p-4">
-            <h2 class="text-xl font-semibold leading-snug">
-              <a href={`/posts/${post.id}`} class="hover:underline">
-                {post.data.title}
+    {page.data.length > 0 ? (
+      <ul class="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+        {page.data.map((post) => (
+          <li
+            class="rounded-lg border border-gray-200 dark:border-gray-800 overflow-hidden hover:shadow-md transition-shadow duration-200"
+          >
+            {post.data.coverImage && (
+              <a href={`/posts/${post.id}`}>
+                <img
+                  src={post.data.coverImage}
+                  alt={post.data.coverImageAlt ?? post.data.title}
+                  class="w-full h-48 object-cover"
+                  loading="lazy"
+                  width="600"
+                  height="400"
+                />
               </a>
-            </h2>
+            )}
 
-            <p class="mt-2 text-sm text-gray-600 dark:text-gray-400">
-              {post.data.description}
-            </p>
+            <div class="p-4">
+              <h2 class="text-xl font-semibold leading-snug">
+                <a href={`/posts/${post.id}`} class="hover:underline">
+                  {post.data.title}
+                </a>
+              </h2>
 
-            <div class="mt-3 text-xs text-gray-500 dark:text-gray-400">
-              <time datetime={post.data.pubDatetime.toISOString()}>
-                {post.data.pubDatetime.toDateString()}
-              </time>
-              {post.data.author && <span> · {post.data.author}</span>}
+              <p class="mt-2 text-sm text-gray-600 dark:text-gray-400 line-clamp-3">
+                {post.data.description}
+              </p>
+
+              <div class="mt-3 text-xs text-gray-500 dark:text-gray-400">
+                <time datetime={post.data.pubDatetime.toISOString()}>
+                  {post.data.pubDatetime.toDateString()}
+                </time>
+                {post.data.author && <span> · {post.data.author}</span>}
+              </div>
+
+              {post.data.tags?.length > 0 && (
+                <ul class="mt-3 flex flex-wrap gap-2">
+                  {post.data.tags.map((tag) => (
+                    <li
+                      class="text-xs px-2 py-1 rounded bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300"
+                    >
+                      #{tag}
+                    </li>
+                  ))}
+                </ul>
+              )}
             </div>
-
-            <ul class="mt-3 flex flex-wrap gap-2">
-              {post.data.tags.map((tag) => (
-                <li class="text-xs px-2 py-1 rounded bg-gray-100 dark:bg-gray-800">
-                  #{tag}
-                </li>
-              ))}
-            </ul>
-          </div>
-        </li>
-      ))}
-    </ul>
+          </li>
+        ))}
+      </ul>
+    ) : (
+      <p class="text-center text-gray-500 dark:text-gray-400 mt-12">
+        No posts found.
+      </p>
+    )}
   </main>
 
-  <Pagination {page} />
+  <Pagination page={page} />
 
   <Footer noMarginTop={page.url.next == null} />
-</Layout>
+</BaseLayout>
