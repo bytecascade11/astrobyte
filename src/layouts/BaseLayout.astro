@@ -1,86 +1,35 @@
 ---
-// src/layouts/BaseLayout.astro – polished production version
+// src/layouts/BaseLayout.astro – this version guarantees centering
 import { SITE } from "@/config";
 
 import Header from "@/components/Header.astro";
 import Footer from "@/components/Footer.astro";
 
 export interface Props {
-  title: string;
+  title?: string;
   description?: string;
-  author?: string;
-  canonicalURL?: string;
-  ogImage?: string;
-  scrollSmooth?: boolean;
 }
 
 const {
-  title,
+  title = SITE.title || "ReviByte",
   description = SITE.desc || "Tech reviews, opinions, and news.",
-  author = SITE.author,
-  canonicalURL = Astro.url.href,
-  ogImage,
-  scrollSmooth = true,
 } = Astro.props;
 ---
 
-<html lang="en" class:list={[{ "scroll-smooth": scrollSmooth }]}>
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="format-detection" content="telephone=no" />
-
-    <!-- Page title -->
     <title>{title}</title>
-
-    <!-- SEO -->
     <meta name="description" content={description} />
-    {author && <meta name="author" content={author} />}
-    <link rel="canonical" href={canonicalURL} />
-
-    <!-- Open Graph -->
-    <meta property="og:title" content={title} />
-    <meta property="og:description" content={description} />
-    <meta property="og:type" content="website" />
-    <meta property="og:url" content={canonicalURL} />
-    {ogImage && (
-      <>
-        <meta property="og:image" content={ogImage} />
-        <meta property="og:image:alt" content={title} />
-        <meta property="og:image:width" content="1200" />
-        <meta property="og:image:height" content="630" />
-      </>
-    )}
-
-    <!-- Twitter/X Cards -->
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content={title} />
-    <meta name="twitter:description" content={description} />
-    {ogImage && <meta name="twitter:image" content={ogImage} />}
-
-    <!-- Favicon -->
-    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-    <link rel="icon" href="/favicon.png" type="image/png" />
-    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
-
-    <!-- Dark mode preference -->
-    <meta name="color-scheme" content="light dark" />
   </head>
 
   <body class="bg-background text-foreground antialiased min-h-screen flex flex-col">
-    <!-- Accessibility skip link -->
-    <a
-      href="#main-content"
-      class="sr-only focus:not-sr-only focus:bg-accent focus:text-white focus:p-4 focus:fixed focus:top-0 focus:left-0 z-50"
-    >
-      Skip to main content
-    </a>
-
     <Header />
 
-    <main id="main-content" role="main" class="flex-1">
-      <!-- Wrapper for centered content with padding -->
-      <div class="wrapper max-w-app mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <main class="flex-1">
+      <!-- This div is what makes the site look good again: centering + padding -->
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <slot />
       </div>
     </main>
