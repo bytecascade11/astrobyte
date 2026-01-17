@@ -1,41 +1,25 @@
 ---
-// Recommended filename: src/pages/posts/[...slug].astro   ← use spread [...] if you ever want nested slugs/categories in future
-// Alternative: src/pages/posts/[slug].astro                 ← fine for flat structure
+// File: src/pages/posts/[...slug].astro
+// Use [...slug] for maximum flexibility (nested folders, categories, etc. in future)
+// If you prefer flat URLs only → you can rename to [slug].astro
 
 import type { CollectionEntry } from 'astro:content';
 import { getCollection } from 'astro:content';
 
-import PostDetails from '@/layouts/PostDetails.astro';   // or PostLayout.astro if you renamed it
-import { SITE } from '@/config';                         // optional - if you need site-wide config
-
-// Optional: if you have a helper for sorting (recommended!)
-import getSortedPosts from '@/utils/getSortedPosts';
-
-// Props type (good practice)
-export interface Props {
-  post: CollectionEntry<'blog'>;
-}
+import PostLayout from '@/layouts/PostLayout.astro';
 
 export async function getStaticPaths() {
-  // Get all published posts (exclude drafts)
   const posts = await getCollection('blog', ({ data }) => !data.draft);
 
-  return posts.map((post) => ({
-    // Most important: use post.slug (not post.id) for cleaner/more controllable URLs
-    // post.slug is automatically generated from filename (or overridden in frontmatter)
+  return posts.map(post => ({
     params: {
-      slug: post.slug,           // ← preferred over post.id
+      slug: post.slug,          // ← correct and preferred way
     },
     props: { post },
   }));
 }
 
 const { post } = Astro.props;
-
-// Optional: get all sorted posts if your PostDetails needs prev/next or related posts
-const allPosts = await getCollection('blog', ({ data }) => !data.draft);
-const sortedPosts = getSortedPosts ? getSortedPosts(allPosts) : allPosts;
 ---
 
-<!-- Now just pass what your layout actually needs -->
-<PostDetails post={post} posts={sortedPosts} />
+<PostLayout post={post} />
