@@ -1,57 +1,61 @@
 ---
-import { SITE } from "@/config";
+import type { CollectionEntry } from "astro:content";
+import Header from "@/components/Header.astro";
+import Footer from "@/components/Footer.astro";
+import BackToTopButton from "@/components/BackToTopButton.astro";
 
 export interface Props {
-  title?: string;
-  description?: string;
-  canonicalURL?: string;
-  ogImage?: string;
+  title: string;
+  author: string;
+  description: string;
+  pubDatetime?: Date;
+  modDatetime?: Date | null;
+  canonicalURL: string;
+  ogImage: string;
   scrollSmooth?: boolean;
+  post?: CollectionEntry<"blog">;
+  posts?: CollectionEntry<"blog">[];
 }
 
 const {
   title,
-  description = SITE.desc,
+  author,
+  description,
+  pubDatetime,
+  modDatetime,
   canonicalURL,
   ogImage,
-  scrollSmooth = false,
+  scrollSmooth = true,
 } = Astro.props;
 ---
 
-<!doctype html>
-<html lang={SITE.lang} class={scrollSmooth ? "scroll-smooth" : ""}>
+<!DOCTYPE html>
+<html lang="en">
   <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-
-    <!-- ✅ Title (site name appears ONCE) -->
-    <title>
-      {title ? `${title} | ${SITE.title}` : SITE.title}
-    </title>
-
-    <!-- ✅ Description -->
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content={description} />
-
-    <!-- ✅ Canonical -->
-    {canonicalURL && <link rel="canonical" href={canonicalURL} />}
-
-    <!-- ✅ Open Graph -->
-    <meta property="og:type" content="article" />
-    <meta property="og:site_name" content={SITE.title} />
-    <meta property="og:title" content={title ?? SITE.title} />
+    <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
-    {ogImage && <meta property="og:image" content={ogImage} />}
-
-    <!-- ✅ Twitter -->
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content={title ?? SITE.title} />
-    <meta name="twitter:description" content={description} />
-    {ogImage && <meta name="twitter:image" content={ogImage} />}
-
-    <slot name="head" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:image" content={ogImage} />
+    <link rel="canonical" href={canonicalURL} />
+    <title>{title}</title>
+    <script>
+      if ({scrollSmooth}) document.documentElement.style.scrollBehavior = "smooth";
+    </script>
   </head>
 
-  <body>
-    <slot />
+  <body class="bg-background text-foreground antialiased">
+    <Header />
+
+    <main class="min-h-screen mx-auto max-w-app px-4 py-8">
+      <slot />
+    </main>
+
+    <BackToTopButton class="fixed bottom-4 right-4 rounded-full p-3 shadow-lg bg-background/90 z-50" />
+
+    <Footer />
   </body>
 </html>
