@@ -1,0 +1,83 @@
+---
+// src/layouts/PostLayout.astro
+import type { CollectionEntry } from "astro:content";
+import { render } from "astro:content";
+
+import BaseLayout from "./BaseLayout.astro";   // ← important!
+import EditPost from "@/components/EditPost.astro";
+import ShareLinks from "@/components/ShareLinks.astro";
+import BackButton from "@/components/BackButton.astro";
+import BackToTopButton from "@/components/BackToTopButton.astro";
+import Datetime from "@/components/Datetime.astro";
+import Tag from "@/components/Tag.astro";
+
+import { getPath } from "@/utils/getPath";
+import { slugifyStr } from "@/utils/slugify";
+import IconChevronLeft from "@/assets/icons/IconChevronLeft.svg";
+import IconChevronRight from "@/assets/icons/IconChevronRight.svg";
+import { SITE } from "@/config";
+import { getCollection } from "astro:content";
+
+export interface Props {
+  post: CollectionEntry<"blog">;
+}
+
+const { post } = Astro.props;
+
+const {
+  title,
+  author = SITE.author,
+  description,
+  ogImage: initOgImage,
+  pubDatetime,
+  modDatetime,
+  timezone,
+  tags = [],
+  hideEditPost = false,
+  coverImage,
+  coverImageAlt,
+} = post.data;
+
+const { Content } = await render(post);
+
+// ... keep your metaDescription fallback logic, ogImage logic, canonical logic ...
+
+const ogImageUrl = /* your existing ogImageUrl logic */;
+
+const canonicalUrl = /* your existing logic */;
+
+const sortedPosts = /* ... your sorting logic using await getCollection("blog") ... */;
+const currentIndex = sortedPosts.findIndex((p) => p.id === post.id);
+const prevPost = currentIndex > 0 ? sortedPosts[currentIndex - 1] : null;
+const nextPost = currentIndex < sortedPosts.length - 1 ? sortedPosts[currentIndex + 1] : null;
+
+const allPosts = await getCollection("blog", ({ data }) => !data.draft);
+const related = allPosts
+  .filter((p) => p.id !== post.id)
+  .filter((p) => p.data.tags?.some((t) => tags.includes(t)))
+  .sort((a, b) => b.data.pubDatetime.valueOf() - a.data.pubDatetime.valueOf())
+  .slice(0, 5);
+---
+
+<BaseLayout
+  title={`${title} | ${SITE.title}`}
+  description={/* your metaDescription */}
+  author={author}
+  canonicalURL={canonicalUrl}
+  ogImage={ogImageUrl}
+  scrollSmooth={true}
+>
+  <!-- all your current post page content: breadcrumbs, share buttons, main article, tags, related, prev/next, comments -->
+  <!-- basically move everything that was inside <Layout> here -->
+
+  <Header />  <!-- if you want header again, otherwise remove -->
+
+  <!-- your existing markup: BackButton, breadcrumbs, share column, main, article, etc. -->
+
+  <main class="mx-auto max-w-app px-4 pb-12 mt-8" data-pagefind-body id="main-content">
+    <h1 class="text-3xl font-bold text-accent">{title}</h1>
+    <!-- ... rest of your post template ... -->
+  </main>
+
+  <Footer />  <!-- if needed -->
+</BaseLayout>
