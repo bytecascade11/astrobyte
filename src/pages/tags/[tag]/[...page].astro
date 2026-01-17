@@ -1,6 +1,7 @@
 ---
 import type { GetStaticPaths, Page } from "astro";
 import { getCollection, type CollectionEntry } from "astro:content";
+
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import Header from "@/components/Header.astro";
 import Footer from "@/components/Footer.astro";
@@ -8,16 +9,16 @@ import Pagination from "@/components/Pagination.astro";
 import getSortedPosts from "@/utils/getSortedPosts";
 import { SITE } from "@/config";
 
-// ✅ Use your existing tagMetadata
+// Tag metadata (your existing data)
 import { tagMetadata } from "@/data/tagMetadata";
 
 type BlogPost = CollectionEntry<"blog">;
 
-// --- Generate static paths ---
 export const getStaticPaths: GetStaticPaths = async ({ paginate }) => {
   const allPosts = await getCollection("blog", ({ data }) => !data.draft);
   const sortedPosts = getSortedPosts(allPosts);
 
+  // Build tag map: lowercase → display name
   const tagMap = new Map<string, string>();
   sortedPosts.forEach((post) => {
     post.data.tags?.forEach((tag) => {
@@ -34,38 +35,41 @@ export const getStaticPaths: GetStaticPaths = async ({ paginate }) => {
     if (!tagPosts.length) return [];
 
     return paginate(tagPosts, {
-      params: { tag: lowerTag }, // lowercase URL
+      params: { tag: lowerTag }, // lowercase in URL
       props: { tagName: displayTag },
       pageSize: SITE.postPerPage ?? 10,
     });
   });
 };
 
-// --- Props typing ---
 const { page, tagName } = Astro.props as {
   page: Page<BlogPost>;
   tagName: string;
 };
 
-// ✅ Redirect uppercase URLs to lowercase
+// 301 redirect uppercase → lowercase tag in URL
 const requestedTag = Astro.params.tag;
 if (typeof requestedTag === "string" && requestedTag !== requestedTag.toLowerCase()) {
   return Astro.redirect(`/tags/${requestedTag.toLowerCase()}/`, 301);
 }
 
-// --- Use SEO metadata from tagMetadata ---
+// SEO meta from tagMetadata (fallback if not defined)
 const meta = tagMetadata[tagName.toLowerCase()] || {
-  title: `${tagName} – ReviByte Opinions`,
-  description: `All posts about ${tagName} on ReviByte.`,
+  title: `${tagName} | ${SITE.title}`,
+  description: `Explore all posts tagged with "${tagName}" on ${SITE.title}.`,
 };
 ---
 
-<Layout title={meta.title} description={meta.description}>
+<BaseLayout
+  title={meta.title}
+  description={meta.description}
+  canonicalURL={Astro.url.href}
+>
   <Header />
 
   <main class="wrapper mt-10">
     <h1 class="text-3xl font-bold capitalize mb-4">
-      {meta.title}
+      {tagName}
     </h1>
 
     <p class="text-lg text-gray-600 dark:text-gray-400 mb-8">
@@ -75,15 +79,17 @@ const meta = tagMetadata[tagName.toLowerCase()] || {
     {page.data.length > 0 ? (
       <ul class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         {page.data.map((post) => (
-          <li>
-            <article class="overflow-hidden rounded-2xl shadow-lg bg-card hover:shadow-xl transition">
+          <li key={post.id}>
+            <article class="overflow-hidden rounded-2xl shadow-lg bg-card hover:shadow-xl transition duration-200">
               {post.data.coverImage && (
                 <a href={`/posts/${post.id}`}>
                   <img
                     src={post.data.coverImage}
                     alt={post.data.coverImageAlt ?? post.data.title}
-                    class="w-full object-cover aspect-video"
+                    class="w-full aspect-video object-cover"
                     loading="lazy"
+                    width="600"
+                    height="400"
                   />
                 </a>
               )}
@@ -92,13 +98,16 @@ const meta = tagMetadata[tagName.toLowerCase()] || {
                 <h2 class="text-xl font-semibold mb-2">
                   <a
                     href={`/posts/${post.id}`}
-                    class="hover:text-accent transition"
+                    class="hover:text-accent transition-colors"
                   >
                     {post.data.title}
                   </a>
                 </h2>
 
-                <time class="text-sm text-muted-foreground block mb-3">
+                <time
+                  class="text-sm text-muted-foreground block mb-3"
+                  datetime={post.data.pubDatetime.toISOString()}
+                >
                   {post.data.pubDatetime.toLocaleDateString("en-US", {
                     year: "numeric",
                     month: "long",
@@ -117,11 +126,13 @@ const meta = tagMetadata[tagName.toLowerCase()] || {
         ))}
       </ul>
     ) : (
-      <p class="text-center py-12 text-lg">No posts found for this tag.</p>
+      <p class="text-center py-12 text-lg text-gray-500 dark:text-gray-400">
+        No posts found for this tag.
+      </p>
     )}
 
     {page.lastPage > 1 && <Pagination page={page} />}
   </main>
 
   <Footer noMarginTop={page.lastPage <= 1} />
-</Layout>
+</BaseLayout>
