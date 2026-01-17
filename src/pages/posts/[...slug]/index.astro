@@ -1,21 +1,30 @@
 ---
-// src/pages/posts/[slug].astro  (change to your exact filename/folder if different)
+// Recommended filename: src/pages/posts/[...slug].astro   ← use spread [...] if you ever want nested slugs/categories in future
+// Alternative: src/pages/posts/[slug].astro                 ← fine for flat structure
 
-import { getCollection, type CollectionEntry } from "astro:content";
-import PostDetails from "@/layouts/PostDetails.astro";
-import getSortedPosts from "@/utils/getSortedPosts";
+import type { CollectionEntry } from 'astro:content';
+import { getCollection } from 'astro:content';
 
+import PostDetails from '@/layouts/PostDetails.astro';   // or PostLayout.astro if you renamed it
+import { SITE } from '@/config';                         // optional - if you need site-wide config
+
+// Optional: if you have a helper for sorting (recommended!)
+import getSortedPosts from '@/utils/getSortedPosts';
+
+// Props type (good practice)
 export interface Props {
-  post: CollectionEntry<"blog">;
+  post: CollectionEntry<'blog'>;
 }
 
 export async function getStaticPaths() {
-  const posts = await getCollection("blog", ({ data }) => !data.draft);
+  // Get all published posts (exclude drafts)
+  const posts = await getCollection('blog', ({ data }) => !data.draft);
 
   return posts.map((post) => ({
+    // Most important: use post.slug (not post.id) for cleaner/more controllable URLs
+    // post.slug is automatically generated from filename (or overridden in frontmatter)
     params: {
-      // Derive clean slug from post.id (removes .mdx extension and folder if needed)
-      slug: post.id.replace(/\.mdx?$/, ""),
+      slug: post.slug,           // ← preferred over post.id
     },
     props: { post },
   }));
@@ -23,8 +32,10 @@ export async function getStaticPaths() {
 
 const { post } = Astro.props;
 
-const allPosts = await getCollection("blog", ({ data }) => !data.draft);
-const sortedPosts = getSortedPosts(allPosts);
+// Optional: get all sorted posts if your PostDetails needs prev/next or related posts
+const allPosts = await getCollection('blog', ({ data }) => !data.draft);
+const sortedPosts = getSortedPosts ? getSortedPosts(allPosts) : allPosts;
 ---
 
+<!-- Now just pass what your layout actually needs -->
 <PostDetails post={post} posts={sortedPosts} />
