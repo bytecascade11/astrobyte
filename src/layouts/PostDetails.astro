@@ -45,7 +45,6 @@ const { Content } = await render(post);
 
 /* ---------------- Meta description ---------------- */
 let metaDescription = description?.trim() || "";
-
 if (!metaDescription && post.body) {
   metaDescription = post.body
     .replace(/\n+/g, " ")
@@ -53,40 +52,34 @@ if (!metaDescription && post.body) {
     .trim()
     .slice(0, 160);
 }
-
 if (!metaDescription) {
-  metaDescription = SITE.desc;
+  metaDescription = SITE.desc || "Tech reviews, opinions, and news.";
 }
 
 /* ---------------- OG image ---------------- */
 let ogImage: string | undefined;
-
 if (typeof initOgImage === "string") ogImage = initOgImage;
 else if (initOgImage?.src) ogImage = initOgImage.src;
-
 if (!ogImage && coverImage) ogImage = coverImage;
-
-if (!ogImage && SITE.dynamicOgImage) {
+if (!ogImage && SITE.dynamicOgImage)
   ogImage = `${getPath(post.id, post.filePath, true)}/open-graph.png`;
-}
-
 if (!ogImage) ogImage = "/astropaper-og.jpg";
 
-const ogImageUrl = ogImage.startsWith("http")
-  ? ogImage
-  : new URL(ogImage, Astro.site).href;
+const ogImageUrl = new URL(
+  ogImage.startsWith("http") ? ogImage : ogImage,
+  Astro.url.origin
+).href;
 
 /* ---------------- Canonical URL ---------------- */
 let canonicalPath = Astro.url.pathname;
 if (canonicalPath !== "/" && canonicalPath.endsWith("/")) {
   canonicalPath = canonicalPath.slice(0, -1);
 }
-
 const canonicalUrl = new URL(canonicalPath, Astro.site).href;
 
 /* ---------------- Layout props ---------------- */
 const layoutProps = {
-  title, // ONLY post title, Layout adds SITE.title automatically
+  title, // ✅ only post title, not duplicate SITE.title
   author,
   description: metaDescription,
   pubDatetime,
@@ -102,8 +95,7 @@ const sortedPosts = [...posts].sort(
     (b.data.modDatetime ?? b.data.pubDatetime).getTime() -
     (a.data.modDatetime ?? a.data.pubDatetime).getTime()
 );
-
-const currentIndex = sortedPosts.findIndex(p => p.id === post.id);
+const currentIndex = sortedPosts.findIndex((p) => p.id === post.id);
 const prevPost = currentIndex > 0 ? sortedPosts[currentIndex - 1] : null;
 const nextPost =
   currentIndex < sortedPosts.length - 1
@@ -123,10 +115,9 @@ const breadcrumbItems = [
 
 /* ---------------- Related posts ---------------- */
 const allPosts = await getCollection("blog", ({ data }) => !data.draft);
-
 const related = allPosts
-  .filter(p => p.id !== post.id)
-  .filter(p => p.data.tags?.some(t => tags.includes(t)))
+  .filter((p) => p.id !== post.id)
+  .filter((p) => p.data.tags?.some((t) => tags.includes(t)))
   .sort((a, b) => b.data.pubDatetime.valueOf() - a.data.pubDatetime.valueOf())
   .slice(0, 5);
 ---
@@ -210,7 +201,7 @@ const related = allPosts
     {tags.length > 0 && (
       <section class="my-12">
         <ul class="flex flex-wrap gap-3">
-          {tags.map(tag => (
+          {tags.map((tag) => (
             <li>
               <Tag tag={slugifyStr(tag)} tagName={tag} />
             </li>
@@ -224,10 +215,7 @@ const related = allPosts
         <h2 class="text-2xl font-bold mb-8">Related Posts</h2>
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {related.map((relatedPost) => {
-            const link = getPath(
-              relatedPost.id,
-              relatedPost.filePath
-            );
+            const link = getPath(relatedPost.id, relatedPost.filePath);
             const { title, description = "", pubDatetime } = relatedPost.data;
             return (
               <article class="p-6 rounded-2xl bg-card/80 shadow-lg hover:shadow-xl transition-all">
