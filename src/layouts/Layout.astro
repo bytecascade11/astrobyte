@@ -16,12 +16,15 @@ export interface Props {
 
 const {
   title,
-  author = "iSamuel", // default author
-  description = "Tech reviews, opinions, and news.", // default description
-  canonicalURL = Astro.url.href, // default canonical URL
-  ogImage = "/astropaper-og.jpg", // default OG image
+  author = "iSamuel",
+  description = "Tech reviews, opinions, and news.",
+  canonicalURL = Astro.url.href,
+  ogImage = "/astropaper-og.jpg",
   scrollSmooth = true,
 } = Astro.props;
+
+// Pass scrollSmooth as a JS variable for inline script
+const scrollBehavior = scrollSmooth ? "smooth" : "auto";
 ---
 
 <!DOCTYPE html>
@@ -38,7 +41,7 @@ const {
     <link rel="canonical" href={canonicalURL} />
     <title>{title}</title>
     <script>
-      if (scrollSmooth) document.documentElement.style.scrollBehavior = "smooth";
+      document.documentElement.style.scrollBehavior = "{scrollBehavior}";
     </script>
   </head>
 
