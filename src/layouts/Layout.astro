@@ -1,9 +1,10 @@
 ---
 import { Font } from "astro:assets";
 import { ClientRouter } from "astro:transitions";
-const { PUBLIC_GOOGLE_SITE_VERIFICATION } = import.meta.env;
 import { SITE } from "@/config";
 import "@/styles/global.css";
+
+const { PUBLIC_GOOGLE_SITE_VERIFICATION } = import.meta.env;
 
 type Props = {
   title?: string;
@@ -34,14 +35,14 @@ const socialImageURL = new URL(ogImage, Astro.url);
 const structuredData = {
   "@context": "https://schema.org",
   "@type": "BlogPosting",
-  headline: `${title}`,
-  image: `${socialImageURL}`,
-  datePublished: `${pubDatetime?.toISOString()}`,
+  headline: title,
+  image: socialImageURL,
+  ...(pubDatetime && { datePublished: pubDatetime.toISOString() }),
   ...(modDatetime && { dateModified: modDatetime.toISOString() }),
   author: [
     {
       "@type": "Person",
-      name: `${author}`,
+      name: author,
       ...(profile && { url: profile }),
     },
   ],
@@ -51,8 +52,8 @@ const structuredData = {
 <!doctype html>
 <html
   dir={SITE.dir}
-  lang=`${SITE.lang ?? "en"}`
-  class={`${scrollSmooth && "scroll-smooth"}`}
+  lang={SITE.lang ?? "en"}
+  class={scrollSmooth && "scroll-smooth"}
 >
   <head>
     <meta charset="UTF-8" />
@@ -63,9 +64,9 @@ const structuredData = {
 
     <!-- Load Font -->
     <Font
-  cssVariable="--font-google-sans-code"
-  preload
-/>
+      cssVariable="--font-google-sans-code"
+      preload
+    />
 
     <!-- General Meta Tags -->
     <title>{title}</title>
@@ -74,29 +75,25 @@ const structuredData = {
     <meta name="author" content={author} />
     <link rel="sitemap" href="/sitemap-index.xml" />
 
-    <!-- Open Graph / Facebook -->
+    <!-- Open Graph -->
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonicalURL} />
     <meta property="og:image" content={socialImageURL} />
 
-    <!-- Article Published/Modified time -->
-    {
-      pubDatetime && (
-        <meta
-          property="article:published_time"
-          content={pubDatetime.toISOString()}
-        />
-      )
-    }
-    {
-      modDatetime && (
-        <meta
-          property="article:modified_time"
-          content={modDatetime.toISOString()}
-        />
-      )
-    }
+    <!-- Article dates -->
+    {pubDatetime && (
+      <meta
+        property="article:published_time"
+        content={pubDatetime.toISOString()}
+      />
+    )}
+    {modDatetime && (
+      <meta
+        property="article:modified_time"
+        content={modDatetime.toISOString()}
+      />
+    )}
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image" />
@@ -105,15 +102,14 @@ const structuredData = {
     <meta property="twitter:description" content={description} />
     <meta property="twitter:image" content={socialImageURL} />
 
-    <!-- Google JSON-LD Structured data -->
+    <!-- JSON-LD Structured Data -->
     <script
       type="application/ld+json"
       is:inline
       set:html={JSON.stringify(structuredData)}
     />
 
-    <!-- Enable RSS feed auto-discovery  -->
-    <!-- https://docs.astro.build/en/recipes/rss/#enabling-rss-feed-auto-discovery -->
+    <!-- RSS -->
     <link
       rel="alternate"
       type="application/rss+xml"
@@ -123,24 +119,20 @@ const structuredData = {
 
     <meta name="theme-color" content="" />
 
-    {
-      // If PUBLIC_GOOGLE_SITE_VERIFICATION is set in the environment variable,
-      // include google-site-verification tag in the heading
-      // Learn more: https://support.google.com/webmasters/answer/9008080#meta_tag_verification&zippy=%2Chtml-tag
-      PUBLIC_GOOGLE_SITE_VERIFICATION && (
-        <meta
-          name="google-site-verification"
-          content={PUBLIC_GOOGLE_SITE_VERIFICATION}
-        />
-      )
-    }
+    <!-- Google Search Console Verification -->
+    {PUBLIC_GOOGLE_SITE_VERIFICATION && (
+      <meta
+        name="google-site-verification"
+        content={PUBLIC_GOOGLE_SITE_VERIFICATION}
+      />
+    )}
 
     <ClientRouter />
 
-    <!-- Minimal inline script to prevent FOUC - sets theme immediately -->
+    <!-- Prevent FOUC -->
     <script is:inline>
       (function () {
-        const initialColorScheme = ""; // "light" | "dark"
+        const initialColorScheme = "";
         const currentTheme = localStorage.getItem("theme");
 
         function getPreferTheme() {
@@ -152,13 +144,10 @@ const structuredData = {
         }
 
         const themeValue = getPreferTheme();
-
-        // Set theme immediately to prevent flash
         document.firstElementChild?.setAttribute("data-theme", themeValue);
 
-        // Export minimal API for external script
         window.theme = {
-          themeValue: themeValue,
+          themeValue,
           getTheme: () => window.theme.themeValue,
           setTheme: val => {
             window.theme.themeValue = val;
@@ -167,10 +156,9 @@ const structuredData = {
       })();
     </script>
   </head>
+
   <body>
     <slot />
-
-    <!-- Load full theme logic -->
     <script src="../scripts/theme.ts"></script>
   </body>
 </html>
