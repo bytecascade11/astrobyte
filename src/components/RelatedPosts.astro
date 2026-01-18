@@ -1,43 +1,75 @@
 ---
-import { getCollection } from 'astro:content';
-import { getPath } from '@/utils/getPath';
+import type { CollectionEntry } from "astro:content";
+import { slugifyStr } from "@/utils/slugify";
+import { getPath } from "@/utils/getPath";
 
-const { post } = Astro.props;
+type Props = {
+  currentPost: CollectionEntry<"blog">;
+  allPosts: CollectionEntry<"blog">[];
+  limit?: number;
+};
 
-const allPosts = await getCollection('blog', ({ data }) => !data.draft);
+const { currentPost, allPosts, limit = 3 } = Astro.props;
 
-// Related posts: share at least one tag, exclude current, newest first, up to 5
-const related = allPosts
-  .filter(p => p.id !== post.id)
-  .filter(p => p.data.tags?.some(tag => post.data.tags?.includes(tag)))
-  .sort((a, b) => b.data.pubDatetime.valueOf() - a.data.pubDatetime.valueOf())
-  .slice(0, 5);
+// Get related posts based on shared tags
+const currentTags = currentPost.data.tags.map(tag => slugifyStr(tag));
+
+const relatedPosts = allPosts
+  .filter(post => post.id !== currentPost.id && !post.data.draft)
+  .map(post => {
+    const postTags = post.data.tags.map(tag => slugifyStr(tag));
+    const sharedTags = currentTags.filter(tag => postTags.includes(tag));
+    return { post, sharedTagCount: sharedTags.length };
+  })
+  .filter(({ sharedTagCount }) => sharedTagCount > 0)
+  .sort((a, b) => {
+    // Sort by shared tags, then by date
+    if (b.sharedTagCount !== a.sharedTagCount) {
+      return b.sharedTagCount - a.sharedTagCount;
+    }
+    return b.post.data.pubDatetime.valueOf() - a.post.data.pubDatetime.valueOf();
+  })
+  .slice(0, limit)
+  .map(({ post }) => post);
 ---
 
-{related.length > 0 && (
-  <section class="mt-20">  
-    <h2 class="text-2xl font-bold mb-8">Related Posts</h2>  
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">  
-      {related.map(relatedPost => {  
-        const link = getPath(relatedPost.id, relatedPost.filePath);  
-        const { title, description = '', pubDatetime, tags = [] } = relatedPost.data;  
-        return (  
-          <article class="flex flex-col gap-3 p-6 rounded-2xl bg-card/80 backdrop-blur shadow-lg hover:shadow-xl transition-all">  
-            <header>  
-              <a href={link} class="font-semibold text-lg hover:text-accent transition-colors">{title}</a>  
-            </header>  
-            <time class="text-sm text-muted-foreground">  
-              {new Date(pubDatetime).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}  
-            </time>  
-            {description && <p class="text-muted-foreground line-clamp-3">{description}</p>}  
-            <footer class="flex flex-wrap gap-2 mt-auto">  
-              {tags.map(tag => (  
-                <a href={`/tags/${tag}/`} class="text-xs rounded-full px-3 py-1 bg-muted/50 hover:bg-accent hover:text-background transition-colors">{tag}</a>  
-              ))}  
-            </footer>  
-          </article>  
-        );  
-      })}  
-    </div>  
-  </section>  
+{relatedPosts.length > 0 && (
+  <section class="mt-12">
+    <h2 class="text-2xl font-bold mb-6">Related Posts</h2>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      {relatedPosts.map((post) => (
+        <article class="overflow-hidden rounded-xl shadow-lg bg-card hover:shadow-xl transition-shadow duration-300">
+          {post.data.coverImage && (
+            <a href={getPath(post.id, post.filePath)}>
+              <img
+                src={post.data.coverImage}
+                alt={post.data.coverImageAlt || post.data.title}
+                class="w-full object-cover aspect-video"
+                loading="lazy"
+                width="400"
+                height="225"
+              />
+            </a>
+          )}
+          <div class="p-4">
+            <h3 class="text-lg font-semibold mb-2 line-clamp-2">
+              <a
+                href={getPath(post.id, post.filePath)}
+                class="hover:text-accent transition-colors"
+              >
+                {post.data.title}
+              </a>
+            </h3>
+            <time class="text-sm text-muted-foreground">
+              {post.data.pubDatetime.toLocaleDateString("en-US", {
+                year: "numeric",
+                month: "short",
+                day: "numeric",
+              })}
+            </time>
+          </div>
+        </article>
+      ))}
+    </div>
+  </section>
 )}
