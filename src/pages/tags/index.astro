@@ -5,7 +5,7 @@ import { getCollection } from "astro:content";
 
 
 import Main from "@/layouts/Main.astro";
-import BaseLayout from "@/layouts/BaseLayout.astro";
+import Layout from "@/layouts/Layout.astro";
 
 import Tag from "@/components/Tag.astro";
 import Header from "@/components/Header.astro";
@@ -25,7 +25,7 @@ const sortedPosts = getSortedPosts(allPosts);
 const tags = getUniqueTags(sortedPosts);
 ---
 
-<BaseLayout title={`Tags | ${SITE.title}`}>
+<Layout title={`Tags | ${SITE.title}`}>
   <Header />
 
   <Main pageTitle="Tags" pageDesc="All tags used across published posts.">
@@ -43,7 +43,7 @@ const tags = getUniqueTags(sortedPosts);
   </Main>
 
   <Footer />
-</BaseLayout>
+</Layout>
 
 <style>
   .tags-list {
