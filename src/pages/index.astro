@@ -1,5 +1,7 @@
 ---
 import Layout from "@/layouts/Layout.astro";
+import Header from "@/components/Header.astro";
+import Footer from "@/components/Footer.astro";
 import { getCollection } from "astro:content";
 import LinkButton from "@/components/LinkButton.astro";
 import Hr from "@/components/Hr.astro";
@@ -18,6 +20,7 @@ const recentPosts = sortedPosts.slice(1, 9);
 ---
 
 <Layout title={`Home | ${SITE.title}`}>
+  <Header />
   <main class="mx-auto w-full max-w-app px-4 py-12">
 
     <!-- Featured Latest Post -->
@@ -133,4 +136,5 @@ const recentPosts = sortedPosts.slice(1, 9);
     </div>
 
   </main>
+  <Footer />
 </Layout>
