@@ -1,0 +1,28 @@
+---
+const { items = [] } = Astro.props;
+---
+
+<nav aria-label="Breadcrumb">
+  <ol class="breadcrumb">
+    {items.map((item, index) => (
+      <li key={index}>
+        <a href={item.href}>{item.label}</a>
+      </li>
+    ))}
+  </ol>
+</nav>
+
+<style>
+  .breadcrumb {
+    list-style: none;
+    display: flex;
+    gap: 0.5rem;
+  }
+  .breadcrumb li::after {
+    content: "/";
+    margin-left: 0.5rem;
+  }
+  .breadcrumb li:last-child::after {
+    content: "";
+  }
+</style>
