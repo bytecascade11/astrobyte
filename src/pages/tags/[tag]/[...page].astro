@@ -2,7 +2,7 @@
 import type { GetStaticPaths, Page } from "astro";
 import { getCollection, type CollectionEntry } from "astro:content";
 
-import BaseLayout from "@/layouts/BaseLayout.astro";
+import Layout from "@/layouts/Layout.astro";
 import Header from "@/components/Header.astro";
 import Footer from "@/components/Footer.astro";
 import Pagination from "@/components/Pagination.astro";
@@ -59,7 +59,7 @@ const meta = tagMetadata[tagName.toLowerCase()] || {
 };
 ---
 
-<BaseLayout
+<Layout
   title={meta.title}
   description={meta.description}
   canonicalURL={Astro.url.href}
@@ -134,4 +134,4 @@ const meta = tagMetadata[tagName.toLowerCase()] || {
   </main>
 
   <Footer noMarginTop={page.lastPage <= 1} />
-</BaseLayout>
+</Layout>
