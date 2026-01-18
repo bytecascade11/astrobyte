@@ -1,12 +1,25 @@
 ---
+interface BreadcrumbItem {
+  href: string;
+  label: string;
+}
+
+interface Props {
+  items?: BreadcrumbItem[];
+}
+
 const { items = [] } = Astro.props;
 ---
 
 <nav aria-label="Breadcrumb">
   <ol class="breadcrumb">
-    {items.map((item, index) => (
-      <li key={index}>
-        <a href={item.href}>{item.label}</a>
+    {items.map((item: BreadcrumbItem, index: number) => (
+      <li>
+        {index < items.length - 1 ? (
+          <a href={item.href}>{item.label}</a>
+        ) : (
+          <span aria-current="page">{item.label}</span>
+        )}
       </li>
     ))}
   </ol>
@@ -17,12 +30,31 @@ const { items = [] } = Astro.props;
     list-style: none;
     display: flex;
     gap: 0.5rem;
+    padding: 0;
+    margin: 0;
   }
+
   .breadcrumb li::after {
     content: "/";
     margin-left: 0.5rem;
+    color: #666;
   }
+
   .breadcrumb li:last-child::after {
     content: "";
+  }
+
+  .breadcrumb a {
+    text-decoration: none;
+    color: #0066cc;
+  }
+
+  .breadcrumb a:hover {
+    text-decoration: underline;
+  }
+
+  .breadcrumb span {
+    color: #333;
+    font-weight: 500;
   }
 </style>
