@@ -1,14 +1,13 @@
 ---
 // src/pages/404.astro
-
-import BaseLayout from "@/layouts/BaseLayout.astro";
+import Layout from "@/layouts/Layout.astro";
 import Header from "@/components/Header.astro";
 import Footer from "@/components/Footer.astro";
 import LinkButton from "@/components/LinkButton.astro";
 import { SITE } from "@/config";
 ---
 
-<BaseLayout 
+<Layout 
   title={`404 Not Found | ${SITE.title}`}
   description="The page you are looking for doesn't exist or has been moved."
 >
@@ -38,4 +37,4 @@ import { SITE } from "@/config";
   </main>
 
   <Footer />
-</BaseLayout>
+</Layout>
