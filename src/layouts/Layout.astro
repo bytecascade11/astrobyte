@@ -131,9 +131,9 @@ const structuredData = {
     <script is:inline>
       (function () {
         const initialColorScheme = "";
-        const currentTheme = localStorage.getItem("theme");
-
+        
         function getPreferTheme() {
+          const currentTheme = localStorage.getItem("theme");
           if (currentTheme) return currentTheme;
           if (initialColorScheme) return initialColorScheme;
           return window.matchMedia("(prefers-color-scheme: dark)").matches
@@ -141,16 +141,28 @@ const structuredData = {
             : "light";
         }
 
-        const themeValue = getPreferTheme();
-        document.firstElementChild?.setAttribute("data-theme", themeValue);
+        function applyTheme() {
+          const themeValue = getPreferTheme();
+          document.firstElementChild?.setAttribute("data-theme", themeValue);
 
-        window.theme = {
-          themeValue,
-          getTheme: () => window.theme.themeValue,
-          setTheme: val => {
-            window.theme.themeValue = val;
-          },
-        };
+          window.theme = {
+            themeValue,
+            getTheme: () => {
+              return localStorage.getItem("theme") || themeValue;
+            },
+            setTheme: val => {
+              localStorage.setItem("theme", val);
+              document.firstElementChild?.setAttribute("data-theme", val);
+              window.theme.themeValue = val;
+            },
+          };
+        }
+
+        // Apply theme immediately
+        applyTheme();
+
+        // Re-apply theme after Astro page transitions
+        document.addEventListener("astro:after-swap", applyTheme);
       })();
     </script>
   </head>
