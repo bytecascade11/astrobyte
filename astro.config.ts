@@ -37,12 +37,4 @@ export default defineConfig({
       exclude: ["@resvg/resvg-js"],
     },
   },
-
-  experimental: {
-    fonts: {
-      providers: {
-        google: ["Source Code Pro"],
-      },
-    },
-  },
 });
