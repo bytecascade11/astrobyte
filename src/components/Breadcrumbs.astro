@@ -1,0 +1,40 @@
+---
+export interface Props {
+  items: { label: string; href?: string }[];
+}
+
+const { items } = Astro.props;
+---
+
+<nav aria-label="Breadcrumb" class="mb-6">
+  <ol class="flex items-center gap-2 text-sm text-muted-foreground">
+    {items.map((item, index) => (
+      <li class="flex items-center gap-2">
+        {index > 0 && (
+          <span aria-hidden="true" class="text-muted-foreground">/</span>
+        )}
+        {item.href ? (
+          <a
+            href={item.href}
+            class="hover:text-accent transition-colors"
+          >
+            {item.label}
+          </a>
+        ) : (
+          <span class="text-foreground font-medium">{item.label}</span>
+        )}
+      </li>
+    ))}
+  </ol>
+</nav>
+
+<script type="application/ld+json" is:inline set:html={JSON.stringify({
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": items.map((item, index) => ({
+    "@type": "ListItem",
+    "position": index + 1,
+    "name": item.label,
+    ...(item.href && { "item": new URL(item.href, Astro.site).href })
+  }))
+})} />
