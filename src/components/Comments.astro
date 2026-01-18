@@ -1,0 +1,59 @@
+---
+// You'll need to configure Giscus first at https://giscus.app/
+// Replace these values with your own
+const GISCUS_REPO = "YOUR_GITHUB_USERNAME/YOUR_REPO_NAME";
+const GISCUS_REPO_ID = "YOUR_REPO_ID";
+const GISCUS_CATEGORY = "General";
+const GISCUS_CATEGORY_ID = "YOUR_CATEGORY_ID";
+---
+
+<section class="mt-12">
+  <h2 class="text-2xl font-bold mb-6">Comments</h2>
+  <div class="giscus"></div>
+</section>
+
+<script
+  is:inline
+<script src="https://giscus.app/client.js"
+        data-repo="bytecascade11/astrobyte"
+        data-repo-id="R_kgDOQobjBQ"
+        data-category="Announcements"
+        data-category-id="DIC_kwDOQobjBc4C0Dd4"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="bottom"
+        data-theme="preferred_color_scheme"
+        data-lang="en"
+        data-loading="lazy"
+        crossorigin="anonymous"
+        async>
+</script>
+
+<script is:inline>
+  // Update Giscus theme when site theme changes
+  function updateGiscusTheme() {
+    const theme = document.firstElementChild?.getAttribute("data-theme") || "light";
+    const giscusTheme = theme === "dark" ? "dark" : "light";
+    
+    const iframe = document.querySelector("iframe.giscus-frame");
+    if (iframe) {
+      iframe.contentWindow?.postMessage(
+        { giscus: { setConfig: { theme: giscusTheme } } },
+        "https://giscus.app"
+      );
+    }
+  }
+
+  // Update theme on page load and transitions
+  document.addEventListener("astro:after-swap", updateGiscusTheme);
+  window.addEventListener("load", updateGiscusTheme);
+  
+  // Watch for theme changes
+  const observer = new MutationObserver(updateGiscusTheme);
+  observer.observe(document.documentElement, {
+    attributes: true,
+    attributeFilter: ["data-theme"],
+  });
+</script>
