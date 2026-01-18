@@ -9,6 +9,8 @@ import EditPost from "@/components/EditPost.astro";
 import ShareLinks from "@/components/ShareLinks.astro";
 import BackButton from "@/components/BackButton.astro";
 import BackToTopButton from "@/components/BackToTopButton.astro";
+import RelatedPosts from "@/components/RelatedPosts.astro";
+import Comments from "@/components/Comments.astro";
 import { getPath } from "@/utils/getPath";
 import { slugifyStr } from "@/utils/slugify";
 import IconChevronLeft from "@/assets/icons/IconChevronLeft.svg";
@@ -143,7 +145,7 @@ const nextPost =
     <hr class="my-6 border-dashed" />
 
     <!-- Previous/Next Post Buttons -->
-    <div data-pagefind-ignore class="grid grid-cols-1 gap-6 sm:grid-cols-2">
+    <div data-pagefind-ignore class="grid grid-cols-1 gap-6 sm:grid-cols-2 mb-12">
       {
         prevPost && (
           <a
@@ -173,6 +175,14 @@ const nextPost =
         )
       }
     </div>
+
+    <!-- Related Posts -->
+    <RelatedPosts currentPost={post} allPosts={posts} limit={3} />
+
+    <hr class="my-8 border-dashed" />
+
+    <!-- Comments -->
+    <Comments />
   </main>
   <Footer />
 </Layout>
