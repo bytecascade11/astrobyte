@@ -43,15 +43,18 @@ const { Content } = await render(post);
 
 let ogImageUrl: string | undefined;
 
-// Determine OG image source
-if (typeof initOgImage === "string") {
+// Priority 1: Use cover image if available
+if (coverImage) {
+  ogImageUrl = coverImage;
+}
+// Priority 2: Use explicitly set ogImage
+else if (typeof initOgImage === "string") {
   ogImageUrl = initOgImage; // Remote OG image (absolute URL)
 } else if (initOgImage?.src) {
   ogImageUrl = initOgImage.src; // Local asset
 }
-
-// Use dynamic OG image if enabled and no remote|local ogImage
-if (!ogImageUrl && SITE.dynamicOgImage) {
+// Priority 3: Use dynamic OG image if enabled
+else if (SITE.dynamicOgImage) {
   ogImageUrl = `${getPath(post.id, post.filePath)}/index.png`;
 }
 
