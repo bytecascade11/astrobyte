@@ -21,7 +21,6 @@ export default defineConfig({
   ],
 
   markdown: {
-    // Default remark + rehype plugins (GFM + Smartypants) are already included by Astro
     shikiConfig: {
       transformers: [
         transformerNotationDiff(),
@@ -37,10 +36,5 @@ export default defineConfig({
     optimizeDeps: {
       exclude: ["@resvg/resvg-js"],
     },
-  },
-
-  // ✅ Enable experimental features for <Font /> component
-  experimental: {
-    fontLoaders: true,
   },
 });
