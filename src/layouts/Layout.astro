@@ -126,45 +126,66 @@ const structuredData = {
     )}
 
     <ClientRouter />
+<!-- Prevent FOUC -->
+<script is:inline>
+  const primaryColorScheme = "";
 
-    <!-- Prevent FOUC -->
-    <script is:inline>
-      (function () {
-        const initialColorScheme = "";
-        
-        function getPreferTheme() {
-          const currentTheme = localStorage.getItem("theme");
-          if (currentTheme) return currentTheme;
-          if (initialColorScheme) return initialColorScheme;
-          return window.matchMedia("(prefers-color-scheme: dark)").matches
-            ? "dark"
-            : "light";
-        }
+  function getPreferTheme() {
+    const currentTheme = localStorage.getItem("theme");
+    if (currentTheme) return currentTheme;
+    if (primaryColorScheme) return primaryColorScheme;
+    return window.matchMedia("(prefers-color-scheme: dark)").matches
+      ? "dark"
+      : "light";
+  }
 
-        function applyTheme() {
-          const themeValue = getPreferTheme();
-          document.firstElementChild?.setAttribute("data-theme", themeValue);
+  let themeValue = getPreferTheme();
 
-          window.theme = {
-            themeValue,
-            getTheme: () => {
-              return localStorage.getItem("theme") || themeValue;
-            },
-            setTheme: val => {
-              localStorage.setItem("theme", val);
-              document.firstElementChild?.setAttribute("data-theme", val);
-              window.theme.themeValue = val;
-            },
-          };
-        }
+  function setPreference() {
+    localStorage.setItem("theme", themeValue);
+    reflectPreference();
+  }
 
-        // Apply theme immediately
-        applyTheme();
+  function reflectPreference() {
+    document.firstElementChild?.setAttribute("data-theme", themeValue);
+    document.querySelector("#theme-btn")?.setAttribute("aria-label", themeValue);
 
-        // Re-apply theme after Astro page transitions
-        document.addEventListener("astro:after-swap", applyTheme);
-      })();
-    </script>
+    const body = document.body;
+    if (body) {
+      const computedStyles = window.getComputedStyle(body);
+      const bgColor = computedStyles.backgroundColor;
+      document.querySelector("meta[name='theme-color']")?.setAttribute("content", bgColor);
+    }
+  }
+
+  // Set early so no page flashes
+  reflectPreference();
+
+  function setThemeFeature() {
+    reflectPreference();
+    
+    document.querySelector("#theme-btn")?.addEventListener("click", () => {
+      themeValue = themeValue === "light" ? "dark" : "light";
+      setPreference();
+    });
+  }
+
+  // Initialize on load
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", setThemeFeature);
+  } else {
+    setThemeFeature();
+  }
+
+  // Re-initialize after page transitions
+  document.addEventListener("astro:after-swap", setThemeFeature);
+
+  // Sync with system changes
+  window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", ({ matches: isDark }) => {
+    themeValue = isDark ? "dark" : "light";
+    setPreference();
+  });
+</script>
   </head>
 
   <body>
