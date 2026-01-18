@@ -1,0 +1,70 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import Header from "@/components/Header.astro";
+import Footer from "@/components/Footer.astro";
+import { getCollection } from "astro:content";
+import LinkButton from "@/components/LinkButton.astro";
+import { SITE } from "@/config";
+
+const posts = await getCollection("blog");
+
+const sortedPosts = posts
+  .filter(post => !post.data.draft)
+  .sort((a, b) => b.data.pubDatetime.valueOf() - a.data.pubDatetime.valueOf());
+---
+
+<Layout title={`All Posts | ${SITE.title}`}>
+  <Header />
+  <main class="mx-auto w-full max-w-app px-4 py-12">
+    <h1 class="text-3xl md:text-4xl font-bold mb-8">All Posts</h1>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+      {sortedPosts.map((post) => (
+        <article
+          class="overflow-hidden rounded-2xl shadow-lg bg-card hover:shadow-xl transition-shadow duration-300"
+        >
+          <a href={`/posts/${post.id}`}>
+            <img
+              src={post.data.coverImage || "/og.png"}
+              alt={post.data.coverImageAlt || post.data.title}
+              class="w-full object-cover aspect-video"
+              loading="lazy"
+              width="600"
+              height="400"
+            />
+          </a>
+
+          <div class="p-6">
+            <h2 class="text-xl font-semibold mb-2 line-clamp-2">
+              <a
+                href={`/posts/${post.id}`}
+                class="hover:text-accent transition-colors"
+              >
+                {post.data.title}
+              </a>
+            </h2>
+
+            <time class="text-sm text-muted-foreground block mb-3">
+              {post.data.pubDatetime.toLocaleDateString("en-US", {
+                year: "numeric",
+                month: "long",
+                day: "numeric",
+              })}
+            </time>
+
+            {post.data.description && (
+              <p class="text-muted-foreground line-clamp-3 mb-4">
+                {post.data.description}
+              </p>
+            )}
+
+            <LinkButton href={`/posts/${post.id}`} class="mt-2 inline-block">
+              Read more →
+            </LinkButton>
+          </div>
+        </article>
+      ))}
+    </div>
+  </main>
+  <Footer />
+</Layout>
