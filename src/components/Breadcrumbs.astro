@@ -1,41 +1,61 @@
 ---
-// Your code here (exactly as you provided)
+/**
+ * Breadcrumbs.astro
+ * Accessible, SEO-friendly breadcrumb navigation with Schema.org markup
+ */
+
 export interface Props {
   items: { label: string; href?: string }[];
 }
 
 const { items } = Astro.props;
+
+// Optional: Make sure we have at least one item
+if (items.length === 0) {
+  return Astro.slots.default ?? null;
+}
 ---
 
-<nav aria-label="Breadcrumb" class="mb-6">
-  <ol class="flex items-center gap-2 text-sm text-muted-foreground">
+<nav aria-label="Breadcrumb" class="mb-6 text-sm">
+  <ol class="flex flex-wrap items-center gap-2 text-muted-foreground">
     {items.map((item, index) => (
       <li class="flex items-center gap-2">
         {index > 0 && (
-          <span aria-hidden="true" class="text-muted-foreground">/</span>
+          <span aria-hidden="true" class="text-muted-foreground/70">/</span>
         )}
         {item.href ? (
           <a
             href={item.href}
-            class="hover:text-accent transition-colors"
+            class="hover:text-accent transition-colors duration-200 hover:underline underline-offset-2"
           >
             {item.label}
           </a>
         ) : (
-          <span class="text-foreground font-medium">{item.label}</span>
+          <span class="text-foreground font-medium" aria-current="page">
+            {item.label}
+          </span>
         )}
       </li>
     ))}
   </ol>
 </nav>
 
-<script type="application/ld+json" is:inline set:html={JSON.stringify({
-  "@context": "https://schema.org",
-  "@type": "BreadcrumbList",
-  "itemListElement": items.map((item, index) => ({
-    "@type": "ListItem",
-    "position": index + 1,
-    "name": item.label,
-    ...(item.href && { "item": new URL(item.href, Astro.site).href })
-  }))
-})} />
+<!-- Schema.org structured data for better SEO -->
+<script
+  type="application/ld+json"
+  is:inline
+  set:html={JSON.stringify(
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      itemListElement: items.map((item, index) => ({
+        "@type": "ListItem",
+        position: index + 1,
+        name: item.label,
+        item: item.href ? new URL(item.href, Astro.site ?? Astro.url.origin).href : undefined
+      })).filter(el => el.item) // only include items with URL
+    },
+    null,
+    2
+  )}
+/>
