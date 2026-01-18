@@ -88,23 +88,27 @@ const nextPost =
 <Layout {...layoutProps}>
   <Header />
 
-  <!-- Breadcrumbs -->
+  <!-- Breadcrumbs: Home → Posts → Current Post Title -->
   <Breadcrumbs
     items={[
       { label: "Home", href: "/" },
-      { label: "Posts", href: "/posts/" }, <!-- note trailing slash for consistency -->
-      { label: title }                      <!-- current → no href -->
+      { label: "Posts", href: "/posts/" },
+      { label: title }
     ]}
   />
 
-  <!-- Optional back button when cover image exists -->
+  <!-- Show back button only when cover image exists -->
   {coverImage && <BackButton />}
 
+  <!-- 
+    Main content:
+    - Add mt-8 when no cover image (better spacing without cover + no back button)
+  -->
   <main
     id="main-content"
     class:list={[
       "app-layout pb-12 mx-auto max-w-app px-4",
-      { "mt-8": !coverImage }, <!-- better spacing when no cover + no back button -->
+      { "mt-8": !coverImage }
     ]}
     data-pagefind-body
   >
