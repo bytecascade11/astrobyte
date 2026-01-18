@@ -6,21 +6,22 @@ export interface Props {
 const { items = [] } = Astro.props;
 
 // Always include "Home" as first item if not already present
-const fullItems = items.length === 0 || items[0]?.href !== '/'
-  ? [{ label: 'Home', href: '/' }, ...items]
-  : items;
+const fullItems =
+  items.length === 0 || items[0]?.href !== '/'
+    ? [{ label: 'Home', href: '/' }, ...items]
+    : items;
 
 const breadcrumbSchema = {
   "@context": "https://schema.org",
   "@type": "BreadcrumbList",
-  "itemListElement": fullItems.map((item, index) => ({
+  itemListElement: fullItems.map((item, index) => ({
     "@type": "ListItem",
-    "position": index + 1,
-    "name": item.label,
-    // Use full absolute URL for schema.org (required by Google)
-    ...(item.href && { 
-      "item": item.href.startsWith('http') 
-        ? item.href 
+    position: index + 1,
+    name: item.label,
+    // Use full absolute URL for schema.org (strongly recommended by Google)
+    ...(item.href && {
+      item: item.href.startsWith('http')
+        ? item.href
         : `\( {Astro.site} \){item.href.startsWith('/') ? '' : '/'}${item.href}`
     })
   }))
