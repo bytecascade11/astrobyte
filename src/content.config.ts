@@ -1,5 +1,5 @@
 // src/content/config.ts
-import { defineCollection, z, reference } from "astro:content";
+import { defineCollection, z } from "astro:content";
 import { glob } from "astro/loaders";
 
 import { SITE } from "@/config";
@@ -8,7 +8,6 @@ import { SITE } from "@/config";
 export const BLOG_PATH = "src/data/blog";
 
 const blog = defineCollection({
-  // Loader: loads all .md / .mdx files except those starting with _
   loader: glob({
     pattern: "**/[^_]*.{md,mdx}",
     base: `./${BLOG_PATH}`,
@@ -41,7 +40,7 @@ const blog = defineCollection({
       featured: z.boolean().optional(),
       draft: z.boolean().optional().default(false),
 
-      // Custom slug (very useful!)
+      // Custom slug
       slug: z.string().optional(),
 
       // Cover / Featured image
