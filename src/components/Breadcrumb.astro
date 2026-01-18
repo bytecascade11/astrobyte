@@ -14,17 +14,21 @@ const fullItems =
 const breadcrumbSchema = {
   "@context": "https://schema.org",
   "@type": "BreadcrumbList",
-  itemListElement: fullItems.map((item, index) => ({
-    "@type": "ListItem",
-    position: index + 1,
-    name: item.label,
-    // Use full absolute URL for schema.org (strongly recommended by Google)
-    ...(item.href && {
-      item: item.href.startsWith('http')
-        ? item.href
-        : `\( {Astro.site} \){item.href.startsWith('/') ? '' : '/'}${item.href}`
-    })
-  }))
+  itemListElement: fullItems.map((item, index) => {
+    const isLast = index === fullItems.length - 1;
+
+    return {
+      "@type": "ListItem",
+      position: index + 1,
+      name: item.label,
+      // Google prefers no "item" property on the last (current) page
+      ...(item.href && !isLast && {
+        item: item.href.startsWith('http')
+          ? item.href
+          : `\( {Astro.site} \){item.href.startsWith('/') ? '' : '/'}${item.href}`
+      })
+    };
+  })
 };
 ---
 
