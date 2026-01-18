@@ -1,11 +1,10 @@
 ---
-import BaseLayout from "@/layouts/BaseLayout.astro";
-
+import Layout from "@/layouts/Layout.astro";
 const title = "About ReviByte Opinion — My Story, My Promise | Oke iSamuel";
 const description = "Honest, physics-backed tech analysis for real people in Nigeria and beyond. No hype, no paid praise — just deep, practical insight from Oke Sunday Samuel (iSamuel).";
 ---
 
-<BaseLayout title={title} description={description}>
+<Layout title={title} description={description}>
   <article class="prose prose-lg mx-auto max-w-4xl px-6 py-16 dark:prose-invert">
     <h1 class="mb-4 text-4xl font-bold">About ReviByte Opinion — My Story, My Promise</h1>
     <p class="lead text-xl text-gray-600 dark:text-gray-300">
@@ -155,4 +154,4 @@ const description = "Honest, physics-backed tech analysis for real people in Nig
   </ul>
 </section>
   </article>
-</BaseLayout>
+</Layout>
