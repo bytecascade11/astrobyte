@@ -1,74 +1,42 @@
 ---
-const currentUrlPath = Astro.url.pathname.replace(/\/+$/, "");
-const segments = currentUrlPath.split("/").filter(Boolean); // Remove empty strings
-
-let breadcrumbItems: { label: string; href: string | null }[] = [
-  { label: "Home", href: "/" }
-];
-
-if (segments.length > 0) {
-  if (segments[0] === "posts") {
-    breadcrumbItems.push({ label: "Posts", href: "/posts/" });
-
-    if (segments.length > 1) {
-      // Individual post page: /posts/slug
-      const postTitle = segments.slice(1)
-        .map(seg => decodeURIComponent(seg))
-        .join(" ")
-        .split("-")
-        .map(word => word.charAt(0).toUpperCase() + word.slice(1))
-        .join(" ");
-
-      breadcrumbItems.push({ label: postTitle, href: null });
-    }
-  } else if (segments[0] === "tags") {
-    breadcrumbItems.push({ label: "Tags", href: "/tags/" });
-
-    if (segments.length > 1) {
-      const rawTag = decodeURIComponent(segments[1]);
-      const tagName = rawTag.replace(/-/g, " ");
-      const pagePart = segments[2] ? ` (page ${segments[2]})` : "";
-      const tagLabel = tagName.charAt(0).toUpperCase() + tagName.slice(1) + pagePart;
-
-      breadcrumbItems.push({ label: tagLabel, href: null });
-    }
-  } else {
-    // Fallback for other pages
-    const label = segments
-      .map(seg => decodeURIComponent(seg).replace(/-/g, " "))
-      .join(" > ")
-      .split(" ")
-      .map(word => word.charAt(0).toUpperCase() + word.slice(1))
-      .join(" ");
-
-    breadcrumbItems.push({ label, href: null });
-  }
+export interface Props {
+  items: { label: string; href?: string }[];
 }
+
+const { items } = Astro.props;
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": items.map((item, index) => ({
+    "@type": "ListItem",
+    "position": index + 1,
+    "name": item.label,
+    ...(item.href && { "item": `${Astro.site}${item.href}` })
+  }))
+};
 ---
 
-<nav class="mx-auto mt-8 mb-1 w-full max-w-app px-4" aria-label="breadcrumb">
-  <ol class="inline-flex items-center space-x-2 font-light text-sm">
-    {breadcrumbItems.map((item, index) => (
-      <li class="flex items-center">
+<nav aria-label="Breadcrumb" class="mb-6">
+  <ol class="flex items-center gap-2 text-sm text-muted-foreground">
+    {items.map((item, index) => (
+      <li class="flex items-center gap-2">
+        {index > 0 && (
+          <span aria-hidden="true" class="text-muted-foreground">/</span>
+        )}
         {item.href ? (
           <a
             href={item.href}
-            class="opacity-80 hover:opacity-100 transition"
+            class="hover:text-accent transition-colors"
           >
             {item.label}
           </a>
         ) : (
-          <span
-            class="opacity-75"
-            aria-current={index === breadcrumbItems.length - 1 ? "page" : undefined}
-          >
-            {item.label}
-          </span>
-        )}
-        {index < breadcrumbItems.length - 1 && (
-          <span class="mx-2 opacity-80" aria-hidden="true">&raquo;</span>
+          <span class="text-foreground font-medium">{item.label}</span>
         )}
       </li>
     ))}
   </ol>
 </nav>
+
+<script type="application/ld+json" is:inline set:html={JSON.stringify(breadcrumbSchema)} />
