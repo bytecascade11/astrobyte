@@ -1,4 +1,3 @@
-// astro.config.ts (or .mjs)
 import { defineConfig } from "astro/config";
 import sitemap from "@astrojs/sitemap";
 import {
@@ -22,9 +21,7 @@ export default defineConfig({
   ],
 
   markdown: {
-    // IMPORTANT: Removed invalid extendDefaultPlugins
     // Default remark + rehype plugins (GFM + Smartypants) are already included by Astro
-
     shikiConfig: {
       transformers: [
         transformerNotationDiff(),
@@ -40,5 +37,10 @@ export default defineConfig({
     optimizeDeps: {
       exclude: ["@resvg/resvg-js"],
     },
+  },
+
+  // ✅ Enable experimental features for <Font /> component
+  experimental: {
+    fontLoaders: true,
   },
 });
