@@ -1,4 +1,4 @@
-Check: ---  
+---  
 import Hr from "./Hr.astro";  
 import IconX from "@/assets/icons/IconX.svg";  
 import IconMoon from "@/assets/icons/IconMoon.svg";  
@@ -37,8 +37,8 @@ const isActive = (path: string) => {
         {SITE.title}  
       </a>  
   
-      <!-- Navigation -->  
-      <nav class="flex w-full flex-col sm:flex-row sm:justify-end sm:gap-x-5">  
+      <!-- Navigation with semantic markup -->  
+      <nav aria-label="Main navigation" class="flex w-full flex-col sm:flex-row sm:justify-end sm:gap-x-5">  
         <!-- Mobile toggle -->  
         <button  
           id="menu-btn"  
@@ -62,34 +62,34 @@ const isActive = (path: string) => {
           ]}  
         >  
           <li class="col-span-2">  
-            <a href="/" class:list={{ "active-nav": isActive("/") }}>Home</a>  
+            <a href="/" class:list={{ "active-nav": isActive("/") }} aria-current={isActive("/") ? "page" : undefined}>Home</a>  
           </li>  
           <li class="col-span-2">  
-            <a href="/tags/news" class:list={{ "active-nav": isActive("/tags/news") }}>News</a>  
+            <a href="/tags/news/" class:list={{ "active-nav": isActive("/tags/news") }} aria-current={isActive("/tags/news") ? "page" : undefined}>News</a>  
           </li>  
           <li class="col-span-2">  
-            <a href="/tags/samsung" class:list={{ "active-nav": isActive("/tags/samsung") }}>Samsung</a>  
+            <a href="/tags/samsung/" class:list={{ "active-nav": isActive("/tags/samsung") }} aria-current={isActive("/tags/samsung") ? "page" : undefined}>Samsung</a>  
           </li>  
           <li class="col-span-2">  
-            <a href="/tags/apple" class:list={{ "active-nav": isActive("/tags/apple") }}>Apple</a>  
+            <a href="/tags/apple/" class:list={{ "active-nav": isActive("/tags/apple") }} aria-current={isActive("/tags/apple") ? "page" : undefined}>Apple</a>  
           </li>  
           <li class="col-span-2">  
-            <a href="/tags/android" class:list={{ "active-nav": isActive("/tags/android") }}>Android</a>  
+            <a href="/tags/android/" class:list={{ "active-nav": isActive("/tags/android") }} aria-current={isActive("/tags/android") ? "page" : undefined}>Android</a>  
           </li>  
           <li class="col-span-2">  
-            <a href="/tags/games" class:list={{ "active-nav": isActive("/tags/games") }}>Games</a>  
+            <a href="/tags/games/" class:list={{ "active-nav": isActive("/tags/games") }} aria-current={isActive("/tags/games") ? "page" : undefined}>Games</a>  
           </li>  
           <li class="col-span-2">  
-            <a href="/tags/ai" class:list={{ "active-nav": isActive("/tags/ai") }}>AI</a>  
+            <a href="/tags/ai/" class:list={{ "active-nav": isActive("/tags/ai") }} aria-current={isActive("/tags/ai") ? "page" : undefined}>AI</a>  
           </li>  
           <li class="col-span-2">  
-            <a href="/tags/opinions" class:list={{ "active-nav": isActive("/tags/opinions") }}>Opinions</a>  
+            <a href="/tags/opinions/" class:list={{ "active-nav": isActive("/tags/opinions") }} aria-current={isActive("/tags/opinions") ? "page" : undefined}>Opinions</a>  
           </li>  
   
           <!-- Search -->  
           <li class="col-span-1 flex justify-center">  
             <LinkButton  
-              href="/search"  
+              href="/search/"  
               class:list={[  
                 "flex p-3 sm:p-1",  
                 { "[&>svg]:stroke-accent": isActive("/search") },  
@@ -148,4 +148,4 @@ const isActive = (path: string) => {
   
   initNav();  
   document.addEventListener("astro:after-swap", initNav);  
-</script>  
+</script>
