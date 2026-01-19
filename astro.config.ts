@@ -1,5 +1,7 @@
 import { defineConfig } from "astro/config";
 import sitemap from "@astrojs/sitemap";
+import remarkToc from "remark-toc";
+import remarkCollapse from "remark-collapse";
 import {
   transformerNotationDiff,
   transformerNotationHighlight,
@@ -18,12 +20,65 @@ export default defineConfig({
 
   integrations: [
     sitemap({
-      filter: (page) => SITE.showArchives || !page.endsWith("/archives"),
+      filter: (page) => {
+        // Exclude archives if SITE.showArchives is false
+        if (!SITE.showArchives && page.endsWith("/archives/")) {
+          return false;
+        }
+
+        const allowedPages = [
+          `${SITE.website}`,
+          `${SITE.website}about/`,
+          `${SITE.website}contact/`,
+          `${SITE.website}posts/`,
+          `${SITE.website}tags/`,
+        ];
+
+        const allowedTags = [
+          'ai', 
+          'android', 
+          'mobile-gaming', 
+          'opinions',
+          'reviews', 
+          'apple', 
+          'samsung', 
+          'games'
+        ];
+
+        // Keep all individual blog posts (exclude pagination pages)
+        if (page.includes('/posts/') && !page.match(/\/posts\/\d+\/$/)) {
+          return true;
+        }
+
+        // Keep allowed static pages
+        if (allowedPages.includes(page)) {
+          return true;
+        }
+
+        // Keep only the 8 main tag pages (exclude pagination)
+        if (page.includes('/tags/')) {
+          return allowedTags.some(tag => 
+            page === `${SITE.website}tags/${tag}/`
+          );
+        }
+
+        // Exclude everything else (pagination, extra tags, legal pages, etc.)
+        return false;
+      },
     }),
     indexnow(),
   ],
 
   markdown: {
+    remarkPlugins: [
+      remarkToc,
+      [
+        remarkCollapse,
+        {
+          test: "Table of contents",
+        },
+      ],
+    ],
     shikiConfig: {
       transformers: [
         transformerNotationDiff(),
