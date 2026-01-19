@@ -13,6 +13,9 @@ import tailwindcss from "@tailwindcss/vite";
 export default defineConfig({
   site: SITE.website,
 
+  // ✅ ENFORCE TRAILING SLASHES
+  trailingSlash: "always",
+
   integrations: [
     sitemap({
       filter: (page) => SITE.showArchives || !page.endsWith("/archives"),
