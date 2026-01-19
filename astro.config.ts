@@ -37,9 +37,8 @@ export default defineConfig({
         const allowedTags = [
           'ai', 
           'android', 
-          'mobile-gaming', 
+          'news',
           'opinions',
-          'reviews', 
           'apple', 
           'samsung', 
           'games'
