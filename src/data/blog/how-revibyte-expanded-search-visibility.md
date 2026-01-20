@@ -1,7 +1,7 @@
 ---
 title: "How ReviByte Expanded Its Search Visibility"
-pubDatetime: 2026-01-20T
 description: "How ReviByte integrates with social and visual search platforms"
+pubDatetime: 2026-01-20T00:00:00Z
 author: iSamuel 
 tags: ["opinions", "technology"]
 coverImage: "/images/posts/ai-search-visibility-cover.jpg"
