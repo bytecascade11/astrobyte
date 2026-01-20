@@ -1,6 +1,7 @@
 ---
 import { ClientRouter } from "astro:transitions";
 import { SITE } from "@/config";
+import SchemaMarkup from "@/components/SchemaMarkup.astro";
 import "@/styles/global.css";
 
 const { PUBLIC_GOOGLE_SITE_VERIFICATION } = import.meta.env;
@@ -30,22 +31,6 @@ const {
 } = Astro.props;
 
 const socialImageURL = new URL(ogImage, Astro.url);
-
-const structuredData = {
-  "@context": "https://schema.org",
-  "@type": "BlogPosting",
-  headline: title,
-  image: socialImageURL,
-  ...(pubDatetime && { datePublished: pubDatetime.toISOString() }),
-  ...(modDatetime && { dateModified: modDatetime.toISOString() }),
-  author: [
-    {
-      "@type": "Person",
-      name: author,
-      ...(profile && { url: profile }),
-    },
-  ],
-};
 ---
 
 <!doctype html>
@@ -100,12 +85,8 @@ const structuredData = {
     <meta property="twitter:description" content={description} />
     <meta property="twitter:image" content={socialImageURL} />
 
-    <!-- JSON-LD Structured Data -->
-    <script
-      type="application/ld+json"
-      is:inline
-      set:html={JSON.stringify(structuredData)}
-    />
+    <!-- Schema Markup Component (handles all structured data) -->
+    <SchemaMarkup />
 
     <!-- RSS -->
     <link
@@ -125,114 +106,84 @@ const structuredData = {
       />
     )}
 
+    <!-- Google Analytics -->
+    {SITE.analytics?.googleAnalyticsId && (
+      <>
+        <script async src={`https://www.googletagmanager.com/gtag/js?id=${SITE.analytics.googleAnalyticsId}`}></script>
+        <script is:inline define:vars={{ gaId: SITE.analytics.googleAnalyticsId }}>
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', gaId);
+        </script>
+      </>
+    )}
+
     <ClientRouter />
-<!-- Prevent FOUC -->
-<script is:inline>
-  const primaryColorScheme = "";
 
-  function getPreferTheme() {
-    const currentTheme = localStorage.getItem("theme");
-    if (currentTheme) return currentTheme;
-    if (primaryColorScheme) return primaryColorScheme;
-    return window.matchMedia("(prefers-color-scheme: dark)").matches
-      ? "dark"
-      : "light";
-  }
+    <!-- Prevent FOUC -->
+    <script is:inline>
+      const primaryColorScheme = "";
 
-  let themeValue = getPreferTheme();
+      function getPreferTheme() {
+        const currentTheme = localStorage.getItem("theme");
+        if (currentTheme) return currentTheme;
+        if (primaryColorScheme) return primaryColorScheme;
+        return window.matchMedia("(prefers-color-scheme: dark)").matches
+          ? "dark"
+          : "light";
+      }
 
-  function setPreference() {
-    localStorage.setItem("theme", themeValue);
-    reflectPreference();
-  }
+      let themeValue = getPreferTheme();
 
-  function reflectPreference() {
-    document.firstElementChild?.setAttribute("data-theme", themeValue);
-    document.querySelector("#theme-btn")?.setAttribute("aria-label", themeValue);
+      function setPreference() {
+        localStorage.setItem("theme", themeValue);
+        reflectPreference();
+      }
 
-    const body = document.body;
-    if (body) {
-      const computedStyles = window.getComputedStyle(body);
-      const bgColor = computedStyles.backgroundColor;
-      document.querySelector("meta[name='theme-color']")?.setAttribute("content", bgColor);
-    }
-  }
+      function reflectPreference() {
+        document.firstElementChild?.setAttribute("data-theme", themeValue);
+        document.querySelector("#theme-btn")?.setAttribute("aria-label", themeValue);
 
-  // Set early so no page flashes
-  reflectPreference();
+        const body = document.body;
+        if (body) {
+          const computedStyles = window.getComputedStyle(body);
+          const bgColor = computedStyles.backgroundColor;
+          document.querySelector("meta[name='theme-color']")?.setAttribute("content", bgColor);
+        }
+      }
 
-  function setThemeFeature() {
-    reflectPreference();
-    
-    document.querySelector("#theme-btn")?.addEventListener("click", () => {
-      themeValue = themeValue === "light" ? "dark" : "light";
-      setPreference();
-    });
-  }
+      // Set early so no page flashes
+      reflectPreference();
 
-  // Initialize on load
-  if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", setThemeFeature);
-  } else {
-    setThemeFeature();
-  }
+      function setThemeFeature() {
+        reflectPreference();
+        
+        document.querySelector("#theme-btn")?.addEventListener("click", () => {
+          themeValue = themeValue === "light" ? "dark" : "light";
+          setPreference();
+        });
+      }
 
-  // Re-initialize after page transitions
-  document.addEventListener("astro:after-swap", setThemeFeature);
+      // Initialize on load
+      if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", setThemeFeature);
+      } else {
+        setThemeFeature();
+      }
 
-  // Sync with system changes
-  window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", ({ matches: isDark }) => {
-    themeValue = isDark ? "dark" : "light";
-    setPreference();
-  });
-</script>
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "WebSite",
-  "name": "ReviByte Opinions",
-  "url": "https://www.revibyte.blog/",
-  "description": "ReviByte Technology Opinions delivers the latest tech news, gadget reviews, Android updates, and in-depth guides to keep you informed and ahead in the digital world.",
-  "potentialAction": {
-    "@type": "SearchAction",
-    "target": {
-      "@type": "EntryPoint",
-      "urlTemplate": "https://www.revibyte.blog/search/?q={search_term_string}"
-    },
-    "query-input": "required name=search_term_string"
-  }
-}
-</script>
+      // Re-initialize after page transitions
+      document.addEventListener("astro:after-swap", setThemeFeature);
 
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "Organization",
-  "name": "ReviByte",
-  "url": "https://www.revibyte.blog/",
-  "logo": "https://www.revibyte.blog/logo.png",
-  "sameAs": [
-    "https://pin.it/1NYS28vrR"
-  ]
-}
-</script>
- <!-- ADD GOOGLE ANALYTICS HERE -->
-  {SITE.analytics?.googleAnalyticsId && (
-    <>
-      <script async src={`https://www.googletagmanager.com/gtag/js?id=${SITE.analytics.googleAnalyticsId}`}></script>
-      <script is:inline define:vars={{ gaId: SITE.analytics.googleAnalyticsId }}>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-        gtag('config', gaId);
-      </script>
-    </>
-  )}
+      // Sync with system changes
+      window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", ({ matches: isDark }) => {
+        themeValue = isDark ? "dark" : "light";
+        setPreference();
+      });
+    </script>
   </head>
 
   <body>
     <slot />
-    <!-- Optional: Use public JS for full theme logic -->
-    <!-- <script src="/scripts/theme.js"></script> -->
   </body>
 </html>
