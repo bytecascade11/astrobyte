@@ -1,0 +1,32 @@
+---
+/**
+ * SchemaMarkup Component
+ * ... (all the comments explaining what it does)
+ */
+
+import { SITE } from "@config";
+
+interface Props {
+  type?: 'website' | 'article' | 'breadcrumb';
+  title?: string;
+  description?: string;
+  url?: string;
+  image?: string;
+  datePublished?: string;
+  dateModified?: string;
+  breadcrumbs?: Array<{name: string, url: string}>;
+}
+
+const { 
+  type = 'website',
+  title,
+  description,
+  url,
+  image,
+  datePublished,
+  dateModified,
+  breadcrumbs 
+} = Astro.props;
+
+// ... (rest of the code from the artifact)
+---
