@@ -8,6 +8,7 @@ coverImage: "/images/posts/astro-blog-setup-cover.jpg"
 coverImageAlt: "Modern blog dashboard showing Astro logo and performance metrics"
 draft: false
 ---
+## Table of Contents 
 
 Starting a blog in 2026 feels different than it did even a couple of years ago. The landscape has changed dramatically—we're not just competing with other blogs anymore, but with social media platforms, newsletters, and every other form of content that's vying for attention. So when I decided to build my own blog, I knew I needed something fast, something clean, and something that wouldn't make me want to tear my hair out every time I needed to publish a new post.
 
