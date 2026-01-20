@@ -1,10 +1,20 @@
 ---
 /**
  * SchemaMarkup Component
- * ... (all the comments explaining what it does)
+ * 
+ * This component adds structured data (Schema.org JSON-LD) to your pages.
+ * It helps Google understand your site structure and display rich results like:
+ * - Sitelinks (navigation links under your site in search)
+ * - Search box in search results
+ * - Article metadata (author, publish date)
+ * - Breadcrumbs in search results
+ * 
+ * Usage:
+ * - Homepage: <SchemaMarkup /> (defaults to website schema)
+ * - Blog posts: <SchemaMarkup type="article" title="..." breadcrumbs={[...]} />
  */
 
-import { SITE } from "@config";
+import { SITE } from "@/config";
 
 interface Props {
   type?: 'website' | 'article' | 'breadcrumb';
@@ -28,5 +38,135 @@ const {
   breadcrumbs 
 } = Astro.props;
 
-// ... (rest of the code from the artifact)
+/**
+ * WEBSITE SCHEMA
+ * Tells Google this is your main website and enables:
+ * - Site name in search results
+ * - Sitelinks (those navigation links under your site)
+ * - Search box feature in Google results
+ */
+const websiteSchema = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": SITE.title,
+  "url": SITE.website,
+  "description": SITE.desc,
+  // Enables the search box in Google results
+  "potentialAction": {
+    "@type": "SearchAction",
+    "target": {
+      "@type": "EntryPoint",
+      "urlTemplate": `${SITE.website}search/?q={search_term_string}`
+    },
+    "query-input": "required name=search_term_string"
+  }
+};
+
+/**
+ * ORGANIZATION SCHEMA
+ * Tells Google about your brand/organization:
+ * - Logo for knowledge panels
+ * - Social media profiles
+ * - Brand identity
+ */
+const organizationSchema = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "ReviByte",
+  "url": SITE.website,
+  "logo": `${SITE.website}${SITE.ogImage}`,
+  "sameAs": [
+    SITE.profile // Your Pinterest profile
+  ]
+};
+
+/**
+ * ARTICLE SCHEMA (for blog posts)
+ * Tells Google this is a blog article with:
+ * - Headline and description
+ * - Author information
+ * - Publish and modified dates
+ * - Featured image
+ * 
+ * This enables:
+ * - Rich article cards in search
+ * - Author bylines
+ * - Publish dates in results
+ */
+const articleSchema = title ? {
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": title,
+  "description": description || SITE.desc,
+  "image": image ? `${SITE.website}${image}` : `${SITE.website}${SITE.ogImage}`,
+  "url": url || SITE.website,
+  "datePublished": datePublished,
+  "dateModified": dateModified || datePublished,
+  "author": {
+    "@type": "Person",
+    "name": SITE.author,
+    "url": SITE.profile
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "ReviByte",
+    "logo": {
+      "@type": "ImageObject",
+      "url": `${SITE.website}${SITE.ogImage}`
+    }
+  }
+} : null;
+
+/**
+ * BREADCRUMB SCHEMA
+ * Shows the navigation path in Google results:
+ * Example: Home > Posts > Article Title
+ * 
+ * Benefits:
+ * - Users see page hierarchy
+ * - Better click-through rates
+ * - Improved site structure understanding
+ */
+const breadcrumbSchema = breadcrumbs ? {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": breadcrumbs.map((item, index) => ({
+    "@type": "ListItem",
+    "position": index + 1,
+    "name": item.name,
+    "item": item.url
+  }))
+} : null;
 ---
+
+<!-- 
+  WEBSITE SCHEMA
+  Always included on every page
+  Helps Google show sitelinks and search box
+-->
+<script type="application/ld+json" set:html={JSON.stringify(websiteSchema)} />
+
+<!-- 
+  ORGANIZATION SCHEMA
+  Always included on every page
+  Establishes brand identity with Google
+-->
+<script type="application/ld+json" set:html={JSON.stringify(organizationSchema)} />
+
+<!-- 
+  ARTICLE SCHEMA
+  Only included on blog post pages
+  Shows rich article information in search results
+-->
+{articleSchema && (
+  <script type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
+)}
+
+<!-- 
+  BREADCRUMB SCHEMA
+  Only included when breadcrumbs are provided
+  Shows navigation path in search results (Home > Posts > Article)
+-->
+{breadcrumbSchema && (
+  <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
+)}
