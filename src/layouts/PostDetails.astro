@@ -12,6 +12,7 @@ import BackButton from "@/components/BackButton.astro";
 import BackToTopButton from "@/components/BackToTopButton.astro";
 import RelatedPosts from "@/components/RelatedPosts.astro";
 import Comments from "@/components/Comments.astro";
+import SchemaMarkup from "@/components/SchemaMarkup.astro"; // ← ADD THIS LINE
 
 import { getPath } from "@/utils/getPath";
 import { slugifyStr } from "@/utils/slugify";
@@ -83,9 +84,29 @@ const currentIndex = allPosts.findIndex((p) => p.id === post.id);
 const prevPost = currentIndex > 0 ? allPosts[currentIndex - 1] : null;
 const nextPost =
   currentIndex < allPosts.length - 1 ? allPosts[currentIndex + 1] : null;
+
+/* ── Schema Markup: Breadcrumbs for Google ──────────────────────────── */
+// Create breadcrumbs array for structured data
+const breadcrumbs = [
+  { name: "Home", url: SITE.website },
+  { name: "Posts", url: `${SITE.website}posts/` },
+  { name: title, url: `${SITE.website}${getPath(post.id, post.filePath)}` }
+];
 ---
 
 <Layout {...layoutProps}>
+  <!-- ADD SCHEMA MARKUP HERE (inside Layout component automatically adds to <head>) -->
+  <SchemaMarkup 
+    type="article"
+    title={title}
+    description={description}
+    url={`${SITE.website}${getPath(post.id, post.filePath)}`}
+    image={ogImage}
+    datePublished={pubDatetime.toISOString()}
+    dateModified={modDatetime?.toISOString()}
+    breadcrumbs={breadcrumbs}
+  />
+
   <Header />
 
   <!-- Breadcrumbs: Home → Posts → Current Post Title -->
