@@ -98,7 +98,7 @@ const articleSchema = title ? {
   "@type": "BlogPosting",
   "headline": title,
   "description": description || SITE.desc,
-  "image": image ? `${SITE.website}${image}` : `${SITE.website}${SITE.ogImage}`,
+  "image": image || `${SITE.website}${SITE.ogImage}`,
   "url": url || SITE.website,
   "datePublished": datePublished,
   "dateModified": dateModified || datePublished,
@@ -114,28 +114,40 @@ const articleSchema = title ? {
       "@type": "ImageObject",
       "url": `${SITE.website}${SITE.ogImage}`
     }
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": url || SITE.website
   }
 } : null;
 
 /**
- * BREADCRUMB SCHEMA
+ * BREADCRUMB SCHEMA - FIXED VERSION
  * Shows the navigation path in Google results:
  * Example: Home > Posts > Article Title
  * 
- * Benefits:
- * - Users see page hierarchy
- * - Better click-through rates
- * - Improved site structure understanding
+ * CRITICAL: The last item (current page) must NOT have "item" property
+ * Otherwise Google shows it as a dropdown menu instead of breadcrumbs
  */
 const breadcrumbSchema = breadcrumbs ? {
   "@context": "https://schema.org",
   "@type": "BreadcrumbList",
-  "itemListElement": breadcrumbs.map((item, index) => ({
-    "@type": "ListItem",
-    "position": index + 1,
-    "name": item.name,
-    "item": item.url
-  }))
+  "itemListElement": breadcrumbs.map((crumb, index) => {
+    const isLastItem = index === breadcrumbs.length - 1;
+    
+    const item: any = {
+      "@type": "ListItem",
+      "position": index + 1,
+      "name": crumb.name
+    };
+    
+    // Only add "item" URL for intermediate breadcrumbs, NOT the last one
+    if (!isLastItem) {
+      item.item = crumb.url;
+    }
+    
+    return item;
+  })
 } : null;
 ---
 
