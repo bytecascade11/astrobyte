@@ -10,6 +10,7 @@ coverImageAlt: "Collection of affordable itel smartphones"
 
 ## Table of Contents 
 
+## Intro 
 There's something refreshing about honesty in the smartphone market. While most brands throw around buzzwords like "flagship killer" and "revolutionary," itel takes a different approach. They make phones for people who just need a phone that works. And honestly? That's exactly what millions of first-time smartphone users need.
 
 I've watched my relatives, neighbors, and friends make the jump from feature phones to smartphones. The struggle is real. They don't need a phone that can shoot 8K video or process AI algorithms. They need something that won't confuse them, won't break the bank, and won't die halfway through the day. That's where itel quietly excels.
