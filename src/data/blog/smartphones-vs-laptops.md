@@ -12,7 +12,7 @@ coverImageAlt: "Mobile device beside laptop computer"
 
 ## Smartphones Are Replacing Computers — Do We Still Need Laptops?
 
-Before we dive in do you know that there are some [special places that Ai is smart/best on majorly](/posts/what-ai-is-best-at) 
+Before we dive in, do you know that there are some [special places that Ai is smart/best on majorly](/posts/what-ai-is-best-at).
 
 Last semester, I had a seminar write-up due. The kind that required proper formatting, citations, and at least fifteen pages of academic rigor. I remember sitting on my bed, phone in hand, thinking: "Can I just do this on my phone?" I'd written tweets, emails, even grocery lists that somehow turned into philosophical manifestations on my iPhone. But a full seminar paper?
 
