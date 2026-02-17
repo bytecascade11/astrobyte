@@ -1,8 +1,9 @@
 ---
 title: "My Tecno Camon 30 Burns Up Playing Genshin — Here's Everything I Found Out"
 description: "After weeks of playing Genshin Impact and CODM on my Tecno Camon 30, I dug deep into the heat throttling problem that nobody talks about honestly. Here's my raw experience — the temperatures, the performance dips, the workarounds, and what I actually think about it."
-pubDatetime: "2026-01-17T03:52:02Z"
+pubDatetime: 2026-02-17T03:52:02Z
 author: "iSamuel"
+draft: false
 tags: ["games", "android", "opinion"]
 coverImage: "/images/posts/cover.jpg"
 coverImageAlt: "Tecno Camon 30 gaming heat test"
