@@ -34,11 +34,7 @@ const socialImageURL = new URL(ogImage, Astro.url);
 ---
 
 <!doctype html>
-<html
-  dir={SITE.dir}
-  lang={SITE.lang ?? "en"}
-  class={scrollSmooth ? "scroll-smooth" : undefined}
->
+<html dir={SITE.dir} lang={SITE.lang ?? "en"} class={scrollSmooth ? "scroll-smooth" : undefined}>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
@@ -46,10 +42,10 @@ const socialImageURL = new URL(ogImage, Astro.url);
     <link rel="canonical" href={canonicalURL} />
     <meta name="generator" content={Astro.generator} />
 
-    <!-- Load Font -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Load Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@400;500;600;700&display=swap" rel="stylesheet" />
 
     <!-- General Meta Tags -->
     <title>{title}</title>
@@ -64,19 +60,9 @@ const socialImageURL = new URL(ogImage, Astro.url);
     <meta property="og:url" content={canonicalURL} />
     <meta property="og:image" content={socialImageURL} />
 
-    <!-- Article dates -->
-    {pubDatetime && (
-      <meta
-        property="article:published_time"
-        content={pubDatetime.toISOString()}
-      />
-    )}
-    {modDatetime && (
-      <meta
-        property="article:modified_time"
-        content={modDatetime.toISOString()}
-      />
-    )}
+    <!-- Article Dates -->
+    {pubDatetime && <meta property="article:published_time" content={pubDatetime.toISOString()} />}
+    {modDatetime && <meta property="article:modified_time" content={modDatetime.toISOString()} />}
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image" />
@@ -85,32 +71,30 @@ const socialImageURL = new URL(ogImage, Astro.url);
     <meta property="twitter:description" content={description} />
     <meta property="twitter:image" content={socialImageURL} />
 
-    <!-- Schema Markup Component (handles all structured data) -->
+    <!-- Schema Markup -->
     <SchemaMarkup />
 
     <!-- RSS -->
-    <link
-      rel="alternate"
-      type="application/rss+xml"
-      title={SITE.title}
-      href={new URL("rss.xml", Astro.site)}
-    />
+    <link rel="alternate" type="application/rss+xml" title={SITE.title} href={new URL("rss.xml", Astro.site)} />
 
     <meta name="theme-color" content="" />
 
-    <!-- Google Search Console Verification -->
+    <!-- Google Site Verification -->
     {PUBLIC_GOOGLE_SITE_VERIFICATION && (
-      <meta
-        name="google-site-verification"
-        content={PUBLIC_GOOGLE_SITE_VERIFICATION}
-      />
+      <meta name="google-site-verification" content={PUBLIC_GOOGLE_SITE_VERIFICATION} />
     )}
-<!-- Google AdSense -->
-<script
-  async
-  src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4896561037705299"
-  crossorigin="anonymous">
-</script>
+
+    <!-- Google AdSense (for regular pages) -->
+    <script async
+      src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4896561037705299"
+      crossorigin="anonymous">
+    </script>
+
+    <!-- AMP Auto Ads Script (for AMP pages) -->
+    <script async custom-element="amp-auto-ads"
+            src="https://cdn.ampproject.org/v0/amp-auto-ads-0.1.js">
+    </script>
+
     <!-- Google Analytics -->
     {SITE.analytics?.googleAnalyticsId && (
       <>
@@ -126,7 +110,7 @@ const socialImageURL = new URL(ogImage, Astro.url);
 
     <ClientRouter />
 
-    <!-- Prevent FOUC -->
+    <!-- Theme / FOUC Prevention Script -->
     <script is:inline>
       const primaryColorScheme = "";
 
@@ -134,9 +118,7 @@ const socialImageURL = new URL(ogImage, Astro.url);
         const currentTheme = localStorage.getItem("theme");
         if (currentTheme) return currentTheme;
         if (primaryColorScheme) return primaryColorScheme;
-        return window.matchMedia("(prefers-color-scheme: dark)").matches
-          ? "dark"
-          : "light";
+        return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
       }
 
       let themeValue = getPreferTheme();
@@ -149,7 +131,6 @@ const socialImageURL = new URL(ogImage, Astro.url);
       function reflectPreference() {
         document.firstElementChild?.setAttribute("data-theme", themeValue);
         document.querySelector("#theme-btn")?.setAttribute("aria-label", themeValue);
-
         const body = document.body;
         if (body) {
           const computedStyles = window.getComputedStyle(body);
@@ -158,29 +139,22 @@ const socialImageURL = new URL(ogImage, Astro.url);
         }
       }
 
-      // Set early so no page flashes
       reflectPreference();
 
       function setThemeFeature() {
         reflectPreference();
-        
         document.querySelector("#theme-btn")?.addEventListener("click", () => {
           themeValue = themeValue === "light" ? "dark" : "light";
           setPreference();
         });
       }
 
-      // Initialize on load
       if (document.readyState === "loading") {
         document.addEventListener("DOMContentLoaded", setThemeFeature);
       } else {
         setThemeFeature();
       }
 
-      // Re-initialize after page transitions
-      document.addEventListener("astro:after-swap", setThemeFeature);
-
-      // Sync with system changes
       window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", ({ matches: isDark }) => {
         themeValue = isDark ? "dark" : "light";
         setPreference();
@@ -189,6 +163,11 @@ const socialImageURL = new URL(ogImage, Astro.url);
   </head>
 
   <body>
+    <!-- AMP Auto Ads Tag -->
+    <amp-auto-ads type="adsense"
+        data-ad-client="ca-pub-4896561037705299">
+    </amp-auto-ads>
+
     <slot />
   </body>
 </html>
