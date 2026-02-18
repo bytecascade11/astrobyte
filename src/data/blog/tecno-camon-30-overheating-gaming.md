@@ -32,7 +32,17 @@ For CODM, I run it at High graphics with Max frame rate enabled. Sessions usuall
 The environment matters too. I'm usually playing either on my bed (bad airflow, I know), or at my desk with the phone sitting flat. No cooling fan attached, no case removed. Normal human conditions.
 
 ---
-
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4896561037705299"
+     crossorigin="anonymous"></script>
+<ins class="adsbygoogle"
+     style="display:block; text-align:center;"
+     data-ad-layout="in-article"
+     data-ad-format="fluid"
+     data-ad-client="ca-pub-4896561037705299"
+     data-ad-slot="7554701431"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
 ## The First Time I Really Noticed It
 
 ![Tecno Camon 30 gaming performance test showing frame drops](/images/posts/image-1.jpg)
@@ -121,7 +131,17 @@ For casual gaming — shorter sessions, lighter titles, anything below the visua
 If you're someone who plays Genshin for two hours every evening and wants to do it on your phone comfortably, the Camon 30 will frustrate you the longer you sit with it. That's honest.
 
 ---
-
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4896561037705299"
+     crossorigin="anonymous"></script>
+<ins class="adsbygoogle"
+     style="display:block; text-align:center;"
+     data-ad-layout="in-article"
+     data-ad-format="fluid"
+     data-ad-client="ca-pub-4896561037705299"
+     data-ad-slot="7554701431"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
 ## What I Wish Tecno Would Do
 
 A few things bother me less about the hardware and more about the software.
@@ -188,3 +208,14 @@ Partially, maybe. Throttling is ultimately a thermal engineering constraint — 
 **Is the Tecno Camon 30 worth buying if I play mobile games a lot?**
 
 Depends on what "a lot" means to you. Casual to moderate gaming — yes, still worth it, especially for the price. If your primary reason for buying a phone is sustained high-performance gaming for hours at a time, you'll want to look at something with better thermal headroom, like the Poco X6 Pro or a Redmi Note 13 Pro+. The Camon 30 is a fantastic all-rounder that has a specific ceiling when it comes to extended gaming, and knowing that ceiling going in changes how frustrating it is to live with.
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4896561037705299"
+     crossorigin="anonymous"></script>
+<ins class="adsbygoogle"
+     style="display:block; text-align:center;"
+     data-ad-layout="in-article"
+     data-ad-format="fluid"
+     data-ad-client="ca-pub-4896561037705299"
+     data-ad-slot="7554701431"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
