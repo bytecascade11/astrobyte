@@ -1,194 +1,237 @@
----  
-import { ClientRouter } from "astro:transitions";  
-import { SITE } from "@/config";  
-import SchemaMarkup from "@/components/SchemaMarkup.astro";  
-import "@/styles/global.css";  
-  
-const { PUBLIC_GOOGLE_SITE_VERIFICATION } = import.meta.env;  
-  
-type Props = {  
-  title?: string;  
-  author?: string;  
-  profile?: string;  
-  description?: string;  
-  ogImage?: string;  
-  canonicalURL?: string;  
-  pubDatetime?: Date;  
-  modDatetime?: Date | null;  
-  scrollSmooth?: boolean;  
-};  
-  
-const {  
-  title = SITE.title,  
-  author = SITE.author,  
-  profile = SITE.profile,  
-  description = SITE.desc,  
-  ogImage = SITE.ogImage ? `/${SITE.ogImage}` : "/og.png",  
-  canonicalURL = new URL(Astro.url.pathname, Astro.site),  
-  pubDatetime,  
-  modDatetime,  
-  scrollSmooth = false,  
-} = Astro.props;  
-  
-const socialImageURL = new URL(ogImage, Astro.url);  
----  
-  
-<!doctype html>  
-<html  
-  dir={SITE.dir}  
-  lang={SITE.lang ?? "en"}  
-  class={scrollSmooth ? "scroll-smooth" : undefined}  
->  
-  <head>  
-    <meta charset="UTF-8" />  
-    <meta name="viewport" content="width=device-width" />  
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />  
-    <link rel="canonical" href={canonicalURL} />  
-    <meta name="generator" content={Astro.generator} />  
-  
-    <!-- Load Font -->  
-    <link rel="preconnect" href="https://fonts.googleapis.com">  
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>  
-    <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@400;500;600;700&display=swap" rel="stylesheet">  
-  
-    <!-- General Meta Tags -->  
-    <title>{title}</title>  
-    <meta name="title" content={title} />  
-    <meta name="description" content={description} />  
-    <meta name="author" content={author} />  
-    <link rel="sitemap" href="/sitemap-index.xml" />  
-  
-    <!-- Open Graph -->  
-    <meta property="og:title" content={title} />  
-    <meta property="og:description" content={description} />  
-    <meta property="og:url" content={canonicalURL} />  
-    <meta property="og:image" content={socialImageURL} />  
-  
-    <!-- Article dates -->  
-    {pubDatetime && (  
-      <meta  
-        property="article:published_time"  
-        content={pubDatetime.toISOString()}  
-      />  
-    )}  
-    {modDatetime && (  
-      <meta  
-        property="article:modified_time"  
-        content={modDatetime.toISOString()}  
-      />  
-    )}  
-  
-    <!-- Twitter -->  
-    <meta property="twitter:card" content="summary_large_image" />  
-    <meta property="twitter:url" content={canonicalURL} />  
-    <meta property="twitter:title" content={title} />  
-    <meta property="twitter:description" content={description} />  
-    <meta property="twitter:image" content={socialImageURL} />  
-  
-    <!-- Schema Markup Component (handles all structured data) -->  
-    <SchemaMarkup />  
-  
-    <!-- RSS -->  
-    <link  
-      rel="alternate"  
-      type="application/rss+xml"  
-      title={SITE.title}  
-      href={new URL("rss.xml", Astro.site)}  
-    />  
-  
-    <meta name="theme-color" content="" />  
-  
-    <!-- Google Search Console Verification -->  
-    {PUBLIC_GOOGLE_SITE_VERIFICATION && (  
-      <meta  
-        name="google-site-verification"  
-        content={PUBLIC_GOOGLE_SITE_VERIFICATION}  
-      />  
-    )}  
-<!-- Google AdSense -->  
-<script  
-  async  
-  src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4896561037705299"  
-  crossorigin="anonymous">  
-</script>  
-    <!-- Google Analytics -->  
-    {SITE.analytics?.googleAnalyticsId && (  
-      <>  
-        <script async src={`https://www.googletagmanager.com/gtag/js?id=${SITE.analytics.googleAnalyticsId}`}></script>  
-        <script is:inline define:vars={{ gaId: SITE.analytics.googleAnalyticsId }}>  
-          window.dataLayer = window.dataLayer || [];  
-          function gtag(){dataLayer.push(arguments);}  
-          gtag('js', new Date());  
-          gtag('config', gaId);  
-        </script>  
-      </>  
-    )}  
-  
-    <ClientRouter />  
-  
-    <!-- Prevent FOUC -->  
-    <script is:inline>  
-      const primaryColorScheme = "";  
-  
-      function getPreferTheme() {  
-        const currentTheme = localStorage.getItem("theme");  
-        if (currentTheme) return currentTheme;  
-        if (primaryColorScheme) return primaryColorScheme;  
-        return window.matchMedia("(prefers-color-scheme: dark)").matches  
-          ? "dark"  
-          : "light";  
-      }  
-  
-      let themeValue = getPreferTheme();  
-  
-      function setPreference() {  
-        localStorage.setItem("theme", themeValue);  
-        reflectPreference();  
-      }  
-  
-      function reflectPreference() {  
-        document.firstElementChild?.setAttribute("data-theme", themeValue);  
-        document.querySelector("#theme-btn")?.setAttribute("aria-label", themeValue);  
-  
-        const body = document.body;  
-        if (body) {  
-          const computedStyles = window.getComputedStyle(body);  
-          const bgColor = computedStyles.backgroundColor;  
-          document.querySelector("meta[name='theme-color']")?.setAttribute("content", bgColor);  
-        }  
-      }  
-  
-      // Set early so no page flashes  
-      reflectPreference();  
-  
-      function setThemeFeature() {  
-        reflectPreference();  
-          
-        document.querySelector("#theme-btn")?.addEventListener("click", () => {  
-          themeValue = themeValue === "light" ? "dark" : "light";  
-          setPreference();  
-        });  
-      }  
-  
-      // Initialize on load  
-      if (document.readyState === "loading") {  
-        document.addEventListener("DOMContentLoaded", setThemeFeature);  
-      } else {  
-        setThemeFeature();  
-      }  
-  
-      // Re-initialize after page transitions  
-      document.addEventListener("astro:after-swap", setThemeFeature);  
-  
-      // Sync with system changes  
-      window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", ({ matches: isDark }) => {  
-        themeValue = isDark ? "dark" : "light";  
-        setPreference();  
-      });  
-    </script>  
-  </head>  
-  
-  <body>  
-    <slot />  
-  </body>  
+---
+import { ClientRouter } from "astro:transitions";
+import { SITE } from "@/config";
+import SchemaMarkup from "@/components/SchemaMarkup.astro";
+import "@/styles/global.css";
+
+const { PUBLIC_GOOGLE_SITE_VERIFICATION } = import.meta.env;
+
+type Props = {
+  title?: string;
+  author?: string;
+  profile?: string;
+  description?: string;
+  ogImage?: string;
+  canonicalURL?: string;
+  pubDatetime?: Date;
+  modDatetime?: Date | null;
+  scrollSmooth?: boolean;
+};
+
+const {
+  title = SITE.title,
+  author = SITE.author,
+  profile = SITE.profile,
+  description = SITE.desc,
+  ogImage = SITE.ogImage ? `/${SITE.ogImage}` : "/og.png",
+  canonicalURL = new URL(Astro.url.pathname, Astro.site),
+  pubDatetime,
+  modDatetime,
+  scrollSmooth = false,
+} = Astro.props;
+
+const socialImageURL = new URL(ogImage, Astro.url);
+---
+
+<!doctype html>
+<html
+  dir={SITE.dir}
+  lang={SITE.lang ?? "en"}
+  class={scrollSmooth ? "scroll-smooth" : undefined}
+>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="canonical" href={canonicalURL} />
+    <meta name="generator" content={Astro.generator} />
+
+    <!-- Load Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- General Meta Tags -->
+    <title>{title}</title>
+    <meta name="title" content={title} />
+    <meta name="description" content={description} />
+    <meta name="author" content={author} />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+
+    <!-- Open Graph -->
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:image" content={socialImageURL} />
+
+    <!-- Article dates -->
+    {pubDatetime && (
+      <meta
+        property="article:published_time"
+        content={pubDatetime.toISOString()}
+      />
+    )}
+    {modDatetime && (
+      <meta
+        property="article:modified_time"
+        content={modDatetime.toISOString()}
+      />
+    )}
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content={canonicalURL} />
+    <meta property="twitter:title" content={title} />
+    <meta property="twitter:description" content={description} />
+    <meta property="twitter:image" content={socialImageURL} />
+
+    <!-- Schema Markup Component (handles all structured data) -->
+    <SchemaMarkup />
+
+    <!-- RSS -->
+    <link
+      rel="alternate"
+      type="application/rss+xml"
+      title={SITE.title}
+      href={new URL("rss.xml", Astro.site)}
+    />
+
+    <meta name="theme-color" content="" />
+
+    <!-- Google Search Console Verification -->
+    {PUBLIC_GOOGLE_SITE_VERIFICATION && (
+      <meta
+        name="google-site-verification"
+        content={PUBLIC_GOOGLE_SITE_VERIFICATION}
+      />
+    )}
+
+    <!-- Google AdSense -->
+    <script
+      async
+      src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4896561037705299"
+      crossorigin="anonymous">
+    </script>
+
+    <!-- Google Analytics -->
+    {SITE.analytics?.googleAnalyticsId && (
+      <>
+        <script async src={`https://www.googletagmanager.com/gtag/js?id=${SITE.analytics.googleAnalyticsId}`}></script>
+        <script is:inline define:vars={{ gaId: SITE.analytics.googleAnalyticsId }}>
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', gaId);
+        </script>
+      </>
+    )}
+
+    <ClientRouter />
+
+    <!-- Prevent FOUC -->
+    <script is:inline>
+      const primaryColorScheme = "";
+
+      function getPreferTheme() {
+        const currentTheme = localStorage.getItem("theme");
+        if (currentTheme) return currentTheme;
+        if (primaryColorScheme) return primaryColorScheme;
+        return window.matchMedia("(prefers-color-scheme: dark)").matches
+          ? "dark"
+          : "light";
+      }
+
+      let themeValue = getPreferTheme();
+
+      function setPreference() {
+        localStorage.setItem("theme", themeValue);
+        reflectPreference();
+      }
+
+      function reflectPreference() {
+        document.firstElementChild?.setAttribute("data-theme", themeValue);
+        document.querySelector("#theme-btn")?.setAttribute("aria-label", themeValue);
+
+        const body = document.body;
+        if (body) {
+          const computedStyles = window.getComputedStyle(body);
+          const bgColor = computedStyles.backgroundColor;
+          document.querySelector("meta[name='theme-color']")?.setAttribute("content", bgColor);
+        }
+      }
+
+      // Set early so no page flashes
+      reflectPreference();
+
+      function setThemeFeature() {
+        reflectPreference();
+        
+        document.querySelector("#theme-btn")?.addEventListener("click", () => {
+          themeValue = themeValue === "light" ? "dark" : "light";
+          setPreference();
+        });
+      }
+
+      // Initialize on load
+      if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", setThemeFeature);
+      } else {
+        setThemeFeature();
+      }
+
+      // Re-initialize after page transitions
+      document.addEventListener("astro:after-swap", setThemeFeature);
+
+      // Sync with system changes
+      window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", ({ matches: isDark }) => {
+        themeValue = isDark ? "dark" : "light";
+        setPreference();
+      });
+    </script>
+  </head>
+
+  <body>
+    <slot />
+  </body>
 </html>
+
+<script>
+  // AdSense management for client-side navigation
+  function loadAdSense() {
+    const ads = document.querySelectorAll('.adsbygoogle');
+    
+    ads.forEach((ad) => {
+      // Check if ad was already loaded
+      const status = ad.getAttribute('data-adsbygoogle-status');
+      
+      if (status === 'done') {
+        // Ad already loaded, need to refresh it
+        // Remove the status to allow reinitialization
+        ad.removeAttribute('data-adsbygoogle-status');
+        ad.removeAttribute('data-ad-status');
+        // Clear the ad content
+        ad.innerHTML = '';
+      }
+      
+      // Push to adsbygoogle
+      try {
+        (window.adsbygoogle = window.adsbygoogle || []).push({});
+      } catch (e) {
+        console.error('AdSense error:', e);
+      }
+    });
+  }
+
+  // Load ads on initial page load
+  document.addEventListener('DOMContentLoaded', loadAdSense);
+
+  // Reload ads after Astro navigation
+  document.addEventListener('astro:page-load', () => {
+    setTimeout(loadAdSense, 300);
+  });
+
+  // Also try after swap
+  document.addEventListener('astro:after-swap', () => {
+    setTimeout(loadAdSense, 300);
+  });
+</script>
