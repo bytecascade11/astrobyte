@@ -113,23 +113,18 @@ const socialImageURL = new URL(ogImage, Astro.url);
       crossorigin="anonymous">
     </script>
 
-    <!-- Re-trigger AdSense Auto ads after Astro client-side navigation -->
+    <!-- Re-trigger AdSense Auto ads reliably after Astro navigation -->
     <script is:inline>
-      // Initial load (runs once on first page load)
+      // Run once on initial full load
       (adsbygoogle = window.adsbygoogle || []).push({});
 
-      // Re-run after every Astro navigation (including back/forward)
+      // Re-run after full client-side navigation (best event for this)
       document.addEventListener('astro:page-load', () => {
-        if (typeof adsbygoogle !== 'undefined') {
-          (adsbygoogle = window.adsbygoogle || []).push({});
-        }
-      });
-
-      // Optional fallback: sometimes needed for timing right after DOM swap
-      document.addEventListener('astro:after-swap', () => {
-        if (typeof adsbygoogle !== 'undefined') {
-          (adsbygoogle = window.adsbygoogle || []).push({});
-        }
+        setTimeout(() => {
+          if (typeof adsbygoogle !== 'undefined') {
+            (adsbygoogle = window.adsbygoogle || []).push({});
+          }
+        }, 0);  // Tiny delay ensures DOM is ready and painted
       });
     </script>
 
