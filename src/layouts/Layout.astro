@@ -1,5 +1,4 @@
 ---
-import { ClientRouter } from "astro:transitions";
 import { SITE } from "@/config";
 import SchemaMarkup from "@/components/SchemaMarkup.astro";
 import "@/styles/global.css";
@@ -126,8 +125,6 @@ const socialImageURL = new URL(ogImage, Astro.url);
       </>
     )}
 
-    <ClientRouter />
-
     <!-- Prevent FOUC -->
     <script is:inline>
       const primaryColorScheme = "";
@@ -179,9 +176,6 @@ const socialImageURL = new URL(ogImage, Astro.url);
         setThemeFeature();
       }
 
-      // Re-initialize after page transitions
-      document.addEventListener("astro:after-swap", setThemeFeature);
-
       // Sync with system changes
       window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", ({ matches: isDark }) => {
         themeValue = isDark ? "dark" : "light";
@@ -194,44 +188,3 @@ const socialImageURL = new URL(ogImage, Astro.url);
     <slot />
   </body>
 </html>
-
-<script is:inline>
-  // AdSense management for client-side navigation
-  function loadAdSense() {
-    var ads = document.querySelectorAll('.adsbygoogle');
-    
-    ads.forEach(function(ad) {
-      // Check if ad was already loaded
-      var status = ad.getAttribute('data-adsbygoogle-status');
-      
-      if (status === 'done') {
-        // Ad already loaded, need to refresh it
-        // Remove the status to allow reinitialization
-        ad.removeAttribute('data-adsbygoogle-status');
-        ad.removeAttribute('data-ad-status');
-        // Clear the ad content
-        ad.innerHTML = '';
-      }
-      
-      // Push to adsbygoogle
-      try {
-        (window.adsbygoogle = window.adsbygoogle || []).push({});
-      } catch (e) {
-        console.error('AdSense error:', e);
-      }
-    });
-  }
-
-  // Load ads on initial page load
-  document.addEventListener('DOMContentLoaded', loadAdSense);
-
-  // Reload ads after Astro navigation
-  document.addEventListener('astro:page-load', function() {
-    setTimeout(loadAdSense, 300);
-  });
-
-  // Also try after swap
-  document.addEventListener('astro:after-swap', function() {
-    setTimeout(loadAdSense, 300);
-  });
-</script>
