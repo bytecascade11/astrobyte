@@ -196,20 +196,13 @@ const socialImageURL = new URL(ogImage, Astro.url);
 </html>
 
 <script is:inline>
-  // Declare adsbygoogle type for TypeScript
-  declare global {
-    interface Window {
-      adsbygoogle: any[];
-    }
-  }
-
   // AdSense management for client-side navigation
   function loadAdSense() {
-    const ads = document.querySelectorAll('.adsbygoogle');
+    var ads = document.querySelectorAll('.adsbygoogle');
     
-    ads.forEach((ad) => {
+    ads.forEach(function(ad) {
       // Check if ad was already loaded
-      const status = ad.getAttribute('data-adsbygoogle-status');
+      var status = ad.getAttribute('data-adsbygoogle-status');
       
       if (status === 'done') {
         // Ad already loaded, need to refresh it
@@ -233,12 +226,12 @@ const socialImageURL = new URL(ogImage, Astro.url);
   document.addEventListener('DOMContentLoaded', loadAdSense);
 
   // Reload ads after Astro navigation
-  document.addEventListener('astro:page-load', () => {
+  document.addEventListener('astro:page-load', function() {
     setTimeout(loadAdSense, 300);
   });
 
   // Also try after swap
-  document.addEventListener('astro:after-swap', () => {
+  document.addEventListener('astro:after-swap', function() {
     setTimeout(loadAdSense, 300);
   });
 </script>
