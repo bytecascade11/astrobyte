@@ -195,7 +195,14 @@ const socialImageURL = new URL(ogImage, Astro.url);
   </body>
 </html>
 
-<script>
+<script is:inline>
+  // Declare adsbygoogle type for TypeScript
+  declare global {
+    interface Window {
+      adsbygoogle: any[];
+    }
+  }
+
   // AdSense management for client-side navigation
   function loadAdSense() {
     const ads = document.querySelectorAll('.adsbygoogle');
