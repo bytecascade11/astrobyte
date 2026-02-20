@@ -45,10 +45,22 @@ const socialImageURL = new URL(ogImage, Astro.url);
     <link rel="canonical" href={canonicalURL} />
     <meta name="generator" content={Astro.generator} />
 
-    <!-- Load Font -->
+    <!-- Preconnect to external domains for faster loading -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://pagead2.googlesyndication.com">
+    <link rel="dns-prefetch" href="https://www.googletagmanager.com">
+    
+    <!-- Load Font with font-display swap for faster initial render -->
+    <link 
+      href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@400;500;600;700&display=swap" 
+      rel="stylesheet"
+      media="print"
+      onload="this.media='all'"
+    >
+    <noscript>
+      <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@400;500;600;700&display=swap" rel="stylesheet">
+    </noscript>
 
     <!-- General Meta Tags -->
     <title>{title}</title>
@@ -105,27 +117,7 @@ const socialImageURL = new URL(ogImage, Astro.url);
       />
     )}
 
-    <!-- Google AdSense -->
-    <script
-      async
-      src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4896561037705299"
-      crossorigin="anonymous">
-    </script>
-
-    <!-- Google Analytics -->
-    {SITE.analytics?.googleAnalyticsId && (
-      <>
-        <script async src={`https://www.googletagmanager.com/gtag/js?id=${SITE.analytics.googleAnalyticsId}`}></script>
-        <script is:inline define:vars={{ gaId: SITE.analytics.googleAnalyticsId }}>
-          window.dataLayer = window.dataLayer || [];
-          function gtag(){dataLayer.push(arguments);}
-          gtag('js', new Date());
-          gtag('config', gaId);
-        </script>
-      </>
-    )}
-
-    <!-- Prevent FOUC -->
+    <!-- Prevent FOUC - Critical CSS inline -->
     <script is:inline>
       const primaryColorScheme = "";
 
@@ -182,6 +174,26 @@ const socialImageURL = new URL(ogImage, Astro.url);
         setPreference();
       });
     </script>
+
+    <!-- Google AdSense - Loaded with lower priority -->
+    <script
+      async
+      src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4896561037705299"
+      crossorigin="anonymous">
+    </script>
+
+    <!-- Google Analytics - Loaded with lower priority -->
+    {SITE.analytics?.googleAnalyticsId && (
+      <>
+        <script async src={`https://www.googletagmanager.com/gtag/js?id=${SITE.analytics.googleAnalyticsId}`}></script>
+        <script is:inline define:vars={{ gaId: SITE.analytics.googleAnalyticsId }}>
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', gaId);
+        </script>
+      </>
+    )}
   </head>
 
   <body>
