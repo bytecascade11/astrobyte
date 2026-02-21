@@ -26,13 +26,26 @@ type Props = {
 };
 
 const { post, posts } = Astro.props;
-const { title, author, description, ogImage: initOgImage, pubDatetime, modDatetime, timezone, tags = [], hideEditPost, coverImage, coverImageAlt } = post.data;
+const {
+  title,
+  author,
+  description,
+  ogImage: initOgImage,
+  pubDatetime,
+  modDatetime,
+  timezone,
+  tags = [],
+  hideEditPost,
+  coverImage,
+  coverImageAlt
+} = post.data;
+
 const { Content } = await render(post);
 
-// Full post URL (dynamic for canonical & OG)
-const postUrl = `${SITE.website}${getPath(post.id, post.filePath)}`;
+// Full post URL with trailing slash (canonical + OG)
+const postUrl = `${SITE.website}${getPath(post.id, post.filePath)}/`;
 
-// Dynamic OG Image (fallback only if post has one)
+// Dynamic OG Image
 let ogImageUrl: string | undefined;
 if (coverImage) {
   ogImageUrl = coverImage;
@@ -41,7 +54,7 @@ if (coverImage) {
 } else if (initOgImage?.src) {
   ogImageUrl = initOgImage.src;
 } else {
-  ogImageUrl = undefined; // Do NOT fallback to homepage image
+  ogImageUrl = undefined; // No fallback to homepage image
 }
 const ogImage = ogImageUrl ? new URL(ogImageUrl, Astro.url.origin).href : undefined;
 
@@ -52,7 +65,7 @@ const layoutProps = {
   description,
   pubDatetime,
   modDatetime,
-  canonicalURL: postUrl,
+  canonicalURL: postUrl, // Trailing slash enforced
   ogImage,
   scrollSmooth: true,
 };
@@ -83,21 +96,6 @@ const breadcrumbs = [
     dateModified={modDatetime?.toISOString()}
     breadcrumbs={breadcrumbs}
   />
-
-  <!-- OG + Canonical for social sharing -->
-  <head>
-    <link rel="canonical" href={postUrl} />
-    <meta property="og:title" content={title} />
-    <meta property="og:description" content={description} />
-    <meta property="og:type" content="article" />
-    <meta property="og:url" content={postUrl} />
-    {ogImage && <meta property="og:image" content={ogImage} />}
-    
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content={title} />
-    <meta name="twitter:description" content={description} />
-    {ogImage && <meta name="twitter:image" content={ogImage} />}
-  </head>
 
   <Header />
 
