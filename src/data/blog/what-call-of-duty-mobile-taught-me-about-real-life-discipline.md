@@ -8,7 +8,7 @@ coverImage: "/images/posts/cod-mobile-soldier-battle.jpg"
 coverImageAlt: "Call of Duty Mobile - A soldier in battle"
 ---
 
-## Tables of Contents 
+## Table of Contents 
 
 ## Rundown 
 
