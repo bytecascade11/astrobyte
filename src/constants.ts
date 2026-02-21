@@ -37,7 +37,7 @@ export const SOCIALS: Social[] = [
   },
   {
     name: "WhatsApp",
-    href: "https://whatsapp.com/channel/0029VbCkS8A0VycDCCgaii1x",
+    href: "https://whatsapp.com/channel/0029VbBCXzRKAwEdcyip8841",
     linkTitle: "Join WhatsApp Channel",
     icon: IconWhatsapp,
   },
