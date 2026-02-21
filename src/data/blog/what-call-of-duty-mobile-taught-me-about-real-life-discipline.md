@@ -3,7 +3,7 @@ title: "What Call of Duty: Mobile Taught Me About Real-Life Discipline"
 description: "I spent hundreds of hours grinding ranked matches in COD Mobile. Somewhere between the rage quits and the clutch wins, I accidentally learned how to be a more disciplined person. Here's what the game actually taught me."
 pubDatetime: "2026-02-21T01:00:00Z"
 author: "iSamuel"
-tags: ["gaming guide 2026", "opinions", "productivity", "games", "android"]
+tags: ["gaming-guide-2026", "opinions", "productivity", "games", "android"]
 coverImage: "/images/posts/cod-mobile-soldier-battle.jpg"
 coverImageAlt: "Call of Duty Mobile - A soldier in battle"
 ---
