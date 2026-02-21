@@ -201,3 +201,4 @@ If this comparison helped, bookmark the site — more in-depth guides coming eve
 
 Also check my post here:
 [Pixel A Vs iPhone Camera Real World](/posts/pixel-a-vs-iphone-camera-real-world)
+Don't skip reading my new post at ReviByte talking about what [Ai is best to do better](/posts/what-ai-is-best-at) abd also read my post on [Call of Duty mobile](/posts/what-call-of-duty-mobile-taught-me-about-real-life-discipline) After Adsense approver then my [Tecno phone overheating](/posts/tecno-camon-30-overheating-gaming) 
