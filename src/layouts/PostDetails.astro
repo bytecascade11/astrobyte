@@ -42,7 +42,7 @@ const {
 
 const { Content } = await render(post);
 
-// Full post URL with trailing slash (canonical + OG)
+// Full post URL with trailing slash
 const postUrl = `${SITE.website}${getPath(post.id, post.filePath)}/`;
 
 // Dynamic OG Image
@@ -54,23 +54,23 @@ if (coverImage) {
 } else if (initOgImage?.src) {
   ogImageUrl = initOgImage.src;
 } else {
-  ogImageUrl = undefined; // No fallback to homepage image
+  ogImageUrl = undefined;
 }
 const ogImage = ogImageUrl ? new URL(ogImageUrl, Astro.url.origin).href : undefined;
 
-// Layout properties
+// Layout properties (canonical + OG handled here)
 const layoutProps = {
   title: `${title} | ${SITE.title}`,
   author,
   description,
   pubDatetime,
   modDatetime,
-  canonicalURL: postUrl, // Trailing slash enforced
+  canonicalURL: postUrl,
   ogImage,
   scrollSmooth: true,
 };
 
-// Previous / Next post navigation
+// Previous / Next post
 const allPosts = posts.map(({ data: { title }, id, filePath }) => ({ id, title, filePath }));
 const currentIndex = allPosts.findIndex((p) => p.id === post.id);
 const prevPost = currentIndex > 0 ? allPosts[currentIndex - 1] : null;
