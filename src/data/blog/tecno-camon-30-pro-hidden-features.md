@@ -5,7 +5,7 @@ coverImage: "/images/posts/camon-30-pro-cover.jpg"
 coverImageAlt: "Tecno Camon 30 Pro – hero shot, full device front and back"
 pubDatetime: 2026-02-23T00:00:00Z
 author: "iSamuel"
-tags: ["tecno", "android", "opinions", "technology", "productivity"]
+tags: ["tecno", "android", "opinions", "technology", "productivity", "reviews"]
 ---
 
 ## Table of Contents 
