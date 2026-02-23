@@ -21,3 +21,5 @@ From Samsung to Xiaomi, iPhone to OnePlus, budget devices to premium beasts — 
 
 Thanks for checking out the very first post.  
 More fire reviews and comparisons are coming soon. Stay tuned!
+
+Bow by the late February i update my post which i wrote about [30 hidden Features on Tecno Camon 30 pro](https://www.revibyte.blog/posts/tecno-camon-30-pro-hidden-features) and What i learned from [Call of duty mobile](https://www.revibyte.blog/posts/what-call-of-duty-mobile-taught-me-about-real-life-discipline)
