@@ -43,7 +43,7 @@ const {
 const { Content } = await render(post);
 
 // Full post URL with trailing slash
-const postUrl = `${SITE.website}${getPath(post.id, post.filePath)}/`;
+const postUrl = `\( {SITE.website} \){getPath(post.id, post.filePath)}/`;
 
 // Dynamic OG Image
 let ogImageUrl: string | undefined;
@@ -163,6 +163,39 @@ const breadcrumbs = [
         ))}
       </ul>
     )}
+
+    <!-- ──────────────────────────────────────────────── -->
+    <!-- Added: Links to key static pages on every post   -->
+    <!-- This creates internal links like your tag pages  -->
+    <div class="mt-8 mb-12 text-sm">
+      <p class="mb-3 font-medium text-skin-base">More from Revibyte</p>
+      <ul class="flex flex-wrap gap-x-6 gap-y-2">
+        <li>
+          <a 
+            href="/about/" 
+            class="text-skin-accent hover:underline hover:text-skin-accent-hover transition-colors"
+          >
+            About
+          </a>
+        </li>
+        <li>
+          <a 
+            href="/privacy-policy/" 
+            class="text-skin-accent hover:underline hover:text-skin-accent-hover transition-colors"
+          >
+            Privacy Policy
+          </a>
+        </li>
+        <!-- You can add more here if needed, e.g.:
+        <li>
+          <a href="/" class="text-skin-accent hover:underline hover:text-skin-accent-hover transition-colors">
+            Home
+          </a>
+        </li>
+        -->
+      </ul>
+    </div>
+    <!-- ──────────────────────────────────────────────── -->
 
     <BackToTopButton />
     <ShareLinks />
