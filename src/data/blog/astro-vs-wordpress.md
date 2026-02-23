@@ -178,3 +178,5 @@ Definitely. You can build a small section of your site with Astro—maybe a land
 ### What kind of support is available if I run into problems?
 
 Astro has extensive official documentation, an active Discord community with thousands of developers, GitHub discussions, and Stack Overflow questions. Because it uses web standards, many general web development resources apply. The community is known for being helpful to newcomers. For enterprise needs, there are agencies and consultants specializing in Astro development.
+
+On Monday February 23 2026 you can see i update new post about 30 Hidden features about [Tecno Camon 30 pro](https://www.revibyte.blog/posts/tecno-camon-30-pro-hidden-features)
