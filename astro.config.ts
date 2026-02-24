@@ -1,3 +1,5 @@
+// astro.config.ts  (your existing file – just add the image block)
+
 import { defineConfig } from "astro/config";
 import sitemap from "@astrojs/sitemap";
 import remarkToc from "remark-toc";
@@ -17,6 +19,16 @@ export default defineConfig({
 
   // ✅ ENFORCE TRAILING SLASHES
   trailingSlash: "always",
+
+  // ADD THIS BLOCK HERE (image optimization with Sharp)
+  image: {
+    service: {
+      entrypoint: 'astro/assets/services/sharp',
+      config: {
+        limitInputPixels: false, // allows very large images if needed
+      },
+    },
+  },
 
   integrations: [
     sitemap({
@@ -57,7 +69,7 @@ export default defineConfig({
         // Keep only the 8 main tag pages (exclude pagination)
         if (page.includes('/tags/')) {
           return allowedTags.some(tag => 
-            page === `${SITE.website}tags/${tag}/`
+            page === `\( {SITE.website}tags/ \){tag}/`
           );
         }
 
