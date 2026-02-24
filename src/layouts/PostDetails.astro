@@ -42,7 +42,7 @@ const {
 
 const { Content } = await render(post);
 
-// Full post URL with trailing slash (fixed template literal)
+// Full post URL with trailing slash (fixed)
 const postUrl = `\( {SITE.website} \){getPath(post.id, post.filePath)}/`;
 
 // Dynamic OG Image
@@ -58,7 +58,7 @@ if (coverImage) {
 }
 const ogImage = ogImageUrl ? new URL(ogImageUrl, Astro.url.origin).href : undefined;
 
-// Layout properties (canonical + OG handled here)
+// Layout properties
 const layoutProps = {
   title: `${title} | ${SITE.title}`,
   author,
@@ -85,7 +85,37 @@ const breadcrumbs = [
 ---
 
 <Layout {...layoutProps}>
-  <!-- Schema / JSON-LD -->
+
+  <!-- Added: BlogPosting structured data schema (helps tie cover image to this post URL) -->
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BlogPosting",
+      "headline": "{title}",
+      "description": "{description || ''}",
+      "image": {
+        "@type": "ImageObject",
+        "url": "{coverImage ? new URL(coverImage, Astro.url.origin).href : ''}",
+        "width": 1200,
+        "height": 630
+      },
+      "url": "{postUrl}",
+      "datePublished": "{pubDatetime.toISOString()}",
+      "dateModified": "{modDatetime ? modDatetime.toISOString() : pubDatetime.toISOString()}",
+      "author": {
+        "@type": "Person",
+        "name": "iSamuel"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "{SITE.title}",
+        "url": "{SITE.website}"
+      },
+      "keywords": "{tags.join(', ')}"
+    }
+  </script>
+
+  <!-- Keep your existing SchemaMarkup component -->
   <SchemaMarkup 
     type="article"
     title={title}
