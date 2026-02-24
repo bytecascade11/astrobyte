@@ -5,6 +5,7 @@ import Footer from "@/components/Footer.astro";
 import { getCollection } from "astro:content";
 import LinkButton from "@/components/LinkButton.astro";
 import { SITE } from "@/config";
+import { Image } from 'astro:assets';  // ← Added for automatic image optimization
 
 const posts = await getCollection("blog");
 
@@ -23,16 +24,30 @@ const sortedPosts = posts
         <article
           class="overflow-hidden rounded-2xl shadow-lg bg-card hover:shadow-xl transition-shadow duration-300"
         >
-          <a href={`/posts/${post.id}`}>
-            <img
-              src={post.data.coverImage || "/og.png"}
-              alt={`${post.data.title} – Cover image | ${SITE.title}`}
-              class="w-full object-cover aspect-video rounded-t-2xl"
-              loading="lazy"
-              width="600"
-              height="400"
-            />
-          </a>
+          {post.data.coverImage ? (
+            <a href={`/posts/${post.id}`}>
+              <Image
+                src={post.data.coverImage}
+                alt={`${post.data.title} – Post cover | ${SITE.title}`}
+                width={600}
+                height={400}
+                format="webp"
+                quality={75}
+                loading="lazy"
+              />
+            </a>
+          ) : (
+            <a href={`/posts/${post.id}`}>
+              <img
+                src="/og.png"
+                alt={`${post.data.title} – Default cover | ${SITE.title}`}
+                class="w-full object-cover aspect-video rounded-t-2xl"
+                loading="lazy"
+                width="600"
+                height="400"
+              />
+            </a>
+          )}
 
           <div class="p-6">
             <h2 class="text-xl font-semibold mb-2 line-clamp-2">
