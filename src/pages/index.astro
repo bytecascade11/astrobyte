@@ -6,6 +6,7 @@ import { getCollection } from "astro:content";
 import LinkButton from "@/components/LinkButton.astro";
 import Hr from "@/components/Hr.astro";
 import IconArrowRight from "@/assets/icons/IconArrowRight.svg";
+import { Image } from 'astro:assets';  // ← Added this import (critical for optimization)
 
 import { SITE } from "@/config";
 
@@ -28,13 +29,14 @@ const recentPosts = sortedPosts.slice(1, 9);
       <article class="mb-12 overflow-hidden rounded-2xl shadow-2xl bg-card">
         {latestPost.data.coverImage && (
           <a href={`/posts/${latestPost.id}`}>
-            <img
+            <Image
               src={latestPost.data.coverImage}
               alt={`${latestPost.data.title} – Featured cover | ${SITE.title}`}
-              class="w-full object-cover aspect-video md:aspect-[21/9]"
-              loading="eager"
-              width="1200"
-              height="630"
+              width={1200}
+              height={630}
+              format="webp"          // or "avif" if you prefer
+              quality={80}
+              loading="eager"        // eager for hero image (above fold)
             />
           </a>
         )}
@@ -84,13 +86,14 @@ const recentPosts = sortedPosts.slice(1, 9);
             >
               {post.data.coverImage && (
                 <a href={`/posts/${post.id}`}>
-                  <img
+                  <Image
                     src={post.data.coverImage}
                     alt={`${post.data.title} cover image – ${SITE.title}`}
-                    class="w-full object-cover aspect-video"
-                    loading="lazy"
-                    width="600"
-                    height="400"
+                    width={600}
+                    height={400}
+                    format="webp"
+                    quality={75}
+                    loading="lazy"       // lazy for below-fold images
                   />
                 </a>
               )}
