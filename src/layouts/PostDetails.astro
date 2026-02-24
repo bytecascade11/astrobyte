@@ -42,7 +42,7 @@ const {
 
 const { Content } = await render(post);
 
-// Full post URL with trailing slash (fixed)
+// Full post URL with trailing slash – FIXED HERE
 const postUrl = `\( {SITE.website} \){getPath(post.id, post.filePath)}/`;
 
 // Dynamic OG Image
@@ -86,7 +86,7 @@ const breadcrumbs = [
 
 <Layout {...layoutProps}>
 
-  <!-- Added: BlogPosting structured data schema (helps tie cover image to this post URL) -->
+  <!-- BlogPosting structured data schema (helps tie cover image to this post URL) -->
   <script type="application/ld+json">
     {
       "@context": "https://schema.org",
