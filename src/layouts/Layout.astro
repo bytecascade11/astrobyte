@@ -11,7 +11,7 @@ type Props = {
   profile?: string;
   description?: string;
   ogImage?: string;
-  canonicalURL?: string;
+  canonicalURL?: string;  // Optional override (e.g., from post frontmatter)
   pubDatetime?: Date;
   modDatetime?: Date | null;
   scrollSmooth?: boolean;
@@ -23,18 +23,34 @@ const {
   profile = SITE.profile,
   description = SITE.desc,
   ogImage = "/og.png", // fallback homepage OG
-  canonicalURL = `${SITE.website}/`,
+  canonicalURL: propCanonical,  // renamed to avoid conflict
   pubDatetime,
   modDatetime,
   scrollSmooth = false,
 } = Astro.props;
 
-// Ensure OG image is absolute URL
+// Base site URL with fallback (in case SITE.website is unset during build)
+const siteBase = SITE.website || "https://www.revibyte.blog/";
+
+// Compute dynamic self-referential canonical
+let canonical = new URL(Astro.url.pathname, siteBase).href;
+
+// Normalize: remove /index.html (common Astro artifact), ensure single trailing slash
+canonical = canonical
+  .replace(/\/index\.html$/, "/")
+  .replace(/\/+\( /, "/");  // or .replace(/\/+ \)/, "") if you prefer NO trailing slash
+
+// If user passed an override prop (e.g., external canonical), use it (make absolute)
+if (propCanonical) {
+  canonical = new URL(propCanonical, siteBase).href;
+}
+
+// Ensure OG image is absolute
 const socialImageURL = ogImage.startsWith("http")
   ? ogImage
   : new URL(ogImage, Astro.url).href;
 
-// Determine OG type: article for posts, website for homepage
+// Determine OG type: article for posts (if pubDatetime present), website for homepage
 const ogType = pubDatetime ? "article" : "website";
 ---
 
@@ -45,8 +61,8 @@ const ogType = pubDatetime ? "article" : "website";
     <meta name="viewport" content="width=device-width" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     
-    <!-- Canonical -->
-    <link rel="canonical" href={canonicalURL} />
+    <!-- Canonical - now dynamic and correct for every page -->
+    <link rel="canonical" href={canonical} />
 
     <!-- General Meta Tags -->
     <title>{title}</title>
@@ -59,7 +75,7 @@ const ogType = pubDatetime ? "article" : "website";
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:type" content={ogType} />
-    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:url" content={canonical} />
     <meta property="og:image" content={socialImageURL} />
 
     <!-- Article dates -->
@@ -70,14 +86,14 @@ const ogType = pubDatetime ? "article" : "website";
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
-    <meta name="twitter:url" content={canonicalURL} />
+    <meta name="twitter:url" content={canonical} />
     <meta name="twitter:image" content={socialImageURL} />
 
     <!-- Schema markup -->
     <SchemaMarkup
       title={title}
       description={description}
-      url={canonicalURL}
+      url={canonical}
       image={socialImageURL}
       datePublished={pubDatetime?.toISOString()}
       dateModified={modDatetime?.toISOString()}
