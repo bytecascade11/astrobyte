@@ -6,7 +6,6 @@ import { getCollection } from "astro:content";
 import LinkButton from "@/components/LinkButton.astro";
 import Hr from "@/components/Hr.astro";
 import IconArrowRight from "@/assets/icons/IconArrowRight.svg";
-import { Image } from 'astro:assets';
 
 import { SITE } from "@/config";
 
@@ -29,13 +28,13 @@ const recentPosts = sortedPosts.slice(1, 9);
       <article class="mb-12 overflow-hidden rounded-2xl shadow-2xl bg-card">
         {latestPost.data.coverImage && (
           <a href={`/posts/${latestPost.id}`}>
-            <Image
+            <img
               src={latestPost.data.coverImage}
               alt={`${latestPost.data.title} – Featured cover | ${SITE.title}`}
-              width={1200}
-              height={630}
-              format="webp"
-              quality={80}
+              class="w-full object-cover aspect-video md:aspect-[21/9]"
+              loading="eager"
+              width="1200"
+              height="630"
             />
           </a>
         )}
@@ -85,13 +84,13 @@ const recentPosts = sortedPosts.slice(1, 9);
             >
               {post.data.coverImage && (
                 <a href={`/posts/${post.id}`}>
-                  <Image
+                  <img
                     src={post.data.coverImage}
                     alt={`${post.data.title} cover image – ${SITE.title}`}
-                    width={600}
-                    height={400}
-                    format="webp"
-                    quality={75}
+                    class="w-full object-cover aspect-video"
+                    loading="lazy"
+                    width="600"
+                    height="400"
                   />
                 </a>
               )}
