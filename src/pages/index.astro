@@ -6,7 +6,7 @@ import { getCollection } from "astro:content";
 import LinkButton from "@/components/LinkButton.astro";
 import Hr from "@/components/Hr.astro";
 import IconArrowRight from "@/assets/icons/IconArrowRight.svg";
-import { Image } from 'astro:assets';  // ← Added this import (critical for optimization)
+import { Image } from 'astro:assets';
 
 import { SITE } from "@/config";
 
@@ -34,9 +34,8 @@ const recentPosts = sortedPosts.slice(1, 9);
               alt={`${latestPost.data.title} – Featured cover | ${SITE.title}`}
               width={1200}
               height={630}
-              format="webp"          // or "avif" if you prefer
+              format="webp"
               quality={80}
-              loading="eager"        // eager for hero image (above fold)
             />
           </a>
         )}
@@ -93,7 +92,6 @@ const recentPosts = sortedPosts.slice(1, 9);
                     height={400}
                     format="webp"
                     quality={75}
-                    loading="lazy"       // lazy for below-fold images
                   />
                 </a>
               )}
