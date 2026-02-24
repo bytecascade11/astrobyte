@@ -13,6 +13,7 @@ import BackToTopButton from "@/components/BackToTopButton.astro";
 import RelatedPosts from "@/components/RelatedPosts.astro";
 import Comments from "@/components/Comments.astro";
 import SchemaMarkup from "@/components/SchemaMarkup.astro";
+import { Image } from 'astro:assets';  // ← Added for optimized images
 
 import { getPath } from "@/utils/getPath";
 import { slugifyStr } from "@/utils/slugify";
@@ -42,7 +43,7 @@ const {
 
 const { Content } = await render(post);
 
-// Full post URL with trailing slash (fixed)
+// Full post URL with trailing slash – fixed
 const postUrl = `\( {SITE.website} \){getPath(post.id, post.filePath)}/`;
 
 // Dynamic OG Image
@@ -86,7 +87,7 @@ const breadcrumbs = [
 
 <Layout {...layoutProps}>
 
-  <!-- Added: BlogPosting structured data schema (helps tie cover image to this post URL) -->
+  <!-- BlogPosting structured data schema (helps tie cover image to this post URL) -->
   <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -114,6 +115,11 @@ const breadcrumbs = [
       "keywords": "{tags.join(', ')}"
     }
   </script>
+
+  <!-- Preload the cover image (hero) – improves LCP and Lighthouse score -->
+  {coverImage && (
+    <link rel="preload" as="image" href={coverImage} fetchpriority="high" />
+  )}
 
   <!-- Keep your existing SchemaMarkup component -->
   <SchemaMarkup 
@@ -148,13 +154,14 @@ const breadcrumbs = [
     data-pagefind-body
   >
     {coverImage && (
-      <img
+      <Image
         src={coverImage}
         alt={coverImageAlt || title}
-        class="w-full object-cover aspect-video md:aspect-[21/9] rounded-2xl mb-8"
+        width={1200}
+        height={630}
+        format="webp"
+        quality={80}
         loading="eager"
-        width="1200"
-        height="630"
       />
     )}
 
