@@ -6,7 +6,6 @@ import Breadcrumbs from "@/components/Breadcrumbs.astro";
 import Footer from "@/components/Footer.astro";
 import Tag from "@/components/Tag.astro";
 import Datetime from "@/components/Datetime.astro";
-import EditPost from "@/components/EditPost.astro";
 import ShareLinks from "@/components/ShareLinks.astro";
 import BackButton from "@/components/BackButton.astro";
 import BackToTopButton from "@/components/BackToTopButton.astro";
@@ -16,8 +15,6 @@ import SchemaMarkup from "@/components/SchemaMarkup.astro";
 
 import { getPath } from "@/utils/getPath";
 import { slugifyStr } from "@/utils/slugify";
-import IconChevronLeft from "@/assets/icons/IconChevronLeft.svg";
-import IconChevronRight from "@/assets/icons/IconChevronRight.svg";
 import { SITE } from "@/config";
 
 type Props = {
@@ -36,7 +33,6 @@ const {
   modDatetime,
   timezone,
   tags = [],
-  hideEditPost,
   coverImage,
   coverImageAlt
 } = post.data;
@@ -46,32 +42,26 @@ const { Content } = await render(post);
 /* --------------------------------------------------
    SAFE POST URL (ABSOLUTE + SEO SAFE)
 -------------------------------------------------- */
-
 const postPath = getPath(post.id, post.filePath);
 const postUrl = new URL(postPath, SITE.website).toString();
 
 /* --------------------------------------------------
-   SAFE OG IMAGE
+   SAFE OG IMAGE (coverImage first, then ogImage)
 -------------------------------------------------- */
-
 let ogImageUrl: string | undefined;
 
 if (coverImage) {
-  ogImageUrl = coverImage;
-} else if (typeof initOgImage === "string") {
-  ogImageUrl = initOgImage;
-} else if (initOgImage?.src) {
-  ogImageUrl = initOgImage.src;
+  ogImageUrl = typeof coverImage === "string" ? coverImage : coverImage.src;
+} else if (initOgImage) {
+  ogImageUrl =
+    typeof initOgImage === "string" ? initOgImage : initOgImage.src;
 }
 
-const ogImage = ogImageUrl
-  ? new URL(ogImageUrl, SITE.website).toString()
-  : undefined;
+const ogImage = ogImageUrl ? new URL(ogImageUrl, SITE.website).toString() : undefined;
 
 /* --------------------------------------------------
    LAYOUT PROPS
 -------------------------------------------------- */
-
 const layoutProps = {
   title: `${title} | ${SITE.title}`,
   author,
@@ -86,7 +76,6 @@ const layoutProps = {
 /* --------------------------------------------------
    PREV / NEXT POSTS
 -------------------------------------------------- */
-
 const allPosts = posts.map(({ data: { title }, id, filePath }) => ({
   id,
   title,
@@ -94,7 +83,6 @@ const allPosts = posts.map(({ data: { title }, id, filePath }) => ({
 }));
 
 const currentIndex = allPosts.findIndex((p) => p.id === post.id);
-
 const prevPost = currentIndex > 0 ? allPosts[currentIndex - 1] : null;
 const nextPost =
   currentIndex < allPosts.length - 1 ? allPosts[currentIndex + 1] : null;
@@ -102,7 +90,6 @@ const nextPost =
 /* --------------------------------------------------
    BREADCRUMBS
 -------------------------------------------------- */
-
 const breadcrumbs = [
   { name: "Home", url: SITE.website },
   { name: "Posts", url: new URL("/posts/", SITE.website).toString() },
@@ -112,7 +99,6 @@ const breadcrumbs = [
 /* --------------------------------------------------
    BLOGPOSTING JSON-LD
 -------------------------------------------------- */
-
 const blogPostingSchema = {
   "@context": "https://schema.org",
   "@type": "BlogPosting",
@@ -142,10 +128,11 @@ const blogPostingSchema = {
   <!-- Structured Data -->
   <script
     type="application/ld+json"
+    is:inline
     set:html={JSON.stringify(blogPostingSchema)}
   />
 
-  <!-- Keep your existing SchemaMarkup -->
+  <!-- SchemaMarkup Component -->
   <SchemaMarkup
     type="article"
     title={title}
@@ -179,7 +166,7 @@ const blogPostingSchema = {
 
     {coverImage && (
       <img
-        src={coverImage}
+        src={typeof coverImage === "string" ? coverImage : coverImage.src}
         alt={coverImageAlt || title}
         class="w-full object-cover aspect-video md:aspect-[21/9] rounded-2xl mb-8"
         loading="eager"
