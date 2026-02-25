@@ -50,7 +50,7 @@ It responds to pressure, contact area, and gestures rather than a crisp mechanic
 
 Immediate fix: **Settings → Camera → Camera Control** — lower sensitivity one notch from default. This cuts false triggers significantly while preserving responsiveness.
 
-![iPhone 17 Pro Max Camera Control button edge detail and placement](/images/assets/camera-control-edge-detail.jpg)
+![iPhone 17 Pro Max Camera Control button edge detail and placement](/assets/posts/camera-control-edge-detail.jpg)
 *The flush capacitive design requires a different touch approach than physical buttons — surface area contact matters more than press force*
 
 ---
@@ -94,7 +94,7 @@ The 80% limit is huge for long-term battery health — lithium chemistry hates p
 
 Like building discipline through consistent habits (as I explored in [What Call of Duty Mobile Taught Me About Real-Life Discipline](https://www.revibyte.blog/posts/what-call-of-duty-mobile-taught-me-about-real-life-discipline)), give Adaptive Power time to "learn" your routine.
 
-![iPhone 17 Pro Max battery Adaptive Power Mode iOS 26 settings](/images/assets/battery-adaptive-power-settings.jpg)
+![iPhone 17 Pro Max battery Adaptive Power Mode iOS 26 settings](/assets/posts/battery-adaptive-power-settings.jpg)
 *Adaptive Power Mode in iOS 26 — requires approximately one week of pattern learning before it delivers meaningful results*
 
 ---
@@ -147,7 +147,7 @@ Lens quick-guide:
 - Back Tap (double/triple on back glass) — assign Screenshot, Shortcuts, etc. (**Settings → Accessibility → Touch → Back Tap**). Still underused gold.
 - Live Voicemail transcribes in real time, shows on Lock Screen (**Settings → Phone → Live Voicemail**).
 
-![iPhone 17 Pro Max iOS 26 Spotlight natural language search results](/images/assets/ios26-spotlight-natural-language.jpg)
+![iPhone 17 Pro Max iOS 26 Spotlight natural language search results](/assets/posts/ios26-spotlight-natural-language.jpg)
 *iOS 26 Spotlight parsing natural language queries — a shift from keyword matching to intent understanding that most users haven't discovered*
 
 For more hidden gems style, see my [Tecno Camon 30 Pro Hidden Features](https://www.revibyte.blog/posts/tecno-camon-30-pro-hidden-features) post — similar exploration mindset.
