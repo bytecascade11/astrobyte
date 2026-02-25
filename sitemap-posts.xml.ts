@@ -1,22 +1,28 @@
-import { getCollection } from "astro:content";
 import { SITE } from "@/config";
+import { collection } from "astro:content";
 
 export async function get() {
-  const posts = await getCollection("blog");
+  const posts = await collection("blog");
+  
+  const items = posts
+    .filter(post => !post.data.draft) // skip drafts
+    .map(post => {
+      const slug = post.id.replace(/^blog\//, ""); // remove collection prefix
+      const postUrl = `${SITE.website}posts/${slug}/`;
+      const lastmod = post.data.modDatetime
+        ? post.data.modDatetime.toISOString()
+        : post.data.pubDatetime.toISOString();
+
+      return `
+  <url>
+    <loc>${postUrl}</loc>
+    <lastmod>${lastmod}</lastmod>
+  </url>`;
+    }).join("\n");
 
   const xml = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-${posts
-  .map((post) => {
-    // Compute slug from post.id (removes 'blog/' prefix)
-    const slug = post.id.replace(/^blog\//, "");
-    const url = `${SITE.website}posts/${slug}/`;
-    return `  <url>
-    <loc>${url}</loc>
-    <lastmod>${post.data.modDatetime?.toISOString() || post.data.pubDatetime.toISOString()}</lastmod>
-  </url>`;
-  })
-  .join("\n")}
+${items}
 </urlset>`;
 
   return new Response(xml, {
