@@ -1,39 +1,30 @@
-import { SITE } from "@/config";
-import { collection } from "astro:content";
+import { getCollection, CollectionEntry } from "astro:content";
 
 export async function get() {
-  const posts = await collection("blog");
+  const posts: CollectionEntry<"posts">[] = await getCollection("posts");
 
-  const items = posts
-    .filter(post => !post.data.draft && post.data.coverImage)
-    .map(post => {
-      const slug = post.id.replace(/^blog\//, "");
-      const postUrl = `${SITE.website}posts/${slug}/`;
-      const lastmod = post.data.modDatetime
-        ? post.data.modDatetime.toISOString()
-        : post.data.pubDatetime.toISOString();
-      const imageUrl = post.data.coverImage.startsWith("http")
-        ? post.data.coverImage
-        : `${SITE.website}${post.data.coverImage.replace(/^\/+/, "")}`;
-
+  const sitemap = posts
+    .filter((post) => !post.data.draft && post.data.coverImage)
+    .map((post) => {
       return `
-  <url>
-    <loc>${postUrl}</loc>
-    <lastmod>${lastmod}</lastmod>
-    <image:image>
-      <image:loc>${imageUrl}</image:loc>
-    </image:image>
-  </url>`;
-    }).join("\n");
+        <url>
+          <loc>https://yourdomain.com/${post.slug}/</loc>
+          <image:image>
+            <image:loc>${post.data.coverImage}</image:loc>
+            <image:caption>${post.data.title}</image:caption>
+          </image:image>
+          <lastmod>${post.data.updatedAt ?? post.data.date}</lastmod>
+        </url>
+      `;
+    })
+    .join("");
 
-  const xml = `<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
-        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
-${items}
-</urlset>`;
-
-  return new Response(xml, {
-    status: 200,
-    headers: { "Content-Type": "application/xml" },
-  });
+  return new Response(
+    `<?xml version="1.0" encoding="UTF-8"?>
+     <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+             xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+       ${sitemap}
+     </urlset>`,
+    { headers: { "Content-Type": "application/xml" } }
+  );
 }
