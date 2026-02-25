@@ -26,6 +26,7 @@ type Props = {
 };
 
 const { post, posts } = Astro.props;
+
 const {
   title,
   author,
@@ -42,23 +43,35 @@ const {
 
 const { Content } = await render(post);
 
-// Full post URL with trailing slash (fixed)
-const postUrl = `\( {SITE.website} \){getPath(post.id, post.filePath)}/`;
+/* --------------------------------------------------
+   SAFE POST URL (ABSOLUTE + SEO SAFE)
+-------------------------------------------------- */
 
-// Dynamic OG Image
+const postPath = getPath(post.id, post.filePath);
+const postUrl = new URL(postPath, SITE.website).toString();
+
+/* --------------------------------------------------
+   SAFE OG IMAGE
+-------------------------------------------------- */
+
 let ogImageUrl: string | undefined;
+
 if (coverImage) {
   ogImageUrl = coverImage;
 } else if (typeof initOgImage === "string") {
   ogImageUrl = initOgImage;
 } else if (initOgImage?.src) {
   ogImageUrl = initOgImage.src;
-} else {
-  ogImageUrl = undefined;
 }
-const ogImage = ogImageUrl ? new URL(ogImageUrl, Astro.url.origin).href : undefined;
 
-// Layout properties
+const ogImage = ogImageUrl
+  ? new URL(ogImageUrl, SITE.website).toString()
+  : undefined;
+
+/* --------------------------------------------------
+   LAYOUT PROPS
+-------------------------------------------------- */
+
 const layoutProps = {
   title: `${title} | ${SITE.title}`,
   author,
@@ -70,53 +83,70 @@ const layoutProps = {
   scrollSmooth: true,
 };
 
-// Previous / Next post
-const allPosts = posts.map(({ data: { title }, id, filePath }) => ({ id, title, filePath }));
-const currentIndex = allPosts.findIndex((p) => p.id === post.id);
-const prevPost = currentIndex > 0 ? allPosts[currentIndex - 1] : null;
-const nextPost = currentIndex < allPosts.length - 1 ? allPosts[currentIndex + 1] : null;
+/* --------------------------------------------------
+   PREV / NEXT POSTS
+-------------------------------------------------- */
 
-// Breadcrumbs for Schema
+const allPosts = posts.map(({ data: { title }, id, filePath }) => ({
+  id,
+  title,
+  filePath
+}));
+
+const currentIndex = allPosts.findIndex((p) => p.id === post.id);
+
+const prevPost = currentIndex > 0 ? allPosts[currentIndex - 1] : null;
+const nextPost =
+  currentIndex < allPosts.length - 1 ? allPosts[currentIndex + 1] : null;
+
+/* --------------------------------------------------
+   BREADCRUMBS
+-------------------------------------------------- */
+
 const breadcrumbs = [
   { name: "Home", url: SITE.website },
-  { name: "Posts", url: `${SITE.website}posts/` },
+  { name: "Posts", url: new URL("/posts/", SITE.website).toString() },
   { name: title, url: postUrl }
 ];
+
+/* --------------------------------------------------
+   BLOGPOSTING JSON-LD
+-------------------------------------------------- */
+
+const blogPostingSchema = {
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  headline: title,
+  description: description || "",
+  image: ogImage || "",
+  url: postUrl,
+  datePublished: pubDatetime.toISOString(),
+  dateModified: modDatetime
+    ? modDatetime.toISOString()
+    : pubDatetime.toISOString(),
+  author: {
+    "@type": "Person",
+    name: author || SITE.author
+  },
+  publisher: {
+    "@type": "Organization",
+    name: SITE.title,
+    url: SITE.website
+  },
+  keywords: tags.join(", ")
+};
 ---
 
 <Layout {...layoutProps}>
 
-  <!-- Added: BlogPosting structured data schema (helps tie cover image to this post URL) -->
-  <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "BlogPosting",
-      "headline": "{title}",
-      "description": "{description || ''}",
-      "image": {
-        "@type": "ImageObject",
-        "url": "{coverImage ? new URL(coverImage, Astro.url.origin).href : ''}",
-        "width": 1200,
-        "height": 630
-      },
-      "url": "{postUrl}",
-      "datePublished": "{pubDatetime.toISOString()}",
-      "dateModified": "{modDatetime ? modDatetime.toISOString() : pubDatetime.toISOString()}",
-      "author": {
-        "@type": "Person",
-        "name": "iSamuel"
-      },
-      "publisher": {
-        "@type": "Organization",
-        "name": "{SITE.title}",
-        "url": "{SITE.website}"
-      },
-      "keywords": "{tags.join(', ')}"
-    }
-  </script>
+  <!-- Structured Data -->
+  <script
+    type="application/ld+json"
+    set:html={JSON.stringify(blogPostingSchema)}
+  />
 
-  <!-- Keep your existing SchemaMarkup component -->
-  <SchemaMarkup 
+  <!-- Keep your existing SchemaMarkup -->
+  <SchemaMarkup
     type="article"
     title={title}
     description={description}
@@ -145,8 +175,8 @@ const breadcrumbs = [
       "app-layout pb-12 mx-auto max-w-app px-4",
       { "mt-8": !coverImage }
     ]}
-    data-pagefind-body
   >
+
     {coverImage && (
       <img
         src={coverImage}
@@ -167,24 +197,13 @@ const breadcrumbs = [
 
     <div class="mt-3 mb-8 flex flex-wrap items-center gap-3 text-sm">
       <Datetime {pubDatetime} {modDatetime} {timezone} size="lg" />
-      {!hideEditPost && SITE.editPost?.enabled && (
-        <>
-          <span aria-hidden="true" class="max-sm:hidden text-muted-foreground">•</span>
-          <EditPost {hideEditPost} {post} class="max-sm:hidden" />
-        </>
-      )}
     </div>
 
-    <article
-      id="article"
-      class="app-prose mt-2 w-full max-w-app prose-pre:bg-(--shiki-light-bg) dark:prose-pre:bg-(--shiki-dark-bg)"
-    >
+    <article class="app-prose mt-2 w-full max-w-app">
       <Content />
     </article>
 
     <hr class="my-10 border-dashed" />
-
-    <EditPost class="sm:hidden mb-8" {hideEditPost} {post} />
 
     {tags.length > 0 && (
       <ul class="mb-10 flex flex-wrap gap-3">
@@ -194,80 +213,21 @@ const breadcrumbs = [
       </ul>
     )}
 
-    <!-- About the Author section -->
-    <div class="mt-10 mb-12">
-      <div class="p-6 bg-card rounded-xl border border-skin-line shadow-sm">
-        <h3 class="text-xl font-semibold mb-4">About the Author</h3>
-        <div class="flex items-start gap-4">
-          <!-- <img src="/assets/isamuel.jpg" alt="iSamuel" class="w-16 h-16 rounded-full object-cover flex-shrink-0" /> -->
-          
-          <div>
-            <p class="font-medium text-skin-base">iSamuel</p>
-            <p class="text-sm text-skin-muted mt-1 leading-relaxed">
-              iSamuel is the founder and lead technology analyst behind ReviByte Opinions. With a background in Physics & Electronics, he writes practical, expert tech analysis and insights for everyday users in Nigeria and beyond — focusing on honest, real-world explanations of phones, gadgets, AI, and how technology works in everyday life. His work is driven by clarity, curiosity, and a commitment to useful, human-centered content.
-            </p>
-            <a 
-              href="/about/" 
-              class="mt-3 inline-block text-sm text-skin-accent hover:underline hover:text-skin-accent-hover transition-colors"
-            >
-              Read more about iSamuel →
-            </a>
-          </div>
-        </div>
-      </div>
-
-      <!-- More from Revibyte (kept for consistency) -->
-      <div class="mt-8 text-sm">
-        <p class="mb-3 font-medium text-skin-base">More from Revibyte</p>
-        <ul class="flex flex-wrap gap-x-6 gap-y-2">
-          <li>
-            <a 
-              href="/about/" 
-              class="text-skin-accent hover:underline hover:text-skin-accent-hover transition-colors"
-            >
-              About
-            </a>
-          </li>
-          <li>
-            <a 
-              href="/privacy-policy/" 
-              class="text-skin-accent hover:underline hover:text-skin-accent-hover transition-colors"
-            >
-              Privacy Policy
-            </a>
-          </li>
-        </ul>
-      </div>
-    </div>
-
     <BackToTopButton />
     <ShareLinks />
 
     <hr class="my-10 border-dashed" />
 
     {(prevPost || nextPost) && (
-      <nav
-        aria-label="Post navigation"
-        class="grid grid-cols-1 gap-6 sm:grid-cols-2 mb-12"
-        data-pagefind-ignore
-      >
+      <nav class="grid grid-cols-1 gap-6 sm:grid-cols-2 mb-12">
         {prevPost && (
-          <a href={getPath(prevPost.id, prevPost.filePath)} class="group flex items-center gap-3 hover:opacity-90 transition">
-            <IconChevronLeft class="flex-none w-5 h-5 rtl:rotate-180" />
-            <div>
-              <div class="text-sm text-muted-foreground">Previous</div>
-              <div class="font-medium text-accent group-hover:underline">{prevPost.title}</div>
-            </div>
+          <a href={getPath(prevPost.id, prevPost.filePath)}>
+            ← {prevPost.title}
           </a>
         )}
-
         {nextPost && (
-          <a href={getPath(nextPost.id, nextPost.filePath)} class="group flex items-center justify-end gap-3 text-right hover:opacity-90 transition sm:col-start-2">
-            <div>
-              <div class="text-sm text-muted-foreground">Next</div>
-              <div class="font-medium text-accent group-hover:underline">{nextPost.title}</div>
-            </div>
-            <IconChevronRight class="flex-none w-5 h-5 rtl:rotate-180" />
+          <a href={getPath(nextPost.id, nextPost.filePath)}>
+            {nextPost.title} →
           </a>
         )}
       </nav>
@@ -276,6 +236,7 @@ const breadcrumbs = [
     <RelatedPosts currentPost={post} allPosts={posts} limit={3} />
     <hr class="my-10 border-dashed" />
     <Comments />
+
   </main>
 
   <Footer />
