@@ -42,7 +42,7 @@ const {
 
 const { Content } = await render(post);
 
-// Full post URL with trailing slash – FIXED HERE
+// Full post URL with trailing slash (fixed)
 const postUrl = `\( {SITE.website} \){getPath(post.id, post.filePath)}/`;
 
 // Dynamic OG Image
@@ -86,7 +86,7 @@ const breadcrumbs = [
 
 <Layout {...layoutProps}>
 
-  <!-- BlogPosting structured data schema -->
+  <!-- Added: BlogPosting structured data schema (helps tie cover image to this post URL) -->
   <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -115,6 +115,7 @@ const breadcrumbs = [
     }
   </script>
 
+  <!-- Keep your existing SchemaMarkup component -->
   <SchemaMarkup 
     type="article"
     title={title}
@@ -157,8 +158,124 @@ const breadcrumbs = [
       />
     )}
 
-    <!-- ... rest of your page unchanged: h1, metadata, article, tags, author bio, etc. ... -->
+    <h1
+      transition:name={slugifyStr(title.replaceAll(".", "-"))}
+      class="inline-block text-2xl font-bold text-accent sm:text-3xl md:text-4xl"
+    >
+      {title}
+    </h1>
 
+    <div class="mt-3 mb-8 flex flex-wrap items-center gap-3 text-sm">
+      <Datetime {pubDatetime} {modDatetime} {timezone} size="lg" />
+      {!hideEditPost && SITE.editPost?.enabled && (
+        <>
+          <span aria-hidden="true" class="max-sm:hidden text-muted-foreground">•</span>
+          <EditPost {hideEditPost} {post} class="max-sm:hidden" />
+        </>
+      )}
+    </div>
+
+    <article
+      id="article"
+      class="app-prose mt-2 w-full max-w-app prose-pre:bg-(--shiki-light-bg) dark:prose-pre:bg-(--shiki-dark-bg)"
+    >
+      <Content />
+    </article>
+
+    <hr class="my-10 border-dashed" />
+
+    <EditPost class="sm:hidden mb-8" {hideEditPost} {post} />
+
+    {tags.length > 0 && (
+      <ul class="mb-10 flex flex-wrap gap-3">
+        {tags.map((tag) => (
+          <Tag tag={slugifyStr(tag)} tagName={tag} size="sm" />
+        ))}
+      </ul>
+    )}
+
+    <!-- About the Author section -->
+    <div class="mt-10 mb-12">
+      <div class="p-6 bg-card rounded-xl border border-skin-line shadow-sm">
+        <h3 class="text-xl font-semibold mb-4">About the Author</h3>
+        <div class="flex items-start gap-4">
+          <!-- <img src="/assets/isamuel.jpg" alt="iSamuel" class="w-16 h-16 rounded-full object-cover flex-shrink-0" /> -->
+          
+          <div>
+            <p class="font-medium text-skin-base">iSamuel</p>
+            <p class="text-sm text-skin-muted mt-1 leading-relaxed">
+              iSamuel is the founder and lead technology analyst behind ReviByte Opinions. With a background in Physics & Electronics, he writes practical, expert tech analysis and insights for everyday users in Nigeria and beyond — focusing on honest, real-world explanations of phones, gadgets, AI, and how technology works in everyday life. His work is driven by clarity, curiosity, and a commitment to useful, human-centered content.
+            </p>
+            <a 
+              href="/about/" 
+              class="mt-3 inline-block text-sm text-skin-accent hover:underline hover:text-skin-accent-hover transition-colors"
+            >
+              Read more about iSamuel →
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- More from Revibyte (kept for consistency) -->
+      <div class="mt-8 text-sm">
+        <p class="mb-3 font-medium text-skin-base">More from Revibyte</p>
+        <ul class="flex flex-wrap gap-x-6 gap-y-2">
+          <li>
+            <a 
+              href="/about/" 
+              class="text-skin-accent hover:underline hover:text-skin-accent-hover transition-colors"
+            >
+              About
+            </a>
+          </li>
+          <li>
+            <a 
+              href="/privacy-policy/" 
+              class="text-skin-accent hover:underline hover:text-skin-accent-hover transition-colors"
+            >
+              Privacy Policy
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <BackToTopButton />
+    <ShareLinks />
+
+    <hr class="my-10 border-dashed" />
+
+    {(prevPost || nextPost) && (
+      <nav
+        aria-label="Post navigation"
+        class="grid grid-cols-1 gap-6 sm:grid-cols-2 mb-12"
+        data-pagefind-ignore
+      >
+        {prevPost && (
+          <a href={getPath(prevPost.id, prevPost.filePath)} class="group flex items-center gap-3 hover:opacity-90 transition">
+            <IconChevronLeft class="flex-none w-5 h-5 rtl:rotate-180" />
+            <div>
+              <div class="text-sm text-muted-foreground">Previous</div>
+              <div class="font-medium text-accent group-hover:underline">{prevPost.title}</div>
+            </div>
+          </a>
+        )}
+
+        {nextPost && (
+          <a href={getPath(nextPost.id, nextPost.filePath)} class="group flex items-center justify-end gap-3 text-right hover:opacity-90 transition sm:col-start-2">
+            <div>
+              <div class="text-sm text-muted-foreground">Next</div>
+              <div class="font-medium text-accent group-hover:underline">{nextPost.title}</div>
+            </div>
+            <IconChevronRight class="flex-none w-5 h-5 rtl:rotate-180" />
+          </a>
+        )}
+      </nav>
+    )}
+
+    <RelatedPosts currentPost={post} allPosts={posts} limit={3} />
+    <hr class="my-10 border-dashed" />
+    <Comments />
   </main>
 
   <Footer />
