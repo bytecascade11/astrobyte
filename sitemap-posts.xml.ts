@@ -1,11 +1,11 @@
-// src/pages/sitemap-posts.xml.ts
 import { getCollection } from "astro:content";
 import type { CollectionEntry } from "astro:content";
 
 export async function GET() {
-  // Fetch all posts from the "posts" collection
-  const posts: CollectionEntry<"posts">[] = await getCollection("posts");
+  // Use the correct collection name: "blog"
+  const posts: CollectionEntry<"blog">[] = await getCollection("blog");
 
+  // Only published posts
   const filteredPosts = posts.filter((post) => !post.data.draft);
 
   const xml = `<?xml version="1.0" encoding="UTF-8"?>
@@ -14,15 +14,13 @@ export async function GET() {
     .map(
       (post) => `<url>
     <loc>https://yourdomain.com/${post.slug}/</loc>
-    <lastmod>${(post.data.updatedAt ?? post.data.date).toISOString()}</lastmod>
+    <lastmod>${(post.data.updatedAt ?? post.data.pubDatetime).toISOString()}</lastmod>
   </url>`
     )
     .join("\n")}
 </urlset>`;
 
   return new Response(xml, {
-    headers: {
-      "Content-Type": "application/xml",
-    },
+    headers: { "Content-Type": "application/xml" },
   });
 }
