@@ -13,6 +13,7 @@ tags: ["tecno", "android", "opinions", "technology", "productivity", "reviews"]
 ## Rundown 
 
 Let me be honest with you — when I first picked up the Camon 30 Pro, I was skeptical. Not because it looked bad or felt cheap (it absolutely doesn't), but because I've been burned before by mid-range phones that show up loud on spec sheets and whisper in real life.
+Kindly read my New post about [iPhone 17 pro max real world tips](https://www.revibyte.blog/posts/iphone-17-pro-max-real-world-tips)
 
 Three months later, this phone is still in my pocket. Every single day.
 
