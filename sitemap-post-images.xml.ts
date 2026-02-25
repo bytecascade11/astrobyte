@@ -1,20 +1,42 @@
-const posts: CollectionEntry<"blog">[] = await getCollection("blog");
+import { getCollection } from "astro:content";
 
-const filteredPosts = posts.filter((post) => !post.data.draft);
+export async function GET() {
+  const posts = await getCollection("posts");
 
-const xml = `<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
-        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
-  ${filteredPosts
+  // Filter out draft posts
+  const publishedPosts = posts.filter((post) => !post.data.draft);
+
+  // Build XML entries for images
+  const sitemapEntries = publishedPosts
     .map((post) => {
-      if (!post.data.coverImage) return "";
-      return `<url>
-    <loc>https://yourdomain.com/${post.slug}/</loc>
+      // Only include images if they exist
+      if (!post.data.image) return "";
+
+      const lastmod = (post.data.updatedAt ?? post.data.date).toISOString();
+
+      return `
+  <url>
+    <loc>https://www.revibyte.blog/posts/${post.slug}/</loc>
+    <lastmod>${lastmod}</lastmod>
     <image:image>
-      <image:loc>${post.data.coverImage}</image:loc>
-      <image:caption>${post.data.coverImageAlt ?? ""}</image:caption>
+      <image:loc>${post.data.image}</image:loc>
+      <image:caption>${post.data.title}</image:caption>
     </image:image>
   </url>`;
     })
-    .join("\n")}
+    .join("");
+
+  const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
+<urlset
+  xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"
+>
+  ${sitemapEntries}
 </urlset>`;
+
+  return new Response(sitemap, {
+    headers: {
+      "Content-Type": "application/xml",
+    },
+  });
+}
