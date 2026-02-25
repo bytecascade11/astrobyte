@@ -4,7 +4,7 @@ description: "Beyond the spec sheet — real-world iPhone 17 Pro Max tips coveri
 pubDatetime: 2026-02-25T00:00:00Z
 author: "iSamuel"
 tags: ["apple", "reviews", "technology", "opinions"]
-coverImage: "/assets/posts/iphone-17-pro-max-cover.jpg"
+coverImage: "/images/posts/iphone-17-pro-max-cover.jpg"
 coverImageAlt: "iPhone 17 Pro Max held in hand showing Camera Control button and edge design"
 ---
 
