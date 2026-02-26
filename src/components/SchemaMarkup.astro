@@ -11,7 +11,7 @@
  * 
  * Usage:
  * - Homepage: <SchemaMarkup /> (defaults to website schema)
- * - Blog posts: <SchemaMarkup type="article" title="..." breadcrumbs={[...]} />
+ * - Blog posts: <SchemaMarkup title="..." breadcrumbs={[...]} datePublished={post.date} />
  */
 
 import { SITE } from "@/config";
@@ -22,8 +22,8 @@ interface Props {
   description?: string;
   url?: string;
   image?: string;
-  datePublished?: string;
-  dateModified?: string;
+  datePublished?: Date;
+  dateModified?: Date | null;
   breadcrumbs?: Array<{name: string, url: string}>;
 }
 
@@ -38,20 +38,13 @@ const {
   breadcrumbs 
 } = Astro.props;
 
-/**
- * WEBSITE SCHEMA
- * Tells Google this is your main website and enables:
- * - Site name in search results
- * - Sitelinks (those navigation links under your site)
- * - Search box feature in Google results
- */
+/* WEBSITE SCHEMA */
 const websiteSchema = {
   "@context": "https://schema.org",
   "@type": "WebSite",
   "name": SITE.title,
   "url": SITE.website,
   "description": SITE.desc,
-  // Enables the search box in Google results
   "potentialAction": {
     "@type": "SearchAction",
     "target": {
@@ -62,46 +55,33 @@ const websiteSchema = {
   }
 };
 
-/**
- * ORGANIZATION SCHEMA
- * Tells Google about your brand/organization:
- * - Logo for knowledge panels
- * - Social media profiles
- * - Brand identity
- */
+/* ORGANIZATION SCHEMA */
 const organizationSchema = {
   "@context": "https://schema.org",
   "@type": "Organization",
   "name": "ReviByte",
   "url": SITE.website,
-  "logo": `${SITE.website}${SITE.ogImage}`,
+  "logo": `\( {SITE.website} \){SITE.ogImage}`,
   "sameAs": [
-    SITE.profile // Your Pinterest profile
+    SITE.profile
   ]
 };
 
-/**
- * ARTICLE SCHEMA (for blog posts)
- * Tells Google this is a blog article with:
- * - Headline and description
- * - Author information
- * - Publish and modified dates
- * - Featured image
- * 
- * This enables:
- * - Rich article cards in search
- * - Author bylines
- * - Publish dates in results
- */
+/* ARTICLE SCHEMA – safe date handling */
 const articleSchema = title ? {
   "@context": "https://schema.org",
   "@type": "BlogPosting",
   "headline": title,
   "description": description || SITE.desc,
-  "image": image || `${SITE.website}${SITE.ogImage}`,
+  "image": image || `\( {SITE.website} \){SITE.ogImage}`,
   "url": url || SITE.website,
-  "datePublished": datePublished,
-  "dateModified": dateModified || datePublished,
+  ...(datePublished instanceof Date && {
+    datePublished: datePublished.toISOString()
+  }),
+  ...(dateModified instanceof Date 
+    ? { dateModified: dateModified.toISOString() }
+    : (datePublished instanceof Date && { dateModified: datePublished.toISOString() })
+  ),
   "author": {
     "@type": "Person",
     "name": SITE.author,
@@ -112,7 +92,7 @@ const articleSchema = title ? {
     "name": "ReviByte",
     "logo": {
       "@type": "ImageObject",
-      "url": `${SITE.website}${SITE.ogImage}`
+      "url": `\( {SITE.website} \){SITE.ogImage}`
     }
   },
   "mainEntityOfPage": {
@@ -121,14 +101,7 @@ const articleSchema = title ? {
   }
 } : null;
 
-/**
- * BREADCRUMB SCHEMA - FIXED VERSION
- * Shows the navigation path in Google results:
- * Example: Home > Posts > Article Title
- * 
- * CRITICAL: The last item (current page) must NOT have "item" property
- * Otherwise Google shows it as a dropdown menu instead of breadcrumbs
- */
+/* BREADCRUMB SCHEMA */
 const breadcrumbSchema = breadcrumbs ? {
   "@context": "https://schema.org",
   "@type": "BreadcrumbList",
@@ -141,7 +114,6 @@ const breadcrumbSchema = breadcrumbs ? {
       "name": crumb.name
     };
     
-    // Only add "item" URL for intermediate breadcrumbs, NOT the last one
     if (!isLastItem) {
       item.item = crumb.url;
     }
@@ -151,34 +123,14 @@ const breadcrumbSchema = breadcrumbs ? {
 } : null;
 ---
 
-<!-- 
-  WEBSITE SCHEMA
-  Always included on every page
-  Helps Google show sitelinks and search box
--->
-<script type="application/ld+json" set:html={JSON.stringify(websiteSchema)} />
+<script is:inline type="application/ld+json" set:html={JSON.stringify(websiteSchema)} />
 
-<!-- 
-  ORGANIZATION SCHEMA
-  Always included on every page
-  Establishes brand identity with Google
--->
-<script type="application/ld+json" set:html={JSON.stringify(organizationSchema)} />
+<script is:inline type="application/ld+json" set:html={JSON.stringify(organizationSchema)} />
 
-<!-- 
-  ARTICLE SCHEMA
-  Only included on blog post pages
-  Shows rich article information in search results
--->
 {articleSchema && (
-  <script type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
+  <script is:inline type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
 )}
 
-<!-- 
-  BREADCRUMB SCHEMA
-  Only included when breadcrumbs are provided
-  Shows navigation path in search results (Home > Posts > Article)
--->
 {breadcrumbSchema && (
-  <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
+  <script is:inline type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
 )}
