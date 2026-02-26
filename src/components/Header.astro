@@ -30,18 +30,10 @@ const isActive = (path: string) => {
   
   <div class="mx-auto flex max-w-app flex-col sm:flex-row items-center justify-between">  
     <div class="relative flex w-full items-baseline justify-between bg-background p-4 sm:items-center sm:py-6">  
-      
-      <!-- Logo -->
-      <a href="/" class="absolute py-1 sm:static flex items-center gap-2">
-        <img
-          src="/logo.png"
-          alt={SITE.title}
-          width="32"
-          height="32"
-          class="h-8 w-auto"
-        />
-        <span class="text-xl font-semibold sm:text-2xl">{SITE.title}</span>
-      </a>
+      <!-- Logo -->  
+      <a href="/" class="absolute py-1 text-xl font-semibold sm:static sm:text-2xl">  
+        {SITE.title}  
+      </a>  
   
       <!-- Navigation -->
       <nav aria-label="Main navigation" class="flex w-full flex-col sm:flex-row sm:justify-end sm:gap-x-5">  
