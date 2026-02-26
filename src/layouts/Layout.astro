@@ -81,7 +81,36 @@ const ogType = pubDatetime ? "article" : "website";
       });
     </script>
 
-    
+    <!-- PWA Install Prompt -->
+    <script>
+      let deferredPrompt: BeforeInstallPromptEvent | null = null;
+
+      window.addEventListener('beforeinstallprompt', (e) => {
+        e.preventDefault();
+        deferredPrompt = e as BeforeInstallPromptEvent;
+
+        const banner = document.getElementById('installBanner');
+        if (banner) {
+          banner.style.display = 'flex';
+        }
+      });
+
+      async function installApp() {
+        if (deferredPrompt) {
+          deferredPrompt.prompt();
+          const { outcome } = await deferredPrompt.userChoice;
+          console.log(`User response: ${outcome}`);
+          deferredPrompt = null;
+
+          const banner = document.getElementById('installBanner');
+          if (banner) {
+            banner.style.display = 'none';
+          }
+        }
+      }
+
+      (window as any).installApp = installApp;
+    </script>
 
     <!-- Canonical -->
     <link rel="canonical" href={canonical} />
@@ -90,37 +119,7 @@ const ogType = pubDatetime ? "article" : "website";
     <title>{title}</title>
     <meta name="title" content={title} />
     <meta name="description" content={description} />
-    <meta name="author" <!-- PWA Install Prompt -->
-<script>
-  let deferredPrompt: BeforeInstallPromptEvent | null = null;
-
-  window.addEventListener('beforeinstallprompt', (e) => {
-    e.preventDefault();
-    deferredPrompt = e as BeforeInstallPromptEvent;
-
-    const banner = document.getElementById('installBanner');
-    if (banner) {
-      banner.style.display = 'flex';
-    }
-  });
-
-  async function installApp() {
-    if (deferredPrompt) {
-      deferredPrompt.prompt();
-      const { outcome } = await deferredPrompt.userChoice;
-      console.log(`User response: ${outcome}`);
-      deferredPrompt = null;
-
-      const banner = document.getElementById('installBanner');
-      if (banner) {
-        banner.style.display = 'none';
-      }
-    }
-  }
-
-  (window as any).installApp = installApp;
-</script>
-content={author} />
+    <meta name="author" content={author} />
     <link rel="sitemap" href="/sitemap-index.xml" />
 
     <!-- Open Graph -->
