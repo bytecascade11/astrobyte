@@ -69,17 +69,43 @@ const ogType = pubDatetime ? "article" : "website";
     <meta name="theme-color" content="#0f172a" />
 
     <!-- OneSignal Push Notifications -->
-<script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
-<script>
-  window.OneSignalDeferred = window.OneSignalDeferred || [];
-  window.OneSignalDeferred.push(async function(OneSignal: any) {
-    await OneSignal.init({
-      appId: "bbd38552-99d1-4cda-96f9-5c0cacfba192",
-      notifyButton: { enable: true }
-    });
-    OneSignal.showNativePrompt();
-  });
-</script>
+    <script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
+    <script>
+      window.OneSignalDeferred = window.OneSignalDeferred || [];
+      window.OneSignalDeferred.push(async function(OneSignal: any) {
+        await OneSignal.init({
+          appId: "bbd38552-99d1-4cda-96f9-5c0cacfba192",
+          notifyButton: { enable: true }
+        });
+        OneSignal.showNativePrompt();
+      });
+    </script>
+
+    <!-- PWA Install Prompt -->
+    <script>
+      let deferredPrompt: BeforeInstallPromptEvent | null = null;
+
+      window.addEventListener('beforeinstallprompt', (e) => {
+        e.preventDefault();
+        deferredPrompt = e as BeforeInstallPromptEvent;
+
+        const installBtn = document.getElementById('installApp');
+        if (installBtn) {
+          (installBtn as HTMLElement).style.display = 'block';
+        }
+      });
+
+      async function installApp() {
+        if (deferredPrompt) {
+          deferredPrompt.prompt();
+          const { outcome } = await deferredPrompt.userChoice;
+          console.log(`User response: ${outcome}`);
+          deferredPrompt = null;
+        }
+      }
+
+      (window as any).installApp = installApp;
+    </script>
 
     <!-- Canonical -->
     <link rel="canonical" href={canonical} />
