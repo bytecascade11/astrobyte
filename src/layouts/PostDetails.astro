@@ -43,17 +43,11 @@ const {
 
 const { Content } = await render(post);
 
-/* --------------------------------------------------
-   SAFE POST URL (ABSOLUTE + SEO SAFE)
--------------------------------------------------- */
-
+/* SAFE POST URL (absolute + SEO-safe) */
 const postPath = getPath(post.id, post.filePath);
 const postUrl = new URL(postPath, SITE.website).toString();
 
-/* --------------------------------------------------
-   SAFE OG IMAGE
--------------------------------------------------- */
-
+/* SAFE OG IMAGE */
 let ogImageUrl: string | undefined;
 
 if (coverImage) {
@@ -68,10 +62,7 @@ const ogImage = ogImageUrl
   ? new URL(ogImageUrl, SITE.website).toString()
   : undefined;
 
-/* --------------------------------------------------
-   LAYOUT PROPS
--------------------------------------------------- */
-
+/* LAYOUT PROPS */
 const layoutProps = {
   title: `${title} | ${SITE.title}`,
   author,
@@ -83,10 +74,7 @@ const layoutProps = {
   scrollSmooth: true,
 };
 
-/* --------------------------------------------------
-   PREV / NEXT POSTS
--------------------------------------------------- */
-
+/* PREV / NEXT POSTS */
 const allPosts = posts.map(({ data: { title }, id, filePath }) => ({
   id,
   title,
@@ -99,20 +87,14 @@ const prevPost = currentIndex > 0 ? allPosts[currentIndex - 1] : null;
 const nextPost =
   currentIndex < allPosts.length - 1 ? allPosts[currentIndex + 1] : null;
 
-/* --------------------------------------------------
-   BREADCRUMBS
--------------------------------------------------- */
-
+/* BREADCRUMBS */
 const breadcrumbs = [
   { name: "Home", url: SITE.website },
   { name: "Posts", url: new URL("/posts/", SITE.website).toString() },
   { name: title, url: postUrl }
 ];
 
-/* --------------------------------------------------
-   BLOGPOSTING JSON-LD
--------------------------------------------------- */
-
+/* BLOGPOSTING JSON-LD (optional inline version – can remove if SchemaMarkup is sufficient) */
 const blogPostingSchema = {
   "@context": "https://schema.org",
   "@type": "BlogPosting",
@@ -126,12 +108,12 @@ const blogPostingSchema = {
     : pubDatetime.toISOString(),
   author: {
     "@type": "Person",
-    name: author || SITE.author
+    "name": author || SITE.author
   },
   publisher: {
     "@type": "Organization",
-    name: SITE.title,
-    url: SITE.website
+    "name": SITE.title,
+    "url": SITE.website
   },
   keywords: tags.join(", ")
 };
@@ -139,21 +121,22 @@ const blogPostingSchema = {
 
 <Layout {...layoutProps}>
 
-  <!-- Structured Data -->
+  <!-- Optional inline schema (you can keep or remove) -->
   <script
+    is:inline
     type="application/ld+json"
     set:html={JSON.stringify(blogPostingSchema)}
   />
 
-  <!-- Keep your existing SchemaMarkup -->
+  <!-- Recommended: SchemaMarkup with raw Dates -->
   <SchemaMarkup
     type="article"
     title={title}
     description={description}
     url={postUrl}
     image={ogImage}
-    datePublished={pubDatetime.toISOString()}
-    dateModified={modDatetime?.toISOString()}
+    datePublished={pubDatetime}
+    dateModified={modDatetime}
     breadcrumbs={breadcrumbs}
   />
 
@@ -176,7 +159,6 @@ const blogPostingSchema = {
       { "mt-8": !coverImage }
     ]}
   >
-
     {coverImage && (
       <img
         src={coverImage}
@@ -203,13 +185,10 @@ const blogPostingSchema = {
       <Content />
     </article>
 
-    <!-- === About the Author Section (using your exact provided bio) === -->
+    <!-- About the Author -->
     <section class="mt-12 mb-10 p-6 bg-base-200 rounded-2xl border border-base-300">
       <h2 class="text-xl font-bold mb-4">About the Author</h2>
       <div class="flex flex-col sm:flex-row items-start gap-6">
-        <!-- Optional avatar: Uncomment and add your image path if available -->
-        <!-- <img src="/authors/isamuel.jpg" alt="iSamuel" class="w-24 h-24 rounded-full object-cover border-2 border-accent shrink-0" /> -->
-        
         <div>
           <p class="font-semibold text-lg">{SITE.author || "iSamuel"}</p>
           <p class="text-base-content/90 mt-2 leading-relaxed">
@@ -255,9 +234,6 @@ const blogPostingSchema = {
     <RelatedPosts currentPost={post} allPosts={posts} limit={3} />
     <hr class="my-10 border-dashed" />
     <Comments />
-      </div>
-    </footer>
-
   </main>
 
   <Footer />
