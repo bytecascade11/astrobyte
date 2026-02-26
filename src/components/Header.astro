@@ -10,11 +10,9 @@ import { SITE } from "@/config";
   
 const { pathname } = Astro.url;  
   
-// Normalize path  
 const currentPath =  
   pathname !== "/" && pathname.endsWith("/") ? pathname.slice(0, -1) : pathname;  
   
-// Active matcher  
 const isActive = (path: string) => {  
   if (path === "/") return currentPath === "/";  
   return currentPath === path || currentPath.startsWith(path + "/");  
@@ -32,12 +30,20 @@ const isActive = (path: string) => {
   
   <div class="mx-auto flex max-w-app flex-col sm:flex-row items-center justify-between">  
     <div class="relative flex w-full items-baseline justify-between bg-background p-4 sm:items-center sm:py-6">  
-      <!-- Logo -->  
-      <a href="/" class="absolute py-1 text-xl font-semibold sm:static sm:text-2xl">  
-        {SITE.title}  
-      </a>  
+      
+      <!-- Logo -->
+      <a href="/" class="absolute py-1 sm:static flex items-center gap-2">
+        <img
+          src="/logo.png"
+          alt={SITE.title}
+          width="32"
+          height="32"
+          class="h-8 w-auto"
+        />
+        <span class="text-xl font-semibold sm:text-2xl">{SITE.title}</span>
+      </a>
   
-      <!-- Navigation with semantic markup -->  
+      <!-- Navigation -->
       <nav aria-label="Main navigation" class="flex w-full flex-col sm:flex-row sm:justify-end sm:gap-x-5">  
         <!-- Mobile toggle -->  
         <button  
@@ -139,13 +145,33 @@ const isActive = (path: string) => {
       const open = btn.getAttribute("aria-expanded") === "true";  
       btn.setAttribute("aria-expanded", String(!open));  
       btn.setAttribute("aria-label", open ? "Open Menu" : "Close Menu");  
-  
       menu.classList.toggle("hidden");  
       openIcon.classList.toggle("hidden");  
       closeIcon.classList.toggle("hidden");  
     });  
   }  
+
+  function initThemeToggle() {
+    const themeBtn = document.querySelector("#theme-btn");
+    if (!themeBtn) return;
+
+    themeBtn.addEventListener("click", () => {
+      const currentTheme = localStorage.getItem("theme");
+      const isDark =
+        currentTheme === "dark" ||
+        (!currentTheme && document.documentElement.getAttribute("data-theme") === "dark");
+
+      const newTheme = isDark ? "light" : "dark";
+      localStorage.setItem("theme", newTheme);
+      document.documentElement.setAttribute("data-theme", newTheme);
+    });
+  }
   
-  initNav();  
-  document.addEventListener("astro:after-swap", initNav);  
+  initNav();
+  initThemeToggle();
+
+  document.addEventListener("astro:after-swap", () => {
+    initNav();
+    initThemeToggle();
+  });
 </script>
