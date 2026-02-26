@@ -1,9 +1,13 @@
-<script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>  
-<script>  
-  window.OneSignalDeferred = window.OneSignalDeferred || [];  
-  OneSignalDeferred.push(async function(OneSignal) {  
-    await OneSignal.init({  
-      appId: "bbd38552-99d1-4cda-96f9-5c0cacfba192",  
-    });  
-  });  
-</script>
+/// <reference types="astro/client" />
+
+interface OneSignal {
+  init(options: { appId: string; [key: string]: any }): Promise<void>;
+  showNativePrompt(): void;
+  // add more methods if you use them later
+}
+
+declare global {
+  interface Window {
+    OneSignalDeferred: Array<(OneSignal: OneSignal) => Promise<void> | void>;
+  }
+}
