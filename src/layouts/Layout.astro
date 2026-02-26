@@ -8,7 +8,6 @@ const { PUBLIC_GOOGLE_SITE_VERIFICATION } = import.meta.env;
 type Props = {
   title?: string;
   author?: string;
-  profile?: string;
   description?: string;
   ogImage?: string;
   canonicalURL?: string;
@@ -20,7 +19,6 @@ type Props = {
 const {
   title = SITE.title,
   author = SITE.author,
-  profile = SITE.profile,
   description = SITE.desc,
   ogImage = "/og.png",
   canonicalURL: propCanonical,
@@ -36,7 +34,6 @@ const siteBase = SITE.website || "https://www.revibyte.blog/";
 
 let canonicalURL = new URL(Astro.url.pathname, siteBase);
 
-// Remove /index.html if present
 if (canonicalURL.pathname.endsWith("/index.html")) {
   canonicalURL.pathname = canonicalURL.pathname.replace("/index.html", "/");
 }
@@ -72,19 +69,17 @@ const ogType = pubDatetime ? "article" : "website";
     <meta name="theme-color" content="#0f172a" />
 
     <!-- OneSignal Push Notifications -->
-    <script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
-    <script>
-      window.OneSignalDeferred = window.OneSignalDeferred || [];
-      OneSignalDeferred.push(async function(OneSignal: any) {  // ← added :any to fix implicit any
-        await OneSignal.init({
-          appId: "bbd38552-99d1-4cda-96f9-5c0cacfba192",
-          notifyButton: { enable: true } // optional bell icon
-        });
-
-        // Automatically show browser prompt
-        OneSignal.showNativePrompt();
-      });
-    </script>
+<script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
+<script>
+  window.OneSignalDeferred = window.OneSignalDeferred || [];
+  window.OneSignalDeferred.push(async function(OneSignal: any) {
+    await OneSignal.init({
+      appId: "bbd38552-99d1-4cda-96f9-5c0cacfba192",
+      notifyButton: { enable: true }
+    });
+    OneSignal.showNativePrompt();
+  });
+</script>
 
     <!-- Canonical -->
     <link rel="canonical" href={canonical} />
@@ -103,16 +98,12 @@ const ogType = pubDatetime ? "article" : "website";
     <meta property="og:url" content={canonical} />
     <meta property="og:image" content={socialImageURL} />
 
-    <!-- Article dates – safe version with fragment -->
+    <!-- Article dates -->
     {pubDatetime instanceof Date && (
-      <>
-        <meta property="article:published_time" content={pubDatetime.toISOString()} />
-      </>
+      <meta property="article:published_time" content={pubDatetime.toISOString()} />
     )}
     {modDatetime instanceof Date && (
-      <>
-        <meta property="article:modified_time" content={modDatetime.toISOString()} />
-      </>
+      <meta property="article:modified_time" content={modDatetime.toISOString()} />
     )}
 
     <!-- Twitter -->
@@ -122,7 +113,7 @@ const ogType = pubDatetime ? "article" : "website";
     <meta name="twitter:url" content={canonical} />
     <meta name="twitter:image" content={socialImageURL} />
 
-    <!-- Schema Markup – pass raw Date objects -->
+    <!-- Schema Markup -->
     <SchemaMarkup
       title={title}
       description={description}
@@ -189,15 +180,12 @@ const ogType = pubDatetime ? "article" : "website";
     </script>
 
     <!-- Google AdSense -->
-    <script async
-      src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4896561037705299"
-      crossorigin="anonymous">
-    </script>
+    <script is:inline async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4896561037705299" crossorigin="anonymous"></script>
 
     <!-- Google Analytics -->
     {SITE.analytics?.googleAnalyticsId && (
       <>
-        <script async src={`https://www.googletagmanager.com/gtag/js?id=${SITE.analytics.googleAnalyticsId}`}></script>
+        <script is:inline async src={`https://www.googletagmanager.com/gtag/js?id=${SITE.analytics.googleAnalyticsId}`}></script>
         <script is:inline define:vars={{ gaId: SITE.analytics.googleAnalyticsId }}>
           window.dataLayer = window.dataLayer || [];
           function gtag(){dataLayer.push(arguments);}
