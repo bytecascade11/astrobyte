@@ -206,6 +206,7 @@ This post draws from extended daily use since launch, but a few notes for balanc
 - These tips prioritize creators/power users. Casual owners might never need most — which is why reviewers often skip them.
 
 If any tip transforms your experience, drop a comment or share your own tweaks. Enjoy the 17 Pro Max — it's a beast when dialed in.
+By the end of this topic i want you to dive into my new post [Xiaomi Phone durability](https://www.revibyte.blog/posts/are-xiaomi-phones-durable)
 
 ---
 
