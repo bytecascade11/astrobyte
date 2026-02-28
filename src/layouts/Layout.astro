@@ -247,10 +247,31 @@ const ogType = pubDatetime ? "article" : "website";
   </head>
 
   <body>
+
+    <!-- Splash Overlay -->
+    <div id="poweredSplash" style="
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background-color: #0f172a;
+      color: white;
+      display: flex;
+      justify-content: center;
+      align-items: flex-end;
+      font-size: 18px;
+      font-weight: 600;
+      padding-bottom: 40px;
+      z-index: 9999;
+    ">
+      Powered by iSamuel
+    </div>
+
     <slot />
 
     <!-- PWA Install Banner -->
-    <div id="installBanner" style="display:none; position:fixed; bottom:20px; left:50%; transform:translateX(-50%); background:#0f172a; color:white; padding:12px 24px; border-radius:12px; box-shadow:0 4px 20px rgba(0,0,0,0.3); z-index:9999; align-items:center; gap:12px;">
+    <div id="installBanner" style="display:none; position:fixed; bottom:20px; left:50%; transform:translateX(-50%); background:#0f172a; color:white; padding:12px 24px; border-radius:12px; box-shadow:0 4px 20px rgba(0,0,0,0.3); z-index:9998; align-items:center; gap:12px;">
       <span>📱 Install ReviByte for a better experience!</span>
       <button id="installApp" onclick="installApp()" style="background:#6366f1; color:white; border:none; padding:8px 16px; border-radius:8px; cursor:pointer; font-weight:600;">
         Install
@@ -259,6 +280,20 @@ const ogType = pubDatetime ? "article" : "website";
         ✕
       </button>
     </div>
+
+    <!-- Splash Screen Script -->
+    <script>
+      window.addEventListener("load", () => {
+        const splash = document.getElementById("poweredSplash");
+        if (splash) {
+          setTimeout(() => {
+            splash.style.transition = "opacity 0.5s";
+            splash.style.opacity = "0";
+            setTimeout(() => splash.remove(), 500);
+          }, 2000);
+        }
+      });
+    </script>
 
     <!-- Service Worker Registration -->
     <script>
