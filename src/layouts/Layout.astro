@@ -283,14 +283,14 @@ const ogType = pubDatetime ? "article" : "website";
 
     <!-- Splash Screen Script -->
     <script>
-      window.addEventListener("load", () => {
+      window.addEventListener("DOMContentLoaded", () => {
         const splash = document.getElementById("poweredSplash");
         if (splash) {
           setTimeout(() => {
             splash.style.transition = "opacity 0.5s";
             splash.style.opacity = "0";
             setTimeout(() => splash.remove(), 500);
-          }, 2000);
+          }, 1000);
         }
       });
     </script>
