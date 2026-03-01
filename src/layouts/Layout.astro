@@ -66,6 +66,140 @@ const currentPath = Astro.url.pathname;
         overflow-x: hidden;
       }
 
+      /* ── Skeleton Screens ── */
+      @keyframes shimmer {
+        0% { background-position: -200% 0; }
+        100% { background-position: 200% 0; }
+      }
+
+      .skeleton {
+        background: linear-gradient(
+          90deg,
+          #e2e8f0 25%,
+          #f1f5f9 50%,
+          #e2e8f0 75%
+        );
+        background-size: 200% 100%;
+        animation: shimmer 1.5s infinite;
+        border-radius: 6px;
+      }
+
+      /* Dark mode skeleton */
+      [data-theme="dark"] .skeleton {
+        background: linear-gradient(
+          90deg,
+          #1e293b 25%,
+          #334155 50%,
+          #1e293b 75%
+        );
+        background-size: 200% 100%;
+        animation: shimmer 1.5s infinite;
+      }
+
+      /* Page loading overlay */
+      #page-skeleton {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: var(--color-fill, #ffffff);
+        z-index: 8000;
+        padding: 16px;
+        overflow: hidden;
+      }
+
+      [data-theme="dark"] #page-skeleton {
+        background: #0f172a;
+      }
+
+      #page-skeleton.visible {
+        display: block;
+      }
+
+      /* Skeleton card layout */
+      .skeleton-topbar {
+        height: 56px;
+        margin-bottom: 16px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+      }
+
+      .skeleton-topbar-title {
+        height: 24px;
+        width: 120px;
+      }
+
+      .skeleton-topbar-actions {
+        display: flex;
+        gap: 8px;
+      }
+
+      .skeleton-topbar-btn {
+        height: 38px;
+        width: 38px;
+        border-radius: 10px;
+      }
+
+      .skeleton-card {
+        margin-bottom: 16px;
+        border-radius: 12px;
+        overflow: hidden;
+        padding: 0 0 12px 0;
+        border-bottom: 1px solid rgba(0,0,0,0.06);
+      }
+
+      [data-theme="dark"] .skeleton-card {
+        border-bottom: 1px solid rgba(255,255,255,0.06);
+      }
+
+      .skeleton-image {
+        width: 100%;
+        height: 180px;
+        border-radius: 10px;
+        margin-bottom: 12px;
+      }
+
+      .skeleton-title {
+        height: 22px;
+        width: 90%;
+        margin-bottom: 8px;
+      }
+
+      .skeleton-title-short {
+        height: 22px;
+        width: 60%;
+        margin-bottom: 8px;
+      }
+
+      .skeleton-date {
+        height: 14px;
+        width: 40%;
+        margin-bottom: 10px;
+      }
+
+      .skeleton-text {
+        height: 14px;
+        width: 100%;
+        margin-bottom: 6px;
+      }
+
+      .skeleton-text-short {
+        height: 14px;
+        width: 70%;
+        margin-bottom: 6px;
+      }
+
+      .skeleton-btn {
+        height: 36px;
+        width: 110px;
+        border-radius: 8px;
+        margin-top: 8px;
+      }
+
       /* ── PWA Top Bar ── */
       .pwa-topbar {
         display: none;
@@ -234,7 +368,6 @@ const currentPath = Astro.url.pathname;
         padding-bottom: 64px;
       }
 
-      /* Force hide original header in PWA */
       body.is-pwa header {
         display: none !important;
         visibility: hidden !important;
@@ -391,10 +524,8 @@ const currentPath = Astro.url.pathname;
         const icon = document.getElementById('pwa-theme-icon');
         if (!icon) return;
         if (themeValue === 'dark') {
-          // Show sun icon (click to go light)
           icon.innerHTML = '<circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>';
         } else {
-          // Show moon icon (click to go dark)
           icon.innerHTML = '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>';
         }
       }
@@ -431,18 +562,59 @@ const currentPath = Astro.url.pathname;
 
   <body>
 
+    <!-- Skeleton Screen (shows while page loads) -->
+    <div id="page-skeleton">
+      <!-- Fake top bar -->
+      <div class="skeleton-topbar">
+        <div class="skeleton skeleton-topbar-title"></div>
+        <div class="skeleton-topbar-actions">
+          <div class="skeleton skeleton-topbar-btn"></div>
+          <div class="skeleton skeleton-topbar-btn"></div>
+        </div>
+      </div>
+
+      <!-- Fake article card 1 -->
+      <div class="skeleton-card">
+        <div class="skeleton skeleton-image"></div>
+        <div class="skeleton skeleton-title"></div>
+        <div class="skeleton skeleton-date"></div>
+        <div class="skeleton skeleton-text"></div>
+        <div class="skeleton skeleton-text"></div>
+        <div class="skeleton skeleton-text-short"></div>
+        <div class="skeleton skeleton-btn"></div>
+      </div>
+
+      <!-- Fake article card 2 -->
+      <div class="skeleton-card">
+        <div class="skeleton skeleton-image"></div>
+        <div class="skeleton skeleton-title-short"></div>
+        <div class="skeleton skeleton-date"></div>
+        <div class="skeleton skeleton-text"></div>
+        <div class="skeleton skeleton-text-short"></div>
+        <div class="skeleton skeleton-btn"></div>
+      </div>
+
+      <!-- Fake article card 3 -->
+      <div class="skeleton-card">
+        <div class="skeleton skeleton-image"></div>
+        <div class="skeleton skeleton-title"></div>
+        <div class="skeleton skeleton-date"></div>
+        <div class="skeleton skeleton-text"></div>
+        <div class="skeleton skeleton-text"></div>
+        <div class="skeleton skeleton-btn"></div>
+      </div>
+    </div>
+
     <!-- PWA Top Bar -->
     <div class="pwa-topbar" id="pwaTopbar">
       <a href="/" class="pwa-topbar-title">{SITE.title}</a>
       <div class="pwa-topbar-actions">
-        <!-- Search -->
         <a href="/search" class="pwa-topbar-btn" aria-label="Search">
           <svg viewBox="0 0 24 24">
             <circle cx="11" cy="11" r="8"/>
             <path d="m21 21-4.35-4.35"/>
           </svg>
         </a>
-        <!-- Theme Toggle -->
         <button
           class="pwa-topbar-btn"
           id="pwa-theme-btn"
@@ -478,7 +650,7 @@ const currentPath = Astro.url.pathname;
       </a>
     </div>
 
-    <!-- Bottom Navigation Bar -->
+ <!-- Bottom Navigation Bar -->
     <nav class="bottom-nav">
       <a href="/" class={currentPath === "/" ? "active" : ""}>
         <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
@@ -507,6 +679,53 @@ const currentPath = Astro.url.pathname;
       </button>
     </nav>
 
+    <!-- Skeleton Screen Logic -->
+    <script is:inline>
+      (function() {
+        const skeleton = document.getElementById('page-skeleton');
+        if (!skeleton) return;
+
+        // Show skeleton immediately
+        skeleton.classList.add('visible');
+
+        // Hide skeleton when page is ready
+        function hideSkeleton() {
+          if (skeleton) {
+            skeleton.style.transition = 'opacity 0.3s';
+            skeleton.style.opacity = '0';
+            setTimeout(function() {
+              skeleton.classList.remove('visible');
+              skeleton.style.opacity = '1';
+            }, 300);
+          }
+        }
+
+        if (document.readyState === 'complete') {
+          hideSkeleton();
+        } else {
+          window.addEventListener('load', hideSkeleton);
+        }
+
+        // Show skeleton on navigation
+        document.addEventListener('astro:before-preparation', function() {
+          const s = document.getElementById('page-skeleton');
+          if (s) s.classList.add('visible');
+        });
+
+        document.addEventListener('astro:after-swap', function() {
+          const s = document.getElementById('page-skeleton');
+          if (s) {
+            s.style.transition = 'opacity 0.3s';
+            s.style.opacity = '0';
+            setTimeout(function() {
+              s.classList.remove('visible');
+              s.style.opacity = '1';
+            }, 300);
+          }
+        });
+      })();
+    </script>
+
     <!-- PWA Detection -->
     <script is:inline>
       function checkPWA() {
@@ -515,19 +734,15 @@ const currentPath = Astro.url.pathname;
 
         if (isPWA) {
           document.body.classList.add('is-pwa');
-          // Force hide original header
           const header = document.querySelector('header');
           if (header) {
             header.style.cssText = 'display:none!important;visibility:hidden!important;height:0!important;overflow:hidden!important;';
           }
-          // Update theme icon on load
           updateThemeIcon && updateThemeIcon();
         } else {
           document.body.classList.remove('is-pwa');
           const header = document.querySelector('header');
-          if (header) {
-            header.style.cssText = '';
-          }
+          if (header) header.style.cssText = '';
         }
       }
 
