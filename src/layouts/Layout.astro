@@ -680,51 +680,31 @@ const currentPath = Astro.url.pathname;
     </nav>
 
     <!-- Skeleton Screen Logic -->
-    <script is:inline>
-      (function() {
-        const skeleton = document.getElementById('page-skeleton');
-        if (!skeleton) return;
+<script is:inline>
+  (function() {
+    const skeleton = document.getElementById('page-skeleton');
+    if (!skeleton) return;
 
-        // Show skeleton immediately
-        skeleton.classList.add('visible');
+    // Only show on first visit or offline
+    const isFirstVisit = !sessionStorage.getItem('visited');
+    const isOffline = !navigator.onLine;
 
-        // Hide skeleton when page is ready
-        function hideSkeleton() {
-          if (skeleton) {
-            skeleton.style.transition = 'opacity 0.3s';
-            skeleton.style.opacity = '0';
-            setTimeout(function() {
-              skeleton.classList.remove('visible');
-              skeleton.style.opacity = '1';
-            }, 300);
-          }
-        }
+    if (isFirstVisit || isOffline) {
+      skeleton.classList.add('visible');
+      sessionStorage.setItem('visited', 'true');
 
-        if (document.readyState === 'complete') {
-          hideSkeleton();
-        } else {
-          window.addEventListener('load', hideSkeleton);
-        }
-
-        // Show skeleton on navigation
-        document.addEventListener('astro:before-preparation', function() {
-          const s = document.getElementById('page-skeleton');
-          if (s) s.classList.add('visible');
-        });
-
-        document.addEventListener('astro:after-swap', function() {
-          const s = document.getElementById('page-skeleton');
-          if (s) {
-            s.style.transition = 'opacity 0.3s';
-            s.style.opacity = '0';
-            setTimeout(function() {
-              s.classList.remove('visible');
-              s.style.opacity = '1';
-            }, 300);
-          }
-        });
-      })();
-    </script>
+      // Hide after max 0.1 seconds
+      setTimeout(function() {
+        skeleton.style.transition = 'opacity 0.2s';
+        skeleton.style.opacity = '0';
+        setTimeout(function() {
+          skeleton.classList.remove('visible');
+          skeleton.style.opacity = '1';
+        }, 200);
+      }, 100);
+    }
+  })();
+</script>
 
     <!-- PWA Detection -->
     <script is:inline>
