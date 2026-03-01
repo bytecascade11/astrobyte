@@ -2,7 +2,6 @@
 import { SITE } from "@/config";
 import SchemaMarkup from "@/components/SchemaMarkup.astro";
 import "@/styles/global.css";
-import { ViewTransitions } from "astro:transitions";
 
 const { PUBLIC_GOOGLE_SITE_VERIFICATION } = import.meta.env;
 
@@ -57,9 +56,6 @@ const currentPath = Astro.url.pathname;
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 
-    <!-- Astro View Transitions -->
-    <ViewTransitions />
-
     <style>
       *, *::before, *::after { box-sizing: border-box; }
       html, body {
@@ -68,44 +64,6 @@ const currentPath = Astro.url.pathname;
         margin: 0;
         padding: 0;
         overflow-x: hidden;
-      }
-
-      /* ── Slide Page Transitions ── */
-      @keyframes slideInFromRight {
-        from { transform: translateX(100%); opacity: 0; }
-        to { transform: translateX(0); opacity: 1; }
-      }
-
-      @keyframes slideOutToLeft {
-        from { transform: translateX(0); opacity: 1; }
-        to { transform: translateX(-100%); opacity: 0; }
-      }
-
-      @keyframes slideInFromLeft {
-        from { transform: translateX(-100%); opacity: 0; }
-        to { transform: translateX(0); opacity: 1; }
-      }
-
-      @keyframes slideOutToRight {
-        from { transform: translateX(0); opacity: 1; }
-        to { transform: translateX(100%); opacity: 0; }
-      }
-
-      ::view-transition-old(root) {
-        animation: 300ms cubic-bezier(0.4, 0, 0.2, 1) both slideOutToLeft;
-      }
-
-      ::view-transition-new(root) {
-        animation: 300ms cubic-bezier(0.4, 0, 0.2, 1) both slideInFromRight;
-      }
-
-      /* Back navigation slides opposite direction */
-      .back-transition::view-transition-old(root) {
-        animation: 300ms cubic-bezier(0.4, 0, 0.2, 1) both slideOutToRight;
-      }
-
-      .back-transition::view-transition-new(root) {
-        animation: 300ms cubic-bezier(0.4, 0, 0.2, 1) both slideInFromLeft;
       }
 
       /* ── PWA Top Bar ── */
@@ -276,6 +234,7 @@ const currentPath = Astro.url.pathname;
         padding-bottom: 64px;
       }
 
+      /* Force hide original header in PWA */
       body.is-pwa header {
         display: none !important;
         visibility: hidden !important;
@@ -432,8 +391,10 @@ const currentPath = Astro.url.pathname;
         const icon = document.getElementById('pwa-theme-icon');
         if (!icon) return;
         if (themeValue === 'dark') {
+          // Show sun icon (click to go light)
           icon.innerHTML = '<circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>';
         } else {
+          // Show moon icon (click to go dark)
           icon.innerHTML = '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>';
         }
       }
@@ -474,12 +435,14 @@ const currentPath = Astro.url.pathname;
     <div class="pwa-topbar" id="pwaTopbar">
       <a href="/" class="pwa-topbar-title">{SITE.title}</a>
       <div class="pwa-topbar-actions">
+        <!-- Search -->
         <a href="/search" class="pwa-topbar-btn" aria-label="Search">
           <svg viewBox="0 0 24 24">
             <circle cx="11" cy="11" r="8"/>
             <path d="m21 21-4.35-4.35"/>
           </svg>
         </a>
+        <!-- Theme Toggle -->
         <button
           class="pwa-topbar-btn"
           id="pwa-theme-btn"
@@ -552,36 +515,24 @@ const currentPath = Astro.url.pathname;
 
         if (isPWA) {
           document.body.classList.add('is-pwa');
+          // Force hide original header
           const header = document.querySelector('header');
           if (header) {
             header.style.cssText = 'display:none!important;visibility:hidden!important;height:0!important;overflow:hidden!important;';
           }
+          // Update theme icon on load
           updateThemeIcon && updateThemeIcon();
         } else {
           document.body.classList.remove('is-pwa');
           const header = document.querySelector('header');
-          if (header) header.style.cssText = '';
+          if (header) {
+            header.style.cssText = '';
+          }
         }
       }
 
       checkPWA();
       document.addEventListener('astro:after-swap', checkPWA);
-    </script>
-
-    <!-- Slide transition direction (back = slide right) -->
-    <script is:inline>
-      let lastPath = window.location.pathname;
-
-      document.addEventListener('astro:before-preparation', function(e) {
-        const newPath = e.to?.pathname || '';
-        const isBack = newPath.length < lastPath.length || history.state?.index < (history.state?.index - 1);
-        if (isBack) {
-          document.documentElement.classList.add('back-transition');
-        } else {
-          document.documentElement.classList.remove('back-transition');
-        }
-        lastPath = newPath;
-      });
     </script>
 
     <!-- Close More Menu when clicking outside -->
@@ -595,7 +546,7 @@ const currentPath = Astro.url.pathname;
       });
     </script>
 
- <!-- PWA Install Banner -->
+    <!-- PWA Install Banner -->
     <div id="installBanner" style="display:none; position:fixed; bottom:74px; left:50%; transform:translateX(-50%); background:#0f172a; color:white; padding:12px 24px; border-radius:12px; box-shadow:0 4px 20px rgba(0,0,0,0.3); z-index:9998; align-items:center; gap:12px;">
       <span>📱 Install ReviByte for a better experience!</span>
       <button onclick="installApp()" style="background:#6366f1; color:white; border:none; padding:8px 16px; border-radius:8px; cursor:pointer; font-weight:600;">
