@@ -685,7 +685,6 @@ const currentPath = Astro.url.pathname;
     const skeleton = document.getElementById('page-skeleton');
     if (!skeleton) return;
 
-    // Only show on first visit or offline
     const isFirstVisit = !sessionStorage.getItem('visited');
     const isOffline = !navigator.onLine;
 
@@ -693,15 +692,15 @@ const currentPath = Astro.url.pathname;
       skeleton.classList.add('visible');
       sessionStorage.setItem('visited', 'true');
 
-      // Hide after max 0.1 seconds
+      // Show for 1 second then fade out over 0.1 seconds
       setTimeout(function() {
-        skeleton.style.transition = 'opacity 0.2s';
+        skeleton.style.transition = 'opacity 0.1s';
         skeleton.style.opacity = '0';
         setTimeout(function() {
           skeleton.classList.remove('visible');
           skeleton.style.opacity = '1';
-        }, 200);
-      }, 100);
+        }, 100);
+      }, 1000);
     }
   })();
 </script>
