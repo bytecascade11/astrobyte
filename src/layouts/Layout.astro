@@ -263,6 +263,23 @@ const currentPath = Astro.url.pathname;
       }
 
       (window as any).installApp = installApp;
+/* Always hide on desktop */
+      @media (min-width: 768px) {
+        .bottom-nav,
+        .more-menu {
+          display: none !important;
+        }
+        body {
+          padding-bottom: 0 !important;
+        }
+      }
+
+      /* Hide header in PWA app mode */
+      @media (display-mode: standalone) {
+        header {
+          display: none !important;
+        }
+      }
     </script>
 
     <!-- Canonical -->
