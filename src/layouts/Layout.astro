@@ -89,13 +89,22 @@ const currentPath = Astro.url.pathname;
         left: 0;
         width: 100%;
         background: #0f172a;
-        display: flex;
+        display: none;
         justify-content: space-around;
         align-items: center;
         height: 64px;
         z-index: 9990;
         border-top: 1px solid rgba(255,255,255,0.08);
         box-shadow: 0 -4px 20px rgba(0,0,0,0.3);
+      }
+
+      /* Only show bottom nav in PWA mode via JS */
+      body.is-pwa .bottom-nav {
+        display: flex;
+      }
+
+      body.is-pwa {
+        padding-bottom: 64px;
       }
 
       .bottom-nav a {
@@ -182,28 +191,6 @@ const currentPath = Astro.url.pathname;
         opacity: 0.7;
       }
 
-      /* Push page content above bottom nav — only in PWA mode */
-      @media (display-mode: standalone) {
-        body {
-          padding-bottom: 64px;
-        }
-        /* Hide header in PWA app mode */
-        header {
-          display: none !important;
-        }
-      }
-
-      /* Hide bottom nav on regular browser */
-      @media (display-mode: browser) {
-        .bottom-nav,
-        .more-menu {
-          display: none !important;
-        }
-        body {
-          padding-bottom: 0 !important;
-        }
-      }
-
       /* Always hide bottom nav on desktop */
       @media (min-width: 768px) {
         .bottom-nav,
@@ -268,21 +255,7 @@ const currentPath = Astro.url.pathname;
 
       (window as any).installApp = installApp;
     </script>
-<!-- Hide header in PWA mode -->
-<script is:inline>
-  function checkPWA() {
-    const isPWA = window.matchMedia('(display-mode: standalone)').matches
-      || (window.navigator as any).standalone === true;
-    
-    if (isPWA) {
-      const header = document.querySelector('header');
-      if (header) header.style.display = 'none';
-    }
-  }
 
-  checkPWA();
-  document.addEventListener('astro:after-swap', checkPWA);
-</script>
     <!-- Canonical -->
     <link rel="canonical" href={canonical} />
 
@@ -449,6 +422,27 @@ const currentPath = Astro.url.pathname;
         More
       </button>
     </nav>
+
+    <!-- PWA Detection - Hide header and show bottom nav -->
+    <script is:inline>
+      function checkPWA() {
+        const isPWA = window.matchMedia('(display-mode: standalone)').matches
+          || (window.navigator as any).standalone === true;
+
+        if (isPWA) {
+          document.body.classList.add('is-pwa');
+          const header = document.querySelector('header');
+          if (header) header.style.display = 'none';
+        } else {
+          document.body.classList.remove('is-pwa');
+          const header = document.querySelector('header');
+          if (header) header.style.display = '';
+        }
+      }
+
+      checkPWA();
+      document.addEventListener('astro:after-swap', checkPWA);
+    </script>
 
     <!-- Close More Menu when clicking outside -->
     <script>
