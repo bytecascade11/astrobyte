@@ -268,7 +268,21 @@ const currentPath = Astro.url.pathname;
 
       (window as any).installApp = installApp;
     </script>
+<!-- Hide header in PWA mode -->
+<script is:inline>
+  function checkPWA() {
+    const isPWA = window.matchMedia('(display-mode: standalone)').matches
+      || (window.navigator as any).standalone === true;
+    
+    if (isPWA) {
+      const header = document.querySelector('header');
+      if (header) header.style.display = 'none';
+    }
+  }
 
+  checkPWA();
+  document.addEventListener('astro:after-swap', checkPWA);
+</script>
     <!-- Canonical -->
     <link rel="canonical" href={canonical} />
 
