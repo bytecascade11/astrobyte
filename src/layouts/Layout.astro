@@ -187,9 +187,13 @@ const currentPath = Astro.url.pathname;
         body {
           padding-bottom: 64px;
         }
+        /* Hide header in PWA app mode */
+        header {
+          display: none !important;
+        }
       }
 
-      /* Hide on regular browser */
+      /* Hide bottom nav on regular browser */
       @media (display-mode: browser) {
         .bottom-nav,
         .more-menu {
@@ -200,7 +204,7 @@ const currentPath = Astro.url.pathname;
         }
       }
 
-      /* Always hide on desktop */
+      /* Always hide bottom nav on desktop */
       @media (min-width: 768px) {
         .bottom-nav,
         .more-menu {
@@ -263,23 +267,6 @@ const currentPath = Astro.url.pathname;
       }
 
       (window as any).installApp = installApp;
-/* Always hide on desktop */
-      @media (min-width: 768px) {
-        .bottom-nav,
-        .more-menu {
-          display: none !important;
-        }
-        body {
-          padding-bottom: 0 !important;
-        }
-      }
-
-      /* Hide header in PWA app mode */
-      @media (display-mode: standalone) {
-        header {
-          display: none !important;
-        }
-      }
     </script>
 
     <!-- Canonical -->
@@ -400,7 +387,7 @@ const currentPath = Astro.url.pathname;
   <body>
     <slot />
 
-    <!-- More Menu (slides up when More is tapped) -->
+    <!-- More Menu -->
     <div class="more-menu" id="moreMenu">
       <a href="/tags/games">
         <svg viewBox="0 0 24 24"><rect x="2" y="6" width="20" height="12" rx="2"/><path d="M6 12h4M8 10v4M15 12h2M17 10v4"/></svg>
@@ -413,6 +400,10 @@ const currentPath = Astro.url.pathname;
       <a href="/tags/opinions">
         <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
         Opinions
+      </a>
+      <a href="/search">
+        <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+        Search
       </a>
     </div>
 
