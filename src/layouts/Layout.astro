@@ -425,9 +425,9 @@ const currentPath = Astro.url.pathname;
 
     <!-- PWA Detection - Hide header and show bottom nav -->
     <script is:inline>
-      function checkPWA() {
-        const isPWA = window.matchMedia('(display-mode: standalone)').matches
-          || (window.navigator as any).standalone === true;
+  function checkPWA() {
+    const isPWA = window.matchMedia('(display-mode: standalone)').matches
+      || window.navigator.standalone === true;
 
         if (isPWA) {
           document.body.classList.add('is-pwa');
