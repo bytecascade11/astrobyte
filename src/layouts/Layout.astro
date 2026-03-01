@@ -27,9 +27,6 @@ const {
   scrollSmooth = false,
 } = Astro.props;
 
-/* --------------------------------------------------
-   SAFE CANONICAL GENERATION
--------------------------------------------------- */
 const siteBase = SITE.website || "https://www.revibyte.blog/";
 
 let canonicalURL = new URL(Astro.url.pathname, siteBase);
@@ -44,21 +41,11 @@ if (propCanonical) {
   canonical = new URL(propCanonical, siteBase).toString();
 }
 
-/* --------------------------------------------------
-   SOCIAL IMAGE (ALWAYS ABSOLUTE)
--------------------------------------------------- */
 const socialImageURL = ogImage.startsWith("http")
   ? ogImage
   : new URL(ogImage, siteBase).toString();
 
-/* --------------------------------------------------
-   OG TYPE
--------------------------------------------------- */
 const ogType = pubDatetime ? "article" : "website";
-
-/* --------------------------------------------------
-   CURRENT PATH FOR ACTIVE NAV HIGHLIGHT
--------------------------------------------------- */
 const currentPath = Astro.url.pathname;
 ---
 
@@ -69,11 +56,8 @@ const currentPath = Astro.url.pathname;
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 
-    <!-- Fix full-width layout -->
     <style>
-      *, *::before, *::after {
-        box-sizing: border-box;
-      }
+      *, *::before, *::after { box-sizing: border-box; }
       html, body {
         width: 100%;
         max-width: 100%;
@@ -82,7 +66,67 @@ const currentPath = Astro.url.pathname;
         overflow-x: hidden;
       }
 
-      /* Bottom Nav Styles */
+      /* ── PWA Top Bar ── */
+      .pwa-topbar {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 56px;
+        background: #0f172a;
+        color: white;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 16px;
+        z-index: 9990;
+        box-shadow: 0 2px 12px rgba(0,0,0,0.3);
+      }
+
+      .pwa-topbar-title {
+        font-size: 18px;
+        font-weight: 700;
+        color: white;
+        text-decoration: none;
+        letter-spacing: -0.3px;
+      }
+
+      .pwa-topbar-actions {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .pwa-topbar-btn {
+        background: rgba(255,255,255,0.1);
+        border: none;
+        color: white;
+        width: 38px;
+        height: 38px;
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        text-decoration: none;
+        transition: background 0.2s;
+      }
+
+      .pwa-topbar-btn:hover {
+        background: rgba(255,255,255,0.2);
+      }
+
+      .pwa-topbar-btn svg {
+        width: 20px;
+        height: 20px;
+        stroke: white;
+        fill: none;
+        stroke-width: 2;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+      }
+
+      /* ── Bottom Nav ── */
       .bottom-nav {
         position: fixed;
         bottom: 0;
@@ -96,15 +140,6 @@ const currentPath = Astro.url.pathname;
         z-index: 9990;
         border-top: 1px solid rgba(255,255,255,0.08);
         box-shadow: 0 -4px 20px rgba(0,0,0,0.3);
-      }
-
-      /* Only show bottom nav in PWA mode via JS */
-      body.is-pwa .bottom-nav {
-        display: flex;
-      }
-
-      body.is-pwa {
-        padding-bottom: 64px;
       }
 
       .bottom-nav a {
@@ -122,10 +157,7 @@ const currentPath = Astro.url.pathname;
         transition: color 0.2s;
       }
 
-      .bottom-nav a:hover {
-        color: #6366f1;
-      }
-
+      .bottom-nav a:hover,
       .bottom-nav a.active {
         color: #6366f1;
       }
@@ -144,7 +176,7 @@ const currentPath = Astro.url.pathname;
         fill: rgba(99,102,241,0.15);
       }
 
-      /* More Menu */
+      /* ── More Menu ── */
       .more-menu {
         position: fixed;
         bottom: 64px;
@@ -162,7 +194,8 @@ const currentPath = Astro.url.pathname;
         display: flex;
       }
 
-      .more-menu a {
+      .more-menu a,
+      .more-menu button.menu-theme-btn {
         display: flex;
         align-items: center;
         gap: 14px;
@@ -173,14 +206,23 @@ const currentPath = Astro.url.pathname;
         font-weight: 500;
         border-bottom: 1px solid rgba(255,255,255,0.05);
         transition: background 0.2s;
+        width: 100%;
+        background: none;
+        border-left: none;
+        border-right: none;
+        border-top: none;
+        cursor: pointer;
+        text-align: left;
       }
 
-      .more-menu a:hover {
+      .more-menu a:hover,
+      .more-menu button.menu-theme-btn:hover {
         background: rgba(255,255,255,0.05);
         color: #6366f1;
       }
 
-      .more-menu a svg {
+      .more-menu a svg,
+      .more-menu button.menu-theme-btn svg {
         width: 20px;
         height: 20px;
         stroke: currentColor;
@@ -191,29 +233,45 @@ const currentPath = Astro.url.pathname;
         opacity: 0.7;
       }
 
-      /* Always hide bottom nav on desktop */
+      /* ── PWA Mode ── */
+      body.is-pwa .bottom-nav,
+      body.is-pwa .pwa-topbar {
+        display: flex;
+      }
+
+      body.is-pwa {
+        padding-top: 56px;
+        padding-bottom: 64px;
+      }
+
+      body.is-pwa header {
+        display: none !important;
+      }
+
+      /* ── Desktop always hides bottom nav ── */
       @media (min-width: 768px) {
         .bottom-nav,
-        .more-menu {
+        .more-menu,
+        .pwa-topbar {
           display: none !important;
         }
-        body {
+        body.is-pwa {
+          padding-top: 0 !important;
           padding-bottom: 0 !important;
+        }
+        body.is-pwa header {
+          display: block !important;
         }
       }
     </style>
 
-    <!-- PWA Manifest and Theme Color -->
     <link rel="manifest" href="/site.webmanifest" />
     <meta name="theme-color" content="#0f172a" />
-
-    <!-- Apple PWA Meta Tags -->
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
     <meta name="apple-mobile-web-app-title" content="ReviByte" />
 
-    <!-- OneSignal Push Notifications -->
-    <script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
+    <script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" is:inline defer></script>
     <script>
       window.OneSignalDeferred = window.OneSignalDeferred || [];
       window.OneSignalDeferred.push(async function(OneSignal: any) {
@@ -225,18 +283,14 @@ const currentPath = Astro.url.pathname;
       });
     </script>
 
-    <!-- PWA Install Prompt -->
     <script>
       let deferredPrompt: BeforeInstallPromptEvent | null = null;
 
       window.addEventListener('beforeinstallprompt', (e) => {
         e.preventDefault();
         deferredPrompt = e as BeforeInstallPromptEvent;
-
         const banner = document.getElementById('installBanner');
-        if (banner) {
-          banner.style.display = 'flex';
-        }
+        if (banner) banner.style.display = 'flex';
       });
 
       async function installApp() {
@@ -245,35 +299,30 @@ const currentPath = Astro.url.pathname;
           const { outcome } = await deferredPrompt.userChoice;
           console.log(`User response: ${outcome}`);
           deferredPrompt = null;
-
           const banner = document.getElementById('installBanner');
-          if (banner) {
-            banner.style.display = 'none';
-          }
+          if (banner) banner.style.display = 'none';
         }
       }
 
       (window as any).installApp = installApp;
     </script>
 
-    <!-- Canonical -->
     <link rel="canonical" href={canonical} />
-
-    <!-- Basic SEO -->
     <title>{title}</title>
     <meta name="title" content={title} />
     <meta name="description" content={description} />
     <meta name="author" content={author} />
+    <meta name="robots" content="index, follow" />
     <link rel="sitemap" href="/sitemap-index.xml" />
 
-    <!-- Open Graph -->
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:type" content={ogType} />
     <meta property="og:url" content={canonical} />
     <meta property="og:image" content={socialImageURL} />
+    <meta property="og:site_name" content="ReviByte" />
+    <meta property="og:locale" content="en_US" />
 
-    <!-- Article dates -->
     {pubDatetime instanceof Date && (
       <meta property="article:published_time" content={pubDatetime.toISOString()} />
     )}
@@ -281,14 +330,12 @@ const currentPath = Astro.url.pathname;
       <meta property="article:modified_time" content={modDatetime.toISOString()} />
     )}
 
-    <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:url" content={canonical} />
     <meta name="twitter:image" content={socialImageURL} />
 
-    <!-- Schema Markup -->
     <SchemaMarkup
       title={title}
       description={description}
@@ -298,23 +345,12 @@ const currentPath = Astro.url.pathname;
       dateModified={modDatetime}
     />
 
-    <!-- RSS -->
-    <link
-      rel="alternate"
-      type="application/rss+xml"
-      title={SITE.title}
-      href={`${siteBase}rss.xml`}
-    />
+    <link rel="alternate" type="application/rss+xml" title={SITE.title} href={`${siteBase}rss.xml`} />
 
-    <!-- Google Site Verification -->
     {PUBLIC_GOOGLE_SITE_VERIFICATION && (
-      <meta
-        name="google-site-verification"
-        content={PUBLIC_GOOGLE_SITE_VERIFICATION}
-      />
+      <meta name="google-site-verification" content={PUBLIC_GOOGLE_SITE_VERIFICATION} />
     )}
 
-    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -330,7 +366,6 @@ const currentPath = Astro.url.pathname;
       />
     </noscript>
 
-    <!-- Theme Handling -->
     <script is:inline>
       const primaryColorScheme = "";
       function getPreferTheme() {
@@ -346,6 +381,12 @@ const currentPath = Astro.url.pathname;
       }
       function reflectPreference() {
         document.documentElement.setAttribute("data-theme", themeValue);
+        const icon = document.getElementById('pwa-theme-icon');
+        if (icon) {
+          icon.innerHTML = themeValue === 'dark'
+            ? '<circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>'
+            : '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>';
+        }
       }
       reflectPreference();
       window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", ({ matches }) => {
@@ -354,10 +395,8 @@ const currentPath = Astro.url.pathname;
       });
     </script>
 
-    <!-- Google AdSense -->
     <script is:inline async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4896561037705299" crossorigin="anonymous"></script>
 
-    <!-- Google Analytics -->
     {SITE.analytics?.googleAnalyticsId && (
       <>
         <script is:inline async src={`https://www.googletagmanager.com/gtag/js?id=${SITE.analytics.googleAnalyticsId}`}></script>
@@ -372,6 +411,34 @@ const currentPath = Astro.url.pathname;
   </head>
 
   <body>
+
+    <!-- PWA Top Bar (only visible in app mode) -->
+    <div class="pwa-topbar">
+      <a href="/" class="pwa-topbar-title">{SITE.title}</a>
+      <div class="pwa-topbar-actions">
+        <!-- Search -->
+        <a href="/search" class="pwa-topbar-btn" aria-label="Search">
+          <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+        </a>
+        <!-- Theme Toggle -->
+        <button
+          class="pwa-topbar-btn"
+          aria-label="Toggle theme"
+          onclick="
+            const curr = localStorage.getItem('theme') || document.documentElement.getAttribute('data-theme');
+            const next = curr === 'dark' ? 'light' : 'dark';
+            localStorage.setItem('theme', next);
+            document.documentElement.setAttribute('data-theme', next);
+            reflectPreference && reflectPreference();
+          "
+        >
+          <svg viewBox="0 0 24 24" id="pwa-theme-icon">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+
     <slot />
 
     <!-- More Menu -->
@@ -388,9 +455,9 @@ const currentPath = Astro.url.pathname;
         <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
         Opinions
       </a>
-      <a href="/search">
-        <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
-        Search
+      <a href="/tags/news">
+        <svg viewBox="0 0 24 24"><path d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 1-2 2zm0 0a2 2 0 0 1-2-2v-9c0-1.1.9-2 2-2h2"/><path d="M18 14h-8M18 18h-8M18 10h-8"/></svg>
+        News
       </a>
     </div>
 
@@ -423,20 +490,16 @@ const currentPath = Astro.url.pathname;
       </button>
     </nav>
 
-    <!-- PWA Detection - Hide header and show bottom nav -->
+    <!-- PWA Detection -->
     <script is:inline>
-  function checkPWA() {
-    const isPWA = window.matchMedia('(display-mode: standalone)').matches
-      || window.navigator.standalone === true;
+      function checkPWA() {
+        const isPWA = window.matchMedia('(display-mode: standalone)').matches
+          || window.navigator.standalone === true;
 
         if (isPWA) {
           document.body.classList.add('is-pwa');
-          const header = document.querySelector('header');
-          if (header) header.style.display = 'none';
         } else {
           document.body.classList.remove('is-pwa');
-          const header = document.querySelector('header');
-          if (header) header.style.display = '';
         }
       }
 
@@ -445,11 +508,11 @@ const currentPath = Astro.url.pathname;
     </script>
 
     <!-- Close More Menu when clicking outside -->
-    <script>
-      document.addEventListener('click', (e) => {
+    <script is:inline>
+      document.addEventListener('click', function(e) {
         const menu = document.getElementById('moreMenu');
         const moreBtn = document.querySelector('.bottom-nav button');
-        if (menu && moreBtn && !menu.contains(e.target as Node) && !moreBtn.contains(e.target as Node)) {
+        if (menu && moreBtn && !menu.contains(e.target) && !moreBtn.contains(e.target)) {
           menu.classList.remove('open');
         }
       });
@@ -458,7 +521,7 @@ const currentPath = Astro.url.pathname;
     <!-- PWA Install Banner -->
     <div id="installBanner" style="display:none; position:fixed; bottom:74px; left:50%; transform:translateX(-50%); background:#0f172a; color:white; padding:12px 24px; border-radius:12px; box-shadow:0 4px 20px rgba(0,0,0,0.3); z-index:9998; align-items:center; gap:12px;">
       <span>📱 Install ReviByte for a better experience!</span>
-      <button id="installApp" onclick="installApp()" style="background:#6366f1; color:white; border:none; padding:8px 16px; border-radius:8px; cursor:pointer; font-weight:600;">
+      <button onclick="installApp()" style="background:#6366f1; color:white; border:none; padding:8px 16px; border-radius:8px; cursor:pointer; font-weight:600;">
         Install
       </button>
       <button onclick="document.getElementById('installBanner').style.display='none'" style="background:transparent; color:white; border:none; cursor:pointer; font-size:18px;">
@@ -467,14 +530,15 @@ const currentPath = Astro.url.pathname;
     </div>
 
     <!-- Service Worker Registration -->
-    <script>
+    <script is:inline>
       if ('serviceWorker' in navigator) {
-        window.addEventListener('load', () => {
+        window.addEventListener('load', function() {
           navigator.serviceWorker.register('/sw.js')
-            .then(reg => console.log('Service Worker registered'))
-            .catch(err => console.log('Service Worker failed', err));
+            .then(function() { console.log('Service Worker registered'); })
+            .catch(function(err) { console.log('Service Worker failed', err); });
         });
       }
     </script>
+
   </body>
 </html>
