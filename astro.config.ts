@@ -37,8 +37,7 @@ export default defineConfig({
         id: "/",
         name: "ReviByte Technology Opinions",
         short_name: "ReviByte",
-        description:
-          "ReviByte delivers the latest tech news, smartphone reviews, Android updates, gadget comparisons, and in-depth technology guides.",
+        description: "ReviByte Technology Opinions delivers the latest tech news, gadget reviews, Android updates, and in-depth guides to keep you informed and ahead in the digital world.",
         start_url: "/?source=pwa",
         scope: "/",
         display: "standalone",
