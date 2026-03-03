@@ -12,7 +12,7 @@ import { transformerFileName } from "./src/utils/transformers/fileName";
 import { SITE } from "./src/config";
 import indexnow from "./src/integrations/indexnow";
 import tailwindcss from "@tailwindcss/vite";
-import AstroPWA from "@vite-pwa/astro"; // 👈 NEW
+import AstroPWA from "@vite-pwa/astro";
 
 export default defineConfig({
   site: SITE.website,
@@ -31,34 +31,62 @@ export default defineConfig({
   },
 
   integrations: [
-    // 👇 NEW: PWA integration for Google Play Store
     AstroPWA({
       registerType: "autoUpdate",
       manifest: {
-        name: SITE.title,
-        short_name: SITE.title,
-        description: SITE.desc,
-        start_url: "/",
+        id: "/",
+        name: "ReviByte Technology Opinions",
+        short_name: "ReviByte",
+        description:
+          "ReviByte delivers the latest tech news, smartphone reviews, Android updates, gadget comparisons, and in-depth technology guides.",
+        start_url: "/?source=pwa",
         scope: "/",
         display: "standalone",
-        background_color: "#ffffff",
-        theme_color: "#ffffff",
+        display_override: ["standalone", "minimal-ui"],
+        background_color: "#0f172a",
+        theme_color: "#0f172a",
+        orientation: "portrait-primary",
+        lang: "en",
+        dir: "ltr",
+        categories: ["technology", "news", "blog"],
         icons: [
           {
-            src": "/android-chrome-192x192.png",
+            src: "/android-chrome-192x192.png",
             sizes: "192x192",
             type: "image/png",
+            purpose: "any maskable",
           },
           {
-            src": "/android-chrome-512x512.png",
+            src: "/android-chrome-512x512.png",
             sizes: "512x512",
             type: "image/png",
+            purpose: "any maskable",
+          },
+        ],
+        shortcuts: [
+          {
+            name: "Latest Posts",
+            short_name: "Latest",
+            description: "Read newest tech articles",
+            url: "/?latest=true",
+            icons: [
+              {
+                src: "/android-chrome-192x192.png",
+                sizes: "192x192",
+              },
+            ],
           },
           {
-            src": "/android-chrome-512x512.png",
-            sizes: "512x512",
-            type: "image/png",
-            purpose: "maskable",
+            name: "Smartphone Reviews",
+            short_name: "Reviews",
+            description: "See phone comparisons and reviews",
+            url: "/category/reviews",
+            icons: [
+              {
+                src: "/android-chrome-192x192.png",
+                sizes: "192x192",
+              },
+            ],
           },
         ],
       },
