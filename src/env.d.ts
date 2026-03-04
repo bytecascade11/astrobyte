@@ -1,5 +1,5 @@
-typescript
 /// <reference types="astro/client" />
+/// <reference types="vite-plugin-pwa/client" />
 
 interface Window {
   OneSignalDeferred: Array<(OneSignal: any) => void | Promise<void>>;
