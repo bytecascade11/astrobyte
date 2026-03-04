@@ -2,7 +2,7 @@
 import { SITE } from "@/config";
 import SchemaMarkup from "@/components/SchemaMarkup.astro";
 import "@/styles/global.css";
-
+{ pwaInfo && <Fragment set:html={pwaInfo.webManifest.linkTag} /> }
 const { PUBLIC_GOOGLE_SITE_VERIFICATION } = import.meta.env;
 
 type Props = {
