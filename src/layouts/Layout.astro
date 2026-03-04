@@ -2,6 +2,7 @@
 import { SITE } from "@/config";
 import SchemaMarkup from "@/components/SchemaMarkup.astro";
 import "@/styles/global.css";
+import { pwaInfo } from 'virtual:pwa-info';
 
 const { PUBLIC_GOOGLE_SITE_VERIFICATION } = import.meta.env;
 
@@ -53,9 +54,11 @@ const currentPath = Astro.url.pathname;
 <html dir={SITE.dir} lang={SITE.lang ?? "en"} class={scrollSmooth ? "scroll-smooth" : undefined}>
   <head>
     <meta charset="UTF-8" />
-<link rel="manifest" href="/manifest.webmanifest" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <!-- ✅ PWA Manifest injected by @vite-pwa/astro -->
+    { pwaInfo && <Fragment set:html={pwaInfo.webManifest.linkTag} /> }
 
     <style>
       *, *::before, *::after { box-sizing: border-box; }
@@ -85,7 +88,6 @@ const currentPath = Astro.url.pathname;
         border-radius: 6px;
       }
 
-      /* Dark mode skeleton */
       [data-theme="dark"] .skeleton {
         background: linear-gradient(
           90deg,
@@ -97,7 +99,6 @@ const currentPath = Astro.url.pathname;
         animation: shimmer 1.5s infinite;
       }
 
-      /* Page loading overlay */
       #page-skeleton {
         display: none;
         position: fixed;
@@ -119,7 +120,6 @@ const currentPath = Astro.url.pathname;
         display: block;
       }
 
-      /* Skeleton card layout */
       .skeleton-topbar {
         height: 56px;
         margin-bottom: 16px;
@@ -129,21 +129,9 @@ const currentPath = Astro.url.pathname;
         gap: 12px;
       }
 
-      .skeleton-topbar-title {
-        height: 24px;
-        width: 120px;
-      }
-
-      .skeleton-topbar-actions {
-        display: flex;
-        gap: 8px;
-      }
-
-      .skeleton-topbar-btn {
-        height: 38px;
-        width: 38px;
-        border-radius: 10px;
-      }
+      .skeleton-topbar-title { height: 24px; width: 120px; }
+      .skeleton-topbar-actions { display: flex; gap: 8px; }
+      .skeleton-topbar-btn { height: 38px; width: 38px; border-radius: 10px; }
 
       .skeleton-card {
         margin-bottom: 16px;
@@ -157,49 +145,13 @@ const currentPath = Astro.url.pathname;
         border-bottom: 1px solid rgba(255,255,255,0.06);
       }
 
-      .skeleton-image {
-        width: 100%;
-        height: 180px;
-        border-radius: 10px;
-        margin-bottom: 12px;
-      }
-
-      .skeleton-title {
-        height: 22px;
-        width: 90%;
-        margin-bottom: 8px;
-      }
-
-      .skeleton-title-short {
-        height: 22px;
-        width: 60%;
-        margin-bottom: 8px;
-      }
-
-      .skeleton-date {
-        height: 14px;
-        width: 40%;
-        margin-bottom: 10px;
-      }
-
-      .skeleton-text {
-        height: 14px;
-        width: 100%;
-        margin-bottom: 6px;
-      }
-
-      .skeleton-text-short {
-        height: 14px;
-        width: 70%;
-        margin-bottom: 6px;
-      }
-
-      .skeleton-btn {
-        height: 36px;
-        width: 110px;
-        border-radius: 8px;
-        margin-top: 8px;
-      }
+      .skeleton-image { width: 100%; height: 180px; border-radius: 10px; margin-bottom: 12px; }
+      .skeleton-title { height: 22px; width: 90%; margin-bottom: 8px; }
+      .skeleton-title-short { height: 22px; width: 60%; margin-bottom: 8px; }
+      .skeleton-date { height: 14px; width: 40%; margin-bottom: 10px; }
+      .skeleton-text { height: 14px; width: 100%; margin-bottom: 6px; }
+      .skeleton-text-short { height: 14px; width: 70%; margin-bottom: 6px; }
+      .skeleton-btn { height: 36px; width: 110px; border-radius: 8px; margin-top: 8px; }
 
       /* ── PWA Top Bar ── */
       .pwa-topbar {
@@ -226,11 +178,7 @@ const currentPath = Astro.url.pathname;
         letter-spacing: -0.3px;
       }
 
-      .pwa-topbar-actions {
-        display: flex;
-        align-items: center;
-        gap: 8px;
-      }
+      .pwa-topbar-actions { display: flex; align-items: center; gap: 8px; }
 
       .pwa-topbar-btn {
         background: rgba(255,255,255,0.1);
@@ -247,9 +195,7 @@ const currentPath = Astro.url.pathname;
         transition: background 0.2s;
       }
 
-      .pwa-topbar-btn:hover {
-        background: rgba(255,255,255,0.2);
-      }
+      .pwa-topbar-btn:hover { background: rgba(255,255,255,0.2); }
 
       .pwa-topbar-btn svg {
         width: 20px;
@@ -293,9 +239,7 @@ const currentPath = Astro.url.pathname;
       }
 
       .bottom-nav a:hover,
-      .bottom-nav a.active {
-        color: #6366f1;
-      }
+      .bottom-nav a.active { color: #6366f1; }
 
       .bottom-nav a svg {
         width: 22px;
@@ -307,9 +251,7 @@ const currentPath = Astro.url.pathname;
         stroke-linejoin: round;
       }
 
-      .bottom-nav a.active svg {
-        fill: rgba(99,102,241,0.15);
-      }
+      .bottom-nav a.active svg { fill: rgba(99,102,241,0.15); }
 
       /* ── More Menu ── */
       .more-menu {
@@ -325,9 +267,7 @@ const currentPath = Astro.url.pathname;
         box-shadow: 0 -4px 20px rgba(0,0,0,0.3);
       }
 
-      .more-menu.open {
-        display: flex;
-      }
+      .more-menu.open { display: flex; }
 
       .more-menu a {
         display: flex;
@@ -342,10 +282,7 @@ const currentPath = Astro.url.pathname;
         transition: background 0.2s;
       }
 
-      .more-menu a:hover {
-        background: rgba(255,255,255,0.05);
-        color: #6366f1;
-      }
+      .more-menu a:hover { background: rgba(255,255,255,0.05); color: #6366f1; }
 
       .more-menu a svg {
         width: 20px;
@@ -360,9 +297,7 @@ const currentPath = Astro.url.pathname;
 
       /* ── PWA Mode ── */
       body.is-pwa .bottom-nav,
-      body.is-pwa .pwa-topbar {
-        display: flex;
-      }
+      body.is-pwa .pwa-topbar { display: flex; }
 
       body.is-pwa {
         padding-top: 56px;
@@ -381,13 +316,13 @@ const currentPath = Astro.url.pathname;
       @media (min-width: 768px) {
         .bottom-nav,
         .more-menu,
-        .pwa-topbar {
-          display: none !important;
-        }
+        .pwa-topbar { display: none !important; }
+
         body.is-pwa {
           padding-top: 0 !important;
           padding-bottom: 0 !important;
         }
+
         body.is-pwa header {
           display: block !important;
           visibility: visible !important;
@@ -398,7 +333,6 @@ const currentPath = Astro.url.pathname;
       }
     </style>
 
-    <link rel="manifest" href="/manifest.webmanifest" />
     <meta name="theme-color" content="#0f172a" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
@@ -563,9 +497,8 @@ const currentPath = Astro.url.pathname;
 
   <body>
 
-    <!-- Skeleton Screen (shows while page loads) -->
+    <!-- Skeleton Screen -->
     <div id="page-skeleton">
-      <!-- Fake top bar -->
       <div class="skeleton-topbar">
         <div class="skeleton skeleton-topbar-title"></div>
         <div class="skeleton-topbar-actions">
@@ -573,8 +506,6 @@ const currentPath = Astro.url.pathname;
           <div class="skeleton skeleton-topbar-btn"></div>
         </div>
       </div>
-
-      <!-- Fake article card 1 -->
       <div class="skeleton-card">
         <div class="skeleton skeleton-image"></div>
         <div class="skeleton skeleton-title"></div>
@@ -584,8 +515,6 @@ const currentPath = Astro.url.pathname;
         <div class="skeleton skeleton-text-short"></div>
         <div class="skeleton skeleton-btn"></div>
       </div>
-
-      <!-- Fake article card 2 -->
       <div class="skeleton-card">
         <div class="skeleton skeleton-image"></div>
         <div class="skeleton skeleton-title-short"></div>
@@ -594,8 +523,6 @@ const currentPath = Astro.url.pathname;
         <div class="skeleton skeleton-text-short"></div>
         <div class="skeleton skeleton-btn"></div>
       </div>
-
-      <!-- Fake article card 3 -->
       <div class="skeleton-card">
         <div class="skeleton skeleton-image"></div>
         <div class="skeleton skeleton-title"></div>
@@ -651,7 +578,7 @@ const currentPath = Astro.url.pathname;
       </a>
     </div>
 
-    <!-- Bottom Navigation Bar -->
+    <!-- ✅ Bottom Navigation Bar (fixed duplicate Android link) -->
     <nav class="bottom-nav">
       <a href="/" class={currentPath === "/" ? "active" : ""}>
         <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
@@ -685,14 +612,11 @@ const currentPath = Astro.url.pathname;
       (function() {
         const skeleton = document.getElementById('page-skeleton');
         if (!skeleton) return;
-
         const isFirstVisit = !sessionStorage.getItem('visited');
         const isOffline = !navigator.onLine;
-
         if (isFirstVisit || isOffline) {
           skeleton.classList.add('visible');
           sessionStorage.setItem('visited', 'true');
-
           setTimeout(function() {
             skeleton.style.transition = 'opacity 0.1s';
             skeleton.style.opacity = '0';
@@ -710,7 +634,6 @@ const currentPath = Astro.url.pathname;
       function checkPWA() {
         const isPWA = window.matchMedia('(display-mode: standalone)').matches
           || window.navigator.standalone === true;
-
         if (isPWA) {
           document.body.classList.add('is-pwa');
           const header = document.querySelector('header');
@@ -724,7 +647,6 @@ const currentPath = Astro.url.pathname;
           if (header) header.style.cssText = '';
         }
       }
-
       checkPWA();
       document.addEventListener('astro:after-swap', checkPWA);
     </script>
@@ -751,7 +673,7 @@ const currentPath = Astro.url.pathname;
       </button>
     </div>
 
-    <!-- ✅ Service Worker is handled automatically by @vite-pwa/astro -->
+    <!-- ✅ Service Worker handled automatically by @vite-pwa/astro -->
 
   </body>
 </html>
