@@ -90,8 +90,33 @@ export default defineConfig({
         ],
       },
       workbox: {
-        navigateFallback: "/",
-        globPatterns: ["**/*.{css,js,html,svg,png,ico,txt}"],
+        // ✅ REMOVED navigateFallback — it was redirecting all page navigations to "/"
+        // Only cache static assets, not HTML pages
+        globPatterns: ["**/*.{css,js,svg,png,ico,txt,woff,woff2}"],
+        runtimeCaching: [
+          {
+            urlPattern: /^https:\/\/www\.revibyte\.blog\/posts\/.*/i,
+            handler: "NetworkFirst",
+            options: {
+              cacheName: "posts-cache",
+              expiration: {
+                maxEntries: 50,
+                maxAgeSeconds: 60 * 60 * 24, // 24 hours
+              },
+            },
+          },
+          {
+            urlPattern: /^https:\/\/www\.revibyte\.blog\/.*/i,
+            handler: "NetworkFirst",
+            options: {
+              cacheName: "pages-cache",
+              expiration: {
+                maxEntries: 20,
+                maxAgeSeconds: 60 * 60 * 24, // 24 hours
+              },
+            },
+          },
+        ],
       },
       devOptions: {
         enabled: true,
@@ -173,3 +198,4 @@ export default defineConfig({
     },
   },
 });
+        
