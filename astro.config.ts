@@ -17,10 +17,8 @@ import AstroPWA from "@vite-pwa/astro";
 export default defineConfig({
   site: SITE.website,
 
-  // ✅ ENFORCE TRAILING SLASHES
   trailingSlash: "always",
 
-  // Image optimization with Sharp
   image: {
     service: {
       entrypoint: "astro/assets/services/sharp",
@@ -33,11 +31,13 @@ export default defineConfig({
   integrations: [
     AstroPWA({
       registerType: "autoUpdate",
+
       manifest: {
         id: "/",
         name: "ReviByte Technology Opinions",
         short_name: "ReviByte",
-        description: "ReviByte Technology Opinions delivers the latest tech news, gadget reviews, Android updates, and in-depth guides to keep you informed and ahead in the digital world.",
+        description:
+          "ReviByte Technology Opinions delivers the latest tech news, gadget reviews, Android updates, and in-depth guides.",
         start_url: "/?source=pwa",
         scope: "/",
         display: "standalone",
@@ -48,6 +48,7 @@ export default defineConfig({
         lang: "en",
         dir: "ltr",
         categories: ["technology", "news", "blog"],
+
         icons: [
           {
             src: "/android-chrome-192x192.png",
@@ -62,37 +63,28 @@ export default defineConfig({
             purpose: "any maskable",
           },
         ],
+
         shortcuts: [
           {
             name: "Latest Posts",
             short_name: "Latest",
             description: "Read newest tech articles",
             url: "/?latest=true",
-            icons: [
-              {
-                src: "/android-chrome-192x192.png",
-                sizes: "192x192",
-              },
-            ],
+            icons: [{ src: "/android-chrome-192x192.png", sizes: "192x192" }],
           },
           {
             name: "Smartphone Reviews",
             short_name: "Reviews",
             description: "See phone comparisons and reviews",
-            url: "/category/reviews",
-            icons: [
-              {
-                src: "/android-chrome-192x192.png",
-                sizes: "192x192",
-              },
-            ],
+            url: "/category/reviews/",
+            icons: [{ src: "/android-chrome-192x192.png", sizes: "192x192" }],
           },
         ],
       },
+
       workbox: {
-        // ✅ REMOVED navigateFallback — it was redirecting all page navigations to "/"
-        // Only cache static assets, not HTML pages
         globPatterns: ["**/*.{css,js,svg,png,ico,txt,woff,woff2}"],
+
         runtimeCaching: [
           {
             urlPattern: /^https:\/\/www\.revibyte\.blog\/posts\/.*/i,
@@ -101,7 +93,7 @@ export default defineConfig({
               cacheName: "posts-cache",
               expiration: {
                 maxEntries: 50,
-                maxAgeSeconds: 60 * 60 * 24, // 24 hours
+                maxAgeSeconds: 60 * 60 * 24,
               },
             },
           },
@@ -112,19 +104,21 @@ export default defineConfig({
               cacheName: "pages-cache",
               expiration: {
                 maxEntries: 20,
-                maxAgeSeconds: 60 * 60 * 24, // 24 hours
+                maxAgeSeconds: 60 * 60 * 24,
               },
             },
           },
         ],
       },
+
+      // 🔥 IMPORTANT: disable dev mode in production
       devOptions: {
-        enabled: true,
+        enabled: false,
       },
     }),
+
     sitemap({
       filter: (page) => {
-        // Exclude archives if SITE.showArchives is false
         if (!SITE.showArchives && page.endsWith("/archives/")) {
           return false;
         }
@@ -147,27 +141,24 @@ export default defineConfig({
           "games",
         ];
 
-        // Keep all individual blog posts (exclude pagination pages)
         if (page.includes("/posts/") && !page.match(/\/posts\/\d+\/$/)) {
           return true;
         }
 
-        // Keep allowed static pages
         if (allowedPages.includes(page)) {
           return true;
         }
 
-        // Keep only the main tag pages (exclude pagination)
         if (page.includes("/tags/")) {
           return allowedTags.some(
             (tag) => page === `${SITE.website}tags/${tag}/`
           );
         }
 
-        // Exclude everything else (pagination, extra tags, legal pages, etc.)
         return false;
       },
     }),
+
     indexnow(),
   ],
 
@@ -181,6 +172,7 @@ export default defineConfig({
         },
       ],
     ],
+
     shikiConfig: {
       transformers: [
         transformerNotationDiff(),
@@ -198,4 +190,3 @@ export default defineConfig({
     },
   },
 });
-        
