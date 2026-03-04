@@ -6,7 +6,6 @@ import Breadcrumbs from "@/components/Breadcrumbs.astro";
 import Footer from "@/components/Footer.astro";
 import Tag from "@/components/Tag.astro";
 import Datetime from "@/components/Datetime.astro";
-import EditPost from "@/components/EditPost.astro";
 import ShareLinks from "@/components/ShareLinks.astro";
 import BackButton from "@/components/BackButton.astro";
 import BackToTopButton from "@/components/BackToTopButton.astro";
@@ -16,8 +15,6 @@ import SchemaMarkup from "@/components/SchemaMarkup.astro";
 
 import { getPath } from "@/utils/getPath";
 import { slugifyStr } from "@/utils/slugify";
-import IconChevronLeft from "@/assets/icons/IconChevronLeft.svg";
-import IconChevronRight from "@/assets/icons/IconChevronRight.svg";
 import { SITE } from "@/config";
 
 type Props = {
@@ -36,14 +33,13 @@ const {
   modDatetime,
   timezone,
   tags = [],
-  hideEditPost,
   coverImage,
   coverImageAlt
 } = post.data;
 
 const { Content } = await render(post);
 
-/* SAFE POST URL (absolute + SEO-safe) */
+/* SAFE POST URL */
 const postPath = getPath(post.id, post.filePath);
 const postUrl = new URL(postPath, SITE.website).toString();
 
@@ -62,7 +58,6 @@ const ogImage = ogImageUrl
   ? new URL(ogImageUrl, SITE.website).toString()
   : undefined;
 
-/* LAYOUT PROPS */
 const layoutProps = {
   title: `${title} | ${SITE.title}`,
   author,
@@ -87,13 +82,6 @@ const prevPost = currentIndex > 0 ? allPosts[currentIndex - 1] : null;
 const nextPost =
   currentIndex < allPosts.length - 1 ? allPosts[currentIndex + 1] : null;
 
-/* BREADCRUMBS */
-const breadcrumbs = [
-  { name: "Home", url: SITE.website },
-  { name: "Posts", url: new URL("/posts/", SITE.website).toString() },
-  { name: title, url: postUrl }
-];
-
 /* BLOGPOSTING JSON-LD */
 const blogPostingSchema = {
   "@context": "https://schema.org",
@@ -108,17 +96,16 @@ const blogPostingSchema = {
     : pubDatetime.toISOString(),
   author: {
     "@type": "Person",
-    "name": author || SITE.author
+    name: author || SITE.author
   },
   publisher: {
     "@type": "Organization",
-    "name": SITE.title,
-    "url": SITE.website
+    name: SITE.title,
+    url: SITE.website
   },
   keywords: tags.join(", ")
 };
 
-/* POST SLUG for view counter */
 const postSlug = post.id;
 ---
 
@@ -138,7 +125,6 @@ const postSlug = post.id;
     image={ogImage}
     datePublished={pubDatetime}
     dateModified={modDatetime}
-    breadcrumbs={breadcrumbs}
   />
 
   <Header />
@@ -160,6 +146,7 @@ const postSlug = post.id;
       { "mt-8": !coverImage }
     ]}
   >
+
     {coverImage && (
       <img
         src={coverImage}
@@ -180,13 +167,8 @@ const postSlug = post.id;
 
     <div class="mt-3 mb-8 flex flex-wrap items-center gap-3 text-sm">
       <Datetime {pubDatetime} {modDatetime} {timezone} size="lg" />
-      <!-- 👁 View Counter -->
       <span class="flex items-center gap-1 opacity-70">
-        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
-          <circle cx="12" cy="12" r="3"></circle>
-        </svg>
-        <span id="view-count">—</span> views
+        👁 <span id="view-count">—</span> views
       </span>
     </div>
 
@@ -194,20 +176,21 @@ const postSlug = post.id;
       <Content />
     </article>
 
-    <!-- About the Author -->
+    <!-- About Author -->
     <section class="mt-12 mb-10 p-6 bg-base-200 rounded-2xl border border-base-300">
       <h2 class="text-xl font-bold mb-4">About the Author</h2>
-      <div class="flex flex-col sm:flex-row items-start gap-6">
-        <div>
-          <p class="font-semibold text-lg">{SITE.author || "iSamuel"}</p>
-          <p class="text-base-content/90 mt-2 leading-relaxed">
-            iSamuel is the founder and lead technology analyst behind ReviByte Opinions. With a background in Physics & Electronics, he writes practical, expert tech analysis and insights for everyday users in Nigeria and beyond â€" focusing on honest, real-world explanations of phones, gadgets, AI, and how technology works in everyday life. His work is driven by clarity, curiosity, and a commitment to useful, human-centered content.
-          </p>
-          <p class="mt-4 text-sm">
-            <a href="/about" class="text-accent hover:underline font-medium">Learn more about iSamuel and ReviByte â†'</a>
-          </p>
-        </div>
-      </div>
+      <p class="font-semibold text-lg">{SITE.author || "iSamuel"}</p>
+      <p class="mt-2 leading-relaxed">
+        Founder and lead technology analyst behind ReviByte Opinions.
+        Writes practical tech analysis for everyday users in Nigeria and beyond —
+        focusing on honest real-world explanations of phones, gadgets, AI and
+        how technology works in daily life.
+      </p>
+      <p class="mt-4 text-sm">
+        <a href="/about" class="text-accent hover:underline font-medium">
+          Learn more about iSamuel and ReviByte →
+        </a>
+      </p>
     </section>
 
     <hr class="my-10 border-dashed" />
@@ -228,34 +211,34 @@ const postSlug = post.id;
     {(prevPost || nextPost) && (
       <nav class="grid grid-cols-1 gap-6 sm:grid-cols-2 mb-12">
         {prevPost && (
-          <a href={getPath(prevPost.id, prevPost.filePath)} class="flex items-center gap-2 hover:text-accent transition-colors">
-            â† {prevPost.title}
+          <a href={getPath(prevPost.id, prevPost.filePath)}>
+            ← {prevPost.title}
           </a>
         )}
         {nextPost && (
-          <a href={getPath(nextPost.id, nextPost.filePath)} class="flex items-center gap-2 hover:text-accent transition-colors sm:text-right sm:justify-end">
-            {nextPost.title} â†'
+          <a href={getPath(nextPost.id, nextPost.filePath)}>
+            {nextPost.title} →
           </a>
         )}
       </nav>
     )}
 
     <RelatedPosts currentPost={post} allPosts={posts} limit={3} />
+
     <hr class="my-10 border-dashed" />
     <Comments />
+
   </main>
 
   <Footer />
 </Layout>
 
-<!-- View Counter Script -->
-<script define:vars={{ postSlug }}>
+<script is:inline define:vars={{ postSlug }}>
   const SUPABASE_URL = "https://tfkrjruxqiqpaoeckfoh.supabase.co";
   const SUPABASE_KEY = "sb_publishable_fHguT58pKc7MsxhSvNpb6w_T2Xg_U_G";
 
   async function getAndIncrementViews(slug) {
     try {
-      // Increment view count using upsert
       await fetch(`${SUPABASE_URL}/rest/v1/rpc/increment_views`, {
         method: "POST",
         headers: {
@@ -266,7 +249,6 @@ const postSlug = post.id;
         body: JSON.stringify({ post_slug: slug }),
       });
 
-      // Fetch updated count
       const res = await fetch(
         `${SUPABASE_URL}/rest/v1/post_views?slug=eq.${encodeURIComponent(slug)}&select=views`,
         {
@@ -281,7 +263,7 @@ const postSlug = post.id;
       const views = data?.[0]?.views ?? 0;
       const el = document.getElementById("view-count");
       if (el) el.textContent = views.toLocaleString();
-    } catch (e) {
+    } catch {
       const el = document.getElementById("view-count");
       if (el) el.textContent = "—";
     }
