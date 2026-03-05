@@ -3,7 +3,7 @@ title: "Why Most People Don't Use 50% of Their Smartphone Features"
 description: "I spent three weeks paying attention to how I actually use my phone — and what I found was equal parts embarrassing and fascinating. Here's the honest truth about why we all ignore half the device in our pockets."
 coverImage: "/assets/images/smartphone-features-cover.jpg"
 coverImageAlt: "A person holding a smartphone with multiple app icons visible on the screen"
-pubDatetime: 2025-03-05T00:00:00Z
+pubDatetime: 2026-03-05T00:00:00Z
 author: "iSamuel"
 tags: ["android", "productivity", "technology", "apple", "opinions"]
 ---
