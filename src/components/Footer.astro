@@ -13,67 +13,364 @@ const { noMarginTop = false } = Astro.props;
 ---
 
 <footer class:list={["w-full", { "mt-auto": !noMarginTop }]}>
-  <Hr noPadding />
-  <div class="py-6 sm:py-8 px-4 max-w-4xl mx-auto">
+  <div class="footer-wrapper">
 
-    <!-- Social Icons + RSS (ONLY PLACE) -->
-    <div class="flex justify-center items-center gap-4 mb-8">
-      <Socials centered />
-      <a href="/rss.xml" aria-label="RSS Feed" title="RSS Feed">
-        <IconRss class="h-6 w-6 text-accent hover:scale-110 transition" />
-      </a>
-    </div>
+    <!-- Glowing top border -->
+    <div class="footer-glow-line"></div>
 
-    <!-- Newsletter -->
-    <section class="max-w-md mx-auto mb-12 text-center">
-      <h3 class="text-lg font-semibold mb-2">Get new posts by email</h3>
-      <p class="text-sm opacity-80 mb-6">
-        Stay updated with the latest tech reviews, guides, and opinions — delivered straight to your inbox.
-      </p>
+    <div class="footer-inner">
 
-      <form 
-        action="https://api.follow.it/subscription-form/bWZOckxmelNNL2wyVVpERE50M0MxMWVhRC9ON2dBQnBKTEJzTlZJTGNIencrSFYrZVFpQ3FPY211M0dGVVJvZkxoWkcxUjd0TThLYmpMMnJuV1dMN3kzaC9uSkorZXlCYWdEZURrTmkxYW9aRGIxKzBJVW1pQXBVbDNBbGxjM098UDVxajlvNmc3NHYyc2ZJRFp4T1pDRncwNS9hMTBmajBaUlU0L1VrbW9XWT0=/8" 
-        method="post" 
-        target="_blank"
-        class="flex flex-col sm:flex-row gap-3"
-      >
-        <input
-          type="email"
-          name="email"
-          placeholder="Enter your email"
-          required
-          class="flex-1 px-5 py-3 rounded-lg bg-background/80 border border-border focus:border-accent focus:outline-none transition-colors"
-          aria-label="Email address"
-        />
-        <button
-          type="submit"
-          class="px-8 py-3 bg-accent text-foreground font-medium rounded-lg hover:bg-accent/90 transition shadow-md"
+      <!-- Brand + Tagline -->
+      <div class="footer-brand">
+        <div class="footer-logo-mark">RB</div>
+        <div>
+          <div class="footer-site-name">ReviByte</div>
+          <div class="footer-tagline">Technology Opinions & Reviews</div>
+        </div>
+      </div>
+
+      <!-- Divider -->
+      <div class="footer-divider"></div>
+
+      <!-- Newsletter -->
+      <section class="footer-newsletter">
+        <div class="footer-newsletter-label">
+          <span class="footer-pill">Newsletter</span>
+        </div>
+        <h3 class="footer-newsletter-heading">Get new posts by email</h3>
+        <p class="footer-newsletter-sub">
+          Stay updated with the latest tech reviews, guides, and opinions — delivered straight to your inbox.
+        </p>
+        <form
+          action="https://api.follow.it/subscription-form/bWZOckxmelNNL2wyVVpERE50M0MxMWVhRC9ON2dBQnBKTEJzTlZJTGNIencrSFYrZVFpQ3FPY211M0dGVVJvZkxoWkcxUjd0TThLYmpMMnJuV1dMN3kzaC9uSkorZXlCYWdEZURrTmkxYW9aRGIxKzBJVW1pQXBVbDNBbGxjM098UDVxajlvNmc3NHYyc2ZJRFp4T1pDRncwNS9hMTBmajBaUlU0L1VrbW9XWT0=/8"
+          method="post"
+          target="_blank"
+          class="footer-form"
         >
-          Subscribe
-        </button>
-      </form>
+          <input
+            type="email"
+            name="email"
+            placeholder="your@email.com"
+            required
+            class="footer-input"
+            aria-label="Email address"
+          />
+          <button type="submit" class="footer-btn">
+            <span>Subscribe</span>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M5 12h14M12 5l7 7-7 7"/>
+            </svg>
+          </button>
+        </form>
+        <p class="footer-disclaimer">No spam ever. Unsubscribe anytime.</p>
+      </section>
 
-      <p class="text-xs opacity-60 mt-4">No spam ever. Unsubscribe anytime.</p>
-    </section>
+      <!-- Divider -->
+      <div class="footer-divider"></div>
 
-    <!-- Footer Navigation -->
-    <nav class="text-center mb-8">
-      <ul class="flex flex-wrap justify-center gap-x-4 gap-y-2 text-sm text-gray-600 dark:text-gray-400">
-        <li><a href="/about" class="hover:underline">About the Editor</a></li>
-        <li><a href="/contact" class="hover:underline">Contact Us</a></li>
-        <li><a href="/privacy-policy" class="hover:underline">Privacy Policy</a></li>
-        <li><a href="/terms-and-conditions" class="hover:underline">Terms & Conditions</a></li>
-        <li><a href="/disclaimer" class="hover:underline">Disclaimer</a></li>
-        <li><a href="/sitemap" class="hover:underline">Sitemap</a></li>
-      </ul>
-    </nav>
+      <!-- Bottom Row -->
+      <div class="footer-bottom">
 
-    <!-- Copyright -->
-    <div class="text-center text-sm text-gray-600 dark:text-gray-400">
-      <span>Copyright © {currentYear} ReviByte</span>
-      <span class="hidden sm:inline mx-2">|</span>
-      <span>All rights reserved.</span>
+        <!-- Socials + RSS -->
+        <div class="footer-socials">
+          <Socials centered />
+          <a href="/rss.xml" aria-label="RSS Feed" title="RSS Feed" class="footer-rss">
+            <IconRss class="h-5 w-5" />
+          </a>
+        </div>
+
+        <!-- Nav Links -->
+        <nav class="footer-nav">
+          <a href="/about">About</a>
+          <a href="/contact">Contact</a>
+          <a href="/privacy-policy">Privacy</a>
+          <a href="/terms-and-conditions">Terms</a>
+          <a href="/disclaimer">Disclaimer</a>
+          <a href="/sitemap">Sitemap</a>
+        </nav>
+
+        <!-- Copyright -->
+        <div class="footer-copy">
+          <span class="footer-copy-dot">◈</span>
+          Copyright © {currentYear} ReviByte — All rights reserved.
+        </div>
+
+      </div>
+
     </div>
+
+    <!-- Bottom grid decoration -->
+    <div class="footer-grid-bg" aria-hidden="true"></div>
 
   </div>
 </footer>
+
+<style>
+  .footer-wrapper {
+    position: relative;
+    background: linear-gradient(180deg, transparent 0%, rgba(15, 23, 42, 0.06) 100%);
+    overflow: hidden;
+  }
+
+  [data-theme="dark"] .footer-wrapper {
+    background: linear-gradient(180deg, transparent 0%, rgba(15, 23, 42, 0.8) 100%);
+  }
+
+  /* Glowing top line */
+  .footer-glow-line {
+    width: 100%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent 0%, #6366f1 30%, #818cf8 50%, #6366f1 70%, transparent 100%);
+    opacity: 0.6;
+  }
+
+  [data-theme="dark"] .footer-glow-line {
+    opacity: 1;
+    box-shadow: 0 0 20px rgba(99, 102, 241, 0.5);
+  }
+
+  .footer-inner {
+    position: relative;
+    z-index: 1;
+    max-width: 56rem;
+    margin: 0 auto;
+    padding: 3rem 1.5rem 2rem;
+  }
+
+  /* Brand */
+  .footer-brand {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 2rem;
+  }
+
+  .footer-logo-mark {
+    width: 48px;
+    height: 48px;
+    background: linear-gradient(135deg, #6366f1, #818cf8);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    font-weight: 800;
+    color: white;
+    letter-spacing: -0.5px;
+    box-shadow: 0 4px 20px rgba(99, 102, 241, 0.3);
+    flex-shrink: 0;
+  }
+
+  .footer-site-name {
+    font-size: 1.25rem;
+    font-weight: 700;
+    letter-spacing: -0.3px;
+    color: var(--color-text-base, #0f172a);
+  }
+
+  [data-theme="dark"] .footer-site-name {
+    color: #f1f5f9;
+  }
+
+  .footer-tagline {
+    font-size: 0.75rem;
+    opacity: 0.5;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    margin-top: 2px;
+  }
+
+  /* Divider */
+  .footer-divider {
+    width: 100%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(99,102,241,0.2), transparent);
+    margin: 1.5rem 0;
+  }
+
+  /* Newsletter */
+  .footer-newsletter {
+    text-align: center;
+    padding: 1rem 0;
+  }
+
+  .footer-newsletter-label {
+    margin-bottom: 0.75rem;
+  }
+
+  .footer-pill {
+    display: inline-block;
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #6366f1;
+    background: rgba(99, 102, 241, 0.1);
+    border: 1px solid rgba(99, 102, 241, 0.25);
+    padding: 3px 10px;
+    border-radius: 999px;
+  }
+
+  .footer-newsletter-heading {
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    letter-spacing: -0.3px;
+  }
+
+  .footer-newsletter-sub {
+    font-size: 0.875rem;
+    opacity: 0.6;
+    margin-bottom: 1.25rem;
+    max-width: 32rem;
+    margin-left: auto;
+    margin-right: auto;
+    line-height: 1.6;
+  }
+
+  .footer-form {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    max-width: 28rem;
+    margin: 0 auto;
+  }
+
+  @media (min-width: 480px) {
+    .footer-form {
+      flex-direction: row;
+    }
+  }
+
+  .footer-input {
+    flex: 1;
+    padding: 0.75rem 1rem;
+    border-radius: 10px;
+    border: 1px solid rgba(99, 102, 241, 0.2);
+    background: rgba(99, 102, 241, 0.04);
+    font-size: 0.875rem;
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    color: inherit;
+  }
+
+  .footer-input:focus {
+    border-color: #6366f1;
+    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.12);
+  }
+
+  .footer-input::placeholder {
+    opacity: 0.4;
+  }
+
+  .footer-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.25rem;
+    background: linear-gradient(135deg, #6366f1, #818cf8);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 0.875rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: opacity 0.2s, transform 0.2s, box-shadow 0.2s;
+    white-space: nowrap;
+    box-shadow: 0 4px 15px rgba(99, 102, 241, 0.35);
+  }
+
+  .footer-btn:hover {
+    opacity: 0.9;
+    transform: translateY(-1px);
+    box-shadow: 0 6px 20px rgba(99, 102, 241, 0.45);
+  }
+
+  .footer-disclaimer {
+    font-size: 0.7rem;
+    opacity: 0.4;
+    margin-top: 0.75rem;
+  }
+
+  /* Bottom row */
+  .footer-bottom {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.25rem;
+  }
+
+  .footer-socials {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .footer-rss {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
+    border: 1px solid rgba(99, 102, 241, 0.2);
+    color: #6366f1;
+    transition: background 0.2s, border-color 0.2s;
+  }
+
+  .footer-rss:hover {
+    background: rgba(99, 102, 241, 0.1);
+    border-color: #6366f1;
+  }
+
+  .footer-nav {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.25rem 0.1rem;
+  }
+
+  .footer-nav a {
+    font-size: 0.75rem;
+    opacity: 0.55;
+    padding: 4px 10px;
+    border-radius: 6px;
+    text-decoration: none;
+    transition: opacity 0.2s, background 0.2s;
+    letter-spacing: 0.01em;
+  }
+
+  .footer-nav a:hover {
+    opacity: 1;
+    background: rgba(99, 102, 241, 0.08);
+    color: #6366f1;
+  }
+
+  .footer-copy {
+    font-size: 0.72rem;
+    opacity: 0.4;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    letter-spacing: 0.02em;
+  }
+
+  .footer-copy-dot {
+    color: #6366f1;
+    opacity: 1;
+    font-size: 0.6rem;
+  }
+
+  /* Grid background decoration */
+  .footer-grid-bg {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(99,102,241,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(99,102,241,0.04) 1px, transparent 1px);
+    background-size: 40px 40px;
+    pointer-events: none;
+    mask-image: linear-gradient(180deg, transparent 0%, rgba(0,0,0,0.3) 50%, transparent 100%);
+    -webkit-mask-image: linear-gradient(180deg, transparent 0%, rgba(0,0,0,0.3) 50%, transparent 100%);
+  }
+</style>
