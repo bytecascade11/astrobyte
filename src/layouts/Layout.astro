@@ -56,8 +56,12 @@ const currentPath = Astro.url.pathname;
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 
-    <!-- ✅ PWA Manifest injected by @vite-pwa/astro -->
-    
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="/site.webmanifest" />
+    <meta name="theme-color" content="#0f172a" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="ReviByte" />
 
     <style>
       *, *::before, *::after { box-sizing: border-box; }
@@ -76,24 +80,14 @@ const currentPath = Astro.url.pathname;
       }
 
       .skeleton {
-        background: linear-gradient(
-          90deg,
-          #e2e8f0 25%,
-          #f1f5f9 50%,
-          #e2e8f0 75%
-        );
+        background: linear-gradient(90deg, #e2e8f0 25%, #f1f5f9 50%, #e2e8f0 75%);
         background-size: 200% 100%;
         animation: shimmer 1.5s infinite;
         border-radius: 6px;
       }
 
       [data-theme="dark"] .skeleton {
-        background: linear-gradient(
-          90deg,
-          #1e293b 25%,
-          #334155 50%,
-          #1e293b 75%
-        );
+        background: linear-gradient(90deg, #1e293b 25%, #334155 50%, #1e293b 75%);
         background-size: 200% 100%;
         animation: shimmer 1.5s infinite;
       }
@@ -111,13 +105,8 @@ const currentPath = Astro.url.pathname;
         overflow: hidden;
       }
 
-      [data-theme="dark"] #page-skeleton {
-        background: #0f172a;
-      }
-
-      #page-skeleton.visible {
-        display: block;
-      }
+      [data-theme="dark"] #page-skeleton { background: #0f172a; }
+      #page-skeleton.visible { display: block; }
 
       .skeleton-topbar {
         height: 56px;
@@ -151,6 +140,97 @@ const currentPath = Astro.url.pathname;
       .skeleton-text { height: 14px; width: 100%; margin-bottom: 6px; }
       .skeleton-text-short { height: 14px; width: 70%; margin-bottom: 6px; }
       .skeleton-btn { height: 36px; width: 110px; border-radius: 8px; margin-top: 8px; }
+
+      /* ── Custom Notification Prompt ── */
+      #notif-prompt {
+        display: none;
+        position: fixed;
+        top: 16px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: calc(100% - 32px);
+        max-width: 400px;
+        background: #1e293b;
+        border-radius: 16px;
+        padding: 16px;
+        z-index: 99999;
+        box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+        animation: slideDown 0.4s cubic-bezier(0.4,0,0.2,1);
+      }
+
+      #notif-prompt.visible { display: flex; flex-direction: column; gap: 12px; }
+
+      @keyframes slideDown {
+        from { transform: translateX(-50%) translateY(-120%); opacity: 0; }
+        to { transform: translateX(-50%) translateY(0); opacity: 1; }
+      }
+
+      .notif-prompt-header {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+
+      .notif-prompt-icon {
+        width: 44px;
+        height: 44px;
+        background: #6366f1;
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 22px;
+        flex-shrink: 0;
+      }
+
+      .notif-prompt-text { flex: 1; }
+
+      .notif-prompt-title {
+        font-size: 15px;
+        font-weight: 700;
+        color: white;
+        margin: 0 0 2px 0;
+      }
+
+      .notif-prompt-desc {
+        font-size: 13px;
+        color: rgba(255,255,255,0.6);
+        margin: 0;
+      }
+
+      .notif-prompt-actions {
+        display: flex;
+        gap: 8px;
+        justify-content: flex-end;
+      }
+
+      .notif-btn-deny {
+        background: rgba(255,255,255,0.1);
+        color: rgba(255,255,255,0.7);
+        border: none;
+        padding: 8px 16px;
+        border-radius: 8px;
+        font-size: 13px;
+        font-weight: 500;
+        cursor: pointer;
+        transition: background 0.2s;
+      }
+
+      .notif-btn-deny:hover { background: rgba(255,255,255,0.15); }
+
+      .notif-btn-allow {
+        background: #6366f1;
+        color: white;
+        border: none;
+        padding: 8px 16px;
+        border-radius: 8px;
+        font-size: 13px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: background 0.2s;
+      }
+
+      .notif-btn-allow:hover { background: #4f46e5; }
 
       /* ── PWA Top Bar ── */
       .pwa-topbar {
@@ -332,11 +412,6 @@ const currentPath = Astro.url.pathname;
       }
     </style>
 
-    <meta name="theme-color" content="#0f172a" />
-    <meta name="apple-mobile-web-app-capable" content="yes" />
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-    <meta name="apple-mobile-web-app-title" content="ReviByte" />
-
     <!-- OneSignal -->
     <script is:inline src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
     <script>
@@ -344,9 +419,9 @@ const currentPath = Astro.url.pathname;
       window.OneSignalDeferred.push(async function(OneSignal: any) {
         await OneSignal.init({
           appId: "bbd38552-99d1-4cda-96f9-5c0cacfba192",
-          notifyButton: { enable: true }
+          notifyButton: { enable: false },
+          autoResubscribe: true,
         });
-        OneSignal.showNativePrompt();
       });
     </script>
 
@@ -532,6 +607,21 @@ const currentPath = Astro.url.pathname;
       </div>
     </div>
 
+    <!-- Custom Notification Prompt -->
+    <div id="notif-prompt">
+      <div class="notif-prompt-header">
+        <div class="notif-prompt-icon">🔔</div>
+        <div class="notif-prompt-text">
+          <p class="notif-prompt-title">ReviByte Notifications</p>
+          <p class="notif-prompt-desc">Get notified when we publish new tech articles!</p>
+        </div>
+      </div>
+      <div class="notif-prompt-actions">
+        <button class="notif-btn-deny" onclick="denyNotification()">Not Now</button>
+        <button class="notif-btn-allow" onclick="allowNotification()">Allow 🔔</button>
+      </div>
+    </div>
+
     <!-- PWA Top Bar -->
     <div class="pwa-topbar" id="pwaTopbar">
       <a href="/" class="pwa-topbar-title">{SITE.title}</a>
@@ -553,6 +643,26 @@ const currentPath = Astro.url.pathname;
           </svg>
         </button>
       </div>
+    </div>
+
+    <!-- Splash Overlay -->
+    <div id="poweredSplash" style="
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background-color: #0f172a;
+      color: white;
+      display: flex;
+      justify-content: center;
+      align-items: flex-end;
+      font-size: 18px;
+      font-weight: 600;
+      padding-bottom: 40px;
+      z-index: 9999;
+    ">
+      Powered by iSamuel
     </div>
 
     <slot />
@@ -577,7 +687,7 @@ const currentPath = Astro.url.pathname;
       </a>
     </div>
 
-    <!-- ✅ Bottom Navigation Bar (fixed duplicate Android link) -->
+    <!-- Bottom Navigation Bar -->
     <nav class="bottom-nav">
       <a href="/" class={currentPath === "/" ? "active" : ""}>
         <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
@@ -606,6 +716,20 @@ const currentPath = Astro.url.pathname;
       </button>
     </nav>
 
+    <!-- Splash Screen Script -->
+    <script is:inline>
+      window.addEventListener("DOMContentLoaded", function() {
+        const splash = document.getElementById("poweredSplash");
+        if (splash) {
+          setTimeout(function() {
+            splash.style.transition = "opacity 0.5s";
+            splash.style.opacity = "0";
+            setTimeout(function() { splash.remove(); }, 500);
+          }, 1000);
+        }
+      });
+    </script>
+
     <!-- Skeleton Screen Logic -->
     <script is:inline>
       (function() {
@@ -626,6 +750,46 @@ const currentPath = Astro.url.pathname;
           }, 1000);
         }
       })();
+    </script>
+
+    <!-- Custom Notification Prompt Logic -->
+    <script is:inline>
+      (function() {
+        const alreadyAsked = localStorage.getItem('notif-asked');
+        if (alreadyAsked) return;
+
+        // Show after 5 seconds on first visit
+        setTimeout(function() {
+          const prompt = document.getElementById('notif-prompt');
+          if (prompt) prompt.classList.add('visible');
+        }, 5000);
+      })();
+
+      function allowNotification() {
+        localStorage.setItem('notif-asked', 'true');
+        const prompt = document.getElementById('notif-prompt');
+        if (prompt) {
+          prompt.style.transition = 'opacity 0.3s';
+          prompt.style.opacity = '0';
+          setTimeout(function() { prompt.classList.remove('visible'); }, 300);
+        }
+        // Trigger OneSignal native permission
+        if (window.OneSignal) {
+          window.OneSignal.push(function() {
+            window.OneSignal.showNativePrompt();
+          });
+        }
+      }
+
+      function denyNotification() {
+        localStorage.setItem('notif-asked', 'true');
+        const prompt = document.getElementById('notif-prompt');
+        if (prompt) {
+          prompt.style.transition = 'opacity 0.3s';
+          prompt.style.opacity = '0';
+          setTimeout(function() { prompt.classList.remove('visible'); }, 300);
+        }
+      }
     </script>
 
     <!-- PWA Detection -->
@@ -672,7 +836,16 @@ const currentPath = Astro.url.pathname;
       </button>
     </div>
 
-    <!-- ✅ Service Worker handled automatically by @vite-pwa/astro -->
+    <!-- Service Worker Registration -->
+    <script is:inline>
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', function() {
+          navigator.serviceWorker.register('/sw.js')
+            .then(function() { console.log('Service Worker registered'); })
+            .catch(function(err) { console.log('Service Worker failed', err); });
+        });
+      }
+    </script>
 
   </body>
 </html>
