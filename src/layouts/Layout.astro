@@ -647,26 +647,6 @@ const currentPath = Astro.url.pathname;
       </div>
     </div>
 
-    <!-- Splash Overlay -->
-<div id="poweredSplash" style="
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background-color: #0f172a;
-  color: white;
-  display: flex;
-  justify-content: center;
-  align-items: flex-end;
-  font-size: 18px;
-  font-weight: 600;
-  padding-bottom: 80px;
-  z-index: 9999;
-">
-  Powered by iSamuel
-</div>
-
     <slot />
 
     <!-- More Menu -->
@@ -717,29 +697,6 @@ const currentPath = Astro.url.pathname;
         More
       </button>
     </nav>
-
-    <!-- Splash Screen Script -->
-<script is:inline>
-  window.addEventListener("DOMContentLoaded", function() {
-    const splash = document.getElementById("poweredSplash");
-    if (!splash) return;
-
-    // Only show on first visit
-    const seenSplash = sessionStorage.getItem('splash-shown');
-    if (seenSplash) {
-      splash.remove();
-      return;
-    }
-
-    sessionStorage.setItem('splash-shown', 'true');
-
-    setTimeout(function() {
-      splash.style.transition = "opacity 0.5s";
-      splash.style.opacity = "0";
-      setTimeout(function() { splash.remove(); }, 500);
-    }, 1000);
-  });
-</script>
 
     <!-- Skeleton Screen Logic -->
     <script is:inline>
