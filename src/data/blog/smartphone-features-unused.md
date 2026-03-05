@@ -1,7 +1,7 @@
 ---
 title: "Why Most People Don't Use 50% of Their Smartphone Features"
 description: "I spent three weeks paying attention to how I actually use my phone — and what I found was equal parts embarrassing and fascinating. Here's the honest truth about why we all ignore half the device in our pockets."
-coverImage: "/assets/images/smartphone-features-cover.jpg"
+coverImage: "/assets/posts/smartphone-features-cover.jpg"
 coverImageAlt: "A person holding a smartphone with multiple app icons visible on the screen"
 pubDatetime: 2026-03-05T00:00:00Z
 author: "iSamuel"
@@ -28,7 +28,7 @@ What I found wasn't just about phones. It was about human behavior, habit loops,
 
 Every phone ships with dozens of features that most people never touch. Not because they're bad features — some of them are genuinely excellent — but because they live in menus we don't open, settings we don't scroll past, and tutorials we skip on day one and never revisit.
 
-![A smartphone displaying multiple apps and settings menus, showing the depth of features available to the average user](/assets/images/smartphone-settings-menus.jpg)
+![A smartphone displaying multiple apps and settings menus, showing the depth of features available to the average user](/assets/posts/smartphone-settings-menus.jpg)
 *Most of us interact with maybe 30% of what's actually on this screen.*
 
 Think about the last time you used your phone's built-in health tracking beyond maybe checking step count. Or the document scanner that lives inside your camera app. Or the focus modes. Or live captions. Or even something as basic as the back-tap shortcut that lets you double or triple-tap the back of your phone to trigger any action you want.
@@ -84,7 +84,7 @@ The cognitive cost of stopping what you're doing to learn something new feels hi
 
 Not everything in the feature graveyard deserves resurrection. Some stuff is genuinely niche. But there are a handful of things that, once you start using them, you'll wonder how you ever lived without.
 
-![A person using their smartphone with focused attention at a desk, natural daylight coming through a window beside them](/assets/images/person-using-phone-intentionally.jpg)
+![A person using their smartphone with focused attention at a desk, natural daylight coming through a window beside them](/assets/posts/person-using-phone-intentionally.jpg)
 *There's a real difference between picking up your phone with purpose and just picking it up.*
 
 Let me walk through the ones that changed my daily routine most significantly.
@@ -127,7 +127,7 @@ The features that go unused are largely the ones that require *you* to set up so
 
 And agency takes effort. Especially when the alternative — just scrolling — requires none.
 
-![Overhead flat-lay of a smartphone placed on a wooden desk next to a notebook, pen, and a cup of coffee](/assets/images/smartphone-desk-flatlay.jpg)
+![Overhead flat-lay of a smartphone placed on a wooden desk next to a notebook, pen, and a cup of coffee](/assets/posts/smartphone-desk-flatlay.jpg)
 *The phone is ready. The question is whether you are.*
 
 This isn't a moral judgment. I'm not going to tell you to optimize your digital life into some kind of productivity monastery. But there's something worth noticing: the features that ask the most of you upfront tend to give the most back over time. And the features that ask nothing — the infinite scroll, the algorithmic feed, the notification badge — tend to extract from you more than they give.
@@ -165,7 +165,7 @@ The phone in your pocket right now is capable of more than you're asking of it. 
 
 My friend who one-gestured through my five-step process didn't have a better phone than me. She'd just spent twenty minutes one afternoon going through her accessibility settings and found something she liked. That's the whole difference.
 
-![Close-up of a hand holding a smartphone with the screen lit up, relaxed grip suggesting calm and intentional use](/assets/images/hand-holding-smartphone-calm.jpg)
+![Close-up of a hand holding a smartphone with the screen lit up, relaxed grip suggesting calm and intentional use](/assets/posts/hand-holding-smartphone-calm.jpg)
 *Twenty minutes between fumbling and fluent.*
 
 Twenty minutes. That's the gap between fumbling and fluent.
