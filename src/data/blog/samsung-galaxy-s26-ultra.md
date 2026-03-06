@@ -6,7 +6,7 @@ author: "iSamuel"
 category: "Smartphones"
 coverImage: "/assets/posts/samsung-galaxy-s26-ultra-cover.jpg"
 coverImageAlt: "Samsung Galaxy S26 Ultra in Cobalt Violet"
-tags: ["samsung", "android", "technology", "opinions", "productivity"]
+tags: ["samsung", "android", "technology", "opinions", "productivity", "news"]
 ---
 
 ## Table of Contents
