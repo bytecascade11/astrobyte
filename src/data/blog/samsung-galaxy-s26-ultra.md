@@ -32,7 +32,7 @@ If you've been reading ReviByte for a while, you might remember I wrote about [s
 | Feature | Details |
 |---|---|
 | **Announced** | February 25, 2026 |
-| **Released** | March 6, 2026 |
+| **Released** | March 11, 2026 |
 | **Display** | 6.9" Dynamic AMOLED 2X, 120Hz, 2600 nits peak |
 | **Processor** | Snapdragon 8 Elite Gen 5 (3nm) |
 | **Main Camera** | 200MP, f/1.4, OIS, multi-directional PDAF |
