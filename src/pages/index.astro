@@ -18,8 +18,8 @@ const sortedPosts = posts
 // Top 5 for slideshow
 const slideshowPosts = sortedPosts.slice(0, 5);
 
-// Recent posts — independent from slideshow, starts from index 1 (skip very latest)
-const recentPosts = sortedPosts.slice(1, 9);
+// Recent posts — independent from slideshow, all posts visible
+const recentPosts = sortedPosts.slice(0, 8);
 ---
 
 <Layout title={`Home | ${SITE.title}`}>
