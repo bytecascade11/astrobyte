@@ -15,10 +15,11 @@ const sortedPosts = posts
   .filter(post => !post.data.draft)
   .sort((a, b) => b.data.pubDatetime.valueOf() - a.data.pubDatetime.valueOf());
 
-// Top 3 for slideshow
-const slideshowPosts = sortedPosts.slice(0, 3);
-// Recent posts start after slideshow posts
-const recentPosts = sortedPosts.slice(3, 11);
+// Top 5 for slideshow
+const slideshowPosts = sortedPosts.slice(0, 5);
+
+// Recent posts — independent from slideshow, starts from index 1 (skip very latest)
+const recentPosts = sortedPosts.slice(1, 9);
 ---
 
 <Layout title={`Home | ${SITE.title}`}>
@@ -29,7 +30,6 @@ const recentPosts = sortedPosts.slice(3, 11);
     {slideshowPosts.length > 0 && (
       <div class="slideshow-wrapper mb-12" id="hero-slideshow">
 
-        <!-- Slides -->
         <div class="slides-container">
           {slideshowPosts.map((post, i) => (
             <article
@@ -67,9 +67,6 @@ const recentPosts = sortedPosts.slice(3, 11);
                       day: "numeric",
                     })}
                   </time>
-                  {(post.data as any).readingTime && (
-                    <span class="slide-reading-time">· {(post.data as any).readingTime}</span>
-                  )}
                 </div>
                 {post.data.description && (
                   <p class="slide-desc">{post.data.description}</p>
@@ -80,11 +77,6 @@ const recentPosts = sortedPosts.slice(3, 11);
               </div>
             </article>
           ))}
-        </div>
-
-        <!-- Progress bar -->
-        <div class="progress-bar-track">
-          <div class="progress-bar-fill" id="progress-fill" />
         </div>
 
         <!-- Prev / Next arrows -->
@@ -112,7 +104,7 @@ const recentPosts = sortedPosts.slice(3, 11);
 
     <Hr class="my-12" />
 
-    <!-- Recent Posts Grid -->
+    <!-- Recent Posts Grid — independent from slideshow -->
     {recentPosts.length > 0 && (
       <>
         <h2 class="text-2xl md:text-3xl font-bold mb-8">Recent Posts</h2>
@@ -138,18 +130,13 @@ const recentPosts = sortedPosts.slice(3, 11);
                     {post.data.title}
                   </a>
                 </h3>
-                <div class="flex items-center gap-2 mb-3">
-                  <time class="text-sm text-muted-foreground">
-                    {post.data.pubDatetime.toLocaleDateString("en-US", {
-                      year: "numeric",
-                      month: "long",
-                      day: "numeric",
-                    })}
-                  </time>
-                  {(post.data as any).readingTime && (
-                    <span class="text-sm text-muted-foreground">· {(post.data as any).readingTime}</span>
-                  )}
-                </div>
+                <time class="text-sm text-muted-foreground block mb-3">
+                  {post.data.pubDatetime.toLocaleDateString("en-US", {
+                    year: "numeric",
+                    month: "long",
+                    day: "numeric",
+                  })}
+                </time>
                 {post.data.description && (
                   <p class="text-muted-foreground line-clamp-3 mb-4">
                     {post.data.description}
@@ -294,11 +281,6 @@ const recentPosts = sortedPosts.slice(3, 11);
     margin-bottom: 0.65rem;
   }
 
-  .slide-reading-time {
-    color: #a5b4fc;
-    font-weight: 500;
-  }
-
   .slide-desc {
     font-size: 0.9rem;
     line-height: 1.6;
@@ -344,24 +326,6 @@ const recentPosts = sortedPosts.slice(3, 11);
 
   .slide-cta:hover .slide-cta-arrow {
     transform: translateX(3px);
-  }
-
-  .progress-bar-track {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    height: 3px;
-    background: rgba(255,255,255,0.15);
-    z-index: 10;
-  }
-
-  .progress-bar-fill {
-    height: 100%;
-    width: 0%;
-    background: linear-gradient(90deg, #6366f1, #a5b4fc);
-    transition: width 0.1s linear;
-    border-radius: 999px;
   }
 
   .slide-arrow {
@@ -437,7 +401,6 @@ const recentPosts = sortedPosts.slice(3, 11);
 
     const slides = Array.from(wrapper.querySelectorAll(".slide"));
     const dots = Array.from(wrapper.querySelectorAll(".slide-dot"));
-    const fill = document.getElementById("progress-fill");
     const prevBtn = document.getElementById("slide-prev");
     const nextBtn = document.getElementById("slide-next");
 
@@ -445,7 +408,7 @@ const recentPosts = sortedPosts.slice(3, 11);
 
     let current = 0;
     let paused = false;
-    let startTime = null;
+    let lastTime = null;
     let elapsed = 0;
 
     function goTo(index) {
@@ -460,30 +423,33 @@ const recentPosts = sortedPosts.slice(3, 11);
       dots[current]?.classList.add("slide-dot--active");
 
       elapsed = 0;
-      startTime = null;
-      if (fill) fill.style.width = "0%";
+      lastTime = null;
     }
 
     function tick(ts) {
-      if (paused) { startTime = null; requestAnimationFrame(tick); return; }
-      if (!startTime) startTime = ts - elapsed;
-      elapsed = ts - startTime;
-
-      if (fill) fill.style.width = Math.min((elapsed / INTERVAL) * 100, 100) + "%";
-      if (elapsed >= INTERVAL) goTo(current + 1);
-
+      if (!paused) {
+        if (!lastTime) lastTime = ts;
+        elapsed += ts - lastTime;
+        lastTime = ts;
+        if (elapsed >= INTERVAL) {
+          goTo(current + 1);
+          elapsed = 0;
+        }
+      } else {
+        lastTime = null;
+      }
       requestAnimationFrame(tick);
     }
 
     requestAnimationFrame(tick);
 
     wrapper.addEventListener("mouseenter", () => { paused = true; });
-    wrapper.addEventListener("mouseleave", () => { paused = false; startTime = null; });
+    wrapper.addEventListener("mouseleave", () => { paused = false; });
     wrapper.addEventListener("touchstart", () => { paused = true; }, { passive: true });
-    wrapper.addEventListener("touchend", () => { paused = false; startTime = null; }, { passive: true });
+    wrapper.addEventListener("touchend", () => { paused = false; }, { passive: true });
 
-    prevBtn?.addEventListener("click", () => goTo(current - 1));
-    nextBtn?.addEventListener("click", () => goTo(current + 1));
-    dots.forEach((dot, i) => dot.addEventListener("click", () => goTo(i)));
+    prevBtn?.addEventListener("click", () => { goTo(current - 1); elapsed = 0; });
+    nextBtn?.addEventListener("click", () => { goTo(current + 1); elapsed = 0; });
+    dots.forEach((dot, i) => dot.addEventListener("click", () => { goTo(i); elapsed = 0; }));
   })();
 </script>
