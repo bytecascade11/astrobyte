@@ -13,7 +13,7 @@ tags: ["samsung", "android", "technology", "opinions", "productivity", "news"]
 
 ## Samsung Galaxy S26 Ultra — Opinion
 
-**Announced:** February 25, 2026 · **Released:** March 6, 2026 · **Starting Price:** $1,299.99
+**Announced:** February 25, 2026 · **Released:** March 11, 2026 · **Starting Price:** $1,299.99
 
 Samsung dropped the S26 Ultra today and if you were expecting a total redesign, you didn't get one. What you *did* get is a phone that finally feels like it's been properly finished. The corners are fully rounded, the chassis dips under 8mm for the first time in Ultra history, and the switch from titanium to Armor Aluminum actually makes the thing sit better in your hand. Less cold. Less sharp. More "I actually want to hold this."
 
