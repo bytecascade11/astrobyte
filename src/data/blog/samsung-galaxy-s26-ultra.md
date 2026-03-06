@@ -4,8 +4,9 @@ description: "Samsung didn't reinvent the wheel with the S26 Ultra — but they 
 pubDatetime: 2026-03-06T00:00:00Z
 author: "iSamuel"
 category: "Smartphones"
-cover: "/assets/posts/samsung-galaxy-s26-ultra-cover.jpg"
-coverAlt: "Samsung Galaxy S26 Ultra in Cobalt Violet"
+coverImage: "/assets/posts/samsung-galaxy-s26-ultra-cover.jpg"
+coverImageAlt: "Samsung Galaxy S26 Ultra in Cobalt Violet"
+ogImage: ../../../assets/posts/samsung-galaxy-s26-ultra-cover.jpg
 tags: ["samsung", "android", "technology", "opinions", "productivity"]
 ---
 
