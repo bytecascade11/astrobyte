@@ -27,6 +27,9 @@ const blog = defineCollection({
 
       // SEO / Social
       ogImage: image()
+        .refine((img) => img.width >= 1200 && img.height >= 630, {
+          message: "OG image must be at least 1200×630 pixels!",
+        })
         .optional()
         .or(z.string().url().optional()),
 
