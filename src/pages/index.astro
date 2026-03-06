@@ -67,8 +67,8 @@ const recentPosts = sortedPosts.slice(3, 11);
                       day: "numeric",
                     })}
                   </time>
-                  {post.data.readingTime && (
-                    <span class="slide-reading-time">· {post.data.readingTime}</span>
+                  {(post.data as any).readingTime && (
+                    <span class="slide-reading-time">· {(post.data as any).readingTime}</span>
                   )}
                 </div>
                 {post.data.description && (
@@ -146,8 +146,8 @@ const recentPosts = sortedPosts.slice(3, 11);
                       day: "numeric",
                     })}
                   </time>
-                  {post.data.readingTime && (
-                    <span class="text-sm text-muted-foreground">· {post.data.readingTime}</span>
+                  {(post.data as any).readingTime && (
+                    <span class="text-sm text-muted-foreground">· {(post.data as any).readingTime}</span>
                   )}
                 </div>
                 {post.data.description && (
