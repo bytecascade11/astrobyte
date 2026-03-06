@@ -113,16 +113,6 @@ const postSlug = post.id;
 
   <Header />
 
-  <Breadcrumbs
-    items={[
-      { label: "Home", href: "/" },
-      { label: "Posts", href: "/posts/" },
-      { label: title }
-    ]}
-  />
-
-  {coverImage && <BackButton />}
-
   <main
     id="main-content"
     class:list={[
@@ -131,32 +121,53 @@ const postSlug = post.id;
     ]}
   >
 
-    {coverImage && (
-      <img
-        src={coverImage}
-        alt={coverImageAlt || title}
-        class="w-full object-cover aspect-video md:aspect-[21/9] rounded-2xl mb-8"
-        loading="eager"
-        width="1200"
-        height="630"
-      />
-    )}
-
     <!-- ── Article Glass Card ── -->
     <div class="article-card">
 
-      <h1
-        transition:name={slugifyStr(title.replaceAll(".", "-"))}
-        class="inline-block text-2xl font-bold text-accent sm:text-3xl md:text-4xl"
-      >
-        {title}
-      </h1>
+      <!-- Breadcrumbs + Back Button INSIDE the card so they share the white bg -->
+      <div class="card-top-nav">
+        <Breadcrumbs
+          items={[
+            { label: "Home", href: "/" },
+            { label: "Posts", href: "/posts/" },
+            { label: title }
+          ]}
+        />
+        <BackButton />
+      </div>
 
-      <div class="mt-3 mb-8 flex flex-wrap items-center gap-3 text-sm">
-        <Datetime {pubDatetime} {modDatetime} {timezone} size="lg" />
-        <span class="flex items-center gap-1 opacity-70">
-          👁 <span id="view-count">—</span> views
-        </span>
+      {coverImage && (
+        <img
+          src={coverImage}
+          alt={coverImageAlt || title}
+          class="post-cover-image"
+          loading="eager"
+          width="1200"
+          height="630"
+        />
+      )}
+
+      <!-- Post header: title, date, views + Share right here -->
+      <div class="post-header">
+        <h1
+          transition:name={slugifyStr(title.replaceAll(".", "-"))}
+          class="inline-block text-2xl font-bold text-accent sm:text-3xl md:text-4xl"
+        >
+          {title}
+        </h1>
+
+        <div class="post-meta">
+          <div class="post-meta-left">
+            <Datetime {pubDatetime} {modDatetime} {timezone} size="lg" />
+            <span class="view-count-badge">
+              👁 <span id="view-count">—</span> views
+            </span>
+          </div>
+          <!-- Share links moved up here, inline with meta -->
+          <div class="post-share-inline">
+            <ShareLinks />
+          </div>
+        </div>
       </div>
 
       <article class="app-prose mt-2 w-full max-w-none">
@@ -167,7 +178,7 @@ const postSlug = post.id;
 
       <!-- Tags -->
       {tags.length > 0 && (
-        <ul class="mb-8 flex flex-wrap gap-3">
+        <ul class="mb-6 flex flex-wrap gap-3">
           {tags.map((tag) => (
             <Tag tag={slugifyStr(tag)} tagName={tag} size="sm" />
           ))}
@@ -175,7 +186,6 @@ const postSlug = post.id;
       )}
 
       <BackToTopButton />
-      <ShareLinks />
 
     </div>
     <!-- ── End Article Glass Card ── -->
@@ -235,11 +245,12 @@ const postSlug = post.id;
     -webkit-backdrop-filter: blur(12px);
     border: 1px solid rgba(99, 102, 241, 0.12);
     border-radius: 20px;
-    padding: 2.5rem 3rem 2rem;
+    padding: 0; /* handled by inner sections */
     box-shadow:
       0 4px 24px rgba(0, 0, 0, 0.06),
       0 1px 0 rgba(255,255,255,0.8) inset;
     margin-bottom: 1.5rem;
+    overflow: hidden; /* keeps image flush with rounded corners */
   }
 
   [data-theme="dark"] .article-card {
@@ -250,10 +261,118 @@ const postSlug = post.id;
       0 1px 0 rgba(255,255,255,0.04) inset;
   }
 
+  /* ── Top nav (breadcrumbs + back button) inside card ── */
+  .card-top-nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.25rem 2rem 0.75rem;
+    gap: 1rem;
+    flex-wrap: wrap;
+    border-bottom: 1px solid rgba(99, 102, 241, 0.08);
+  }
+
   @media (max-width: 640px) {
-    .article-card {
-      padding: 1.25rem 1rem 1rem;
-      border-radius: 14px;
+    .card-top-nav {
+      padding: 1rem 1rem 0.65rem;
+    }
+  }
+
+  /* ── Cover image flush inside card ── */
+  .post-cover-image {
+    width: 100%;
+    object-fit: cover;
+    aspect-ratio: 16/9;
+    display: block;
+    /* no border-radius here — card's overflow:hidden handles it */
+  }
+
+  @media (min-width: 768px) {
+    .post-cover-image {
+      aspect-ratio: 21/9;
+    }
+  }
+
+  /* ── Post header section ── */
+  .post-header {
+    padding: 2rem 2.5rem 0;
+  }
+
+  @media (max-width: 640px) {
+    .post-header {
+      padding: 1.25rem 1rem 0;
+    }
+  }
+
+  /* ── Meta row: date/views on left, share on right ── */
+  .post-meta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-top: 0.85rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .post-meta-left {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+  }
+
+  .view-count-badge {
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+    font-size: 0.82rem;
+    opacity: 0.65;
+  }
+
+  /* ── Share links in header ── */
+  .post-share-inline {
+    display: flex;
+    align-items: center;
+  }
+
+  /* Article body padding */
+  .article-card article {
+    padding: 0 2.5rem 0.5rem;
+  }
+
+  @media (max-width: 640px) {
+    .article-card article {
+      padding: 0 1rem 0.5rem;
+    }
+  }
+
+  /* Tags + BackToTop padding */
+  .article-card > ul,
+  .article-card > :global(.back-to-top) {
+    padding-left: 2.5rem;
+    padding-right: 2.5rem;
+  }
+
+  @media (max-width: 640px) {
+    .article-card > ul,
+    .article-card > :global(.back-to-top) {
+      padding-left: 1rem;
+      padding-right: 1rem;
+    }
+  }
+
+  /* HR inside card */
+  .article-hr {
+    border: none;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(99,102,241,0.25), transparent);
+    margin: 2rem 2.5rem;
+  }
+
+  @media (max-width: 640px) {
+    .article-hr {
+      margin: 1.5rem 1rem;
     }
   }
 
@@ -264,14 +383,6 @@ const postSlug = post.id;
     -webkit-overflow-scrolling: touch;
     white-space: nowrap;
     max-width: 100%;
-  }
-
-  /* ── HR inside card ── */
-  .article-hr {
-    border: none;
-    height: 1px;
-    background: linear-gradient(90deg, transparent, rgba(99,102,241,0.25), transparent);
-    margin: 2rem 0;
   }
 
   /* ── Author Card ── */
