@@ -17,6 +17,7 @@ export const SITE = {
 
   showArchives: true,
   showBackButton: true,
+  showReadingTime: true,
 
   editPost: {
     enabled: false,
