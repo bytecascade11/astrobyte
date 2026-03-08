@@ -570,7 +570,7 @@
     async function loadCachedPages() {
       const list = document.getElementById('cached-list');
       try {
-        const cache = await caches.open('revibyte-v2');
+        const cache = await caches.open('revibyte-dynamic-v3');
         const keys = await cache.keys();
         const pages = keys.filter(r => {
           const url = new URL(r.url);
