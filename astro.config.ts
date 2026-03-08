@@ -37,10 +37,19 @@ export default defineConfig({
       srcDir: "src",
       filename: "sw.js",
 
+      // Removed redundant injectionPoint — default is "self.__WB_MANIFEST"
+      // This fixes the "Unable to find a place to inject the manifest" error
       injectManifest: {
-        injectionPoint: "self.__WB_MANIFEST",
+        // injectionPoint: "self.__WB_MANIFEST",  ← DELETE or COMMENT this line
         rollupFormat: "iife",
         minify: false,
+      },
+
+      // Recommended for offline navigation fallback (HTML pages)
+      workbox: {
+        navigateFallback: "/offline.html",
+        // Optional: skip certain paths if you have dynamic routes later
+        // navigateFallbackDenylist: [/^\/api/],
       },
 
       manifest: {
@@ -159,7 +168,7 @@ export default defineConfig({
 
         if (page.includes("/tags/")) {
           return allowedTags.some(
-            (tag) => page === `${SITE.website}tags/${tag}/`
+            (tag) => page === `\( {SITE.website}tags/ \){tag}/`
           );
         }
 
