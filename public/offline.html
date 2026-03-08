@@ -1,20 +1,737 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Offline - ReviByte</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Offline — ReviByte</title>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet" />
   <style>
-    body {
-      background: #0f172a;
-      color: white;
-      text-align: center;
-      padding: 50px;
-      font-family: Arial, sans-serif;
+    :root {
+      --bg: #060d1a;
+      --surface: #0d1b2e;
+      --surface2: #112240;
+      --accent: #6366f1;
+      --accent2: #22d3ee;
+      --danger: #f43f5e;
+      --text: #e2e8f0;
+      --muted: #64748b;
+      --border: rgba(99,102,241,0.2);
+      --glow: rgba(99,102,241,0.15);
     }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Syne', sans-serif;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* ── Grid Background ── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(99,102,241,0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(99,102,241,0.04) 1px, transparent 1px);
+      background-size: 40px 40px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ── Glow Orbs ── */
+    .orb {
+      position: fixed;
+      border-radius: 50%;
+      filter: blur(80px);
+      pointer-events: none;
+      z-index: 0;
+    }
+    .orb-1 { width: 400px; height: 400px; background: rgba(99,102,241,0.12); top: -100px; right: -100px; }
+    .orb-2 { width: 300px; height: 300px; background: rgba(34,211,238,0.08); bottom: 100px; left: -80px; }
+
+    /* ── Layout ── */
+    .container {
+      position: relative;
+      z-index: 1;
+      max-width: 480px;
+      margin: 0 auto;
+      padding: 24px 16px 40px;
+    }
+
+    /* ── Header ── */
+    .header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 28px;
+    }
+
+    .logo {
+      font-size: 20px;
+      font-weight: 800;
+      color: white;
+      text-decoration: none;
+      letter-spacing: -0.5px;
+    }
+
+    .status-badge {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(244,63,94,0.15);
+      border: 1px solid rgba(244,63,94,0.3);
+      color: #f43f5e;
+      font-family: 'Space Mono', monospace;
+      font-size: 10px;
+      padding: 4px 10px;
+      border-radius: 20px;
+    }
+
+    .status-dot {
+      width: 6px;
+      height: 6px;
+      background: #f43f5e;
+      border-radius: 50%;
+      animation: blink 1.2s infinite;
+    }
+
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.2; }
+    }
+
+    /* ── Tabs ── */
+    .tabs {
+      display: flex;
+      gap: 4px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 4px;
+      margin-bottom: 20px;
+    }
+
+    .tab {
+      flex: 1;
+      text-align: center;
+      padding: 10px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+      color: var(--muted);
+      border: none;
+      background: transparent;
+    }
+
+    .tab.active {
+      background: var(--accent);
+      color: white;
+    }
+
+    /* ── Panels ── */
+    .panel { display: none; }
+    .panel.active { display: block; }
+
+    /* ── Offline Hero ── */
+    .offline-hero {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 32px 24px;
+      text-align: center;
+      margin-bottom: 20px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .offline-hero::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--accent), var(--accent2), transparent);
+    }
+
+    .wifi-icon {
+      width: 64px;
+      height: 64px;
+      margin: 0 auto 20px;
+      position: relative;
+    }
+
+    .wifi-icon svg {
+      width: 64px;
+      height: 64px;
+      stroke: var(--accent);
+      fill: none;
+      stroke-width: 1.5;
+      stroke-linecap: round;
+    }
+
+    .wifi-slash {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) rotate(-45deg);
+      width: 56px;
+      height: 2px;
+      background: var(--danger);
+      border-radius: 2px;
+    }
+
+    .offline-title {
+      font-size: 22px;
+      font-weight: 800;
+      color: white;
+      margin-bottom: 8px;
+      letter-spacing: -0.5px;
+    }
+
+    .offline-desc {
+      font-size: 14px;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    /* ── Cached Articles ── */
+    .section-title {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--muted);
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      font-family: 'Space Mono', monospace;
+      margin-bottom: 12px;
+    }
+
+    #cached-list { display: flex; flex-direction: column; gap: 10px; }
+
+    .cached-card {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 14px;
+      text-decoration: none;
+      color: var(--text);
+      transition: all 0.2s;
+      cursor: pointer;
+    }
+
+    .cached-card:hover {
+      border-color: var(--accent);
+      background: var(--surface2);
+      transform: translateY(-1px);
+    }
+
+    .cached-icon {
+      width: 40px;
+      height: 40px;
+      background: var(--glow);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      font-size: 18px;
+    }
+
+    .cached-info { flex: 1; min-width: 0; }
+
+    .cached-title {
+      font-size: 13px;
+      font-weight: 600;
+      color: white;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      margin-bottom: 3px;
+    }
+
+    .cached-url {
+      font-size: 11px;
+      color: var(--muted);
+      font-family: 'Space Mono', monospace;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .cached-arrow {
+      width: 20px;
+      height: 20px;
+      stroke: var(--accent);
+      fill: none;
+      stroke-width: 2;
+      flex-shrink: 0;
+    }
+
+    .no-cache {
+      text-align: center;
+      padding: 32px 16px;
+      color: var(--muted);
+      font-size: 13px;
+      background: var(--surface);
+      border: 1px dashed var(--border);
+      border-radius: 14px;
+    }
+
+    .no-cache-icon { font-size: 32px; margin-bottom: 10px; }
+
+    /* ── GAME ── */
+    .game-container {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 20px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .game-container::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--accent2), transparent);
+    }
+
+    .game-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+    }
+
+    .game-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--accent2);
+      font-family: 'Space Mono', monospace;
+      letter-spacing: 1px;
+    }
+
+    .game-score-board {
+      display: flex;
+      gap: 12px;
+    }
+
+    .score-item {
+      text-align: center;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 4px 12px;
+    }
+
+    .score-label {
+      font-size: 9px;
+      color: var(--muted);
+      font-family: 'Space Mono', monospace;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .score-value {
+      font-size: 16px;
+      font-weight: 700;
+      color: white;
+      font-family: 'Space Mono', monospace;
+    }
+
+    /* ── Snake Canvas ── */
+    #gameCanvas {
+      display: block;
+      width: 100%;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      background: var(--bg);
+      image-rendering: pixelated;
+      touch-action: none;
+    }
+
+    .game-controls {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 6px;
+      margin-top: 14px;
+      max-width: 160px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .ctrl-btn {
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      color: white;
+      border-radius: 10px;
+      height: 44px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 18px;
+      transition: all 0.1s;
+      user-select: none;
+      -webkit-user-select: none;
+    }
+
+    .ctrl-btn:active {
+      background: var(--accent);
+      transform: scale(0.92);
+    }
+
+    .ctrl-btn.empty { pointer-events: none; background: transparent; border-color: transparent; }
+
+    .game-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(6,13,26,0.92);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      border-radius: 20px;
+      z-index: 10;
+      gap: 12px;
+    }
+
+    .overlay-title {
+      font-size: 24px;
+      font-weight: 800;
+      color: white;
+      letter-spacing: -0.5px;
+    }
+
+    .overlay-sub {
+      font-size: 13px;
+      color: var(--muted);
+      font-family: 'Space Mono', monospace;
+    }
+
+    .overlay-score {
+      font-size: 40px;
+      font-weight: 800;
+      color: var(--accent2);
+      font-family: 'Space Mono', monospace;
+    }
+
+    .play-btn {
+      background: var(--accent);
+      color: white;
+      border: none;
+      padding: 12px 32px;
+      border-radius: 12px;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+      font-family: 'Syne', sans-serif;
+      transition: all 0.2s;
+      letter-spacing: 0.5px;
+    }
+
+    .play-btn:hover { background: #4f46e5; transform: translateY(-1px); }
+
+    /* ── Retry button ── */
+    .retry-bar {
+      display: flex;
+      justify-content: center;
+      margin-top: 16px;
+    }
+
+    .retry-btn {
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--muted);
+      padding: 8px 20px;
+      border-radius: 8px;
+      font-size: 12px;
+      cursor: pointer;
+      font-family: 'Space Mono', monospace;
+      transition: all 0.2s;
+    }
+
+    .retry-btn:hover { border-color: var(--accent); color: var(--accent); }
   </style>
 </head>
 <body>
-  <h1>You are offline</h1>
-  <p>Please reconnect to read the latest tech updates on ReviByte.</p>
-</body>
-</html>
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+
+  <div class="container">
+    <!-- Header -->
+    <div class="header">
+      <a href="/" class="logo">ReviByte</a>
+      <div class="status-badge">
+        <div class="status-dot"></div>
+        NO SIGNAL
+      </div>
+    </div>
+
+    <!-- Tabs -->
+    <div class="tabs">
+      <button class="tab active" onclick="switchTab('offline')">📡 Offline</button>
+      <button class="tab" onclick="switchTab('cached')">📰 Saved</button>
+      <button class="tab" onclick="switchTab('game')">🎮 Game</button>
+    </div>
+
+    <!-- Offline Panel -->
+    <div id="tab-offline" class="panel active">
+      <div class="offline-hero">
+        <div class="wifi-icon">
+          <svg viewBox="0 0 24 24">
+            <path d="M5 12.55a11 11 0 0 1 14.08 0"/>
+            <path d="M1.42 9a16 16 0 0 1 21.16 0"/>
+            <path d="M8.53 16.11a6 6 0 0 1 6.95 0"/>
+            <circle cx="12" cy="20" r="1" fill="currentColor" stroke="none"/>
+          </svg>
+          <div class="wifi-slash"></div>
+        </div>
+        <div class="offline-title">You're Offline</div>
+        <p class="offline-desc">No internet connection detected. Browse your saved articles or kill some time with a game below!</p>
+      </div>
+
+      <div class="retry-bar">
+        <button class="retry-btn" onclick="location.reload()">↺ Try reconnecting</button>
+      </div>
+    </div>
+
+    <!-- Cached Articles Panel -->
+    <div id="tab-cached" class="panel">
+      <div class="section-title">Previously Visited</div>
+      <div id="cached-list">
+        <div class="no-cache">
+          <div class="no-cache-icon">📭</div>
+          No saved articles yet. Visit some pages while online first!
+        </div>
+      </div>
+    </div>
+
+    <!-- Game Panel -->
+    <div id="tab-game" class="panel">
+      <div class="game-container">
+        <div class="game-header">
+          <div class="game-title">// SNAKE.EXE</div>
+          <div class="game-score-board">
+            <div class="score-item">
+              <div class="score-label">Score</div>
+              <div class="score-value" id="score">0</div>
+            </div>
+            <div class="score-item">
+              <div class="score-label">Best</div>
+              <div class="score-value" id="best">0</div>
+            </div>
+          </div>
+        </div>
+
+        <canvas id="gameCanvas" width="300" height="300"></canvas>
+
+        <!-- Touch Controls -->
+        <div class="game-controls">
+          <div class="ctrl-btn empty"></div>
+          <div class="ctrl-btn" id="btn-up">▲</div>
+          <div class="ctrl-btn empty"></div>
+          <div class="ctrl-btn" id="btn-left">◀</div>
+          <div class="ctrl-btn" id="btn-down">▼</div>
+          <div class="ctrl-btn" id="btn-right">▶</div>
+        </div>
+
+        <!-- Overlay -->
+        <div class="game-overlay" id="gameOverlay">
+          <div class="overlay-title">SNAKE.EXE</div>
+          <div class="overlay-sub">Use arrow keys or buttons</div>
+          <button class="play-btn" onclick="startGame()">▶ Start Game</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // ── Tab Switching ──
+    function switchTab(name) {
+      document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+      document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+      document.getElementById('tab-' + name).classList.add('active');
+      event.target.classList.add('active');
+      if (name === 'cached') loadCachedPages();
+    }
+
+    // ── Load Cached Pages ──
+    async function loadCachedPages() {
+      const list = document.getElementById('cached-list');
+      try {
+        const cache = await caches.open('revibyte-v2');
+        const keys = await cache.keys();
+        const pages = keys.filter(r => {
+          const url = new URL(r.url);
+          return url.pathname !== '/offline.html' && !r.url.match(/\.(png|jpg|svg|css|js|woff|ico)$/);
+        });
+
+        if (pages.length === 0) {
+          list.innerHTML = `<div class="no-cache"><div class="no-cache-icon">📭</div>No saved articles yet. Visit some pages while online first!</div>`;
+          return;
+        }
+
+        const emojis = ['📱','💻','🤖','🎮','🔬','⚡','🛰️','🔧'];
+        list.innerHTML = pages.slice(0, 8).map((req, i) => {
+          const url = new URL(req.url);
+          const label = decodeURIComponent(url.pathname)
+            .replace(/\//g, ' ').replace(/-/g, ' ').trim()
+            || 'Home';
+          const emoji = emojis[i % emojis.length];
+          return `
+            <a class="cached-card" href="${url.pathname}">
+              <div class="cached-icon">${emoji}</div>
+              <div class="cached-info">
+                <div class="cached-title">${label.charAt(0).toUpperCase() + label.slice(1)}</div>
+                <div class="cached-url">${url.pathname}</div>
+              </div>
+              <svg class="cached-arrow" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </a>`;
+        }).join('');
+      } catch(e) {
+        list.innerHTML = `<div class="no-cache"><div class="no-cache-icon">⚠️</div>Could not read cache.</div>`;
+      }
+    }
+
+    // ── Snake Game ──
+    const canvas = document.getElementById('gameCanvas');
+    const ctx = canvas.getContext('2d');
+    const GRID = 15;
+    const COLS = Math.floor(canvas.width / GRID);
+    const ROWS = Math.floor(canvas.height / GRID);
+
+    let snake, dir, nextDir, food, gameLoop, score, best, running;
+
+    best = parseInt(localStorage.getItem('rb-snake-best') || '0');
+    document.getElementById('best').textContent = best;
+
+    function startGame() {
+      document.getElementById('gameOverlay').style.display = 'none';
+      snake = [{x: Math.floor(COLS/2), y: Math.floor(ROWS/2)}];
+      dir = {x:1, y:0};
+      nextDir = {x:1, y:0};
+      score = 0;
+      running = true;
+      document.getElementById('score').textContent = 0;
+      spawnFood();
+      if (gameLoop) clearInterval(gameLoop);
+      gameLoop = setInterval(tick, 120);
+    }
+
+    function spawnFood() {
+      let pos;
+      do {
+        pos = {x: Math.floor(Math.random()*COLS), y: Math.floor(Math.random()*ROWS)};
+      } while (snake.some(s => s.x === pos.x && s.y === pos.y));
+      food = pos;
+    }
+
+    function tick() {
+      dir = nextDir;
+      const head = {x: snake[0].x + dir.x, y: snake[0].y + dir.y};
+
+      // Wall collision
+      if (head.x < 0 || head.x >= COLS || head.y < 0 || head.y >= ROWS) return gameOver();
+      // Self collision
+      if (snake.some(s => s.x === head.x && s.y === head.y)) return gameOver();
+
+      snake.unshift(head);
+
+      if (head.x === food.x && head.y === food.y) {
+        score++;
+        document.getElementById('score').textContent = score;
+        if (score > best) {
+          best = score;
+          localStorage.setItem('rb-snake-best', best);
+          document.getElementById('best').textContent = best;
+        }
+        spawnFood();
+      } else {
+        snake.pop();
+      }
+      draw();
+    }
+
+    function draw() {
+      ctx.fillStyle = '#060d1a';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      // Grid dots
+      ctx.fillStyle = 'rgba(99,102,241,0.08)';
+      for (let x = 0; x < COLS; x++) {
+        for (let y = 0; y < ROWS; y++) {
+          ctx.fillRect(x * GRID + GRID/2 - 1, y * GRID + GRID/2 - 1, 2, 2);
+        }
+      }
+
+      // Food
+      ctx.fillStyle = '#f43f5e';
+      ctx.shadowColor = '#f43f5e';
+      ctx.shadowBlur = 10;
+      ctx.beginPath();
+      ctx.roundRect(food.x * GRID + 2, food.y * GRID + 2, GRID - 4, GRID - 4, 4);
+      ctx.fill();
+      ctx.shadowBlur = 0;
+
+      // Snake
+      snake.forEach((s, i) => {
+        const ratio = i / snake.length;
+        const r = Math.round(99 + (34 - 99) * ratio);
+        const g = Math.round(102 + (211 - 102) * ratio);
+        const b = Math.round(241 + (238 - 241) * ratio);
+        ctx.fillStyle = `rgb(${r},${g},${b})`;
+        if (i === 0) {
+          ctx.shadowColor = '#6366f1';
+          ctx.shadowBlur = 8;
+        } else {
+          ctx.shadowBlur = 0;
+        }
+        ctx.beginPath();
+        ctx.roundRect(s.x * GRID + 1, s.y * GRID + 1, GRID - 2, GRID - 2, i === 0 ? 5 : 3);
+        ctx.fill();
+      });
+      ctx.shadowBlur = 0;
+    }
+
+    function gameOver() {
+      clearInterval(gameLoop);
+      running = false;
+      const overlay = document.getElementById('gameOverlay');
+      overlay.style.display = 'flex';
+      overlay.innerHTML = `
+        <div class="overlay-title">GAME OVER</div>
+        <div class="overlay-score">${score}</div>
+        <div class="overlay-sub">Best: ${best}</div>
+        <button class="play-btn" onclick="startGame()">↺ Play Again</button>
+      `;
+    }
+
+    // ── Keyboard Controls ──
+    document.addEventListener('keydown', e => {
+      if (!running) return;
+      const map = {
+        ArrowUp: {x:0,y:-1}, ArrowDown: {x:0,y:1},
+        ArrowLeft: {x:-1,y:0}, ArrowRight: {x:1,y:0}
+      };
+      const d = map[e.key];
+      if (d && !(d.x === -dir.x && d.y === -dir.y)) {
+        nextDir = d;
+        e.preventDefault();
+      }
+    });
+
+    // ── Touch Controls ──
+    document.getElementById('btn-up').addEventListener('click', () => { if(running && dir.y !== 1) nextDir={x:0,y:-1}; });
+    document.getElementById('btn-down').addEventListener('click', () => { if(running && dir.y !== -1) nextDir={x:0,y:1}; });
+    document.getElementById('btn-left').addEventListener('click', () => { if(running 
