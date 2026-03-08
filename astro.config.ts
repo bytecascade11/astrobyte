@@ -39,7 +39,8 @@ export default defineConfig({
 
       injectManifest: {
         injectionPoint: "self.__WB_MANIFEST",
-        rollupFormat: "iife", // ← prevents Vite from tree-shaking the global
+        rollupFormat: "iife",
+        minify: false,
       },
 
       manifest: {
