@@ -2,32 +2,27 @@
 
 import { precacheAndRoute } from 'workbox-precaching';
 import { cleanupOutdatedCaches } from 'workbox-precaching';
-import { setCatchHandler } from 'workbox-routing';
 
-// ────────────────────────────────────────────────
 // REQUIRED for vite-plugin-pwa injectManifest mode
-// The build process replaces the line below with the real precache array
+// The build replaces this with the real asset list
 precacheAndRoute(self.__WB_MANIFEST);
 
-// Clean up old caches on activation
+// Clean up old caches
 cleanupOutdatedCaches();
-
-// ────────────────────────────────────────────────
 
 const CACHE_NAME = "revibyte-v3";
 const STATIC_CACHE = "revibyte-static-v3";
 
-// Core files cached during install (in addition to the injected manifest)
 const STATIC_ASSETS = [
   "/",
-  "/offline.html",
+  "/offline.html",  // still cached, but we won't use it as fallback
   "/site.webmanifest",
   "/android-chrome-192x192.png",
   "/android-chrome-512x512.png",
   "/favicon.svg",
 ];
 
-// ── Install: cache essential static assets ──
+// ── Install: cache core assets ──
 self.addEventListener("install", (event) => {
   event.waitUntil(
     caches.open(STATIC_CACHE).then((cache) => {
@@ -37,7 +32,7 @@ self.addEventListener("install", (event) => {
   self.skipWaiting();
 });
 
-// ── Activate: clean old caches & take control ──
+// ── Activate: remove old caches ──
 self.addEventListener("activate", (event) => {
   event.waitUntil(
     caches.keys().then((keys) => {
@@ -51,15 +46,15 @@ self.addEventListener("activate", (event) => {
   self.clients.claim();
 });
 
-// ── Fetch handler ──
+// ── Fetch handler ── (no fallbacks, pure network-first + cache for static)
 self.addEventListener("fetch", (event) => {
   const { request } = event;
   const url = new URL(request.url);
 
-  // Skip non-GET, cross-origin, and unwanted third-party requests
   if (request.method !== "GET") return;
   if (url.origin !== self.location.origin) return;
 
+  // Skip tracking/ads
   const skipPatterns = [
     "googletagmanager",
     "googlesyndication",
@@ -68,12 +63,12 @@ self.addEventListener("fetch", (event) => {
   ];
   if (skipPatterns.some((p) => url.href.includes(p))) return;
 
-  // ── Navigation requests (page loads, reloads, typing URL, links) ──
+  // ── Navigation requests ──
   if (request.mode === 'navigate') {
     event.respondWith(
       fetch(request)
         .then((response) => {
-          // Cache successful page responses
+          // Cache successful responses (so next time offline it can serve from cache)
           if (response?.ok && response.status === 200 && response.type === 'basic') {
             const responseToCache = response.clone();
             caches.open(CACHE_NAME).then((cache) => {
@@ -82,23 +77,16 @@ self.addEventListener("fetch", (event) => {
           }
           return response;
         })
-        .catch(async () => {
-          // Offline: first try cache (visited pages)
-          const cached = await caches.match(request);
-          if (cached) return cached;
-
-          // If not cached → return your custom offline page
-          const offlinePage = await caches.match("/offline.html");
-          return offlinePage || new Response(
-            "<h1>Offline</h1><p>Please check your internet connection</p>",
-            { headers: { "Content-Type": "text/html" } }
-          );
+        .catch(() => {
+          // NO FALLBACK HERE — let it fail
+          // Browser will show native "You're offline" screen
+          return Response.error();
         })
     );
-    return; // Prevents browser default offline screen
+    return;
   }
 
-  // ── Static assets (images, fonts, css, js) → Cache first ──
+  // ── Static assets → Cache first ──
   if (
     url.pathname.match(
       /\.(png|jpg|jpeg|svg|webp|gif|ico|woff|woff2|ttf|css|js)$/
@@ -124,17 +112,6 @@ self.addEventListener("fetch", (event) => {
     return;
   }
 
-  // ── Everything else → Network first, fallback to cache ──
-  event.respondWith(
-    fetch(request).catch(() => caches.match(request))
-  );
-});
-
-// ── Global safety net (last resort) ──
-setCatchHandler(async ({ event }) => {
-  if (event.request.mode === 'navigate') {
-    const offlinePage = await caches.match("/offline.html");
-    return offlinePage || new Response("Offline", { status: 503 });
-  }
-  return Response.error();
+  // ── Everything else → Network only, no cache fallback ──
+  event.respondWith(fetch(request));
 });
