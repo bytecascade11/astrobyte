@@ -32,8 +32,10 @@ export default defineConfig({
     AstroPWA({
       registerType: "autoUpdate",
       injectRegister: null,
+
+      // IMPORTANT FIX
       strategies: "injectManifest",
-      srcDir: "public",
+      srcDir: "src",
       filename: "sw.js",
 
       manifest: {
