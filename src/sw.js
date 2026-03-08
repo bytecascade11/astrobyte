@@ -1,9 +1,9 @@
-// src/sw.js — final version with YOUR custom offline page
+// src/sw.js — 2025–2026 version, custom offline page working
 
 import { precacheAndRoute } from 'workbox-precaching';
 import { cleanupOutdatedCaches } from 'workbox-precaching';
 
-// REQUIRED — vite-plugin-pwa injects the manifest here during build
+// REQUIRED — vite-plugin-pwa injects the real manifest array here during build
 precacheAndRoute(self.__WB_MANIFEST);
 
 cleanupOutdatedCaches();
@@ -13,14 +13,14 @@ const STATIC_CACHE  = 'revibyte-static-v3';
 
 const CORE_ASSETS = [
   '/',
-  '/offline.html',              // your custom page — make sure this file exists!
+  '/offline.html',              // ← your custom page must be here
   '/site.webmanifest',
   '/android-chrome-192x192.png',
   '/android-chrome-512x512.png',
   '/favicon.svg',
 ];
 
-// Install: cache essentials
+// ── Install: cache core files ──
 self.addEventListener('install', event => {
   event.waitUntil(
     caches.open(STATIC_CACHE).then(cache => cache.addAll(CORE_ASSETS))
@@ -28,69 +28,76 @@ self.addEventListener('install', event => {
   self.skipWaiting();
 });
 
-// Activate: cleanup
+// ── Activate: remove old caches ──
 self.addEventListener('activate', event => {
   event.waitUntil(
     caches.keys().then(keys =>
       Promise.all(
-        keys.filter(key => key !== DYNAMIC_CACHE && key !== STATIC_CACHE)
-            .map(key => caches.delete(key))
+        keys
+          .filter(key => key !== DYNAMIC_CACHE && key !== STATIC_CACHE)
+          .map(key => caches.delete(key))
       )
     )
   );
   self.clients.claim();
 });
 
-// Fetch handler
+// ── Fetch handler ──
 self.addEventListener('fetch', event => {
   const req = event.request;
   const url = new URL(req.url);
 
+  // Skip non-GET, cross-origin, trackers
   if (req.method !== 'GET') return;
   if (url.origin !== self.location.origin) return;
 
-  // Skip trackers
   const skip = ['googletagmanager', 'googlesyndication', 'onesignal', 'pagead'];
   if (skip.some(s => url.href.includes(s))) return;
 
-  // ── Page navigations ── network first, then cache, then YOUR custom offline page
+  // ── Navigation (pages) ── network first → cache → custom offline page
   if (req.mode === 'navigate') {
     event.respondWith(
-      fetch(req)
-        .then(response => {
+      (async () => {
+        try {
+          const response = await fetch(req);
+
+          // Cache good responses
           if (response?.ok && response.status === 200 && response.type === 'basic') {
             const clone = response.clone();
             caches.open(DYNAMIC_CACHE).then(cache => cache.put(req, clone));
           }
+
           return response;
-        })
-        .catch(async () => {
-          // 1. Try cache (previously visited pages)
+        } catch (err) {
+          // Offline or network error
           const cached = await caches.match(req);
           if (cached) return cached;
 
-          // 2. Fall back to your custom offline page
+          // Serve your custom offline page
           const offlinePage = await caches.match('/offline.html');
           if (offlinePage) return offlinePage;
 
-          // 3. Tiny fallback if /offline.html not cached (shouldn't happen)
+          // Last-resort plain text (should never reach here)
           return new Response(
-            '<h1>Offline</h1><p>Please check your internet connection.</p>',
+            '<h1>Offline</h1><p>No connection. Please try again later.</p>',
             { headers: { 'Content-Type': 'text/html' } }
           );
-        })
+        }
+      })()
     );
     return;
   }
 
-  // ── Static files ── cache first
+  // ── Static files (images, css, js, fonts) ── cache first
   if (url.pathname.match(/\.(png|jpe?g|svg|webp|gif|ico|woff2?|ttf|css|js)$/i)) {
     event.respondWith(
-      caches.match(req).then(cached => cached || fetch(req))
+      caches.match(req).then(cached => {
+        return cached || fetch(req);
+      })
     );
     return;
   }
 
-  // Other requests → network only
+  // Everything else: network only
   event.respondWith(fetch(req));
 });
