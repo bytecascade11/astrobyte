@@ -2,7 +2,7 @@ const CACHE_NAME = "revibyte-v3";
 const STATIC_CACHE = "revibyte-static-v3";
 
 // Required for vite-plugin-pwa injectManifest
-const WB_MANIFEST = (self.__WB_MANIFEST = self.__WB_MANIFEST || []);
+const WB_MANIFEST = self.__WB_MANIFEST || [];
 
 // Core files cached during install
 const STATIC_ASSETS = [
