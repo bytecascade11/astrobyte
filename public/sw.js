@@ -1,6 +1,9 @@
 const CACHE_NAME = "revibyte-v3";
 const STATIC_CACHE = "revibyte-static-v3";
 
+// Required by @vite-pwa/astro injectManifest strategy
+const WB_MANIFEST = self.__WB_MANIFEST
+
 // Core files always cached on install
 const STATIC_ASSETS = [
   "/",
