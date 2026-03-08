@@ -37,20 +37,21 @@ export default defineConfig({
       srcDir: "src",
       filename: "sw.js",
 
-      // Removed redundant injectionPoint — default is "self.__WB_MANIFEST"
-      // This fixes the "Unable to find a place to inject the manifest" error
       injectManifest: {
-        // injectionPoint: "self.__WB_MANIFEST",  ← DELETE or COMMENT this line
         rollupFormat: "iife",
         minify: false,
       },
 
-      // Recommended for offline navigation fallback (HTML pages)
-      workbox: {
-        navigateFallback: "/offline.html",
-        // Optional: skip certain paths if you have dynamic routes later
-        // navigateFallbackDenylist: [/^\/api/],
-      },
+      // ────────────────────────────────────────────────
+      // IMPORTANT: Remove navigateFallback completely
+      // If this is present in injectManifest mode, it can cause
+      // inconsistent or unwanted fallback behavior in some browsers
+      // Your custom sw.js now handles everything → no need for this
+      // workbox: {
+      //   navigateFallback: "/offline.html",
+      //   navigateFallbackDenylist: [/^\/api/],
+      // },
+      // ────────────────────────────────────────────────
 
       manifest: {
         id: "/",
