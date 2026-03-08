@@ -31,13 +31,17 @@ export default defineConfig({
   integrations: [
     AstroPWA({
       registerType: "autoUpdate",
+      injectRegister: null,
+      strategies: "injectManifest",
+      srcDir: "public",
+      filename: "sw.js",
 
       manifest: {
         id: "/",
-        name: "ReviByte Technology Opinions",
+        name: "ReviByte Opinions",
         short_name: "ReviByte",
         description:
-          "ReviByte Technology Opinions delivers the latest tech news, gadget reviews, Android updates, and in-depth guides.",
+          "ReviByte Technology Opinions delivers the latest tech news, gadget reviews, Android updates, and in-depth guides to keep you informed and ahead in the digital world.",
         start_url: "/?source=pwa",
         scope: "/",
         display: "standalone",
@@ -48,19 +52,32 @@ export default defineConfig({
         lang: "en",
         dir: "ltr",
         categories: ["technology", "news", "blog"],
+        prefer_related_applications: false,
 
         icons: [
           {
             src: "/android-chrome-192x192.png",
             sizes: "192x192",
             type: "image/png",
-            purpose: "any maskable",
+            purpose: "any",
+          },
+          {
+            src: "/android-chrome-192x192.png",
+            sizes: "192x192",
+            type: "image/png",
+            purpose: "maskable",
           },
           {
             src: "/android-chrome-512x512.png",
             sizes: "512x512",
             type: "image/png",
-            purpose: "any maskable",
+            purpose: "any",
+          },
+          {
+            src: "/android-chrome-512x512.png",
+            sizes: "512x512",
+            type: "image/png",
+            purpose: "maskable",
           },
         ],
 
@@ -69,49 +86,33 @@ export default defineConfig({
             name: "Latest Posts",
             short_name: "Latest",
             description: "Read newest tech articles",
-            url: "/?latest=true",
+            url: "/?source=pwa",
             icons: [{ src: "/android-chrome-192x192.png", sizes: "192x192" }],
           },
           {
-            name: "Smartphone Reviews",
-            short_name: "Reviews",
-            description: "See phone comparisons and reviews",
-            url: "/category/reviews/",
+            name: "Samsung",
+            short_name: "Samsung",
+            description: "Latest Samsung news and reviews",
+            url: "/tags/samsung/?source=pwa",
+            icons: [{ src: "/android-chrome-192x192.png", sizes: "192x192" }],
+          },
+          {
+            name: "Apple",
+            short_name: "Apple",
+            description: "Latest Apple news and reviews",
+            url: "/tags/apple/?source=pwa",
+            icons: [{ src: "/android-chrome-192x192.png", sizes: "192x192" }],
+          },
+          {
+            name: "Android",
+            short_name: "Android",
+            description: "Latest Android news and updates",
+            url: "/tags/android/?source=pwa",
             icons: [{ src: "/android-chrome-192x192.png", sizes: "192x192" }],
           },
         ],
       },
 
-      workbox: {
-        globPatterns: ["**/*.{css,js,svg,png,ico,txt,woff,woff2}"],
-
-        runtimeCaching: [
-          {
-            urlPattern: /^https:\/\/www\.revibyte\.blog\/posts\/.*/i,
-            handler: "NetworkFirst",
-            options: {
-              cacheName: "posts-cache",
-              expiration: {
-                maxEntries: 50,
-                maxAgeSeconds: 60 * 60 * 24,
-              },
-            },
-          },
-          {
-            urlPattern: /^https:\/\/www\.revibyte\.blog\/.*/i,
-            handler: "NetworkFirst",
-            options: {
-              cacheName: "pages-cache",
-              expiration: {
-                maxEntries: 20,
-                maxAgeSeconds: 60 * 60 * 24,
-              },
-            },
-          },
-        ],
-      },
-
-      // 🔥 IMPORTANT: disable dev mode in production
       devOptions: {
         enabled: false,
       },
