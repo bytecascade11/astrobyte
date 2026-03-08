@@ -33,10 +33,14 @@ export default defineConfig({
       registerType: "autoUpdate",
       injectRegister: null,
 
-      // IMPORTANT FIX
       strategies: "injectManifest",
       srcDir: "src",
       filename: "sw.js",
+
+      // Fix: explicitly tell Workbox what string to look for
+      injectManifest: {
+        injectionPoint: "self.__WB_MANIFEST",
+      },
 
       manifest: {
         id: "/",
