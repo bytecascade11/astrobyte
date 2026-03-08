@@ -37,9 +37,9 @@ export default defineConfig({
       srcDir: "src",
       filename: "sw.js",
 
-      // Fix: explicitly tell Workbox what string to look for
       injectManifest: {
         injectionPoint: "self.__WB_MANIFEST",
+        rollupFormat: "iife", // ← prevents Vite from tree-shaking the global
       },
 
       manifest: {
@@ -196,4 +196,99 @@ export default defineConfig({
       exclude: ["@resvg/resvg-js"],
     },
   },
+});
+```
+
+**`src/sw.js`** — use this exact form so `self.__WB_MANIFEST` survives the `iife` build:
+
+```js
+const CACHE_NAME = "revibyte-v3";
+const STATIC_CACHE = "revibyte-static-v3";
+
+// Required for vite-plugin-pwa injectManifest
+const WB_MANIFEST = self.__WB_MANIFEST || [];
+
+const STATIC_ASSETS = [
+  "/",
+  "/offline.html",
+  "/site.webmanifest",
+  "/android-chrome-192x192.png",
+  "/android-chrome-512x512.png",
+  "/favicon.svg",
+];
+
+self.addEventListener("install", (event) => {
+  event.waitUntil(
+    caches.open(STATIC_CACHE).then((cache) => {
+      return cache.addAll(STATIC_ASSETS);
+    })
+  );
+  self.skipWaiting();
+});
+
+self.addEventListener("activate", (event) => {
+  event.waitUntil(
+    caches.keys().then((keys) => {
+      return Promise.all(
+        keys
+          .filter((key) => key !== CACHE_NAME && key !== STATIC_CACHE)
+          .map((key) => caches.delete(key))
+      );
+    })
+  );
+  self.clients.claim();
+});
+
+self.addEventListener("fetch", (event) => {
+  const { request } = event;
+  const url = new URL(request.url);
+
+  if (request.method !== "GET") return;
+  if (url.origin !== location.origin) return;
+
+  const skipPatterns = [
+    "googletagmanager",
+    "googlesyndication",
+    "onesignal",
+    "pagead",
+  ];
+
+  if (skipPatterns.some((p) => url.href.includes(p))) return;
+
+  if (request.headers.get("accept")?.includes("text/html")) {
+    event.respondWith(
+      fetch(request)
+        .then((response) => {
+          if (response.ok) {
+            const clone = response.clone();
+            caches.open(CACHE_NAME).then((cache) => cache.put(request, clone));
+          }
+          return response;
+        })
+        .catch(() =>
+          caches.match(request).then((cached) => cached || caches.match("/offline.html"))
+        )
+    );
+    return;
+  }
+
+  if (url.pathname.match(/\.(png|jpg|jpeg|svg|webp|gif|ico|woff|woff2|ttf|css|js)$/)) {
+    event.respondWith(
+      caches.match(request).then((cached) => {
+        if (cached) return cached;
+        return fetch(request)
+          .then((response) => {
+            if (response.ok) {
+              const clone = response.clone();
+              caches.open(STATIC_CACHE).then((cache) => cache.put(request, clone));
+            }
+            return response;
+          })
+          .catch(() => cached || new Response("", { status: 404 }));
+      })
+    );
+    return;
+  }
+
+  event.respondWith(fetch(request).catch(() => caches.match(request)));
 });
