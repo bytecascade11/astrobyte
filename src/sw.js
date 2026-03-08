@@ -1,91 +1,96 @@
-// src/sw.js – No fallbacks version
+// src/sw.js — final version with YOUR custom offline page
 
 import { precacheAndRoute } from 'workbox-precaching';
 import { cleanupOutdatedCaches } from 'workbox-precaching';
 
-// REQUIRED – build replaces this
+// REQUIRED — vite-plugin-pwa injects the manifest here during build
 precacheAndRoute(self.__WB_MANIFEST);
 
 cleanupOutdatedCaches();
 
-const CACHE_NAME = "revibyte-v3";
-const STATIC_CACHE = "revibyte-static-v3";
+const DYNAMIC_CACHE = 'revibyte-dynamic-v3';
+const STATIC_CACHE  = 'revibyte-static-v3';
 
-const STATIC_ASSETS = [
-  "/",
-  "/offline.html",  // still cached but NEVER served as fallback
-  "/site.webmanifest",
-  "/android-chrome-192x192.png",
-  "/android-chrome-512x512.png",
-  "/favicon.svg",
+const CORE_ASSETS = [
+  '/',
+  '/offline.html',              // your custom page — make sure this file exists!
+  '/site.webmanifest',
+  '/android-chrome-192x192.png',
+  '/android-chrome-512x512.png',
+  '/favicon.svg',
 ];
 
-// Install: cache basics
-self.addEventListener("install", (event) => {
+// Install: cache essentials
+self.addEventListener('install', event => {
   event.waitUntil(
-    caches.open(STATIC_CACHE).then((cache) => cache.addAll(STATIC_ASSETS))
+    caches.open(STATIC_CACHE).then(cache => cache.addAll(CORE_ASSETS))
   );
   self.skipWaiting();
 });
 
 // Activate: cleanup
-self.addEventListener("activate", (event) => {
+self.addEventListener('activate', event => {
   event.waitUntil(
-    caches.keys().then((keys) =>
+    caches.keys().then(keys =>
       Promise.all(
-        keys
-          .filter((key) => key !== CACHE_NAME && key !== STATIC_CACHE)
-          .map((key) => caches.delete(key))
+        keys.filter(key => key !== DYNAMIC_CACHE && key !== STATIC_CACHE)
+            .map(key => caches.delete(key))
       )
     )
   );
   self.clients.claim();
 });
 
-// Fetch: network-first for navigations (fail offline if no cache), cache-first for static
-self.addEventListener("fetch", (event) => {
-  const { request } = event;
-  const url = new URL(request.url);
+// Fetch handler
+self.addEventListener('fetch', event => {
+  const req = event.request;
+  const url = new URL(req.url);
 
-  if (request.method !== "GET") return;
+  if (req.method !== 'GET') return;
   if (url.origin !== self.location.origin) return;
 
-  // Skip trackers/ads
-  const skipPatterns = ["googletagmanager", "googlesyndication", "onesignal", "pagead"];
-  if (skipPatterns.some((p) => url.href.includes(p))) return;
+  // Skip trackers
+  const skip = ['googletagmanager', 'googlesyndication', 'onesignal', 'pagead'];
+  if (skip.some(s => url.href.includes(s))) return;
 
-  // Navigation: try network → cache on success → fail offline (browser shows default screen)
-  if (request.mode === 'navigate') {
+  // ── Page navigations ── network first, then cache, then YOUR custom offline page
+  if (req.mode === 'navigate') {
     event.respondWith(
-      fetch(request).then((response) => {
-        if (response?.ok && response.status === 200 && response.type === 'basic') {
-          const clone = response.clone();
-          caches.open(CACHE_NAME).then((cache) => cache.put(request, clone));
-        }
-        return response;
-      })
-      // NO .catch() — let it fail → Chrome default offline screen
-    );
-    return;
-  }
-
-  // Static: cache-first
-  if (url.pathname.match(/\.(png|jpg|jpeg|svg|webp|gif|ico|woff|woff2|ttf|css|js)$/)) {
-    event.respondWith(
-      caches.match(request).then((cached) => {
-        if (cached) return cached;
-        return fetch(request).then((response) => {
-          if (response.ok && response.status === 200) {
+      fetch(req)
+        .then(response => {
+          if (response?.ok && response.status === 200 && response.type === 'basic') {
             const clone = response.clone();
-            caches.open(STATIC_CACHE).then((cache) => cache.put(request, clone));
+            caches.open(DYNAMIC_CACHE).then(cache => cache.put(req, clone));
           }
           return response;
-        }).catch(() => new Response("", { status: 404 }));
-      })
+        })
+        .catch(async () => {
+          // 1. Try cache (previously visited pages)
+          const cached = await caches.match(req);
+          if (cached) return cached;
+
+          // 2. Fall back to your custom offline page
+          const offlinePage = await caches.match('/offline.html');
+          if (offlinePage) return offlinePage;
+
+          // 3. Tiny fallback if /offline.html not cached (shouldn't happen)
+          return new Response(
+            '<h1>Offline</h1><p>Please check your internet connection.</p>',
+            { headers: { 'Content-Type': 'text/html' } }
+          );
+        })
     );
     return;
   }
 
-  // Other requests: network only
-  event.respondWith(fetch(request));
+  // ── Static files ── cache first
+  if (url.pathname.match(/\.(png|jpe?g|svg|webp|gif|ico|woff2?|ttf|css|js)$/i)) {
+    event.respondWith(
+      caches.match(req).then(cached => cached || fetch(req))
+    );
+    return;
+  }
+
+  // Other requests → network only
+  event.respondWith(fetch(req));
 });
