@@ -2,6 +2,7 @@
 
 /**
  * Generate a clean URL path for a blog post.
+ * Trailing slash is always included to match astro.config.ts trailingSlash: "always"
  */
 export function getPath(
   id: string,
@@ -15,18 +16,21 @@ export function getPath(
   let cleanSlug = slugPart.replace(/\.mdx?$/, "");
 
   // Strip date prefix (YYYY-MM-DD-)
-  cleanSlug = cleanSlug.replace(
-    /^\d{4}[-._]\d{2}[-._]\d{2}[-._]?/,
-    ""
-  ).trim();
+  cleanSlug = cleanSlug
+    .replace(/^\d{4}[-._]\d{2}[-._]\d{2}[-._]?/, "")
+    .trim();
 
   const base = includeBase ? "/posts" : "";
 
-  // ✅ CORRECT template literal
+  // Build path
   let path = `${base}/${cleanSlug}`;
 
-  // Normalize slashes
-  path = path.replace(/\/+/g, "/").replace(/\/$/, "");
+  // Normalize duplicate slashes
+  path = path.replace(/\/+/g, "/");
+
+  // Always add trailing slash to match trailingSlash: "always" in astro.config.ts
+  // This prevents redirect + canonical mismatch that blocks Google indexing
+  if (!path.endsWith("/")) path = path + "/";
 
   // Ensure leading slash
   if (!path.startsWith("/")) {
