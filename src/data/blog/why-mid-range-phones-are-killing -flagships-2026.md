@@ -14,8 +14,9 @@ tags:
   - productivity
   - news
 ---
+## Table of Contents 
 
-![Mid-range vs flagship phone comparison on a desk](/assets/posts/mid-range-vs-flagship-hero.jpg)
+## Run Down 👌
 
 There's a conversation that keeps coming up in my DMs, in comment sections, and honestly even in my own head whenever I'm phone shopping — *"do I really need to spend ₦700k+ on a flagship right now?"*
 
