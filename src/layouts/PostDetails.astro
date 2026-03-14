@@ -40,19 +40,44 @@ const {
 const { Content } = await render(post);
 
 const postPath = getPath(post.id, post.filePath);
-const postUrl = new URL(postPath, SITE.website).toString();
 
+// ── Ensure website base always has a trailing slash for safe URL joining ──
+const websiteBase = SITE.website.endsWith("/")
+  ? SITE.website
+  : `${SITE.website}/`;
+
+const postUrl = new URL(postPath.startsWith("/") ? postPath.slice(1) : postPath, websiteBase).toString();
+
+// ── Resolve ogImage to a full absolute URL ──
+// coverImage from public/ folder is always a plain string like "/assets/posts/cover.jpg"
+// We force it to an absolute URL so Google unambiguously ties it to this post page.
 let ogImageUrl: string | undefined;
-if (coverImage) {
-  ogImageUrl = coverImage;
-} else if (typeof initOgImage === "string") {
-  ogImageUrl = initOgImage;
+
+if (coverImage && typeof coverImage === "string" && coverImage.trim() !== "") {
+  // Strip leading slash before passing to URL constructor to avoid double-slash
+  const cleanPath = coverImage.startsWith("/") ? coverImage.slice(1) : coverImage;
+  ogImageUrl = new URL(cleanPath, websiteBase).toString();
+} else if (typeof initOgImage === "string" && initOgImage.trim() !== "") {
+  const cleanPath = initOgImage.startsWith("/") ? initOgImage.slice(1) : initOgImage;
+  ogImageUrl = new URL(cleanPath, websiteBase).toString();
 } else if (initOgImage?.src) {
-  ogImageUrl = initOgImage.src;
+  const cleanPath = initOgImage.src.startsWith("/") ? initOgImage.src.slice(1) : initOgImage.src;
+  ogImageUrl = new URL(cleanPath, websiteBase).toString();
 }
 
-const ogImage = ogImageUrl
-  ? new URL(ogImageUrl, SITE.website).toString()
+// Final absolute og:image — used in Layout head meta AND schema
+const ogImage = ogImageUrl ?? undefined;
+
+// ── Absolute cover image src for the <img> tag ──
+// Rendering the full https:// URL in the HTML leaves zero ambiguity
+// for Google's crawler about which domain and page owns this image.
+const coverImageAbsoluteSrc = coverImage
+  ? new URL(
+      (coverImage as string).startsWith("/")
+        ? (coverImage as string).slice(1)
+        : (coverImage as string),
+      websiteBase
+    ).toString()
   : undefined;
 
 const layoutProps = {
@@ -76,18 +101,43 @@ const currentIndex = allPosts.findIndex((p) => p.id === post.id);
 const prevPost = currentIndex > 0 ? allPosts[currentIndex - 1] : null;
 const nextPost = currentIndex < allPosts.length - 1 ? allPosts[currentIndex + 1] : null;
 
+// ── Schema: BlogPosting with primaryImageOfPage for Google Images ──
 const blogPostingSchema = {
   "@context": "https://schema.org",
   "@type": "BlogPosting",
   headline: title,
   description: description || "",
   image: ogImage || "",
+  // primaryImageOfPage explicitly ties the cover image to this post URL
+  // Google Images uses this to determine which page an image click should land on
+  primaryImageOfPage: ogImage
+    ? {
+        "@type": "ImageObject",
+        url: ogImage,
+        width: 1200,
+        height: 630,
+      }
+    : undefined,
   url: postUrl,
+  mainEntityOfPage: {
+    "@type": "WebPage",
+    "@id": postUrl,
+  },
   datePublished: pubDatetime.toISOString(),
-  dateModified: modDatetime ? modDatetime.toISOString() : pubDatetime.toISOString(),
+  dateModified: modDatetime
+    ? modDatetime.toISOString()
+    : pubDatetime.toISOString(),
   author: { "@type": "Person", name: author || SITE.author },
-  publisher: { "@type": "Organization", name: SITE.title, url: SITE.website },
-  keywords: tags.join(", ")
+  publisher: {
+    "@type": "Organization",
+    name: SITE.title,
+    url: SITE.website,
+    logo: {
+      "@type": "ImageObject",
+      url: new URL("favicon.svg", websiteBase).toString(),
+    },
+  },
+  keywords: tags.join(", "),
 };
 
 const postSlug = post.id;
@@ -136,12 +186,19 @@ const postSlug = post.id;
         <BackButton />
       </div>
 
-      {coverImage && (
+      <!-- 
+        Cover image rendered with a full absolute https:// URL.
+        This ensures Google's image crawler sees the exact canonical URL
+        of this post as the owner of the image — not the homepage.
+        fetchpriority="high" also improves LCP score for Core Web Vitals.
+      -->
+      {coverImageAbsoluteSrc && (
         <img
-          src={coverImage}
+          src={coverImageAbsoluteSrc}
           alt={coverImageAlt || title}
           class="post-cover-image"
           loading="eager"
+          fetchpriority="high"
           width="1200"
           height="630"
         />
