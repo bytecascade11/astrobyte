@@ -1,0 +1,300 @@
+---
+/**
+ * StreakBanner.astro
+ * Drop this anywhere in your Layout.astro, ideally just below <Header />
+ * 
+ * Props:
+ *   startDate  — ISO date string when the streak started e.g. "2026-03-14"
+ *   goal       — number of days in the challenge (default 30)
+ *   message    — optional custom label (default "Posting Streak")
+ */
+
+interface Props {
+  startDate: string;
+  goal?: number;
+  message?: string;
+}
+
+const {
+  startDate,
+  goal = 30,
+  message = "Posting Streak",
+} = Astro.props;
+---
+
+<div class="streak-banner" id="streak-banner" role="banner" aria-label="Posting streak challenge">
+  <div class="streak-inner">
+
+    <!-- Fire icon + label -->
+    <div class="streak-left">
+      <span class="streak-fire" aria-hidden="true">🔥</span>
+      <div class="streak-text">
+        <span class="streak-label">{message}</span>
+        <span class="streak-sub">1 post every day for {goal} days</span>
+      </div>
+    </div>
+
+    <!-- Live day counter — filled by JS -->
+    <div class="streak-center">
+      <span class="streak-day-num" id="streak-day">—</span>
+      <span class="streak-day-label">/ {goal} days</span>
+    </div>
+
+    <!-- Progress bar -->
+    <div class="streak-progress-wrap" aria-hidden="true">
+      <div class="streak-progress-track">
+        <div class="streak-progress-fill" id="streak-fill"></div>
+      </div>
+      <span class="streak-pct" id="streak-pct"></span>
+    </div>
+
+    <!-- Dismiss -->
+    <button
+      class="streak-close"
+      id="streak-close"
+      aria-label="Dismiss streak banner"
+      title="Dismiss"
+    >✕</button>
+
+  </div>
+</div>
+
+<style>
+  .streak-banner {
+    position: relative;
+    width: 100%;
+    background: linear-gradient(
+      135deg,
+      rgba(99, 102, 241, 0.12) 0%,
+      rgba(139, 92, 246, 0.10) 50%,
+      rgba(236, 72, 153, 0.08) 100%
+    );
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(99, 102, 241, 0.18);
+    padding: 0.6rem 1.25rem;
+    z-index: 50;
+    transition: max-height 0.35s ease, opacity 0.35s ease, padding 0.35s ease;
+    overflow: hidden;
+  }
+
+  [data-theme="dark"] .streak-banner {
+    background: linear-gradient(
+      135deg,
+      rgba(99, 102, 241, 0.18) 0%,
+      rgba(139, 92, 246, 0.14) 50%,
+      rgba(236, 72, 153, 0.10) 100%
+    );
+    border-bottom-color: rgba(99, 102, 241, 0.25);
+  }
+
+  .streak-banner.dismissed {
+    max-height: 0 !important;
+    opacity: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+    border: none;
+  }
+
+  .streak-inner {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    max-width: 72rem;
+    margin: 0 auto;
+    flex-wrap: wrap;
+  }
+
+  /* Left: fire + text */
+  .streak-left {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex-shrink: 0;
+  }
+
+  .streak-fire {
+    font-size: 1.3rem;
+    line-height: 1;
+    animation: flicker 1.8s ease-in-out infinite alternate;
+  }
+
+  @keyframes flicker {
+    0%   { transform: scale(1) rotate(-3deg); }
+    50%  { transform: scale(1.12) rotate(2deg); }
+    100% { transform: scale(1.05) rotate(-1deg); }
+  }
+
+  .streak-text {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.25;
+  }
+
+  .streak-label {
+    font-size: 0.82rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    background: linear-gradient(90deg, #6366f1, #ec4899);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .streak-sub {
+    font-size: 0.73rem;
+    opacity: 0.6;
+  }
+
+  /* Center: day counter */
+  .streak-center {
+    display: flex;
+    align-items: baseline;
+    gap: 0.25rem;
+    flex-shrink: 0;
+  }
+
+  .streak-day-num {
+    font-size: 1.5rem;
+    font-weight: 800;
+    line-height: 1;
+    background: linear-gradient(135deg, #6366f1, #ec4899);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    min-width: 2ch;
+    display: inline-block;
+    text-align: right;
+  }
+
+  .streak-day-label {
+    font-size: 0.78rem;
+    opacity: 0.55;
+    font-weight: 500;
+  }
+
+  /* Progress bar */
+  .streak-progress-wrap {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex: 1;
+    min-width: 100px;
+  }
+
+  .streak-progress-track {
+    flex: 1;
+    height: 6px;
+    background: rgba(99, 102, 241, 0.15);
+    border-radius: 99px;
+    overflow: hidden;
+  }
+
+  .streak-progress-fill {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, #6366f1, #ec4899);
+    border-radius: 99px;
+    transition: width 1s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .streak-pct {
+    font-size: 0.72rem;
+    font-weight: 700;
+    opacity: 0.6;
+    min-width: 2.5rem;
+    text-align: right;
+  }
+
+  /* Close button */
+  .streak-close {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 0.75rem;
+    opacity: 0.4;
+    padding: 0.25rem 0.4rem;
+    border-radius: 6px;
+    transition: opacity 0.2s, background 0.2s;
+    flex-shrink: 0;
+    color: inherit;
+    line-height: 1;
+  }
+
+  .streak-close:hover {
+    opacity: 0.9;
+    background: rgba(99, 102, 241, 0.12);
+  }
+
+  /* Mobile: stack progress below */
+  @media (max-width: 480px) {
+    .streak-progress-wrap {
+      width: 100%;
+      flex-basis: 100%;
+      min-width: unset;
+    }
+
+    .streak-inner {
+      gap: 0.65rem;
+    }
+  }
+</style>
+
+<script is:inline define:vars={{ startDate, goal }}>
+  (function () {
+    const STORAGE_KEY = "revibyte_streak_dismissed";
+
+    // Check if user already dismissed it today
+    const dismissed = localStorage.getItem(STORAGE_KEY);
+    const banner = document.getElementById("streak-banner");
+    const fillEl = document.getElementById("streak-fill");
+    const dayEl = document.getElementById("streak-day");
+    const pctEl = document.getElementById("streak-pct");
+    const closeBtn = document.getElementById("streak-close");
+
+    if (!banner) return;
+
+    // Calculate current day of streak
+    const start = new Date(startDate);
+    const now = new Date();
+    start.setHours(0, 0, 0, 0);
+    now.setHours(0, 0, 0, 0);
+
+    const diffMs = now - start;
+    const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24)) + 1;
+    const currentDay = Math.min(Math.max(diffDays, 1), goal);
+    const pct = Math.round((currentDay / goal) * 100);
+
+    // If streak is over, hide banner entirely
+    if (diffDays > goal) {
+      banner.style.display = "none";
+      return;
+    }
+
+    // If dismissed, hide
+    if (dismissed === new Date().toDateString()) {
+      banner.style.display = "none";
+      return;
+    }
+
+    // Populate
+    if (dayEl) dayEl.textContent = String(currentDay);
+    if (pctEl) pctEl.textContent = pct + "%";
+
+    // Animate fill after paint
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        if (fillEl) fillEl.style.width = pct + "%";
+      });
+    });
+
+    // Dismiss handler — hides for the rest of today
+    if (closeBtn) {
+      closeBtn.addEventListener("click", () => {
+        banner.classList.add("dismissed");
+        localStorage.setItem(STORAGE_KEY, new Date().toDateString());
+      });
+    }
+  })();
+</script>
