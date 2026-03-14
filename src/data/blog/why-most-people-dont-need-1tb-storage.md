@@ -14,6 +14,8 @@ tags:
 
 ## Table of Contents 
 
+## Overview 
+
 I'm iSamuel, Last year, I was with a friend at one of those phone shops in Lagos — the kind where the glass cases are stacked floor to ceiling and the sales rep talks faster than your brain can process. He was there to buy a Samsung Galaxy S24 Ultra. Decent choice. The problem? Before he could even ask a question, the rep was already steering him toward the 1TB model. "No more storage wahala," the guy said, practically handing over the box.
 
 My friend was ready to pay. I pulled him back.
