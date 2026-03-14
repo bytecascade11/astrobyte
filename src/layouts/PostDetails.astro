@@ -60,8 +60,10 @@ if (coverImage && typeof coverImage === "string" && coverImage.trim() !== "") {
 } else if (typeof initOgImage === "string" && initOgImage.trim() !== "") {
   const cleanPath = initOgImage.startsWith("/") ? initOgImage.slice(1) : initOgImage;
   ogImageUrl = new URL(cleanPath, websiteBase).toString();
-} else if (initOgImage?.src) {
-  const cleanPath = initOgImage.src.startsWith("/") ? initOgImage.src.slice(1) : initOgImage.src;
+} else if (initOgImage && typeof initOgImage === "object" && "src" in initOgImage) {
+  // TypeScript now knows initOgImage is the image object shape, not a string
+  const rawSrc = initOgImage.src;
+  const cleanPath = rawSrc.startsWith("/") ? rawSrc.slice(1) : rawSrc;
   ogImageUrl = new URL(cleanPath, websiteBase).toString();
 }
 
