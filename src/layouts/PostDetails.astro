@@ -49,30 +49,23 @@ const websiteBase = SITE.website.endsWith("/")
 const postUrl = new URL(postPath.startsWith("/") ? postPath.slice(1) : postPath, websiteBase).toString();
 
 // ── Resolve ogImage to a full absolute URL ──
-// coverImage from public/ folder is always a plain string like "/assets/posts/cover.jpg"
-// We force it to an absolute URL so Google unambiguously ties it to this post page.
 let ogImageUrl: string | undefined;
 
 if (coverImage && typeof coverImage === "string" && coverImage.trim() !== "") {
-  // Strip leading slash before passing to URL constructor to avoid double-slash
   const cleanPath = coverImage.startsWith("/") ? coverImage.slice(1) : coverImage;
   ogImageUrl = new URL(cleanPath, websiteBase).toString();
 } else if (typeof initOgImage === "string" && initOgImage.trim() !== "") {
   const cleanPath = initOgImage.startsWith("/") ? initOgImage.slice(1) : initOgImage;
   ogImageUrl = new URL(cleanPath, websiteBase).toString();
 } else if (initOgImage && typeof initOgImage === "object" && "src" in initOgImage) {
-  // TypeScript now knows initOgImage is the image object shape, not a string
   const rawSrc = initOgImage.src;
   const cleanPath = rawSrc.startsWith("/") ? rawSrc.slice(1) : rawSrc;
   ogImageUrl = new URL(cleanPath, websiteBase).toString();
 }
 
-// Final absolute og:image — used in Layout head meta AND schema
 const ogImage = ogImageUrl ?? undefined;
 
 // ── Absolute cover image src for the <img> tag ──
-// Rendering the full https:// URL in the HTML leaves zero ambiguity
-// for Google's crawler about which domain and page owns this image.
 const coverImageAbsoluteSrc = coverImage
   ? new URL(
       (coverImage as string).startsWith("/")
@@ -110,8 +103,6 @@ const blogPostingSchema = {
   headline: title,
   description: description || "",
   image: ogImage || "",
-  // primaryImageOfPage explicitly ties the cover image to this post URL
-  // Google Images uses this to determine which page an image click should land on
   primaryImageOfPage: ogImage
     ? {
         "@type": "ImageObject",
@@ -165,10 +156,11 @@ const postSlug = post.id;
 
   <Header />
 
+  <!-- ✅ FULL WIDTH FIX: removed max-w-5xl and mx-auto from main -->
   <main
     id="main-content"
     class:list={[
-      "pb-12 mx-auto w-full max-w-5xl px-4",
+      "pb-12 w-full px-4 sm:px-6 lg:px-10",
       { "mt-8": !coverImage }
     ]}
   >
@@ -188,12 +180,6 @@ const postSlug = post.id;
         <BackButton />
       </div>
 
-      <!-- 
-        Cover image rendered with a full absolute https:// URL.
-        This ensures Google's image crawler sees the exact canonical URL
-        of this post as the owner of the image — not the homepage.
-        fetchpriority="high" also improves LCP score for Core Web Vitals.
-      -->
       {coverImageAbsoluteSrc && (
         <img
           src={coverImageAbsoluteSrc}
@@ -222,7 +208,6 @@ const postSlug = post.id;
               👁 <span id="view-count">—</span> views
             </span>
           </div>
-          <!-- Share links moved up here, inline with meta -->
           <div class="post-share-inline">
             <ShareLinks />
           </div>
@@ -304,12 +289,12 @@ const postSlug = post.id;
     -webkit-backdrop-filter: blur(12px);
     border: 1px solid rgba(99, 102, 241, 0.12);
     border-radius: 20px;
-    padding: 0; /* handled by inner sections */
+    padding: 0;
     box-shadow:
       0 4px 24px rgba(0, 0, 0, 0.06),
       0 1px 0 rgba(255,255,255,0.8) inset;
     margin-bottom: 1.5rem;
-    overflow: hidden; /* keeps image flush with rounded corners */
+    overflow: hidden;
   }
 
   [data-theme="dark"] .article-card {
@@ -320,7 +305,7 @@ const postSlug = post.id;
       0 1px 0 rgba(255,255,255,0.04) inset;
   }
 
-  /* ── Top nav (breadcrumbs + back button) inside card ── */
+  /* ── Top nav ── */
   .card-top-nav {
     display: flex;
     align-items: center;
@@ -343,7 +328,6 @@ const postSlug = post.id;
     object-fit: cover;
     aspect-ratio: 16/9;
     display: block;
-    /* no border-radius here — card's overflow:hidden handles it */
   }
 
   @media (min-width: 768px) {
@@ -363,7 +347,7 @@ const postSlug = post.id;
     }
   }
 
-  /* ── Meta row: date/views on left, share on right ── */
+  /* ── Meta row ── */
   .post-meta {
     display: flex;
     align-items: center;
@@ -389,7 +373,6 @@ const postSlug = post.id;
     opacity: 0.65;
   }
 
-  /* ── Share links in header ── */
   .post-share-inline {
     display: flex;
     align-items: center;
