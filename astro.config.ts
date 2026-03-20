@@ -136,6 +136,11 @@ export default defineConfig({
           `${SITE.website}contact/`,
           `${SITE.website}posts/`,
           `${SITE.website}tags/`,
+          `${SITE.website}archives/`,
+          `${SITE.website}privacy-policy/`,
+          `${SITE.website}terms-and-conditions/`,
+          `${SITE.website}disclaimer/`,
+          `${SITE.website}sitemap/`,
         ];
 
         const allowedTags = [
