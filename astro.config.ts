@@ -42,17 +42,6 @@ export default defineConfig({
         minify: false,
       },
 
-      // ────────────────────────────────────────────────
-      // IMPORTANT: Remove navigateFallback completely
-      // If this is present in injectManifest mode, it can cause
-      // inconsistent or unwanted fallback behavior in some browsers
-      // Your custom sw.js now handles everything → no need for this
-      // workbox: {
-      //   navigateFallback: "/offline.html",
-      //   navigateFallbackDenylist: [/^\/api/],
-      // },
-      // ────────────────────────────────────────────────
-
       manifest: {
         id: "/",
         name: "ReviByte Opinions",
@@ -169,7 +158,7 @@ export default defineConfig({
 
         if (page.includes("/tags/")) {
           return allowedTags.some(
-            (tag) => page === `\( {SITE.website}tags/ \){tag}/`
+            (tag) => page === `${SITE.website}tags/${tag}/`
           );
         }
 
