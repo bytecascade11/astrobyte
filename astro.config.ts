@@ -125,50 +125,7 @@ export default defineConfig({
     }),
 
     sitemap({
-      filter: (page) => {
-        if (!SITE.showArchives && page.endsWith("/archives/")) {
-          return false;
-        }
-
-        const allowedPages = [
-          `${SITE.website}`,
-          `${SITE.website}about/`,
-          `${SITE.website}contact/`,
-          `${SITE.website}posts/`,
-          `${SITE.website}tags/`,
-          `${SITE.website}archives/`,
-          `${SITE.website}privacy-policy/`,
-          `${SITE.website}terms-and-conditions/`,
-          `${SITE.website}disclaimer/`,
-          `${SITE.website}sitemap/`,
-        ];
-
-        const allowedTags = [
-          "ai",
-          "android",
-          "news",
-          "opinions",
-          "apple",
-          "samsung",
-          "games",
-        ];
-
-        if (page.includes("/posts/") && !page.match(/\/posts\/\d+\/$/)) {
-          return true;
-        }
-
-        if (allowedPages.includes(page)) {
-          return true;
-        }
-
-        if (page.includes("/tags/")) {
-          return allowedTags.some(
-            (tag) => page === `${SITE.website}tags/${tag}/`
-          );
-        }
-
-        return false;
-      },
+      filter: page => SITE.showArchives || !page.endsWith("/archives/"),
     }),
 
     indexnow(),
