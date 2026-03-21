@@ -13,7 +13,7 @@ const STATIC_CACHE  = 'revibyte-static-v3';
 
 const CORE_ASSETS = [
   '/',
-  '/offline.html',              // ← your custom page must be here
+  '/offline.html',
   '/site.webmanifest',
   '/android-chrome-192x192.png',
   '/android-chrome-512x512.png',
@@ -88,12 +88,18 @@ self.addEventListener('fetch', event => {
     return;
   }
 
-  // ── Static files (images, css, js, fonts) ── cache first
+  // ── Static files (images, css, js, fonts) ── network first → cache fallback
   if (url.pathname.match(/\.(png|jpe?g|svg|webp|gif|ico|woff2?|ttf|css|js)$/i)) {
     event.respondWith(
-      caches.match(req).then(cached => {
-        return cached || fetch(req);
-      })
+      fetch(req)
+        .then(response => {
+          if (response?.ok) {
+            const clone = response.clone();
+            caches.open(DYNAMIC_CACHE).then(cache => cache.put(req, clone));
+          }
+          return response;
+        })
+        .catch(() => caches.match(req))
     );
     return;
   }
