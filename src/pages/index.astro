@@ -28,6 +28,14 @@ function formatDate(date: Date) {
 ---
 
 <Layout title={`Home | ${SITE.title}`}>
+  {heroPost?.data.coverImage && (
+    <link
+      rel="preload"
+      as="image"
+      href={heroPost.data.coverImage}
+      slot="head"
+    />
+  )}
   <Header />
 
   <main id="main-content" class="rb-home mx-auto w-full max-w-app px-4 pt-8 pb-16">
@@ -44,8 +52,11 @@ function formatDate(date: Date) {
                 alt={heroPost.data.coverImageAlt ?? heroPost.data.title}
                 class="rb-hero__img"
                 loading="eager"
+                fetchpriority="high"
+                decoding="async"
                 width="900"
                 height="500"
+                sizes="(max-width: 640px) 100vw, (max-width: 900px) 100vw, 60vw"
               />
             )}
           </a>
@@ -119,8 +130,10 @@ function formatDate(date: Date) {
                     alt={post.data.coverImageAlt ?? post.data.title}
                     class="rb-list-card__img"
                     loading="lazy"
+                    decoding="async"
                     width="200"
                     height="130"
+                    sizes="(max-width: 640px) 120px, 165px"
                   />
                 )}
               </a>
