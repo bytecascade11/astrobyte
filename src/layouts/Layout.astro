@@ -57,8 +57,8 @@ const currentPath = Astro.url.pathname;
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 
-   <!-- PWA Manifest -->
-<link rel="manifest" href="/site.webmanifest" />
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="/site.webmanifest" />
     <meta name="theme-color" content="#0f172a" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
@@ -73,74 +73,6 @@ const currentPath = Astro.url.pathname;
         padding: 0;
         overflow-x: hidden;
       }
-
-      /* ── Skeleton Screens ── */
-      @keyframes shimmer {
-        0% { background-position: -200% 0; }
-        100% { background-position: 200% 0; }
-      }
-
-      .skeleton {
-        background: linear-gradient(90deg, #e2e8f0 25%, #f1f5f9 50%, #e2e8f0 75%);
-        background-size: 200% 100%;
-        animation: shimmer 1.5s infinite;
-        border-radius: 6px;
-      }
-
-      [data-theme="dark"] .skeleton {
-        background: linear-gradient(90deg, #1e293b 25%, #334155 50%, #1e293b 75%);
-        background-size: 200% 100%;
-        animation: shimmer 1.5s infinite;
-      }
-
-      #page-skeleton {
-        display: none;
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: var(--color-fill, #ffffff);
-        z-index: 8000;
-        padding: 16px;
-        overflow: hidden;
-      }
-
-      [data-theme="dark"] #page-skeleton { background: #0f172a; }
-      #page-skeleton.visible { display: block; }
-
-      .skeleton-topbar {
-        height: 56px;
-        margin-bottom: 16px;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: 12px;
-      }
-
-      .skeleton-topbar-title { height: 24px; width: 120px; }
-      .skeleton-topbar-actions { display: flex; gap: 8px; }
-      .skeleton-topbar-btn { height: 38px; width: 38px; border-radius: 10px; }
-
-      .skeleton-card {
-        margin-bottom: 16px;
-        border-radius: 12px;
-        overflow: hidden;
-        padding: 0 0 12px 0;
-        border-bottom: 1px solid rgba(0,0,0,0.06);
-      }
-
-      [data-theme="dark"] .skeleton-card {
-        border-bottom: 1px solid rgba(255,255,255,0.06);
-      }
-
-      .skeleton-image { width: 100%; height: 180px; border-radius: 10px; margin-bottom: 12px; }
-      .skeleton-title { height: 22px; width: 90%; margin-bottom: 8px; }
-      .skeleton-title-short { height: 22px; width: 60%; margin-bottom: 8px; }
-      .skeleton-date { height: 14px; width: 40%; margin-bottom: 10px; }
-      .skeleton-text { height: 14px; width: 100%; margin-bottom: 6px; }
-      .skeleton-text-short { height: 14px; width: 70%; margin-bottom: 6px; }
-      .skeleton-btn { height: 36px; width: 110px; border-radius: 8px; margin-top: 8px; }
 
       /* ── Custom Notification Prompt ── */
       #notif-prompt {
@@ -166,286 +98,79 @@ const currentPath = Astro.url.pathname;
         to { transform: translateX(-50%) translateY(0); opacity: 1; }
       }
 
-      .notif-prompt-header {
-        display: flex;
-        align-items: center;
-        gap: 12px;
-      }
-
-      .notif-prompt-icon {
-        width: 44px;
-        height: 44px;
-        background: #6366f1;
-        border-radius: 12px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 22px;
-        flex-shrink: 0;
-      }
-
+      .notif-prompt-header { display: flex; align-items: center; gap: 12px; }
+      .notif-prompt-icon { width: 44px; height: 44px; background: #6366f1; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 22px; flex-shrink: 0; }
       .notif-prompt-text { flex: 1; }
-
-      .notif-prompt-title {
-        font-size: 15px;
-        font-weight: 700;
-        color: white;
-        margin: 0 0 2px 0;
-      }
-
-      .notif-prompt-desc {
-        font-size: 13px;
-        color: rgba(255,255,255,0.6);
-        margin: 0;
-      }
-
-      .notif-prompt-actions {
-        display: flex;
-        gap: 8px;
-        justify-content: flex-end;
-      }
-
-      .notif-btn-deny {
-        background: rgba(255,255,255,0.1);
-        color: rgba(255,255,255,0.7);
-        border: none;
-        padding: 8px 16px;
-        border-radius: 8px;
-        font-size: 13px;
-        font-weight: 500;
-        cursor: pointer;
-        transition: background 0.2s;
-      }
-
+      .notif-prompt-title { font-size: 15px; font-weight: 700; color: white; margin: 0 0 2px 0; }
+      .notif-prompt-desc { font-size: 13px; color: rgba(255,255,255,0.6); margin: 0; }
+      .notif-prompt-actions { display: flex; gap: 8px; justify-content: flex-end; }
+      .notif-btn-deny { background: rgba(255,255,255,0.1); color: rgba(255,255,255,0.7); border: none; padding: 8px 16px; border-radius: 8px; font-size: 13px; font-weight: 500; cursor: pointer; transition: background 0.2s; }
       .notif-btn-deny:hover { background: rgba(255,255,255,0.15); }
-
-      .notif-btn-allow {
-        background: #6366f1;
-        color: white;
-        border: none;
-        padding: 8px 16px;
-        border-radius: 8px;
-        font-size: 13px;
-        font-weight: 600;
-        cursor: pointer;
-        transition: background 0.2s;
-      }
-
+      .notif-btn-allow { background: #6366f1; color: white; border: none; padding: 8px 16px; border-radius: 8px; font-size: 13px; font-weight: 600; cursor: pointer; transition: background 0.2s; }
       .notif-btn-allow:hover { background: #4f46e5; }
 
       /* ── PWA Top Bar ── */
-      .pwa-topbar {
-        display: none;
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 56px;
-        background: #0f172a;
-        color: white;
-        align-items: center;
-        justify-content: space-between;
-        padding: 0 16px;
-        z-index: 9990;
-        box-shadow: 0 2px 12px rgba(0,0,0,0.3);
-      }
-
-      .pwa-topbar-title {
-        font-size: 18px;
-        font-weight: 700;
-        color: white;
-        text-decoration: none;
-        letter-spacing: -0.3px;
-      }
-
+      .pwa-topbar { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 56px; background: #0f172a; color: white; align-items: center; justify-content: space-between; padding: 0 16px; z-index: 9990; box-shadow: 0 2px 12px rgba(0,0,0,0.3); }
+      .pwa-topbar-title { font-size: 18px; font-weight: 700; color: white; text-decoration: none; letter-spacing: -0.3px; }
       .pwa-topbar-actions { display: flex; align-items: center; gap: 8px; }
-
-      .pwa-topbar-btn {
-        background: rgba(255,255,255,0.1);
-        border: none;
-        color: white;
-        width: 38px;
-        height: 38px;
-        border-radius: 10px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        cursor: pointer;
-        text-decoration: none;
-        transition: background 0.2s;
-      }
-
+      .pwa-topbar-btn { background: rgba(255,255,255,0.1); border: none; color: white; width: 38px; height: 38px; border-radius: 10px; display: flex; align-items: center; justify-content: center; cursor: pointer; text-decoration: none; transition: background 0.2s; }
       .pwa-topbar-btn:hover { background: rgba(255,255,255,0.2); }
-
-      .pwa-topbar-btn svg {
-        width: 20px;
-        height: 20px;
-        stroke: white;
-        fill: none;
-        stroke-width: 2;
-        stroke-linecap: round;
-        stroke-linejoin: round;
-      }
+      .pwa-topbar-btn svg { width: 20px; height: 20px; stroke: white; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
 
       /* ── Bottom Nav ── */
-      .bottom-nav {
-        position: fixed;
-        bottom: 0;
-        left: 0;
-        width: 100%;
-        background: #0f172a;
-        display: none;
-        justify-content: space-around;
-        align-items: center;
-        height: 64px;
-        z-index: 9990;
-        border-top: 1px solid rgba(255,255,255,0.08);
-        box-shadow: 0 -4px 20px rgba(0,0,0,0.3);
-      }
-
-      .bottom-nav a {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        gap: 4px;
-        color: rgba(255,255,255,0.5);
-        text-decoration: none;
-        font-size: 10px;
-        font-weight: 500;
-        flex: 1;
-        height: 100%;
-        transition: color 0.2s;
-      }
-
-      .bottom-nav a:hover,
-      .bottom-nav a.active { color: #6366f1; }
-
-      .bottom-nav a svg {
-        width: 22px;
-        height: 22px;
-        stroke: currentColor;
-        fill: none;
-        stroke-width: 2;
-        stroke-linecap: round;
-        stroke-linejoin: round;
-      }
-
+      .bottom-nav { position: fixed; bottom: 0; left: 0; width: 100%; background: #0f172a; display: none; justify-content: space-around; align-items: center; height: 64px; z-index: 9990; border-top: 1px solid rgba(255,255,255,0.08); box-shadow: 0 -4px 20px rgba(0,0,0,0.3); }
+      .bottom-nav a { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; color: rgba(255,255,255,0.5); text-decoration: none; font-size: 10px; font-weight: 500; flex: 1; height: 100%; transition: color 0.2s; }
+      .bottom-nav a:hover, .bottom-nav a.active { color: #6366f1; }
+      .bottom-nav a svg { width: 22px; height: 22px; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
       .bottom-nav a.active svg { fill: rgba(99,102,241,0.15); }
 
       /* ── More Menu ── */
-      .more-menu {
-        position: fixed;
-        bottom: 64px;
-        left: 0;
-        width: 100%;
-        background: #0f172a;
-        border-top: 1px solid rgba(255,255,255,0.08);
-        z-index: 9989;
-        display: none;
-        flex-direction: column;
-        box-shadow: 0 -4px 20px rgba(0,0,0,0.3);
-      }
-
+      .more-menu { position: fixed; bottom: 64px; left: 0; width: 100%; background: #0f172a; border-top: 1px solid rgba(255,255,255,0.08); z-index: 9989; display: none; flex-direction: column; box-shadow: 0 -4px 20px rgba(0,0,0,0.3); }
       .more-menu.open { display: flex; }
-
-      .more-menu a {
-        display: flex;
-        align-items: center;
-        gap: 14px;
-        padding: 16px 24px;
-        color: rgba(255,255,255,0.8);
-        text-decoration: none;
-        font-size: 15px;
-        font-weight: 500;
-        border-bottom: 1px solid rgba(255,255,255,0.05);
-        transition: background 0.2s;
-      }
-
+      .more-menu a { display: flex; align-items: center; gap: 14px; padding: 16px 24px; color: rgba(255,255,255,0.8); text-decoration: none; font-size: 15px; font-weight: 500; border-bottom: 1px solid rgba(255,255,255,0.05); transition: background 0.2s; }
       .more-menu a:hover { background: rgba(255,255,255,0.05); color: #6366f1; }
-
-      .more-menu a svg {
-        width: 20px;
-        height: 20px;
-        stroke: currentColor;
-        fill: none;
-        stroke-width: 2;
-        stroke-linecap: round;
-        stroke-linejoin: round;
-        opacity: 0.7;
-      }
+      .more-menu a svg { width: 20px; height: 20px; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; opacity: 0.7; }
 
       /* ── PWA Mode ── */
-      body.is-pwa .bottom-nav,
-      body.is-pwa .pwa-topbar { display: flex; }
-
-      body.is-pwa {
-        padding-top: 56px;
-        padding-bottom: 64px;
-      }
-
-      body.is-pwa header {
-        display: none !important;
-        visibility: hidden !important;
-        height: 0 !important;
-        overflow: hidden !important;
-        pointer-events: none !important;
-      }
+      body.is-pwa .bottom-nav, body.is-pwa .pwa-topbar { display: flex; }
+      body.is-pwa { padding-top: 56px; padding-bottom: 64px; }
+      body.is-pwa header { display: none !important; visibility: hidden !important; height: 0 !important; overflow: hidden !important; pointer-events: none !important; }
 
       /* ── Desktop ── */
       @media (min-width: 768px) {
-        .bottom-nav,
-        .more-menu,
-        .pwa-topbar { display: none !important; }
-
-        body.is-pwa {
-          padding-top: 0 !important;
-          padding-bottom: 0 !important;
-        }
-
-        body.is-pwa header {
-          display: block !important;
-          visibility: visible !important;
-          height: auto !important;
-          overflow: visible !important;
-          pointer-events: auto !important;
-        }
+        .bottom-nav, .more-menu, .pwa-topbar { display: none !important; }
+        body.is-pwa { padding-top: 0 !important; padding-bottom: 0 !important; }
+        body.is-pwa header { display: block !important; visibility: visible !important; height: auto !important; overflow: visible !important; pointer-events: auto !important; }
       }
     </style>
 
-    <!-- OneSignal -->
-    <script is:inline src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
-    <script>
-      window.OneSignalDeferred = window.OneSignalDeferred || [];
-      window.OneSignalDeferred.push(async function(OneSignal: any) {
-        await OneSignal.init({
-          appId: "bbd38552-99d1-4cda-96f9-5c0cacfba192",
-          notifyButton: { enable: false },
-          autoResubscribe: true,
-        });
-      });
-    </script>
-
-    <!-- PWA Install Prompt -->
-    <script>
-      let deferredPrompt: BeforeInstallPromptEvent | null = null;
-      window.addEventListener('beforeinstallprompt', (e) => {
-        e.preventDefault();
-        deferredPrompt = e as BeforeInstallPromptEvent;
-        const banner = document.getElementById('installBanner');
-        if (banner) banner.style.display = 'flex';
-      });
-      async function installApp() {
-        if (deferredPrompt) {
-          deferredPrompt.prompt();
-          const { outcome } = await deferredPrompt.userChoice;
-          console.log(`User response: ${outcome}`);
-          deferredPrompt = null;
-          const banner = document.getElementById('installBanner');
-          if (banner) banner.style.display = 'none';
+    <!-- Theme Handling — must stay blocking to prevent flash -->
+    <script is:inline>
+      const primaryColorScheme = "";
+      function getPreferTheme() {
+        const currentTheme = localStorage.getItem("theme");
+        if (currentTheme) return currentTheme;
+        if (primaryColorScheme) return primaryColorScheme;
+        return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+      }
+      let themeValue = getPreferTheme();
+      function setPreference() { localStorage.setItem("theme", themeValue); reflectPreference(); }
+      function reflectPreference() { document.documentElement.setAttribute("data-theme", themeValue); updateThemeIcon(); }
+      function updateThemeIcon() {
+        const icon = document.getElementById('pwa-theme-icon');
+        if (!icon) return;
+        if (themeValue === 'dark') {
+          icon.innerHTML = '<circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>';
+        } else {
+          icon.innerHTML = '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>';
         }
       }
-      (window as any).installApp = installApp;
+      function togglePWATheme() { themeValue = themeValue === 'dark' ? 'light' : 'dark'; setPreference(); }
+      reflectPreference();
+      window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", ({ matches }) => {
+        themeValue = matches ? "dark" : "light";
+        setPreference();
+      });
     </script>
 
     <link rel="canonical" href={canonical} />
@@ -501,57 +226,8 @@ const currentPath = Astro.url.pathname;
       onload="this.media='all'"
     />
     <noscript>
-      <link
-        href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@400;500;600;700&display=swap"
-        rel="stylesheet"
-      />
+      <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@400;500;600;700&display=swap" rel="stylesheet" />
     </noscript>
-
-    <!-- Theme Handling -->
-    <script is:inline>
-      const primaryColorScheme = "";
-
-      function getPreferTheme() {
-        const currentTheme = localStorage.getItem("theme");
-        if (currentTheme) return currentTheme;
-        if (primaryColorScheme) return primaryColorScheme;
-        return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
-      }
-
-      let themeValue = getPreferTheme();
-
-      function setPreference() {
-        localStorage.setItem("theme", themeValue);
-        reflectPreference();
-      }
-
-      function reflectPreference() {
-        document.documentElement.setAttribute("data-theme", themeValue);
-        updateThemeIcon();
-      }
-
-      function updateThemeIcon() {
-        const icon = document.getElementById('pwa-theme-icon');
-        if (!icon) return;
-        if (themeValue === 'dark') {
-          icon.innerHTML = '<circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>';
-        } else {
-          icon.innerHTML = '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>';
-        }
-      }
-
-      function togglePWATheme() {
-        themeValue = themeValue === 'dark' ? 'light' : 'dark';
-        setPreference();
-      }
-
-      reflectPreference();
-
-      window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", ({ matches }) => {
-        themeValue = matches ? "dark" : "light";
-        setPreference();
-      });
-    </script>
 
     <!-- Google AdSense -->
     <script is:inline async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4896561037705299" crossorigin="anonymous"></script>
@@ -568,45 +244,11 @@ const currentPath = Astro.url.pathname;
         </script>
       </>
     )}
+
+    <slot name="head" />
   </head>
 
   <body>
-
-    <!-- Skeleton Screen -->
-    <div id="page-skeleton">
-      <div class="skeleton-topbar">
-        <div class="skeleton skeleton-topbar-title"></div>
-        <div class="skeleton-topbar-actions">
-          <div class="skeleton skeleton-topbar-btn"></div>
-          <div class="skeleton skeleton-topbar-btn"></div>
-        </div>
-      </div>
-      <div class="skeleton-card">
-        <div class="skeleton skeleton-image"></div>
-        <div class="skeleton skeleton-title"></div>
-        <div class="skeleton skeleton-date"></div>
-        <div class="skeleton skeleton-text"></div>
-        <div class="skeleton skeleton-text"></div>
-        <div class="skeleton skeleton-text-short"></div>
-        <div class="skeleton skeleton-btn"></div>
-      </div>
-      <div class="skeleton-card">
-        <div class="skeleton skeleton-image"></div>
-        <div class="skeleton skeleton-title-short"></div>
-        <div class="skeleton skeleton-date"></div>
-        <div class="skeleton skeleton-text"></div>
-        <div class="skeleton skeleton-text-short"></div>
-        <div class="skeleton skeleton-btn"></div>
-      </div>
-      <div class="skeleton-card">
-        <div class="skeleton skeleton-image"></div>
-        <div class="skeleton skeleton-title"></div>
-        <div class="skeleton skeleton-date"></div>
-        <div class="skeleton skeleton-text"></div>
-        <div class="skeleton skeleton-text"></div>
-        <div class="skeleton skeleton-btn"></div>
-      </div>
-    </div>
 
     <!-- Custom Notification Prompt -->
     <div id="notif-prompt">
@@ -628,17 +270,9 @@ const currentPath = Astro.url.pathname;
       <a href="/" class="pwa-topbar-title">{SITE.title}</a>
       <div class="pwa-topbar-actions">
         <a href="/search" class="pwa-topbar-btn" aria-label="Search">
-          <svg viewBox="0 0 24 24">
-            <circle cx="11" cy="11" r="8"/>
-            <path d="m21 21-4.35-4.35"/>
-          </svg>
+          <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
         </a>
-        <button
-          class="pwa-topbar-btn"
-          id="pwa-theme-btn"
-          aria-label="Toggle theme"
-          onclick="togglePWATheme()"
-        >
+        <button class="pwa-topbar-btn" id="pwa-theme-btn" aria-label="Toggle theme" onclick="togglePWATheme()">
           <svg viewBox="0 0 24 24" id="pwa-theme-icon" style="width:20px;height:20px;stroke:white;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;">
             <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
           </svg>
@@ -646,13 +280,8 @@ const currentPath = Astro.url.pathname;
       </div>
     </div>
 
-    
-    <!-- ── Streak Banner — sits right at the top of page content ── -->
-    <StreakBanner
-      startDate="2026-03-14"
-      goal={30}
-      message="30-Day Posting Streak"
-    />
+    <!-- Streak Banner -->
+    <StreakBanner startDate="2026-03-14" goal={30} message="30-Day Posting Streak" />
 
     <slot />
 
@@ -705,79 +334,21 @@ const currentPath = Astro.url.pathname;
       </button>
     </nav>
 
-    <!-- Skeleton Screen Logic -->
-    <script is:inline>
-      (function() {
-        const skeleton = document.getElementById('page-skeleton');
-        if (!skeleton) return;
-        const isFirstVisit = !sessionStorage.getItem('visited');
-        const isOffline = !navigator.onLine;
-        if (isFirstVisit || isOffline) {
-          skeleton.classList.add('visible');
-          sessionStorage.setItem('visited', 'true');
-          setTimeout(function() {
-            skeleton.style.transition = 'opacity 0.1s';
-            skeleton.style.opacity = '0';
-            setTimeout(function() {
-              skeleton.classList.remove('visible');
-              skeleton.style.opacity = '1';
-            }, 100);
-          }, 1000);
-        }
-      })();
-    </script>
+    <!-- PWA Install Banner -->
+    <div id="installBanner" style="display:none; position:fixed; bottom:74px; left:50%; transform:translateX(-50%); background:#0f172a; color:white; padding:12px 24px; border-radius:12px; box-shadow:0 4px 20px rgba(0,0,0,0.3); z-index:9998; align-items:center; gap:12px;">
+      <span>📱 Install ReviByte for a better experience!</span>
+      <button onclick="installApp()" style="background:#6366f1; color:white; border:none; padding:8px 16px; border-radius:8px; cursor:pointer; font-weight:600;">Install</button>
+      <button onclick="document.getElementById('installBanner').style.display='none'" style="background:transparent; color:white; border:none; cursor:pointer; font-size:18px;">✕</button>
+    </div>
 
-    <!-- Custom Notification Prompt Logic -->
-    <script is:inline>
-      (function() {
-        const alreadyAsked = localStorage.getItem('notif-asked');
-        if (alreadyAsked) return;
-
-        // Show after 5 seconds on first visit
-        setTimeout(function() {
-          const prompt = document.getElementById('notif-prompt');
-          if (prompt) prompt.classList.add('visible');
-        }, 5000);
-      })();
-
-      function allowNotification() {
-        localStorage.setItem('notif-asked', 'true');
-        const prompt = document.getElementById('notif-prompt');
-        if (prompt) {
-          prompt.style.transition = 'opacity 0.3s';
-          prompt.style.opacity = '0';
-          setTimeout(function() { prompt.classList.remove('visible'); }, 300);
-        }
-        // Trigger OneSignal native permission
-        if (window.OneSignal) {
-          window.OneSignal.push(function() {
-            window.OneSignal.showNativePrompt();
-          });
-        }
-      }
-
-      function denyNotification() {
-        localStorage.setItem('notif-asked', 'true');
-        const prompt = document.getElementById('notif-prompt');
-        if (prompt) {
-          prompt.style.transition = 'opacity 0.3s';
-          prompt.style.opacity = '0';
-          setTimeout(function() { prompt.classList.remove('visible'); }, 300);
-        }
-      }
-    </script>
-
-    <!-- PWA Detection -->
+    <!-- PWA Detection — runs immediately, no delay -->
     <script is:inline>
       function checkPWA() {
-        const isPWA = window.matchMedia('(display-mode: standalone)').matches
-          || window.navigator.standalone === true;
+        const isPWA = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true;
         if (isPWA) {
           document.body.classList.add('is-pwa');
           const header = document.querySelector('header');
-          if (header) {
-            header.style.cssText = 'display:none!important;visibility:hidden!important;height:0!important;overflow:hidden!important;';
-          }
+          if (header) header.style.cssText = 'display:none!important;visibility:hidden!important;height:0!important;overflow:hidden!important;';
           updateThemeIcon && updateThemeIcon();
         } else {
           document.body.classList.remove('is-pwa');
@@ -800,25 +371,79 @@ const currentPath = Astro.url.pathname;
       });
     </script>
 
-    <!-- PWA Install Banner -->
-    <div id="installBanner" style="display:none; position:fixed; bottom:74px; left:50%; transform:translateX(-50%); background:#0f172a; color:white; padding:12px 24px; border-radius:12px; box-shadow:0 4px 20px rgba(0,0,0,0.3); z-index:9998; align-items:center; gap:12px;">
-      <span>📱 Install ReviByte for a better experience!</span>
-      <button onclick="installApp()" style="background:#6366f1; color:white; border:none; padding:8px 16px; border-radius:8px; cursor:pointer; font-weight:600;">
-        Install
-      </button>
-      <button onclick="document.getElementById('installBanner').style.display='none'" style="background:transparent; color:white; border:none; cursor:pointer; font-size:18px;">
-        ✕
-      </button>
-    </div>
-
-    <!-- Service Worker Registration -->
+    <!-- Deferred: OneSignal + PWA install + notification prompt + SW — all after page load -->
     <script is:inline>
-      if ('serviceWorker' in navigator) {
-        window.addEventListener('load', function() {
-          navigator.serviceWorker.register('/sw.js')
-            .then(function() { console.log('Service Worker registered'); })
-            .catch(function(err) { console.log('Service Worker failed', err); });
+      window.addEventListener('load', function() {
+
+        // ── OneSignal ──
+        var s = document.createElement('script');
+        s.src = 'https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js';
+        s.async = true;
+        s.onload = function() {
+          window.OneSignalDeferred = window.OneSignalDeferred || [];
+          window.OneSignalDeferred.push(async function(OneSignal) {
+            await OneSignal.init({
+              appId: "bbd38552-99d1-4cda-96f9-5c0cacfba192",
+              notifyButton: { enable: false },
+              autoResubscribe: true,
+            });
+          });
+        };
+        document.head.appendChild(s);
+
+        // ── PWA Install Banner ──
+        window.addEventListener('beforeinstallprompt', function(e) {
+          e.preventDefault();
+          window._deferredPrompt = e;
+          var banner = document.getElementById('installBanner');
+          if (banner) banner.style.display = 'flex';
         });
+
+        // ── Notification Prompt — show after 5s ──
+        var alreadyAsked = localStorage.getItem('notif-asked');
+        if (!alreadyAsked) {
+          setTimeout(function() {
+            var prompt = document.getElementById('notif-prompt');
+            if (prompt) prompt.classList.add('visible');
+          }, 5000);
+        }
+
+        
+        // ── Service Worker ──
+        if ('serviceWorker' in navigator) {
+          navigator.serviceWorker.register('/sw.js')
+            .then(function() { console.log('SW registered'); })
+            .catch(function(err) { console.log('SW failed', err); });
+        }
+
+      });
+
+      // ── Install app handler ──
+      function installApp() {
+        if (window._deferredPrompt) {
+          window._deferredPrompt.prompt();
+          window._deferredPrompt.userChoice.then(function() {
+            window._deferredPrompt = null;
+            var banner = document.getElementById('installBanner');
+            if (banner) banner.style.display = 'none';
+          });
+        }
+      }
+
+      // ── Notification handlers ──
+      function allowNotification() {
+        localStorage.setItem('notif-asked', 'true');
+        var prompt = document.getElementById('notif-prompt');
+        if (prompt) { prompt.style.transition = 'opacity 0.3s'; prompt.style.opacity = '0'; setTimeout(function() { prompt.classList.remove('visible'); }, 300); }
+        if (window.OneSignal) {
+          window.OneSignal.push(function() { window.OneSignal.showNativePrompt(); });
+        }
+      }
+
+      function denyNotification() {
+        localStorage.setItem('notif-asked', 'true');
+        var prompt = document.getElementById('notif-prompt');
+        if (prompt) { prompt.style.transition = 'opacity 0.3s'; prompt.style.opacity = '0'; setTimeout(function() { prompt.classList.remove('visible'); }, 300); }
       }
     </script>
 
