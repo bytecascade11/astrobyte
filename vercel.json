@@ -3,9 +3,3 @@
   "cleanUrls": true,
   "redirects": [
     {
-      "source": "/tags/:tag/",
-      "destination": "/tags/:tag/",
-      "permanent": true
-    }
-  ]
-}
