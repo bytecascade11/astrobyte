@@ -14,13 +14,8 @@ const sortedPosts = posts
   .filter(post => !post.data.draft)
   .sort((a, b) => b.data.pubDatetime.valueOf() - a.data.pubDatetime.valueOf());
 
-// Hero = latest post with a cover image (fallback to first post)
-const heroPost = sortedPosts.find(p => p.data.ogImage) ?? sortedPosts[0];
-
-// Sidebar: next 6 latest posts (excluding hero)
+const heroPost = sortedPosts[0];
 const sidebarPosts = sortedPosts.filter(p => p.id !== heroPost?.id).slice(0, 6);
-
-// List section: posts after sidebar (up to 8 more)
 const listPosts = sortedPosts.filter(p => p.id !== heroPost?.id).slice(6, 14);
 
 function formatDate(date: Date) {
@@ -30,37 +25,44 @@ function formatDate(date: Date) {
     day: "numeric",
   });
 }
+
+function getImageSrc(ogImage: any): string | null {
+  if (!ogImage) return null;
+  if (typeof ogImage === "string") return ogImage;
+  if (typeof ogImage === "object" && ogImage.src) return ogImage.src;
+  return null;
+}
 ---
 
 <Layout title={`Home | ${SITE.title}`}>
   <Header />
 
-  <main class="rb-home mx-auto w-full max-w-app px-4 pt-8 pb-16">
+  <main id="main-content" class="rb-home mx-auto w-full max-w-app px-4 pt-8 pb-16">
 
     <!-- ── HERO + SIDEBAR ── -->
     {heroPost && (
-      <section class="rb-top-grid mb-12">
+      <section class="rb-top-grid mb-10">
 
-        <!-- Big Hero Card -->
         <article class="rb-hero">
-          <a href={`/posts/${heroPost.id}`} class="rb-hero__img-wrap">
-            {heroPost.data.ogImage ? (
-              <img
-                src={typeof heroPost.data.ogImage === "string" ? heroPost.data.ogImage : heroPost.data.ogImage.src}
-                alt={heroPost.data.title}
-                class="rb-hero__img"
-                loading="eager"
-                width="900"
-                height="500"
-              />
-            ) : (
-              <div class="rb-hero__img-placeholder" />
-            )}
-            <div class="rb-hero__overlay" />
-          </a>
+          {(() => {
+            const imgSrc = getImageSrc(heroPost.data.ogImage);
+            return (
+              <a href={`/posts/${heroPost.id}`} class="rb-hero__img-wrap">
+                {imgSrc && (
+                  <img
+                    src={imgSrc}
+                    alt={heroPost.data.title}
+                    class="rb-hero__img"
+                    loading="eager"
+                    width="900"
+                    height="500"
+                  />
+                )}
+              </a>
+            );
+          })()}
 
           <div class="rb-hero__body">
-            <!-- Tags -->
             {heroPost.data.tags && heroPost.data.tags.length > 0 && (
               <div class="rb-tags mb-3">
                 {heroPost.data.tags.slice(0, 3).map(tag => (
@@ -89,7 +91,6 @@ function formatDate(date: Date) {
           </div>
         </article>
 
-        <!-- Sidebar: Latest Posts (text only) -->
         <aside class="rb-sidebar">
           <h2 class="rb-sidebar__heading">Latest</h2>
           <ul class="rb-sidebar__list">
@@ -117,55 +118,53 @@ function formatDate(date: Date) {
 
     <Hr class="my-10" />
 
-    <!-- ── MORE POSTS (thumbnail list) ── -->
     {listPosts.length > 0 && (
       <section class="rb-list-section">
         <h2 class="rb-section-heading">More Posts</h2>
-
         <div class="rb-list">
-          {listPosts.map(post => (
-            <article class="rb-list-card">
-              <a href={`/posts/${post.id}`} class="rb-list-card__img-wrap">
-                {post.data.ogImage ? (
-                  <img
-                    src={typeof post.data.ogImage === "string" ? post.data.ogImage : post.data.ogImage.src}
-                    alt={post.data.title}
-                    class="rb-list-card__img"
-                    loading="lazy"
-                    width="200"
-                    height="130"
-                  />
-                ) : (
-                  <div class="rb-list-card__img-placeholder" />
-                )}
-              </a>
-              <div class="rb-list-card__body">
-                {post.data.tags && post.data.tags.length > 0 && (
-                  <div class="rb-tags rb-tags--sm mb-2">
-                    {post.data.tags.slice(0, 2).map(tag => (
-                      <a href={`/tags/${tag}/`} class="rb-tag">{tag}</a>
-                    ))}
+          {listPosts.map(post => {
+            const imgSrc = getImageSrc(post.data.ogImage);
+            return (
+              <article class="rb-list-card">
+                <a href={`/posts/${post.id}`} class="rb-list-card__img-wrap">
+                  {imgSrc && (
+                    <img
+                      src={imgSrc}
+                      alt={post.data.title}
+                      class="rb-list-card__img"
+                      loading="lazy"
+                      width="200"
+                      height="130"
+                    />
+                  )}
+                </a>
+                <div class="rb-list-card__body">
+                  {post.data.tags && post.data.tags.length > 0 && (
+                    <div class="rb-tags rb-tags--sm mb-2">
+                      {post.data.tags.slice(0, 2).map(tag => (
+                        <a href={`/tags/${tag}/`} class="rb-tag">{tag}</a>
+                      ))}
+                    </div>
+                  )}
+                  <h3 class="rb-list-card__title">
+                    <a href={`/posts/${post.id}`}>{post.data.title}</a>
+                  </h3>
+                  {post.data.description && (
+                    <p class="rb-list-card__desc">{post.data.description}</p>
+                  )}
+                  <div class="rb-list-card__meta">
+                    <span class="rb-byline">By {post.data.author ?? SITE.author}</span>
+                    <span class="rb-dot">·</span>
+                    <time>{formatDate(post.data.pubDatetime)}</time>
                   </div>
-                )}
-                <h3 class="rb-list-card__title">
-                  <a href={`/posts/${post.id}`}>{post.data.title}</a>
-                </h3>
-                {post.data.description && (
-                  <p class="rb-list-card__desc">{post.data.description}</p>
-                )}
-                <div class="rb-list-card__meta">
-                  <span class="rb-byline">By {post.data.author ?? SITE.author}</span>
-                  <span class="rb-dot">·</span>
-                  <time>{formatDate(post.data.pubDatetime)}</time>
                 </div>
-              </div>
-            </article>
-          ))}
+              </article>
+            );
+          })}
         </div>
       </section>
     )}
 
-    <!-- All Posts CTA -->
     <div class="rb-cta-wrap">
       <LinkButton href="/posts/">
         View All Posts
@@ -179,7 +178,6 @@ function formatDate(date: Date) {
 </Layout>
 
 <style>
-  /* ─── Layout ─────────────────────────────────── */
   .rb-top-grid {
     display: grid;
     grid-template-columns: 1fr;
@@ -188,27 +186,27 @@ function formatDate(date: Date) {
 
   @media (min-width: 900px) {
     .rb-top-grid {
-      grid-template-columns: 1fr 340px;
-      gap: 2.5rem;
+      grid-template-columns: minmax(0, 1fr) minmax(240px, 300px);
+      gap: 2rem;
       align-items: start;
     }
   }
 
-  /* ─── Hero Card ──────────────────────────────── */
+  /* Hero */
   .rb-hero {
-    border-radius: 16px;
+    border-radius: 12px;
     overflow: hidden;
-    background: var(--color-card, #1e293b);
-    box-shadow: 0 4px 32px rgba(0,0,0,0.13);
+    border: 1px solid var(--color-border);
+    background: var(--color-card);
     display: flex;
     flex-direction: column;
   }
 
   .rb-hero__img-wrap {
     display: block;
-    position: relative;
     aspect-ratio: 16/9;
     overflow: hidden;
+    background: var(--color-card);
   }
 
   .rb-hero__img {
@@ -223,46 +221,31 @@ function formatDate(date: Date) {
     transform: scale(1.03);
   }
 
-  .rb-hero__img-placeholder {
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(135deg, #334155 0%, #1e293b 100%);
-  }
-
-  .rb-hero__overlay {
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(to top, rgba(0,0,0,0.15) 0%, transparent 60%);
-    pointer-events: none;
-  }
-
   .rb-hero__body {
-    padding: 1.5rem 1.75rem 2rem;
+    padding: 1.4rem 1.5rem 1.75rem;
   }
 
   .rb-hero__title {
-    font-size: clamp(1.4rem, 3vw, 2rem);
+    font-size: clamp(1.2rem, 2.4vw, 1.65rem);
     font-weight: 800;
-    line-height: 1.2;
-    margin-bottom: 0.75rem;
+    line-height: 1.25;
+    margin-bottom: 0.6rem;
     letter-spacing: -0.02em;
   }
 
   .rb-hero__title a {
-    color: var(--color-foreground, inherit);
+    color: var(--color-foreground);
     text-decoration: none;
     transition: color 0.2s;
   }
 
-  .rb-hero__title a:hover {
-    color: var(--color-accent, #6366f1);
-  }
+  .rb-hero__title a:hover { color: var(--color-accent); }
 
   .rb-hero__desc {
-    font-size: 0.97rem;
+    font-size: 0.92rem;
     line-height: 1.65;
-    color: var(--color-muted, #94a3b8);
-    margin-bottom: 1rem;
+    color: var(--color-muted);
+    margin-bottom: 0.9rem;
     display: -webkit-box;
     -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
@@ -273,200 +256,178 @@ function formatDate(date: Date) {
     display: flex;
     align-items: center;
     gap: 0.4rem;
-    font-size: 0.8rem;
-    color: var(--color-muted, #94a3b8);
-    margin-bottom: 1.25rem;
+    font-size: 0.77rem;
+    color: var(--color-muted);
+    margin-bottom: 1.1rem;
   }
 
   .rb-read-btn {
     display: inline-flex;
     align-items: center;
     gap: 0.4rem;
-    font-size: 0.85rem;
+    font-size: 0.82rem;
     font-weight: 700;
-    color: var(--color-accent, #6366f1);
+    color: var(--color-accent);
     text-decoration: none;
-    border: 2px solid var(--color-accent, #6366f1);
-    padding: 0.45rem 1.1rem;
+    border: 2px solid var(--color-accent);
+    padding: 0.38rem 0.95rem;
     border-radius: 6px;
     transition: background 0.2s, color 0.2s;
-    letter-spacing: 0.01em;
   }
 
   .rb-read-btn:hover {
-    background: var(--color-accent, #6366f1);
+    background: var(--color-accent);
     color: #fff;
   }
 
-  .rb-read-btn span {
-    transition: transform 0.2s;
-  }
+  .rb-read-btn span { transition: transform 0.2s; }
+  .rb-read-btn:hover span { transform: translateX(3px); }
 
-  .rb-read-btn:hover span {
-    transform: translateX(3px);
-  }
-
-  /* ─── Sidebar ────────────────────────────────── */
+  /* Sidebar */
   .rb-sidebar {
-    border-radius: 16px;
-    background: var(--color-card, #1e293b);
-    padding: 1.5rem;
-    box-shadow: 0 4px 24px rgba(0,0,0,0.1);
+    border-radius: 12px;
+    background: var(--color-card);
+    border: 1px solid var(--color-border);
+    padding: 1.2rem 1.2rem 0.4rem;
   }
 
   .rb-sidebar__heading {
-    font-size: 0.7rem;
+    font-size: 0.62rem;
     font-weight: 900;
     letter-spacing: 0.18em;
     text-transform: uppercase;
-    color: var(--color-accent, #6366f1);
-    margin-bottom: 1.25rem;
-    padding-bottom: 0.75rem;
-    border-bottom: 2px solid var(--color-accent, #6366f1);
+    color: var(--color-accent);
+    margin-bottom: 0.9rem;
+    padding-bottom: 0.6rem;
+    border-bottom: 2px solid var(--color-accent);
   }
 
   .rb-sidebar__list {
     list-style: none;
     padding: 0;
     margin: 0;
-    display: flex;
-    flex-direction: column;
-    gap: 0;
   }
 
   .rb-sidebar__item {
     display: flex;
-    gap: 1rem;
+    gap: 0.8rem;
     align-items: flex-start;
-    padding: 0.9rem 0;
-    border-bottom: 1px solid var(--color-border, rgba(148,163,184,0.12));
+    padding: 0.8rem 0;
+    border-bottom: 1px solid var(--color-border);
   }
 
   .rb-sidebar__item:last-child {
     border-bottom: none;
-    padding-bottom: 0;
   }
 
   .rb-sidebar__num {
-    font-size: 1.4rem;
+    font-size: 1.2rem;
     font-weight: 900;
-    color: var(--color-border, rgba(148,163,184,0.2));
+    color: var(--color-muted);
     line-height: 1;
     flex-shrink: 0;
-    min-width: 2rem;
+    min-width: 1.8rem;
+    opacity: 0.3;
     font-variant-numeric: tabular-nums;
   }
 
-  .rb-sidebar__content {
-    flex: 1;
-    min-width: 0;
-  }
+  .rb-sidebar__content { flex: 1; min-width: 0; }
 
   .rb-sidebar__title {
     display: block;
-    font-size: 0.88rem;
+    font-size: 0.83rem;
     font-weight: 700;
     line-height: 1.35;
-    color: var(--color-foreground, inherit);
+    color: var(--color-foreground);
     text-decoration: none;
-    margin-bottom: 0.3rem;
+    margin-bottom: 0.25rem;
     transition: color 0.2s;
   }
 
-  .rb-sidebar__title:hover {
-    color: var(--color-accent, #6366f1);
-  }
+  .rb-sidebar__title:hover { color: var(--color-accent); }
 
   .rb-sidebar__date {
-    font-size: 0.72rem;
-    color: var(--color-muted, #94a3b8);
+    font-size: 0.68rem;
+    color: var(--color-muted);
   }
 
-  /* ─── Tags ───────────────────────────────────── */
+  /* Tags */
   .rb-tags {
     display: flex;
     flex-wrap: wrap;
-    gap: 0.4rem;
+    gap: 0.35rem;
   }
 
   .rb-tag {
-    font-size: 0.68rem;
+    font-size: 0.63rem;
     font-weight: 800;
     text-transform: uppercase;
-    letter-spacing: 0.08em;
-    padding: 0.2rem 0.6rem;
+    letter-spacing: 0.07em;
+    padding: 0.17rem 0.5rem;
     border-radius: 4px;
-    background: var(--color-border, rgba(99,102,241,0.12));
-    color: var(--color-muted, #94a3b8);
+    background: var(--color-border);
+    color: var(--color-muted);
     text-decoration: none;
     transition: background 0.2s, color 0.2s;
-    border: 1px solid transparent;
   }
 
   .rb-tag:hover {
-    background: var(--color-accent, #6366f1);
+    background: var(--color-accent);
     color: #fff;
   }
 
   .rb-tag--accent {
-    background: var(--color-accent, #6366f1);
+    background: var(--color-accent);
     color: #fff;
   }
 
-  .rb-tag--accent:hover {
-    opacity: 0.85;
-  }
+  .rb-tag--accent:hover { opacity: 0.85; }
 
   .rb-tags--sm .rb-tag {
-    font-size: 0.63rem;
-    padding: 0.15rem 0.5rem;
+    font-size: 0.58rem;
+    padding: 0.12rem 0.42rem;
   }
 
-  /* ─── Section heading ────────────────────────── */
+  /* Section heading */
   .rb-section-heading {
-    font-size: 0.7rem;
+    font-size: 0.62rem;
     font-weight: 900;
     letter-spacing: 0.18em;
     text-transform: uppercase;
-    color: var(--color-accent, #6366f1);
-    margin-bottom: 1.5rem;
-    padding-bottom: 0.75rem;
-    border-bottom: 2px solid var(--color-accent, #6366f1);
+    color: var(--color-accent);
+    margin-bottom: 0.25rem;
+    padding-bottom: 0.6rem;
+    border-bottom: 2px solid var(--color-accent);
   }
 
-  /* ─── List Cards ─────────────────────────────── */
-  .rb-list {
-    display: flex;
-    flex-direction: column;
-    gap: 0;
-  }
+  /* List cards */
+  .rb-list { display: flex; flex-direction: column; }
 
   .rb-list-card {
     display: flex;
-    gap: 1.25rem;
+    gap: 1rem;
     align-items: flex-start;
-    padding: 1.25rem 0;
-    border-bottom: 1px solid var(--color-border, rgba(148,163,184,0.12));
+    padding: 1rem 0;
+    border-bottom: 1px solid var(--color-border);
   }
 
-  .rb-list-card:last-child {
-    border-bottom: none;
-  }
+  .rb-list-card:last-child { border-bottom: none; }
 
   .rb-list-card__img-wrap {
     flex-shrink: 0;
-    width: 130px;
-    height: 86px;
+    width: 120px;
+    height: 78px;
     border-radius: 8px;
     overflow: hidden;
     display: block;
-    background: var(--color-card, #1e293b);
+    background: var(--color-card);
+    border: 1px solid var(--color-border);
   }
 
   @media (min-width: 640px) {
     .rb-list-card__img-wrap {
-      width: 180px;
-      height: 110px;
+      width: 165px;
+      height: 102px;
     }
   }
 
@@ -478,75 +439,54 @@ function formatDate(date: Date) {
     transition: transform 0.4s ease;
   }
 
-  .rb-list-card:hover .rb-list-card__img {
-    transform: scale(1.05);
-  }
+  .rb-list-card:hover .rb-list-card__img { transform: scale(1.05); }
 
-  .rb-list-card__img-placeholder {
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(135deg, #334155, #1e293b);
-  }
-
-  .rb-list-card__body {
-    flex: 1;
-    min-width: 0;
-  }
+  .rb-list-card__body { flex: 1; min-width: 0; }
 
   .rb-list-card__title {
-    font-size: 1rem;
+    font-size: 0.95rem;
     font-weight: 700;
     line-height: 1.3;
-    margin-bottom: 0.4rem;
+    margin-bottom: 0.32rem;
     letter-spacing: -0.01em;
   }
 
   .rb-list-card__title a {
-    color: var(--color-foreground, inherit);
+    color: var(--color-foreground);
     text-decoration: none;
     transition: color 0.2s;
   }
 
-  .rb-list-card__title a:hover {
-    color: var(--color-accent, #6366f1);
-  }
+  .rb-list-card__title a:hover { color: var(--color-accent); }
 
   .rb-list-card__desc {
-    font-size: 0.85rem;
+    font-size: 0.82rem;
     line-height: 1.55;
-    color: var(--color-muted, #94a3b8);
+    color: var(--color-muted);
     display: -webkit-box;
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
     overflow: hidden;
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.4rem;
   }
 
   @media (max-width: 480px) {
-    .rb-list-card__desc {
-      display: none;
-    }
+    .rb-list-card__desc { display: none; }
   }
 
   .rb-list-card__meta {
     display: flex;
     align-items: center;
     gap: 0.4rem;
-    font-size: 0.75rem;
-    color: var(--color-muted, #94a3b8);
+    font-size: 0.72rem;
+    color: var(--color-muted);
   }
 
-  /* ─── Misc ───────────────────────────────────── */
-  .rb-byline {
-    font-weight: 600;
-  }
-
-  .rb-dot {
-    opacity: 0.4;
-  }
+  .rb-byline { font-weight: 600; }
+  .rb-dot { opacity: 0.4; }
 
   .rb-cta-wrap {
     text-align: center;
-    margin-top: 3rem;
+    margin-top: 2.5rem;
   }
 </style>
