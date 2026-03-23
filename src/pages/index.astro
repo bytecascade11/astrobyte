@@ -28,14 +28,15 @@ function formatDate(date: Date) {
 ---
 
 <Layout title={`Home | ${SITE.title}`}>
-  {heroPost?.data.coverImage && (
-    <link
-      rel="preload"
-      as="image"
-      href={heroPost.data.coverImage}
-      slot="head"
-    />
-  )}
+  <script is:inline define:vars={{ heroImg: heroPost?.data.coverImage }}>
+  if (heroImg) {
+    var l = document.createElement('link');
+    l.rel = 'preload';
+    l.as = 'image';
+    l.href = heroImg;
+    document.head.appendChild(l);
+  }
+</script>
   <Header />
 
   <main id="main-content" class="rb-home mx-auto w-full max-w-app px-4 pt-8 pb-16">
