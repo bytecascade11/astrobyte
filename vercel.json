@@ -1,9 +1,5 @@
 {
   "trailingSlash": true,
-  "cleanUrls": true
-}
-{
-  "trailingSlash": true,
   "cleanUrls": true,
   "redirects": [
     {
