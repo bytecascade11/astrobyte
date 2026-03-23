@@ -6,9 +6,9 @@ coverImageAlt: "A student using AI tools on a laptop to study smarter"
 pubDatetime: 2026-03-15T08:00:00Z
 author: iSamuel
 tags:
-  - aI
+  - ai
   - technology 
-  - Productivity
+  - productivity
   - opinions 
 featured: true
 ---
