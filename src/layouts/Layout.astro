@@ -155,7 +155,13 @@ const currentPath = Astro.url.pathname;
       }
       let themeValue = getPreferTheme();
       function setPreference() { localStorage.setItem("theme", themeValue); reflectPreference(); }
-      function reflectPreference() { document.documentElement.setAttribute("data-theme", themeValue); updateThemeIcon(); }
+      function reflectPreference() {
+        document.documentElement.setAttribute("data-theme", themeValue);
+        // FIX: guard against calling updateThemeIcon before DOM is ready
+        if (document.readyState !== "loading") {
+          updateThemeIcon();
+        }
+      }
       function updateThemeIcon() {
         const icon = document.getElementById('pwa-theme-icon');
         if (!icon) return;
@@ -167,6 +173,8 @@ const currentPath = Astro.url.pathname;
       }
       function togglePWATheme() { themeValue = themeValue === 'dark' ? 'light' : 'dark'; setPreference(); }
       reflectPreference();
+      // FIX: also run updateThemeIcon once DOM is fully ready so the icon reflects current theme
+      document.addEventListener('DOMContentLoaded', function() { updateThemeIcon(); });
       window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", ({ matches }) => {
         themeValue = matches ? "dark" : "light";
         setPreference();
@@ -335,6 +343,11 @@ const currentPath = Astro.url.pathname;
     </nav>
 
     <!-- PWA Install Banner -->
+    <!--
+      FIX: bottom offset accounts for bottom-nav (64px) + gap (10px) = 74px in browser,
+      but in PWA mode the body already has padding-bottom:64px so the banner sits correctly.
+      We use bottom:74px universally; in is-pwa mode the nav is visible so this is correct.
+    -->
     <div id="installBanner" style="display:none; position:fixed; bottom:74px; left:50%; transform:translateX(-50%); background:#0f172a; color:white; padding:12px 24px; border-radius:12px; box-shadow:0 4px 20px rgba(0,0,0,0.3); z-index:9998; align-items:center; gap:12px;">
       <span>📱 Install ReviByte for a better experience!</span>
       <button onclick="installApp()" style="background:#6366f1; color:white; border:none; padding:8px 16px; border-radius:8px; cursor:pointer; font-weight:600;">Install</button>
@@ -349,7 +362,8 @@ const currentPath = Astro.url.pathname;
           document.body.classList.add('is-pwa');
           const header = document.querySelector('header');
           if (header) header.style.cssText = 'display:none!important;visibility:hidden!important;height:0!important;overflow:hidden!important;';
-          updateThemeIcon && updateThemeIcon();
+          // FIX: updateThemeIcon is defined in the head inline script; safe to call here
+          if (typeof updateThemeIcon === 'function') updateThemeIcon();
         } else {
           document.body.classList.remove('is-pwa');
           const header = document.querySelector('header');
@@ -379,7 +393,7 @@ const currentPath = Astro.url.pathname;
         var s = document.createElement('script');
         s.src = 'https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js';
         s.async = true;
-        s.onload = function() {
+        s.onload = async function() {
           window.OneSignalDeferred = window.OneSignalDeferred || [];
           window.OneSignalDeferred.push(async function(OneSignal) {
             await OneSignal.init({
@@ -408,17 +422,21 @@ const currentPath = Astro.url.pathname;
           }, 5000);
         }
 
-        
         // ── Service Worker ──
         if ('serviceWorker' in navigator) {
           navigator.serviceWorker.register('/sw.js')
-            .then(function() { console.log('SW registered'); })
-            .catch(function(err) { console.log('SW failed', err); });
+            .then(function(reg) {
+              console.log('SW registered', reg.scope);
+            })
+            .catch(function(err) {
+              console.log('SW registration failed', err);
+            });
         }
 
       });
 
       // ── Install app handler ──
+      // FIX: added else branch so button doesn't silently fail when prompt is unavailable
       function installApp() {
         if (window._deferredPrompt) {
           window._deferredPrompt.prompt();
@@ -427,23 +445,40 @@ const currentPath = Astro.url.pathname;
             var banner = document.getElementById('installBanner');
             if (banner) banner.style.display = 'none';
           });
+        } else {
+          // Prompt not available — hide the banner gracefully
+          var banner = document.getElementById('installBanner');
+          if (banner) banner.style.display = 'none';
         }
       }
 
       // ── Notification handlers ──
-      function allowNotification() {
+      // FIX: replaced broken OneSignal v1 .push() pattern with correct v16 async API
+      async function allowNotification() {
         localStorage.setItem('notif-asked', 'true');
         var prompt = document.getElementById('notif-prompt');
-        if (prompt) { prompt.style.transition = 'opacity 0.3s'; prompt.style.opacity = '0'; setTimeout(function() { prompt.classList.remove('visible'); }, 300); }
-        if (window.OneSignal) {
-          window.OneSignal.push(function() { window.OneSignal.showNativePrompt(); });
+        if (prompt) {
+          prompt.style.transition = 'opacity 0.3s';
+          prompt.style.opacity = '0';
+          setTimeout(function() { prompt.classList.remove('visible'); }, 300);
+        }
+        try {
+          if (window.OneSignal && window.OneSignal.Notifications) {
+            await window.OneSignal.Notifications.requestPermission();
+          }
+        } catch (err) {
+          console.warn('OneSignal permission request failed', err);
         }
       }
 
       function denyNotification() {
         localStorage.setItem('notif-asked', 'true');
         var prompt = document.getElementById('notif-prompt');
-        if (prompt) { prompt.style.transition = 'opacity 0.3s'; prompt.style.opacity = '0'; setTimeout(function() { prompt.classList.remove('visible'); }, 300); }
+        if (prompt) {
+          prompt.style.transition = 'opacity 0.3s';
+          prompt.style.opacity = '0';
+          setTimeout(function() { prompt.classList.remove('visible'); }, 300);
+        }
       }
     </script>
 
