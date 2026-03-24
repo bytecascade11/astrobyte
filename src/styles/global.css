@@ -1,7 +1,18 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
 @import "./typography.css";
+
+/* ========================= */
+/* THEME REGISTRATION (required for v4) */
+/* ========================= */
+@theme {
+  /* Map your CSS variables to Tailwind color utilities */
+  --color-foreground: var(--foreground);
+  --color-accent: var(--accent);
+  --color-background-dark: var(--background-dark);
+  --color-background-light: var(--background-light);
+  --color-border: var(--border);
+  --color-muted: var(--muted);
+}
 
 /* ========================= */
 /* THEME VARIABLES           */
@@ -41,7 +52,7 @@ body {
   display: flex;
   flex-direction: column;
   min-height: 100svh;
-  color: var(--foreground);
+  color: var(--foreground);                    /* or text-foreground if you prefer */
   position: relative;
   background: linear-gradient(-45deg, var(--background-dark), #0f172a, var(--background-light), var(--background-dark));
   background-size: 400% 400%;
