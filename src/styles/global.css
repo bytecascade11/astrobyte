@@ -6,8 +6,8 @@
 @import "./typography.css";
 
 /* ============================================= */
-/* REGISTER CUSTOM COLORS FOR TAILWIND v4       */
-/* This fixes "unknown utility class text-foreground" */
+/* REGISTER CUSTOM COLORS + BORDER FOR TAILWIND v4 */
+/* This fixes "unknown utility class" errors like text-foreground, border-border, etc. */
 /* ============================================= */
 
 @theme {
@@ -15,6 +15,9 @@
   --color-accent: var(--accent);
   --color-background-dark: var(--background-dark);
   --color-background-light: var(--background-light);
+  
+  /* Add this line to support border-border (common in many UI libraries) */
+  --color-border: var(--border);
 }
 
 /* ============================================= */
@@ -27,6 +30,9 @@ html[data-theme="light"] {
   --accent: #006cac;
   --background-dark: #ffffff;
   --background-light: #e2e8f0;
+  
+  /* Define --border for light mode (choose a nice subtle color) */
+  --border: #e2e8f0;
 }
 
 html[data-theme="dark"] {
@@ -34,6 +40,9 @@ html[data-theme="dark"] {
   --accent: #ff6b01;
   --background-dark: #020617;
   --background-light: #1e293b;
+  
+  /* Define --border for dark mode */
+  --border: #334155;
 }
 
 /* ============================================= */
@@ -80,7 +89,7 @@ html[data-theme="light"] body {
 }
 
 /* ============================================= */
-/* REVI BYTE BACKGROUND TEXT (improved repeating) */
+/* REVI BYTE BACKGROUND TEXT                     */
 /* ============================================= */
 
 body::before {
@@ -94,7 +103,7 @@ body::before {
   font-weight: 800;
   letter-spacing: 0.5rem;
   color: rgba(255, 255, 255, 0.03);
-  white-space: pre;           /* better for repeating */
+  white-space: pre;
   transform: rotate(-20deg);
   pointer-events: none;
   z-index: 0;
@@ -102,7 +111,7 @@ body::before {
 }
 
 /* ============================================= */
-/* GLOW BLOBS / SUBTLE TECH EFFECT              */
+/* GLOW BLOBS                                    */
 /* ============================================= */
 
 body::after {
@@ -134,11 +143,11 @@ button:not(:disabled),
 }
 
 /* ============================================= */
-/* CONTAINER / MAX WIDTH                          */
+/* CONTAINER / MAX WIDTH                         */
 /* ============================================= */
 
 section, footer, main {
-  max-width: 48rem; /* equivalent to Tailwind max-w-3xl */
+  max-width: 48rem;
   margin-left: auto;
   margin-right: auto;
   padding-left: 1rem;
@@ -146,7 +155,7 @@ section, footer, main {
 }
 
 /* ============================================= */
-/* SCROLL MARGIN FOR ANCHORS                      */
+/* SCROLL MARGIN FOR ANCHORS                     */
 /* ============================================= */
 
 :target {
