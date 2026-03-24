@@ -481,6 +481,20 @@ const currentPath = Astro.url.pathname;
         }
       }
     </script>
+<!-- existing footer/scripts above -->
 
+  <script type="speculationrules">
+  {
+    "prefetch": [{
+      "where": {
+        "and": [
+          { "href_matches": "/*" },
+          { "not": { "href_matches": "/logout" } }
+        ]
+      },
+      "eagerness": "moderate"
+    }]
+  }
+  </script>
   </body>
 </html>
