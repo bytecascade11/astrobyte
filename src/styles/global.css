@@ -34,20 +34,25 @@ html[data-theme="dark"] {
     scrollbar-width: auto;
     scrollbar-color: var(--color-muted) transparent;
   }
+
   html {
     @apply overflow-y-scroll scroll-smooth;
   }
+
   body {
     @apply flex min-h-svh flex-col bg-background font-mono text-foreground selection:bg-accent/75 selection:text-background;
   }
+
   a,
   button {
     @apply outline-offset-1 outline-accent focus-visible:no-underline focus-visible:outline-2 focus-visible:outline-dashed;
   }
+
   button:not(:disabled),
   [role="button"]:not(:disabled) {
     cursor: pointer;
   }
+
   section,
   footer {
     @apply mx-auto max-w-app px-4;
@@ -62,35 +67,42 @@ html[data-theme="dark"] {
   @apply underline decoration-wavy decoration-2 underline-offset-4;
 }
 
-/* Source: https://piccalil.li/blog/a-more-modern-css-reset/ */
-/* Anything that has been anchored to should have extra scroll margin */
+/* Scroll margin for anchor targets */
 :target {
   scroll-margin-block: 1rem;
 }
 
 /* ============================================= */
 /* CUSTOM BACKGROUND – SUBTLE GRADIENT + NOISE   */
-/* No upload needed – everything is pure CSS or external URL */
 /* ============================================= */
 
 body {
-  background: linear-gradient(to bottom, #0f172a 0%, #1e293b 100%); /* Dark mode: deep slate blue-gray */
+  background: linear-gradient(to bottom, #0f172a 0%, #1e293b 100%);
 }
 
 html[data-theme="light"] body {
-  background: linear-gradient(to bottom, #f8fafc 0%, #e2e8f0 100%); /* Light mode: soft gray */
+  background: linear-gradient(to bottom, #f8fafc 0%, #e2e8f0 100%);
 }
 
-/* Optional subtle noise overlay for depth (loads from external free texture – no upload) */
+/* Noise overlay */
 body::before {
   content: "";
   position: fixed;
   inset: 0;
-  background: url('https://www.transparenttextures.com/patterns/noise.png');
+  background: url("https://www.transparenttextures.com/patterns/noise.png");
   opacity: 0.03;
   pointer-events: none;
   z-index: -1;
-body {
+}
+
+/* Optional grid overlay */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
   background-image: radial-gradient(circle, var(--color-border) 1px, transparent 1px);
   background-size: 24px 24px;
-}
+  opacity: 0.2;
+  pointer-events: none;
+  z-index: -1;
+  }
