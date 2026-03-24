@@ -90,6 +90,7 @@ body::before {
   opacity: 0.03;
   pointer-events: none;
   z-index: -1;
+body {
+  background-image: radial-gradient(circle, var(--color-border) 1px, transparent 1px);
+  background-size: 24px 24px;
 }
-background-image: radial-gradient(circle, var(--color-border) 1px, transparent 1px);
-background-size: 24px 24px;
