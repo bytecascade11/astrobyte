@@ -1,38 +1,19 @@
-/* ============================================= */
-/* GLOBAL STYLES FOR REVIBYTE BLOG              */
-/* ============================================= */
-
-@import "tailwindcss";
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
 @import "./typography.css";
 
-/* ============================================= */
-/* REGISTER CUSTOM COLORS + BORDER FOR TAILWIND v4 */
-/* This fixes "unknown utility class" errors like text-foreground, border-border, etc. */
-/* ============================================= */
-
-@theme {
-  --color-foreground: var(--foreground);
-  --color-accent: var(--accent);
-  --color-background-dark: var(--background-dark);
-  --color-background-light: var(--background-light);
-  
-  /* Add this line to support border-border (common in many UI libraries) */
-  --color-border: var(--border);
-}
-
-/* ============================================= */
-/* THEME VARIABLES                               */
-/* ============================================= */
-
+/* ========================= */
+/* THEME VARIABLES           */
+/* ========================= */
 :root,
 html[data-theme="light"] {
   --foreground: #282728;
   --accent: #006cac;
   --background-dark: #ffffff;
   --background-light: #e2e8f0;
-  
-  /* Define --border for light mode (choose a nice subtle color) */
   --border: #e2e8f0;
+  --muted: rgba(107, 114, 128, 1);
 }
 
 html[data-theme="dark"] {
@@ -40,15 +21,13 @@ html[data-theme="dark"] {
   --accent: #ff6b01;
   --background-dark: #020617;
   --background-light: #1e293b;
-  
-  /* Define --border for dark mode */
   --border: #334155;
+  --muted: rgba(156, 163, 175, 1);
 }
 
-/* ============================================= */
-/* BODY BASE                                     */
-/* ============================================= */
-
+/* ========================= */
+/* BODY BASE                 */
+/* ========================= */
 html, body {
   margin: 0;
   padding: 0;
@@ -64,34 +43,20 @@ body {
   min-height: 100svh;
   color: var(--foreground);
   position: relative;
-
-  /* Animated gradient background */
   background: linear-gradient(-45deg, var(--background-dark), #0f172a, var(--background-light), var(--background-dark));
   background-size: 400% 400%;
   animation: gradientMove 15s ease infinite;
 }
 
-/* Light mode override */
 html[data-theme="light"] body {
   background: linear-gradient(-45deg, var(--background-light), #f8fafc, #ffffff, var(--background-light));
   background-size: 400% 400%;
   animation: gradientMove 15s ease infinite;
 }
 
-/* ============================================= */
-/* ANIMATION                                     */
-/* ============================================= */
-
-@keyframes gradientMove {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
-}
-
-/* ============================================= */
-/* REVI BYTE BACKGROUND TEXT                     */
-/* ============================================= */
-
+/* ========================= */
+/* BACKGROUND TEXT           */
+/* ========================= */
 body::before {
   content: "REVI BYTE REVI BYTE REVI BYTE REVI BYTE REVI BYTE REVI BYTE ";
   position: fixed;
@@ -110,10 +75,9 @@ body::before {
   overflow: hidden;
 }
 
-/* ============================================= */
-/* GLOW BLOBS                                    */
-/* ============================================= */
-
+/* ========================= */
+/* GLOW BLOBS                */
+/* ========================= */
 body::after {
   content: "";
   position: fixed;
@@ -127,10 +91,9 @@ body::after {
   z-index: 0;
 }
 
-/* ============================================= */
-/* LINKS AND BUTTONS                             */
-/* ============================================= */
-
+/* ========================= */
+/* LINKS AND BUTTONS         */
+/* ========================= */
 a, button {
   outline-offset: 1px;
   outline: 2px dashed var(--accent);
@@ -142,10 +105,9 @@ button:not(:disabled),
   cursor: pointer;
 }
 
-/* ============================================= */
-/* CONTAINER / MAX WIDTH                         */
-/* ============================================= */
-
+/* ========================= */
+/* CONTAINER / MAX WIDTH     */
+/* ========================= */
 section, footer, main {
   max-width: 48rem;
   margin-left: auto;
@@ -154,10 +116,9 @@ section, footer, main {
   padding-right: 1rem;
 }
 
-/* ============================================= */
-/* SCROLL MARGIN FOR ANCHORS                     */
-/* ============================================= */
-
+/* ========================= */
+/* SCROLL MARGIN FOR ANCHORS */
+/* ========================= */
 :target {
   scroll-margin-block: 1rem;
 }
