@@ -91,3 +91,5 @@ body::before {
   pointer-events: none;
   z-index: -1;
 }
+background-image: radial-gradient(circle, var(--color-border) 1px, transparent 1px);
+background-size: 24px 24px;
