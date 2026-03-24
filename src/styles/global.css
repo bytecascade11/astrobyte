@@ -3,6 +3,10 @@
 
 @custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
 
+/* ============================================= */
+/* THEME VARIABLES                               */
+/* ============================================= */
+
 :root,
 html[data-theme="light"] {
   --background: #fdfdfd;
@@ -28,6 +32,10 @@ html[data-theme="dark"] {
   --color-border: var(--border);
 }
 
+/* ============================================= */
+/* BASE STYLES                                   */
+/* ============================================= */
+
 @layer base {
   * {
     @apply border-border outline-accent/75;
@@ -37,12 +45,14 @@ html[data-theme="dark"] {
 
   html {
     @apply overflow-y-scroll scroll-smooth;
+    height: 100%;
   }
 
   body {
-    @apply flex min-h-svh flex-col bg-background font-mono text-foreground selection:bg-accent/75 selection:text-background;
+    @apply flex min-h-svh flex-col font-mono text-foreground selection:bg-accent/75 selection:text-background;
     position: relative;
     z-index: 0;
+    background: none; /* مهم: remove Tailwind bg conflict */
   }
 
   a,
@@ -61,6 +71,10 @@ html[data-theme="dark"] {
   }
 }
 
+/* ============================================= */
+/* UTILITIES                                     */
+/* ============================================= */
+
 @utility max-w-app {
   @apply max-w-3xl;
 }
@@ -75,7 +89,7 @@ html[data-theme="dark"] {
 }
 
 /* ============================================= */
-/* FIXED BACKGROUND SYSTEM                       */
+/* BACKGROUND SYSTEM (WORKING)                   */
 /* ============================================= */
 
 /* Gradient layer */
@@ -83,13 +97,13 @@ body::before {
   content: "";
   position: fixed;
   inset: 0;
-  background: linear-gradient(to bottom, #0f172a 0%, #1e293b 100%);
+  background: linear-gradient(to bottom, #0f172a, #1e293b);
   z-index: -2;
 }
 
 /* Light mode gradient */
 html[data-theme="light"] body::before {
-  background: linear-gradient(to bottom, #f8fafc 0%, #e2e8f0 100%);
+  background: linear-gradient(to bottom, #f8fafc, #e2e8f0);
 }
 
 /* Noise + subtle grid */
@@ -104,4 +118,4 @@ body::after {
   opacity: 0.05;
   pointer-events: none;
   z-index: -1;
-                              }
+}
