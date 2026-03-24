@@ -6,6 +6,18 @@
 @import "./typography.css";
 
 /* ============================================= */
+/* REGISTER CUSTOM COLORS FOR TAILWIND v4       */
+/* This fixes "unknown utility class text-foreground" */
+/* ============================================= */
+
+@theme {
+  --color-foreground: var(--foreground);
+  --color-accent: var(--accent);
+  --color-background-dark: var(--background-dark);
+  --color-background-light: var(--background-light);
+}
+
+/* ============================================= */
 /* THEME VARIABLES                               */
 /* ============================================= */
 
@@ -68,25 +80,25 @@ html[data-theme="light"] body {
 }
 
 /* ============================================= */
-/* REVI BYTE BACKGROUND TEXT                     */
+/* REVI BYTE BACKGROUND TEXT (improved repeating) */
 /* ============================================= */
 
 body::before {
-  content: "REVI BYTE REVI BYTE REVI BYTE REVI BYTE";
+  content: "REVI BYTE REVI BYTE REVI BYTE REVI BYTE REVI BYTE REVI BYTE ";
   position: fixed;
   inset: 0;
   display: flex;
   align-items: center;
   justify-content: center;
-
   font-size: 8vw;
   font-weight: 800;
   letter-spacing: 0.5rem;
-  color: rgba(255, 255, 255, 0.03); /* subtle */
-  white-space: nowrap;
+  color: rgba(255, 255, 255, 0.03);
+  white-space: pre;           /* better for repeating */
   transform: rotate(-20deg);
   pointer-events: none;
   z-index: 0;
+  overflow: hidden;
 }
 
 /* ============================================= */
@@ -97,11 +109,9 @@ body::after {
   content: "";
   position: fixed;
   inset: 0;
-
   background:
     radial-gradient(circle at 20% 30%, rgba(0,108,172,0.25), transparent 40%),
     radial-gradient(circle at 80% 70%, rgba(255,107,1,0.25), transparent 40%);
-
   filter: blur(80px);
   opacity: 0.5;
   pointer-events: none;
@@ -127,7 +137,7 @@ button:not(:disabled),
 /* CONTAINER / MAX WIDTH                          */
 /* ============================================= */
 
-section, footer {
+section, footer, main {
   max-width: 48rem; /* equivalent to Tailwind max-w-3xl */
   margin-left: auto;
   margin-right: auto;
