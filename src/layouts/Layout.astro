@@ -337,7 +337,7 @@ const currentPath = Astro.url.pathname;
     </nav>
 
     <!-- PWA Install Banner -->
-    <!--
+
       FIX: bottom offset accounts for bottom-nav (64px) + gap (10px) = 74px in browser,
       but in PWA mode the body already has padding-bottom:64px so the banner sits correctly.
       We use bottom:74px universally; in is-pwa mode the nav is visible so this is correct.
