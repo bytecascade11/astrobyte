@@ -130,11 +130,11 @@ const currentPath = Astro.url.pathname;
       .more-menu a:hover { background: rgba(255,255,255,0.05); color: #6366f1; }
       .more-menu a svg { width: 20px; height: 20px; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; opacity: 0.7; }
 
-      /* ── PWA Mode ── */
-      body.is-pwa .bottom-nav, body.is-pwa .pwa-topbar { display: flex; }
-      body.is-pwa { padding-top: 56px; padding-bottom: 64px; }
-      body.is-pwa header { display: none !important; visibility: hidden !important; height: 0 !important; overflow: hidden !important; pointer-events: none !important; }
-
+/* ── PWA Mode ── */
+body.is-pwa .bottom-nav, body.is-pwa .pwa-topbar { display: flex; }
+body.is-pwa { padding-top: 56px; padding-bottom: 64px; }
+body.is-pwa header,
+body.is-pwa nav.top-nav { display: none !important; visibility: hidden !important; height: 0 !important; overflow: hidden !important; pointer-events: none !important; }
       /* ── Desktop ── */
       @media (min-width: 768px) {
         .bottom-nav, .more-menu, .pwa-topbar { display: none !important; }
