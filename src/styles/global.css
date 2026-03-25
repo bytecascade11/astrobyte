@@ -81,12 +81,12 @@ body::before {
   white-space: nowrap;
   pointer-events: none;
   z-index: 0;
-  color: rgba(255, 255, 255, 0.06);
+  color: rgba(255, 255, 255, 0.12);
   animation: pulseText 5s ease-in-out infinite;
 }
 
 html[data-theme="light"] body::before {
-  color: rgba(0, 108, 172, 0.08);
+  color: rgba(0, 108, 172, 0.15);
   animation: pulseText 5s ease-in-out infinite;
 }
 
