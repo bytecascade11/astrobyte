@@ -156,7 +156,6 @@ const currentPath = Astro.url.pathname;
       function setPreference() { localStorage.setItem("theme", themeValue); reflectPreference(); }
       function reflectPreference() {
         document.documentElement.setAttribute("data-theme", themeValue);
-        // FIX: guard against calling updateThemeIcon before DOM is ready
         if (document.readyState !== "loading") {
           updateThemeIcon();
         }
@@ -172,7 +171,6 @@ const currentPath = Astro.url.pathname;
       }
       function togglePWATheme() { themeValue = themeValue === 'dark' ? 'light' : 'dark'; setPreference(); }
       reflectPreference();
-      // FIX: also run updateThemeIcon once DOM is fully ready so the icon reflects current theme
       document.addEventListener('DOMContentLoaded', function() { updateThemeIcon(); });
       window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", ({ matches }) => {
         themeValue = matches ? "dark" : "light";
@@ -337,7 +335,7 @@ const currentPath = Astro.url.pathname;
     </nav>
 
     <!-- PWA Install Banner -->
-
+    <!--
       FIX: bottom offset accounts for bottom-nav (64px) + gap (10px) = 74px in browser,
       but in PWA mode the body already has padding-bottom:64px so the banner sits correctly.
       We use bottom:74px universally; in is-pwa mode the nav is visible so this is correct.
@@ -356,7 +354,6 @@ const currentPath = Astro.url.pathname;
           document.body.classList.add('is-pwa');
           const header = document.querySelector('header');
           if (header) header.style.cssText = 'display:none!important;visibility:hidden!important;height:0!important;overflow:hidden!important;';
-          // FIX: updateThemeIcon is defined in the head inline script; safe to call here
           if (typeof updateThemeIcon === 'function') updateThemeIcon();
         } else {
           document.body.classList.remove('is-pwa');
@@ -430,7 +427,6 @@ const currentPath = Astro.url.pathname;
       });
 
       // ── Install app handler ──
-      // FIX: added else branch so button doesn't silently fail when prompt is unavailable
       function installApp() {
         if (window._deferredPrompt) {
           window._deferredPrompt.prompt();
@@ -440,14 +436,12 @@ const currentPath = Astro.url.pathname;
             if (banner) banner.style.display = 'none';
           });
         } else {
-          // Prompt not available — hide the banner gracefully
           var banner = document.getElementById('installBanner');
           if (banner) banner.style.display = 'none';
         }
       }
 
       // ── Notification handlers ──
-      // FIX: replaced broken OneSignal v1 .push() pattern with correct v16 async API
       async function allowNotification() {
         localStorage.setItem('notif-asked', 'true');
         var prompt = document.getElementById('notif-prompt');
@@ -475,20 +469,22 @@ const currentPath = Astro.url.pathname;
         }
       }
     </script>
-<!-- existing footer/scripts above -->
 
-  <script type="speculationrules">
-  {
-    "prefetch": [{
-      "where": {
-        "and": [
-          { "href_matches": "/*" },
-          { "not": { "href_matches": "/logout" } }
-        ]
-      },
-      "eagerness": "moderate"
-    }]
-  }
-  </script>
+    <script type="speculationrules">
+    {
+      "prefetch": [{
+        "where": {
+          "and": [
+            { "href_matches": "/*" },
+            { "not": { "href_matches": "/logout" } }
+          ]
+        },
+        "eagerness": "moderate"
+      }]
+    }
+    </script>
+
+    <slot />
+
   </body>
 </html>
