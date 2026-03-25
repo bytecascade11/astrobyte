@@ -53,6 +53,14 @@ const currentPath = Astro.url.pathname;
 <html dir={SITE.dir} lang={SITE.lang ?? "en"} class={scrollSmooth ? "scroll-smooth" : undefined}>
   <head>
     <meta charset="UTF-8" />
+
+    <!-- PWA header hide — must be first to prevent flash -->
+    <style>
+      @media (display-mode: standalone) {
+        header { display: none !important; visibility: hidden !important; height: 0 !important; overflow: hidden !important; pointer-events: none !important; }
+      }
+    </style>
+
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 
@@ -130,11 +138,11 @@ const currentPath = Astro.url.pathname;
       .more-menu a:hover { background: rgba(255,255,255,0.05); color: #6366f1; }
       .more-menu a svg { width: 20px; height: 20px; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; opacity: 0.7; }
 
-/* ── PWA Mode ── */
-body.is-pwa .bottom-nav, body.is-pwa .pwa-topbar { display: flex; }
-body.is-pwa { padding-top: 56px; padding-bottom: 64px; }
-body.is-pwa header,
-body.is-pwa nav.top-nav { display: none !important; visibility: hidden !important; height: 0 !important; overflow: hidden !important; pointer-events: none !important; }
+      /* ── PWA Mode ── */
+      body.is-pwa .bottom-nav, body.is-pwa .pwa-topbar { display: flex; }
+      body.is-pwa { padding-top: 56px; padding-bottom: 64px; }
+      body.is-pwa header { display: none !important; visibility: hidden !important; height: 0 !important; overflow: hidden !important; pointer-events: none !important; }
+
       /* ── Desktop ── */
       @media (min-width: 768px) {
         .bottom-nav, .more-menu, .pwa-topbar { display: none !important; }
@@ -336,7 +344,7 @@ body.is-pwa nav.top-nav { display: none !important; visibility: hidden !importan
 
     <!-- PWA Install Banner -->
     <!--
-      FIX: bottom offset accounts for bottom-nav (64px) + gap (10px) = 74px in browser,
+      bottom offset accounts for bottom-nav (64px) + gap (10px) = 74px in browser,
       but in PWA mode the body already has padding-bottom:64px so the banner sits correctly.
       We use bottom:74px universally; in is-pwa mode the nav is visible so this is correct.
     -->
@@ -353,7 +361,7 @@ body.is-pwa nav.top-nav { display: none !important; visibility: hidden !importan
         if (isPWA) {
           document.body.classList.add('is-pwa');
           const header = document.querySelector('header');
-          if (header) header.style.cssText = 'display:none!important;visibility:hidden!important;height:0!important;overflow:hidden!important;';
+          if (header) header.style.cssText = 'display:none!important;visibility:hidden!important;height:0!important;overflow:hidden!important;pointer-events:none!important;';
           if (typeof updateThemeIcon === 'function') updateThemeIcon();
         } else {
           document.body.classList.remove('is-pwa');
