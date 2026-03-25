@@ -1,7 +1,6 @@
 ---
 import { SITE } from "@/config";
 import SchemaMarkup from "@/components/SchemaMarkup.astro";
-import StreakBanner from "@/components/StreakBanner.astro";
 import "@/styles/global.css";
 
 const { PUBLIC_GOOGLE_SITE_VERIFICATION } = import.meta.env;
@@ -287,11 +286,6 @@ const currentPath = Astro.url.pathname;
         </button>
       </div>
     </div>
-
-    <!-- Streak Banner -->
-    <StreakBanner startDate="2026-03-14" goal={30} message="30-Day Posting Streak" />
-
-    <slot />
 
     <!-- More Menu -->
     <div class="more-menu" id="moreMenu">
