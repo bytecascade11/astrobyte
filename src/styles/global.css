@@ -2,10 +2,9 @@
 @import "./typography.css";
 
 /* ========================= */
-/* THEME REGISTRATION (required for v4) */
+/* THEME REGISTRATION        */
 /* ========================= */
 @theme {
-  /* Map your CSS variables to Tailwind color utilities */
   --color-foreground: var(--foreground);
   --color-accent: var(--accent);
   --color-background-dark: var(--background-dark);
@@ -45,6 +44,7 @@ html, body {
   height: 100%;
   width: 100%;
   font-family: monospace;
+  font-size: 1.0625rem;
   overflow-x: hidden;
 }
 
@@ -52,7 +52,7 @@ body {
   display: flex;
   flex-direction: column;
   min-height: 100svh;
-  color: var(--foreground);                    /* or text-foreground if you prefer */
+  color: var(--foreground);
   position: relative;
   background: linear-gradient(-45deg, var(--background-dark), #0f172a, var(--background-light), var(--background-dark));
   background-size: 400% 400%;
@@ -60,7 +60,7 @@ body {
 }
 
 html[data-theme="light"] body {
-  background: linear-gradient(-45deg, var(--background-light), #f8fafc, #ffffff, var(--background-light));
+  background: linear-gradient(-45deg, #e2e8f0, #f1f5f9, #dbeafe, #e2e8f0);
   background-size: 400% 400%;
   animation: gradientMove 15s ease infinite;
 }
@@ -86,6 +86,10 @@ body::before {
   overflow: hidden;
 }
 
+html[data-theme="light"] body::before {
+  color: rgba(0, 0, 0, 0.04);
+}
+
 /* ========================= */
 /* GLOW BLOBS                */
 /* ========================= */
@@ -100,6 +104,13 @@ body::after {
   opacity: 0.5;
   pointer-events: none;
   z-index: 0;
+}
+
+html[data-theme="light"] body::after {
+  background:
+    radial-gradient(circle at 20% 30%, rgba(0,108,172,0.12), transparent 40%),
+    radial-gradient(circle at 80% 70%, rgba(255,107,1,0.12), transparent 40%);
+  opacity: 0.6;
 }
 
 /* ========================= */
