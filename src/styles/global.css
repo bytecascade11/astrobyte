@@ -215,3 +215,17 @@ section, footer, main {
     padding-bottom: 0 !important;
   }
 }
+/* ========================= */
+/* PROSE PAGES BACKGROUND    */
+/* ========================= */
+article.prose {
+  background: rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-radius: 20px;
+  padding: 2rem;
+}
+
+[data-theme="dark"] article.prose {
+  background: rgba(15, 23, 42, 0.75);
+}
