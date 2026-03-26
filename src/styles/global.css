@@ -114,6 +114,16 @@ html[data-theme="light"] body::after {
 }
 
 /* ========================= */
+/* FIX: CONTENT ABOVE BLOBS  */
+/* ========================= */
+/* Ensures header, main, footer and sections always sit
+   above the body::before and body::after background layers */
+header, main, footer, section {
+  position: relative;
+  z-index: 1;
+}
+
+/* ========================= */
 /* LINKS AND BUTTONS         */
 /* ========================= */
 a, button {
@@ -158,6 +168,7 @@ section, footer, main {
   0%, 100% { opacity: 1; transform: translate(-50%, -50%) rotate(-20deg) scale(1); }
   50% { opacity: 0.4; transform: translate(-50%, -50%) rotate(-20deg) scale(1.03); }
 }
+
 /* ========================= */
 /* PWA — HIDE SITE HEADER    */
 /* ========================= */
