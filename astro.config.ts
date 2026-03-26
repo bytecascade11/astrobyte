@@ -129,7 +129,7 @@ export default defineConfig({
       filter: page => SITE.showArchives || !page.endsWith("/archives/"),
       // Also register the custom image sitemap so Google Search Console
       // can discover it alongside the main sitemap-index.xml
-      customPages: [`${SITE.website}sitemap-images.xml`],
+      customPages: [`${SITE.website}sitemap-post-images.xml`],
     }),
 
     indexnow(),
