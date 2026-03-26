@@ -124,6 +124,8 @@ export default defineConfig({
       },
     }),
 
+    // Official AstroPaper sitemap setup:
+    // Includes ALL pages by default — only excludes /archives/ when showArchives is false.
     sitemap({
       filter: page => SITE.showArchives || !page.endsWith("/archives/"),
     }),
