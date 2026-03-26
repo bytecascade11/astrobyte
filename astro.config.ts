@@ -124,10 +124,12 @@ export default defineConfig({
       },
     }),
 
-    // Official AstroPaper sitemap setup:
-    // Includes ALL pages by default — only excludes /archives/ when showArchives is false.
+    // Official AstroPaper sitemap — includes all pages, hides /archives/ if showArchives is false
     sitemap({
       filter: page => SITE.showArchives || !page.endsWith("/archives/"),
+      // Also register the custom image sitemap so Google Search Console
+      // can discover it alongside the main sitemap-index.xml
+      customPages: [`${SITE.website}sitemap-images.xml`],
     }),
 
     indexnow(),
