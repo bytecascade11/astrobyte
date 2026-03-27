@@ -9,7 +9,7 @@ const description = "Honest, physics-backed tech analysis for real people in Nig
     <article class="prose prose-lg mx-auto dark:prose-invert">
 
       <h1 class="mb-4 text-4xl font-bold">About ReviByte Opinion — My Story, My Promise</h1>
-      <p class="lead text-xl text-gray-600 dark:text-gray-300">
+      <p class="lead text-xl">
         I'm <strong>Oke Sunday Samuel</strong> (most people call me <em>iSamuel</em>). I study Physics & Electronics and write practical, <strong>expert technology analysis and insight</strong> for real people in Nigeria and beyond.
       </p>
 
@@ -41,9 +41,7 @@ const description = "Honest, physics-backed tech analysis for real people in Nig
       <p>
         I realized most mainstream coverage treats devices superficially — leaving a huge gap for everyday users who need <strong>deep technical context</strong>. So I published honest notes out of curiosity. No SEO tricks. No promotion. Just truth.
       </p>
-      <p>
-        People read them, shared them, and soon messages arrived messages like:
-      </p>
+      <p>People read them, shared them, and soon messages arrived like:</p>
       <blockquote class="border-l-4 border-blue-600 bg-blue-50 p-6 dark:bg-blue-950/30">
         "This helped me <strong>understand the technology</strong>."<br>
         "You explained something better than the shopkeeper."
@@ -143,7 +141,7 @@ const description = "Honest, physics-backed tech analysis for real people in Nig
         <dd>Yes! Repeated requests go straight to the top of my list.</dd>
       </dl>
 
-      <p class="mt-16 text-center text-lg italic text-gray-600 dark:text-gray-400">
+      <p class="mt-16 text-center text-lg italic">
         Thank you for taking the time to read my story.<br>
         If <strong>ReviByte Opinion</strong> ever helps you make a better tech decision — please share it with someone who needs it.<br><br>
         — <strong>Oke "iSamuel"</strong>, Founder of ReviByte Opinion
@@ -174,9 +172,46 @@ const description = "Honest, physics-backed tech analysis for real people in Nig
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
   }
 
+  /* Force all text to be dark and fully visible in light mode */
+  .about-wrapper,
+  .about-wrapper p,
+  .about-wrapper li,
+  .about-wrapper dd,
+  .about-wrapper dt,
+  .about-wrapper h1,
+  .about-wrapper h2,
+  .about-wrapper h3,
+  .about-wrapper blockquote {
+    color: #1a1a1a !important;
+    opacity: 1 !important;
+  }
+
+  /* Dark mode */
   [data-theme="dark"] .about-wrapper {
     background: #0f172a;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  }
+
+  [data-theme="dark"] .about-wrapper,
+  [data-theme="dark"] .about-wrapper p,
+  [data-theme="dark"] .about-wrapper li,
+  [data-theme="dark"] .about-wrapper dd,
+  [data-theme="dark"] .about-wrapper dt,
+  [data-theme="dark"] .about-wrapper h1,
+  [data-theme="dark"] .about-wrapper h2,
+  [data-theme="dark"] .about-wrapper h3,
+  [data-theme="dark"] .about-wrapper blockquote {
+    color: #eaedf3 !important;
+    opacity: 1 !important;
+  }
+
+  /* Links */
+  .about-wrapper a {
+    color: #006cac !important;
+  }
+
+  [data-theme="dark"] .about-wrapper a {
+    color: #ff6b01 !important;
   }
 
   @media (max-width: 640px) {
