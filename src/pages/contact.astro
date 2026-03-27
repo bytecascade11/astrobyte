@@ -36,3 +36,40 @@ const description = 'Get in touch with Oke iSamuel – questions, tips, long-ter
     </p>
   </article>
 </Layout>
+<style>
+  /* Light mode text */
+  article.prose p,
+  article.prose li,
+  article.prose dd,
+  article.prose dt,
+  article.prose h1,
+  article.prose h2,
+  article.prose h3,
+  article.prose blockquote,
+  article.prose strong {
+    color: #1a1a1a !important;
+    opacity: 1 !important;
+  }
+
+  article.prose a {
+    color: #006cac !important;
+  }
+
+  /* Dark mode text */
+  html[data-theme="dark"] article.prose p,
+  html[data-theme="dark"] article.prose li,
+  html[data-theme="dark"] article.prose dd,
+  html[data-theme="dark"] article.prose dt,
+  html[data-theme="dark"] article.prose h1,
+  html[data-theme="dark"] article.prose h2,
+  html[data-theme="dark"] article.prose h3,
+  html[data-theme="dark"] article.prose blockquote,
+  html[data-theme="dark"] article.prose strong {
+    color: #eaedf3 !important;
+    opacity: 1 !important;
+  }
+
+  html[data-theme="dark"] article.prose a {
+    color: #ff6b01 !important;
+  }
+</style>
