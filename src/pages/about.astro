@@ -161,63 +161,39 @@ const description = "Honest, physics-backed tech analysis for real people in Nig
 </Layout>
 
 <style>
-  .about-wrapper {
-    position: relative;
-    z-index: 2;
-    max-width: 860px;
-    margin: 30px auto;
-    background: #ffffff;
-    padding: 40px;
-    border-radius: 16px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
-  }
-
-  /* Force all text to be dark and fully visible in light mode */
-  .about-wrapper,
-  .about-wrapper p,
-  .about-wrapper li,
-  .about-wrapper dd,
-  .about-wrapper dt,
-  .about-wrapper h1,
-  .about-wrapper h2,
-  .about-wrapper h3,
-  .about-wrapper blockquote {
+  /* Light mode text */
+  article.prose p,
+  article.prose li,
+  article.prose dd,
+  article.prose dt,
+  article.prose h1,
+  article.prose h2,
+  article.prose h3,
+  article.prose blockquote,
+  article.prose strong {
     color: #1a1a1a !important;
     opacity: 1 !important;
   }
 
-  /* Dark mode */
-  [data-theme="dark"] .about-wrapper {
-    background: #0f172a;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  article.prose a {
+    color: #006cac !important;
   }
 
-  [data-theme="dark"] .about-wrapper,
-  [data-theme="dark"] .about-wrapper p,
-  [data-theme="dark"] .about-wrapper li,
-  [data-theme="dark"] .about-wrapper dd,
-  [data-theme="dark"] .about-wrapper dt,
-  [data-theme="dark"] .about-wrapper h1,
-  [data-theme="dark"] .about-wrapper h2,
-  [data-theme="dark"] .about-wrapper h3,
-  [data-theme="dark"] .about-wrapper blockquote {
+  /* Dark mode text */
+  html[data-theme="dark"] article.prose p,
+  html[data-theme="dark"] article.prose li,
+  html[data-theme="dark"] article.prose dd,
+  html[data-theme="dark"] article.prose dt,
+  html[data-theme="dark"] article.prose h1,
+  html[data-theme="dark"] article.prose h2,
+  html[data-theme="dark"] article.prose h3,
+  html[data-theme="dark"] article.prose blockquote,
+  html[data-theme="dark"] article.prose strong {
     color: #eaedf3 !important;
     opacity: 1 !important;
   }
 
-  /* Links */
-  .about-wrapper a {
-    color: #006cac !important;
-  }
-
-  [data-theme="dark"] .about-wrapper a {
+  html[data-theme="dark"] article.prose a {
     color: #ff6b01 !important;
-  }
-
-  @media (max-width: 640px) {
-    .about-wrapper {
-      margin: 16px;
-      padding: 20px;
-    }
   }
 </style>
