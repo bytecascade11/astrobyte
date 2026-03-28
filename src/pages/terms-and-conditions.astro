@@ -1,12 +1,16 @@
 ---
 import Layout from "@/layouts/Layout.astro";
+import BackButton from "@/components/BackButton.astro";
 
 const title = "Privacy Policy – ReviByte Opinion";
 const description = "How we collect, use, and protect your personal information on ReviByte Opinion.";
-const lastUpdated = "December 15, 2025";  // optional – you can add more variables if your Layout uses them
+const lastUpdated = "December 15, 2025";
 ---
 
 <Layout title={title} description={description}>
+  <div style="max-width:56rem; margin: 1rem auto; padding: 0 1rem;">
+    <BackButton />
+  </div>
   <main>
     <!-- Your actual privacy policy content goes here -->
     <h1>Privacy Policy</h1>
