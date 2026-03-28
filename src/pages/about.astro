@@ -1,36 +1,38 @@
 ---
 import Layout from "@/layouts/Layout.astro";
 import BackButton from "@/components/BackButton.astro";
+
 const title = "About ReviByte Opinion — My Story, My Promise | Oke iSamuel";
 const description = "Honest, physics-backed tech analysis for real people in Nigeria and beyond. No hype, no paid praise — just deep, practical insight from Oke Sunday Samuel (iSamuel).";
 ---
 
 <Layout title={title} description={description}>
-  <div class="about-wrapper">
-    <article class="prose prose-lg mx-auto dark:prose-invert">
+  <div style="max-width:56rem; margin: 1rem auto; padding: 0 1rem;">
+    <BackButton />
+  </div>
+  <article class="prose prose-lg mx-auto dark:prose-invert">
 
-      <h1 class="mb-4 text-4xl font-bold">About ReviByte Opinion — My Story, My Promise</h1>
-      <p class="lead text-xl">
-        I'm <strong>Oke Sunday Samuel</strong> (most people call me <em>iSamuel</em>). I study Physics & Electronics and write practical, <strong>expert technology analysis and insight</strong> for real people in Nigeria and beyond.
-      </p>
+    <h1 class="mb-4 text-4xl font-bold">About ReviByte Opinion — My Story, My Promise</h1>
+    <p class="lead text-xl">
+      I'm <strong>Oke Sunday Samuel</strong> (most people call me <em>iSamuel</em>). I study Physics & Electronics and write practical, <strong>expert technology analysis and insight</strong> for real people in Nigeria and beyond.
+    </p>
 
-      <div class="my-16 flex flex-col items-center gap-10 md:flex-row">
-        <img
-          src="isamuel.jpg"
-          alt="Oke iSamuel — Founder & Technology Analyst at ReviByte Opinion"
-          class="h-56 w-56 rounded-full object-cover shadow-2xl ring-4 ring-blue-100 dark:ring-blue-900"
-          loading="lazy"
-        />
-        <div class="text-lg leading-relaxed">
-          <p>
-            ReviByte began as a practical experiment: observe, take notes, and explain. I had no professional studio, no PR contacts — just curiosity, a deep understanding of physics and electronics, and a stubborn desire to analyze technology slowly and properly.
-          </p>
-          <p class="mt-4">
-            That small habit of writing plain, useful <strong>analytical notes</strong> turned into a blog built not for clicks — but for clarity, honesty, and real-world usefulness.
-          </p>
-        </div>
+    <div class="my-16 flex flex-col items-center gap-10 md:flex-row">
+      <img
+        src="isamuel.jpg"
+        alt="Oke iSamuel — Founder & Technology Analyst at ReviByte Opinion"
+        class="h-56 w-56 rounded-full object-cover shadow-2xl ring-4 ring-blue-100 dark:ring-blue-900"
+        loading="lazy"
+      />
+      <div class="text-lg leading-relaxed">
+        <p>
+          ReviByte began as a practical experiment: observe, take notes, and explain. I had no professional studio, no PR contacts — just curiosity, a deep understanding of physics and electronics, and a stubborn desire to analyze technology slowly and properly.
+        </p>
+        <p class="mt-4">
+          That small habit of writing plain, useful <strong>analytical notes</strong> turned into a blog built not for clicks — but for clarity, honesty, and real-world usefulness.
+        </p>
       </div>
-
+    </div>
       <p>
         This page brings everything together — the origin, the analytical methods I use, what I publish, the values I hold dear, and how you can be part of this journey.
       </p>
