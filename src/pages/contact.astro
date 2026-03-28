@@ -1,13 +1,17 @@
 ---
 import Layout from "@/layouts/Layout.astro";
+import BackButton from "@/components/BackButton.astro";
 
 const title = 'Contact – ReviByte Technology Opinion';
 const description = 'Get in touch with Oke iSamuel – questions, tips, long-term reports, or just say hi.';
 ---
 
 <Layout title={title} description={description}>
+  <div style="max-width:56rem; margin: 1rem auto; padding: 0 1rem;">
+    <BackButton />
+  </div>
   <article class="prose prose-lg mx-auto max-w-4xl px-6 py-16 dark:prose-invert">
-    <h1>Contact Oke “iSamuel”</h1>
+    <h1>Contact Oke "iSamuel"</h1>
     
     <p class="lead text-xl text-gray-600 dark:text-gray-300">
       Have a question, device report, or just want to say hi?<br />
