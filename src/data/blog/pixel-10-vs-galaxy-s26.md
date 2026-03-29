@@ -1,7 +1,7 @@
 ---
 title: "Google Pixel 10 vs Samsung Galaxy S26: The 6.3-Inch Android Showdown Nobody Saw Coming"
 description: "Two compact Android flagships, both rocking a 6.3-inch screen — but the Google Pixel 10 and Samsung Galaxy S26 could not be more different. Here's my honest take after spending time with both."
-coverImage: "/assets/posts/pixel-10-vs-galaxy-s26/cover.jpg"
+coverImage: "/assets/posts/cover.jpg"
 coverImageAlt: "Google Pixel 10 and Samsung Galaxy S26 side by side"
 pubDatetime: 2026-03-29T10:00:00Z
 author: iSamuel
@@ -37,7 +37,7 @@ Both are IP68 rated, so rain, splashes, no stress.
 
 The S26 wins the thinness and lightness competition by a clear margin. The Pixel 10 wins the "feels like it was built to survive" competition. Depending on what you value, either answer is correct.
 
-![Google Pixel 10 design and camera bar](/assets/posts/pixel-10-vs-galaxy-s26/pixel-10-design.jpg)
+![Google Pixel 10 design and camera bar](/assets/posts/pixel-10-design.jpg)
 
 ---
 
@@ -65,7 +65,7 @@ Here's my real take: for the average person using this phone day to day — apps
 
 This also ties into a bigger trend worth understanding — [mid-range phones are genuinely killing flagships in 2026](/posts/why-mid-range-phones-are-killing--flagships-2026) precisely because the performance gap between price tiers keeps shrinking. The fact that we're debating *which top chip is better* rather than *whether the phone is fast enough* says a lot about where Android is right now.
 
-![Samsung Galaxy S26 chipset and performance](/assets/posts/pixel-10-vs-galaxy-s26/s26-performance.jpg)
+![Samsung Galaxy S26 chipset and performance](/assets/posts/s26-performance.jpg)
 
 ---
 
@@ -95,7 +95,7 @@ The Pixel 10 packs a **4,970mAh battery** — that's a 670mAh difference, which 
 
 Samsung's smaller battery and slower charging are real weaknesses on the S26 compared to what Google is offering.
 
-![Pixel 10 battery and charging comparison](/assets/posts/pixel-10-vs-galaxy-s26/battery-comparison.jpg)
+![Pixel 10 battery and charging comparison](/assets/posts/battery-comparison.jpg)
 
 ---
 
@@ -175,7 +175,7 @@ But the Galaxy S26 is the easier phone to recommend *in practice* for most peopl
 
 If I could only keep one? Right now, I'd go Pixel 10. The battery alone seals it for me — I'm tired of babying a phone before 6pm. But I wouldn't tell anyone who picks the S26 that they made a mistake. That's genuinely how close this is in the areas that matter most.
 
-![Pixel 10 vs Galaxy S26 final comparison](/assets/posts/pixel-10-vs-galaxy-s26/final-comparison.jpg)
+![Pixel 10 vs Galaxy S26 final comparison](/assets/posts/final-comparison.jpg)
 
 ---
 
