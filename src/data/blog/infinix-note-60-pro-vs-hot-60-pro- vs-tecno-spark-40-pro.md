@@ -11,7 +11,7 @@ tags:
   - technology
   - productivity
   - launch 
-coverImage: /assets/posts/infinix-note60-pro-vs-hot60-pro-vs-tecno-spark40-pro-nigeria-2026.jpg
+coverImage: "/assets/posts/infinix-note60-pro-vs-hot60-pro-vs-tecno-spark40-pro-nigeria-2026.jpg"
 coverImageAlt: "Infinix Note 60 Pro vs Infinix Hot 60 Pro vs Tecno Spark 40 Pro — best phone under 300k Nigeria 2026"
 ---
 
