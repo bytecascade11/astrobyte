@@ -18,6 +18,157 @@ coverImageAlt: "Infinix Note 60 Pro vs Infinix Hot 60 Pro vs Tecno Spark 40 Pro 
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Infinix Note 60 Pro vs Hot 60 Pro vs Tecno Spark 40 Pro — Which One Should You Buy Right Now?",
+  "description": "Looking for the best phone under ₦300,000 in Nigeria right now? I break down the Infinix Note 60 Pro, Hot 60 Pro, and Tecno Spark 40 Pro with real Nigerian pricing, honest specs, and a clear verdict.",
+  "author": {
+    "@type": "Person",
+    "name": "iSamuel",
+    "url": "https://www.revibyte.blog"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "ReviByte",
+    "url": "https://www.revibyte.blog",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://www.revibyte.blog/favicon.ico"
+    }
+  },
+  "datePublished": "2026-03-31",
+  "dateModified": "2026-03-31",
+  "image": "https://www.revibyte.blog/assets/posts/infinix-note60-pro-vs-hot60-pro-vs-tecno-spark40-pro-nigeria-2026.jpg",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://www.revibyte.blog/posts/infinix-note-60-pro-vs-hot-60-pro-vs-tecno-spark-40-pro"
+  }
+}
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  "name": "Infinix Note 60 Pro vs Hot 60 Pro vs Tecno Spark 40 Pro Comparison",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "item": {
+        "@type": "Product",
+        "name": "Infinix Note 60 Pro",
+        "description": "Snapdragon 7s Gen 4, 6.78-inch AMOLED 144Hz, 6500mAh battery with 90W charging, 50MP OIS camera, Android 16.",
+        "brand": { "@type": "Brand", "name": "Infinix" },
+        "image": "https://www.revibyte.blog/assets/posts/infinix-note60-pro-vs-hot60-pro-vs-tecno-spark40-pro-nigeria-2026.jpg",
+        "offers": {
+          "@type": "Offer",
+          "priceCurrency": "NGN",
+          "price": "260000",
+          "priceValidUntil": "2026-12-31",
+          "availability": "https://schema.org/InStock",
+          "url": "https://www.revibyte.blog/posts/infinix-note-60-pro-vs-hot-60-pro-vs-tecno-spark-40-pro"
+        },
+        "review": {
+          "@type": "Review",
+          "reviewRating": {
+            "@type": "Rating",
+            "ratingValue": "9.2",
+            "bestRating": "10",
+            "worstRating": "1"
+          },
+          "author": { "@type": "Person", "name": "iSamuel" },
+          "reviewBody": "The Infinix Note 60 Pro is the clear winner in this comparison. Snapdragon 7s Gen 4, massive 6500mAh battery with 90W fast charging, OIS camera, and Android 16 make it the best value mid-range phone for Nigerian buyers in 2026."
+        },
+        "aggregateRating": {
+          "@type": "AggregateRating",
+          "ratingValue": "9.2",
+          "reviewCount": "1",
+          "bestRating": "10",
+          "worstRating": "1"
+        }
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "item": {
+        "@type": "Product",
+        "name": "Infinix Hot 60 Pro",
+        "description": "MediaTek Helio G200, 6.78-inch AMOLED 144Hz 4500 nits, 5160mAh battery with 45W charging, 50MP camera, Android 15.",
+        "brand": { "@type": "Brand", "name": "Infinix" },
+        "image": "https://www.revibyte.blog/assets/posts/infinix-note60-pro-vs-hot60-pro-vs-tecno-spark40-pro-nigeria-2026.jpg",
+        "offers": {
+          "@type": "Offer",
+          "priceCurrency": "NGN",
+          "price": "223600",
+          "priceValidUntil": "2026-12-31",
+          "availability": "https://schema.org/InStock",
+          "url": "https://www.revibyte.blog/posts/infinix-note-60-pro-vs-hot-60-pro-vs-tecno-spark-40-pro"
+        },
+        "review": {
+          "@type": "Review",
+          "reviewRating": {
+            "@type": "Rating",
+            "ratingValue": "8.0",
+            "bestRating": "10",
+            "worstRating": "1"
+          },
+          "author": { "@type": "Person", "name": "iSamuel" },
+          "reviewBody": "The Infinix Hot 60 Pro has an excellent AMOLED display and a capable camera but falls behind the Note 60 Pro in chipset performance and battery capacity. Still a solid choice if the Note 60 Pro is out of stock."
+        },
+        "aggregateRating": {
+          "@type": "AggregateRating",
+          "ratingValue": "8.0",
+          "reviewCount": "1",
+          "bestRating": "10",
+          "worstRating": "1"
+        }
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "item": {
+        "@type": "Product",
+        "name": "Tecno Spark 40 Pro",
+        "description": "MediaTek Helio G100 Ultimate, 6.78-inch AMOLED 120Hz, 5200mAh battery with 45W charging, 50MP AI camera, Android 15.",
+        "brand": { "@type": "Brand", "name": "Tecno" },
+        "image": "https://www.revibyte.blog/assets/posts/infinix-note60-pro-vs-hot60-pro-vs-tecno-spark40-pro-nigeria-2026.jpg",
+        "offers": {
+          "@type": "Offer",
+          "priceCurrency": "NGN",
+          "price": "200000",
+          "priceValidUntil": "2026-12-31",
+          "availability": "https://schema.org/InStock",
+          "url": "https://www.revibyte.blog/posts/infinix-note-60-pro-vs-hot-60-pro-vs-tecno-spark-40-pro"
+        },
+        "review": {
+          "@type": "Review",
+          "reviewRating": {
+            "@type": "Rating",
+            "ratingValue": "7.5",
+            "bestRating": "10",
+            "worstRating": "1"
+          },
+          "author": { "@type": "Person", "name": "iSamuel" },
+          "reviewBody": "The Tecno Spark 40 Pro is practical value for everyday Nigerian users. Good AMOLED display, reliable battery, and Tecno's strong local after-sales support make it a safe budget choice — but not for power users or serious gamers."
+        },
+        "aggregateRating": {
+          "@type": "AggregateRating",
+          "ratingValue": "7.5",
+          "reviewCount": "1",
+          "bestRating": "10",
+          "worstRating": "1"
+        }
+      }
+    }
+  ]
+}
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
   "@type": "FAQPage",
   "mainEntity": [
     {
@@ -71,10 +222,6 @@ coverImageAlt: "Infinix Note 60 Pro vs Infinix Hot 60 Pro vs Tecno Spark 40 Pro 
   ]
 }
 </script>
-
-## Table of Contents 
-
-## Overview 
 
 If you are searching for the **best phone under ₦300,000 in Nigeria in 2026**, chances are one of these three names has already come up — the **Infinix Note 60 Pro**, the **Infinix Hot 60 Pro**, and the **Tecno Spark 40 Pro**. All three come from Transsion, all three target roughly the same Nigerian buyer, and all three will try to convince you they are the best value for your money.
 
