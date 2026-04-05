@@ -89,6 +89,24 @@ const { noMarginTop = false } = Astro.props;
           <a href="/sitemap">Sitemap</a>
         </nav>
 
+        <!-- Microsoft Store Badge -->
+        <div class="footer-store">
+          <a
+            href="https://apps.microsoft.com/detail/9P24DH9BH6SH"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Download ReviByte on Microsoft Store"
+            class="footer-store-badge"
+          >
+            <img
+              src="https://get.microsoft.com/images/en-us%20dark.svg"
+              alt="Get it from Microsoft"
+              width="160"
+              height="52"
+            />
+          </a>
+        </div>
+
         <!-- Copyright -->
         <div class="footer-copy">
           <span class="footer-copy-dot">◈</span>
@@ -344,6 +362,22 @@ const { noMarginTop = false } = Astro.props;
     opacity: 1;
     background: rgba(99, 102, 241, 0.08);
     color: #6366f1;
+  }
+
+  /* Microsoft Store Badge */
+  .footer-store {
+    display: flex;
+    justify-content: center;
+  }
+
+  .footer-store-badge {
+    display: inline-flex;
+    opacity: 0.85;
+    transition: opacity 0.2s;
+  }
+
+  .footer-store-badge:hover {
+    opacity: 1;
   }
 
   .footer-copy {
