@@ -1,7 +1,7 @@
 ---
 title: "How I Fixed Google Image Sitemap on My Astro Blog and Got Posts Indexed Faster"
 description: "I moved ReviByte from Blogger and WordPress to Astro in December and Google Lens kept sending people to my homepage. Here is exactly how I fixed it with a custom image sitemap."
-pubDatetime: 2025-04-05T09:00:00Z
+pubDatetime: 2026-04-05T09:00:00Z
 author: "iSamuel"
 tags: ["astro", "productivity", "opinions", "technology"]
 coverImage: "/assets/posts/astro-image-sitemap-fix.jpg"
