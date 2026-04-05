@@ -260,18 +260,29 @@ const currentPath = Astro.url.pathname;
 
     <slot name="head" />
 <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "SoftwareApplication",
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "ReviByte Opinions",
+  "operatingSystem": "Windows",
+  "applicationCategory": "NewsApplication",
+  "url": "https://microsoft.com",
+  "publisher": {
+    "@type": "Organization",
     "name": "ReviByte Opinions",
-    "operatingSystem": "Windows",
-    "applicationCategory": "NewsApplication",
-    "url": "https://microsoft.com",
-    "publisher": {
-      "@type": "Organization",
-      "name": "iSamuel"
-    }
+    "logo": "https://revibyte.blog"
+  },
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "5.0",
+    "ratingCount": "1"
+  },
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD"
   }
+}
 </script>
 
   </head>
