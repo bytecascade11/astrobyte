@@ -259,6 +259,21 @@ const currentPath = Astro.url.pathname;
     )}
 
     <slot name="head" />
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "ReviByte",
+    "operatingSystem": "Windows",
+    "applicationCategory": "NewsApplication",
+    "url": "https://microsoft.com",
+    "publisher": {
+      "@type": "Organization",
+      "name": "ReviByte Opinions"
+    }
+  }
+</script>
+
   </head>
 
   <body>
