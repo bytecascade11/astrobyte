@@ -11,7 +11,7 @@ tags:
   - android
   - productivity 
   - reviews
-coverImage: "/assets/posts/best-smartphones-under-200-2026/cover.jpg"
+coverImage: "/assets/posts/budget-smart-phones-cover.jpg"
 coverImageAlt: "Best smartphones under $200 in 2026 lineup flat lay"
 ---
 
@@ -46,7 +46,7 @@ With that framing, here's what's worth buying.
 
 ## 1. Samsung Galaxy A16 5G — The Safest Bet at $150–$170
 
-![Samsung Galaxy A16 5G front and back view on a desk](/assets/posts/best-smartphones-under-200-2026/samsung-galaxy-a16-5g.jpg)
+![Samsung Galaxy A16 5G front and back view on a desk](/assets/posts/samsung-galaxy-a16-5g.jpg)
 
 If you want one answer and zero stress, this is it. The Samsung Galaxy A16 5G is sitting at around $148–$170 depending on where you buy it, and for that price you're getting a 6.7-inch Super AMOLED display with a 90Hz refresh rate, a 50MP triple camera, 5,000mAh battery with 25W fast charging, IP54 water and dust resistance, and NFC.
 
@@ -72,7 +72,7 @@ But for someone who just needs a reliable daily driver that won't feel outdated 
 
 ## 2. Motorola Moto G (2026) — Best Battery Life Under $200. Period.
 
-![Motorola Moto G 2026 in vegan leather finish on a table](/assets/posts/best-smartphones-under-200-2026/motorola-moto-g-2026.jpg)
+![Motorola Moto G 2026 in vegan leather finish on a table](/assets/posts/motorola-moto-g-2026.jpg)
 
 [Tom's Guide](https://www.tomsguide.com/phones/motorola-phones/moto-g-2026-review-the-best-phone-for-less-than-usd200) ran their standard battery drain test on Motorola's Moto G (2026) — surfing the web over cellular until it dies — and it lasted 19 hours and 11 minutes. That's the longest result they've recorded for any budget phone they've ever tested. To be blunt: that number is ridiculous for a $199 phone.
 
@@ -98,7 +98,7 @@ Where the Moto G wins: if you're buying this as a secondary phone, a phone for a
 
 ## 3. Tecno Camon 50 Pro — The Wildcard Pick for Emerging Markets
 
-![Tecno Camon 50 Pro with curved display showing camera setup](/assets/posts/best-smartphones-under-200-2026/tecno-camon-50-pro.jpg)
+![Tecno Camon 50 Pro with curved display showing camera setup](/assets/posts/tecno-camon-50-pro.jpg)
 
 If you're in Africa, Southeast Asia, or any market where Tecno is properly distributed, the Tecno Camon 50 Pro deserves your full attention. I've written about Tecno before on ReviByte — including [hidden features on the Camon 30 Pro](/posts/tecno-camon-30-pro-hidden-features) — and the brand keeps overdelivering on hardware relative to price in ways that Western publications still don't fully acknowledge.
 
@@ -195,7 +195,7 @@ If you need a phone now and your budget is genuinely under $200 — buy the best
 
 ---
 
-![Budget smartphone under $200 2026 camera comparison samples](/assets/posts/best-smartphones-under-200-2026/camera-samples-comparison.jpg)
+![Budget smartphone under $200 2026 camera comparison samples](/assets/posts/camera-samples-comparison.jpg)
 
 The $200 bracket in 2026 has matured to a point where buying a phone in this range is no longer a sacrifice — it's a deliberate choice. And for a large percentage of people, it's the right one. You're not getting a flagship, but you're getting something that'll handle your life without drama, and in some cases, for years longer than you might expect.
 
