@@ -1,7 +1,7 @@
 ---
 title: "Are These Phones Still Worth Buying in 2026?"
 description: "Tecno Spark 20 Pro, Samsung Galaxy A05, A14, and A15 — honest verdicts on whether these budget phones are still a smart buy in 2026, or just a trap for your money."
-pubDatetime: 2026-04-08
+pubDatetime: 2026-04-08T12:00:00Z
 author: iSamuel
 tags:
   - samsung
