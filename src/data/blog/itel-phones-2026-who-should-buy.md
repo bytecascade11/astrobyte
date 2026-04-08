@@ -8,7 +8,7 @@ tags:
   - opinions 
   - technology 
   - android 
-coverImage: "/assets/posts/itel-phones-2026/itel-phones-2026-cover.jpg"
+coverImage: "/assets/posts/itel-phones-2026-cover.jpg"
 coverImageAlt: "itel phones lineup displayed on a flat surface in 2026"
 ---
 
@@ -43,7 +43,7 @@ itel sits at the very bottom of the Transsion ladder — below Tecno, below Infi
 
 itel phones in 2026 are built with a very specific user in mind — and that's not a weakness, it's a design decision. The lineup still revolves around the A-series and P-series — entry-level Android Go devices with modest processors, 2GB to 4GB RAM, and batteries that honestly punch above their weight class. Nothing has dramatically shifted from last year in terms of design philosophy. What has changed is that the competition around them has gotten sharper.
 
-![itel A70 on a wooden desk showing the front screen and camera design](/assets/posts/itel-phones-2026/itel-a70-design.jpg)
+![itel A70 on a wooden desk showing the front screen and camera design](/assets/posts/itel-a70-design.jpg)
 
 ---
 
@@ -82,7 +82,7 @@ The gap between itel and Infinix Smart 9 in real-world usage is noticeable. If y
 
 But if itel's price is all you can work with right now, it still gets the job done for basic daily needs. And this is also why, when you compare them to slightly higher-tier devices like those in my [flagship comparison breakdown](https://www.revibyte.blog/posts/pixel-10-vs-galaxy-s26), the gap feels massive — because it genuinely is.
 
-![Budget smartphone comparison laid out on a table showing itel, Tecno, and Infinix entry-level models](/assets/posts/itel-phones-2026/budget-phone-comparison-2026.jpg)
+![Budget smartphone comparison laid out on a table showing itel, Tecno, and Infinix entry-level models](/assets/posts/budget-phone-comparison-2026.jpg)
 
 ---
 
@@ -100,7 +100,7 @@ Here's where I'm going to be straight with you, because I think some people talk
 
 **People comparing itel to flagships.** This sounds obvious but I've seen it happen. Comparing an itel to a Pixel 10 or Galaxy S26 — like I did in my [Pixel 10 vs Galaxy S26 breakdown](https://www.revibyte.blog/posts/pixel-10-vs-galaxy-s26) — is genuinely pointless. They operate in completely different universes. The comparison that makes sense is itel vs Tecno vs Infinix at similar prices, like I looked at in my [Infinix Note 60 Pro vs Hot 60 Pro vs Tecno Spark 40 Pro comparison](https://www.revibyte.blog/posts/infinix-note-60-pro-vs-hot-60-pro--vs-tecno-spark-40-pro). That's where the real decision-making happens.
 
-![Person looking frustrated at a slow loading screen on a budget phone](/assets/posts/itel-phones-2026/budget-phone-limitations.jpg)
+![Person looking frustrated at a slow loading screen on a budget phone](/assets/posts/budget-phone-limitations.jpg)
 
 ---
 
@@ -135,7 +135,7 @@ If your needs match what itel offers — great. Buy it, use it, don't overthink 
 
 ---
 
-![itel 2026 phone lineup arranged in a product-style display](/assets/posts/itel-phones-2026/itel-2026-lineup.jpg)
+![itel 2026 phone lineup arranged in a product-style display](/assets/posts/itel-2026-lineup.jpg)
 
 ---
 
