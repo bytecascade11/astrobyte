@@ -1,7 +1,7 @@
 ---
 title: "How to Make Any Android Phone Feel Fast Again (2026 Guide)"
 description: "Your Android phone doesn't have to feel slow. Here's how I personally speed up any Android device in 2026 — no factory reset, no gimmicks, just what actually works."
-coverImage: "/assets/posts/how-to-make-android-feel-fast-again.jpg"
+coverImage: "/assets/posts/how-to-make-android-feel-fast.jpg"
 coverImageAlt: "Android phone screen showing clean, fast performance settings"
 author: "iSamuel"
 pubDatetime: 2026-04-09T08:00:00Z
