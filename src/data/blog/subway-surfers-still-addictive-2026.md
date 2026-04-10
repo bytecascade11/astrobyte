@@ -3,7 +3,6 @@ title: "Subway Surfers Is Still Addictive in 2026 — And That's the Problem"
 description: "Subway Surfers has been on our phones for over a decade. I downloaded it again last week and lost two hours I'll never get back. Here's why this game is a masterclass in addictive design — and why that should concern you."
 coverImage: "/assets/posts/subway-surfers-addictive-2026-cover.jpg"
 coverImageAlt: "Subway Surfers gameplay screenshot showing Jake running on colorful train tracks in 2026"
-ogImage: "/assets/posts/subway-surfers-addictive-2026-cover.jpg"
 pubDatetime: 2026-04-10T08:00:00Z
 author: "iSamuel"
 tags:
