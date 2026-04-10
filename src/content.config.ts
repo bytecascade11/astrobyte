@@ -4,6 +4,7 @@ import { glob } from "astro/loaders";
 
 import { SITE } from "@/config";
 
+// Recommended: keep this constant for easier maintenance
 export const BLOG_PATH = "src/data/blog";
 
 const blog = defineCollection({
@@ -39,8 +40,8 @@ const blog = defineCollection({
       // Custom slug
       slug: z.string().optional(),
 
-      // Cover / Featured image  ← Updated here
-      coverImage: image().optional(),        // ← Now uses image() helper
+      // Cover / Featured image
+      coverImage: z.string().optional(),
       coverImageAlt: z.string().optional(),
 
       // UI/Behavior controls
