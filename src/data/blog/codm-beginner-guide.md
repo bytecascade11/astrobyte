@@ -1,7 +1,7 @@
 ---
 title: "Beginner's Guide to Call of Duty: Mobile: Settings, Sensitivity & Best Loadouts"
 description: "I kept losing gunfights in COD Mobile until I fixed my settings. This beginner's guide breaks down what actually works — sensitivity, layout, and loadouts that improve real gameplay."
-pubDatetime: "2026-04-10T08:00:00Z"
+pubDatetime: "2026-04-10T11:51:00Z"
 coverImage: "/assets/posts/codm-cover.jpg"
 coverImageAlt: "COD Mobile beginner guide cover — settings, sensitivity and loadouts"
 author: iSamuel 
