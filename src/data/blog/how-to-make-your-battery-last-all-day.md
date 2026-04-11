@@ -4,7 +4,7 @@ description: "Tired of your phone dying before 3 PM? These are the real battery 
 coverImage: "/assets/posts/how-to-make-your-battery-last-all-day-cover.jpg"
 coverImageAlt: "Smartphone charging on a desk with low battery warning on screen"
 author: "iSamuel"
-pubDatetime: 2026-04-11T08:00:00Z
+pubDatetime: 2026-04-11T17:00:00Z
 tags: ["android", "smartphones", "opinions"]
 ---
 
