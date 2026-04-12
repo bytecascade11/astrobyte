@@ -1,7 +1,7 @@
 ---
 title: "Infinix Note 60 Pro vs Hot 60 Pro vs Tecno Spark 40 Pro — Which One Should You Buy Right Now?"
 description: "Looking for the best phone under ₦300,000 in Nigeria right now? I break down the Infinix Note 60 Pro, Hot 60 Pro, and Tecno Spark 40 Pro with real Nigerian pricing, honest specs, and a clear verdict."
-pubDatetime: 2026-03-31T09:00:00Z
+pubDatetime: 2026-04-31T10:29:00Z
 author: iSamuel
 tags:
   - infinix
