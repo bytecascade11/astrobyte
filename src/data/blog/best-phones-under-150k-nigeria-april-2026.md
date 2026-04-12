@@ -67,7 +67,19 @@ My one flag with POCO: Xiaomi's after-sales service infrastructure in Nigeria is
 **Verified specs (Mobility Nigeria, official Jumia listing):** MediaTek Helio G81 Ultra, 6.9" IPS LCD 120Hz, 6,000mAh, 33W charging (~60–70 min full charge estimate), 6GB/128GB RAM/storage, eMMC storage
 
 **Where to buy:** Jumia, Slot, Computer Village dealers — from ₦142,000 new
-
+> **Before you decide which phone to buy, these will help you make a smarter choice:**
+>
+> 👉 Not sure if a new budget phone is better than an older flagship?  
+> [Read this breakdown](/posts/are-these-phones-still-worth-buying-in-2026)
+>
+> 👉 Thinking of going cheaper? Here’s who should actually buy itel phones in 2026:  
+> [See who should buy itel phones](/posts/itel-phones-2026-who-should-buy)
+>
+> 👉 Already using a budget phone and it feels slow? Try this before upgrading:  
+> [Make your Android feel fast again](/posts/how-to-make-android-feel-fast-again)
+>
+> 👉 Considering stretching your budget? Read this before buying the Redmi Note 14:  
+> [The Redmi Note 14 illusion explained](/posts/redmi-note-14-illusion)
 ---
 
 ## 3. Tecno Spark 40 — ₦142,700 (4GB/128GB)
