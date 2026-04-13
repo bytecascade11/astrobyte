@@ -307,4 +307,4 @@ Gunfights feel slower. Decisions feel clearer. You stop panicking mid-fight beca
 
 That's when you stop reacting.
 
-And start playing on purpose.
+And start playing on purpose. ..... part 3 👉 [Call of Duty Mobile Gunfight guide](https://www.revibyte.blog/posts/codm-gunfight-guide/)
