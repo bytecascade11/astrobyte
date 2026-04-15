@@ -7,6 +7,7 @@ import LinkButton from "@/components/LinkButton.astro";
 import Hr from "@/components/Hr.astro";
 import IconArrowRight from "@/assets/icons/IconArrowRight.svg";
 import { SITE } from "@/config";
+import MilestoneBadge from "@/components/MilestoneBadge.astro";
 
 const posts = await getCollection("blog");
 
@@ -175,7 +176,7 @@ function formatDate(date: Date) {
 
   <Footer />
 </Layout>
-
+<MilestoneBadge link="/posts/revibyte-121-days-later/" />
 <style>
   .rb-top-grid {
     display: grid;
