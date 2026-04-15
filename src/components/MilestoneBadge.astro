@@ -1,7 +1,12 @@
 ---
 // MilestoneBadge.astro
 // Floating 121 Days Milestone Badge for ReviByte
-// Place this component inside your 121 days post's .md or in PostDetails.astro conditionally
+// Usage: <MilestoneBadge /> or <MilestoneBadge link="/posts/revibyte-121-days-later/" />
+
+interface Props {
+  link?: string;
+}
+const { link = "/posts/revibyte-121-days-later/" } = Astro.props;
 ---
 
 <div class="milestone-wrap" id="milestoneBadge">
@@ -17,7 +22,7 @@
       <div class="badge-label">DAYS</div>
       <div class="badge-sub">of ReviByte</div>
       <div class="badge-dates">Dec 15, 2025 → Apr 15, 2026</div>
-      <a href="/posts/first-post-revibyte-live/" class="badge-link">See where it started →</a>
+      <a href={link} class="badge-link">Read the story →</a>
     </div>
 
     <!-- Animated ring -->
@@ -238,21 +243,28 @@
 </style>
 
 <script>
-  // Close badge
   const badge = document.getElementById('milestoneBadge');
   const closeBtn = document.getElementById('closeBadge');
 
+  // Auto-remove after 1 month (May 15, 2026)
+  const expiry = new Date('2026-05-15').getTime();
+  if (Date.now() > expiry) {
+    badge?.remove();
+  }
+
+  // Hide if closed within the last 24 hours
+  const closedAt = localStorage.getItem('milestone121ClosedAt');
+  const oneDay = 24 * 60 * 60 * 1000;
+  if (closedAt && Date.now() - parseInt(closedAt) < oneDay) {
+    badge?.remove();
+  }
+
+  // Close button — saves timestamp, reappears next day
   closeBtn?.addEventListener('click', () => {
     badge?.classList.add('hidden');
     setTimeout(() => badge?.remove(), 400);
-    // Remember dismissal in session
-    sessionStorage.setItem('milestone121Closed', 'true');
+    localStorage.setItem('milestone121ClosedAt', Date.now().toString());
   });
-
-  // Don't show again if already closed this session
-  if (sessionStorage.getItem('milestone121Closed') === 'true') {
-    badge?.remove();
-  }
 
   // Confetti burst on load
   const container = document.getElementById('confettiContainer');
@@ -280,6 +292,5 @@
     }
   }
 
-  // Launch confetti after badge appears
   setTimeout(launchConfetti, 800);
 </script>
