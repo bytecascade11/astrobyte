@@ -16,6 +16,11 @@ import SchemaMarkup from "@/components/SchemaMarkup.astro";
 import { getPath } from "@/utils/getPath";
 import { slugifyStr } from "@/utils/slugify";
 import { SITE } from "@/config";
+import MilestoneBadge from "./MilestoneBadge.astro";
+const isMilestonePost = post.slug === "revibyte-121-days-later";
+
+
+{isMilestonePost && <MilestoneBadge />}
 
 type Props = {
   post: CollectionEntry<"blog">;
