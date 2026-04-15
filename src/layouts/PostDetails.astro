@@ -16,11 +16,6 @@ import SchemaMarkup from "@/components/SchemaMarkup.astro";
 import { getPath } from "@/utils/getPath";
 import { slugifyStr } from "@/utils/slugify";
 import { SITE } from "@/config";
-import MilestoneBadge from "./MilestoneBadge.astro";
-const isMilestonePost = post.slug === "revibyte-121-days-later";
-
-
-{isMilestonePost && <MilestoneBadge />}
 
 type Props = {
   post: CollectionEntry<"blog">;
@@ -184,17 +179,19 @@ const postSlug = post.id;
         <BackButton />
       </div>
 
-      {coverImageAbsoluteSrc && (
-        <img
-          src={coverImageAbsoluteSrc}
-          alt={coverImageAlt || title}
-          class="post-cover-image"
-          loading="eager"
-          fetchpriority="high"
-          width="1200"
-          height="630"
-        />
-      )}
+     {coverImageAbsoluteSrc && (
+  <img
+    src={coverImageAbsoluteSrc}
+    alt={coverImageAlt || title}
+    class="post-cover-image"
+    loading="eager"
+    fetchpriority="high"
+    width="1200"
+    height="630"
+  />
+)}
+
+{post.id === "revibyte-121-days-later" && <MilestoneBadge />}
 
       <!-- Post header: title, date, views + Share right here -->
       <div class="post-header">
