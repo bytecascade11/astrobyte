@@ -116,8 +116,6 @@ html[data-theme="light"] body::after {
 /* ========================= */
 /* FIX: CONTENT ABOVE BLOBS  */
 /* ========================= */
-/* Ensures header, main, footer and sections always sit
-   above the body::before and body::after background layers */
 header, main, footer, section {
   position: relative;
   z-index: 1;
@@ -215,17 +213,58 @@ section, footer, main {
     padding-bottom: 0 !important;
   }
 }
+
 /* ========================= */
-/* PROSE PAGES BACKGROUND    */
+/* DARK MODE TEXT FIX        */
 /* ========================= */
-article.prose {
-  background: rgba(255, 255, 255, 0.75);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border-radius: 20px;
-  padding: 2rem;
+
+/* Article card text */
+[data-theme="dark"] .article-card {
+  color: var(--foreground);
 }
 
-[data-theme="dark"] article.prose {
-  background: rgba(15, 23, 42, 0.75);
+[data-theme="dark"] .article-card p,
+[data-theme="dark"] .article-card h1,
+[data-theme="dark"] .article-card h2,
+[data-theme="dark"] .article-card h3,
+[data-theme="dark"] .article-card h4,
+[data-theme="dark"] .article-card li,
+[data-theme="dark"] .article-card strong,
+[data-theme="dark"] .article-card blockquote,
+[data-theme="dark"] .article-card span,
+[data-theme="dark"] .article-card td,
+[data-theme="dark"] .article-card th {
+  color: var(--foreground);
 }
+
+[data-theme="dark"] .article-card a {
+  color: var(--accent);
+}
+
+[data-theme="dark"] .article-card code {
+  background: var(--background-light);
+  color: var(--foreground);
+}
+
+[data-theme="dark"] .article-card h3 {
+  color: #818cf8;
+}
+
+/* Author card text */
+[data-theme="dark"] .author-card {
+  color: var(--foreground);
+}
+
+[data-theme="dark"] .author-name,
+[data-theme="dark"] .author-bio {
+  color: var(--foreground);
+}
+
+[data-theme="dark"] .author-link {
+  color: var(--accent);
+}
+
+/* Prev/Next text */
+[data-theme="dark"] .prevnext-title {
+  color: var(--foreground);
+    }
