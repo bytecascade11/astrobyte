@@ -119,47 +119,73 @@ function formatDate(date: Date) {
 
     <Hr class="my-10" />
 
+    <!-- ── AD SPOT 1: Between Hero and More Posts ── -->
+    <div class="rb-ad-banner">
+      <ins class="adsbygoogle"
+        style="display:block"
+        data-ad-client="ca-pub-4896561037705299"
+        data-ad-slot="6421475366"
+        data-ad-format="auto"
+        data-full-width-responsive="true"></ins>
+      <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+    </div>
+
     {listPosts.length > 0 && (
       <section class="rb-list-section">
         <h2 class="rb-section-heading">More Posts</h2>
         <div class="rb-list">
-          {listPosts.map(post => (
-            <article class="rb-list-card">
-              <a href={`/posts/${post.id}`} class="rb-list-card__img-wrap">
-                {post.data.coverImage && (
-                  <img
-                    src={post.data.coverImage}
-                    alt={post.data.coverImageAlt ?? post.data.title}
-                    class="rb-list-card__img"
-                    loading="lazy"
-                    decoding="async"
-                    width="200"
-                    height="130"
-                    sizes="(max-width: 640px) 120px, 165px"
-                  />
-                )}
-              </a>
-              <div class="rb-list-card__body">
-                {post.data.tags && post.data.tags.length > 0 && (
-                  <div class="rb-tags rb-tags--sm mb-2">
-                    {post.data.tags.slice(0, 2).map(tag => (
-                      <a href={`/tags/${tag}/`} class="rb-tag">{tag}</a>
-                    ))}
+          {listPosts.map((post, index) => (
+            <>
+              <article class="rb-list-card">
+                <a href={`/posts/${post.id}`} class="rb-list-card__img-wrap">
+                  {post.data.coverImage && (
+                    <img
+                      src={post.data.coverImage}
+                      alt={post.data.coverImageAlt ?? post.data.title}
+                      class="rb-list-card__img"
+                      loading="lazy"
+                      decoding="async"
+                      width="200"
+                      height="130"
+                      sizes="(max-width: 640px) 120px, 165px"
+                    />
+                  )}
+                </a>
+                <div class="rb-list-card__body">
+                  {post.data.tags && post.data.tags.length > 0 && (
+                    <div class="rb-tags rb-tags--sm mb-2">
+                      {post.data.tags.slice(0, 2).map(tag => (
+                        <a href={`/tags/${tag}/`} class="rb-tag">{tag}</a>
+                      ))}
+                    </div>
+                  )}
+                  <h3 class="rb-list-card__title">
+                    <a href={`/posts/${post.id}`}>{post.data.title}</a>
+                  </h3>
+                  {post.data.description && (
+                    <p class="rb-list-card__desc">{post.data.description}</p>
+                  )}
+                  <div class="rb-list-card__meta">
+                    <span class="rb-byline">By {post.data.author ?? SITE.author}</span>
+                    <span class="rb-dot">·</span>
+                    <time>{formatDate(post.data.pubDatetime)}</time>
                   </div>
-                )}
-                <h3 class="rb-list-card__title">
-                  <a href={`/posts/${post.id}`}>{post.data.title}</a>
-                </h3>
-                {post.data.description && (
-                  <p class="rb-list-card__desc">{post.data.description}</p>
-                )}
-                <div class="rb-list-card__meta">
-                  <span class="rb-byline">By {post.data.author ?? SITE.author}</span>
-                  <span class="rb-dot">·</span>
-                  <time>{formatDate(post.data.pubDatetime)}</time>
                 </div>
-              </div>
-            </article>
+              </article>
+
+              {/* AD SPOT 2: After the 4th list card */}
+              {index === 3 && (
+                <div class="rb-ad-in-list">
+                  <ins class="adsbygoogle"
+                    style="display:block"
+                    data-ad-client="ca-pub-4896561037705299"
+                    data-ad-slot="6421475366"
+                    data-ad-format="auto"
+                    data-full-width-responsive="true"></ins>
+                  <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+                </div>
+              )}
+            </>
           ))}
         </div>
       </section>
@@ -170,6 +196,17 @@ function formatDate(date: Date) {
         View All Posts
         <IconArrowRight class="inline-block ml-2 w-5 h-5" />
       </LinkButton>
+    </div>
+
+    <!-- ── AD SPOT 3: Below View All Posts button ── -->
+    <div class="rb-ad-banner rb-ad-banner--bottom">
+      <ins class="adsbygoogle"
+        style="display:block"
+        data-ad-client="ca-pub-4896561037705299"
+        data-ad-slot="6421475366"
+        data-ad-format="auto"
+        data-full-width-responsive="true"></ins>
+      <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
     </div>
 
   </main>
@@ -497,5 +534,23 @@ function formatDate(date: Date) {
   .rb-cta-wrap {
     text-align: center;
     margin-top: 2.5rem;
+  }
+
+  /* ── AdSense Units ── */
+  .rb-ad-banner {
+    margin: 1.5rem 0;
+    text-align: center;
+    min-height: 90px;
+  }
+
+  .rb-ad-banner--bottom {
+    margin-top: 2.5rem;
+  }
+
+  .rb-ad-in-list {
+    padding: 1rem 0;
+    border-bottom: 1px solid var(--color-border);
+    text-align: center;
+    min-height: 90px;
   }
 </style>
