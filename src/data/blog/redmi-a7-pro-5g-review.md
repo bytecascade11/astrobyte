@@ -64,9 +64,6 @@ The 120Hz refresh rate does make scrolling feel smooth, and 800 nits peak bright
 
 For binge-watching and social media? It's fine. For reading small text or detailed images? You'll notice the trade-off.
 
-![Redmi A7 Pro 5G 6.9-inch 120Hz display close-up showing HD+ resolution](/assets/posts/redmi-a7-pro-5g-display.jpg)
-*Image: The 6.9″ 120Hz panel. Smooth at 120Hz, but 720p shows at this screen size. Source: Xiaomi*
-
 ---
 
 ## Performance
@@ -94,9 +91,6 @@ Night mode is present and functional. "AI Sky" adjusts colors and brightness aut
 The 8MP selfie camera is adequate for video calls and casual selfies. AI Beauty mode is on by default, which will frustrate people who want natural shots — turn it off in settings.
 
 What I won't do is pretend this trades blows with a midrange camera system. It doesn't. Manage expectations and you'll be pleasantly surprised; expect flagship output and you won't be.
-
-![Redmi A7 Pro 5G 32MP camera sample daylight shot](/assets/posts/redmi-a7-pro-5g-camera-sample.jpg)
-*Image: 32MP daylight shot from the Redmi A7 Pro 5G. AI processing handles color well. Source: Xiaomi*
 
 ---
 
