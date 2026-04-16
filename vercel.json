@@ -3,7 +3,7 @@
   "cleanUrls": false,
   "redirects": [
     {
-      "source": "/(.*[^/])",
+      "source": "/((?!robots\\.txt|sitemap)[^/]*[^/])",
       "destination": "/$1/",
       "permanent": true
     }
