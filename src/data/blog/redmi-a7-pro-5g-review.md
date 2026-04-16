@@ -3,7 +3,7 @@ title: "Redmi A7 Pro 5G Review: Worth It in 2026? (2-Day Battery, But 720p Trade
 description: "Redmi A7 Pro 5G review — 6,300mAh battery, Unisoc T8300 5G chip, 32MP camera, Android 16, and six years of updates for $125. But is 4GB RAM and a 720p screen a dealbreaker in 2026? Full breakdown."
 pubDatetime: 2026-04-16T09:00:00Z
 author: "iSamuel"
-tags: ["redmi", "budget phones", "android", "xiaomi", "5g phones"]
+tags: ["redmi", "android", "xiaomi", "opinions", "reviews"]
 coverImage: "/assets/posts/redmi-a7-pro-5g-design.jpg"
 coverImageAlt: "Redmi A7 Pro 5G front and back design in Mist Blue colorway"
 featured: false
