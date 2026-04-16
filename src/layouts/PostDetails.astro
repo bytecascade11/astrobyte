@@ -42,14 +42,12 @@ const { Content } = await render(post);
 
 const postPath = getPath(post.id, post.filePath);
 
-// ── Ensure website base always has a trailing slash for safe URL joining ──
 const websiteBase = SITE.website.endsWith("/")
   ? SITE.website
   : `${SITE.website}/`;
 
 const postUrl = new URL(postPath.startsWith("/") ? postPath.slice(1) : postPath, websiteBase).toString();
 
-// ── Resolve ogImage to a full absolute URL ──
 let ogImageUrl: string | undefined;
 
 if (coverImage && typeof coverImage === "string" && coverImage.trim() !== "") {
@@ -66,7 +64,6 @@ if (coverImage && typeof coverImage === "string" && coverImage.trim() !== "") {
 
 const ogImage = ogImageUrl ?? undefined;
 
-// ── Absolute cover image src for the <img> tag ──
 const coverImageAbsoluteSrc = coverImage
   ? new URL(
       (coverImage as string).startsWith("/")
@@ -97,7 +94,6 @@ const currentIndex = allPosts.findIndex((p) => p.id === post.id);
 const prevPost = currentIndex > 0 ? allPosts[currentIndex - 1] : null;
 const nextPost = currentIndex < allPosts.length - 1 ? allPosts[currentIndex + 1] : null;
 
-// ── Schema: BlogPosting with primaryImageOfPage for Google Images ──
 const blogPostingSchema = {
   "@context": "https://schema.org",
   "@type": "BlogPosting",
@@ -145,7 +141,6 @@ const postSlug = post.id;
     set:html={JSON.stringify(blogPostingSchema)}
   />
 
-  <!-- ── BreadcrumbList schema for GSC Enhancements ── -->
   <SchemaMarkup
     type="breadcrumb"
     breadcrumbs={[
@@ -165,10 +160,8 @@ const postSlug = post.id;
     ]}
   >
 
-    <!-- ── Article Glass Card ── -->
     <div class="article-card">
 
-      <!-- Breadcrumbs + Back Button INSIDE the card so they share the white bg -->
       <div class="card-top-nav">
         <Breadcrumbs
           items={[
@@ -180,21 +173,20 @@ const postSlug = post.id;
         <BackButton />
       </div>
 
-     {coverImageAbsoluteSrc && (
-  <img
-    src={coverImageAbsoluteSrc}
-    alt={coverImageAlt || title}
-    class="post-cover-image"
-    loading="eager"
-    fetchpriority="high"
-    width="1200"
-    height="630"
-  />
-)}
+      {coverImageAbsoluteSrc && (
+        <img
+          src={coverImageAbsoluteSrc}
+          alt={coverImageAlt || title}
+          class="post-cover-image"
+          loading="eager"
+          fetchpriority="high"
+          width="1200"
+          height="630"
+        />
+      )}
 
-{post.id === "revibyte-121-days-later" && <MilestoneBadge />}
+      {post.id === "revibyte-121-days-later" && <MilestoneBadge />}
 
-      <!-- Post header: title, date, views + Share right here -->
       <div class="post-header">
         <h1
           transition:name={slugifyStr(title.replaceAll(".", "-"))}
@@ -222,7 +214,6 @@ const postSlug = post.id;
 
       <hr class="article-hr" />
 
-      <!-- Tags -->
       {tags.length > 0 && (
         <ul class="mb-6 flex flex-wrap gap-3">
           {tags.map((tag) => (
@@ -234,9 +225,7 @@ const postSlug = post.id;
       <BackToTopButton />
 
     </div>
-    <!-- ── End Article Glass Card ── -->
 
-    <!-- About Author -->
     <div class="author-card">
       <div class="author-avatar">
         {(SITE.author || "iSamuel").charAt(0).toUpperCase()}
@@ -255,7 +244,6 @@ const postSlug = post.id;
       </div>
     </div>
 
-    <!-- Prev / Next -->
     {(prevPost || nextPost) && (
       <nav class="prevnext-nav">
         {prevPost && (
@@ -297,17 +285,19 @@ const postSlug = post.id;
       0 1px 0 rgba(255,255,255,0.8) inset;
     margin-bottom: 1.5rem;
     overflow: hidden;
+    color: var(--foreground);
   }
 
-  [data-theme="dark"] .article-card {
+  :global([data-theme="dark"]) .article-card {
     background: rgba(15, 23, 42, 0.75);
     border-color: rgba(99, 102, 241, 0.18);
     box-shadow:
       0 4px 32px rgba(0, 0, 0, 0.3),
       0 1px 0 rgba(255,255,255,0.04) inset;
+    color: var(--foreground);
   }
 
-  /* ── Top nav (breadcrumbs + back button) inside card ── */
+  /* ── Top nav ── */
   .card-top-nav {
     display: flex;
     align-items: center;
@@ -324,7 +314,7 @@ const postSlug = post.id;
     }
   }
 
-  /* ── Cover image flush inside card ── */
+  /* ── Cover image ── */
   .post-cover-image {
     width: 100%;
     object-fit: cover;
@@ -338,7 +328,7 @@ const postSlug = post.id;
     }
   }
 
-  /* ── Post header section ── */
+  /* ── Post header ── */
   .post-header {
     padding: 2rem 2.5rem 0;
   }
@@ -442,12 +432,14 @@ const postSlug = post.id;
     padding: 1.5rem;
     margin-bottom: 1.5rem;
     box-shadow: 0 2px 16px rgba(0,0,0,0.05);
+    color: var(--foreground);
   }
 
-  [data-theme="dark"] .author-card {
+  :global([data-theme="dark"]) .author-card {
     background: rgba(15, 23, 42, 0.65);
     border-color: rgba(99, 102, 241, 0.18);
     box-shadow: 0 2px 16px rgba(0,0,0,0.2);
+    color: var(--foreground);
   }
 
   .author-avatar {
@@ -473,6 +465,7 @@ const postSlug = post.id;
     font-weight: 700;
     font-size: 1rem;
     margin-bottom: 0.35rem;
+    color: var(--foreground);
   }
 
   .author-bio {
@@ -480,6 +473,7 @@ const postSlug = post.id;
     line-height: 1.65;
     opacity: 0.7;
     margin-bottom: 0.75rem;
+    color: var(--foreground);
   }
 
   .author-link {
@@ -488,6 +482,10 @@ const postSlug = post.id;
     color: #6366f1;
     text-decoration: none;
     transition: opacity 0.2s;
+  }
+
+  :global([data-theme="dark"]) .author-link {
+    color: var(--accent);
   }
 
   .author-link:hover {
@@ -519,11 +517,13 @@ const postSlug = post.id;
     border-radius: 12px;
     text-decoration: none;
     transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s;
+    color: var(--foreground);
   }
 
-  [data-theme="dark"] .prevnext-btn {
+  :global([data-theme="dark"]) .prevnext-btn {
     background: rgba(15,23,42,0.6);
     border-color: rgba(99,102,241,0.18);
+    color: var(--foreground);
   }
 
   .prevnext-btn:hover {
@@ -549,6 +549,7 @@ const postSlug = post.id;
     font-weight: 600;
     line-height: 1.4;
     opacity: 0.85;
+    color: var(--foreground);
   }
 </style>
 
