@@ -1,13 +1,6 @@
 {
   "trailingSlash": true,
   "cleanUrls": false,
-  "redirects": [
-    {
-      "source": "/((?!robots\\.txt|sitemap)[^/]*[^/])",
-      "destination": "/$1/",
-      "permanent": true
-    }
-  ],
   "headers": [
     {
       "source": "/(.*)",
