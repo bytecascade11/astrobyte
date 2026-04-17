@@ -1,6 +1,13 @@
 {
   "trailingSlash": true,
   "cleanUrls": false,
+  "redirects": [
+    {
+      "source": "/((?!robots\\.txt|sitemap)[^/]*[^/])",
+      "destination": "/$1/",
+      "permanent": true
+    }
+  ],
   "headers": [
     {
       "source": "/(.*)",
@@ -9,7 +16,8 @@
           "key": "Strict-Transport-Security",
           "value": "max-age=63072000; includeSubDomains; preload"
         }
-      ]
+ 
+     ]
     }
   ]
 }
