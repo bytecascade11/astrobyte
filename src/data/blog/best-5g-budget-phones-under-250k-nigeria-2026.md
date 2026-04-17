@@ -4,7 +4,8 @@ description: "Looking for a 5G phone without breaking the bank in Nigeria? Here 
 pubDatetime: 2026-04-17T18:00:00Z
 author: "iSamuel"
 tags: ["opinions", "android", "tecno", "samsung", "xiaomi"]
-coverImage: "https://images.unsplash.com/photo-1591337676887-a217a6970a8a?w=1200&q=80"
+coverImage: "/assets/posts/budget-5g-phones-nigeria-2026.jpg"
+coverImageAlt: "Collection of budget 5G smartphones representing affordable devices in Nigeria 2026"
 ---
 
 ## Table of Contents 
@@ -51,7 +52,7 @@ With MTN, Airtel, and Mafab expanding in Lagos, Abuja, and Port Harcourt — buy
 
 1. Samsung Galaxy A16 5G — The Safest Bet
 
-"Samsung Galaxy A16 5G" (https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?w=1000&q=80)
+![Samsung Galaxy A16 5G AMOLED display and rear design](/assets/posts/samsung-galaxy-a16-5g.jpg)
 
 Price: ~₦252,000
 Display: 6.7" AMOLED, 90Hz
@@ -78,7 +79,7 @@ Who it’s for: Long-term users who don’t want to upgrade anytime soon.
 
 2. Tecno Spark 30C 5G — The Smart Budget Pick
 
-"Tecno Spark 30C 5G" (https://images.unsplash.com/photo-1598327105666-5b89351aff97?w=1000&q=80)
+![Tecno Spark 30C 5G design and camera module](/assets/posts/tecno-spark-30c-5g.jpg)
 
 Price: ₦190,000 – ₦210,000
 Chip: Dimensity 6300
@@ -104,7 +105,7 @@ Who it’s for: Students and everyday users.
 
 3. Redmi A7 Pro 5G — Battery King
 
-"Redmi A7 Pro 5G" (https://images.unsplash.com/photo-1592750475338-74b7b21085ab?w=1000&q=80)
+![Redmi A7 Pro 5G rear design and large battery phone](/assets/posts/redmi-a7-pro-5g.jpg)
 
 Price: ₦165,000 – ₦185,000 (imported)
 Battery: 6,300mAh
@@ -132,7 +133,7 @@ Who it’s for: People who hate charging phones.
 
 4. Moto G 5G (2024) — Clean Android Experience
 
-"Moto G 5G 2024" (https://images.unsplash.com/photo-1565849904461-04a58ad377e0?w=1000&q=80)
+![Motorola Moto G 5G 2024 clean Android design front and back](/assets/posts/moto-g-5g-2024.jpg)
 
 Price: ₦185,000 – ₦205,000
 Display: 120Hz FHD+
@@ -153,7 +154,7 @@ Who it’s for: Android purists.
 
 5. Infinix Note 50 5G — AMOLED Value King
 
-"Infinix Note 50 5G" (https://images.unsplash.com/photo-1592750475338-74b7b21085ab?w=1000&q=80)
+![Infinix Note 50 5G AMOLED display and camera design](/assets/posts/infinix-note-50-5g.jpg)
 
 Price: ₦195,000 – ₦220,000
 Display: AMOLED, 120Hz
