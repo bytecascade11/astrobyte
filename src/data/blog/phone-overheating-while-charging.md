@@ -1,16 +1,20 @@
 ---
 title: "Phone Overheating While Charging — What's Really Causing It and How to Fix It"
 description: "Your phone getting hot while charging isn't always normal. Here's the real breakdown of what causes phone overheating during charging, which habits are slowly damaging your battery, and exactly what to do about it."
-pubDatetime: 2026-04-17T09:00:00Z
+pubDatetime: 2026-04-17T13:57:00Z
 coverImage: /assets/posts/phone-overheating-while-charging-cover.jpg
 coverImageAlt: Smartphone on wireless charger with heat waves illustrated above it on a wooden desk
 author: iSamuel
 tags:
   - android
-  - battery
-  - tips
-  - phones
+  - productivity 
+  - technology 
+  - opinions 
 ---
+
+## Table of Contents 
+
+## Overview 
 
 Let me tell you about something that happened to me a few months back.
 
@@ -48,7 +52,7 @@ What *is* alarming is anything consistently pushing past **43°C to 45°C**, or 
 
 The tricky part is that damage doesn't announce itself. Lithium-ion batteries degrade silently under sustained heat. You don't wake up one day and find a warning that says "your battery has been slowly degraded over the past three months." You just notice the phone dying earlier in the day. And by the time that happens, you've already lost capacity you're not getting back.
 
-![Thermal image showing smartphone overheating during fast charging with back panel temperature above 45°C](https://www.revibyte.blog/assets/posts/phone-thermal-heat-map.jpg)
+![Thermal image showing smartphone overheating during fast charging with back panel temperature above 45°C](/assets/posts/phone-thermal-heat-map.jpg)
 
 ---
 
@@ -93,7 +97,7 @@ This is the one that trips most people up. Your phone doesn't pause when it's ch
 
 This is why phones get *significantly* hotter when you use them while charging versus letting them charge idle. It's not the "using while charging" that's the problem per se — it's the combined thermal load.
 
-![Close-up of Android phone USB-C charging port overheating due to mismatched or cheap charger](https://www.revibyte.blog/assets/posts/charging-port-heat-close-up.jpg)
+![Close-up of Android phone USB-C charging port overheating due to mismatched or cheap charger](/assets/posts/charging-port-heat-close-up.jpg)
 
 ---
 
@@ -152,7 +156,7 @@ This is why phones get noticeably warmer on wireless chargers versus cable charg
 
 If you use wireless charging, use a certified pad from a reputable brand. Place the phone on a hard surface (not a cloth charging mat that traps heat underneath). And if your phone is already warm when you place it on the pad, let it cool first. Stacking ambient warmth on wireless charging heat on top of background processes is exactly the kind of thermal environment that silently degrades batteries.
 
-![Smartphone on wireless charging pad overheating due to electromagnetic induction heat loss on a desk](https://www.revibyte.blog/assets/posts/wireless-charging-desk.jpg)
+![Smartphone on wireless charging pad overheating due to electromagnetic induction heat loss on a desk](/assets/posts/wireless-charging-desk.jpg)
 
 ---
 
