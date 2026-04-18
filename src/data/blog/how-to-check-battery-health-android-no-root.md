@@ -7,7 +7,7 @@ author: iSamuel
 pubDatetime: 2026-04-18T22:05:00Z
 tags:
   - android
-  - opini
+  - opinions 
   - technology 
   - productivity 
 featured: false
