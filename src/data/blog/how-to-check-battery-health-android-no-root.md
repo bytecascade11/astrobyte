@@ -27,7 +27,17 @@ The problem is that Android doesn't make it easy to *know* this. Unlike iPhones,
 So this post is about fixing that. No root, no shady APKs you found on some forum in 2019, no complicated terminal commands. Just practical ways to check your Android battery health right now — and what to actually do with that information.
 
 ---
-
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4896561037705299"
+     crossorigin="anonymous"></script>
+<ins class="adsbygoogle"
+     style="display:block; text-align:center;"
+     data-ad-layout="in-article"
+     data-ad-format="fluid"
+     data-ad-client="ca-pub-4896561037705299"
+     data-ad-slot="7554701431"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
 ## Quick Answer: How to Check Battery Health on Android
 
 If you just need the short version before diving deeper:
@@ -56,7 +66,17 @@ That disconnect is what makes checking battery health worth doing. The percentag
 > Heat accelerates this faster than anything else. If your phone regularly gets hot during charging — especially with cheap fast chargers — your battery is aging faster than it should. I wrote about [phone overheating while charging](/posts/phone-overheating-while-charging) and what it actually does to your hardware. Worth reading if your phone runs warm.
 
 ---
-
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4896561037705299"
+     crossorigin="anonymous"></script>
+<ins class="adsbygoogle"
+     style="display:block; text-align:center;"
+     data-ad-layout="in-article"
+     data-ad-format="fluid"
+     data-ad-client="ca-pub-4896561037705299"
+     data-ad-slot="7554701431"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
 ## Method 1: Check Through Your Phone's Built-In Settings
 
 This is where you should start, because some manufacturers have actually added battery health info natively — you just need to know where to look.
@@ -102,7 +122,17 @@ Open your phone dialer and type: `*#0228#`
 This opens the Battery Status screen, which shows you real-time voltage, temperature, and sometimes capacity in mAh. It's not a "health percentage" in the traditional sense, but you can compare the **Charging Status** capacity figure against your phone's original rated capacity to estimate degradation.
 
 Some Samsung devices also respond to `*#*#4636#*#*` which opens a more general phone testing menu — navigate to **Battery information** from there.
-
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4896561037705299"
+     crossorigin="anonymous"></script>
+<ins class="adsbygoogle"
+     style="display:block; text-align:center;"
+     data-ad-layout="in-article"
+     data-ad-format="fluid"
+     data-ad-client="ca-pub-4896561037705299"
+     data-ad-slot="7554701431"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
 ![Samsung hidden battery diagnostic USSD screen](/assets/posts/samsung-ussd-battery.jpg)
 
 **For Xiaomi / Redmi:**
@@ -170,7 +200,17 @@ Example: If `charge_full` returns `3600000` and `charge_full_design` returns `45
 This is the most accurate method available without root. The only caveat is that not every Android device exposes these files — some manufacturers lock them down. If the command returns "Permission denied" or "No such file or directory," your device is one of the locked ones.
 
 ---
-
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4896561037705299"
+     crossorigin="anonymous"></script>
+<ins class="adsbygoogle"
+     style="display:block; text-align:center;"
+     data-ad-layout="in-article"
+     data-ad-format="fluid"
+     data-ad-client="ca-pub-4896561037705299"
+     data-ad-slot="7554701431"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
 ## What to Do With Your Battery Health Number
 
 Now that you have a number, what does it actually mean for how you use your phone?
@@ -203,7 +243,17 @@ I've seen phones with 74% health handle moderate use fine for another year, and 
 If you're a casual user and just want a quick answer: **start with your settings, then try AccuBattery** if your settings don't show anything. If you're more technical and want numbers you can trust completely, ADB is the gold standard short of rooting.
 
 ---
-
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4896561037705299"
+     crossorigin="anonymous"></script>
+<ins class="adsbygoogle"
+     style="display:block; text-align:center;"
+     data-ad-layout="in-article"
+     data-ad-format="fluid"
+     data-ad-client="ca-pub-4896561037705299"
+     data-ad-slot="7554701431"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
 ## Frequently Asked Questions
 
 **Q: My phone says 100% but drains super fast. Is that a battery health issue?**
@@ -243,3 +293,14 @@ Knowing where your battery stands takes five minutes. What you do with that info
 If this helped, share it with someone who's been complaining about their battery lately — chances are they have no idea their battery health is the real problem. And if you're dealing with a phone that's slow *and* has bad battery life, my piece on [making Android feel fast again](/posts/how-to-make-android-feel-fast-again) is a good follow-up read.
 
 — iSamuel
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4896561037705299"
+     crossorigin="anonymous"></script>
+<ins class="adsbygoogle"
+     style="display:block; text-align:center;"
+     data-ad-layout="in-article"
+     data-ad-format="fluid"
+     data-ad-client="ca-pub-4896561037705299"
+     data-ad-slot="7554701431"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
