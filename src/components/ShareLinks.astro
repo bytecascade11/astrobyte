@@ -10,51 +10,61 @@ import LinkIcon from "@/assets/icons/link.svg";
 
 const pageUrl = new URL(Astro.url.pathname, Astro.url.origin).href;
 const pageTitle = "ReviByte";
-
-const SHARE_LINKS = [
-  {
-    name: "Twitter",
-    href: `https://twitter.com/intent/tweet?url=${encodeURIComponent(pageUrl)}&text=${encodeURIComponent(pageTitle)}`,
-    icon: TwitterIcon,
-  },
-  {
-    name: "Facebook",
-    href: `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(pageUrl)}`,
-    icon: FacebookIcon,
-  },
-  {
-    name: "LinkedIn",
-    href: `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(pageUrl)}`,
-    icon: LinkedInIcon,
-  },
-  {
-    name: "WhatsApp",
-    href: `https://api.whatsapp.com/send?text=${encodeURIComponent(`${pageTitle} – ${pageUrl}`)}`,
-    icon: WhatsAppIcon,
-  },
-  {
-    name: "Instagram",
-    href: "https://www.instagram.com/revi_byte/",
-    icon: InstagramIcon,
-  },
-];
 ---
 
 <div class="share-bar">
   <span class="share-label">Share</span>
 
   <div class="share-icons">
-    {SHARE_LINKS.map((social) => (
-      <LinkButton
-        href={social.href}
-        target="_blank"
-        rel="noopener noreferrer"
-        title={social.name === "Instagram" ? "Visit ReviByte on Instagram" : `Share on ${social.name}`}
-        class="share-icon-btn"
-      >
-        <social.icon class="h-5 w-5" />
-      </LinkButton>
-    ))}
+    <LinkButton
+      href={`https://twitter.com/intent/tweet?url=${encodeURIComponent(pageUrl)}&text=${encodeURIComponent(pageTitle)}`}
+      target="_blank"
+      rel="noopener noreferrer"
+      title="Share on Twitter"
+      class="share-icon-btn"
+    >
+      <TwitterIcon class="share-svg" />
+    </LinkButton>
+
+    <LinkButton
+      href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(pageUrl)}`}
+      target="_blank"
+      rel="noopener noreferrer"
+      title="Share on Facebook"
+      class="share-icon-btn"
+    >
+      <FacebookIcon class="share-svg" />
+    </LinkButton>
+
+    <LinkButton
+      href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(pageUrl)}`}
+      target="_blank"
+      rel="noopener noreferrer"
+      title="Share on LinkedIn"
+      class="share-icon-btn"
+    >
+      <LinkedInIcon class="share-svg" />
+    </LinkButton>
+
+    <LinkButton
+      href={`https://api.whatsapp.com/send?text=${encodeURIComponent(`${pageTitle} – ${pageUrl}`)}`}
+      target="_blank"
+      rel="noopener noreferrer"
+      title="Share on WhatsApp"
+      class="share-icon-btn"
+    >
+      <WhatsAppIcon class="share-svg" />
+    </LinkButton>
+
+    <LinkButton
+      href="https://www.instagram.com/revi_byte/"
+      target="_blank"
+      rel="noopener noreferrer"
+      title="Visit ReviByte on Instagram"
+      class="share-icon-btn"
+    >
+      <InstagramIcon class="share-svg" />
+    </LinkButton>
 
     <!-- Copy link -->
     <button
@@ -63,7 +73,7 @@ const SHARE_LINKS = [
       title="Copy link"
       aria-label="Copy link"
     >
-      <LinkIcon class="h-5 w-5" />
+      <LinkIcon class="share-svg" />
     </button>
   </div>
 
@@ -99,17 +109,23 @@ const SHARE_LINKS = [
     width: 32px;
     height: 32px;
     border-radius: 8px;
-    opacity: 0.65;
+    opacity: 0.85;
     transition: opacity 0.2s, transform 0.2s;
     background: transparent;
     border: none;
     cursor: pointer;
-    color: inherit;
+    padding: 0;
   }
 
   :global(.share-icon-btn:hover) {
     opacity: 1;
     transform: translateY(-2px);
+  }
+
+  :global(.share-svg) {
+    width: 28px;
+    height: 28px;
+    display: block;
   }
 
   .copy-feedback {
