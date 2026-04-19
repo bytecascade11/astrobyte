@@ -337,15 +337,14 @@ const postSlug = post.id;
   }
 
   /* ── Meta row ── */
-  .post-meta {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    gap: 0.75rem;
-    margin-top: 0.85rem;
-    margin-bottom: 1.5rem;
-  }
+.post-meta {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.6rem;
+  margin-top: 0.85rem;
+  margin-bottom: 1.5rem;
+}
 
   .post-meta-left {
     display: flex;
