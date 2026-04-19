@@ -6,7 +6,7 @@ import FacebookIcon from "@/assets/icons/facebook.svg";
 import LinkedInIcon from "@/assets/icons/linkedin.svg";
 import WhatsAppIcon from "@/assets/icons/whatsapp.svg";
 import InstagramIcon from "@/assets/icons/instagram.svg";
-import LinkIcon from "@/assets/icons/link.svg"; // copy icon
+import LinkIcon from "@/assets/icons/link.svg";
 
 const pageUrl = new URL(Astro.url.pathname, Astro.url.origin).href;
 const pageTitle = "ReviByte";
@@ -14,30 +14,22 @@ const pageTitle = "ReviByte";
 const SHARE_LINKS = [
   {
     name: "Twitter",
-    href: `https://twitter.com/intent/tweet?url=${encodeURIComponent(
-      pageUrl
-    )}&text=${encodeURIComponent(pageTitle)}`,
+    href: `https://twitter.com/intent/tweet?url=${encodeURIComponent(pageUrl)}&text=${encodeURIComponent(pageTitle)}`,
     icon: TwitterIcon,
   },
   {
     name: "Facebook",
-    href: `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(
-      pageUrl
-    )}`,
+    href: `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(pageUrl)}`,
     icon: FacebookIcon,
   },
   {
     name: "LinkedIn",
-    href: `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(
-      pageUrl
-    )}`,
+    href: `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(pageUrl)}`,
     icon: LinkedInIcon,
   },
   {
     name: "WhatsApp",
-    href: `https://api.whatsapp.com/send?text=${encodeURIComponent(
-      `${pageTitle} – ${pageUrl}`
-    )}`,
+    href: `https://api.whatsapp.com/send?text=${encodeURIComponent(`${pageTitle} – ${pageUrl}`)}`,
     icon: WhatsAppIcon,
   },
   {
@@ -48,87 +40,102 @@ const SHARE_LINKS = [
 ];
 ---
 
-<!-- Toggle Button -->
-<button
-  id="share-toggle"
-  class="mt-4 inline-flex items-center gap-2 text-sm opacity-80 hover:opacity-100 transition"
-  aria-expanded="false"
->
-  🔗 Share
-</button>
+<div class="share-bar">
+  <span class="share-label">Share</span>
 
-<!-- Floating Share Panel -->
-<div
-  id="share-panel"
-  class="fixed top-24 left-1/2 z-50 hidden -translate-x-1/2 rounded-2xl border bg-background px-5 py-3 shadow-xl backdrop-blur"
->
-  <div class="flex gap-4 items-center">
+  <div class="share-icons">
     {SHARE_LINKS.map((social) => (
       <LinkButton
         href={social.href}
         target="_blank"
         rel="noopener noreferrer"
-        title={
-          social.name === "Instagram"
-            ? "Visit ReviByte on Instagram"
-            : `Share on ${social.name}`
-        }
-        class="hover:scale-110 transition"
+        title={social.name === "Instagram" ? "Visit ReviByte on Instagram" : `Share on ${social.name}`}
+        class="share-icon-btn"
       >
-        <social.icon class="h-6 w-6" />
+        <social.icon class="h-5 w-5" />
       </LinkButton>
     ))}
 
-    <!-- Copy Link -->
+    <!-- Copy link -->
     <button
       id="copy-link"
-      class="hover:scale-110 transition"
+      class="share-icon-btn"
       title="Copy link"
       aria-label="Copy link"
     >
-      <LinkIcon class="h-6 w-6" />
+      <LinkIcon class="h-5 w-5" />
     </button>
   </div>
 
-  <!-- Copy feedback -->
-  <p
-    id="copy-feedback"
-    class="mt-2 hidden text-center text-xs text-muted-foreground"
-  >
-    Link copied!
-  </p>
+  <span id="copy-feedback" class="copy-feedback">✓ Copied!</span>
 </div>
 
+<style>
+  .share-bar {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    flex-wrap: wrap;
+  }
+
+  .share-label {
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    opacity: 0.5;
+  }
+
+  .share-icons {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+  }
+
+  :global(.share-icon-btn) {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    opacity: 0.65;
+    transition: opacity 0.2s, transform 0.2s;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    color: inherit;
+  }
+
+  :global(.share-icon-btn:hover) {
+    opacity: 1;
+    transform: translateY(-2px);
+  }
+
+  .copy-feedback {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: #6366f1;
+    opacity: 0;
+    transition: opacity 0.3s;
+    pointer-events: none;
+  }
+
+  .copy-feedback.visible {
+    opacity: 1;
+  }
+</style>
+
 <script is:inline>
-  const toggle = document.getElementById("share-toggle");
-  const panel = document.getElementById("share-panel");
   const copyBtn = document.getElementById("copy-link");
   const feedback = document.getElementById("copy-feedback");
-
-  let lastScrollY = window.scrollY;
-
-  toggle?.addEventListener("click", () => {
-    panel?.classList.toggle("hidden");
-    toggle.setAttribute(
-      "aria-expanded",
-      panel?.classList.contains("hidden") ? "false" : "true"
-    );
-  });
-
-  window.addEventListener("scroll", () => {
-    if (window.scrollY !== lastScrollY) {
-      panel?.classList.add("hidden");
-      toggle?.setAttribute("aria-expanded", "false");
-    }
-    lastScrollY = window.scrollY;
-  });
 
   copyBtn?.addEventListener("click", async () => {
     try {
       await navigator.clipboard.writeText(window.location.href);
-      feedback?.classList.remove("hidden");
-      setTimeout(() => feedback?.classList.add("hidden"), 2000);
-    } catch (err) {
+      feedback?.classList.add("visible");
+      setTimeout(() => feedback?.classList.remove("visible"), 2000);
+    } catch {
       alert("Failed to copy link");
     }
   });
