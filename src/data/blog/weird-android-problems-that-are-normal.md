@@ -23,7 +23,16 @@ If you've been searching why your Android phone behaves strangely — random res
 There's a specific kind of panic that hits when your phone does something you've never seen before.
 
 Maybe it restarted in your pocket. Maybe the screen flickered for a split second while you were scrolling. Maybe you noticed your RAM is always "almost full" no matter how many apps you close — and now you're convinced your phone is dying, infected, or just badly made.
-
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4896561037705299"
+     crossorigin="anonymous"></script>
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-format="autorelaxed"
+     data-ad-client="ca-pub-4896561037705299"
+     data-ad-slot="8260386160"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
 I've been there. Multiple times. With multiple phones.
 
 And after years of using mid-range Androids — Tecno, Infinix, Xiaomi — and writing about them on ReviByte, I've learned that most of these "scary" behaviours are actually Android doing exactly what it was designed to do. You just weren't told. Nobody was.
@@ -324,11 +333,10 @@ If you found this useful, the [ReviByte 121-day milestone post](/posts/revibyte-
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4896561037705299"
      crossorigin="anonymous"></script>
 <ins class="adsbygoogle"
-     style="display:block; text-align:center;"
-     data-ad-layout="in-article"
-     data-ad-format="fluid"
+     style="display:block"
+     data-ad-format="autorelaxed"
      data-ad-client="ca-pub-4896561037705299"
-     data-ad-slot="7554701431"></ins>
+     data-ad-slot="8260386160"></ins>
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
