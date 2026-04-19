@@ -49,7 +49,18 @@ If you're on a device like the Redmi Note 14 or anything below 6GB RAM, the expe
 **What to actually do:** Stop obsessing over RAM numbers. If apps are reloading slowly, look at your background app settings, not your memory cleaners.
 
 ---
-
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4896561037705299"
+     crossorigin="anonymous"></script>
+<!-- Ad unit -->
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-4896561037705299"
+     data-ad-slot="4282672192"
+     data-ad-format="auto"
+     data-full-width-responsive="true"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
 ## 2. Why Your Android Phone Gets Warm When You're Doing Nothing
 
 You're lying down, phone is just sitting there. You pick it up and the back feels warm. No gaming, no streaming, no charging. Just... warm.
@@ -69,7 +80,17 @@ I covered this properly in the [phone overheating while charging](/posts/phone-o
 **What to actually do:** Go to **Settings → Battery → Battery Usage** and filter by "Since last full charge." If a random app is in the top 3 with screen-off drain, restrict its background activity or uninstall it.
 
 ---
-
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4896561037705299"
+     crossorigin="anonymous"></script>
+<ins class="adsbygoogle"
+     style="display:block; text-align:center;"
+     data-ad-layout="in-article"
+     data-ad-format="fluid"
+     data-ad-client="ca-pub-4896561037705299"
+     data-ad-slot="7554701431"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
 ## 3. Ghost Touch on Android — Why the Screen Moves Without You
 
 You put your phone down on a surface and suddenly it's doing things. Opening apps. Scrolling. Mistyping. You look at it and the screen is visibly registering touches you're not making.
@@ -106,7 +127,18 @@ You either **force stop** the app from settings, or better — you go to **Batte
 **What to actually do:** Use your battery optimization settings — not the recents screen — to actually restrict background app behavior. Force Stop from Settings → Apps is a temporary but effective one-time kill.
 
 ---
-
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4896561037705299"
+     crossorigin="anonymous"></script>
+<!-- Ad unit -->
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-4896561037705299"
+     data-ad-slot="4282672192"
+     data-ad-format="auto"
+     data-full-width-responsive="true"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
 ## 5. Why Android Wi-Fi Keeps Disconnecting Overnight (And How to Stop It)
 
 You go to bed on Wi-Fi. Wake up on mobile data. You didn't change anything.
@@ -136,7 +168,18 @@ The culprit is almost always one of three things:
 WhatsApp is the biggest offender I've seen across Nigerian users especially. Videos in status, in group chats, in DMs — all get saved automatically. Some people have 3–4GB of WhatsApp media they've never once intentionally saved.
 
 Go to **Settings → Storage → [tap the category bars]** to see exactly what's taking space. Then hit WhatsApp specifically: **Settings → Storage and Data → Manage Storage**. Sort by size. You'll be shocked.
-
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4896561037705299"
+     crossorigin="anonymous"></script>
+<!-- Ad unit -->
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-4896561037705299"
+     data-ad-slot="4282672192"
+     data-ad-format="auto"
+     data-full-width-responsive="true"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
 ---
 
 ## Comparison: What's Normal vs What's a Real Problem
@@ -172,7 +215,18 @@ What you should watch out for is **pattern**. If your phone is restarting multip
 The [how to check battery health on Android without root](/posts/how-to-check-battery-health-android-no-root) guide I wrote covers how to figure out if your battery is the reason — because a swollen or aging battery is one of the most common causes of unexpected restarts people never diagnose.
 
 ---
-
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4896561037705299"
+     crossorigin="anonymous"></script>
+<!-- Ad unit -->
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-4896561037705299"
+     data-ad-slot="4282672192"
+     data-ad-format="auto"
+     data-full-width-responsive="true"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
 ## 8. Android Notifications Coming Late? This Is Why
 
 You see a WhatsApp message and realize it was sent two hours ago. You never got the notification. This happens more than it should, especially on Tecno, Infinix, and even MIUI devices.
@@ -201,7 +255,17 @@ If you want to actually make your phone feel more alive overall — faster, less
 | Storage full (hidden) | Settings → Storage | Clear app cache, manage WhatsApp media |
 | Late notifications | Settings → Battery → App Optimization | Whitelist critical apps |
 | Random restarts | Check battery health | Use USSD or AccuBattery to check |
-
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4896561037705299"
+     crossorigin="anonymous"></script>
+<ins class="adsbygoogle"
+     style="display:block; text-align:center;"
+     data-ad-layout="in-article"
+     data-ad-format="fluid"
+     data-ad-client="ca-pub-4896561037705299"
+     data-ad-slot="7554701431"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
 ---
 
 ## FAQ
@@ -229,7 +293,17 @@ Not fake — but RAM spec alone is only one part of the equation. Storage speed 
 **Q: Why does my Android feel slower after an update?**
 
 Two things happen right after an update: the system re-compiles all your apps in the background (this can take hours), and the update itself may have introduced heavier processes. Both are temporary. If the slowdown persists past 48 hours, check if the update has known issues for your model — look for your phone + update version on Reddit or XDA. Sometimes a patch comes out quickly.
-
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4896561037705299"
+     crossorigin="anonymous"></script>
+<ins class="adsbygoogle"
+     style="display:block; text-align:center;"
+     data-ad-layout="in-article"
+     data-ad-format="fluid"
+     data-ad-client="ca-pub-4896561037705299"
+     data-ad-slot="7554701431"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
 **Q: Is a phone overheating during gaming a hardware defect?**
 
 No. Heat is a normal byproduct of the GPU and CPU working hard. What matters is what the phone does with that heat — **throttling** (slowing down to cool off) is a protective measure; **shutting down** from heat is a thermal management failure. Budget phones throttle more aggressively because they have thinner heat spreaders. The [phone overheating guide](/posts/phone-overheating-while-charging) covers the thermal principles in detail.
@@ -247,3 +321,14 @@ Most of what Android does that looks broken is actually intentional design — t
 The best thing you can do is learn *why* something happens before you assume it's broken. Nine times out of ten, it's not. And for the one time it actually is — now you know where to look.
 
 If you found this useful, the [ReviByte 121-day milestone post](/posts/revibyte-121-days-later) has a roundup of the most useful content from the past few months — a good place to catch up on everything you might have missed.
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4896561037705299"
+     crossorigin="anonymous"></script>
+<ins class="adsbygoogle"
+     style="display:block; text-align:center;"
+     data-ad-layout="in-article"
+     data-ad-format="fluid"
+     data-ad-client="ca-pub-4896561037705299"
+     data-ad-slot="7554701431"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
