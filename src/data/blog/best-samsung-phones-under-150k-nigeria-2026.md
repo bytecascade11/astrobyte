@@ -1,6 +1,6 @@
 ---
-title: "Best Samsung Phones Under ₦150,000 in Nigeria (2026)" description: "Looking for a reliable Samsung phone within a ₦150k budget in Nigeria? Here are the best picks in 2026 — with real specs, honest takes, and naira pricing you can actually trust." pubDatetime: 2026-04-20T08:00:00Z author: "iSamuel" tags:
-description: "Samsung budget phones under ₦150k in Nigeria 2026 comparison and buying guide"
+title: "Best Samsung Phones Under ₦150,000 in Nigeria (2026)"
+description: "Looking for a reliable Samsung phone within a ₦150k budget in Nigeria? Here are the best picks in 2026 — with real specs, honest takes, and naira pricing you can actually trust."
 pubDatetime: 2026-04-20T20:17:00Z
 author: iSamuel 
 tags:
