@@ -8,7 +8,7 @@ tags:
   - android
   - opinions 
   - smartphones 
-coverImage: /assets/posts/best-samsung-phones-under-150k-nigeria-2026.jpg" 
+coverImage: "/assets/posts/best-samsung-phones-under-150k-nigeria-2026.jpg" 
 coverImageAlt: "Best Samsung phones available under ₦150,000 in Nigeria 2026"
 ---
 
