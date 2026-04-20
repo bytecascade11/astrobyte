@@ -17,7 +17,11 @@ import AstroPWA from "@vite-pwa/astro";
 export default defineConfig({
   site: SITE.website,
 
-  trailingSlash: "always",
+  trailingSlash: "always",   // Enforces with-trailing-slash
+
+  build: {
+    format: "directory",     // Important: builds as /posts/slug/index.html
+  },
 
   image: {
     service: {
@@ -124,11 +128,8 @@ export default defineConfig({
       },
     }),
 
-    // Official AstroPaper sitemap — includes all pages, hides /archives/ if showArchives is false
     sitemap({
       filter: page => SITE.showArchives || !page.endsWith("/archives/"),
-      // Also register the custom image sitemap so Google Search Console
-      // can discover it alongside the main sitemap-index.xml
       customPages: [`${SITE.website}sitemap-post-images.xml`],
     }),
 
