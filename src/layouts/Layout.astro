@@ -419,7 +419,7 @@ const currentPath = Astro.url.pathname;
     </script>
 <!-- Deferred: OneSignal + PWA install + notification prompt + SW -->
 <script is:inline>
-// ── OneSignal ──
+// ── OneSignal v16 (correct setup) ──
 var s = document.createElement('script');
 s.src = 'https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js';
 s.async = true;
@@ -427,17 +427,26 @@ s.async = true;
 s.onload = function () {
   window.OneSignalDeferred = window.OneSignalDeferred || [];
 
-  window.OneSignalDeferred.push(function (OneSignal) {
-    OneSignal.init({
-      appId: "bbd38552-99d1-4cda-96f9-5c0cacfba192",
-      notifyButton: { enable: true },
-      autoResubscribe: true,
-    });
+  window.OneSignalDeferred.push(async function (OneSignal) {
+    try {
+      await OneSignal.init({
+        appId: "bbd38552-99d1-4cda-96f9-5c0cacfba192",
+
+        notifyButton: {
+          enable: true
+        },
+
+        autoResubscribe: true
+      });
+
+      console.log("OneSignal initialized successfully");
+    } catch (err) {
+      console.error("OneSignal init failed:", err);
+    }
   });
 };
 
 document.head.appendChild(s);
-
 
 // ── PWA Install Banner ──
 window.addEventListener('beforeinstallprompt', function (e) {
