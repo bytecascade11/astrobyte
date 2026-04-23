@@ -421,8 +421,8 @@ const currentPath = Astro.url.pathname;
     <!-- Deferred: OneSignal + PWA install + notification prompt + SW — all after page load -->
     <script is:inline>
       window.addEventListener('load', function() {
-
-        // ── OneSignal ──
+<script>
+// ── OneSignal ──
 var s = document.createElement('script');
 s.src = 'https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js';
 s.async = true;
@@ -430,14 +430,12 @@ s.async = true;
 s.onload = function () {
   window.OneSignalDeferred = window.OneSignalDeferred || [];
 
-  OneSignalDeferred.push(async function (OneSignal) {
+  window.OneSignalDeferred.push(async function (OneSignal) {
     await OneSignal.init({
       appId: "bbd38552-99d1-4cda-96f9-5c0cacfba192",
       notifyButton: { enable: true },
-      autoResubscribe: true
+      autoResubscribe: true,
     });
-
-    console.log("OneSignal initialized");
   });
 };
 
@@ -454,7 +452,7 @@ window.addEventListener('beforeinstallprompt', function (e) {
 });
 
 
-// ── Notification Prompt (UI only, NOT OneSignal) ──
+// ── Notification Prompt — show after 5s ──
 var alreadyAsked = localStorage.getItem('notif-asked');
 
 if (!alreadyAsked) {
@@ -469,10 +467,10 @@ if (!alreadyAsked) {
 if ('serviceWorker' in navigator) {
   navigator.serviceWorker.register('/sw.js')
     .then(function (reg) {
-      console.log('SW registered:', reg.scope);
+      console.log('SW registered', reg.scope);
     })
     .catch(function (err) {
-      console.log('SW registration failed:', err);
+      console.log('SW registration failed', err);
     });
 }
 
@@ -495,8 +493,8 @@ function installApp() {
 }
 
 
-// ── Notification UI handlers (ONLY UI, not OneSignal logic) ──
-function allowNotification() {
+// ── Notification handlers ──
+async function allowNotification() {
   localStorage.setItem('notif-asked', 'true');
 
   var prompt = document.getElementById('notif-prompt');
@@ -510,7 +508,7 @@ function allowNotification() {
   }
 
   // IMPORTANT:
-  // DO NOT request permission manually anymore
+  // DO NOT manually request permission in OneSignal v16
   // OneSignal handles it automatically
 }
 
@@ -527,23 +525,24 @@ function denyNotification() {
     }, 300);
   }
 }
-    </script>
+</script>
 
-    <script type="speculationrules">
-    {
-      "prefetch": [{
-        "where": {
-          "and": [
-            { "href_matches": "/*" },
-            { "not": { "href_matches": "/logout" } }
-          ]
-        },
-        "eagerness": "moderate"
-      }]
-    }
-    </script>
 
-    <slot />
+<script type="speculationrules">
+{
+  "prefetch": [{
+    "where": {
+      "and": [
+        { "href_matches": "/*" },
+        { "not": { "href_matches": "/logout" } }
+      ]
+    },
+    "eagerness": "moderate"
+  }]
+}
+</script>
 
-  </body>
+<slot />
+
+</body>
 </html>
