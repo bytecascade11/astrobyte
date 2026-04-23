@@ -494,7 +494,7 @@ function installApp() {
 
 
 // ── Notification handlers ──
-async function allowNotification() {
+function allowNotification() {
   localStorage.setItem('notif-asked', 'true');
 
   var prompt = document.getElementById('notif-prompt');
