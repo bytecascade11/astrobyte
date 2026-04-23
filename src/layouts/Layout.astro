@@ -284,18 +284,28 @@ const currentPath = Astro.url.pathname;
 }
 </script>
   </head>
+
 <script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
 
 <script is:inline>
   window.OneSignalDeferred = window.OneSignalDeferred || [];
+
   OneSignalDeferred.push(async function(OneSignal) {
     await OneSignal.init({
       appId: "4915e9b3-d1f9-4d36-9ed4-c158ee7fbd37",
-      notifyButton: { enable: true }
+      notifyButton: { enable: true },
+      allowLocalhostAsSecureOrigin: true
     });
+
+    console.log("OneSignal initialized");
+
+    // debug check
+    const supported = OneSignal.Notifications?.isPushSupported?.();
+    console.log("Push supported:", supported);
   });
 </script>
-  <body>
+
+<body>
 
     <!-- Custom Notification Prompt -->
     <div id="notif-prompt">
