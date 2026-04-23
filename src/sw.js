@@ -1,15 +1,13 @@
-// src/sw.js — 2025–2026 version, custom offline page working
+// src/sw.js — PWA ONLY (NO OneSignal HERE)
 
 import { precacheAndRoute } from 'workbox-precaching';
 import { cleanupOutdatedCaches } from 'workbox-precaching';
 
-// REQUIRED — vite-plugin-pwa injects the real manifest array here during build
 precacheAndRoute(self.__WB_MANIFEST);
-
 cleanupOutdatedCaches();
 
 const DYNAMIC_CACHE = 'revibyte-dynamic-v3';
-const STATIC_CACHE  = 'revibyte-static-v3';
+const STATIC_CACHE = 'revibyte-static-v3';
 
 const CORE_ASSETS = [
   '/',
@@ -20,7 +18,6 @@ const CORE_ASSETS = [
   '/favicon.svg',
 ];
 
-// ── Install: cache core files ──
 self.addEventListener('install', event => {
   event.waitUntil(
     caches.open(STATIC_CACHE).then(cache => cache.addAll(CORE_ASSETS))
@@ -28,7 +25,6 @@ self.addEventListener('install', event => {
   self.skipWaiting();
 });
 
-// ── Activate: remove old caches ──
 self.addEventListener('activate', event => {
   event.waitUntil(
     caches.keys().then(keys =>
@@ -42,68 +38,39 @@ self.addEventListener('activate', event => {
   self.clients.claim();
 });
 
-// ── Fetch handler ──
 self.addEventListener('fetch', event => {
   const req = event.request;
   const url = new URL(req.url);
 
-  // Skip non-GET, cross-origin, trackers
   if (req.method !== 'GET') return;
   if (url.origin !== self.location.origin) return;
 
-  const skip = ['googletagmanager', 'googlesyndication', 'onesignal', 'pagead'];
+  const skip = ['googletagmanager', 'googlesyndication', 'pagead'];
   if (skip.some(s => url.href.includes(s))) return;
 
-  // ── Navigation (pages) ── network first → cache → custom offline page
+  // Pages
   if (req.mode === 'navigate') {
     event.respondWith(
-      (async () => {
-        try {
-          const response = await fetch(req);
+      fetch(req).catch(async () => {
+        return (
+          (await caches.match(req)) ||
+          (await caches.match('/offline.html'))
+        );
+      })
+    );
+    return;
+  }
 
-          // Cache good responses
-          if (response?.ok && response.status === 200 && response.type === 'basic') {
-            const clone = response.clone();
-            caches.open(DYNAMIC_CACHE).then(cache => cache.put(req, clone));
-          }
-
-          return response;
-        } catch (err) {
-          // Offline or network error
-          const cached = await caches.match(req);
-          if (cached) return cached;
-
-          // Serve your custom offline page
-          const offlinePage = await caches.match('/offline.html');
-          if (offlinePage) return offlinePage;
-
-          // Last-resort plain text (should never reach here)
-          return new Response(
-            '<h1>Offline</h1><p>No connection. Please try again later.</p>',
-            { headers: { 'Content-Type': 'text/html' } }
-          );
+  // Static assets
+  event.respondWith(
+    fetch(req)
+      .then(res => {
+        if (res.ok) {
+          const clone = res.clone();
+          caches.open(DYNAMIC_CACHE).then(c => c.put(req, clone));
         }
-      })()
-    );
-    return;
-  }
-
-  // ── Static files (images, css, js, fonts) ── network first → cache fallback
-  if (url.pathname.match(/\.(png|jpe?g|svg|webp|gif|ico|woff2?|ttf|css|js)$/i)) {
-    event.respondWith(
-      fetch(req)
-        .then(response => {
-          if (response?.ok) {
-            const clone = response.clone();
-            caches.open(DYNAMIC_CACHE).then(cache => cache.put(req, clone));
-          }
-          return response;
-        })
-        .catch(() => caches.match(req))
-    );
-    return;
-  }
-
-  // Everything else: network only
-  event.respondWith(fetch(req));
+        return res;
+      })
+      .catch(() => caches.match(req))
+  );
 });
