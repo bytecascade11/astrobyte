@@ -285,6 +285,7 @@ const currentPath = Astro.url.pathname;
 </script>
   </head>
 
+<body>
 <script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
 
 <script is:inline>
@@ -304,8 +305,6 @@ const currentPath = Astro.url.pathname;
     console.log("Push supported:", supported);
   });
 </script>
-
-<body>
 
     <!-- Custom Notification Prompt -->
     <div id="notif-prompt">
