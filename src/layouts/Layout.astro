@@ -510,7 +510,7 @@ function installApp() {
 
 // ── Notification handlers ──
 function allowNotification() {
-  localStorage.setItem('notif-asked', 'true');
+  localStorage.setItem('notif-asked', 'false');
 
   var prompt = document.getElementById('notif-prompt');
   if (prompt) {
@@ -524,7 +524,7 @@ function allowNotification() {
 }
 
 function denyNotification() {
-  localStorage.setItem('notif-asked', 'true');
+  localStorage.setItem('notif-asked', 'false');
 
   var prompt = document.getElementById('notif-prompt');
   if (prompt) {
