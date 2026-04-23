@@ -417,10 +417,7 @@ const currentPath = Astro.url.pathname;
         }
       });
     </script>
-
-    <!-- Deferred: OneSignal + PWA install + notification prompt + SW — all after page load -->
-    <script is:inline>
-      window.addEventListener('load', function() {
+<!-- Deferred: OneSignal + PWA install + notification prompt + SW -->
 <script is:inline>
 // ── OneSignal ──
 var s = document.createElement('script');
@@ -430,8 +427,8 @@ s.async = true;
 s.onload = function () {
   window.OneSignalDeferred = window.OneSignalDeferred || [];
 
-  window.OneSignalDeferred.push(async function (OneSignal) {
-    await OneSignal.init({
+  window.OneSignalDeferred.push(function (OneSignal) {
+    OneSignal.init({
       appId: "bbd38552-99d1-4cda-96f9-5c0cacfba192",
       notifyButton: { enable: true },
       autoResubscribe: true,
@@ -506,10 +503,6 @@ function allowNotification() {
       prompt.classList.remove('visible');
     }, 300);
   }
-
-  // IMPORTANT:
-  // DO NOT manually request permission in OneSignal v16
-  // OneSignal handles it automatically
 }
 
 function denyNotification() {
@@ -528,7 +521,7 @@ function denyNotification() {
 </script>
 
 
-<script type="speculationrules">
+<script type="speculationrules" is:inline>
 {
   "prefetch": [{
     "where": {
