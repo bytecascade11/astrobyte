@@ -421,7 +421,7 @@ const currentPath = Astro.url.pathname;
     <!-- Deferred: OneSignal + PWA install + notification prompt + SW — all after page load -->
     <script is:inline>
       window.addEventListener('load', function() {
-<script>
+<script is:inline>
 // ── OneSignal ──
 var s = document.createElement('script');
 s.src = 'https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js';
