@@ -86,7 +86,7 @@ Pricing comes in at around $250–$270 internationally, which does push it sligh
 ---
 
 ## 3. Samsung Galaxy A55 5G — The Premium Student Pick
-
+![Samsung Galaxy A55 5G held in hand with the screen on, shot outdoors on a university campus — bright natural light, slightly blurred green background, premium lifestyle feel](/assets/posts/samsung-a55-campus.jpg)
 For students who aren't going the budget route but still want value, the Galaxy A55 5G is where I'd land.
 
 The Exynos 1480 chip inside is a meaningful jump — this one handles multitasking, gaming, and camera processing with noticeably less friction. The display is a 6.6-inch Super AMOLED at 120Hz with a peak brightness that actually works outdoors. And unlike the A-series phones below it, the A55 uses a metal frame instead of plastic — it feels like a mid-range phone that's trying to act like a flagship, and mostly succeeds.
