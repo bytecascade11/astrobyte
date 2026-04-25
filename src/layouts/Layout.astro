@@ -62,10 +62,10 @@ const currentPath = Astro.url.pathname;
     </style>
 
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="icon" type="image/x-icon" href="/favicon.ico" />
-<link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png" />
-<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
     <!-- PWA Manifest -->
     <link rel="manifest" href="/site.webmanifest" />
     <meta name="theme-color" content="#0f172a" />
@@ -83,40 +83,150 @@ const currentPath = Astro.url.pathname;
         overflow-x: hidden;
       }
 
-      /* ── Custom Notification Prompt ── */
+      /* ── Notification Prompt v3 ── */
       #notif-prompt {
         display: none;
         position: fixed;
-        top: 16px;
+        bottom: 24px;
         left: 50%;
-        transform: translateX(-50%);
+        transform: translateX(-50%) translateY(20px);
         width: calc(100% - 32px);
-        max-width: 400px;
-        background: #1e293b;
-        border-radius: 16px;
-        padding: 16px;
+        max-width: 440px;
+        background: rgba(15, 23, 42, 0.92);
+        backdrop-filter: blur(24px) saturate(180%);
+        -webkit-backdrop-filter: blur(24px) saturate(180%);
+        border: 1px solid rgba(99, 102, 241, 0.25);
+        border-radius: 24px;
+        padding: 24px;
         z-index: 99999;
-        box-shadow: 0 8px 32px rgba(0,0,0,0.4);
-        animation: slideDown 0.4s cubic-bezier(0.4,0,0.2,1);
+        box-shadow: 
+          0 25px 80px rgba(0,0,0,0.6),
+          0 0 0 1px rgba(255,255,255,0.06) inset,
+          0 0 60px rgba(99, 102, 241, 0.08);
+        opacity: 0;
+        transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
       }
 
-      #notif-prompt.visible { display: flex; flex-direction: column; gap: 12px; }
-
-      @keyframes slideDown {
-        from { transform: translateX(-50%) translateY(-120%); opacity: 0; }
-        to { transform: translateX(-50%) translateY(0); opacity: 1; }
+      #notif-prompt.visible {
+        display: flex;
+        flex-direction: column;
+        gap: 18px;
+        transform: translateX(-50%) translateY(0);
+        opacity: 1;
       }
 
-      .notif-prompt-header { display: flex; align-items: center; gap: 12px; }
-      .notif-prompt-icon { width: 44px; height: 44px; background: #6366f1; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 22px; flex-shrink: 0; }
+      #notif-prompt.closing {
+        transform: translateX(-50%) translateY(20px);
+        opacity: 0;
+      }
+
+      .notif-prompt-header { 
+        display: flex; 
+        align-items: flex-start; 
+        gap: 16px; 
+      }
+      
+      .notif-prompt-icon { 
+        width: 52px; 
+        height: 52px; 
+        background: linear-gradient(135deg, #6366f1 0%, #a855f7 100%); 
+        border-radius: 16px; 
+        display: flex; 
+        align-items: center; 
+        justify-content: center; 
+        font-size: 26px; 
+        flex-shrink: 0;
+        box-shadow: 0 8px 25px rgba(99, 102, 241, 0.5);
+        animation: iconPulse 2.5s ease-in-out infinite;
+      }
+
+      @keyframes iconPulse {
+        0%, 100% { transform: scale(1); box-shadow: 0 8px 25px rgba(99, 102, 241, 0.5); }
+        50% { transform: scale(1.08); box-shadow: 0 8px 35px rgba(99, 102, 241, 0.7); }
+      }
+
       .notif-prompt-text { flex: 1; }
-      .notif-prompt-title { font-size: 15px; font-weight: 700; color: white; margin: 0 0 2px 0; }
-      .notif-prompt-desc { font-size: 13px; color: rgba(255,255,255,0.6); margin: 0; }
-      .notif-prompt-actions { display: flex; gap: 8px; justify-content: flex-end; }
-      .notif-btn-deny { background: rgba(255,255,255,0.1); color: rgba(255,255,255,0.7); border: none; padding: 8px 16px; border-radius: 8px; font-size: 13px; font-weight: 500; cursor: pointer; transition: background 0.2s; }
-      .notif-btn-deny:hover { background: rgba(255,255,255,0.15); }
-      .notif-btn-allow { background: #6366f1; color: white; border: none; padding: 8px 16px; border-radius: 8px; font-size: 13px; font-weight: 600; cursor: pointer; transition: background 0.2s; }
-      .notif-btn-allow:hover { background: #4f46e5; }
+      
+      .notif-prompt-title { 
+        font-size: 17px; 
+        font-weight: 800; 
+        color: white; 
+        margin: 0 0 6px 0;
+        letter-spacing: -0.4px;
+        line-height: 1.3;
+      }
+      
+      .notif-prompt-desc { 
+        font-size: 13.5px; 
+        color: rgba(255,255,255,0.55); 
+        margin: 0;
+        line-height: 1.6;
+      }
+
+      .notif-prompt-actions { 
+        display: flex; 
+        gap: 10px; 
+        justify-content: flex-end;
+        padding-top: 2px;
+      }
+      
+      .notif-btn-deny { 
+        background: transparent; 
+        color: rgba(255,255,255,0.45); 
+        border: 1px solid rgba(255,255,255,0.1);
+        padding: 11px 20px; 
+        border-radius: 14px; 
+        font-size: 13px; 
+        font-weight: 600; 
+        cursor: pointer; 
+        transition: all 0.25s ease;
+      }
+      
+      .notif-btn-deny:hover { 
+        background: rgba(255,255,255,0.08); 
+        color: rgba(255,255,255,0.75);
+        border-color: rgba(255,255,255,0.2);
+      }
+
+      .notif-btn-allow { 
+        background: linear-gradient(135deg, #6366f1 0%, #a855f7 100%); 
+        color: white; 
+        border: none; 
+        padding: 11px 24px; 
+        border-radius: 14px; 
+        font-size: 13px; 
+        font-weight: 700; 
+        cursor: pointer; 
+        transition: all 0.25s ease;
+        box-shadow: 0 4px 20px rgba(99, 102, 241, 0.4);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .notif-btn-allow::after {
+        content: '';
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: radial-gradient(circle, rgba(255,255,255,0.15) 0%, transparent 60%);
+        opacity: 0;
+        transition: opacity 0.3s;
+      }
+
+      .notif-btn-allow:hover { 
+        transform: translateY(-2px);
+        box-shadow: 0 8px 30px rgba(99, 102, 241, 0.6);
+      }
+
+      .notif-btn-allow:hover::after {
+        opacity: 1;
+      }
+
+      .notif-btn-allow:active {
+        transform: translateY(0);
+      }
 
       /* ── PWA Top Bar ── */
       .pwa-topbar { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 56px; background: #0f172a; color: white; align-items: center; justify-content: space-between; padding: 0 16px; z-index: 9990; box-shadow: 0 2px 12px rgba(0,0,0,0.3); }
@@ -260,7 +370,6 @@ const currentPath = Astro.url.pathname;
       </>
     )}
 
-    <slot name="head" />
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -294,10 +403,10 @@ const currentPath = Astro.url.pathname;
     <!-- Custom Notification Prompt -->
     <div id="notif-prompt">
       <div class="notif-prompt-header">
-        <div class="notif-prompt-icon">🔔</div>
+        <div class="notif-prompt-icon">⚡</div>
         <div class="notif-prompt-text">
-          <p class="notif-prompt-title">ReviByte Notifications</p>
-          <p class="notif-prompt-desc">Get notified when we publish new tech articles!</p>
+          <p class="notif-prompt-title">Stay Ahead in Tech</p>
+          <p class="notif-prompt-desc">Hit Allow to get instant updates on new posts, phone comparisons, and buying guides that actually help.</p>
         </div>
       </div>
       <div class="notif-prompt-actions">
@@ -409,14 +518,14 @@ const currentPath = Astro.url.pathname;
 
     <!-- OneSignal Init + PWA Install + Notification Prompt -->
     <script is:inline>
-      // ── OneSignal v16 (single init, correct appId) ──
+      // ── OneSignal v16 (notifyButton DISABLED — no upper popup) ──
       window.OneSignalDeferred = window.OneSignalDeferred || [];
 
       OneSignalDeferred.push(async function (OneSignal) {
         try {
           await OneSignal.init({
             appId: "bbd38552-99d1-4cda-96f9-5c0cacfba192",
-            notifyButton: { enable: true },
+            notifyButton: { enable: false },        // ← DISABLED: removes upper bell/slidedown
             allowLocalhostAsSecureOrigin: true,
             autoResubscribe: true,
             serviceWorkerParam: { scope: "/" },
@@ -447,10 +556,11 @@ const currentPath = Astro.url.pathname;
         if (banner) banner.style.display = 'flex';
       });
 
-      // ── Notification Prompt — show after 5s if not already decided ──
-      var notifAsked = localStorage.getItem('notif-asked');
+      // ── Notification Prompt — show after 5s if not already allowed ──
+      // Only save 'notif-allowed' when user clicks Allow. "Not Now" = ask again next visit.
+      var notifAllowed = localStorage.getItem('notif-allowed');
 
-      if (!notifAsked) {
+      if (!notifAllowed) {
         setTimeout(function () {
           var prompt = document.getElementById('notif-prompt');
           if (prompt) prompt.classList.add('visible');
@@ -483,24 +593,22 @@ const currentPath = Astro.url.pathname;
           }
         });
 
-        localStorage.setItem('notif-asked', 'true');
+        localStorage.setItem('notif-allowed', 'true');
         hidePrompt();
       }
 
       function denyNotification() {
-        localStorage.setItem('notif-asked', 'true');
+        // Don't save anything — prompt will show again on next visit
         hidePrompt();
       }
 
       function hidePrompt() {
         var prompt = document.getElementById('notif-prompt');
         if (prompt) {
-          prompt.style.transition = 'opacity 0.3s';
-          prompt.style.opacity = '0';
+          prompt.classList.add('closing');
           setTimeout(function () {
-            prompt.classList.remove('visible');
-            prompt.style.opacity = '1';
-          }, 300);
+            prompt.classList.remove('visible', 'closing');
+          }, 600);
         }
       }
     </script>
