@@ -1,7 +1,10 @@
-// src/sw.js — PWA ONLY (NO OneSignal HERE)
+// src/sw.js — PWA + OneSignal MERGED
 
-import { precacheAndRoute } from 'workbox-precaching';
-import { cleanupOutdatedCaches } from 'workbox-precaching';
+// ── OneSignal (must be first) ──
+importScripts("https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.sw.js");
+
+// ── Workbox PWA ──
+import { precacheAndRoute, cleanupOutdatedCaches } from 'workbox-precaching';
 
 precacheAndRoute(self.__WB_MANIFEST);
 cleanupOutdatedCaches();
@@ -48,7 +51,6 @@ self.addEventListener('fetch', event => {
   const skip = ['googletagmanager', 'googlesyndication', 'pagead'];
   if (skip.some(s => url.href.includes(s))) return;
 
-  // Pages
   if (req.mode === 'navigate') {
     event.respondWith(
       fetch(req).catch(async () => {
@@ -61,7 +63,6 @@ self.addEventListener('fetch', event => {
     return;
   }
 
-  // Static assets
   event.respondWith(
     fetch(req)
       .then(res => {
