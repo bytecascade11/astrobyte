@@ -83,149 +83,27 @@ const currentPath = Astro.url.pathname;
         overflow-x: hidden;
       }
 
-      /* ── Notification Prompt v3 ── */
-      #notif-prompt {
-        display: none;
-        position: fixed;
-        bottom: 24px;
-        left: 50%;
-        transform: translateX(-50%) translateY(20px);
-        width: calc(100% - 32px);
-        max-width: 440px;
-        background: rgba(15, 23, 42, 0.92);
-        backdrop-filter: blur(24px) saturate(180%);
-        -webkit-backdrop-filter: blur(24px) saturate(180%);
-        border: 1px solid rgba(99, 102, 241, 0.25);
-        border-radius: 24px;
-        padding: 24px;
-        z-index: 99999;
-        box-shadow: 
-          0 25px 80px rgba(0,0,0,0.6),
-          0 0 0 1px rgba(255,255,255,0.06) inset,
-          0 0 60px rgba(99, 102, 241, 0.08);
-        opacity: 0;
-        transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+      /* ── OneSignal Slidedown Custom Dark Theme ── */
+      /* Target OneSignal's slidedown container */
+      #onesignal-slidedown-container,
+      .onesignal-slidedown-container {
+        --onesignal-bg: #0f172a !important;
+        --onesignal-text: #ffffff !important;
+        --onesignal-subtext: rgba(255,255,255,0.6) !important;
+        --onesignal-accent: #6366f1 !important;
+        --onesignal-btn-allow-bg: linear-gradient(135deg, #6366f1 0%, #a855f7 100%) !important;
+        --onesignal-btn-allow-text: #ffffff !important;
+        --onesignal-btn-cancel-bg: rgba(255,255,255,0.08) !important;
+        --onesignal-btn-cancel-text: rgba(255,255,255,0.5) !important;
+        --onesignal-btn-cancel-border: rgba(255,255,255,0.12) !important;
+        --onesignal-icon-bg: linear-gradient(135deg, #6366f1 0%, #a855f7 100%) !important;
       }
 
-      #notif-prompt.visible {
-        display: flex;
-        flex-direction: column;
-        gap: 18px;
-        transform: translateX(-50%) translateY(0);
-        opacity: 1;
-      }
-
-      #notif-prompt.closing {
-        transform: translateX(-50%) translateY(20px);
-        opacity: 0;
-      }
-
-      .notif-prompt-header { 
-        display: flex; 
-        align-items: flex-start; 
-        gap: 16px; 
-      }
-      
-      .notif-prompt-icon { 
-        width: 52px; 
-        height: 52px; 
-        background: linear-gradient(135deg, #6366f1 0%, #a855f7 100%); 
-        border-radius: 16px; 
-        display: flex; 
-        align-items: center; 
-        justify-content: center; 
-        font-size: 26px; 
-        flex-shrink: 0;
-        box-shadow: 0 8px 25px rgba(99, 102, 241, 0.5);
-        animation: iconPulse 2.5s ease-in-out infinite;
-      }
-
-      @keyframes iconPulse {
-        0%, 100% { transform: scale(1); box-shadow: 0 8px 25px rgba(99, 102, 241, 0.5); }
-        50% { transform: scale(1.08); box-shadow: 0 8px 35px rgba(99, 102, 241, 0.7); }
-      }
-
-      .notif-prompt-text { flex: 1; }
-      
-      .notif-prompt-title { 
-        font-size: 17px; 
-        font-weight: 800; 
-        color: white; 
-        margin: 0 0 6px 0;
-        letter-spacing: -0.4px;
-        line-height: 1.3;
-      }
-      
-      .notif-prompt-desc { 
-        font-size: 13.5px; 
-        color: rgba(255,255,255,0.55); 
-        margin: 0;
-        line-height: 1.6;
-      }
-
-      .notif-prompt-actions { 
-        display: flex; 
-        gap: 10px; 
-        justify-content: flex-end;
-        padding-top: 2px;
-      }
-      
-      .notif-btn-deny { 
-        background: transparent; 
-        color: rgba(255,255,255,0.45); 
-        border: 1px solid rgba(255,255,255,0.1);
-        padding: 11px 20px; 
-        border-radius: 14px; 
-        font-size: 13px; 
-        font-weight: 600; 
-        cursor: pointer; 
-        transition: all 0.25s ease;
-      }
-      
-      .notif-btn-deny:hover { 
-        background: rgba(255,255,255,0.08); 
-        color: rgba(255,255,255,0.75);
-        border-color: rgba(255,255,255,0.2);
-      }
-
-      .notif-btn-allow { 
-        background: linear-gradient(135deg, #6366f1 0%, #a855f7 100%); 
-        color: white; 
-        border: none; 
-        padding: 11px 24px; 
-        border-radius: 14px; 
-        font-size: 13px; 
-        font-weight: 700; 
-        cursor: pointer; 
-        transition: all 0.25s ease;
-        box-shadow: 0 4px 20px rgba(99, 102, 241, 0.4);
-        position: relative;
-        overflow: hidden;
-      }
-
-      .notif-btn-allow::after {
-        content: '';
-        position: absolute;
-        top: -50%;
-        left: -50%;
-        width: 200%;
-        height: 200%;
-        background: radial-gradient(circle, rgba(255,255,255,0.15) 0%, transparent 60%);
-        opacity: 0;
-        transition: opacity 0.3s;
-      }
-
-      .notif-btn-allow:hover { 
-        transform: translateY(-2px);
-        box-shadow: 0 8px 30px rgba(99, 102, 241, 0.6);
-      }
-
-      .notif-btn-allow:hover::after {
-        opacity: 1;
-      }
-
-      .notif-btn-allow:active {
-        transform: translateY(0);
+      /* Force bottom positioning */
+      #onesignal-slidedown-container .slidedown-body,
+      .onesignal-slidedown-container .slidedown-body {
+        border-radius: 24px 24px 0 0 !important;
+        box-shadow: 0 -8px 40px rgba(0,0,0,0.5) !important;
       }
 
       /* ── PWA Top Bar ── */
@@ -238,7 +116,7 @@ const currentPath = Astro.url.pathname;
 
       /* ── Bottom Nav ── */
       .bottom-nav { position: fixed; bottom: 0; left: 0; width: 100%; background: #0f172a; display: none; justify-content: space-around; align-items: center; height: 64px; z-index: 9990; border-top: 1px solid rgba(255,255,255,0.08); box-shadow: 0 -4px 20px rgba(0,0,0,0.3); }
-      .bottom-nav a { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; color: rgba(255,255,255,0.5); text-decoration: none; font-size: 10px; font-weight: 500; flex: 1; height: 100%; transition: color 0.2s; }
+      .bottom-nav a { display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;color:rgba(255,255,255,0.5);text-decoration:none;font-size:10px;font-weight:500;flex:1;height:100%;transition:color 0.2s; }
       .bottom-nav a:hover, .bottom-nav a.active { color: #6366f1; }
       .bottom-nav a svg { width: 22px; height: 22px; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
       .bottom-nav a.active svg { fill: rgba(99,102,241,0.15); }
@@ -400,20 +278,7 @@ const currentPath = Astro.url.pathname;
     <!-- OneSignal SDK — must be in <body> for v16 -->
     <script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
 
-    <!-- Custom Notification Prompt -->
-    <div id="notif-prompt">
-      <div class="notif-prompt-header">
-        <div class="notif-prompt-icon">⚡</div>
-        <div class="notif-prompt-text">
-          <p class="notif-prompt-title">Stay Ahead in Tech</p>
-          <p class="notif-prompt-desc">Hit Allow to get instant updates on new posts, phone comparisons, and buying guides that actually help.</p>
-        </div>
-      </div>
-      <div class="notif-prompt-actions">
-        <button class="notif-btn-deny" onclick="denyNotification()">Not Now</button>
-        <button class="notif-btn-allow" onclick="allowNotification()">Allow 🔔</button>
-      </div>
-    </div>
+    <!-- REMOVED: Custom #notif-prompt div — using OneSignal native slidedown instead -->
 
     <!-- PWA Top Bar -->
     <div class="pwa-topbar" id="pwaTopbar">
@@ -516,20 +381,40 @@ const currentPath = Astro.url.pathname;
       });
     </script>
 
-    <!-- OneSignal Init + PWA Install + Notification Prompt -->
+    <!-- OneSignal Init + PWA Install -->
     <script is:inline>
-      // ── OneSignal v16 (notifyButton DISABLED — no upper popup) ──
+      // ── OneSignal v16 — Native Slidedown (bottom, dark themed) ──
       window.OneSignalDeferred = window.OneSignalDeferred || [];
 
       OneSignalDeferred.push(async function (OneSignal) {
         try {
           await OneSignal.init({
             appId: "bbd38552-99d1-4cda-96f9-5c0cacfba192",
-            notifyButton: { enable: false },        // ← DISABLED: removes upper bell/slidedown
+            notifyButton: { enable: false },        // Disable bell — using slidedown instead
             allowLocalhostAsSecureOrigin: true,
             autoResubscribe: true,
             serviceWorkerParam: { scope: "/" },
-            serviceWorkerPath: "OneSignalSDKWorker.js"
+            serviceWorkerPath: "OneSignalSDKWorker.js",
+            promptOptions: {
+              slidedown: {
+                prompts: [
+                  {
+                    type: "push",
+                    autoPrompt: true,
+                    text: {
+                      actionMessage: "⚡ Stay Ahead in Tech",
+                      acceptButtonText: "Allow 🔔",
+                      cancelButtonText: "Not Now",
+                      confirmMessage: "Hit Allow to get instant updates on new posts, phone comparisons, and buying guides that actually help."
+                    },
+                    delay: {
+                      pageViews: 1,
+                      timeDelay: 5
+                    }
+                  }
+                ]
+              }
+            }
           });
 
           console.log("OneSignal initialized successfully");
@@ -539,9 +424,6 @@ const currentPath = Astro.url.pathname;
 
           const permission = OneSignal.Notifications.permission;
           console.log("Current permission:", permission);
-
-          const optedIn = OneSignal.User.PushSubscription.optedIn;
-          console.log("User opted in:", optedIn);
 
         } catch (err) {
           console.error("OneSignal init failed:", err);
@@ -556,17 +438,6 @@ const currentPath = Astro.url.pathname;
         if (banner) banner.style.display = 'flex';
       });
 
-      // ── Notification Prompt — show after 5s if not already allowed ──
-      // Only save 'notif-allowed' when user clicks Allow. "Not Now" = ask again next visit.
-      var notifAllowed = localStorage.getItem('notif-allowed');
-
-      if (!notifAllowed) {
-        setTimeout(function () {
-          var prompt = document.getElementById('notif-prompt');
-          if (prompt) prompt.classList.add('visible');
-        }, 5000);
-      }
-
       // ── Install app handler ──
       function installApp() {
         if (window._deferredPrompt) {
@@ -579,36 +450,6 @@ const currentPath = Astro.url.pathname;
         } else {
           var banner = document.getElementById('installBanner');
           if (banner) banner.style.display = 'none';
-        }
-      }
-
-      // ── Notification handlers ──
-      function allowNotification() {
-        window.OneSignalDeferred.push(async function(OneSignal) {
-          try {
-            await OneSignal.Notifications.requestPermission();
-            console.log("Notification permission granted");
-          } catch (err) {
-            console.error("Failed to request permission:", err);
-          }
-        });
-
-        localStorage.setItem('notif-allowed', 'true');
-        hidePrompt();
-      }
-
-      function denyNotification() {
-        // Don't save anything — prompt will show again on next visit
-        hidePrompt();
-      }
-
-      function hidePrompt() {
-        var prompt = document.getElementById('notif-prompt');
-        if (prompt) {
-          prompt.classList.add('closing');
-          setTimeout(function () {
-            prompt.classList.remove('visible', 'closing');
-          }, 600);
         }
       }
     </script>
