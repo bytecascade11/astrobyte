@@ -1,5 +1,4 @@
 ---
-import AnchorAd from "@/components/AnchorAd.astro";
 import Layout from "@/layouts/Layout.astro";
 import Header from "@/components/Header.astro";
 import Footer from "@/components/Footer.astro";
@@ -210,7 +209,10 @@ function formatDate(date: Date) {
     </div>
 
   </main>
+import AnchorAd from "@/components/AnchorAd.astro";
 
+// ...inside the Layout, before </Footer>
+<AnchorAd />
   <Footer />
 </Layout>
 
