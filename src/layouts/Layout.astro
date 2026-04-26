@@ -275,8 +275,7 @@ const currentPath = Astro.url.pathname;
   </head>
 
   <body>
-    <!-- OneSignal SDK — must be in <body> for v16 -->
-    <script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
+    
 
     <!-- REMOVED: Custom #notif-prompt div — using OneSignal native slidedown instead -->
 
@@ -380,55 +379,7 @@ const currentPath = Astro.url.pathname;
         }
       });
     </script>
-
-    <!-- OneSignal Init + PWA Install -->
-    <script is:inline>
-      // ── OneSignal v16 — Native Slidedown (bottom, dark themed) ──
-      window.OneSignalDeferred = window.OneSignalDeferred || [];
-
-            OneSignalDeferred.push(async function (OneSignal) {
-        try {
-          await OneSignal.init({
-            appId: "bbd38552-99d1-4cda-96f9-5c0cacfba192",
-            notifyButton: { enable: false },
-            allowLocalhostAsSecureOrigin: true,
-            autoResubscribe: true,
-            promptOptions: {
-              slidedown: {
-                prompts: [
-                  {
-                    type: "push",
-                    autoPrompt: true,
-                    text: {
-                      actionMessage: "⚡ Stay Ahead in Tech",
-                      acceptButtonText: "Allow 🔔",
-                      cancelButtonText: "Not Now",
-                      confirmMessage: "Hit Allow to get instant updates on new posts, phone comparisons, and buying guides that actually help."
-                    },
-                    delay: {
-                      pageViews: 1,
-                      timeDelay: 5
-                    }
-                  }
-                ]
-              }
-            }
-          });
-
-          console.log("OneSignal initialized successfully");
-
-          const supported = OneSignal.Notifications.isPushSupported();
-          console.log("Push supported:", supported);
-
-          const permission = OneSignal.Notifications.permission;
-          console.log("Current permission:", permission);
-
-        } catch (err) {
-          console.error("OneSignal init failed:", err);
-        }
-      });
-
-
+  
       // ── PWA Install Banner ──
       window.addEventListener('beforeinstallprompt', function (e) {
         e.preventDefault();
