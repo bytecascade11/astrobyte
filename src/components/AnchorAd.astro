@@ -3,6 +3,10 @@
 ---
 
 <div id="anchor-ad-bar" class="anchor-ad collapsed">
+  <button id="anchor-toggle" aria-label="Toggle ad">
+    <span id="anchor-label">▲ Ad</span>
+  </button>
+
   <div id="anchor-ad-content">
     <p class="anchor-ad__disclaimer">Advertisement</p>
     <ins class="adsbygoogle"
@@ -14,33 +18,31 @@
     </ins>
     <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
   </div>
-
-  <button id="anchor-toggle" aria-label="Toggle ad">
-    <span id="anchor-label">▼ Ad</span>
-  </button>
 </div>
 
 <style>
   .anchor-ad {
     position: fixed;
-    top: 0;
+    bottom: 0;
+    top: unset;
     left: 0;
     width: 100%;
     z-index: 1000;
     background: rgba(15, 15, 25, 0.72);
     backdrop-filter: blur(18px);
     -webkit-backdrop-filter: blur(18px);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.45);
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    border-bottom: none;
+    box-shadow: 0 -8px 32px rgba(0, 0, 0, 0.45);
   }
 
   #anchor-ad-content {
     overflow: hidden;
-    max-height: 120px;
+    max-height: 280px;
     transition: max-height 0.35s cubic-bezier(0.4, 0, 0.2, 1),
                 opacity 0.25s ease;
     opacity: 1;
-    padding: 0.5rem 1rem;
+    padding: 0.5rem 1rem 0.75rem;
     text-align: center;
   }
 
@@ -91,6 +93,12 @@
     background: rgba(124, 106, 255, 0.1);
     border-color: rgba(124, 106, 255, 0.3);
   }
+
+  @media (display-mode: standalone) {
+    .anchor-ad {
+      display: none;
+    }
+  }
 </style>
 
 <script>
@@ -102,8 +110,8 @@
     btn.addEventListener('click', () => {
       bar.classList.toggle('collapsed');
       label.textContent = bar.classList.contains('collapsed')
-        ? '▼ Ad'
-        : '▲ Close';
+        ? '▲ Ad'
+        : '▼ Close';
     });
   }
 </script>
