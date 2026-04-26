@@ -1,0 +1,126 @@
+---
+// src/components/AnchorAd.astro
+---
+
+<div id="rb-anchor-ad" class="rb-anchor collapsed">
+  <button id="rb-anchor-toggle" aria-label="Toggle advertisement">
+    <span class="rb-anchor__pill">
+      <svg class="rb-anchor__chevron" width="12" height="12" viewBox="0 0 12 12" fill="none">
+        <path d="M2 8L6 4L10 8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <span id="rb-anchor-label">Ad</span>
+    </span>
+  </button>
+
+  <div id="rb-anchor-content">
+    <p class="rb-anchor__disclaimer">Advertisement</p>
+    <!-- Replace with your actual ad unit slot -->
+    <ins class="adsbygoogle"
+      style="display:block"
+      data-ad-client="ca-pub-4896561037705299"
+      data-ad-slot="6421475366"
+      data-ad-format="horizontal"
+      data-full-width-responsive="true">
+    </ins>
+    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+  </div>
+</div>
+
+<style>
+  .rb-anchor {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    background: rgba(15, 15, 25, 0.72);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 0 -8px 32px rgba(0, 0, 0, 0.45);
+    transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  /* Toggle button */
+  #rb-anchor-toggle {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    padding: 6px 0 4px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    outline: none;
+  }
+
+  .rb-anchor__pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 0.62rem;
+    font-weight: 800;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.45);
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 999px;
+    padding: 3px 10px 3px 8px;
+    transition: color 0.2s, background 0.2s, border-color 0.2s;
+  }
+
+  #rb-anchor-toggle:hover .rb-anchor__pill {
+    color: var(--color-accent, #7c6aff);
+    background: rgba(124, 106, 255, 0.1);
+    border-color: rgba(124, 106, 255, 0.3);
+  }
+
+  .rb-anchor__chevron {
+    transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    flex-shrink: 0;
+  }
+
+  /* Collapsed state — chevron flips */
+  .rb-anchor.collapsed .rb-anchor__chevron {
+    transform: rotate(180deg);
+  }
+
+  /* Ad content area */
+  #rb-anchor-content {
+    overflow: hidden;
+    max-height: 120px;
+    transition: max-height 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+                opacity 0.25s ease;
+    opacity: 1;
+    padding: 0 1rem 0.75rem;
+    text-align: center;
+  }
+
+  .rb-anchor.collapsed #rb-anchor-content {
+    max-height: 0;
+    opacity: 0;
+    padding-bottom: 0;
+  }
+
+  .rb-anchor__disclaimer {
+    font-size: 0.58rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.25);
+    margin: 0 0 6px;
+  }
+</style>
+
+<script>
+  const bar = document.getElementById("rb-anchor-ad");
+  const btn = document.getElementById("rb-anchor-toggle");
+  const label = document.getElementById("rb-anchor-label");
+
+  if (btn && bar && label) {
+    btn.addEventListener("click", () => {
+      const isCollapsed = bar.classList.toggle("collapsed");
+      label.textContent = isCollapsed ? "Ad" : "Close";
+    });
+  }
+</script>
