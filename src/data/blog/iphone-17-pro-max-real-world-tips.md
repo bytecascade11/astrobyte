@@ -2,6 +2,7 @@
 title: "iPhone 17 Pro Max Quick Tips: What Most Reviewers Skip and Why It Actually Matters"
 description: "Beyond the spec sheet — real-world iPhone 17 Pro Max tips covering thermal behavior, Camera Control precision, Adaptive Power mode quirks, and hidden iOS 26 settings that change daily use in ways no benchmark can measure."
 pubDatetime: 2026-02-25T00:00:00Z
+modDatetime: 2026-04-26T05:09:00Z
 author: "iSamuel"
 tags: ["apple", "reviews", "technology", "opinions"]
 coverImage: "/assets/posts/iphone-17-pro-max-cover.jpg"
