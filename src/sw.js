@@ -1,7 +1,7 @@
-// src/sw.js — PWA + OneSignal MERGED
+// src/sw.js — PWA + PushPilot
 
-// ── OneSignal (must be first) ──
-importScripts("https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.sw.js");
+// ── PushPilot (must be first) ──
+importScripts('https://cdn.pushpilot.io/sw.js');
 
 // ── Workbox PWA ──
 import { precacheAndRoute, cleanupOutdatedCaches } from 'workbox-precaching';
@@ -74,4 +74,4 @@ self.addEventListener('fetch', event => {
       })
       .catch(() => caches.match(req))
   );
-});
+});                   
