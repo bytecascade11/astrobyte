@@ -386,15 +386,13 @@ const currentPath = Astro.url.pathname;
       // ── OneSignal v16 — Native Slidedown (bottom, dark themed) ──
       window.OneSignalDeferred = window.OneSignalDeferred || [];
 
-      OneSignalDeferred.push(async function (OneSignal) {
+            OneSignalDeferred.push(async function (OneSignal) {
         try {
           await OneSignal.init({
             appId: "bbd38552-99d1-4cda-96f9-5c0cacfba192",
-            notifyButton: { enable: false },        // Disable bell — using slidedown instead
+            notifyButton: { enable: false },
             allowLocalhostAsSecureOrigin: true,
             autoResubscribe: true,
-            serviceWorkerParam: { scope: "/" },
-            serviceWorkerPath: "OneSignalSDKWorker.js",
             promptOptions: {
               slidedown: {
                 prompts: [
@@ -416,6 +414,20 @@ const currentPath = Astro.url.pathname;
               }
             }
           });
+
+          console.log("OneSignal initialized successfully");
+
+          const supported = OneSignal.Notifications.isPushSupported();
+          console.log("Push supported:", supported);
+
+          const permission = OneSignal.Notifications.permission;
+          console.log("Current permission:", permission);
+
+        } catch (err) {
+          console.error("OneSignal init failed:", err);
+        }
+      });
+
 
           console.log("OneSignal initialized successfully");
 
