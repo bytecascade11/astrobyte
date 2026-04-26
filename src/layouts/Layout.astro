@@ -59,33 +59,18 @@ const currentPath = Astro.url.pathname;
       @media (display-mode: standalone) {
         header { display: none !important; visibility: hidden !important; height: 0 !important; overflow: hidden !important; pointer-events: none !important; }
       }
-    </style>
 
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
-    <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png" />
-    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
-    <!-- PWA Manifest -->
-    <link rel="manifest" href="/site.webmanifest" />
-    <meta name="theme-color" content="#0f172a" />
-    <meta name="apple-mobile-web-app-capable" content="yes" />
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-    <meta name="apple-mobile-web-app-title" content="ReviByte" />
+      *, *::before, *::after { box-sizing: border-box; }
+      html, body {
+        width: 100%;
+        max-width: 100%;
+        margin: 0;
+        padding: 0;
+        overflow-x: hidden;
+      }
 
-    <style>
-  *, *::before, *::after { box-sizing: border-box; }
-  html, body {
-    width: 100%;
-    max-width: 100%;
-    margin: 0;
-    padding: 0;
-    overflow-x: hidden;
-  }
-
-  /* ── PushPilot Prompt Styling (update selectors after setup) ── */
-  /* Add custom styles here once you see PushPilot's actual DOM */
-</style>
+      /* ── PushPilot Prompt Styling (update selectors after setup) ── */
+      /* Add custom styles here once you see PushPilot's actual DOM */
 
       /* ── PWA Top Bar ── */
       .pwa-topbar { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 56px; background: #0f172a; color: white; align-items: center; justify-content: space-between; padding: 0 16px; z-index: 9990; box-shadow: 0 2px 12px rgba(0,0,0,0.3); }
@@ -229,6 +214,35 @@ const currentPath = Astro.url.pathname;
       </>
     )}
 
+    <!-- PushPilot SDK -->
+    <script src="https://cdn.pushpilot.io/sdk.js" async></script>
+
+    <!-- PushPilot Init -->
+    <script is:inline>
+      window.PushPilot = window.PushPilot || [];
+      PushPilot.push(['init', {
+        projectKey: 'YOUR_PUSHPILOT_PROJECT_KEY', // <-- REPLACE with your actual key
+        serviceWorkerPath: '/pushpilot-sw.js',
+        welcomeNotification: {
+          title: '🔔 Welcome to ReviByte!',
+          message: 'You\'ll now get instant tech updates, comparisons, and buying guides.'
+        },
+        promptOptions: {
+          autoPrompt: true,
+          delay: {
+            pageViews: 1,
+            timeDelay: 5
+          },
+          text: {
+            actionMessage: '⚡ Stay Ahead in Tech',
+            acceptButtonText: 'Allow 🔔',
+            cancelButtonText: 'Not Now',
+            confirmMessage: 'Hit Allow to get instant updates on new posts, phone comparisons, and buying guides that actually help.'
+          }
+        }
+      }]);
+    </script>
+
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -256,10 +270,6 @@ const currentPath = Astro.url.pathname;
   </head>
 
   <body>
-    
-
-    <!-- REMOVED: Custom #notif-prompt div — using OneSignal native slidedown instead -->
-
     <!-- PWA Top Bar -->
     <div class="pwa-topbar" id="pwaTopbar">
       <a href="/" class="pwa-topbar-title">{SITE.title}</a>
@@ -330,7 +340,7 @@ const currentPath = Astro.url.pathname;
       <button onclick="installApp()" style="background:#6366f1; color:white; border:none; padding:8px 16px; border-radius:8px; cursor:pointer; font-weight:600;">Install</button>
       <button onclick="document.getElementById('installBanner').style.display='none'" style="background:transparent; color:white; border:none; cursor:pointer; font-size:18px;">✕</button>
     </div>
-    
+
     <!-- PWA Detection -->
     <script is:inline>
       function checkPWA() {
@@ -360,7 +370,9 @@ const currentPath = Astro.url.pathname;
         }
       });
     </script>
-  
+
+    <!-- PWA Install Banner Logic -->
+    <script is:inline>
       // ── PWA Install Banner ──
       window.addEventListener('beforeinstallprompt', function (e) {
         e.preventDefault();
