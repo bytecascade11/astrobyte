@@ -428,20 +428,6 @@ const currentPath = Astro.url.pathname;
         }
       });
 
-
-          console.log("OneSignal initialized successfully");
-
-          const supported = OneSignal.Notifications.isPushSupported();
-          console.log("Push supported:", supported);
-
-          const permission = OneSignal.Notifications.permission;
-          console.log("Current permission:", permission);
-
-        } catch (err) {
-          console.error("OneSignal init failed:", err);
-        }
-      });
-
       // ── PWA Install Banner ──
       window.addEventListener('beforeinstallprompt', function (e) {
         e.preventDefault();
