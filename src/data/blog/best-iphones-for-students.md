@@ -1,7 +1,7 @@
 ---
 title: "Best iPhones for Students (Affordable & Reliable)"
 description: "As a physics and electronics student, I know what a student phone actually needs to survive. Here are the best iPhones for students in 2026 — with real numbers, real use cases, and zero fluff."
-coverImage: "/assets/posts/best-iphones-for-students-cover-image.jpg"
+coverImage: "/assets/posts/best-iphones-for-students-cover-mage.jpg"
 coverImageAlt: "Best iPhones for Students 2026 — ReviByte"
 author: iSamuel
 pubDatetime: 2026-04-29T21:25:00Z
