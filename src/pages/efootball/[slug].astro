@@ -1,0 +1,173 @@
+---
+// src/pages/efootball/[slug].astro
+import { getCollection } from "astro:content";
+import Layout from "@/layouts/Layout.astro";
+import { SITE } from "@/config";
+
+export async function getStaticPaths() {
+  const guides = await getCollection("efootball", ({ data }) => !data.draft);
+
+  return guides.map(guide => ({
+    params: { slug: guide.data.slug ?? guide.id },
+    props: { guide },
+  }));
+}
+
+const { guide } = Astro.props;
+const { Content } = await guide.render();
+
+// Resolve related guides
+let relatedGuides = [];
+if (guide.data.relatedSlugs && guide.data.relatedSlugs.length > 0) {
+  const all = await getCollection("efootball", ({ data }) => !data.draft);
+  relatedGuides = all.filter(g =>
+    guide.data.relatedSlugs.includes(g.data.slug ?? g.id)
+  );
+}
+
+const pageTitle = `${guide.data.title} | ${SITE.title}`;
+const pageDesc = guide.data.description;
+
+const typeLabels = {
+  formation: "Formation Guide",
+  guide: "Guide",
+  "tier-list": "Tier List",
+  "player-review": "Player Review",
+  news: "News",
+};
+const typeLabel = typeLabels[guide.data.type] ?? "Guide";
+---
+
+<Layout title={pageTitle} description={pageDesc}>
+  <main id="main-content" class="mx-auto w-full max-w-3xl px-4 pb-16">
+
+    <!-- Breadcrumb -->
+    <nav class="pt-6 pb-2 text-sm text-skin-base/50 flex items-center gap-1.5">
+      <a href="/" class="hover:text-skin-accent transition-colors">Home</a>
+      <span>/</span>
+      <a href="/efootball/" class="hover:text-skin-accent transition-colors">eFootball</a>
+      <span>/</span>
+      <span class="text-skin-base/80">{typeLabel}</span>
+    </nav>
+
+    <!-- Cover Image -->
+    {guide.data.coverImage && (
+      <div class="mb-6 mt-2 overflow-hidden rounded-xl">
+        <img
+          src={guide.data.coverImage}
+          alt={guide.data.coverImageAlt ?? guide.data.title}
+          class="w-full object-cover max-h-72"
+          loading="eager"
+        />
+      </div>
+    )}
+
+    <!-- Header -->
+    <header class="mb-8">
+      <!-- Badges -->
+      <div class="flex flex-wrap gap-2 mb-3">
+        <span class="text-xs font-medium px-2.5 py-1 rounded-full bg-skin-card text-skin-accent border border-skin-accent/30">
+          ⚽ eFootball 2026
+        </span>
+        <span class="text-xs font-medium px-2.5 py-1 rounded-full bg-skin-card text-skin-base/60 border border-skin-line">
+          {typeLabel}
+        </span>
+        {guide.data.formation && (
+          <span class="text-xs font-medium px-2.5 py-1 rounded-full bg-skin-card text-skin-base/60 border border-skin-line">
+            {guide.data.formation}
+          </span>
+        )}
+        {guide.data.division && (
+          <span class="text-xs font-medium px-2.5 py-1 rounded-full bg-skin-card text-skin-base/60 border border-skin-line">
+            {guide.data.division}
+          </span>
+        )}
+        {guide.data.version && (
+          <span class="text-xs font-medium px-2.5 py-1 rounded-full bg-skin-card text-skin-base/60 border border-skin-line">
+            📅 {guide.data.version}
+          </span>
+        )}
+      </div>
+
+      <h1 class="text-3xl font-bold leading-tight mb-3">
+        {guide.data.title}
+      </h1>
+
+      <p class="text-skin-base/70 text-lg leading-relaxed">
+        {guide.data.description}
+      </p>
+
+      <!-- Meta -->
+      <div class="mt-4 flex flex-wrap gap-x-4 gap-y-1 text-sm text-skin-base/50">
+        <span>By {guide.data.author}</span>
+        <span>
+          {new Date(guide.data.pubDatetime).toLocaleDateString("en-NG", {
+            year: "numeric",
+            month: "long",
+            day: "numeric",
+          })}
+        </span>
+        {guide.data.lastUpdated && (
+          <span>🔄 Updated: {guide.data.lastUpdated}</span>
+        )}
+      </div>
+    </header>
+
+    <!-- Main Content -->
+    <article class="prose prose-revibyte max-w-none">
+      <Content />
+    </article>
+
+    <!-- Tags -->
+    {guide.data.tags.length > 0 && (
+      <div class="mt-10 flex flex-wrap gap-2">
+        {guide.data.tags.map(tag => (
+          <a
+            href={`/tags/${tag}/`}
+            class="text-xs px-3 py-1 rounded-full border border-skin-line hover:border-skin-accent hover:text-skin-accent transition-colors"
+          >
+            #{tag}
+          </a>
+        ))}
+      </div>
+    )}
+
+    <!-- Related Guides -->
+    {relatedGuides.length > 0 && (
+      <section class="mt-12 border-t border-skin-line pt-8">
+        <h2 class="text-lg font-semibold mb-4">📎 Related Guides</h2>
+        <ul class="space-y-3">
+          {relatedGuides.map(related => (
+            <li>
+              <a
+                href={`/efootball/${related.data.slug ?? related.id}/`}
+                class="group flex items-start gap-3 rounded-lg border border-skin-line p-3 hover:border-skin-accent transition-colors"
+              >
+                <span class="text-xl shrink-0">⚽</span>
+                <div>
+                  <p class="font-medium text-sm group-hover:text-skin-accent transition-colors">
+                    {related.data.title}
+                  </p>
+                  <p class="text-xs text-skin-base/50 mt-0.5">
+                    {related.data.description}
+                  </p>
+                </div>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </section>
+    )}
+
+    <!-- Back link -->
+    <div class="mt-10">
+      <a
+        href="/efootball/"
+        class="text-sm text-skin-accent hover:underline flex items-center gap-1"
+      >
+        ← Back to eFootball Hub
+      </a>
+    </div>
+
+  </main>
+</Layout>
