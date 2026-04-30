@@ -120,9 +120,39 @@ function formatDate(date: Date) {
 
     <Hr class="my-10" />
 
-<!-- paste entire games-hub-section.astro content here -->
+    <!-- ── GAMES HUB SECTION ── -->
+    <section class="rb-games-hub mb-10">
+      <h2 class="rb-section-heading">🎮 Game Guides</h2>
+      <p class="rb-games-hub__sub">In-depth loadouts, formations and tier lists — updated every season.</p>
 
-<!-- ── AD SPOT 1: Between Hero and More Posts ── -->
+      <div class="rb-games-grid">
+
+        <!-- COD Mobile Card -->
+        <a href="/codm/" class="rb-game-card">
+          <div class="rb-game-card__icon">🎯</div>
+          <div class="rb-game-card__body">
+            <h3 class="rb-game-card__title">COD Mobile</h3>
+            <p class="rb-game-card__desc">Best loadouts, weapon tier lists, sensitivity settings and ranked guides — updated every season.</p>
+            <span class="rb-game-card__cta">View Guides →</span>
+          </div>
+        </a>
+
+        <!-- eFootball Card -->
+        <a href="/efootball/" class="rb-game-card">
+          <div class="rb-game-card__icon">⚽</div>
+          <div class="rb-game-card__body">
+            <h3 class="rb-game-card__title">eFootball 2026</h3>
+            <p class="rb-game-card__desc">Top formations, Division 1 tactics, player reviews and squad-building tips for every patch.</p>
+            <span class="rb-game-card__cta">View Guides →</span>
+          </div>
+        </a>
+
+      </div>
+    </section>
+
+    <Hr class="my-10" />
+
+    <!-- ── AD SPOT 1: Between Hero and More Posts ── -->
     <div class="rb-ad-banner">
       <ins class="adsbygoogle"
         style="display:block"
@@ -555,5 +585,85 @@ function formatDate(date: Date) {
     border-bottom: 1px solid var(--color-border);
     text-align: center;
     min-height: 90px;
+  }
+
+  /* ── Games Hub ── */
+  .rb-games-hub__sub {
+    font-size: 0.85rem;
+    color: var(--color-foreground);
+    opacity: 0.6;
+    margin-bottom: 1.2rem;
+    margin-top: 0.25rem;
+  }
+
+  .rb-games-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  @media (min-width: 600px) {
+    .rb-games-grid {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  .rb-game-card {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    padding: 1.2rem 1.3rem;
+    border-radius: 12px;
+    border: 1px solid var(--color-border);
+    background: var(--color-card);
+    text-decoration: none;
+    transition: border-color 0.2s, transform 0.2s;
+  }
+
+  .rb-game-card:hover {
+    border-color: var(--color-accent);
+    transform: translateY(-2px);
+  }
+
+  .rb-game-card__icon {
+    font-size: 2rem;
+    flex-shrink: 0;
+    line-height: 1;
+    margin-top: 0.1rem;
+  }
+
+  .rb-game-card__body {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .rb-game-card__title {
+    font-size: 1rem;
+    font-weight: 800;
+    color: var(--color-foreground);
+    margin-bottom: 0.35rem;
+    letter-spacing: -0.01em;
+  }
+
+  .rb-game-card__desc {
+    font-size: 0.82rem;
+    line-height: 1.55;
+    color: var(--color-foreground);
+    opacity: 0.65;
+    margin-bottom: 0.7rem;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .rb-game-card__cta {
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: var(--color-accent);
+  }
+
+  .rb-game-card:hover .rb-game-card__cta {
+    text-decoration: underline;
   }
 </style>
