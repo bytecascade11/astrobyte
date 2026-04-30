@@ -1,0 +1,173 @@
+---
+// src/pages/codm/index.astro
+import { getCollection } from "astro:content";
+import Layout from "@/layouts/Layout.astro";
+import { SITE } from "@/config";
+
+const allGuides = await getCollection("codm", ({ data }) => !data.draft);
+
+// Sort by pubDatetime descending
+const sorted = allGuides.sort(
+  (a, b) =>
+    new Date(b.data.pubDatetime).getTime() -
+    new Date(a.data.pubDatetime).getTime()
+);
+
+// Group by type
+const loadouts = sorted.filter(g => g.data.type === "loadout");
+const tierLists = sorted.filter(g => g.data.type === "tier-list");
+const guides = sorted.filter(
+  g => g.data.type === "guide" || g.data.type === "settings"
+);
+const news = sorted.filter(g => g.data.type === "news");
+
+const pageTitle = "COD Mobile Guides, Loadouts & Tier Lists";
+const pageDesc =
+  "Complete COD Mobile resource hub — best loadouts per season, weapon tier lists, sensitivity settings, and mode-specific guides updated regularly.";
+---
+
+<Layout title={`${pageTitle} | ${SITE.title}`} description={pageDesc}>
+  <main id="main-content" class="mx-auto w-full max-w-3xl px-4 pb-12">
+
+    <!-- Hero Header -->
+    <section class="mb-10 pt-8">
+      <div class="flex items-center gap-3 mb-2">
+        <span class="text-3xl">🎮</span>
+        <h1 class="text-3xl font-bold tracking-tight">COD Mobile Hub</h1>
+      </div>
+      <p class="text-skin-base/70 text-lg">
+        {pageDesc}
+      </p>
+    </section>
+
+    <!-- Loadouts Section -->
+    {loadouts.length > 0 && (
+      <section class="mb-10">
+        <h2 class="text-xl font-semibold mb-4 border-b border-skin-line pb-2">
+          🔫 Best Loadouts
+        </h2>
+        <ul class="space-y-4">
+          {loadouts.map(guide => (
+            <li>
+              <a
+                href={`/codm/${guide.data.slug ?? guide.id}/`}
+                class="group block rounded-lg border border-skin-line p-4 hover:border-skin-accent transition-colors"
+              >
+                <div class="flex items-start justify-between gap-2">
+                  <h3 class="font-medium group-hover:text-skin-accent transition-colors">
+                    {guide.data.title}
+                  </h3>
+                  {guide.data.season && (
+                    <span class="shrink-0 text-xs bg-skin-card px-2 py-0.5 rounded-full text-skin-base/60">
+                      {guide.data.season}
+                    </span>
+                  )}
+                </div>
+                <p class="text-sm text-skin-base/60 mt-1">{guide.data.description}</p>
+                {guide.data.gameMode && (
+                  <span class="mt-2 inline-block text-xs text-skin-accent">
+                    {guide.data.gameMode}
+                  </span>
+                )}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </section>
+    )}
+
+    <!-- Tier Lists Section -->
+    {tierLists.length > 0 && (
+      <section class="mb-10">
+        <h2 class="text-xl font-semibold mb-4 border-b border-skin-line pb-2">
+          📊 Tier Lists
+        </h2>
+        <ul class="space-y-4">
+          {tierLists.map(guide => (
+            <li>
+              <a
+                href={`/codm/${guide.data.slug ?? guide.id}/`}
+                class="group block rounded-lg border border-skin-line p-4 hover:border-skin-accent transition-colors"
+              >
+                <div class="flex items-start justify-between gap-2">
+                  <h3 class="font-medium group-hover:text-skin-accent transition-colors">
+                    {guide.data.title}
+                  </h3>
+                  {guide.data.season && (
+                    <span class="shrink-0 text-xs bg-skin-card px-2 py-0.5 rounded-full text-skin-base/60">
+                      {guide.data.season}
+                    </span>
+                  )}
+                </div>
+                <p class="text-sm text-skin-base/60 mt-1">{guide.data.description}</p>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </section>
+    )}
+
+    <!-- Guides & Settings Section -->
+    {guides.length > 0 && (
+      <section class="mb-10">
+        <h2 class="text-xl font-semibold mb-4 border-b border-skin-line pb-2">
+          📖 Guides & Settings
+        </h2>
+        <ul class="space-y-4">
+          {guides.map(guide => (
+            <li>
+              <a
+                href={`/codm/${guide.data.slug ?? guide.id}/`}
+                class="group block rounded-lg border border-skin-line p-4 hover:border-skin-accent transition-colors"
+              >
+                <div class="flex items-start justify-between gap-2">
+                  <h3 class="font-medium group-hover:text-skin-accent transition-colors">
+                    {guide.data.title}
+                  </h3>
+                  {guide.data.gameMode && (
+                    <span class="shrink-0 text-xs bg-skin-card px-2 py-0.5 rounded-full text-skin-base/60">
+                      {guide.data.gameMode}
+                    </span>
+                  )}
+                </div>
+                <p class="text-sm text-skin-base/60 mt-1">{guide.data.description}</p>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </section>
+    )}
+
+    <!-- News Section -->
+    {news.length > 0 && (
+      <section class="mb-10">
+        <h2 class="text-xl font-semibold mb-4 border-b border-skin-line pb-2">
+          📰 Latest News
+        </h2>
+        <ul class="space-y-4">
+          {news.map(guide => (
+            <li>
+              <a
+                href={`/codm/${guide.data.slug ?? guide.id}/`}
+                class="group block rounded-lg border border-skin-line p-4 hover:border-skin-accent transition-colors"
+              >
+                <h3 class="font-medium group-hover:text-skin-accent transition-colors">
+                  {guide.data.title}
+                </h3>
+                <p class="text-sm text-skin-base/60 mt-1">{guide.data.description}</p>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </section>
+    )}
+
+    <!-- Empty State -->
+    {sorted.length === 0 && (
+      <p class="text-center text-skin-base/50 py-20">
+        Guides coming soon. Check back shortly.
+      </p>
+    )}
+
+  </main>
+</Layout>
