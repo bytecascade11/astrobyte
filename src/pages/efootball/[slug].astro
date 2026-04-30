@@ -1,6 +1,7 @@
 ---
 // src/pages/efootball/[slug].astro
-import { getCollection } from "astro:content";
+import { getCollection, render } from "astro:content";
+import type { CollectionEntry } from "astro:content";
 import Layout from "@/layouts/Layout.astro";
 import { SITE } from "@/config";
 
@@ -14,21 +15,21 @@ export async function getStaticPaths() {
 }
 
 const { guide } = Astro.props;
-const { Content } = await guide.render();
+const { Content } = await render(guide);
 
 // Resolve related guides
-let relatedGuides = [];
-if (guide.data.relatedSlugs && guide.data.relatedSlugs.length > 0) {
+let relatedGuides: CollectionEntry<"efootball">[] = [];
+if (guide.data.relatedSlugs?.length) {
   const all = await getCollection("efootball", ({ data }) => !data.draft);
   relatedGuides = all.filter(g =>
-    guide.data.relatedSlugs.includes(g.data.slug ?? g.id)
+    guide.data.relatedSlugs!.includes(g.data.slug ?? g.id)
   );
 }
 
 const pageTitle = `${guide.data.title} | ${SITE.title}`;
 const pageDesc = guide.data.description;
 
-const typeLabels = {
+const typeLabels: Record<string, string> = {
   formation: "Formation Guide",
   guide: "Guide",
   "tier-list": "Tier List",
