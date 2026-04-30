@@ -10,7 +10,6 @@ type: loadout
 gameMode: Multiplayer
 season: "Season 14"
 slug: "best-smg-loadout-codm-season-14-2026"
-tags: ["codm", "loadout", "smg", "multiplayer"]
 relatedSlugs:
   - "codm-sensitivity-settings-beginners"
   - "best-weapon-tier-list-codm-season-14"
@@ -93,3 +92,14 @@ All three builds have been tested in Diamond-Legendary ranked lobbies this seaso
 ## Final Tip
 
 Pair any of these with the **Ghost** perk in your operator skill slot if you're constantly dying to UAVs. Staying off the radar on these small maps is worth more than any attachment bonus.
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4896561037705299"
+     crossorigin="anonymous"></script>
+<ins class="adsbygoogle"
+     style="display:block; text-align:center;"
+     data-ad-layout="in-article"
+     data-ad-format="fluid"
+     data-ad-client="ca-pub-4896561037705299"
+     data-ad-slot="7554701431"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
