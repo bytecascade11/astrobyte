@@ -4,7 +4,7 @@ description: "The SMG meta in Season 14 shifted hard. Here are the top 3 SMG bui
 author: iSamuel
 pubDatetime: "2026-04-28T19:17:00Z"
 lastUpdated: "Season 14 2026"
-coverImage: "/assets/codm/best-smg-loadout-season-14.jpg"
+coverImage: "/assets/codm/best-smg-loadout-codm-season-14-2026.jpg"
 coverImageAlt: "Best SMG loadout COD Mobile Season 14 2026"
 type: loadout
 gameMode: Multiplayer
