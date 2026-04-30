@@ -1,8 +1,54 @@
-// ============================================================
-// ADD THIS TO YOUR EXISTING src/content/config.ts
-// Place after your existing `blog` collection definition
-// and update the `export const collections` at the bottom
-// ============================================================
+// src/content/config.ts
+import { defineCollection, z } from "astro:content";
+import { glob } from "astro/loaders";
+
+import { SITE } from "@/config";
+
+// Recommended: keep this constant for easier maintenance
+export const BLOG_PATH = "src/data/blog";
+
+// --------------- Blog Collection (unchanged) ---------------
+const blog = defineCollection({
+  loader: glob({
+    pattern: "**/[^_]*.{md,mdx}",
+    base: `./${BLOG_PATH}`,
+  }),
+
+  schema: ({ image }) =>
+    z.object({
+      // Core fields
+      title: z.string(),
+      description: z.string(),
+      author: z.string().default(SITE.author),
+
+      // Dates
+      pubDatetime: z.coerce.date(),
+      modDatetime: z.coerce.date().optional().nullable(),
+      timezone: z.string().optional(),
+
+      // SEO / Social
+      ogImage: image()
+        .optional()
+        .or(z.string().url().optional()),
+
+      canonicalURL: z.string().url().optional(),
+
+      // Categorization & Control
+      tags: z.array(z.string()).default(["others"]),
+      featured: z.boolean().optional(),
+      draft: z.boolean().optional().default(false),
+
+      // Custom slug
+      slug: z.string().optional(),
+
+      // Cover / Featured image
+      coverImage: z.string().optional(),
+      coverImageAlt: z.string().optional(),
+
+      // UI/Behavior controls
+      hideEditPost: z.boolean().optional().default(false),
+    }),
+});
 
 // --------------- CODM Collection ---------------
 const codm = defineCollection({
@@ -21,7 +67,7 @@ const codm = defineCollection({
       // Dates
       pubDatetime: z.coerce.date(),
       modDatetime: z.coerce.date().optional().nullable(),
-      lastUpdated: z.string().optional(), // e.g. "Season 14 2026"
+      lastUpdated: z.string().optional(),
 
       // SEO / Social
       ogImage: image().optional().or(z.string().url().optional()),
@@ -38,7 +84,7 @@ const codm = defineCollection({
       gameMode: z
         .enum(["Multiplayer", "Battle Royale", "Ranked", "All Modes"])
         .optional(),
-      season: z.string().optional(), // e.g. "Season 14"
+      season: z.string().optional(),
 
       // Categorization
       tags: z.array(z.string()).default(["codm"]),
@@ -46,7 +92,7 @@ const codm = defineCollection({
       draft: z.boolean().optional().default(false),
 
       // Internal linking
-      relatedSlugs: z.array(z.string()).optional(), // slugs of related CODM guides
+      relatedSlugs: z.array(z.string()).optional(),
       slug: z.string().optional(),
     }),
 });
@@ -68,7 +114,7 @@ const efootball = defineCollection({
       // Dates
       pubDatetime: z.coerce.date(),
       modDatetime: z.coerce.date().optional().nullable(),
-      lastUpdated: z.string().optional(), // e.g. "v4.4.0 2026"
+      lastUpdated: z.string().optional(),
 
       // SEO / Social
       ogImage: image().optional().or(z.string().url().optional()),
@@ -82,9 +128,9 @@ const efootball = defineCollection({
       type: z
         .enum(["formation", "guide", "tier-list", "player-review", "news"])
         .default("guide"),
-      formation: z.string().optional(), // e.g. "4-3-3", "4-2-2-2"
-      division: z.string().optional(),  // e.g. "Division 1", "Division 3"
-      version: z.string().optional(),   // e.g. "eFootball 2026 v4.4"
+      formation: z.string().optional(),
+      division: z.string().optional(),
+      version: z.string().optional(),
 
       // Categorization
       tags: z.array(z.string()).default(["efootball"]),
@@ -97,9 +143,7 @@ const efootball = defineCollection({
     }),
 });
 
-// ============================================================
-// REPLACE your existing export at the bottom of config.ts with:
-// ============================================================
+// Export collections
 export const collections = {
   blog,
   codm,
