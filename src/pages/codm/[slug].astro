@@ -1,6 +1,7 @@
 ---
 // src/pages/codm/[slug].astro
-import { getCollection, getEntry } from "astro:content";
+import { getCollection, render } from "astro:content";
+import type { CollectionEntry } from "astro:content";
 import Layout from "@/layouts/Layout.astro";
 import { SITE } from "@/config";
 
@@ -14,22 +15,21 @@ export async function getStaticPaths() {
 }
 
 const { guide } = Astro.props;
-const { Content } = await guide.render();
+const { Content } = await render(guide);
 
 // Resolve related guides for internal linking
-let relatedGuides = [];
-if (guide.data.relatedSlugs && guide.data.relatedSlugs.length > 0) {
+let relatedGuides: CollectionEntry<"codm">[] = [];
+if (guide.data.relatedSlugs?.length) {
   const all = await getCollection("codm", ({ data }) => !data.draft);
   relatedGuides = all.filter(g =>
-    guide.data.relatedSlugs.includes(g.data.slug ?? g.id)
+    guide.data.relatedSlugs!.includes(g.data.slug ?? g.id)
   );
 }
 
 const pageTitle = `${guide.data.title} | ${SITE.title}`;
 const pageDesc = guide.data.description;
 
-// Breadcrumb label for type
-const typeLabels = {
+const typeLabels: Record<string, string> = {
   loadout: "Loadout",
   "tier-list": "Tier List",
   guide: "Guide",
