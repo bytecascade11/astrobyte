@@ -17,7 +17,6 @@ export async function getStaticPaths() {
 const { guide } = Astro.props;
 const { Content } = await render(guide);
 
-// Resolve related guides for internal linking
 let relatedGuides: CollectionEntry<"codm">[] = [];
 if (guide.data.relatedSlugs?.length) {
   const all = await getCollection("codm", ({ data }) => !data.draft);
@@ -43,12 +42,12 @@ const typeLabel = typeLabels[guide.data.type] ?? "Guide";
   <main id="main-content" class="mx-auto w-full max-w-3xl px-4 pb-16">
 
     <!-- Breadcrumb -->
-    <nav class="pt-6 pb-2 text-sm text-skin-base/50 flex items-center gap-1.5">
+    <nav class="pt-6 pb-2 text-sm flex items-center gap-1.5 breadcrumb-nav">
       <a href="/" class="hover:text-skin-accent transition-colors">Home</a>
       <span>/</span>
       <a href="/codm/" class="hover:text-skin-accent transition-colors">COD Mobile</a>
       <span>/</span>
-      <span class="text-skin-base/80">{typeLabel}</span>
+      <span>{typeLabel}</span>
     </nav>
 
     <!-- Cover Image -->
@@ -65,23 +64,14 @@ const typeLabel = typeLabels[guide.data.type] ?? "Guide";
 
     <!-- Header -->
     <header class="mb-8">
-      <!-- Badges row -->
       <div class="flex flex-wrap gap-2 mb-3">
-        <span class="text-xs font-medium px-2.5 py-1 rounded-full bg-skin-card text-skin-accent border border-skin-accent/30">
-          🎮 COD Mobile
-        </span>
-        <span class="text-xs font-medium px-2.5 py-1 rounded-full bg-skin-card text-skin-base/60 border border-skin-line">
-          {typeLabel}
-        </span>
+        <span class="badge badge--accent">🎮 COD Mobile</span>
+        <span class="badge">{typeLabel}</span>
         {guide.data.gameMode && (
-          <span class="text-xs font-medium px-2.5 py-1 rounded-full bg-skin-card text-skin-base/60 border border-skin-line">
-            {guide.data.gameMode}
-          </span>
+          <span class="badge">{guide.data.gameMode}</span>
         )}
         {guide.data.season && (
-          <span class="text-xs font-medium px-2.5 py-1 rounded-full bg-skin-card text-skin-base/60 border border-skin-line">
-            📅 {guide.data.season}
-          </span>
+          <span class="badge">📅 {guide.data.season}</span>
         )}
       </div>
 
@@ -89,12 +79,11 @@ const typeLabel = typeLabels[guide.data.type] ?? "Guide";
         {guide.data.title}
       </h1>
 
-      <p class="text-skin-base/70 text-lg leading-relaxed">
+      <p class="post-desc text-lg leading-relaxed">
         {guide.data.description}
       </p>
 
-      <!-- Meta row -->
-      <div class="mt-4 flex flex-wrap gap-x-4 gap-y-1 text-sm text-skin-base/50">
+      <div class="mt-4 flex flex-wrap gap-x-4 gap-y-1 text-sm post-meta">
         <span>By {guide.data.author}</span>
         <span>
           {new Date(guide.data.pubDatetime).toLocaleDateString("en-NG", {
@@ -114,21 +103,7 @@ const typeLabel = typeLabels[guide.data.type] ?? "Guide";
       <Content />
     </article>
 
-    <!-- Tags -->
-    {guide.data.tags.length > 0 && (
-      <div class="mt-10 flex flex-wrap gap-2">
-        {guide.data.tags.map(tag => (
-          <a
-            href={`/tags/${tag}/`}
-            class="text-xs px-3 py-1 rounded-full border border-skin-line hover:border-skin-accent hover:text-skin-accent transition-colors"
-          >
-            #{tag}
-          </a>
-        ))}
-      </div>
-    )}
-
-    <!-- Related Guides (Internal Linking) -->
+    <!-- Related Guides -->
     {relatedGuides.length > 0 && (
       <section class="mt-12 border-t border-skin-line pt-8">
         <h2 class="text-lg font-semibold mb-4">📎 Related Guides</h2>
@@ -144,7 +119,7 @@ const typeLabel = typeLabels[guide.data.type] ?? "Guide";
                   <p class="font-medium text-sm group-hover:text-skin-accent transition-colors">
                     {related.data.title}
                   </p>
-                  <p class="text-xs text-skin-base/50 mt-0.5">
+                  <p class="text-xs post-meta mt-0.5">
                     {related.data.description}
                   </p>
                 </div>
@@ -167,3 +142,40 @@ const typeLabel = typeLabels[guide.data.type] ?? "Guide";
 
   </main>
 </Layout>
+
+<style>
+  .breadcrumb-nav {
+    color: var(--color-foreground);
+    opacity: 0.6;
+  }
+  .breadcrumb-nav a {
+    opacity: 1;
+    color: var(--color-foreground);
+  }
+  .breadcrumb-nav a:hover {
+    color: var(--color-accent);
+    opacity: 1;
+  }
+  .post-desc {
+    color: var(--color-foreground);
+    opacity: 0.75;
+  }
+  .post-meta {
+    color: var(--color-foreground);
+    opacity: 0.6;
+  }
+  .badge {
+    font-size: 0.72rem;
+    font-weight: 600;
+    padding: 0.2rem 0.65rem;
+    border-radius: 9999px;
+    background: var(--color-card);
+    color: var(--color-foreground);
+    border: 1px solid var(--color-border);
+  }
+  .badge--accent {
+    color: var(--color-accent);
+    border-color: var(--color-accent);
+    opacity: 0.9;
+  }
+</style>
