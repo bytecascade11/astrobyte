@@ -59,10 +59,10 @@ body {
   animation: gradientMove 15s ease infinite;
 }
 
+/* Clean white light mode */
 html[data-theme="light"] body {
-  background: linear-gradient(-45deg, #e2e8f0, #f1f5f9, #dbeafe, #e2e8f0);
-  background-size: 400% 400%;
-  animation: gradientMove 15s ease infinite;
+  background: #ffffff;
+  animation: none;
 }
 
 /* ========================= */
@@ -86,8 +86,8 @@ body::before {
 }
 
 html[data-theme="light"] body::before {
-  color: rgba(0, 108, 172, 0.05);
-  animation: pulseText 5s ease-in-out infinite;
+  color: rgba(0, 108, 172, 0.04);
+  animation: none;
 }
 
 /* ========================= */
@@ -108,9 +108,9 @@ body::after {
 
 html[data-theme="light"] body::after {
   background:
-    radial-gradient(circle at 20% 30%, rgba(0,108,172,0.05), transparent 40%),
-    radial-gradient(circle at 80% 70%, rgba(255,107,1,0.05), transparent 40%);
-  opacity: 0.3;
+    radial-gradient(circle at 20% 30%, rgba(0,108,172,0.03), transparent 40%),
+    radial-gradient(circle at 80% 70%, rgba(255,107,1,0.03), transparent 40%);
+  opacity: 0.2;
 }
 
 /* ========================= */
@@ -267,7 +267,46 @@ section, footer, main {
 /* Prev/Next text */
 [data-theme="dark"] .prevnext-title {
   color: var(--foreground);
-    }
+}
+
+/* ========================= */
+/* GAMING PAGES DARK MODE    */
+/* ========================= */
+.breadcrumb-nav {
+  color: var(--foreground);
+  opacity: 0.6;
+}
+.breadcrumb-nav a {
+  color: var(--foreground);
+  opacity: 1;
+}
+.breadcrumb-nav a:hover {
+  color: var(--accent);
+  opacity: 1;
+}
+.post-desc {
+  color: var(--foreground);
+  opacity: 0.75;
+}
+.post-meta {
+  color: var(--foreground);
+  opacity: 0.6;
+}
+.badge {
+  font-size: 0.72rem;
+  font-weight: 600;
+  padding: 0.2rem 0.65rem;
+  border-radius: 9999px;
+  background: var(--background-light);
+  color: var(--foreground);
+  border: 1px solid var(--border);
+}
+.badge--accent {
+  color: var(--accent);
+  border-color: var(--accent);
+  opacity: 0.9;
+}
+
 /* ========================= */
 /* PROSE DARK MODE FIX       */
 /* ========================= */
@@ -307,4 +346,4 @@ section, footer, main {
 
 [data-theme="dark"] .prose tr {
   border-color: var(--border);
-}
+    }
