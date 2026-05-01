@@ -76,8 +76,9 @@ const headerProps = {
     margin: 1.25rem 0;
     border-radius: 16px;
     border: 1px solid rgba(99, 102, 241, 0.1);
-    background: rgba(255, 255, 255, 0.6);
-    backdrop-filter: blur(8px);
+    background: #ffffff;
+    backdrop-filter: none;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
     overflow: hidden;
     transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
   }
@@ -85,6 +86,7 @@ const headerProps = {
   [data-theme="dark"] .card-wrapper {
     background: rgba(15, 23, 42, 0.6);
     border-color: rgba(99, 102, 241, 0.15);
+    box-shadow: none;
   }
 
   .card-wrapper:hover {
@@ -166,7 +168,7 @@ const headerProps = {
     font-weight: 700;
     line-height: 1.4;
     letter-spacing: -0.2px;
-    color: var(--color-text-base, #0f172a);
+    color: #0f172a;
     margin-bottom: 0.5rem;
     transition: color 0.2s;
   }
