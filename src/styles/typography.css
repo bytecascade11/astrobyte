@@ -27,9 +27,7 @@
       margin-top: 2.2rem;
     }
 
-    h1 {
-      font-size: 2rem;
-    }
+    h1 { font-size: 2rem; }
 
     h2 {
       font-size: 1.5rem;
@@ -70,9 +68,7 @@
     }
 
     h2 + p,
-    h3 + p {
-      font-size: 1.05rem;
-    }
+    h3 + p { font-size: 1.05rem; }
 
     /* ── Links ── */
     a {
@@ -182,113 +178,292 @@
       font-weight: 700;
     }
 
-    /* ── Tables — scrollable on mobile ── */
+    /* ── Tables — modern scrollable card style ── */
     table {
-      @apply text-foreground;
+      /* Scroll wrapper behaviour */
       display: block;
       overflow-x: auto;
       -webkit-overflow-scrolling: touch;
       width: 100%;
-      border-collapse: collapse;
-      border-radius: 10px;
-      font-size: 0.9rem;
-      margin: 1.5rem 0;
 
-      th, td {
-        @apply border border-border p-2;
-        padding: 0.75rem 1rem;
-      }
-
-      th {
-        @apply py-1.5;
-        background: rgba(99, 102, 241, 0.08);
-        font-weight: 700;
-        font-family: ui-sans-serif, system-ui, sans-serif;
-        letter-spacing: 0.03em;
-        text-transform: uppercase;
-        font-size: 0.75rem;
-      }
-
-      tr:nth-child(even) td {
-        background: rgba(99, 102, 241, 0.03);
-      }
-
-      code {
-        @apply break-all sm:break-normal;
-      }
-    }
-
-    /* ── Inline Code ── */
-    code {
-      @apply rounded bg-muted/75 text-foreground before:content-none after:content-none;
-      font-family: 'Source Code Pro', ui-monospace, monospace;
-      font-size: 0.85em;
-      padding: 0.15em 0.45em;
-      border-radius: 5px;
-      border: 1px solid rgba(99, 102, 241, 0.15);
-      word-break: break-words;
-    }
-
-    .astro-code code {
-      @apply flex-[1_0_100%] bg-inherit p-0;
-      border: none;
-      font-size: inherit;
-    }
-
-    /* ── Details / Summary ── */
-    details {
-      @apply inline-block cursor-pointer text-foreground select-none [&_p]:hidden [&_ul]:!my-0;
-      background: rgba(99, 102, 241, 0.05);
-      border: 1px solid rgba(99, 102, 241, 0.15);
-      border-radius: 8px;
-      padding: 0.5rem 1rem;
-      width: 100%;
-    }
-
-    summary {
-      @apply focus-visible:no-underline focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-accent focus-visible:outline-dashed;
-      font-weight: 600;
-      font-family: ui-sans-serif, system-ui, sans-serif;
-    }
-
-    pre {
-      @apply focus-visible:border-transparent focus-visible:outline-2 focus-visible:outline-accent focus-visible:outline-dashed;
-      border-radius: 12px;
+      /* Visual reset */
+      border-collapse: separate;
+      border-spacing: 0;
+      border-radius: 14px;
+      border: 1px solid rgba(99, 102, 241, 0.18);
       font-size: 0.875rem;
+      font-family: ui-sans-serif, system-ui, sans-serif;
+      margin: 2rem 0;
+      box-shadow:
+        0 0 0 1px rgba(99, 102, 241, 0.08),
+        0 4px 24px rgba(99, 102, 241, 0.07);
+      background: transparent;
+
+      /* Scroll hint — fades right edge when overflowing */
+      scrollbar-width: thin;
+      scrollbar-color: rgba(99, 102, 241, 0.3) transparent;
+    }
+
+    table::-webkit-scrollbar {
+      height: 4px;
+    }
+    table::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    table::-webkit-scrollbar-thumb {
+      background: rgba(99, 102, 241, 0.35);
+      border-radius: 99px;
+    }
+
+    /* Header row */
+    thead {
+      position: sticky;
+      top: 0;
+      z-index: 1;
+    }
+
+    th {
+      background: rgba(99, 102, 241, 0.1);
+      color: #6366f1;
+      font-size: 0.7rem;
+      font-weight: 800;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 0.85rem 1.1rem;
+      white-space: nowrap;
+      border-bottom: 2px solid rgba(99, 102, 241, 0.2);
+    }
+
+    /* Round header corners */
+    thead tr th:first-child { border-radius: 14px 0 0 0; }
+    thead tr th:last-child  { border-radius: 0 14px 0 0; }
+
+    /* Body cells */
+    td {
+      padding: 0.75rem 1.1rem;
+      border-bottom: 1px solid rgba(99, 102, 241, 0.07);
+      color: var(--foreground);
+      line-height: 1.5;
+      vertical-align: middle;
+      white-space: nowrap;
+    }
+
+    /* Last row — no bottom border, round corners */
+    tbody tr:last-child td { border-bottom: none; }
+    tbody tr:last-child td:first-child { border-radius: 0 0 0 14px; }
+    tbody tr:last-child td:last-child  { border-radius: 0 0 14px 0; }
+
+    /* Zebra rows */
+    tbody tr:nth-child(even) td {
+      background: rgba(99, 102, 241, 0.03);
+    }
+
+    /* Hover row highlight */
+    tbody tr {
+      transition: background 0.15s;
+    }
+    tbody tr:hover td {
+      background: rgba(99, 102, 241, 0.07);
+    }
+
+    /* Bold first column — label column pattern */
+    td:first-child {
+      font-weight: 600;
+      color: var(--foreground);
+      opacity: 0.9;
+    }
+
+    code {
+      @apply break-all sm:break-normal;
     }
   }
 
-  /* ===== Dark mode h3 override ===== */
-  html[data-theme="dark"] .app-prose h3 {
-    color: #818cf8;
-  }
-
-  /* ===== Code Blocks & Syntax Highlighting ===== */
-  .astro-code {
-    @apply flex border bg-(--shiki-light-bg) text-(--shiki-light) outline-border [&_span]:text-(--shiki-light);
-    border-radius: 12px;
+  /* ── Inline Code ── */
+  code {
+    @apply rounded bg-muted/75 text-foreground before:content-none after:content-none;
+    font-family: 'Source Code Pro', ui-monospace, monospace;
+    font-size: 0.85em;
+    padding: 0.15em 0.45em;
+    border-radius: 5px;
     border: 1px solid rgba(99, 102, 241, 0.15);
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    word-break: break-words;
   }
 
-  html[data-theme="dark"] .astro-code {
-    @apply bg-(--shiki-dark-bg) text-(--shiki-dark) [&_span]:text-(--shiki-dark);
+  .astro-code code {
+    @apply flex-[1_0_100%] bg-inherit p-0;
+    border: none;
+    font-size: inherit;
   }
 
-  /* Shiki transformers */
-  .astro-code {
-    .line.diff.add {
-      @apply relative inline-block w-full bg-green-400/20 before:absolute before:-left-3 before:text-green-500 before:content-['+'];
-    }
-    .line.diff.remove {
-      @apply relative inline-block w-full bg-red-500/20 before:absolute before:-left-3 before:text-red-500 before:content-['-'];
-    }
-    .line.highlighted {
-      @apply inline-block w-full bg-slate-400/20;
-    }
-    .highlighted-word {
-      @apply rounded-sm border border-border px-0.5 py-px;
-    }
+  /* ── Details / Summary ── */
+  details {
+    @apply inline-block cursor-pointer text-foreground select-none [&_p]:hidden [&_ul]:!my-0;
+    background: rgba(99, 102, 241, 0.05);
+    border: 1px solid rgba(99, 102, 241, 0.15);
+    border-radius: 8px;
+    padding: 0.5rem 1rem;
+    width: 100%;
   }
-    }
-      
+
+  summary {
+    @apply focus-visible:no-underline focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-accent focus-visible:outline-dashed;
+    font-weight: 600;
+    font-family: ui-sans-serif, system-ui, sans-serif;
+  }
+
+  pre {
+    @apply focus-visible:border-transparent focus-visible:outline-2 focus-visible:outline-accent focus-visible:outline-dashed;
+    border-radius: 12px;
+    font-size: 0.875rem;
+  }
+}
+
+/* ===== Dark mode overrides ===== */
+html[data-theme="dark"] .app-prose h3 {
+  color: #818cf8;
+}
+
+html[data-theme="dark"] .app-prose table {
+  border-color: rgba(99, 102, 241, 0.22);
+  box-shadow:
+    0 0 0 1px rgba(99, 102, 241, 0.1),
+    0 4px 24px rgba(0, 0, 0, 0.3);
+}
+
+html[data-theme="dark"] .app-prose th {
+  background: rgba(99, 102, 241, 0.15);
+  color: #a5b4fc;
+  border-bottom-color: rgba(99, 102, 241, 0.25);
+}
+
+html[data-theme="dark"] .app-prose tbody tr:hover td {
+  background: rgba(99, 102, 241, 0.1);
+}
+
+html[data-theme="dark"] .app-prose td {
+  border-bottom-color: rgba(99, 102, 241, 0.1);
+}
+
+/* ===== prose-revibyte — mirrors app-prose table styles for post pages ===== */
+/* This ensures [slug].astro pages using prose-revibyte get identical table treatment */
+.prose-revibyte table {
+  display: block;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  border-radius: 14px;
+  border: 1px solid rgba(99, 102, 241, 0.18);
+  font-size: 0.875rem;
+  font-family: ui-sans-serif, system-ui, sans-serif;
+  margin: 2rem 0;
+  box-shadow:
+    0 0 0 1px rgba(99, 102, 241, 0.08),
+    0 4px 24px rgba(99, 102, 241, 0.07);
+  background: transparent;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(99, 102, 241, 0.3) transparent;
+}
+
+.prose-revibyte table::-webkit-scrollbar { height: 4px; }
+.prose-revibyte table::-webkit-scrollbar-track { background: transparent; }
+.prose-revibyte table::-webkit-scrollbar-thumb {
+  background: rgba(99, 102, 241, 0.35);
+  border-radius: 99px;
+}
+
+.prose-revibyte thead { position: sticky; top: 0; z-index: 1; }
+
+.prose-revibyte th {
+  background: rgba(99, 102, 241, 0.1);
+  color: #6366f1;
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 0.85rem 1.1rem;
+  white-space: nowrap;
+  border-bottom: 2px solid rgba(99, 102, 241, 0.2);
+}
+
+.prose-revibyte thead tr th:first-child { border-radius: 14px 0 0 0; }
+.prose-revibyte thead tr th:last-child  { border-radius: 0 14px 0 0; }
+
+.prose-revibyte td {
+  padding: 0.75rem 1.1rem;
+  border-bottom: 1px solid rgba(99, 102, 241, 0.07);
+  color: var(--foreground);
+  line-height: 1.5;
+  vertical-align: middle;
+  white-space: nowrap;
+}
+
+.prose-revibyte tbody tr:last-child td { border-bottom: none; }
+.prose-revibyte tbody tr:last-child td:first-child { border-radius: 0 0 0 14px; }
+.prose-revibyte tbody tr:last-child td:last-child  { border-radius: 0 0 14px 0; }
+
+.prose-revibyte tbody tr:nth-child(even) td {
+  background: rgba(99, 102, 241, 0.03);
+}
+
+.prose-revibyte tbody tr {
+  transition: background 0.15s;
+}
+.prose-revibyte tbody tr:hover td {
+  background: rgba(99, 102, 241, 0.07);
+}
+
+.prose-revibyte td:first-child {
+  font-weight: 600;
+  opacity: 0.9;
+}
+
+/* Dark mode for prose-revibyte tables */
+html[data-theme="dark"] .prose-revibyte table {
+  border-color: rgba(99, 102, 241, 0.22);
+  box-shadow:
+    0 0 0 1px rgba(99, 102, 241, 0.1),
+    0 4px 24px rgba(0, 0, 0, 0.3);
+}
+
+html[data-theme="dark"] .prose-revibyte th {
+  background: rgba(99, 102, 241, 0.15);
+  color: #a5b4fc;
+  border-bottom-color: rgba(99, 102, 241, 0.25);
+}
+
+html[data-theme="dark"] .prose-revibyte tbody tr:hover td {
+  background: rgba(99, 102, 241, 0.1);
+}
+
+html[data-theme="dark"] .prose-revibyte td {
+  border-bottom-color: rgba(99, 102, 241, 0.1);
+}
+
+/* ===== Code Blocks & Syntax Highlighting ===== */
+.astro-code {
+  @apply flex border bg-(--shiki-light-bg) text-(--shiki-light) outline-border [&_span]:text-(--shiki-light);
+  border-radius: 12px;
+  border: 1px solid rgba(99, 102, 241, 0.15);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
+
+html[data-theme="dark"] .astro-code {
+  @apply bg-(--shiki-dark-bg) text-(--shiki-dark) [&_span]:text-(--shiki-dark);
+}
+
+.astro-code {
+  .line.diff.add {
+    @apply relative inline-block w-full bg-green-400/20 before:absolute before:-left-3 before:text-green-500 before:content-['+'];
+  }
+  .line.diff.remove {
+    @apply relative inline-block w-full bg-red-500/20 before:absolute before:-left-3 before:text-red-500 before:content-['-'];
+  }
+  .line.highlighted {
+    @apply inline-block w-full bg-slate-400/20;
+  }
+  .highlighted-word {
+    @apply rounded-sm border border-border px-0.5 py-px;
+  }
+      }
