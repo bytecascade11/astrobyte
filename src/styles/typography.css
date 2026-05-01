@@ -182,13 +182,15 @@
       font-weight: 700;
     }
 
-    /* ── Tables ── */
+    /* ── Tables — scrollable on mobile ── */
     table {
       @apply text-foreground;
+      display: block;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
       width: 100%;
       border-collapse: collapse;
       border-radius: 10px;
-      overflow: hidden;
       font-size: 0.9rem;
       margin: 1.5rem 0;
 
@@ -288,4 +290,5 @@
       @apply rounded-sm border border-border px-0.5 py-px;
     }
   }
-      }
+    }
+      
