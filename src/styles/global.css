@@ -43,11 +43,10 @@ html, body {
   padding: 0;
   height: 100%;
   width: 100%;
-  font-family: monospace;
+  font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
   font-size: 1.0625rem;
   overflow-x: hidden;
 }
-
 body {
   display: flex;
   flex-direction: column;
