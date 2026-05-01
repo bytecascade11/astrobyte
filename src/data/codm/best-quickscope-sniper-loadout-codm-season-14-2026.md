@@ -4,7 +4,7 @@ description: "Quickscoping in COD Mobile Season 14 isn't just about reflexes —
 author: iSamuel
 pubDatetime: "2026-05-01T04:46:00Z"
 lastUpdated: "Season 14 2026"
-coverImage: "/assets/codm/best-quickscope-sniper-loadout-cod-mobile-season-14-2026.jpg"
+coverImage: "/assets/codm/codm-quickscope-sniper-gameplay-season-14-2026.jpg"
 coverImageAlt: "Best quickscope sniper loadout COD Mobile Season 14 2026"
 type: loadout
 gameMode: Multiplayer
