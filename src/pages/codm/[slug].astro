@@ -28,6 +28,9 @@ if (guide.data.relatedSlugs?.length) {
 const pageTitle = `${guide.data.title} | ${SITE.title}`;
 const pageDesc = guide.data.description;
 
+// ✅ FIX 1: Pass coverImage as ogImage so Layout uses it for og:image
+const ogImage = guide.data.coverImage ?? "/og.png";
+
 const typeLabels: Record<string, string> = {
   loadout: "Loadout",
   "tier-list": "Tier List",
@@ -36,9 +39,13 @@ const typeLabels: Record<string, string> = {
   news: "News",
 };
 const typeLabel = typeLabels[guide.data.type] ?? "Guide";
+
+// ✅ FIX 3: Build share URL for the share button
+const shareURL = `${SITE.website}codm/${guide.data.slug ?? guide.id}/`;
+const shareTitle = guide.data.title;
 ---
 
-<Layout title={pageTitle} description={pageDesc}>
+<Layout title={pageTitle} description={pageDesc} ogImage={ogImage}>
   <main id="main-content" class="mx-auto w-full max-w-3xl px-4 pb-16">
 
     <!-- Breadcrumb -->
@@ -63,7 +70,7 @@ const typeLabel = typeLabels[guide.data.type] ?? "Guide";
     )}
 
     <!-- Header -->
-    <div class="mb-8">
+    <div class="mb-6">
       <div class="flex flex-wrap gap-2 mb-3">
         <span class="badge badge--accent">🎮 COD Mobile</span>
         <span class="badge">{typeLabel}</span>
@@ -75,6 +82,8 @@ const typeLabel = typeLabels[guide.data.type] ?? "Guide";
         )}
       </div>
 
+      <!-- ✅ FIX 2: Single H1 from frontmatter title only.
+           Prose H1s inside Content are hidden via CSS below. -->
       <h1 class="text-3xl font-bold leading-tight mb-3">
         {guide.data.title}
       </h1>
@@ -95,6 +104,55 @@ const typeLabel = typeLabels[guide.data.type] ?? "Guide";
         {guide.data.lastUpdated && (
           <span>🔄 Updated: {guide.data.lastUpdated}</span>
         )}
+      </div>
+    </div>
+
+    <!-- ✅ FIX 3: Share Button — placed before article content -->
+    <div class="share-bar mb-8">
+      <span class="share-label">Share this guide</span>
+      <div class="share-buttons">
+        <!-- Native share (mobile) -->
+        <button
+          class="share-btn share-btn--native"
+          id="nativeShareBtn"
+          aria-label="Share"
+          style="display:none"
+        >
+          <svg viewBox="0 0 24 24"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>
+          Share
+        </button>
+        <!-- Twitter/X -->
+        <a
+          href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(shareTitle)}&url=${encodeURIComponent(shareURL)}`}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="share-btn share-btn--x"
+          aria-label="Share on X"
+        >
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.73-8.835L1.254 2.25H8.08l4.261 5.632 5.903-5.632zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+          X
+        </a>
+        <!-- WhatsApp -->
+        <a
+          href={`https://wa.me/?text=${encodeURIComponent(shareTitle + " " + shareURL)}`}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="share-btn share-btn--wa"
+          aria-label="Share on WhatsApp"
+        >
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.118.554 4.103 1.522 5.828L.057 23.012a.75.75 0 0 0 .931.931l5.184-1.465A11.945 11.945 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.75a9.724 9.724 0 0 1-4.96-1.355l-.355-.213-3.676 1.04 1.04-3.574-.234-.368A9.725 9.725 0 0 1 2.25 12C2.25 6.615 6.615 2.25 12 2.25S21.75 6.615 21.75 12 17.385 21.75 12 21.75z"/></svg>
+          WhatsApp
+        </a>
+        <!-- Copy link -->
+        <button
+          class="share-btn share-btn--copy"
+          id="copyLinkBtn"
+          aria-label="Copy link"
+          data-url={shareURL}
+        >
+          <svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+          <span id="copyBtnText">Copy</span>
+        </button>
       </div>
     </div>
 
@@ -130,52 +188,167 @@ const typeLabel = typeLabels[guide.data.type] ?? "Guide";
       </section>
     )}
 
-    <!-- Back link -->
-    <div class="mt-10">
+    <!-- Back links -->
+    <div class="mt-10 flex items-center gap-4">
+      <!-- ✅ FIX 4: Go to Home link added -->
+      <a
+        href="/"
+        class="text-sm text-skin-accent hover:underline flex items-center gap-1"
+      >
+        ← Home
+      </a>
+      <span class="text-skin-base/30">|</span>
       <a
         href="/codm/"
         class="text-sm text-skin-accent hover:underline flex items-center gap-1"
       >
-        ← Back to COD Mobile Hub
+        COD Mobile Hub
       </a>
     </div>
 
   </main>
 </Layout>
 
+<!-- Share button scripts -->
+<script is:inline>
+  // Native share (mobile)
+  if (navigator.share) {
+    const btn = document.getElementById('nativeShareBtn');
+    if (btn) {
+      btn.style.display = 'flex';
+      btn.addEventListener('click', () => {
+        navigator.share({
+          title: document.title,
+          url: window.location.href,
+        }).catch(() => {});
+      });
+    }
+  }
+
+  // Copy link
+  const copyBtn = document.getElementById('copyLinkBtn');
+  if (copyBtn) {
+    copyBtn.addEventListener('click', () => {
+      const url = copyBtn.dataset.url || window.location.href;
+      navigator.clipboard.writeText(url).then(() => {
+        const label = document.getElementById('copyBtnText');
+        if (label) {
+          label.textContent = 'Copied!';
+          setTimeout(() => { label.textContent = 'Copy'; }, 2000);
+        }
+      }).catch(() => {});
+    });
+  }
+</script>
+
 <style is:global>
+  /* ── Breadcrumb ── */
   .breadcrumb-nav {
-  color: var(--foreground);
-  opacity: 0.6;
-}
-.breadcrumb-nav a {
-  color: var(--foreground);
-  opacity: 1;
-}
-.breadcrumb-nav a:hover {
-  color: var(--accent);
-  opacity: 1;
-}
-.post-desc {
-  color: var(--foreground);
-  opacity: 0.75;
-}
-.post-meta {
-  color: var(--foreground);
-  opacity: 0.6;
-}
-.badge {
-  font-size: 0.72rem;
-  font-weight: 600;
-  padding: 0.2rem 0.65rem;
-  border-radius: 9999px;
-  background: var(--background-light);
-  color: var(--foreground);
-  border: 1px solid var(--border);
-}
-.badge--accent {
-  color: var(--accent);
-  border-color: var(--accent);
-  opacity: 0.9;
-}
+    color: var(--foreground);
+    opacity: 0.6;
+  }
+  .breadcrumb-nav a {
+    color: var(--foreground);
+    opacity: 1;
+  }
+  .breadcrumb-nav a:hover {
+    color: var(--accent);
+    opacity: 1;
+  }
+
+  /* ── Post meta ── */
+  .post-desc {
+    color: var(--foreground);
+    opacity: 0.75;
+  }
+  .post-meta {
+    color: var(--foreground);
+    opacity: 0.6;
+  }
+
+  /* ── Badges ── */
+  .badge {
+    font-size: 0.72rem;
+    font-weight: 600;
+    padding: 0.2rem 0.65rem;
+    border-radius: 9999px;
+    background: var(--background-light);
+    color: var(--foreground);
+    border: 1px solid var(--border);
+  }
+  .badge--accent {
+    color: var(--accent);
+    border-color: var(--accent);
+    opacity: 0.9;
+  }
+
+  /* ✅ FIX 2: Hide any H1 that renders inside the markdown prose
+     (the frontmatter title is the only H1 — rendered above the article) */
+  .prose h1 {
+    display: none;
+  }
+
+  /* ── Share bar ── */
+  .share-bar {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    padding: 12px 16px;
+    border-radius: 12px;
+    background: var(--background-light, rgba(99,102,241,0.06));
+    border: 1px solid var(--border, rgba(99,102,241,0.2));
+  }
+  .share-label {
+    font-size: 0.8rem;
+    font-weight: 600;
+    opacity: 0.6;
+    white-space: nowrap;
+  }
+  .share-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-left: auto;
+  }
+  .share-btn {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    padding: 6px 14px;
+    border-radius: 8px;
+    font-size: 0.78rem;
+    font-weight: 600;
+    cursor: pointer;
+    border: 1px solid transparent;
+    text-decoration: none;
+    transition: opacity 0.15s, transform 0.1s;
+    white-space: nowrap;
+  }
+  .share-btn:hover { opacity: 0.85; transform: translateY(-1px); }
+  .share-btn svg { width: 15px; height: 15px; flex-shrink: 0; }
+
+  .share-btn--native {
+    background: var(--accent, #6366f1);
+    color: white;
+    border: none;
+  }
+  .share-btn--x {
+    background: #000;
+    color: #fff;
+  }
+  .share-btn--wa {
+    background: #25D366;
+    color: #fff;
+  }
+  .share-btn--copy {
+    background: var(--background-light);
+    color: var(--foreground);
+    border-color: var(--border);
+  }
+
+  @media (max-width: 480px) {
+    .share-bar { flex-direction: column; align-items: flex-start; }
+    .share-buttons { margin-left: 0; }
+  }
 </style>
