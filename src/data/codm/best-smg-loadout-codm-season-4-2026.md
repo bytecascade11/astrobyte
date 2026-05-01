@@ -1,26 +1,26 @@
 ---
-title: "Best SMG Loadout in COD Mobile Season 14 2026 (Meta Picks)"
-description: "The SMG meta in Season 14 shifted hard. Here are the top 3 SMG builds that are dominating Hardpoint, Domination, and Ranked right now — with exact attachments."
+title: "Best SMG Loadout in COD Mobile Season 4 2026 (Meta Picks)"
+description: "The SMG meta in Season 4 shifted hard. Here are the top 3 SMG builds that are dominating Hardpoint, Domination, and Ranked right now — with exact attachments."
 author: iSamuel
-pubDatetime: "2026-04-28T19:17:00Z"
-lastUpdated: "Season 14 2026"
-coverImage: "/assets/codm/best-smg-loadout-codm-season-14-2026.jpg"
-coverImageAlt: "Best SMG loadout COD Mobile Season 14 2026"
+pubDatetime: "2026-05-01T18:22:00Z"
+lastUpdated: "Season 4 2026"
+coverImage: "/assets/codm/best-smg-loadout-codm-season-4-2026.jpg"
+coverImageAlt: "Best SMG loadout COD Mobile Season 4 2026"
 type: loadout
 gameMode: Multiplayer
-season: "Season 14"
-slug: "best-smg-loadout-codm-season-14-2026"
+season: "Season 4"
+slug: "best-smg-loadout-codm-season-4-2026"
 relatedSlugs:
   - "codm-sensitivity-settings-beginners"
-  - "best-weapon-tier-list-codm-season-14"
+  - "best-weapon-tier-list-codm-season-4"
 featured: true
 ---
 
-The SMG meta in COD Mobile Season 14 changed significantly after the balance patch. Two weapons got buffed, one got nerfed into obscurity, and most players haven't caught up yet. This guide gives you the exact builds that are working *right now* in ranked.
+The SMG meta in COD Mobile Season 4 changed significantly after the balance patch. Two weapons got buffed, one got adjusted, and most players haven't caught up yet. This guide gives you the exact builds that are working *right now* in ranked.
 
 ## Why SMGs This Season
 
-Season 14 brought three small maps to the rotation — Skidrow, Shipment 1944, and a new urban map — which means close-range fights dominate. If you're running ARs on these maps, you're already at a disadvantage before the game starts.
+Season 4 brought three small maps to the rotation — including Skidrow and Shipment 1944 — which means close-range fights dominate. If you're running ARs on these maps, you're already at a disadvantage before the game starts.
 
 SMGs win because:
 - Faster ADS speed in tight corridors
@@ -92,7 +92,8 @@ All three builds have been tested in Diamond-Legendary ranked lobbies this seaso
 ## Final Tip
 
 Pair any of these with the **Ghost** perk in your operator skill slot if you're constantly dying to UAVs. Staying off the radar on these small maps is worth more than any attachment bonus.
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4896561037705299"
+
+<script async src="[https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4896561037705299](https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4896561037705299)"
      crossorigin="anonymous"></script>
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
