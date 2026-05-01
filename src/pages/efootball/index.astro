@@ -12,7 +12,6 @@ const sorted = allGuides.sort(
     new Date(a.data.pubDatetime).getTime()
 );
 
-// Group by type
 const formations = sorted.filter(g => g.data.type === "formation");
 const tierLists = sorted.filter(g => g.data.type === "tier-list");
 const guides = sorted.filter(g => g.data.type === "guide");
@@ -27,8 +26,22 @@ const pageDesc =
 <Layout title={`${pageTitle} | ${SITE.title}`} description={pageDesc}>
   <main id="main-content" class="mx-auto w-full max-w-3xl px-4 pb-12">
 
+    <!-- ✅ Go to Home -->
+    <div class="pt-5 pb-1">
+      <a
+        href="/"
+        class="inline-flex items-center gap-1.5 text-sm text-skin-accent hover:underline"
+      >
+        <svg viewBox="0 0 24 24" style="width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round;">
+          <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+          <polyline points="9 22 9 12 15 12 15 22"/>
+        </svg>
+        Go to Home
+      </a>
+    </div>
+
     <!-- Hero Header -->
-    <section class="mb-10 pt-8">
+    <section class="mb-10 pt-4">
       <div class="flex items-center gap-3 mb-2">
         <span class="text-3xl">⚽</span>
         <h1 class="text-3xl font-bold tracking-tight">eFootball 2026 Hub</h1>
