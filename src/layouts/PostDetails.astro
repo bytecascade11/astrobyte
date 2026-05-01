@@ -153,76 +153,73 @@ const postSlug = post.id;
 
   <main
     id="main-content"
-    class:list={[
-      "pb-12 mx-auto w-full max-w-5xl px-4",
-      { "mt-8": !coverImage }
-    ]}
+    class="pb-12 mx-auto w-full max-w-3xl px-4 mt-8"
   >
 
-    <div class="article-card">
-
-      <div class="card-top-nav">
-        <Breadcrumbs
-          items={[
-            { label: "Home", href: "/" },
-            { label: "Posts", href: "/posts/" },
-            { label: title }
-          ]}
-        />
-        <BackButton />
-      </div>
-
-      {coverImageAbsoluteSrc && (
-  <img
-    src={coverImageAbsoluteSrc}
-    alt={coverImageAlt || title}
-    class="post-cover-image"
-    loading="eager"
-    fetchpriority="high"
-    width="1200"
-    height="630"
-  />
-)}
-
-      <div class="post-header">
-        <h1
-          transition:name={slugifyStr(title.replaceAll(".", "-"))}
-          class="inline-block text-2xl font-bold text-accent sm:text-3xl md:text-4xl"
-        >
-          {title}
-        </h1>
-
-        <div class="post-meta">
-          <div class="post-meta-left">
-            <Datetime {pubDatetime} {modDatetime} {timezone} size="lg" />
-            <span class="view-count-badge">
-              👁 <span id="view-count">—</span> views
-            </span>
-          </div>
-          <div class="post-share-inline">
-            <ShareLinks />
-          </div>
-        </div>
-      </div>
-
-      <article class="app-prose mt-2 w-full max-w-none">
-        <Content />
-      </article>
-
-      <hr class="article-hr mt-10" />
-
-      {tags.length > 0 && (
-        <ul class="mb-6 flex flex-wrap gap-3">
-          {tags.map((tag) => (
-            <Tag tag={slugifyStr(tag)} tagName={tag} size="sm" />
-          ))}
-        </ul>
-      )}
-
-      <BackToTopButton />
-
+    <!-- Top nav -->
+    <div class="post-top-nav">
+      <Breadcrumbs
+        items={[
+          { label: "Home", href: "/" },
+          { label: "Posts", href: "/posts/" },
+          { label: title }
+        ]}
+      />
+      <BackButton />
     </div>
 
+    <!-- Cover image -->
+    {coverImageAbsoluteSrc && (
+      <img
+        src={coverImageAbsoluteSrc}
+        alt={coverImageAlt || title}
+        class="post-cover-image"
+        loading="eager"
+        fetchpriority="high"
+        width="1200"
+        height="630"
+      />
+    )}
+
+    <!-- Post header -->
+    <div class="post-header">
+      <h1
+        transition:name={slugifyStr(title.replaceAll(".", "-"))}
+        class="inline-block text-2xl font-bold text-accent sm:text-3xl md:text-4xl"
+      >
+        {title}
+      </h1>
+
+      <div class="post-meta">
+        <div class="post-meta-left">
+          <Datetime {pubDatetime} {modDatetime} {timezone} size="lg" />
+          <span class="view-count-badge">
+            👁 <span id="view-count">—</span> views
+          </span>
+        </div>
+        <div class="post-share-inline">
+          <ShareLinks />
+        </div>
+      </div>
+    </div>
+
+    <!-- Article body -->
+    <article class="app-prose mt-4 w-full max-w-none">
+      <Content />
+    </article>
+
+    <!-- Tags -->
+    {tags.length > 0 && (
+      <ul class="mt-8 mb-6 flex flex-wrap gap-3">
+        {tags.map((tag) => (
+          <Tag tag={slugifyStr(tag)} tagName={tag} size="sm" />
+        ))}
+      </ul>
+    )}
+
+    <BackToTopButton />
+
+    <!-- Author card -->
     <div class="author-card">
       <div class="author-avatar">
         {(SITE.author || "iSamuel").charAt(0).toUpperCase()}
@@ -241,6 +238,7 @@ const postSlug = post.id;
       </div>
     </div>
 
+    <!-- Prev / Next -->
     {(prevPost || nextPost) && (
       <nav class="prevnext-nav">
         {prevPost && (
@@ -260,7 +258,6 @@ const postSlug = post.id;
 
     <RelatedPosts currentPost={post} allPosts={posts} limit={3} />
 
-    <hr class="article-hr mt-10" />
     <Comments />
 
   </main>
@@ -269,46 +266,14 @@ const postSlug = post.id;
 </Layout>
 
 <style>
-  /* ── Article Glass Card ── */
-  .article-card {
-  background: #ffffff;
-  backdrop-filter: none;
-  -webkit-backdrop-filter: none;
-    border: 1px solid rgba(99, 102, 241, 0.12);
-    border-radius: 20px;
-    padding: 0;
-    box-shadow:
-      0 4px 24px rgba(0, 0, 0, 0.06),
-      0 1px 0 rgba(255,255,255,0.8) inset;
-    margin-bottom: 1.5rem;
-    overflow: hidden;
-    color: var(--foreground);
-  }
-
-  :global([data-theme="dark"]) .article-card {
-    background: rgba(15, 23, 42, 0.75);
-    border-color: rgba(99, 102, 241, 0.18);
-    box-shadow:
-      0 4px 32px rgba(0, 0, 0, 0.3),
-      0 1px 0 rgba(255,255,255,0.04) inset;
-    color: var(--foreground);
-  }
-
   /* ── Top nav ── */
-  .card-top-nav {
+  .post-top-nav {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 1.25rem 2rem 0.75rem;
     gap: 1rem;
     flex-wrap: wrap;
-    border-bottom: 1px solid rgba(99, 102, 241, 0.08);
-  }
-
-  @media (max-width: 640px) {
-    .card-top-nav {
-      padding: 1rem 1rem 0.65rem;
-    }
+    margin-bottom: 1.5rem;
   }
 
   /* ── Cover image ── */
@@ -317,6 +282,8 @@ const postSlug = post.id;
     object-fit: cover;
     aspect-ratio: 16/9;
     display: block;
+    border-radius: 16px;
+    margin-bottom: 1.75rem;
   }
 
   @media (min-width: 768px) {
@@ -327,24 +294,18 @@ const postSlug = post.id;
 
   /* ── Post header ── */
   .post-header {
-    padding: 2rem 2.5rem 0;
-  }
-
-  @media (max-width: 640px) {
-    .post-header {
-      padding: 1.25rem 1rem 0;
-    }
+    margin-bottom: 1.5rem;
   }
 
   /* ── Meta row ── */
-.post-meta {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 0.6rem;
-  margin-top: 0.85rem;
-  margin-bottom: 1.5rem;
-}
+  .post-meta {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.6rem;
+    margin-top: 0.85rem;
+    margin-bottom: 0.5rem;
+  }
 
   .post-meta-left {
     display: flex;
@@ -366,75 +327,16 @@ const postSlug = post.id;
     align-items: center;
   }
 
-  /* Article body padding */
-  .article-card article {
-    padding: 0 2.5rem 0.5rem;
-  }
-
-  @media (max-width: 640px) {
-    .article-card article {
-      padding: 0 1rem 0.5rem;
-    }
-  }
-
-  /* Tags + BackToTop padding */
-  .article-card > ul,
-  .article-card > :global(.back-to-top) {
-    padding-left: 2.5rem;
-    padding-right: 2.5rem;
-  }
-
-  @media (max-width: 640px) {
-    .article-card > ul,
-    .article-card > :global(.back-to-top) {
-      padding-left: 1rem;
-      padding-right: 1rem;
-    }
-  }
-
-  /* HR inside card */
-  .article-hr {
-    border: none;
-    height: 1px;
-    background: linear-gradient(90deg, transparent, rgba(99,102,241,0.25), transparent);
-    margin: 2rem 2.5rem;
-  }
-
-  @media (max-width: 640px) {
-    .article-hr {
-      margin: 1.5rem 1rem;
-    }
-  }
-
-  /* ── Table horizontal scroll fix ── */
-  .article-card :global(table) {
-    display: block;
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-    white-space: nowrap;
-    max-width: 100%;
-  }
-
   /* ── Author Card ── */
   .author-card {
     display: flex;
     gap: 1.25rem;
     align-items: flex-start;
-    background: rgba(255, 255, 255, 0.65);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    border: 1px solid rgba(99, 102, 241, 0.12);
+    border: 1px solid var(--border);
     border-radius: 16px;
     padding: 1.5rem;
+    margin-top: 2rem;
     margin-bottom: 1.5rem;
-    box-shadow: 0 2px 16px rgba(0,0,0,0.05);
-    color: var(--foreground);
-  }
-
-  :global([data-theme="dark"]) .author-card {
-    background: rgba(15, 23, 42, 0.65);
-    border-color: rgba(99, 102, 241, 0.18);
-    box-shadow: 0 2px 16px rgba(0,0,0,0.2);
     color: var(--foreground);
   }
 
@@ -453,9 +355,7 @@ const postSlug = post.id;
     box-shadow: 0 4px 12px rgba(99,102,241,0.3);
   }
 
-  .author-info {
-    flex: 1;
-  }
+  .author-info { flex: 1; }
 
   .author-name {
     font-weight: 700;
@@ -484,9 +384,7 @@ const postSlug = post.id;
     color: var(--accent);
   }
 
-  .author-link:hover {
-    opacity: 0.75;
-  }
+  .author-link:hover { opacity: 0.75; }
 
   /* ── Prev / Next ── */
   .prevnext-nav {
@@ -507,30 +405,19 @@ const postSlug = post.id;
     flex-direction: column;
     gap: 0.3rem;
     padding: 1rem 1.25rem;
-    background: rgba(255,255,255,0.6);
-    backdrop-filter: blur(8px);
-    border: 1px solid rgba(99,102,241,0.12);
+    border: 1px solid var(--border);
     border-radius: 12px;
     text-decoration: none;
-    transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s;
-    color: var(--foreground);
-  }
-
-  :global([data-theme="dark"]) .prevnext-btn {
-    background: rgba(15,23,42,0.6);
-    border-color: rgba(99,102,241,0.18);
+    transition: border-color 0.2s, transform 0.2s;
     color: var(--foreground);
   }
 
   .prevnext-btn:hover {
     border-color: #6366f1;
     transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(99,102,241,0.15);
   }
 
-  .prevnext-next {
-    text-align: right;
-  }
+  .prevnext-next { text-align: right; }
 
   .prevnext-label {
     font-size: 0.7rem;
