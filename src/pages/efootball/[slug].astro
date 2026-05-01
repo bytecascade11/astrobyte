@@ -145,39 +145,39 @@ const typeLabel = typeLabels[guide.data.type] ?? "Guide";
 
   </main>
 </Layout>
-<style>
+<style is:global>
   .breadcrumb-nav {
-    color: var(--color-foreground);
-    opacity: 0.6;
-  }
-  .breadcrumb-nav a {
-    opacity: 1;
-    color: var(--color-foreground);
-  }
-  .breadcrumb-nav a:hover {
-    color: var(--color-accent);
-    opacity: 1;
-  }
-  .post-desc {
-    color: var(--color-foreground);
-    opacity: 0.75;
-  }
-  .post-meta {
-    color: var(--color-foreground);
-    opacity: 0.6;
-  }
-  .badge {
-    font-size: 0.72rem;
-    font-weight: 600;
-    padding: 0.2rem 0.65rem;
-    border-radius: 9999px;
-    background: var(--color-card);
-    color: var(--color-foreground);
-    border: 1px solid var(--color-border);
-  }
-  .badge--accent {
-    color: var(--color-accent);
-    border-color: var(--color-accent);
-    opacity: 0.9;
-  }
+  color: var(--foreground);
+  opacity: 0.6;
+}
+.breadcrumb-nav a {
+  color: var(--foreground);
+  opacity: 1;
+}
+.breadcrumb-nav a:hover {
+  color: var(--accent);
+  opacity: 1;
+}
+.post-desc {
+  color: var(--foreground);
+  opacity: 0.75;
+}
+.post-meta {
+  color: var(--foreground);
+  opacity: 0.6;
+}
+.badge {
+  font-size: 0.72rem;
+  font-weight: 600;
+  padding: 0.2rem 0.65rem;
+  border-radius: 9999px;
+  background: var(--background-light);
+  color: var(--foreground);
+  border: 1px solid var(--border);
+}
+.badge--accent {
+  color: var(--accent);
+  border-color: var(--accent);
+  opacity: 0.9;
+}
 </style>
