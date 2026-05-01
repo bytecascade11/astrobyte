@@ -11,7 +11,6 @@ formation: "4-3-3"
 division: "Division 1"
 version: "eFootball 2026 v4.4"
 slug: "efootball-2026-4-3-3-formation-guide-division-1"
-tags: ["efootball", "formation", "tactics", "division-1"]
 relatedSlugs:
   - "efootball-2026-4-2-2-2-counter-guide"
   - "best-cf-players-efootball-2026-under-2000gp"
