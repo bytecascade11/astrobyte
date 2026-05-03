@@ -26,6 +26,22 @@ const {
 const siteBase = SITE.website.endsWith("/") ? SITE.website : `${SITE.website}/`;
 const logoUrl = `${siteBase}${SITE.ogImage ?? "og.png"}`;
 
+// ✅ Post cover image — declared as ImageObject with explicit dimensions
+// Google Discover requires: min 1200px wide, 16:9 ratio, ImageObject format
+const postImage = image
+  ? {
+      "@type": "ImageObject",
+      "url": image,
+      "width": 1200,
+      "height": 630
+    }
+  : {
+      "@type": "ImageObject",
+      "url": logoUrl,
+      "width": 1200,
+      "height": 630
+    };
+
 /* WEBSITE SCHEMA */
 const websiteSchema = {
   "@context": "https://schema.org",
@@ -49,7 +65,12 @@ const organizationSchema = {
   "@type": "Organization",
   "name": "ReviByte",
   "url": SITE.website,
-  "logo": logoUrl,
+  "logo": {
+    "@type": "ImageObject",
+    "url": logoUrl,
+    "width": 1200,
+    "height": 630
+  },
   "sameAs": [
     SITE.profile
   ]
@@ -61,7 +82,8 @@ const articleSchema = title ? {
   "@type": "BlogPosting",
   "headline": title,
   "description": description || SITE.desc,
-  "image": image || logoUrl,
+  // ✅ image as ImageObject — triggers large image in Google Discover
+  "image": postImage,
   "url": url || SITE.website,
   ...(datePublished instanceof Date && {
     datePublished: datePublished.toISOString()
@@ -80,7 +102,9 @@ const articleSchema = title ? {
     "name": "ReviByte",
     "logo": {
       "@type": "ImageObject",
-      "url": logoUrl
+      "url": logoUrl,
+      "width": 600,
+      "height": 60
     }
   },
   "mainEntityOfPage": {
