@@ -1,19 +1,4 @@
 ---
-/**
- * SchemaMarkup Component
- * 
- * This component adds structured data (Schema.org JSON-LD) to your pages.
- * It helps Google understand your site structure and display rich results like:
- * - Sitelinks (navigation links under your site in search)
- * - Search box in search results
- * - Article metadata (author, publish date)
- * - Breadcrumbs in search results
- * 
- * Usage:
- * - Homepage: <SchemaMarkup /> (defaults to website schema)
- * - Blog posts: <SchemaMarkup title="..." breadcrumbs={[...]} datePublished={post.date} />
- */
-
 import { SITE } from "@/config";
 
 interface Props {
@@ -38,6 +23,9 @@ const {
   breadcrumbs 
 } = Astro.props;
 
+const siteBase = SITE.website.endsWith("/") ? SITE.website : `${SITE.website}/`;
+const logoUrl = `${siteBase}${SITE.ogImage ?? "og.png"}`;
+
 /* WEBSITE SCHEMA */
 const websiteSchema = {
   "@context": "https://schema.org",
@@ -49,7 +37,7 @@ const websiteSchema = {
     "@type": "SearchAction",
     "target": {
       "@type": "EntryPoint",
-      "urlTemplate": `${SITE.website}search/?q={search_term_string}`
+      "urlTemplate": `${siteBase}search/?q={search_term_string}`
     },
     "query-input": "required name=search_term_string"
   }
@@ -61,19 +49,19 @@ const organizationSchema = {
   "@type": "Organization",
   "name": "ReviByte",
   "url": SITE.website,
-  "logo": `\( {SITE.website} \){SITE.ogImage}`,
+  "logo": logoUrl,
   "sameAs": [
     SITE.profile
   ]
 };
 
-/* ARTICLE SCHEMA – safe date handling */
+/* ARTICLE SCHEMA */
 const articleSchema = title ? {
   "@context": "https://schema.org",
   "@type": "BlogPosting",
   "headline": title,
   "description": description || SITE.desc,
-  "image": image || `\( {SITE.website} \){SITE.ogImage}`,
+  "image": image || logoUrl,
   "url": url || SITE.website,
   ...(datePublished instanceof Date && {
     datePublished: datePublished.toISOString()
@@ -92,7 +80,7 @@ const articleSchema = title ? {
     "name": "ReviByte",
     "logo": {
       "@type": "ImageObject",
-      "url": `\( {SITE.website} \){SITE.ogImage}`
+      "url": logoUrl
     }
   },
   "mainEntityOfPage": {
@@ -107,17 +95,14 @@ const breadcrumbSchema = breadcrumbs ? {
   "@type": "BreadcrumbList",
   "itemListElement": breadcrumbs.map((crumb, index) => {
     const isLastItem = index === breadcrumbs.length - 1;
-    
     const item: any = {
       "@type": "ListItem",
       "position": index + 1,
       "name": crumb.name
     };
-    
     if (!isLastItem) {
       item.item = crumb.url;
     }
-    
     return item;
   })
 } : null;
