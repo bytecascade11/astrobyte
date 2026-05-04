@@ -3,6 +3,7 @@
 import { getCollection, render } from "astro:content";
 import type { CollectionEntry } from "astro:content";
 import Layout from "@/layouts/Layout.astro";
+import SchemaMarkup from "@/components/SchemaMarkup.astro";
 import { SITE } from "@/config";
 
 export async function getStaticPaths() {
@@ -38,6 +39,8 @@ const coverImageAbs = guide.data.coverImage
     ).toString()
   : undefined;
 
+const postUrl = `${websiteBase}codm/${guide.data.slug ?? guide.id}/`;
+
 const typeLabels: Record<string, string> = {
   loadout: "Loadout",
   "tier-list": "Tier List",
@@ -46,11 +49,34 @@ const typeLabels: Record<string, string> = {
   news: "News",
 };
 const typeLabel = typeLabels[guide.data.type] ?? "Guide";
-const shareURL = `${websiteBase}codm/${guide.data.slug ?? guide.id}/`;
+const shareURL = postUrl;
 const shareTitle = guide.data.title;
 ---
 
 <Layout title={pageTitle} description={pageDesc} ogImage={ogImage}>
+
+  <!-- ✅ Breadcrumb schema -->
+  <SchemaMarkup
+    type="breadcrumb"
+    breadcrumbs={[
+      { name: "Home", url: websiteBase },
+      { name: "COD Mobile", url: `${websiteBase}codm/` },
+      { name: typeLabel, url: `${websiteBase}codm/` },
+      { name: guide.data.title, url: postUrl },
+    ]}
+  />
+
+  <!-- ✅ Article schema with post image -->
+  <SchemaMarkup
+    type="article"
+    title={guide.data.title}
+    description={guide.data.description}
+    url={postUrl}
+    image={coverImageAbs}
+    datePublished={new Date(guide.data.pubDatetime)}
+    dateModified={guide.data.lastUpdated ? new Date(guide.data.pubDatetime) : null}
+  />
+
   <main id="main-content" class="mx-auto w-full max-w-3xl px-4 pb-16">
 
     <!-- Breadcrumb -->
@@ -62,7 +88,7 @@ const shareTitle = guide.data.title;
       <span>{typeLabel}</span>
     </nav>
 
-    <!-- Cover Image — Google Discover compliant (1200×630) -->
+    <!-- Cover Image -->
     {coverImageAbs && (
       <div class="hub-cover-wrap">
         <img
@@ -152,9 +178,7 @@ const shareTitle = guide.data.title;
                 )}
                 {!related.data.coverImage && <span class="text-xl shrink-0">🎯</span>}
                 <div>
-                  <p class="font-medium text-sm group-hover:text-skin-accent transition-colors">
-                    {related.data.title}
-                  </p>
+                  <p class="font-medium text-sm group-hover:text-skin-accent transition-colors">{related.data.title}</p>
                   <p class="text-xs post-meta mt-0.5">{related.data.description}</p>
                 </div>
               </a>
@@ -198,24 +222,22 @@ const shareTitle = guide.data.title;
 </script>
 
 <script is:inline>
-  // Giscus theme sync
   function updateGiscusTheme() {
     const theme = document.firstElementChild?.getAttribute("data-theme") || "light";
-    const giscusTheme = theme === "dark" ? "dark" : "light";
     const iframe = document.querySelector("iframe.giscus-frame");
     if (iframe) {
       iframe.contentWindow?.postMessage(
-        { giscus: { setConfig: { theme: giscusTheme } } },
+        { giscus: { setConfig: { theme: theme === "dark" ? "dark" : "light" } } },
         "https://giscus.app"
       );
     }
   }
   document.addEventListener("astro:after-swap", updateGiscusTheme);
   window.addEventListener("load", updateGiscusTheme);
-  const observer = new MutationObserver(updateGiscusTheme);
-  observer.observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
+  new MutationObserver(updateGiscusTheme).observe(document.documentElement, {
+    attributes: true, attributeFilter: ["data-theme"]
+  });
 
-  // Native share
   if (navigator.share) {
     const btn = document.getElementById('nativeShareBtn');
     if (btn) {
@@ -226,7 +248,6 @@ const shareTitle = guide.data.title;
     }
   }
 
-  // Copy link
   const copyBtn = document.getElementById('copyLinkBtn');
   if (copyBtn) {
     copyBtn.addEventListener('click', () => {
@@ -247,23 +268,15 @@ const shareTitle = guide.data.title;
   .post-meta { color: var(--foreground); opacity: 0.6; }
 
   .hub-cover-wrap {
-    width: 100%;
-    border-radius: 16px;
-    overflow: hidden;
-    margin-bottom: 1.75rem;
-    margin-top: 0.5rem;
+    width: 100%; border-radius: 16px; overflow: hidden;
+    margin-bottom: 1.75rem; margin-top: 0.5rem;
     background: var(--background-light);
   }
   .hub-cover-img {
-    width: 100%;
-    height: auto;
-    object-fit: cover;
-    aspect-ratio: 16/9;
-    display: block;
+    width: 100%; height: auto; object-fit: cover;
+    aspect-ratio: 16/9; display: block;
   }
-  @media (min-width: 768px) {
-    .hub-cover-img { aspect-ratio: 21/9; }
-  }
+  @media (min-width: 768px) { .hub-cover-img { aspect-ratio: 21/9; } }
 
   .badge {
     font-size: 0.72rem; font-weight: 600; padding: 0.2rem 0.65rem;
