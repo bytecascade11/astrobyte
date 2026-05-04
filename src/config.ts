@@ -32,6 +32,6 @@ export const SITE = {
   timezone: "Africa/Lagos",
 
   analytics: {
-    googleAnalyticsId: "G-2MH0T4DFR3",
+    googleAnalyticsId: "×××××××",
   },
 } as const;
