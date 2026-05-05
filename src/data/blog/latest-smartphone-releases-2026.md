@@ -10,7 +10,7 @@ tags:
   - pixel
   - android
   - opinions 
-coverImage: /assets/posts/latest-smartphone-releases-2026/cover.jpg
+coverImage: /assets/posts/samsung-ultra-iphone-pixel-cover.jpg
 coverImageAlt: "Samsung Galaxy S26 Ultra, Google Pixel 10 Pro, and iPhone 17 Pro Max side by side on a dark surface"
 featured: true
 ---
@@ -47,7 +47,7 @@ My actual take: the Privacy Display is the most interesting thing Samsung has ad
 
 If you're trying to decide between Samsung options at different budgets, I broke down the Samsung side properly in my [best Samsung phones for students](/posts/best-samsung-phones-for-students/) post — there are more affordable S26 models that give you 80% of the Ultra experience.
 
-![Samsung Galaxy S26 Ultra in Cobalt Violet showing Privacy Display and 200MP camera system](/assets/posts/latest-smartphone-releases-2026/s26-ultra.jpg)
+![Samsung Galaxy S26 Ultra in Cobalt Violet showing Privacy Display and 200MP camera system](/assets/posts/ultra.jpg)
 
 ---
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4896561037705299"
@@ -80,7 +80,7 @@ The Pixel 10 Pro and Pro XL step up to 50MP main, 48MP ultrawide, 48MP telephoto
 
 One thing reviewers have been honest about: the Tensor G5 still underperforms Apple and Qualcomm in raw benchmark numbers. Google's strength has never been chip dominance though — it's the software, the camera pipeline, and Gemini integration. If you're a camera-first buyer, the Pixel 10 Pro still delivers results that beat the spec sheet. I went deep on that in my [best Google Pixel phones 2026](/posts/best-google-pixel-phones-2026/) post.
 
-![Google Pixel 10 Pro in Moonstone showing triple camera system and Pixelsnap magnet ring](/assets/posts/latest-smartphone-releases-2026/pixel-10-pro.jpg)
+![Google Pixel 10 Pro in Moonstone showing triple camera system and Pixelsnap magnet ring](/assets/posts/pixel-10-pro.jpg)
 
 ---
 
@@ -124,7 +124,7 @@ For what the Pro Max camera system can actually do, I detailed it properly in my
 
 The short version: the A19 Bionic chip is fast. The camera on the Pro Max is legitimately excellent for video. The Air is interesting but not practical for most people.
 
-![iPhone 17 Pro Max and iPhone 17 Air side by side showing design and thickness differences](/assets/posts/latest-smartphone-releases-2026/iphone-17-lineup.jpg)
+![iPhone 17 Pro Max and iPhone 17 Air side by side showing design and thickness differences](/assets/posts/iphone-17-lineup.jpg)
 
 ---
 
