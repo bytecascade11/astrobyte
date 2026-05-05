@@ -40,6 +40,7 @@ const coverImageAbs = guide.data.coverImage
   : undefined;
 
 const postUrl = `${websiteBase}codm/${guide.data.slug ?? guide.id}/`;
+const postSlug = guide.data.slug ?? guide.id;
 
 const typeLabels: Record<string, string> = {
   loadout: "Loadout",
@@ -55,7 +56,6 @@ const shareTitle = guide.data.title;
 
 <Layout title={pageTitle} description={pageDesc} ogImage={ogImage}>
 
-  <!-- ✅ Breadcrumb schema -->
   <SchemaMarkup
     type="breadcrumb"
     breadcrumbs={[
@@ -66,7 +66,6 @@ const shareTitle = guide.data.title;
     ]}
   />
 
-  <!-- ✅ Article schema with post image -->
   <SchemaMarkup
     type="article"
     title={guide.data.title}
@@ -116,6 +115,7 @@ const shareTitle = guide.data.title;
 
       <p class="post-desc text-lg leading-relaxed">{guide.data.description}</p>
 
+      <!-- Meta row with view count -->
       <div class="mt-4 flex flex-wrap gap-x-4 gap-y-1 text-sm post-meta">
         <span>By {guide.data.author}</span>
         <span>
@@ -124,6 +124,10 @@ const shareTitle = guide.data.title;
           })}
         </span>
         {guide.data.lastUpdated && <span>🔄 Updated: {guide.data.lastUpdated}</span>}
+        <!-- ✅ View count badge — same as PostDetails.astro -->
+        <span class="view-count-badge">
+          👁 <span id="view-count">—</span> views
+        </span>
       </div>
     </div>
 
@@ -221,6 +225,46 @@ const shareTitle = guide.data.title;
         async>
 </script>
 
+<!-- ✅ Supabase view counter — same as PostDetails.astro -->
+<script is:inline define:vars={{ postSlug }}>
+  const SUPABASE_URL = "https://tfkrjruxqiqpaoeckfoh.supabase.co";
+  const SUPABASE_KEY = "sb_publishable_fHguT58pKc7MsxhSvNpb6w_T2Xg_U_G";
+
+  async function getAndIncrementViews(slug) {
+    try {
+      await fetch(`${SUPABASE_URL}/rest/v1/rpc/increment_views`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "apikey": SUPABASE_KEY,
+          "Authorization": `Bearer ${SUPABASE_KEY}`,
+        },
+        body: JSON.stringify({ post_slug: slug }),
+      });
+
+      const res = await fetch(
+        `${SUPABASE_URL}/rest/v1/post_views?slug=eq.${encodeURIComponent(slug)}&select=views`,
+        {
+          headers: {
+            "apikey": SUPABASE_KEY,
+            "Authorization": `Bearer ${SUPABASE_KEY}`,
+          },
+        }
+      );
+
+      const data = await res.json();
+      const views = data?.[0]?.views ?? 0;
+      const el = document.getElementById("view-count");
+      if (el) el.textContent = views.toLocaleString();
+    } catch {
+      const el = document.getElementById("view-count");
+      if (el) el.textContent = "—";
+    }
+  }
+
+  getAndIncrementViews(postSlug);
+</script>
+
 <script is:inline>
   function updateGiscusTheme() {
     const theme = document.firstElementChild?.getAttribute("data-theme") || "light";
@@ -266,6 +310,10 @@ const shareTitle = guide.data.title;
   .breadcrumb-nav a:hover { color: var(--accent); opacity: 1; }
   .post-desc { color: var(--foreground); opacity: 0.75; }
   .post-meta { color: var(--foreground); opacity: 0.6; }
+  .view-count-badge {
+    display: flex; align-items: center; gap: 0.3rem;
+    font-size: 0.82rem; opacity: 0.65;
+  }
 
   .hub-cover-wrap {
     width: 100%; border-radius: 16px; overflow: hidden;
