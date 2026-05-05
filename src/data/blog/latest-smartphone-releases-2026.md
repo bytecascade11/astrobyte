@@ -47,7 +47,7 @@ My actual take: the Privacy Display is the most interesting thing Samsung has ad
 
 If you're trying to decide between Samsung options at different budgets, I broke down the Samsung side properly in my [best Samsung phones for students](/posts/best-samsung-phones-for-students/) post — there are more affordable S26 models that give you 80% of the Ultra experience.
 
-![Samsung Galaxy S26 Ultra in Cobalt Violet showing Privacy Display and 200MP camera system](/assets/posts/ultra.jpg)
+![Samsung Galaxy S26 Ultra in Cobalt Violet showing Privacy Display and 200MP camera system](/assets/posts/s26-ultra.jpg)
 
 ---
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4896561037705299"
