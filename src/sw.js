@@ -3,16 +3,14 @@
 // ── OneSignal (must be first) ──
 importScripts("https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.sw.js");
 
-// ── Workbox via CDN (no ES imports) ──
-importScripts("https://storage.googleapis.com/workbox-cdn/releases/7.0.0/workbox-sw.js");
-
-const { precacheAndRoute, cleanupOutdatedCaches } = workbox.precaching;
+// ── Workbox via manifest injection ──
+import { precacheAndRoute, cleanupOutdatedCaches } from 'workbox-precaching';
 
 precacheAndRoute(self.__WB_MANIFEST);
 cleanupOutdatedCaches();
 
-const DYNAMIC_CACHE = 'revibyte-dynamic-v3';
-const STATIC_CACHE = 'revibyte-static-v3';
+const DYNAMIC_CACHE = 'revibyte-dynamic-v4';
+const STATIC_CACHE = 'revibyte-static-v4';
 
 const CORE_ASSETS = [
   '/',
