@@ -381,38 +381,51 @@ const currentPath = Astro.url.pathname;
     </script>
 
     <!-- OneSignal Init + PWA Install -->
-    <script is:inline>
-      // ── OneSignal v16 — Native Slidedown (bottom, dark themed) ──
-      window.OneSignalDeferred = window.OneSignalDeferred || [];
+<script is:inline>
+  // ── OneSignal v16 — Native Slidedown (bottom, dark themed) ──
+  window.OneSignalDeferred = window.OneSignalDeferred || [];
 
-            OneSignalDeferred.push(async function (OneSignal) {
-        try {
-          await OneSignal.init({
-            appId: "bbd38552-99d1-4cda-96f9-5c0cacfba192",
-            notifyButton: { enable: false },
-            allowLocalhostAsSecureOrigin: true,
-            autoResubscribe: true,
-            promptOptions: {
-              slidedown: {
-                prompts: [
-                  {
-                    type: "push",
-                    autoPrompt: true,
-                    text: {
-                      actionMessage: "⚡ Stay Ahead in Tech",
-                      acceptButtonText: "Allow 🔔",
-                      cancelButtonText: "Not Now",
-                      confirmMessage: "Hit Allow to get instant updates on new posts, phone comparisons, and buying guides that actually help."
-                    },
-                    delay: {
-                      pageViews: 1,
-                      timeDelay: 5
-                    }
-                  }
-                ]
+  OneSignalDeferred.push(async function (OneSignal) {
+    try {
+      await OneSignal.init({
+        appId: "bbd38552-99d1-4cda-96f9-5c0cacfba192",
+        notifyButton: { enable: false },
+        allowLocalhostAsSecureOrigin: true,
+        autoResubscribe: true,
+        promptOptions: {
+          slidedown: {
+            prompts: [
+              {
+                type: "push",
+                autoPrompt: true,
+                text: {
+                  actionMessage: "⚡ Stay Ahead in Tech",
+                  acceptButtonText: "Allow 🔔",
+                  cancelButtonText: "Not Now",
+                  confirmMessage: "Hit Allow to get instant updates on new posts, phone comparisons, and buying guides that actually help."
+                },
+                delay: {
+                  pageViews: 0,  // fixed
+                  timeDelay: 3   // fixed
+                }
               }
-            }
-          });
+            ]
+          }
+        }
+      });
+
+      console.log("OneSignal initialized successfully");
+
+      const supported = OneSignal.Notifications.isPushSupported();
+      console.log("Push supported:", supported);
+
+      const permission = OneSignal.Notifications.permission;
+      console.log("Current permission:", permission);
+
+    } catch (err) {
+      console.error("OneSignal init failed:", err);
+    }
+  });
 
           console.log("OneSignal initialized successfully");
 
