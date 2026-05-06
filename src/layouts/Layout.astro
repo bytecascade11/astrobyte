@@ -84,7 +84,6 @@ const currentPath = Astro.url.pathname;
       }
 
       /* ── OneSignal Slidedown Custom Dark Theme ── */
-      /* Target OneSignal's slidedown container */
       #onesignal-slidedown-container,
       .onesignal-slidedown-container {
         --onesignal-bg: #0f172a !important;
@@ -99,7 +98,6 @@ const currentPath = Astro.url.pathname;
         --onesignal-icon-bg: linear-gradient(135deg, #6366f1 0%, #a855f7 100%) !important;
       }
 
-      /* Force bottom positioning */
       #onesignal-slidedown-container .slidedown-body,
       .onesignal-slidedown-container .slidedown-body {
         border-radius: 24px 24px 0 0 !important;
@@ -235,7 +233,7 @@ const currentPath = Astro.url.pathname;
     <!-- Google AdSense -->
     <script is:inline async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4896561037705299" crossorigin="anonymous"></script>
 
-   <!-- Google Analytics -->
+    <!-- Google Analytics -->
     {SITE.analytics?.googleAnalyticsId && (
       <>
         <script is:inline async src={`https://www.googletagmanager.com/gtag/js?id=${SITE.analytics.googleAnalyticsId}`}></script>
@@ -247,7 +245,8 @@ const currentPath = Astro.url.pathname;
         </script>
       </>
     )}
-    <script type="application/ld+json">
+
+    <script type="application/ld+json" is:inline>
     {
       "@context": "https://schema.org",
       "@type": "SoftwareApplication",
@@ -274,10 +273,8 @@ const currentPath = Astro.url.pathname;
   </head>
 
   <body>
-    <!-- OneSignal SDK — must be in <body> for v16 -->
-    <script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
-
-    <!-- REMOVED: Custom #notif-prompt div — using OneSignal native slidedown instead -->
+    <!-- OneSignal SDK — must be in <body> for v16, no defer -->
+    <script is:inline src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js"></script>
 
     <!-- PWA Top Bar -->
     <div class="pwa-topbar" id="pwaTopbar">
@@ -349,19 +346,19 @@ const currentPath = Astro.url.pathname;
       <button onclick="installApp()" style="background:#6366f1; color:white; border:none; padding:8px 16px; border-radius:8px; cursor:pointer; font-weight:600;">Install</button>
       <button onclick="document.getElementById('installBanner').style.display='none'" style="background:transparent; color:white; border:none; cursor:pointer; font-size:18px;">✕</button>
     </div>
-    
+
     <!-- PWA Detection -->
     <script is:inline>
       function checkPWA() {
-        const isPWA = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true;
+        var isPWA = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true;
         if (isPWA) {
           document.body.classList.add('is-pwa');
-          const header = document.querySelector('header');
+          var header = document.querySelector('header');
           if (header) header.style.cssText = 'display:none!important;visibility:hidden!important;height:0!important;overflow:hidden!important;pointer-events:none!important;';
           if (typeof updateThemeIcon === 'function') updateThemeIcon();
         } else {
           document.body.classList.remove('is-pwa');
-          const header = document.querySelector('header');
+          var header = document.querySelector('header');
           if (header) header.style.cssText = '';
         }
       }
@@ -372,54 +369,51 @@ const currentPath = Astro.url.pathname;
     <!-- Close More Menu when clicking outside -->
     <script is:inline>
       document.addEventListener('click', function(e) {
-        const menu = document.getElementById('moreMenu');
-        const moreBtn = document.querySelector('.bottom-nav button');
+        var menu = document.getElementById('moreMenu');
+        var moreBtn = document.querySelector('.bottom-nav button');
         if (menu && moreBtn && !menu.contains(e.target) && !moreBtn.contains(e.target)) {
           menu.classList.remove('open');
         }
       });
     </script>
 
-    <!-- OneSignal Init + PWA Install -->
-<script is:inline>
-  // ── OneSignal v16 — Native Slidedown (bottom, dark themed) ──
-  window.OneSignalDeferred = window.OneSignalDeferred || [];
+    <!-- OneSignal Init -->
+    <script is:inline>
+      window.OneSignalDeferred = window.OneSignalDeferred || [];
 
-  OneSignalDeferred.push(async function (OneSignal) {
-    try {
-      await OneSignal.init({
-        appId: "bbd38552-99d1-4cda-96f9-5c0cacfba192",
-        notifyButton: { enable: false },
-        allowLocalhostAsSecureOrigin: true,
-        autoResubscribe: true,
-        promptOptions: {
-          slidedown: {
-            prompts: [
-              {
-                type: "push",
-                autoPrompt: true,
-                text: {
-                  actionMessage: "⚡ Stay Ahead in Tech",
-                  acceptButtonText: "Allow 🔔",
-                  cancelButtonText: "Not Now",
-                  confirmMessage: "Hit Allow to get instant updates on new posts, phone comparisons, and buying guides that actually help."
-                },
-                delay: {
-                  pageViews: 0,  // fixed
-                  timeDelay: 3   // fixed
-                }
+      OneSignalDeferred.push(async function (OneSignal) {
+        try {
+          await OneSignal.init({
+            appId: "bbd38552-99d1-4cda-96f9-5c0cacfba192",
+            notifyButton: { enable: false },
+            allowLocalhostAsSecureOrigin: true,
+            autoResubscribe: true,
+            promptOptions: {
+              slidedown: {
+                prompts: [
+                  {
+                    type: "push",
+                    autoPrompt: true,
+                    text: {
+                      actionMessage: "⚡ Stay Ahead in Tech",
+                      acceptButtonText: "Allow 🔔",
+                      cancelButtonText: "Not Now",
+                      confirmMessage: "Hit Allow to get instant updates on new posts, phone comparisons, and buying guides that actually help."
+                    },
+                    delay: {
+                      pageViews: 0,
+                      timeDelay: 3
+                    }
+                  }
+                ]
               }
-            ]
-          }
-        }
-      });
+            }
+          });
 
-      console.log("OneSignal initialized successfully");
-
-          const supported = OneSignal.Notifications.isPushSupported();
+          console.log("OneSignal initialized successfully");
+          var supported = OneSignal.Notifications.isPushSupported();
           console.log("Push supported:", supported);
-
-          const permission = OneSignal.Notifications.permission;
+          var permission = OneSignal.Notifications.permission;
           console.log("Current permission:", permission);
 
         } catch (err) {
@@ -428,7 +422,8 @@ const currentPath = Astro.url.pathname;
       });
     </script>
 
-      // ── PWA Install Banner ──
+    <!-- PWA Install Banner Script -->
+    <script is:inline>
       window.addEventListener('beforeinstallprompt', function (e) {
         e.preventDefault();
         window._deferredPrompt = e;
@@ -436,7 +431,6 @@ const currentPath = Astro.url.pathname;
         if (banner) banner.style.display = 'flex';
       });
 
-      // ── Install app handler ──
       function installApp() {
         if (window._deferredPrompt) {
           window._deferredPrompt.prompt();
