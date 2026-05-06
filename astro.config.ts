@@ -42,8 +42,8 @@ export default defineConfig({
       filename: "sw.js",
 
       injectManifest: {
-        rollupFormat: "iife",
-        minify: false,
+  rollupFormat: "es",  // changed from "iife"
+  minify: false,
       },
 
       manifest: {
