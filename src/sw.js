@@ -3,8 +3,10 @@
 // ── OneSignal (must be first) ──
 importScripts("https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.sw.js");
 
-// ── Workbox PWA ──
-import { precacheAndRoute, cleanupOutdatedCaches } from 'workbox-precaching';
+// ── Workbox via CDN (no ES imports) ──
+importScripts("https://storage.googleapis.com/workbox-cdn/releases/7.0.0/workbox-sw.js");
+
+const { precacheAndRoute, cleanupOutdatedCaches } = workbox.precaching;
 
 precacheAndRoute(self.__WB_MANIFEST);
 cleanupOutdatedCaches();
