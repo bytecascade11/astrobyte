@@ -2,7 +2,7 @@
 title: "Galaxy S26 Ultra vs iPhone 17 Pro Max vs Pixel 10 Pro: Camera Comparison & Analysis"
 description: "After analyzing hands-on coverage, camera performance reports, and real-world sample breakdowns for the Galaxy S26 Ultra, iPhone 17 Pro Max, and Pixel 10 Pro — here's the honest verdict on which phone actually wins in 2026."
 coverImage: "/assets/posts/best-camera-phones-2026-cover.jpg"
-coverImageAlt: "Galaxy S26 Ultra vs iPhone 17 Pro Max vs Pixel 10 Pro camera comparison'
+coverImageAlt: "Galaxy S26 Ultra vs iPhone 17 Pro Max vs Pixel 10 Pro camera comparison"
 author: "iSamuel"
 pubDatetime: 2026-05-07T19:08:00Z
 tags: ["samsung", "apple", "google", "pixel", "opinions"]
