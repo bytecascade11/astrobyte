@@ -78,9 +78,6 @@ That chip difference matters more than the design does. Keep that in mind as you
 </script>
 ## Daylight: Where They All Win Differently
 
-![Outdoor daylight comparison — three flagship cameras, same natural scene](/assets/posts/camera-daylight-comparison-2026.jpg)
-*In good light all three phones are exceptional — but they have fundamentally different ideas about what "excellent" looks like.*
-
 In good light, the separation isn't about capability. It's about philosophy. And philosophy, it turns out, is hard to compromise on. These three phones have very different opinions about what a "correct" photo looks like.
 
 The **S26 Ultra's** ProVisual Engine processes scenes with a punchy confidence that's almost theatrical. Blues are bluer. Greens have depth. Contrast is pushed up. For social media, for travel photos, for anything where you want impact that requires zero editing — Samsung delivers it immediately. The recurring criticism from early reviewers is color accuracy: Samsung's processing makes choices that not everyone agrees with, particularly in scenes with nuanced natural tones. For some photographers, that vibrancy is exactly what they want. For others, it requires a trip to Lightroom to dial back.
@@ -105,9 +102,6 @@ The **Pixel 10 Pro's** camera hardware is largely unchanged from the Pixel 9 Pro
 
 This is where the separation happens. Daytime is solved. Night is where character shows — and where the money you spent either justifies itself or doesn't.
 
-![Low-light street photography — night mode on three flagships compared](/assets/posts/camera-night-mode-comparison-2026.jpg)
-*Late-night mixed artificial lighting. The gap between these cameras becomes obvious fast after dark.*
-
 The **S26 Ultra** made its most meaningful camera improvement here. That f/1.4 aperture is genuinely wider than any other flagship main camera available right now, and Samsung claims it meaningfully improves light capture before any computational work begins. Enhanced Nightography Video applies AI-powered noise reduction and motion-aware processing to low-light footage. The new APV (Advanced Professional Video) format — Samsung's proprietary high-efficiency codec — is rated for up to 8K at 30fps. The consistent critique in hands-on coverage is that Samsung's AI scene detection occasionally makes choices that smooth out textured surfaces — treating fine grain as noise rather than detail. Not bad night photography. But several early reviewers place it behind the Pixel and iPhone in low-light consistency.
 
 The **iPhone 17 Pro Max** at night is what Apple does best: restraint and quality. Independent tests note that colors stay accurate, the 4x telephoto's 56% larger sensor produces better low-light output at distance than the previous 5x lens did, and ProRes Log is available even in night conditions — footage holds detail in shadows without looking artificially lifted. The removal of night portrait mode from this generation was a genuine subtraction that some reviewers flagged after launch. For video in low light, though, nothing in this comparison touches it: Apple positions the iPhone 17 Pro Max as its most capable mobile video system yet, with support for ProRes Log workflows and high-frame-rate 4K capture — tools more associated with professional production than smartphones.
@@ -131,9 +125,6 @@ The **Pixel 10 Pro** in low light has been a consistent standout across reviewer
 The telephoto story in 2026 is the most interesting it's been in years. And honestly — this is the first time in a while the trade-offs actually matter.
 
 Each of these phones made a genuinely different strategic call.
-
-![Telephoto zoom comparison — same subject, different optical ranges](/assets/posts/camera-zoom-comparison-2026.jpg)
-*Same subject, same distance. Different optical zoom philosophies produce noticeably different results.*
 
 The **S26 Ultra** runs four cameras: 200MP main (f/1.4), 50MP ultrawide, 10MP 3x telephoto, and a 50MP 5x periscope telephoto using the new ALoP (All Lens On Prism) mechanism. The ALoP design replaces the traditional periscope prism with a more compact arrangement, and the 5x optical result is sharp and detailed at distance. Combined with Space Zoom processing, the effective reach extends well beyond 5x for subjects you genuinely cannot get closer to. No other phone in this comparison offers this range optically.
 
@@ -244,11 +235,6 @@ For anyone where video is a real priority: the **iPhone 17 Pro Max** is not a cl
 For the photographer who wants maximum hardware and optical reach: the **Samsung Galaxy S26 Ultra's** quad-camera system, f/1.4 main aperture, and Space Zoom reach give you the most versatile camera setup available in a single phone. If Samsung's processing style aligns with yours — or you're willing to tune it in Lightroom — this is the phone for you.
 
 For more context on where these fit in the full 2026 lineup, the [complete Samsung camera phone breakdown](https://www.revibyte.blog/posts/top-samsung-phones-best-camera/) and [top iPhones for photography this year](https://www.revibyte.blog/posts/top-iphones-best-camera-2026/) go deeper on each ecosystem. And if the Pixel lineup has your interest, the [full Pixel 2026 guide](https://www.revibyte.blog/posts/best-google-pixel-phones-2026/) covers what I couldn't fit here.
-
----
-
-![Portrait mode comparison — natural window light, all three phones side by side](/assets/posts/camera-portrait-comparison-2026.jpg)
-*Portrait mode in natural window light. Edge detection, background separation, and skin tone handling differ noticeably across all three — worth examining closely before deciding.*
 
 ---
 
