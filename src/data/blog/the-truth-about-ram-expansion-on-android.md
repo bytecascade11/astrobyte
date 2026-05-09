@@ -4,7 +4,7 @@ description: "Virtual RAM sounds like a free upgrade, but the reality is messier
 coverImage: "/assets/posts/ram-expansion-cover.jpg"
 coverImageAlt: "Android phone displaying RAM expansion settings screen"
 author: "iSamuel"
-pubDatetime: 2025-05-09T09:50:00Z
+pubDatetime: 2026-05-09T09:58:00Z
 tags: ["android", "smartphones", "opinions"]
 ---
 
