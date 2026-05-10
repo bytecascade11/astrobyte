@@ -1,11 +1,11 @@
 ---
 title: "RedMagic vs ROG Phone — Which One Is Actually Worth It?"
 description: "Both phones promise the ultimate gaming experience. After logging real hours in PUBG finals, Genshin open world, and CODM ranked — here's what actually separates them, and what most reviewers quietly skip over."
-coverImage: "/assets/posts/redmagic-vs-rog-cover.jpg"
-coverImageAlt: "RedMagic vs ROG Phone gaming phone comparison 2026"
 author: iSamuel
 pubDatetime: 2026-05-10T23:08:00Z
-tags: ["games", "android', "redmagic", "rog"]
+tags: ["games", "android", "redmagic", "rog", "opinions"]
+coverImage: "/assets/posts/redmagic-vs-rog-cover.jpg"
+coverImageAlt: "RedMagic vs ROG Phone gaming phone comparison 2026"
 ---
 
 ## Table of Contents 
