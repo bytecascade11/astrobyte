@@ -420,4 +420,26 @@ const { noMarginTop = false } = Astro.props;
     mask-image: linear-gradient(180deg, transparent 0%, rgba(0,0,0,0.3) 50%, transparent 100%);
     -webkit-mask-image: linear-gradient(180deg, transparent 0%, rgba(0,0,0,0.3) 50%, transparent 100%);
   }
+.footer-theme-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.6rem 1rem;
+    background: rgba(99, 102, 241, 0.08);
+    border: 1px solid rgba(99, 102, 241, 0.25);
+    border-radius: 10px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: #6366f1;
+    text-decoration: none;
+    transition: all 0.2s;
+    white-space: nowrap;
+  }
+
+  .footer-theme-btn:hover {
+    background: rgba(99, 102, 241, 0.15);
+    border-color: #6366f1;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 15px rgba(99, 102, 241, 0.2);
+  }
 </style>
