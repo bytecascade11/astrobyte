@@ -243,6 +243,18 @@ const currentPath = Astro.url.pathname;
           gtag('js', new Date());
           gtag('config', gaId);
         </script>
+
+        <!-- PWA Detection -->
+        <script is:inline>
+          window.addEventListener('load', function() {
+            if (window.matchMedia('(display-mode: standalone)').matches) {
+              gtag('event', 'pwa_visit', {
+                'event_category': 'PWA',
+                'event_label': 'standalone_mode'
+              });
+            }
+          });
+        </script>
       </>
     )}
 
