@@ -3,7 +3,7 @@
   "name": "ReviByte Opinions",
   "short_name": "ReviByte",
   "description": "ReviByte Technology Opinions delivers the latest tech news, gadget reviews, Android updates, and in-depth guides to keep you informed and ahead in the digital world.",
-  "start_url": "/?source=pwa",
+  "start_url": "/?utm_source=pwa&utm_medium=pwa&utm_campaign=homescreen",
   "scope": "/",
   "display": "standalone",
   "display_override": ["standalone", "minimal-ui"],
@@ -45,7 +45,7 @@
       "name": "Latest Posts",
       "short_name": "Latest",
       "description": "Read newest tech articles",
-      "url": "/?source=pwa",
+      "url": "/?utm_source=pwa&utm_medium=pwa&utm_campaign=shortcut_latest",
       "icons": [
         {
           "src": "/android-chrome-192x192.png",
@@ -57,7 +57,7 @@
       "name": "Samsung",
       "short_name": "Samsung",
       "description": "Latest Samsung news and reviews",
-      "url": "/tags/samsung/?source=pwa",
+      "url": "/tags/samsung/?utm_source=pwa&utm_medium=pwa&utm_campaign=shortcut_samsung",
       "icons": [
         {
           "src": "/android-chrome-192x192.png",
@@ -69,7 +69,7 @@
       "name": "Apple",
       "short_name": "Apple",
       "description": "Latest Apple news and reviews",
-      "url": "/tags/apple/?source=pwa",
+      "url": "/tags/apple/?utm_source=pwa&utm_medium=pwa&utm_campaign=shortcut_apple",
       "icons": [
         {
           "src": "/android-chrome-192x192.png",
@@ -81,7 +81,7 @@
       "name": "Android",
       "short_name": "Android",
       "description": "Latest Android news and updates",
-      "url": "/tags/android/?source=pwa",
+      "url": "/tags/android/?utm_source=pwa&utm_medium=pwa&utm_campaign=shortcut_android",
       "icons": [
         {
           "src": "/android-chrome-192x192.png",
