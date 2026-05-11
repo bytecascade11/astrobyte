@@ -245,16 +245,24 @@ const currentPath = Astro.url.pathname;
         </script>
 
         <!-- PWA Detection -->
-        <script is:inline>
-          window.addEventListener('load', function() {
-            if (window.matchMedia('(display-mode: standalone)').matches) {
-              gtag('event', 'pwa_visit', {
-                'event_category': 'PWA',
-                'event_label': 'standalone_mode'
-              });
-            }
+<script is:inline>
+  window.addEventListener('load', function() {
+    setTimeout(function() {
+      if (window.matchMedia('(display-mode: standalone)').matches) {
+        if (typeof gtag !== 'undefined') {
+          gtag('event', 'pwa_visit', {
+            'event_category': 'PWA',
+            'event_label': 'standalone_mode'
           });
-        </script>
+        } else {
+          console.log('gtag not found');
+        }
+      } else {
+        console.log('not standalone mode');
+      }
+    }, 2000);
+  });
+</script>
       </>
     )}
 
