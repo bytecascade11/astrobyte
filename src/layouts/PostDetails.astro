@@ -12,6 +12,7 @@ import BackToTopButton from "@/components/BackToTopButton.astro";
 import RelatedPosts from "@/components/RelatedPosts.astro";
 import Comments from "@/components/Comments.astro";
 import SchemaMarkup from "@/components/SchemaMarkup.astro";
+import ProgressBar from "@components/ProgressBar.astro";
 
 import { getPath } from "@/utils/getPath";
 import { slugifyStr } from "@/utils/slugify";
@@ -148,7 +149,8 @@ const postSlug = post.id;
       { name: title, url: postUrl },
     ]}
   />
-
+<ProgressBar />
+  <Header slot="header" />
   <Header />
 
   <main
