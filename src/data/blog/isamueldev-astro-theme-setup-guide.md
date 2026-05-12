@@ -6,7 +6,7 @@ tags: ["astro", "opinions", "productivity", "technology"]
 author: iSamuel
 featured: false
 draft: false
-coverImage: "https://www.revibyte.blog/assets/posts/chatgpt-claude-blog-workflow.jpg"
+coverImage: "https://www.revibyte.blog/assets/posts/isamuel-revibyte-workflow-desk.jpg"
 coverImageAlt: "Code editor showing Astro framework setup"
 ---
 
