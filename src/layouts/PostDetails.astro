@@ -149,6 +149,11 @@ const postSlug = post.id;
       { name: title, url: postUrl },
     ]}
   />
+<!-- Progress Bar -->
+  <div
+    id="progress-bar"
+    style="position:fixed;top:0;left:0;z-index:9999;height:2px;width:0%;background:linear-gradient(90deg,#6366f1,#818cf8);transition:width 0.1s linear;"
+  ></div>
   <Header />
 
   <main
@@ -294,7 +299,16 @@ const postSlug = post.id;
 
   <Footer />
 </Layout>
+<script is:inline>
+  const bar = document.getElementById("progress-bar");
 
+  window.addEventListener("scroll", () => {
+    const scrollTop = window.scrollY;
+    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    const progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+    if (bar) bar.style.width = progress + "%";
+  });
+</script>
 <style>
   /* ── Top nav ── */
   .post-top-nav {
