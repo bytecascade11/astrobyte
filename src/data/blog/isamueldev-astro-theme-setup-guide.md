@@ -1,7 +1,7 @@
 ---
 title: "I Built a Free Astro Blog Theme From Scratch — And You Can Use It Right Now"
 description: "No agency, no team, no laptop. I built a complete production-ready Astro blog theme entirely on mobile. Here's the full setup guide so you can deploy yours today."
-pubDatetime: 2026-05-12T23:22:00Z
+pubDatetime: 2026-05-12T22:22:00Z
 tags: ["astro", "opinions", "productivity", "technology"]
 author: iSamuel
 featured: false
