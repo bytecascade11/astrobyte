@@ -1,0 +1,37 @@
+---
+interface Props {
+  src: string;
+  alt: string;
+  width?: number;
+  height?: number;
+  class?: string;
+  loading?: "lazy" | "eager";
+  fetchpriority?: "high" | "low" | "auto";
+}
+
+const {
+  src,
+  alt,
+  width = 800,
+  height = 450,
+  class: className,
+  loading = "lazy",
+  fetchpriority,
+} = Astro.props;
+
+// Build Vercel optimized image URL for local images
+const optimizedSrc = src.startsWith("http")
+  ? src
+  : `/_vercel/image?url=${encodeURIComponent(src)}&w=${width}&q=75`;
+---
+
+<img
+  src={optimizedSrc}
+  alt={alt}
+  width={width}
+  height={height}
+  class={className}
+  loading={loading}
+  fetchpriority={fetchpriority}
+  decoding="async"
+/>
