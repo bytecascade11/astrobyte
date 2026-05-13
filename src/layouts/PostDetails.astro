@@ -175,15 +175,15 @@ const postSlug = post.id;
 
     <!-- Cover image -->
     {coverImageAbsoluteSrc && (
-      <img
-        src={coverImageAbsoluteSrc}
-        alt={coverImageAlt || title}
-        class="post-cover-image"
-        loading="eager"
-        fetchpriority="high"
-        width="1200"
-        height="630"
-      />
+      <OptimizedImage
+  src={coverImage as string}
+  alt={coverImageAlt || title}
+  class="post-cover-image"
+  loading="eager"
+  fetchpriority="high"
+  width={1200}
+  height={630}
+/>
     )}
 
     <!-- AdSense: Below Cover Image (Ad Unit 1) -->
