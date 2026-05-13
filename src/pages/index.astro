@@ -7,7 +7,6 @@ import LinkButton from "@/components/LinkButton.astro";
 import Hr from "@/components/Hr.astro";
 import IconArrowRight from "@/assets/icons/IconArrowRight.svg";
 import { SITE } from "@/config";
-import AnchorAd from "@/components/AnchorAd.astro";
 
 
 const posts = await getCollection("blog");
@@ -243,7 +242,6 @@ function formatDate(date: Date) {
     </div>
 
   </main>
-<AnchorAd />
   <Footer />
 </Layout>
 
