@@ -14,7 +14,7 @@ const { noMarginTop = false } = Astro.props;
 <footer class:list={["w-full", { "mt-auto": !noMarginTop }]}>
   <div class="footer-wrapper">
 
-    <!-- Top border using site accent -->
+    <!-- Top accent line -->
     <div class="footer-glow-line"></div>
 
     <div class="footer-inner">
@@ -78,15 +78,21 @@ const { noMarginTop = false } = Astro.props;
           </a>
         </div>
 
-        <!-- Nav Links -->
+        <!-- Divider -->
+        <div class="footer-divider"></div>
+
+        <!-- Nav Links — bold vertical list -->
         <nav class="footer-nav">
-          <a href="/about">About</a>
-          <a href="/contact">Contact</a>
-          <a href="/privacy-policy">Privacy</a>
-          <a href="/terms-and-conditions">Terms</a>
+          <a href="/about">About the Editor</a>
+          <a href="/privacy-policy">Privacy Policy</a>
+          <a href="/contact">Contact Us</a>
+          <a href="/terms-and-conditions">Terms and Conditions</a>
           <a href="/disclaimer">Disclaimer</a>
           <a href="/sitemap">Sitemap</a>
         </nav>
+
+        <!-- Divider -->
+        <div class="footer-divider"></div>
 
         <!-- Microsoft Store Badge -->
         <div class="footer-store">
@@ -161,7 +167,7 @@ const { noMarginTop = false } = Astro.props;
     background: var(--color-card, transparent);
   }
 
-  /* ── Glow line uses accent ── */
+  /* ── Accent top line ── */
   .footer-glow-line {
     width: 100%;
     height: 2px;
@@ -258,7 +264,7 @@ const { noMarginTop = false } = Astro.props;
   .footer-newsletter-sub {
     font-size: 0.85rem;
     color: var(--color-foreground);
-    opacity: 0.55;
+    opacity: 0.6;
     margin-bottom: 1.1rem;
     max-width: 32rem;
     margin-left: auto;
@@ -325,7 +331,7 @@ const { noMarginTop = false } = Astro.props;
   .footer-disclaimer {
     font-size: 0.68rem;
     color: var(--color-foreground);
-    opacity: 0.35;
+    opacity: 0.4;
     margin-top: 0.65rem;
   }
 
@@ -334,14 +340,15 @@ const { noMarginTop = false } = Astro.props;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 1.1rem;
+    gap: 0;
   }
 
-  /* ── Socials — no box, just blend in ── */
+  /* ── Socials ── */
   .footer-socials {
     display: flex;
     align-items: center;
     gap: 0.5rem;
+    margin-bottom: 0.5rem;
   }
 
   .footer-rss {
@@ -361,27 +368,26 @@ const { noMarginTop = false } = Astro.props;
     color: var(--color-accent);
   }
 
-  /* ── Nav links with proper spacing ── */
+  /* ── Nav — bold vertical list ── */
   .footer-nav {
     display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 0.15rem 1rem;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.65rem;
+    margin-bottom: 0.5rem;
   }
 
   .footer-nav a {
-    font-size: 0.75rem;
-    font-weight: 700;          /* ← BOLD */
+    font-size: 0.95rem;
+    font-weight: 700;
     color: var(--color-foreground);
-    opacity: 0.7;              /* ← Increased from 0.5 for readability */
-    padding: 3px 0;
+    opacity: 1;
     text-decoration: none;
-    transition: opacity 0.2s, color 0.2s;
     letter-spacing: 0.01em;
+    transition: color 0.2s;
   }
 
   .footer-nav a:hover {
-    opacity: 1;
     color: var(--color-accent);
   }
 
@@ -401,7 +407,7 @@ const { noMarginTop = false } = Astro.props;
     opacity: 1;
   }
 
-  /* ── Theme promo card — lighter weight ── */
+  /* ── Theme promo card ── */
   .footer-theme-card {
     width: 100%;
     max-width: 26rem;
@@ -436,7 +442,7 @@ const { noMarginTop = false } = Astro.props;
   .footer-theme-desc {
     font-size: 0.75rem;
     color: var(--color-foreground);
-    opacity: 0.5;
+    opacity: 0.6;
     line-height: 1.6;
     margin-bottom: 0.85rem;
   }
@@ -480,8 +486,8 @@ const { noMarginTop = false } = Astro.props;
     font-size: 0.78rem;
     font-weight: 600;
     text-decoration: none;
+    opacity: 0.75;
     transition: border-color 0.2s, color 0.2s, transform 0.2s;
-    opacity: 0.7;
   }
 
   .footer-theme-repo:hover {
@@ -495,7 +501,7 @@ const { noMarginTop = false } = Astro.props;
   .footer-copy {
     font-size: 0.7rem;
     color: var(--color-foreground);
-    opacity: 0.35;
+    opacity: 0.4;
     display: flex;
     align-items: center;
     gap: 0.45rem;
@@ -505,7 +511,7 @@ const { noMarginTop = false } = Astro.props;
 
   .footer-copy-dot {
     color: var(--color-accent);
-    opacity: 0.6;
+    opacity: 0.7;
     font-size: 0.55rem;
   }
 </style>
