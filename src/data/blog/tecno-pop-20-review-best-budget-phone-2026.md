@@ -1,7 +1,7 @@
 ---
 title: "TECNO Pop 20 Full Review: Best Budget Phone in 2026?"
 description: "A no-fluff review of the TECNO Pop 20 — covering real-world performance, camera quality, battery life, and whether it's actually worth your money in 2026."
-coverImage: "tecno-pop-20-cover.jpg"
+coverImage: "/assets/posts/tecno-pop-20-cover.jpg"
 coverImageAlt: "TECNO Pop 20 budget smartphone front and back view"
 pubDatetime: 2026-05-14T16:33:00Z
 tags: ["tecno", "android", "reviews", "opinions"]
