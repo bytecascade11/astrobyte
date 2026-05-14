@@ -16,49 +16,15 @@ const description = "Transparent privacy practices at ReviByte Opinion – we co
         We value your privacy. This document explains what data we collect (very little), why, and how it's used.
       </p>
       <p class="mt-4 text-lg font-medium text-gray-500 dark:text-gray-400">
-        Last updated: December 15, 2025
+        Last updated: May 14, 2026
       </p>
       <p class="mt-2">
-        Questions? Email us at 
+        Questions? Email us at
         <a href="mailto:revibyte20@gmail.com" class="font-semibold text-blue-600 hover:underline">
           revibyte20@gmail.com
         </a>
       </p>
     </header>
-
-    <section class="mt-12">
-      <h2 class="text-2xl font-semibold mb-4">Information We Collect</h2>
-      <p>ReviByte Opinion is a static website with no user accounts, comments, or forms (except an optional embedded Google Form for contact).</p>
-      <ul class="mt-4">
-        <li>No personal data is collected automatically.</li>
-        <li>We use Google Analytics for anonymous visitor statistics (page views, approximate location, device type) – no personal identifiers.</li>
-        <li>If you contact us via email or the form, we receive only what you choose to send.</li>
-      </ul>
-    </section>
-
-    <section class="mt-12">
-      <h2 class="text-2xl font-semibold mb-4">How We Use Information</h2>
-      <p>Any data from Google Analytics is used only to improve content and user experience. We never sell, share, or rent data to third parties.</p>
-    </section>
-
-    <section class="mt-12">
-      <h2 class="text-2xl font-semibold mb-4">Third-Party Services</h2>
-      <p>
-        - Hosting: Vercel (privacy policy: <a href="https://vercel.com/legal/privacy-policy" target="_blank" rel="noopener" class="text-blue-600 hover:underline">vercel.com/legal/privacy-policy</a>)<br>
-        - Analytics: Google Analytics (privacy policy: <a href="https://policies.google.com/privacy" target="_blank" rel="noopener" class="text-blue-600 hover:underline">policies.google.com/privacy</a>)
-      </p>
-    </section>
-
-    <section class="mt-12">
-      <h2 class="text-2xl font-semibold mb-4">Your Rights</h2>
-      <p>You can request access to or deletion of any data we might have by emailing revibyte20@gmail.com.</p>
-    </section>
-
-    <section class="mt-12 text-center text-gray-600 dark:text-gray-400">
-      <p>Thank you for trusting ReviByte Opinion.</p>
-    </section>
-  </article>
-</Layout>
 
     <div class="my-12 rounded-xl bg-blue-50 p-8 dark:bg-blue-950/30">
       <h2 class="mb-4 flex items-center text-2xl font-bold">
@@ -68,87 +34,152 @@ const description = "Transparent privacy practices at ReviByte Opinion – we co
         <li>• We do <strong>not sell</strong> your personal information.</li>
         <li>• We use minimal cookies (only for basic functionality and ads).</li>
         <li>• Some data is collected automatically (IP, device info, pages visited).</li>
+        <li>• Push notifications are only sent if you click "Allow" — you can unsubscribe anytime.</li>
         <li>• You can request deletion or opt out of personalized ads anytime.</li>
         <li>• This site complies with GDPR, CCPA, COPPA, and advertising policies.</li>
       </ul>
     </div>
 
-    <h2>1. What Information Do We Collect?</h2>
-    <p><strong>We collect only the minimum information needed to run the site.</strong></p>
+    <section class="mt-12">
+      <h2 class="text-2xl font-semibold mb-4">1. What Information Do We Collect?</h2>
+      <p><strong>We collect only the minimum information needed to run the site.</strong></p>
 
-    <h3>Automatically Collected Data</h3>
-    <ul>
-      <li>IP address (may be anonymized depending on your region)</li>
-      <li>Device type, operating system, and browser</li>
-      <li>Pages viewed, time spent, and referral source</li>
-      <li>Advertising identifiers (Google AdSense cookies, if ads are active)</li>
-    </ul>
+      <h3 class="text-xl font-semibold mt-6 mb-3">Automatically Collected Data</h3>
+      <ul class="mt-2">
+        <li>IP address (may be anonymized depending on your region)</li>
+        <li>Device type, operating system, and browser</li>
+        <li>Pages viewed, time spent, and referral source</li>
+        <li>Advertising identifiers (Google AdSense cookies, if ads are active)</li>
+        <li>Anonymous post view counts (stored via Supabase — no personal identity linked)</li>
+      </ul>
 
-    <h3>If You Contact Us or Comment</h3>
-    <ul>
-      <li>Name and email address you provide</li>
-      <li>Your message or comment content</li>
-    </ul>
+      <h3 class="text-xl font-semibold mt-6 mb-3">Push Notifications (Optional)</h3>
+      <ul class="mt-2">
+        <li>If you click "Allow" on our push notification prompt, OneSignal stores your browser token to send you alerts when new posts are published.</li>
+        <li>No personal identity (name, email) is collected for this.</li>
+        <li>You can unsubscribe from notifications at any time through your browser settings.</li>
+      </ul>
 
-    <p>We do <strong>not collect</strong> passwords, payment details, or sensitive personal data.</p>
+      <h3 class="text-xl font-semibold mt-6 mb-3">If You Contact Us</h3>
+      <ul class="mt-2">
+        <li>Name and email address you provide</li>
+        <li>Your message content</li>
+      </ul>
 
-    <h2>2. How We Use Your Data</h2>
-    <ul>
-      <li>To operate and maintain the website</li>
-      <li>To understand visitor engagement and improve content</li>
-      <li>To display relevant advertisements (via Google AdSense, if enabled)</li>
-      <li>To reply to your emails or support requests</li>
-    </ul>
+      <p class="mt-4">We do <strong>not collect</strong> passwords, payment details, or sensitive personal data.</p>
+    </section>
 
-    <h2>3. Cookies & Advertising</h2>
-    <p>This site may use cookies from:</p>
-    <ul>
-      <li>Google Analytics (for understanding traffic)</li>
-      <li>Google AdSense / Advertising partners</li>
-    </ul>
+    <section class="mt-12">
+      <h2 class="text-2xl font-semibold mb-4">2. How We Use Your Data</h2>
+      <ul>
+        <li>To operate and maintain the website</li>
+        <li>To understand visitor engagement and improve content</li>
+        <li>To display relevant advertisements (via Google AdSense)</li>
+        <li>To send push notifications about new posts (only if you opted in)</li>
+        <li>To count anonymous post views for editorial purposes</li>
+        <li>To reply to your emails or support requests</li>
+      </ul>
+    </section>
 
-    <p>These help show relevant ads and improve user experience.</p>
+    <section class="mt-12">
+      <h2 class="text-2xl font-semibold mb-4">3. Cookies & Advertising</h2>
+      <p>This site may use cookies from:</p>
+      <ul>
+        <li>Google Analytics (for understanding traffic patterns)</li>
+        <li>Google AdSense / Advertising partners (for serving relevant ads)</li>
+        <li>OneSignal (for push notification delivery)</li>
+        <li>Vercel Analytics (anonymous performance metrics)</li>
+      </ul>
 
-    <p class="mt-6">
-      <strong>Manage or disable personalized ads:</strong><br/>
-      <a href="https://adssettings.google.com" target="_blank" rel="noopener" class="btn">
-        Google Ad Preferences
-      </a>
-      <a href="https://www.youradchoices.com" target="_blank" rel="noopener" class="btn ml-3">
-        AdChoices Opt-Out
-      </a>
-    </p>
+      <p class="mt-4">These help show relevant ads and improve user experience.</p>
 
-    <h2>4. Your Rights</h2>
-    <p>Depending on your location (EU, UK, California, etc.), you have the right to:</p>
-    <ul>
-      <li>Access your personal data</li>
-      <li>Request corrections or deletion</li>
-      <li>Receive a copy of your data (portability)</li>
-      <li>Opt out of personalized advertising</li>
-    </ul>
-    <p>
-      Just email 
-      <a href="mailto:revibyte20@gmail.com?subject=Privacy Request">
-        revibyte20@gmail.com
-      </a> — I handle all requests personally within 48 hours.
-    </p>
+      <p class="mt-6">
+        <strong>Manage or disable personalized ads:</strong><br/>
+        <a href="https://adssettings.google.com" target="_blank" rel="noopener" class="text-blue-600 hover:underline mr-4">
+          Google Ad Preferences
+        </a>
+        <a href="https://www.youradchoices.com" target="_blank" rel="noopener" class="text-blue-600 hover:underline">
+          AdChoices Opt-Out
+        </a>
+      </p>
+    </section>
 
-    <h2>5. Children’s Privacy</h2>
-    <p>ReviByte Opinion is not intended for users under 13. We do not knowingly collect data from children.</p>
+    <section class="mt-12">
+      <h2 class="text-2xl font-semibold mb-4">4. Third-Party Services</h2>
+      <p>ReviByte Opinion uses the following third-party services:</p>
+      <ul class="mt-4">
+        <li>
+          <strong>Vercel</strong> — Hosting and deployment
+          (<a href="https://vercel.com/legal/privacy-policy" target="_blank" rel="noopener" class="text-blue-600 hover:underline">privacy policy</a>)
+        </li>
+        <li>
+          <strong>Google Analytics 4</strong> — Anonymous visitor statistics
+          (<a href="https://policies.google.com/privacy" target="_blank" rel="noopener" class="text-blue-600 hover:underline">privacy policy</a>)
+        </li>
+        <li>
+          <strong>Vercel Analytics</strong> — Anonymous performance and traffic metrics
+        </li>
+        <li>
+          <strong>Google AdSense</strong> — Displaying advertisements and using cookies for personalized ads
+          (<a href="https://policies.google.com/privacy" target="_blank" rel="noopener" class="text-blue-600 hover:underline">privacy policy</a>)
+        </li>
+        <li>
+          <strong>OneSignal</strong> — Push notification delivery (only if you opted in)
+          (<a href="https://onesignal.com/privacy_policy" target="_blank" rel="noopener" class="text-blue-600 hover:underline">privacy policy</a>)
+        </li>
+        <li>
+          <strong>Supabase</strong> — Anonymous post view counting (no personal data stored)
+          (<a href="https://supabase.com/privacy" target="_blank" rel="noopener" class="text-blue-600 hover:underline">privacy policy</a>)
+        </li>
+        <li>
+          <strong>Microsoft Store / PWABuilder</strong> — ReviByte is listed as a Progressive Web App on the Microsoft Store
+        </li>
+      </ul>
+    </section>
 
-    <h2>6. Data Retention</h2>
-    <ul>
-      <li>Analytics data: up to 26 months</li>
-      <li>Emails/messages: kept only as long as needed</li>
-      <li>Ad data: controlled by Google</li>
-    </ul>
+    <section class="mt-12">
+      <h2 class="text-2xl font-semibold mb-4">5. Your Rights</h2>
+      <p>Depending on your location (EU, UK, California, etc.), you have the right to:</p>
+      <ul>
+        <li>Access your personal data</li>
+        <li>Request corrections or deletion</li>
+        <li>Receive a copy of your data (portability)</li>
+        <li>Opt out of personalized advertising</li>
+        <li>Unsubscribe from push notifications via your browser settings</li>
+      </ul>
+      <p class="mt-4">
+        Just email
+        <a href="mailto:revibyte20@gmail.com?subject=Privacy Request" class="text-blue-600 hover:underline">
+          revibyte20@gmail.com
+        </a> — I handle all requests personally within 48 hours.
+      </p>
+    </section>
 
-    <h2>7. Security</h2>
-    <p>We use HTTPS encryption and rely on secure third-party platforms (Google, Astro hosting) to protect any stored data.</p>
+    <section class="mt-12">
+      <h2 class="text-2xl font-semibold mb-4">6. Children's Privacy</h2>
+      <p>ReviByte Opinion is not intended for users under 13. We do not knowingly collect data from children. Gaming content on this site (COD Mobile, eFootball) is intended for general audiences and does not target minors.</p>
+    </section>
 
-    <h2>8. Changes to This Policy</h2>
-    <p>We’ll update this page if anything changes. The “Last updated” date at the top will always reflect the latest version.</p>
+    <section class="mt-12">
+      <h2 class="text-2xl font-semibold mb-4">7. Data Retention</h2>
+      <ul>
+        <li>Analytics data: up to 26 months</li>
+        <li>Push notification tokens: retained until you unsubscribe</li>
+        <li>Post view counts: indefinitely (anonymous, not linked to any identity)</li>
+        <li>Emails/messages: kept only as long as needed</li>
+        <li>Ad data: controlled by Google</li>
+      </ul>
+    </section>
+
+    <section class="mt-12">
+      <h2 class="text-2xl font-semibold mb-4">8. Security</h2>
+      <p>We use HTTPS encryption, security headers (X-Frame-Options, X-Content-Type-Options, Strict-Transport-Security), and rely on secure third-party platforms to protect any stored data. No sensitive personal data is stored on ReviByte's servers.</p>
+    </section>
+
+    <section class="mt-12">
+      <h2 class="text-2xl font-semibold mb-4">9. Changes to This Policy</h2>
+      <p>We'll update this page if anything changes. The "Last updated" date at the top will always reflect the latest version.</p>
+    </section>
 
     <p class="mt-16 text-center text-lg italic text-gray-600 dark:text-gray-400">
       Thank you for trusting <strong>ReviByte Opinion</strong> with your time — and your privacy.<br><br>
@@ -156,6 +187,7 @@ const description = "Transparent privacy practices at ReviByte Opinion – we co
     </p>
   </article>
 </Layout>
+
 <style>
   /* Light mode text */
   article.prose p,
