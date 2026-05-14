@@ -2,106 +2,167 @@
 import Layout from "@/layouts/Layout.astro";
 import BackButton from "@/components/BackButton.astro";
 
-const title = "Disclaimer – ReviByte";
-const description = "Disclaimer for ReviByte – personal tech blog. No professional advice, affiliate & AdSense disclosures, liability limits.";
-const lastUpdated = "December 15, 2025";
+const title = "Disclaimer | ReviByte Opinion";
+const description = "Disclaimer for ReviByte Opinion – personal tech and mobile gaming blog. No professional advice, affiliate and AdSense disclosures, liability limits.";
+const lastUpdated = "May 14, 2026";
 ---
 
 <Layout title={title} description={description}>
   <div style="max-width:56rem; margin: 1rem auto; padding: 0 1rem;">
     <BackButton />
   </div>
-  <div class="container">
-    <header>
-      <h1>Disclaimer</h1>
-      <p style="text-align:center; font-size:1.1rem;">ReviByte – Personal Tech Blog</p>
-      <div class="last-updated"><strong>Last updated: {lastUpdated}</strong></div>
-      <p style="text-align:center; margin:20px 0;">
-        Questions or concerns → <a href="mailto:revibyte20@gmail.com">revibyte20@gmail.com</a>
+
+  <article class="prose prose-lg mx-auto max-w-4xl px-6 py-16 dark:prose-invert">
+    <header class="text-center">
+      <h1 class="mb-4 text-4xl font-bold">Disclaimer</h1>
+      <p class="lead text-xl text-gray-600 dark:text-gray-300">
+        ReviByte Opinion – Personal Tech & Mobile Gaming Blog
+      </p>
+      <p class="mt-4 text-lg font-medium text-gray-500 dark:text-gray-400">
+        Last updated: {lastUpdated}
+      </p>
+      <p class="mt-2">
+        Questions? Email us at
+        <a href="mailto:revibyte20@gmail.com" class="font-semibold text-blue-600 hover:underline">
+          revibyte20@gmail.com
+        </a>
       </p>
     </header>
-  </div>
-</Layout>
-<style>
-  body {font-family: 'Inter', Arial, sans-serif; line-height: 1.7; color: #333; background:#fafafa; margin:0;}
-  .container {max-width: 860px; margin: 30px auto; background:#fff; padding:40px; border-radius:12px; box-shadow:0 4px 20px rgba(0,0,0,0.06);}
-  h1 {font-size:2.5rem; text-align:center; color:#1a1a1a;}
-  h2 {color:#1a0dab; border-bottom:2px solid #e8f0fe; padding-bottom:8px; margin-top:45px;}
-  .last-updated {text-align:center; font-weight:600; color:#555; margin:15px 0;}
-  .highlight {background:#fff8e1; padding:20px; border-radius:8px; border-left:5px solid #ffb300; margin:25px 0;}
-  ul {padding-left:22px;}
-  a {color:#1a0dab; text-decoration:none;}
-  a:hover {text-decoration:underline;}
-  .footer-note {text-align:center; margin-top:60px; padding-top:25px; border-top:1px solid #eee; color:#666;}
-  .emoji {font-size:1.4em; margin-right:8px;}
-</style>
-  </head>
 
-  <body>
-    <div class="container">
-      <header>
-        <h1>Disclaimer</h1>
-        <p style="text-align:center; font-size:1.1rem;">ReviByte – Personal Tech Blog</p>
-        <div class="last-updated"><strong>Last updated: {lastUpdated}</strong></div>
-        <p style="text-align:center; margin:20px 0;">
-          Questions or concerns → <a href="mailto: revibyte20@gmail.com">revibyte20@gmail.com</a>
-        </p>
-      </header>
-
-      <div class="highlight">
-        <strong>ReviByte is a personal blog. Nothing here constitutes professional, legal, financial, medical, or technical advice. Use at your own risk.</strong>
-      </div>
-
-      <h2><span class="emoji">1</span> General Information Only</h2>
-      <p>All content on ReviByte (articles, tutorials, opinions, etc.) is published for <strong>informational and entertainment purposes only</strong>. It is <strong>not</strong> professional advice. Always consult qualified experts before making decisions based on anything you read here.</p>
-
-      <h2><span class="emoji">2</span> No Guarantees of Accuracy</h2>
-      <p>We do our best to keep information accurate and current, but we make <strong>no warranties</strong> of any kind about completeness, accuracy, reliability, or suitability. You rely on the content entirely at your own risk.</p>
-
-      <h2><span class="emoji">3</span> Advertisements & Affiliate Disclosure (FTC / Google Compliant)</h2>
-      <p>This site is monetized through:</p>
-      <ul>
-        <li>Google AdSense display advertising</li>
-        <li>Affiliate links (we may earn a small commission at no extra cost to you)</li>
-        <li>Occasional sponsored posts (always clearly marked “Sponsored”)</li>
-      </ul>
-      <p>These relationships do not influence editorial content. Recommendations are based on honest opinions and testing.</p>
-
-      <h2><span class="emoji">4</span> External Links & Downloads</h2>
-      <p>We often link to third-party tools, software, and websites. We are <strong> <strong>not responsible</strong> for their content, availability, privacy practices, or any damage (including viruses) that may result from visiting them or downloading files.</p>
-
-      <h2><span class="emoji">5</span> User Comments</h2>
-      <p>Comments reflect the views of their authors only. We may moderate or remove comments that violate our <a href="/terms">Terms</a>.</p>
-
-      <h2><span class="emoji">6</span> Limitation of Liability</h2>
-      <p class="highlight">
-        To the maximum extent permitted by law, ReviByte and its owner shall not be liable for any indirect, incidental, special, consequential, or punitive damages, or any loss of profits or data, arising from your use of the site.<br>
-        <strong>Total liability is capped at US $100.</strong>
+    <div class="my-12 rounded-xl bg-yellow-50 dark:bg-yellow-950/30 p-8 border-l-4 border-yellow-400">
+      <p class="text-lg font-semibold">
+        ReviByte Opinion is a personal blog. Nothing here constitutes professional, legal, financial, medical, or technical advice. Use at your own risk.
       </p>
-
-      <h2><span class="emoji">7</span> Indemnification</h2>
-      <p>You agree to indemnify and hold harmless ByteCascade from any claims or damages arising from your violation of these terms or your use of the site.</p>
-
-      <h2><span class="emoji">8</span> Children</h2>
-      <p>This site is not directed at children under 13. We do not knowingly collect data from children under 13 (COPPA compliant).</p>
-
-      <h2><span class="emoji">9</span> Changes to this Disclaimer</h2>
-      <p>We may update this disclaimer at any time. Material changes will be highlighted on the homepage for 30 days. Continued use means you accept the changes.</p>
-
-      <h2><span class="emoji">10</span> Governing Law</h2>
-      <p>This Disclaimer is governed by the laws of the State of California, USA.</p>
-
-      <h2><span class="emoji">11</span> Contact</h2>
-      <p>
-        Email: <a href="mailto: revibyte20@gmail.com">revibyte20@gmail.com</a><br>
-        See also our <a href="/privacy-policy">Privacy Policy</a> and <a href="/terms">Terms & Conditions</a>.
-      </p>
-
-      <div class="footer-note">
-        <p>Thank you for reading and supporting ReviByte!</p>
-        <p>© 2025 ReviByte – All rights reserved.</p>
-      </div>
     </div>
-  </body>
-</html>
-          
+
+    <section class="mt-12">
+      <h2 class="text-2xl font-semibold mb-4">1. General Information Only</h2>
+      <p>All content on ReviByte Opinion — articles, reviews, tutorials, opinions, game guides, and loadout recommendations — is published for <strong>informational and entertainment purposes only</strong>. It is <strong>not</strong> professional advice of any kind. Always consult qualified experts before making decisions based on anything you read here.</p>
+    </section>
+
+    <section class="mt-12">
+      <h2 class="text-2xl font-semibold mb-4">2. No Guarantees of Accuracy</h2>
+      <p>We do our best to keep information accurate and current, but we make <strong>no warranties</strong> of any kind about completeness, accuracy, reliability, or suitability. Tech specs, prices, and availability change frequently — always verify independently before making purchasing decisions. You rely on the content entirely at your own risk.</p>
+    </section>
+
+    <section class="mt-12">
+      <h2 class="text-2xl font-semibold mb-4">3. Gaming Content Disclaimer</h2>
+      <p>ReviByte Opinion publishes guides, loadouts, formations, and tips for mobile games including COD Mobile and eFootball 2026. Please note:</p>
+      <ul class="mt-4">
+        <li>ReviByte Opinion is <strong>not affiliated with Activision, TiMi Studio, Konami, or any other game developer</strong> mentioned on this site.</li>
+        <li>All game names, logos, and trademarks are the property of their respective owners.</li>
+        <li>Game guides and loadout recommendations are based on personal experience and opinion — they <strong>do not guarantee any in-game results</strong>, rank improvements, or performance outcomes.</li>
+        <li>Game meta, weapon stats, and features change with every season or patch. Always verify tips against the current version of the game.</li>
+      </ul>
+    </section>
+
+    <section class="mt-12">
+      <h2 class="text-2xl font-semibold mb-4">4. Advertisements & Affiliate Disclosure</h2>
+      <p>This site is monetized through:</p>
+      <ul class="mt-4">
+        <li><strong>Google AdSense</strong> — display advertising served automatically by Google</li>
+        <li><strong>Affiliate links</strong> — we may earn a small commission at no extra cost to you if you purchase through a link on this site</li>
+        <li><strong>Sponsored posts</strong> — always clearly marked as "Sponsored" when applicable</li>
+      </ul>
+      <p class="mt-4">These relationships do not influence editorial content. All recommendations are based on honest personal opinions and real-world testing. Artificially clicking ads on this site is strictly prohibited and violates Google AdSense policies.</p>
+    </section>
+
+    <section class="mt-12">
+      <h2 class="text-2xl font-semibold mb-4">5. Device & Price Information</h2>
+      <p>Smartphone prices, specs, and availability mentioned on ReviByte Opinion — including Nigerian Naira (₦) pricing — are correct at the time of writing but may change. Always confirm current prices with retailers before purchasing. ReviByte Opinion is not responsible for price discrepancies.</p>
+    </section>
+
+    <section class="mt-12">
+      <h2 class="text-2xl font-semibold mb-4">6. External Links & Downloads</h2>
+      <p>We often link to third-party tools, software, apps, and websites. We are <strong>not responsible</strong> for their content, availability, privacy practices, or any damage that may result from visiting them or downloading files from them. Links are provided for convenience only.</p>
+    </section>
+
+    <section class="mt-12">
+      <h2 class="text-2xl font-semibold mb-4">7. Push Notifications</h2>
+      <p>ReviByte Opinion offers optional push notifications via OneSignal. By clicking "Allow," you consent to receiving new post alerts. We will never use push notifications to send spam, promotions, or misleading content. You can unsubscribe at any time through your browser settings.</p>
+    </section>
+
+    <section class="mt-12">
+      <h2 class="text-2xl font-semibold mb-4">8. User Comments</h2>
+      <p>Comments reflect the views of their authors only and do not represent the views of ReviByte Opinion. We may moderate or remove comments that violate our <a href="/terms" class="text-blue-600 hover:underline">Terms & Conditions</a>.</p>
+    </section>
+
+    <section class="mt-12">
+      <h2 class="text-2xl font-semibold mb-4">9. Limitation of Liability</h2>
+      <div class="rounded-xl bg-yellow-50 dark:bg-yellow-950/30 p-6 border-l-4 border-yellow-400 mt-4">
+        <p>To the maximum extent permitted by law, ReviByte Opinion and its owner shall not be liable for any indirect, incidental, special, consequential, or punitive damages, or any loss of profits or data, arising from your use of this site or reliance on its content. <strong>Total liability is capped at US $100.</strong></p>
+      </div>
+    </section>
+
+    <section class="mt-12">
+      <h2 class="text-2xl font-semibold mb-4">10. Indemnification</h2>
+      <p>You agree to indemnify and hold harmless ReviByte Opinion and its owner from any claims, damages, or expenses arising from your violation of these terms or your use of the site.</p>
+    </section>
+
+    <section class="mt-12">
+      <h2 class="text-2xl font-semibold mb-4">11. Children's Privacy</h2>
+      <p>This site is not directed at children under 13. We do not knowingly collect data from children under 13 (COPPA compliant). Gaming content on this site is intended for general audiences and does not specifically target minors.</p>
+    </section>
+
+    <section class="mt-12">
+      <h2 class="text-2xl font-semibold mb-4">12. Changes to This Disclaimer</h2>
+      <p>We may update this disclaimer at any time. The "Last updated" date at the top will always reflect the latest version. Continued use of the site means you accept any changes.</p>
+    </section>
+
+    <section class="mt-12">
+      <h2 class="text-2xl font-semibold mb-4">13. Governing Law</h2>
+      <p>This disclaimer is governed by applicable international digital commerce standards. For any disputes, please contact us first at <a href="mailto:revibyte20@gmail.com" class="text-blue-600 hover:underline">revibyte20@gmail.com</a> to resolve issues informally.</p>
+    </section>
+
+    <section class="mt-12">
+      <h2 class="text-2xl font-semibold mb-4">14. Contact</h2>
+      <p>
+        Email: <a href="mailto:revibyte20@gmail.com" class="text-blue-600 hover:underline">revibyte20@gmail.com</a><br />
+        See also our <a href="/privacy-policy" class="text-blue-600 hover:underline">Privacy Policy</a> and <a href="/terms" class="text-blue-600 hover:underline">Terms & Conditions</a>.
+      </p>
+    </section>
+
+    <p class="mt-16 text-center text-lg italic text-gray-600 dark:text-gray-400">
+      © 2026 ReviByte Opinion. All rights reserved.<br><br>
+      — <strong>Oke "iSamuel"</strong>, Founder
+    </p>
+  </article>
+</Layout>
+
+<style>
+  /* Light mode text */
+  article.prose p,
+  article.prose li,
+  article.prose dd,
+  article.prose dt,
+  article.prose h1,
+  article.prose h2,
+  article.prose h3,
+  article.prose blockquote,
+  article.prose strong {
+    color: #1a1a1a !important;
+    opacity: 1 !important;
+  }
+
+  article.prose a {
+    color: #006cac !important;
+  }
+
+  /* Dark mode text */
+  html[data-theme="dark"] article.prose p,
+  html[data-theme="dark"] article.prose li,
+  html[data-theme="dark"] article.prose dd,
+  html[data-theme="dark"] article.prose dt,
+  html[data-theme="dark"] article.prose h1,
+  html[data-theme="dark"] article.prose h2,
+  html[data-theme="dark"] article.prose h3,
+  html[data-theme="dark"] article.prose blockquote,
+  html[data-theme="dark"] article.prose strong {
+    color: #eaedf3 !important;
+    opacity: 1 !important;
+  }
+
+  html[data-theme="dark"] article.prose a {
+    color: #ff6b01 !important;
+  }
+</style>
