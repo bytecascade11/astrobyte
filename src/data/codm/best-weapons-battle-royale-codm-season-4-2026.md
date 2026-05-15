@@ -3,6 +3,8 @@ title: "Best Weapons for Battle Royale in CODM Season 4 2026"
 description: "Dominate every BR lobby with the best weapons in Call of Duty Mobile Season 4 2026. Full weapon breakdowns, loadout tips, and tier comparisons backed by real gameplay."
 author: iSamuel
 pubDatetime: "2026-05-15T10:09:00Z"
+coverImage: "/assets/codm/best-weapons-battle-royale-codm-season-4-2026.jpg"
+coverImageAlt: "Best Weapons for Battle Royale CODM Season 4 2026"
 lastUpdated: "Season 4 2026"
 type: loadout
 gameMode: Battle Royale
