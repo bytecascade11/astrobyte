@@ -4,8 +4,6 @@ description: "Dominate every BR lobby with the best weapons in Call of Duty Mobi
 author: iSamuel
 pubDatetime: "2026-05-15T10:09:00Z"
 lastUpdated: "Season 4 2026"
-coverImage: "/assets/codm/best-weapons-battle-royale-codm-season-4-2026.jpg"
-coverImageAlt: "Best Weapons for Battle Royale CODM Season 4 2026"
 type: loadout
 gameMode: Battle Royale
 season: "Season 4"
