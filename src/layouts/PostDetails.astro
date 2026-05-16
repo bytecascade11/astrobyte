@@ -326,12 +326,17 @@ const postSlug = post.id;
   <script is:inline>
     // Progress bar
     const bar = document.getElementById("progress-bar");
-    window.addEventListener("scroll", () => {
-      const scrollTop = window.scrollY;
-      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-      const progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
-      if (bar) bar.style.width = progress + "%";
-    });
+    window.addEventListener('scroll', checkScroll, { passive: true });
+document.addEventListener('scroll', checkScroll, { passive: true });
+
+function checkScroll() {
+  if (cooldown) return;
+  const scrollY = window.scrollY || document.documentElement.scrollTop || 0;
+  const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+  if (docHeight <= 0) return;
+  const scrolled = scrollY / docHeight;
+  if (scrolled >= SCROLL_THRESHOLD) showPopup();
+}
 
     // Affiliate popup
     (function () {
@@ -340,14 +345,10 @@ const postSlug = post.id;
       const closeBtn   = document.getElementById('rb-popup-close');
       const dismissBtn = document.getElementById('rb-popup-dismiss');
 
-      if (!popup || !overlay) {
-  alert("Popup elements not found in DOM");
-  return;
-}
-alert("Popup script loaded OK");
+      
 
       let cooldown = false;
-      const SCROLL_THRESHOLD = 0.30;
+      const SCROLL_THRESHOLD = 0.05;
       const COOLDOWN_MS = 90000;
 
       function showPopup() {
