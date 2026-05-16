@@ -327,23 +327,12 @@ const postSlug = post.id;
 
   <!-- Progress bar + Popup scripts -->
   <script is:inline>
-    // Progress bar
-    const bar = document.getElementById("progress-bar");
-    window.addEventListener("scroll", () => {
-      const scrollTop = window.scrollY;
-      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-      const progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
-      if (bar) bar.style.width = progress + "%";
-    }, { passive: true });
-
-    // Affiliate popup
     (function () {
+      const bar        = document.getElementById("progress-bar");
       const popup      = document.getElementById('rb-popup');
       const overlay    = document.getElementById('rb-popup-overlay');
       const closeBtn   = document.getElementById('rb-popup-close');
       const dismissBtn = document.getElementById('rb-popup-dismiss');
-
-      if (!popup || !overlay) return;
 
       let cooldown = false;
       const SCROLL_THRESHOLD = 0.05;
