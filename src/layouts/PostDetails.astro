@@ -280,69 +280,6 @@ const postSlug = post.id;
 
   <Footer />
 </Layout>
-<!-- Overlay -->
-<div class="popup-overlay" id="overlay"></div>
-
-<!-- Popup -->
-<div class="popup" id="popup">
-  <button class="popup-close" id="closeBtn">✕</button>
-  <div class="popup-sponsored">Sponsored · Amazon</div>
-  <div class="popup-body">
-    <div class="popup-icon">📱</div>
-    <div class="popup-info">
-      <div class="popup-title">Samsung Galaxy A16 4G</div>
-      <div class="popup-specs">128GB · 50MP Triple Camera · 6.7" · <span>Free US Shipping</span></div>
-      <a class="popup-btn" href="https://amzn.to/3ReCD9h" target="_blank" rel="nofollow sponsored">
-        Check Price on Amazon →
-      </a>
-    </div>
-  </div>
-  <div class="popup-dismiss" id="dismissBtn">No thanks, continue reading</div>
-</div>
-
-<script>
-  const popup   = document.getElementById('popup');
-  const overlay = document.getElementById('overlay');
-  const closeBtn  = document.getElementById('closeBtn');
-  const dismissBtn = document.getElementById('dismissBtn');
-
-  let shown = false;
-  let cooldown = false;
-  const SCROLL_THRESHOLD = 0.30;  // show after 30% scroll
-  const COOLDOWN_MS = 90000;       // reappear every 90 seconds
-
-  function showPopup() {
-    if (cooldown) return;
-    popup.classList.add('active');
-    overlay.classList.add('active');
-    shown = true;
-    cooldown = true;
-  }
-
-  function hidePopup() {
-    popup.classList.remove('active');
-    overlay.classList.remove('active');
-    // restart cooldown timer — popup reappears after COOLDOWN_MS
-    setTimeout(() => {
-      cooldown = false;
-      shown = false;
-    }, COOLDOWN_MS);
-  }
-
-  window.addEventListener('scroll', () => {
-    if (shown || cooldown) return;
-    const scrolled = window.scrollY / (document.body.scrollHeight - window.innerHeight);
-    if (scrolled >= SCROLL_THRESHOLD) {
-      showPopup();
-    }
-  });
-
-  closeBtn.addEventListener('click', hidePopup);
-  dismissBtn.addEventListener('click', hidePopup);
-  overlay.addEventListener('click', hidePopup);
-</script>
-</body>
-</html>
 
 <style>
   /* ── Top nav ── */
