@@ -340,7 +340,11 @@ const postSlug = post.id;
       const closeBtn   = document.getElementById('rb-popup-close');
       const dismissBtn = document.getElementById('rb-popup-dismiss');
 
-      if (!popup || !overlay) return;
+      if (!popup || !overlay) {
+  alert("Popup elements not found in DOM");
+  return;
+}
+alert("Popup script loaded OK");
 
       let cooldown = false;
       const SCROLL_THRESHOLD = 0.30;
