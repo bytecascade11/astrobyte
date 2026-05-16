@@ -149,11 +149,13 @@ const postSlug = post.id;
       { name: title, url: postUrl },
     ]}
   />
-<!-- Progress Bar -->
+
+  <!-- Progress Bar -->
   <div
     id="progress-bar"
     style="position:fixed;top:0;left:0;z-index:9999;height:2px;width:0%;background:linear-gradient(90deg,#6366f1,#818cf8);transition:width 0.1s linear;"
   ></div>
+
   <Header />
 
   <main
@@ -176,17 +178,16 @@ const postSlug = post.id;
     <!-- Cover image -->
     {coverImageAbsoluteSrc && (
       <OptimizedImage
-  src={coverImage as string}
-  alt={coverImageAlt || title}
-  class="post-cover-image"
-  loading="eager"
-  fetchpriority="high"
-  width={1200}
-  height={630}
-/>
+        src={coverImage as string}
+        alt={coverImageAlt || title}
+        class="post-cover-image"
+        loading="eager"
+        fetchpriority="high"
+        width={1200}
+        height={630}
+      />
     )}
 
-    
     <!-- Post header -->
     <div class="post-header">
       <h1
@@ -244,7 +245,7 @@ const postSlug = post.id;
       </div>
     </div>
 
-    <!-- AdSense: Before Related Posts (Ad Unit 3) -->
+    <!-- AdSense: Before Related Posts -->
     <ins class="adsbygoogle"
       style="display:block; margin: 1.5rem 0;"
       data-ad-client="ca-pub-4896561037705299"
@@ -279,7 +280,140 @@ const postSlug = post.id;
   </main>
 
   <Footer />
+
+  <!-- ── Affiliate Popup ── -->
+  <div
+    id="rb-popup-overlay"
+    style="position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:998;opacity:0;pointer-events:none;transition:opacity 0.3s ease;"
+  ></div>
+
+  <div
+    id="rb-popup"
+    style="position:fixed;bottom:-220px;left:50%;transform:translateX(-50%);width:calc(100% - 32px);max-width:480px;background:#0d0d0d;border:1px solid #1e1e1e;border-top:2px solid #1428A0;border-radius:16px 16px 0 0;z-index:999;padding:20px;transition:bottom 0.4s cubic-bezier(0.34,1.56,0.64,1);overflow:hidden;"
+  >
+    <!-- animated glow line -->
+    <div style="position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,#4e6ef2,transparent);animation:rb-scan 2.5s linear infinite;"></div>
+
+    <button
+      id="rb-popup-close"
+      style="position:absolute;top:12px;right:14px;width:28px;height:28px;background:#1a1a1a;border:1px solid #2a2a2a;border-radius:50%;color:#666;font-size:14px;cursor:pointer;display:flex;align-items:center;justify-content:center;"
+    >✕</button>
+
+    <div style="font-size:9px;letter-spacing:2px;text-transform:uppercase;color:#1428A0;font-weight:600;margin-bottom:10px;">Sponsored · Amazon</div>
+
+    <div style="display:flex;align-items:center;gap:14px;">
+      <div style="font-size:48px;flex-shrink:0;filter:drop-shadow(0 4px 16px rgba(20,40,160,0.4));">📱</div>
+      <div style="flex:1;">
+        <div style="font-size:16px;font-weight:800;color:#fff;margin-bottom:4px;">Samsung Galaxy A16 4G</div>
+        <div style="font-size:11px;color:#555;margin-bottom:10px;">
+          128GB · 50MP Triple Camera · 6.7" · <span style="color:#4e6ef2;">Free US Shipping</span>
+        </div>
+        <a
+          href="https://amzn.to/3ReCD9h"
+          target="_blank"
+          rel="nofollow sponsored"
+          style="display:inline-block;background:linear-gradient(135deg,#1428A0,#4e6ef2);color:#fff;font-size:12px;font-weight:700;padding:10px 20px;border-radius:8px;text-decoration:none;letter-spacing:0.5px;"
+        >Check Price on Amazon →</a>
+      </div>
+    </div>
+
+    <div
+      id="rb-popup-dismiss"
+      style="text-align:center;margin-top:12px;font-size:10px;color:#444;cursor:pointer;letter-spacing:1px;text-transform:uppercase;"
+    >No thanks, continue reading</div>
+  </div>
+
 </Layout>
+
+<!-- Progress bar script -->
+<script is:inline>
+  const bar = document.getElementById("progress-bar");
+  window.addEventListener("scroll", () => {
+    const scrollTop = window.scrollY;
+    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    const progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+    if (bar) bar.style.width = progress + "%";
+  });
+</script>
+
+<!-- Affiliate popup script -->
+<script is:inline>
+  (function () {
+    const popup     = document.getElementById('rb-popup');
+    const overlay   = document.getElementById('rb-popup-overlay');
+    const closeBtn  = document.getElementById('rb-popup-close');
+    const dismissBtn = document.getElementById('rb-popup-dismiss');
+
+    let cooldown = false;
+    const SCROLL_THRESHOLD = 0.30; // trigger at 30% scroll
+    const COOLDOWN_MS = 90000;     // reappear every 90 seconds
+
+    function showPopup() {
+      if (cooldown) return;
+      popup.style.bottom = '0';
+      overlay.style.opacity = '1';
+      overlay.style.pointerEvents = 'all';
+      cooldown = true;
+    }
+
+    function hidePopup() {
+      popup.style.bottom = '-220px';
+      overlay.style.opacity = '0';
+      overlay.style.pointerEvents = 'none';
+      setTimeout(() => { cooldown = false; }, COOLDOWN_MS);
+    }
+
+    window.addEventListener('scroll', () => {
+      if (cooldown) return;
+      const scrolled = window.scrollY / (document.documentElement.scrollHeight - window.innerHeight);
+      if (scrolled >= SCROLL_THRESHOLD) showPopup();
+    });
+
+    if (closeBtn)   closeBtn.addEventListener('click', hidePopup);
+    if (dismissBtn) dismissBtn.addEventListener('click', hidePopup);
+    if (overlay)    overlay.addEventListener('click', hidePopup);
+  })();
+</script>
+
+<!-- View counter script -->
+<script is:inline define:vars={{ postSlug }}>
+  const SUPABASE_URL = "https://tfkrjruxqiqpaoeckfoh.supabase.co";
+  const SUPABASE_KEY = "sb_publishable_fHguT58pKc7MsxhSvNpb6w_T2Xg_U_G";
+
+  async function getAndIncrementViews(slug) {
+    try {
+      await fetch(`${SUPABASE_URL}/rest/v1/rpc/increment_views`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "apikey": SUPABASE_KEY,
+          "Authorization": `Bearer ${SUPABASE_KEY}`,
+        },
+        body: JSON.stringify({ post_slug: slug }),
+      });
+
+      const res = await fetch(
+        `${SUPABASE_URL}/rest/v1/post_views?slug=eq.${encodeURIComponent(slug)}&select=views`,
+        {
+          headers: {
+            "apikey": SUPABASE_KEY,
+            "Authorization": `Bearer ${SUPABASE_KEY}`,
+          },
+        }
+      );
+
+      const data = await res.json();
+      const views = data?.[0]?.views ?? 0;
+      const el = document.getElementById("view-count");
+      if (el) el.textContent = views.toLocaleString();
+    } catch {
+      const el = document.getElementById("view-count");
+      if (el) el.textContent = "—";
+    }
+  }
+
+  getAndIncrementViews(postSlug);
+</script>
 
 <style>
   /* ── Top nav ── */
@@ -450,97 +584,10 @@ const postSlug = post.id;
     opacity: 0.85;
     color: var(--foreground);
   }
-</style>
 
-<script is:inline define:vars={{ postSlug }}>
-  const SUPABASE_URL = "https://tfkrjruxqiqpaoeckfoh.supabase.co";
-  const SUPABASE_KEY = "sb_publishable_fHguT58pKc7MsxhSvNpb6w_T2Xg_U_G";
-
-  async function getAndIncrementViews(slug) {
-    try {
-      await fetch(`${SUPABASE_URL}/rest/v1/rpc/increment_views`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "apikey": SUPABASE_KEY,
-          "Authorization": `Bearer ${SUPABASE_KEY}`,
-        },
-        body: JSON.stringify({ post_slug: slug }),
-      });
-
-      const res = await fetch(
-        `${SUPABASE_URL}/rest/v1/post_views?slug=eq.${encodeURIComponent(slug)}&select=views`,
-        {
-          headers: {
-            "apikey": SUPABASE_KEY,
-            "Authorization": `Bearer ${SUPABASE_KEY}`,
-          },
-        }
-      );
-
-      const data = await res.json();
-      const views = data?.[0]?.views ?? 0;
-      const el = document.getElementById("view-count");
-      if (el) el.textContent = views.toLocaleString();
-    } catch {
-      const el = document.getElementById("view-count");
-      if (el) el.textContent = "—";
-    }
+  /* ── Popup glow animation ── */
+  @keyframes rb-scan {
+    0%   { transform: translateX(-100%); }
+    100% { transform: translateX(200%); }
   }
-
-  getAndIncrementViews(postSlug);
-</script>
-<!-- ── Affiliate Popup ── -->
-<div id="rb-popup-overlay" style="position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:998;opacity:0;pointer-events:none;transition:opacity 0.3s ease;"></div>
-
-<div id="rb-popup" style="position:fixed;bottom:-220px;left:50%;transform:translateX(-50%);width:calc(100% - 32px);max-width:480px;background:#0d0d0d;border:1px solid #1e1e1e;border-top:2px solid #1428A0;border-radius:16px 16px 0 0;z-index:999;padding:20px;transition:bottom 0.4s cubic-bezier(0.34,1.56,0.64,1);overflow:hidden;">
-  <button id="rb-popup-close" style="position:absolute;top:12px;right:14px;width:28px;height:28px;background:#1a1a1a;border:1px solid #2a2a2a;border-radius:50%;color:#666;font-size:14px;cursor:pointer;display:flex;align-items:center;justify-content:center;">✕</button>
-  <div style="font-size:9px;letter-spacing:2px;text-transform:uppercase;color:#1428A0;font-weight:600;margin-bottom:10px;">Sponsored · Amazon</div>
-  <div style="display:flex;align-items:center;gap:14px;">
-    <div style="font-size:48px;flex-shrink:0;">📱</div>
-    <div style="flex:1;">
-      <div style="font-size:16px;font-weight:800;color:#fff;margin-bottom:4px;">Samsung Galaxy A16 4G</div>
-      <div style="font-size:11px;color:#555;margin-bottom:10px;">128GB · 50MP Triple Camera · 6.7" · <span style="color:#4e6ef2;">Free US Shipping</span></div>
-      <a href="https://amzn.to/3ReCD9h" target="_blank" rel="nofollow sponsored" style="display:inline-block;background:linear-gradient(135deg,#1428A0,#4e6ef2);color:#fff;font-size:12px;font-weight:700;padding:10px 20px;border-radius:8px;text-decoration:none;">Check Price on Amazon →</a>
-    </div>
-  </div>
-  <div id="rb-popup-dismiss" style="text-align:center;margin-top:12px;font-size:10px;color:#444;cursor:pointer;letter-spacing:1px;text-transform:uppercase;">No thanks, continue reading</div>
-</div>
-
-<script is:inline>
-  (function () {
-    const popup   = document.getElementById('rb-popup');
-    const overlay = document.getElementById('rb-popup-overlay');
-    const closeBtn   = document.getElementById('rb-popup-close');
-    const dismissBtn = document.getElementById('rb-popup-dismiss');
-
-    let cooldown = false;
-    const SCROLL_THRESHOLD = 0.30;
-    const COOLDOWN_MS = 90000;
-
-    function showPopup() {
-      if (cooldown) return;
-      popup.style.bottom = '0';
-      overlay.style.opacity = '1';
-      overlay.style.pointerEvents = 'all';
-      cooldown = true;
-    }
-
-    function hidePopup() {
-      popup.style.bottom = '-220px';
-      overlay.style.opacity = '0';
-      overlay.style.pointerEvents = 'none';
-      setTimeout(() => { cooldown = false; }, COOLDOWN_MS);
-    }
-
-    window.addEventListener('scroll', () => {
-      if (cooldown) return;
-      const scrolled = window.scrollY / (document.documentElement.scrollHeight - window.innerHeight);
-      if (scrolled >= SCROLL_THRESHOLD) showPopup();
-    });
-
-    closeBtn.addEventListener('click', hidePopup);
-    dismissBtn.addEventListener('click', hidePopup);
-    overlay.addEventListener('click', hidePopup);
-  })();
-</script>
+</style>
