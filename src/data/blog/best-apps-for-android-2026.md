@@ -1,10 +1,10 @@
 ---
 title: "Best Apps for Android in 2026 — What's Actually Worth Installing"
 description: "Not another recycled list. These are the Android apps that changed how I actually use my phone this year — tested on real mid-range hardware, no affiliate rankings, no filler."
-coverImage: "./best-android-apps-2026-cover.jpg"
+coverImage: "/assets/posts/best-android-apps-2026-cover.jpg"
 coverImageAlt: "Three Android phone mockups showing Structured, Obsidian, and Bitwarden app interfaces alongside a grid of seven app icons on a dark background"
 slug: "best-apps-for-android-2026"
-pubDatetime: 2026-05-17T13:57:00Z
+pubDatetime: 2026-05-17T10:33:00Z
 author: "iSamuel"
 tags: ["android", "productivities", "opinions"]
 lastTested: "May 2026"
