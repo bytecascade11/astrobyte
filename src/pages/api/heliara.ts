@@ -1,3 +1,9 @@
+export const GET: APIRoute = async () => {
+  return new Response(JSON.stringify({ status: "Heliara AI is running" }), {
+    status: 200,
+    headers: { "Content-Type": "application/json" },
+  });
+};
 export const prerender = false;
 
 import type { APIRoute } from "astro";
