@@ -1,6 +1,7 @@
 ---
 import { SITE } from "@/config";
 import SchemaMarkup from "@/components/SchemaMarkup.astro";
+import HeliaraAI from '../components/HeliaraAI.astro';
 import "@/styles/global.css";
 
 const { PUBLIC_GOOGLE_SITE_VERIFICATION } = import.meta.env;
@@ -291,7 +292,7 @@ const currentPath = Astro.url.pathname;
     }
     </script>
   </head>
-
+<HeliaraAI />
   <body>
     <!-- OneSignal SDK — must be in <body> for v16, no defer -->
     <script is:inline src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js"></script>
