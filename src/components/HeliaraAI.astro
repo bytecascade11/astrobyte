@@ -17,7 +17,7 @@ const {
 <div id="hl-root" data-endpoint={apiEndpoint}>
   <div id="hl-pulse"></div>
 
-  <button id="hl-toggle" aria-label="Open Heliara AI" style={`--hl-accent: ${accentColor}`}>
+  <button id="hl-toggle" aria-label="Open Heliara AI" style={`--hl-accent: ${accentColor}; color: #ffffff !important;`}>
     <span id="hl-btn-icon">
       <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
         <circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/>
@@ -30,7 +30,7 @@ const {
     </span>
   </button>
 
-  <div id="hl-panel" aria-hidden="true" style={`--hl-accent: ${accentColor}`}>
+  <div id="hl-panel" aria-hidden="true" style={`--hl-accent: ${accentColor}; color: #ffffff !important;`}>
 
     <div id="hl-header">
       <div id="hl-header-left">
@@ -197,7 +197,7 @@ const {
   #hl-title {
     font-size: 14px;
     font-weight: 700;
-    color: #ffffff;
+    color: #ffffff !important;
     letter-spacing: -0.2px;
   }
 
@@ -206,7 +206,7 @@ const {
     align-items: center;
     gap: 5px;
     font-size: 11px;
-    color: #aaaaaa;
+    color: #aaaaaa !important;
     margin-top: 1px;
   }
 
@@ -228,7 +228,7 @@ const {
   #hl-clear {
     background: none;
     border: none;
-    color: #888888;
+    color: #888888 !important;
     cursor: pointer;
     padding: 6px;
     border-radius: 8px;
@@ -295,14 +295,14 @@ const {
 
   .hl-msg-ai .hl-msg-bubble {
     background: #1e1e1e;
-    color: #ffffff;
+    color: #ffffff !important;
     border-bottom-left-radius: 4px;
     border: 1px solid #2a2a2a;
   }
 
   .hl-msg-user .hl-msg-bubble {
     background: var(--hl-accent, #6c63ff);
-    color: #ffffff;
+    color: #ffffff !important;
     border-bottom-right-radius: 4px;
   }
 
@@ -349,7 +349,7 @@ const {
     background: #1e1e1e;
     border: 1px solid #333333;
     border-radius: 20px;
-    color: #ffffff;
+    color: #ffffff !important;
     font-size: 11.5px;
     padding: 5px 11px;
     cursor: pointer;
@@ -380,14 +380,14 @@ const {
     border: 1px solid #333333;
     border-radius: 12px;
     padding: 9px 13px;
-    color: #ffffff;
+    color: #ffffff !important;
     font-size: 13px;
     font-family: inherit;
     outline: none;
     transition: border-color 0.15s;
   }
 
-  #hl-input::placeholder { color: #555555; }
+  #hl-input::placeholder { color: #555555 !important; }
   #hl-input:focus { border-color: var(--hl-accent, #6c63ff); }
 
   #hl-send {
@@ -411,12 +411,12 @@ const {
   #hl-footer {
     text-align: center;
     font-size: 10.5px;
-    color: #aaaaaa;
+    color: #aaaaaa !important;
     padding: 6px 0 10px;
     flex-shrink: 0;
   }
 
-  #hl-footer strong { color: #ffffff; }
+  #hl-footer strong { color: #ffffff !important; }
 
   @media (max-width: 420px) {
     #hl-root { bottom: 16px; right: 16px; }
