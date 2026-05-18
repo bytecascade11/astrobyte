@@ -1,4 +1,4 @@
- // astro.config.ts
+// astro.config.ts
 import { defineConfig } from "astro/config";
 import sitemap from "@astrojs/sitemap";
 import remarkToc from "remark-toc";
@@ -13,13 +13,12 @@ import { SITE } from "./src/config";
 import indexnow from "./src/integrations/indexnow";
 import tailwindcss from "@tailwindcss/vite";
 import AstroPWA from "@vite-pwa/astro";
-import vercel from '@astrojs/vercel/serverless';
+import vercel from '@astrojs/vercel';
 
 
 export default defineConfig({
   site: SITE.website,
 
-  output: "hybrid",
   adapter: vercel(),
 
   trailingSlash: "always",   // Enforces with-trailing-slash
