@@ -1,3 +1,5 @@
+export const prerender = false;
+
 import type { APIRoute } from "astro";
 
 export const POST: APIRoute = async ({ request }) => {
@@ -13,18 +15,14 @@ export const POST: APIRoute = async ({ request }) => {
       });
     }
 
-    // Convert messages to Gemini format
-    // Gemini requires alternating user/model turns — enforce that
     const geminiContents: { role: string; parts: { text: string }[] }[] = [];
 
     for (const msg of messages as { role: string; content: string }[]) {
       const role = msg.role === "assistant" ? "model" : "user";
-      // Avoid consecutive same roles (Gemini strict requirement)
       if (
         geminiContents.length > 0 &&
         geminiContents[geminiContents.length - 1].role === role
       ) {
-        // Merge into previous turn
         geminiContents[geminiContents.length - 1].parts[0].text +=
           "\n" + msg.content;
       } else {
