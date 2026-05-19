@@ -439,6 +439,12 @@ const canonicalURL = "https://www.revibyte.blog/save/tok/";
     color: #fff !important;
   }
 
+  .tt-dl-secondary.tt-dl-disabled {
+    opacity: 0.4;
+    pointer-events: none;
+    cursor: not-allowed;
+  }
+
   /* How to */
   .tt-how {
     margin: 2.5rem 0;
@@ -583,7 +589,6 @@ const canonicalURL = "https://www.revibyte.blog/save/tok/";
   }
 
   function setCover(src: string | undefined) {
-    // Try multiple possible field names from different APIs
     const imageUrl = src || '';
     
     if (!imageUrl) {
@@ -596,17 +601,160 @@ const canonicalURL = "https://www.revibyte.blog/save/tok/";
     coverFallback.style.display = 'none';
     coverEl.src = imageUrl;
     
-    // Handle image load error (broken URL, CORS, expired)
     coverEl.onerror = () => {
       coverEl.style.display = 'none';
       coverFallback.style.display = 'flex';
     };
     
-    // Handle successful load
     coverEl.onload = () => {
       coverEl.style.display = 'block';
       coverFallback.style.display = 'none';
     };
+  }
+
+  // Extract audio URL from various API response formats
+  function extractAudioUrl(data: any): string | null {
+    // Direct fields
+    if (data.audio && typeof data.audio === 'string') return data.audio;
+    if (data.audio_url && typeof data.audio_url === 'string') return data.audio_url;
+    if (data.music_url && typeof data.music_url === 'string') return data.music_url;
+    if (data.mp3 && typeof data.mp3 === 'string') return data.mp3;
+    if (data.music && typeof data.music === 'string') return data.music;
+    
+    // Array of audio URLs
+    if (data.audio && Array.isArray(data.audio) && data.audio.length > 0) return data.audio[0];
+    
+    // Nested: result.music.playUrl (TobyG74 v1/v2)
+    if (data.result?.music?.playUrl) {
+      const playUrl = data.result.music.playUrl;
+      if (Array.isArray(playUrl) && playUrl.length > 0) return playUrl[0];
+      if (typeof playUrl === 'string') return playUrl;
+    }
+    
+    // Nested: result.music (TobyG74 v3 - string)
+    if (data.result?.music && typeof data.result.music === 'string') return data.result.music;
+    
+    // Nested in download array (Mahmoud Sayed API)
+    if (data.download && Array.isArray(data.download)) {
+      const audioItem = data.download.find((item: any) => 
+        item.extension === 'mp3' || item.quality?.includes('kbps') || item.audioAvailable === true
+      );
+      if (audioItem?.url) return audioItem.url;
+    }
+    
+    // music.playUrl from top level
+    if (data.music?.playUrl) {
+      const playUrl = data.music.playUrl;
+      if (Array.isArray(playUrl) && playUrl.length > 0) return playUrl[0];
+      if (typeof playUrl === 'string') return playUrl;
+    }
+    
+    // music.url
+    if (data.music?.url && typeof data.music.url === 'string') return data.music.url;
+    
+    return null;
+  }
+
+  // Extract video URL (no watermark) from various API response formats
+  function extractVideoUrl(data: any): string | null {
+    // Direct fields
+    if (data.videoNoWatermark && typeof data.videoNoWatermark === 'string') return data.videoNoWatermark;
+    if (data.videoSD && typeof data.videoSD === 'string') return data.videoSD;
+    if (data.download_url && typeof data.download_url === 'string') return data.download_url;
+    if (data.video && typeof data.video === 'string') return data.video;
+    
+    // Array of video URLs
+    if (data.video && Array.isArray(data.video) && data.video.length > 0) return data.video[0];
+    
+    // Nested: result.video.playAddr (TobyG74)
+    if (data.result?.video?.playAddr) {
+      const playAddr = data.result.video.playAddr;
+      if (Array.isArray(playAddr) && playAddr.length > 0) return playAddr[0];
+      if (typeof playAddr === 'string') return playAddr;
+    }
+    
+    // Nested in download array (Mahmoud Sayed API) - prefer HD/no watermark
+    if (data.download && Array.isArray(data.download)) {
+      const hdItem = data.download.find((item: any) => 
+        item.quality === 'hd' && item.videoAvailable === true
+      );
+      if (hdItem?.url) return hdItem.url;
+      
+      const sdItem = data.download.find((item: any) => 
+        item.quality === 'sd' && item.videoAvailable === true
+      );
+      if (sdItem?.url) return sdItem.url;
+      
+      // Any available video
+      const anyVideo = data.download.find((item: any) => item.videoAvailable === true);
+      if (anyVideo?.url) return anyVideo.url;
+    }
+    
+    return null;
+  }
+
+  // Extract thumbnail from various API response formats
+  function extractThumbnail(data: any): string | null {
+    if (data.cover && typeof data.cover === 'string') return data.cover;
+    if (data.cover_image_url && typeof data.cover_image_url === 'string') return data.cover_image_url;
+    if (data.thumbnail && typeof data.thumbnail === 'string') return data.thumbnail;
+    if (data.thumb && typeof data.thumb === 'string') return data.thumb;
+    if (data.image_src && typeof data.image_src === 'string') return data.image_src;
+    
+    // Nested: result.cover (TobyG74)
+    if (data.result?.cover) {
+      const cover = data.result.cover;
+      if (Array.isArray(cover) && cover.length > 0) return cover[0];
+      if (typeof cover === 'string') return cover;
+    }
+    
+    // Nested: result.video.cover
+    if (data.result?.video?.cover) {
+      const cover = data.result.video.cover;
+      if (Array.isArray(cover) && cover.length > 0) return cover[0];
+      if (typeof cover === 'string') return cover;
+    }
+    
+    // metadata.thumbnail (Mahmoud Sayed)
+    if (data.metadata?.thumbnail && typeof data.metadata.thumbnail === 'string') return data.metadata.thumbnail;
+    
+    // author.avatar as fallback
+    if (data.author?.avatar && typeof data.author.avatar === 'string') return data.author.avatar;
+    if (data.result?.author?.avatar && typeof data.result.author.avatar === 'string') return data.result.author.avatar;
+    
+    return null;
+  }
+
+  // Extract author name from various API response formats
+  function extractAuthor(data: any): string {
+    if (data.author?.username) return data.author.username;
+    if (data.author?.unique_id) return data.author.unique_id;
+    if (data.author?.nickname) return data.author.nickname;
+    if (data.result?.author?.username) return data.result.author.username;
+    if (data.result?.author?.nickname) return data.result.author.nickname;
+    if (typeof data.author === 'string') return data.author;
+    return 'unknown';
+  }
+
+  // Extract title/description from various API response formats
+  function extractTitle(data: any): string {
+    if (data.title && typeof data.title === 'string') return data.title;
+    if (data.desc && typeof data.desc === 'string') return data.desc;
+    if (data.result?.desc && typeof data.result.desc === 'string') return data.result.desc;
+    if (data.metadata?.title && typeof data.metadata.title === 'string') return data.metadata.title;
+    return '';
+  }
+
+  // Extract play count from various API response formats
+  function extractPlays(data: any): number {
+    return data.plays || data.view_count || data.views || data.result?.statistics?.playCount || 
+           data.metadata?.plays || data.statistics?.playCount || 0;
+  }
+
+  // Extract like count from various API response formats
+  function extractLikes(data: any): number {
+    return data.likes || data.like_count || data.result?.statistics?.likeCount || 
+           data.metadata?.likes || data.statistics?.likeCount || 0;
   }
 
   async function fetchVideo() {
@@ -631,39 +779,41 @@ const canonicalURL = "https://www.revibyte.blog/save/tok/";
         return;
       }
 
-      // Debug: log the response to see what fields are available
-      console.log('API Response:', data);
+      // Debug: log the full response to see what fields your API returns
+      console.log('=== API Response ===');
+      console.log(JSON.stringify(data, null, 2));
 
-      // Try multiple possible thumbnail field names from different APIs
-      const thumbnailUrl = data.cover || 
-                           data.cover_image_url || 
-                           data.thumbnail || 
-                           data.thumb || 
-                           data.image_src || 
-                           data.avatar || 
-                           '';
+      // Extract data using helper functions that handle multiple API formats
+      const thumbnailUrl = extractThumbnail(data);
+      const videoUrl = extractVideoUrl(data);
+      const audioUrl = extractAudioUrl(data);
+      const authorName = extractAuthor(data);
+      const videoTitle = extractTitle(data);
+      const plays = extractPlays(data);
+      const likes = extractLikes(data);
+
+      console.log('Extracted:', { thumbnailUrl, videoUrl, audioUrl, authorName, videoTitle, plays, likes });
 
       // Populate result
       setCover(thumbnailUrl);
-      coverEl.alt = data.title || 'TikTok video';
-      authorEl.textContent = '@' + (data.author?.username || data.author || 'unknown');
-      titleEl.textContent = data.title || '';
-      statsEl.textContent = `▶ ${formatNumber(data.plays || data.view_count || data.views || 0)} plays · ♥ ${formatNumber(data.likes || data.like_count || 0)} likes`;
+      coverEl.alt = videoTitle || 'TikTok video';
+      authorEl.textContent = '@' + authorName;
+      titleEl.textContent = videoTitle;
+      statsEl.textContent = `▶ ${formatNumber(plays)} plays · ♥ ${formatNumber(likes)} likes`;
 
-      dlHd.href = data.videoNoWatermark || data.videoSD || data.download_url || '#';
-      dlAudio.href = data.audio || data.audio_url || '#';
+      dlHd.href = videoUrl || '#';
 
-      if (!data.audio && !data.audio_url) {
-        dlAudio.style.opacity = '0.4';
-        dlAudio.style.pointerEvents = 'none';
+      if (!audioUrl) {
+        dlAudio.classList.add('tt-dl-disabled');
+        dlAudio.href = '#';
         dlAudio.innerHTML = `
           <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
             <path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/>
           </svg>
           Audio not available`;
       } else {
-        dlAudio.style.opacity = '1';
-        dlAudio.style.pointerEvents = 'auto';
+        dlAudio.classList.remove('tt-dl-disabled');
+        dlAudio.href = audioUrl;
         dlAudio.innerHTML = `
           <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
             <path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/>
@@ -673,7 +823,8 @@ const canonicalURL = "https://www.revibyte.blog/save/tok/";
 
       resultEl.style.display = 'block';
 
-    } catch {
+    } catch (err) {
+      console.error('Fetch error:', err);
       showError('Network error. Check your connection and try again.');
     } finally {
       setLoading(false);
