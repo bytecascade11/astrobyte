@@ -1,7 +1,7 @@
 export const prerender = false;
 
 import type { APIRoute } from "astro";
-import axios from "axios";
+import { getVideoMeta } from "tiktok-scraper";
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
@@ -24,8 +24,16 @@ export const POST: APIRoute = async ({ request }) => {
       body = await request.json();
     } catch {
       return new Response(
-        JSON.stringify({ error: "Invalid JSON body." }),
-        { status: 400, headers: { "Content-Type": "application/json", ...corsHeaders } }
+        JSON.stringify({
+          error: "Invalid JSON body.",
+        }),
+        {
+          status: 400,
+          headers: {
+            "Content-Type": "application/json",
+            ...corsHeaders,
+          },
+        }
       );
     }
 
@@ -33,64 +41,87 @@ export const POST: APIRoute = async ({ request }) => {
 
     if (typeof rawUrl !== "string" || !rawUrl.trim()) {
       return new Response(
-        JSON.stringify({ error: "Please provide a valid TikTok URL." }),
-        { status: 400, headers: { "Content-Type": "application/json", ...corsHeaders } }
+        JSON.stringify({
+          error: "Please provide a valid TikTok URL.",
+        }),
+        {
+          status: 400,
+          headers: {
+            "Content-Type": "application/json",
+            ...corsHeaders,
+          },
+        }
       );
     }
 
+    // Validate URL
     let parsedUrl: URL;
+
     try {
       parsedUrl = new URL(rawUrl.trim());
     } catch {
       return new Response(
-        JSON.stringify({ error: "Invalid URL format." }),
-        { status: 400, headers: { "Content-Type": "application/json", ...corsHeaders } }
+        JSON.stringify({
+          error: "Invalid URL format.",
+        }),
+        {
+          status: 400,
+          headers: {
+            "Content-Type": "application/json",
+            ...corsHeaders,
+          },
+        }
       );
     }
 
-    const hostname = parsedUrl.hostname.toLowerCase().replace(/^www\./, "");
+    const hostname = parsedUrl.hostname
+      .toLowerCase()
+      .replace(/^www\./, "");
+
     if (!hostname.includes("tiktok.com")) {
       return new Response(
-        JSON.stringify({ error: "Please enter a valid TikTok URL." }),
-        { status: 400, headers: { "Content-Type": "application/json", ...corsHeaders } }
+        JSON.stringify({
+          error: "Please enter a valid TikTok URL.",
+        }),
+        {
+          status: 400,
+          headers: {
+            "Content-Type": "application/json",
+            ...corsHeaders,
+          },
+        }
       );
     }
 
-    // Using a free TikTok API endpoint
-    const options = {
-      method: 'GET',
-      url: 'https://tiktok-video-no-watermark2.p.rapidapi.com/',
-      params: {
-        url: rawUrl,
-        hd: '1'
-      },
-      headers: {
-        'X-RapidAPI-Key': process.env.RAPIDAPI_KEY || 'YOUR_RAPIDAPI_KEY',
-        'X-RapidAPI-Host': 'tiktok-video-no-watermark2.p.rapidapi.com'
-      }
-    };
+    // Fetch TikTok data using tiktok-scraper
+    const result = await getVideoMeta(rawUrl, {});
 
-    const response = await axios.request(options);
-    const data = response.data?.data;
-
-    if (!data) {
+    if (!result) {
       return new Response(
-        JSON.stringify({ error: "Could not fetch TikTok video." }),
-        { status: 400, headers: { "Content-Type": "application/json", ...corsHeaders } }
+        JSON.stringify({
+          error: "Could not fetch TikTok video.",
+        }),
+        {
+          status: 400,
+          headers: {
+            "Content-Type": "application/json",
+            ...corsHeaders,
+          },
+        }
       );
     }
 
     return new Response(
       JSON.stringify({
         success: true,
-        title: data.title || "TikTok Video",
-        author: data.author?.nickname || "Unknown",
-        avatar: data.author?.avatar || "",
-        cover: data.cover || "",
-        duration: data.duration || 0,
-        videoNoWatermark: data.hdplay || data.play || "",
-        videoWatermark: data.wmplay || data.play || "",
-        audio: data.music || "",
+        title: result.text || "TikTok Video",
+        author: result.authorMeta?.name || "Unknown",
+        avatar: result.authorMeta?.avatar || "",
+        cover: result.covers?.default || result.imageUrl || "",
+        duration: result.videoMeta?.duration || 0,
+        videoNoWatermark: result.videoUrl || "",
+        videoWatermark: result.videoUrlNoWaterMark || result.videoUrl || "",
+        audio: result.musicMeta?.musicUrl || "",
       }),
       {
         status: 200,
@@ -103,9 +134,18 @@ export const POST: APIRoute = async ({ request }) => {
     );
   } catch (err) {
     console.error("TikTok downloader error:", err);
+
     return new Response(
-      JSON.stringify({ error: "Something went wrong. Please try again." }),
-      { status: 500, headers: { "Content-Type": "application/json", ...corsHeaders } }
+      JSON.stringify({
+        error: "Something went wrong. Please try again.",
+      }),
+      {
+        status: 500,
+        headers: {
+          "Content-Type": "application/json",
+          ...corsHeaders,
+        },
+      }
     );
   }
 };
