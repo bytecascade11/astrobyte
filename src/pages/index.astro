@@ -151,6 +151,38 @@ function formatDate(date: Date) {
 
     <Hr class="my-10" />
 
+    <!-- ── TOOLS SECTION ── -->
+    <section class="rb-tools-hub mb-10">
+      <h2 class="rb-section-heading">🛠️ ReviByte Tools</h2>
+      <p class="rb-games-hub__sub">Free tools built for everyday use — no login, no ads, no nonsense.</p>
+
+      <div class="rb-games-grid">
+
+        <!-- Heliara AI -->
+        <a href="/heliara/" class="rb-game-card rb-tool-card--ai">
+          <div class="rb-game-card__icon">✨</div>
+          <div class="rb-game-card__body">
+            <h3 class="rb-game-card__title">Heliara AI</h3>
+            <p class="rb-game-card__desc">Ask anything about phones, Android, COD Mobile, eFootball, or general tech. Instant answers powered by AI.</p>
+            <span class="rb-game-card__cta">Try Heliara AI →</span>
+          </div>
+        </a>
+
+        <!-- ReviByte Save -->
+        <a href="/save/" class="rb-game-card rb-tool-card--save">
+          <div class="rb-game-card__icon">⬇️</div>
+          <div class="rb-game-card__body">
+            <h3 class="rb-game-card__title">ReviByte Save</h3>
+            <p class="rb-game-card__desc">Download TikTok videos without watermark, save audio as MP3, and more. Free media downloader tools.</p>
+            <span class="rb-game-card__cta">Open ReviByte Save →</span>
+          </div>
+        </a>
+
+      </div>
+    </section>
+
+    <Hr class="my-10" />
+
     <!-- ── AD SPOT 1: Between Hero and More Posts ── -->
     <div class="rb-ad-banner">
       <ins class="adsbygoogle"
@@ -663,5 +695,24 @@ function formatDate(date: Date) {
 
   .rb-game-card:hover .rb-game-card__cta {
     text-decoration: underline;
+  }
+
+  /* ── Tools section subtle accents ── */
+  .rb-tool-card--ai:hover {
+    border-color: #6c63ff;
+    box-shadow: 0 4px 20px rgba(108, 99, 255, 0.08);
+  }
+
+  .rb-tool-card--ai:hover .rb-game-card__cta {
+    color: #6c63ff;
+  }
+
+  .rb-tool-card--save:hover {
+    border-color: #ff0050;
+    box-shadow: 0 4px 20px rgba(255, 0, 80, 0.08);
+  }
+
+  .rb-tool-card--save:hover .rb-game-card__cta {
+    color: #ff0050;
   }
 </style>
