@@ -94,7 +94,7 @@ export const POST: APIRoute = async ({ request }) => {
     }
 
     // Fetch TikTok data using tiktok-scraper
-    const result = await getVideoMeta(rawUrl, {});
+    const result = (await getVideoMeta(rawUrl, {})) as any;
 
     if (!result) {
       return new Response(
@@ -149,4 +149,4 @@ export const POST: APIRoute = async ({ request }) => {
     );
   }
 };
-        
+            
