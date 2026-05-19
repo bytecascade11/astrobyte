@@ -1,8 +1,9 @@
 export const prerender = false;
 
 import type { APIRoute } from "astro";
-import { getVideoMeta } from "tiktok-scraper";
+import pkg from "tiktok-scraper";
 
+const { getVideoMeta } = pkg;
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
   "Access-Control-Allow-Methods": "POST, OPTIONS",
