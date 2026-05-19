@@ -2,6 +2,9 @@
   "name": "astro-paper",
   "type": "module",
   "version": "5.5.1",
+  "engines": {
+    "node": "20.x"
+  },
   "scripts": {
     "dev": "astro dev",
     "build": "astro check && astro build && pagefind --site dist && cp -r dist/pagefind public/",
@@ -46,7 +49,5 @@
     "typescript": "^5.8.3",
     "typescript-eslint": "^8.36.0",
     "vite-plugin-pwa": "^0.21.0"
-    "engines": {
-  "node": "20.x"
-    }
+  }
 }
