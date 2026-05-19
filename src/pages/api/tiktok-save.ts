@@ -1,83 +1,128 @@
 export const prerender = false;
 
 import type { APIRoute } from "astro";
-import pkg from "tiktok-scraper";
 
-const { getVideoMeta } = pkg;
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
-  "Access-Control-Allow-Methods": "POST, OPTIONS",
+  "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
   "Access-Control-Allow-Headers": "Content-Type",
 };
 
 export const OPTIONS: APIRoute = async () => {
-  return new Response(null, { status: 204, headers: corsHeaders });
+  return new Response(null, {
+    status: 204,
+    headers: corsHeaders,
+  });
 };
 
 export const POST: APIRoute = async ({ request }) => {
   try {
-    let body: { url?: unknown };
-    try {
-      body = await request.json();
-    } catch {
-      return new Response(JSON.stringify({ error: "Invalid JSON body." }), {
-        status: 400,
-        headers: { "Content-Type": "application/json", ...corsHeaders },
-      });
-    }
-
+    const body = await request.json();
     const rawUrl = body.url;
-    if (typeof rawUrl !== "string" || !rawUrl.trim()) {
-      return new Response(JSON.stringify({ error: "Please provide a valid TikTok URL." }), {
-        status: 400,
-        headers: { "Content-Type": "application/json", ...corsHeaders },
-      });
+
+    if (!rawUrl || typeof rawUrl !== "string") {
+      return new Response(
+        JSON.stringify({
+          success: false,
+          error: "Please provide a valid TikTok URL",
+        }),
+        {
+          status: 400,
+          headers: {
+            "Content-Type": "application/json",
+            ...corsHeaders,
+          },
+        }
+      );
     }
 
-    let parsedUrl: URL;
-    try {
-      parsedUrl = new URL(rawUrl.trim());
-    } catch {
-      return new Response(JSON.stringify({ error: "Invalid URL format." }), {
-        status: 400,
-        headers: { "Content-Type": "application/json", ...corsHeaders },
-      });
+    const cleanUrl = rawUrl.trim();
+
+    // Validate URL
+    if (!cleanUrl.includes("tiktok.com")) {
+      return new Response(
+        JSON.stringify({
+          success: false,
+          error: "Invalid TikTok URL",
+        }),
+        {
+          status: 400,
+          headers: {
+            "Content-Type": "application/json",
+            ...corsHeaders,
+          },
+        }
+      );
     }
 
-    const hostname = parsedUrl.hostname.toLowerCase().replace(/^www\./, "");
-    if (!hostname.includes("tiktok.com")) {
-      return new Response(JSON.stringify({ error: "Please enter a valid TikTok URL." }), {
-        status: 400,
-        headers: { "Content-Type": "application/json", ...corsHeaders },
-      });
+    // RapidAPI endpoint
+    const apiUrl =
+      `https://tiktok-video-no-watermark2.p.rapidapi.com/?url=${encodeURIComponent(cleanUrl)}`;
+
+    const response = await fetch(apiUrl, {
+      method: "GET",
+      headers: {
+        "x-rapidapi-host":
+          "tiktok-video-no-watermark2.p.rapidapi.com",
+
+        "x-rapidapi-key":
+          import.meta.env.RAPIDAPI_KEY,
+
+        "User-Agent":
+          "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36",
+      },
+    });
+
+    if (!response.ok) {
+      return new Response(
+        JSON.stringify({
+          success: false,
+          error: "Could not contact TikTok server",
+        }),
+        {
+          status: 500,
+          headers: {
+            "Content-Type": "application/json",
+            ...corsHeaders,
+          },
+        }
+      );
     }
 
-    // DEBUG: Log attempt
-    console.log("Fetching TikTok URL:", rawUrl);
+    const data = await response.json();
 
-    const result = (await getVideoMeta(rawUrl, {})) as any;
+    // Debug log
+    console.log("TikTok API Response:", data);
 
-    // DEBUG: Log raw result
-    console.log("Raw result:", JSON.stringify(result, null, 2));
-
-    if (!result) {
-      return new Response(JSON.stringify({ error: "Could not fetch TikTok video." }), {
-        status: 400,
-        headers: { "Content-Type": "application/json", ...corsHeaders },
-      });
-    }
+    const video =
+      data.data ||
+      data;
 
     return new Response(
       JSON.stringify({
         success: true,
-        title: result.text || result.desc || "TikTok Video",
-        author: result.authorMeta?.name || result.author?.nickname || "Unknown",
-        avatar: result.authorMeta?.avatar || result.author?.avatar || "",
-        cover: result.covers?.default || result.imageUrl || result.videoMeta?.cover || "",
-        duration: result.videoMeta?.duration || result.video?.duration || 0,
-        videoNoWatermark: result.videoUrlNoWaterMark || result.video?.playAddr || "",
-        videoWatermark: result.videoUrl || result.video?.downloadAddr || "",
-        audio: result.musicMeta?.musicUrl || result.music?.playUrl || "",
+
+        title:
+          video.title ||
+          "TikTok Video",
+
+        author:
+          video.author ||
+          "Unknown",
+
+        thumbnail:
+          video.cover ||
+          video.origin_cover ||
+          "",
+
+        videoNoWatermark:
+          video.play ||
+          video.wmplay ||
+          "",
+
+        music:
+          video.music ||
+          "",
       }),
       {
         status: 200,
@@ -89,19 +134,21 @@ export const POST: APIRoute = async ({ request }) => {
       }
     );
   } catch (err: any) {
-    // DEBUG: Log full error details
-    console.error("TikTok downloader error:", err);
-    console.error("Error message:", err?.message);
-    console.error("Error stack:", err?.stack);
+    console.error("TikTok API Error:", err);
 
     return new Response(
       JSON.stringify({
-        error: "Something went wrong. Please try again.",
-        debug: err?.message || "Unknown error",
+        success: false,
+        error:
+          err?.message ||
+          "Something went wrong",
       }),
       {
         status: 500,
-        headers: { "Content-Type": "application/json", ...corsHeaders },
+        headers: {
+          "Content-Type": "application/json",
+          ...corsHeaders,
+        },
       }
     );
   }
