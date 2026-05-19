@@ -1,7 +1,9 @@
 export const prerender = false;
 
 import type { APIRoute } from "astro";
-import { TiktokDL } from "@tobyg74/tiktok-api-dl";
+import pkg from "@tobyg74/tiktok-api-dl";
+
+const { TiktokDL } = pkg;
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
