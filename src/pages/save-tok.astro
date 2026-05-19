@@ -588,7 +588,7 @@ const canonicalURL = "https://www.revibyte.blog/save/tok/";
     return String(n);
   }
 
-  function setCover(src: string | undefined) {
+  function setCover(src: string | null | undefined) {
     const imageUrl = src || '';
     
     if (!imageUrl) {
