@@ -1,0 +1,375 @@
+---
+import Layout from "../layouts/Layout.astro";
+import HeliaraAI from "../components/HeliaraAI.astro";
+
+const title = "Heliara AI — ReviByte's Free AI Assistant for Tech & Mobile Gaming";
+const description = "Heliara AI is ReviByte's built-in AI assistant. Ask anything about smartphones, Android tips, COD Mobile, eFootball, and more. Free, instant answers powered by AI.";
+const canonicalURL = "https://revibyte.blog/heliara/";
+const ogImage = "https://revibyte.blog/assets/heliara-og.png"; // create this image or reuse your OG image
+---
+
+<Layout
+  title={title}
+  description={description}
+  canonicalURL={canonicalURL}
+>
+  <!-- Extra SEO meta tags -->
+  <Fragment slot="head">
+    <link rel="canonical" href={canonicalURL} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content={ogImage} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+
+    <!-- JSON-LD Schema -->
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "Heliara AI",
+      "applicationCategory": "UtilitiesApplication",
+      "operatingSystem": "Web",
+      "url": canonicalURL,
+      "description": description,
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "author": {
+        "@type": "Person",
+        "name": "iSamuel",
+        "url": "https://revibyte.blog"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "ReviByte",
+        "url": "https://revibyte.blog"
+      },
+      "featureList": [
+        "Smartphone recommendations for Nigerian and African budgets",
+        "Android optimization tips",
+        "COD Mobile loadout and strategy guides",
+        "eFootball tips and player guides",
+        "General tech questions and buying advice"
+      ]
+    })} />
+
+    <!-- FAQ Schema for Google rich results -->
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What is Heliara AI?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Heliara AI is a free AI assistant built into ReviByte (revibyte.blog). It answers questions about smartphones, Android optimization, COD Mobile, eFootball, and general tech — with a focus on Nigerian and African markets."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Who built Heliara AI?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Heliara AI was built by iSamuel, the founder and sole developer of ReviByte. It is powered by Groq and Llama 3."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Is Heliara AI free to use?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes, Heliara AI is completely free to use for all ReviByte visitors. No sign-up or account required."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What can I ask Heliara AI?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "You can ask Heliara AI about the best phones under ₦150k, Android speed tips, COD Mobile loadouts, eFootball strategies, or any general tech question."
+          }
+        }
+      ]
+    })} />
+  </Fragment>
+
+  <!-- Page content -->
+  <main class="heliara-page">
+
+    <!-- Hero -->
+    <section class="hl-hero">
+      <div class="hl-hero-badge">Free AI Assistant</div>
+      <h1 class="hl-hero-title">
+        Meet <span class="hl-gradient">Heliara AI</span>
+      </h1>
+      <p class="hl-hero-desc">
+        ReviByte's built-in AI assistant. Ask anything about smartphones, Android, COD Mobile, eFootball, or general tech — and get instant, honest answers.
+      </p>
+      <div class="hl-hero-tags">
+        <span>📱 Phones</span>
+        <span>🤖 Android</span>
+        <span>🎮 COD Mobile</span>
+        <span>⚽ eFootball</span>
+        <span>💡 Tech Advice</span>
+      </div>
+      <a href="#try-heliara" class="hl-cta">Try Heliara AI Free →</a>
+    </section>
+
+    <!-- Features -->
+    <section class="hl-features">
+      <div class="hl-feature">
+        <div class="hl-feature-icon">🔍</div>
+        <h2>Reads ReviByte Live</h2>
+        <p>Heliara fetches real content from ReviByte before every answer — so it always has the latest guides and reviews.</p>
+      </div>
+      <div class="hl-feature">
+        <div class="hl-feature-icon">🌍</div>
+        <h2>Nigerian Market Focus</h2>
+        <p>Get phone recommendations in Naira (₦), advice tailored for the Nigerian and African tech market.</p>
+      </div>
+      <div class="hl-feature">
+        <div class="hl-feature-icon">⚡</div>
+        <h2>Instant Answers</h2>
+        <p>Powered by Groq and Llama 3 — one of the fastest AI models available. No waiting around.</p>
+      </div>
+      <div class="hl-feature">
+        <div class="hl-feature-icon">🎮</div>
+        <h2>Gaming Expertise</h2>
+        <p>Ask about COD Mobile loadouts, eFootball formations, or any mobile gaming question — Heliara knows the meta.</p>
+      </div>
+    </section>
+
+    <!-- Try section -->
+    <section class="hl-try" id="try-heliara">
+      <h2>Try Heliara AI Now</h2>
+      <p>Click the purple button in the bottom-right corner of this page to open Heliara AI. It's already loaded and ready.</p>
+      <div class="hl-sample-questions">
+        <p class="hl-sample-label">People ask things like:</p>
+        <ul>
+          <li>"What's the best phone under ₦150k right now?"</li>
+          <li>"Best COD Mobile sniper loadout for Season 4?"</li>
+          <li>"How do I speed up my Android phone?"</li>
+          <li>"Is the Redmi Note 14 worth buying in Nigeria?"</li>
+          <li>"Best eFootball formation for beginners?"</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- About -->
+    <section class="hl-about">
+      <h2>Built by iSamuel for ReviByte</h2>
+      <p>
+        Heliara AI was built by <strong>iSamuel</strong> — the founder and sole developer of <a href="https://revibyte.blog">ReviByte</a>. It's designed to give ReviByte readers instant, accurate answers without leaving the site. Powered by <strong>Groq</strong> and <strong>Llama 3.3 70B</strong>.
+      </p>
+      <p>
+        ReviByte covers smartphones, Android optimization, mobile gaming, and tech opinions — with a focus on Nigerian and African markets. <a href="https://revibyte.blog">Read the blog →</a>
+      </p>
+    </section>
+
+  </main>
+</Layout>
+
+<style>
+  .heliara-page {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 2rem 1.25rem 4rem;
+  }
+
+  /* Hero */
+  .hl-hero {
+    text-align: center;
+    padding: 3rem 0 2.5rem;
+  }
+
+  .hl-hero-badge {
+    display: inline-block;
+    background: rgba(108, 99, 255, 0.12);
+    color: #6c63ff;
+    border: 1px solid rgba(108, 99, 255, 0.3);
+    border-radius: 999px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 0.3rem 0.9rem;
+    margin-bottom: 1rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+
+  .hl-hero-title {
+    font-size: clamp(2rem, 6vw, 3.2rem);
+    font-weight: 800;
+    line-height: 1.15;
+    margin-bottom: 1rem;
+    letter-spacing: -0.02em;
+  }
+
+  .hl-gradient {
+    background: linear-gradient(135deg, #6c63ff, #a78bfa);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .hl-hero-desc {
+    font-size: 1.1rem;
+    line-height: 1.7;
+    max-width: 580px;
+    margin: 0 auto 1.5rem;
+    opacity: 0.8;
+  }
+
+  .hl-hero-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    justify-content: center;
+    margin-bottom: 2rem;
+  }
+
+  .hl-hero-tags span {
+    background: rgba(108, 99, 255, 0.08);
+    border: 1px solid rgba(108, 99, 255, 0.2);
+    border-radius: 999px;
+    padding: 0.3rem 0.85rem;
+    font-size: 0.85rem;
+    font-weight: 500;
+  }
+
+  .hl-cta {
+    display: inline-block;
+    background: linear-gradient(135deg, #6c63ff, #a78bfa);
+    color: #fff !important;
+    padding: 0.75rem 2rem;
+    border-radius: 999px;
+    font-weight: 700;
+    font-size: 1rem;
+    text-decoration: none;
+    transition: opacity 0.2s, transform 0.2s;
+    box-shadow: 0 4px 20px rgba(108, 99, 255, 0.35);
+  }
+
+  .hl-cta:hover {
+    opacity: 0.9;
+    transform: translateY(-2px);
+  }
+
+  /* Features */
+  .hl-features {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 1.25rem;
+    margin: 3rem 0;
+  }
+
+  .hl-feature {
+    background: rgba(108, 99, 255, 0.05);
+    border: 1px solid rgba(108, 99, 255, 0.15);
+    border-radius: 16px;
+    padding: 1.5rem 1.25rem;
+  }
+
+  .hl-feature-icon {
+    font-size: 1.8rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .hl-feature h2 {
+    font-size: 1rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+  }
+
+  .hl-feature p {
+    font-size: 0.875rem;
+    line-height: 1.6;
+    opacity: 0.75;
+  }
+
+  /* Try section */
+  .hl-try {
+    background: rgba(108, 99, 255, 0.06);
+    border: 1px solid rgba(108, 99, 255, 0.2);
+    border-radius: 20px;
+    padding: 2rem;
+    margin: 2rem 0;
+  }
+
+  .hl-try h2 {
+    font-size: 1.4rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+  }
+
+  .hl-try p {
+    opacity: 0.8;
+    margin-bottom: 1.25rem;
+    line-height: 1.6;
+  }
+
+  .hl-sample-label {
+    font-size: 0.85rem;
+    font-weight: 600;
+    opacity: 0.6 !important;
+    margin-bottom: 0.5rem !important;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+
+  .hl-sample-questions ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .hl-sample-questions li {
+    background: rgba(108, 99, 255, 0.08);
+    border: 1px solid rgba(108, 99, 255, 0.15);
+    border-radius: 10px;
+    padding: 0.6rem 1rem;
+    font-size: 0.9rem;
+    font-style: italic;
+    opacity: 0.85;
+  }
+
+  /* About */
+  .hl-about {
+    margin: 2.5rem 0;
+    padding: 2rem;
+    border-top: 1px solid rgba(108, 99, 255, 0.15);
+  }
+
+  .hl-about h2 {
+    font-size: 1.3rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+  }
+
+  .hl-about p {
+    font-size: 0.95rem;
+    line-height: 1.75;
+    opacity: 0.85;
+    margin-bottom: 0.75rem;
+  }
+
+  .hl-about a {
+    color: #6c63ff;
+    text-decoration: underline;
+  }
+
+  @media (max-width: 480px) {
+    .hl-features {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
