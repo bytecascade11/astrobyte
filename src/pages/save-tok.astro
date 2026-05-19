@@ -1,197 +1,207 @@
----  
-import Layout from "../layouts/Layout.astro";  
-  
-const title = "Video Downloader for TikTok — Save Videos Online | ReviByte";  
-const description = "Free online downloader for short videos. Save videos and audio quickly on Android, iPhone, and PC. Not affiliated with TikTok.";  
-const canonicalURL = "https://www.revibyte.blog/save/tok/";  
----  
-  
-<Layout title={title} description={description}>  
-  <Fragment slot="head">  
-    <link rel="canonical" href={canonicalURL} />  
-    <meta property="og:title" content={title} />  
-    <meta property="og:description" content={description} />  
-    <meta property="og:url" content={canonicalURL} />  
-    <meta property="og:type" content="website" />  
-    <meta name="twitter:card" content="summary_large_image" />  
-  
-    <script type="application/ld+json" set:html={JSON.stringify({  
-      "@context": "https://schema.org",  
-      "@type": "WebApplication",  
-      "name": "ReviByte Save Tok Downloader",  
-      "url": canonicalURL,  
-      "description": description,  
-      "applicationCategory": "MultimediaApplication",  
-      "operatingSystem": "Web, Android, iOS",  
-      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },  
-      "author": { "@type": "Person", "name": "iSamuel", "url": "https://revibyte.blog" }  
-    })} />  
-  
-    <script type="application/ld+json" set:html={JSON.stringify({  
-      "@context": "https://schema.org",  
-      "@type": "FAQPage",  
-      "mainEntity": [  
-        {  
-          "@type": "Question",  
-          "name": "How do I download a TikTok video without watermark?",  
-          "acceptedAnswer": {  
-            "@type": "Answer",  
-            "text": "Paste the TikTok video link into the box on this page and click Download. Choose 'Video (No Watermark)' to save without the TikTok logo."  
-          }  
-        },  
-        {  
-          "@type": "Question",  
-          "name": "Can I download TikTok audio as MP3?",  
-          "acceptedAnswer": {  
-            "@type": "Answer",  
-            "text": "Yes. After pasting your TikTok link, click the 'Download Audio (MP3)' button to save just the audio from the video."  
-          }  
-        },  
-        {  
-          "@type": "Question",  
-          "name": "Is this TikTok downloader free?",  
-          "acceptedAnswer": {  
-            "@type": "Answer",  
-            "text": "Yes, ReviByte's TikTok downloader is completely free. No login, no app install, no hidden charges."  
-          }  
-        },  
-        {  
-          "@type": "Question",  
-          "name": "Does this work on Android and iPhone?",  
-          "acceptedAnswer": {  
-            "@type": "Answer",  
-            "text": "Yes, it works on any device with a browser — Android, iPhone, tablet, or PC."  
-          }  
-        }  
-      ]  
-    })} />  
-  </Fragment>  
-  
-  <main class="tt-page">  
-  
-    <!-- Hero -->  
-    <section class="tt-hero">  
-      <div class="tt-badge">Free Tool</div>  
-      <h1 class="tt-title">TikTok Video <span class="tt-accent">Downloader</span></h1>  
-      <p class="tt-subtitle">Download TikTok videos without watermark — or save as MP3. Free, fast, no login needed.</p>  
-    </section>  
-  
-    <!-- Tool -->  
-    <section class="tt-tool">  
-      <div class="tt-input-wrap">  
-        <input  
-          id="tt-url"  
-          type="url"  
-          placeholder="Paste TikTok link here... (e.g. https://www.tiktok.com/@user/video/...)"  
-          autocomplete="off"  
-          spellcheck="false"  
-        />  
-        <button id="tt-fetch-btn">  
-          <span id="tt-btn-text">Download</span>  
-          <span id="tt-btn-spinner" style="display:none">  
-            <svg class="tt-spin" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">  
-              <path d="M21 12a9 9 0 1 1-6.219-8.56"/>  
-            </svg>  
-          </span>  
-        </button>  
-      </div>  
-  
-      <p class="tt-hint">  
-        Copy a TikTok link from the app → tap <strong>Share</strong> → <strong>Copy link</strong> → paste above  
-      </p>  
-  
-      <!-- Error -->  
-      <div id="tt-error" class="tt-error" style="display:none"></div>  
-  
-      <!-- Result card -->  
-      <div id="tt-result" class="tt-result" style="display:none">  
-        <div class="tt-video-meta">  
-          <img id="tt-cover" src="" alt="TikTok video thumbnail" class="tt-cover" />  
-          <div class="tt-meta-info">  
-            <div id="tt-author" class="tt-author"></div>  
-            <div id="tt-video-title" class="tt-video-title"></div>  
-            <div id="tt-stats" class="tt-stats"></div>  
-          </div>  
-        </div>  
-  
-        <div class="tt-download-btns">  
-          <a id="tt-dl-hd" href="#" target="_blank" class="tt-dl-btn tt-dl-primary">  
-            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">  
-              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/>  
-            </svg>  
-            Download Video (No Watermark)  
-          </a>  
-          <a id="tt-dl-audio" href="#" target="_blank" class="tt-dl-btn tt-dl-secondary">  
-            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">  
-              <path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/>  
-            </svg>  
-            Download Audio (MP3)  
-          </a>  
-        </div>  
-      </div>  
-    </section>  
-  
-    <!-- How to use -->  
-    <section class="tt-how">  
-      <h2>How to Download TikTok Videos</h2>  
-      <div class="tt-steps">  
-        <div class="tt-step">  
-          <div class="tt-step-num">1</div>  
-          <div>  
-            <strong>Copy the TikTok link</strong>  
-            <p>Open TikTok, find the video, tap Share → Copy Link</p>  
-          </div>  
-        </div>  
-        <div class="tt-step">  
-          <div class="tt-step-num">2</div>  
-          <div>  
-            <strong>Paste it above</strong>  
-            <p>Paste the link into the box at the top of this page</p>  
-          </div>  
-        </div>  
-        <div class="tt-step">  
-          <div class="tt-step-num">3</div>  
-          <div>  
-            <strong>Choose your download</strong>  
-            <p>Pick video without watermark or audio-only MP3</p>  
-          </div>  
-        </div>  
-      </div>  
-    </section>  
-  
-    <!-- FAQ -->  
-    <section class="tt-faq">  
-      <h2>Frequently Asked Questions</h2>  
-  
-      <details class="tt-faq-item">  
-        <summary>Does this remove the TikTok watermark?</summary>  
-        <p>Yes. The "No Watermark" download option gives you a clean video without the TikTok logo or username overlay.</p>  
-      </details>  
-  
-      <details class="tt-faq-item">  
-        <summary>Can I download private TikTok videos?</summary>  
-        <p>No — only public TikTok videos can be downloaded. Private videos are not accessible.</p>  
-      </details>  
-  
-      <details class="tt-faq-item">  
-        <summary>Does it work on Android and iPhone?</summary>  
-        <p>Yes. This tool works on any browser — Android, iPhone, tablet, or desktop PC.</p>  
-      </details>  
-  
-      <details class="tt-faq-item">  
-        <summary>Is there a limit on downloads?</summary>  
-        <p>No limit. Download as many TikTok videos as you need, completely free.</p>  
-      </details>  
-  
-      <details class="tt-faq-item">  
-        <summary>Can I download TikTok audio as MP3?</summary>  
-        <p>Yes — click "Download Audio (MP3)" after pasting your link to save just the music or sound from the video.</p>  
-      </details>  
-    </section>  
-  
-  </main>  
-</Layout>  
-  <style>
+---
+import Layout from "../layouts/Layout.astro";
+
+const title = "Video Downloader for TikTok — Save Videos Online | ReviByte";
+const description = "Free online downloader for short videos. Save videos and audio quickly on Android, iPhone, and PC. Not affiliated with TikTok.";
+const canonicalURL = "https://www.revibyte.blog/save/tok/";
+---
+
+<Layout title={title} description={description}>
+  <Fragment slot="head">
+    <link rel="canonical" href={canonicalURL} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "ReviByte Save Tok Downloader",
+      "url": canonicalURL,
+      "description": description,
+      "applicationCategory": "MultimediaApplication",
+      "operatingSystem": "Web, Android, iOS",
+      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+      "author": { "@type": "Person", "name": "iSamuel", "url": "https://revibyte.blog" }
+    })} />
+
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "How do I download a TikTok video without watermark?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Paste the TikTok video link into the box on this page and click Download. Choose 'Video (No Watermark)' to save without the TikTok logo."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can I download TikTok audio as MP3?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. After pasting your TikTok link, click the 'Download Audio (MP3)' button to save just the audio from the video."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Is this TikTok downloader free?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes, ReviByte's TikTok downloader is completely free. No login, no app install, no hidden charges."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Does this work on Android and iPhone?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes, it works on any device with a browser — Android, iPhone, tablet, or PC."
+          }
+        }
+      ]
+    })} />
+  </Fragment>
+
+  <main class="tt-page">
+
+    <!-- Hero -->
+    <section class="tt-hero">
+      <div class="tt-badge">Free Tool</div>
+      <h1 class="tt-title">TikTok Video <span class="tt-accent">Downloader</span></h1>
+      <p class="tt-subtitle">Download TikTok videos without watermark — or save as MP3. Free, fast, no login needed.</p>
+    </section>
+
+    <!-- Tool -->
+    <section class="tt-tool">
+      <div class="tt-input-wrap">
+        <input
+          id="tt-url"
+          type="url"
+          placeholder="Paste TikTok link here... (e.g. https://www.tiktok.com/@user/video/...)"
+          autocomplete="off"
+          spellcheck="false"
+        />
+        <button id="tt-fetch-btn">
+          <span id="tt-btn-text">Download</span>
+          <span id="tt-btn-spinner" style="display:none">
+            <svg class="tt-spin" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <path d="M21 12a9 9 0 1 1-6.219-8.56"/>
+            </svg>
+          </span>
+        </button>
+      </div>
+
+      <p class="tt-hint">
+        Copy a TikTok link from the app → tap <strong>Share</strong> → <strong>Copy link</strong> → paste above
+      </p>
+
+      <!-- Error -->
+      <div id="tt-error" class="tt-error" style="display:none"></div>
+
+      <!-- Result card -->
+      <div id="tt-result" class="tt-result" style="display:none">
+        <div class="tt-video-meta">
+          <div class="tt-cover-wrap">
+            <img id="tt-cover" src="" alt="TikTok video thumbnail" class="tt-cover" />
+            <div id="tt-cover-fallback" class="tt-cover-fallback" style="display:none">
+              <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+                <circle cx="8.5" cy="8.5" r="1.5"/>
+                <polyline points="21 15 16 10 5 21"/>
+              </svg>
+            </div>
+          </div>
+          <div class="tt-meta-info">
+            <div id="tt-author" class="tt-author"></div>
+            <div id="tt-video-title" class="tt-video-title"></div>
+            <div id="tt-stats" class="tt-stats"></div>
+          </div>
+        </div>
+
+        <div class="tt-download-btns">
+          <a id="tt-dl-hd" href="#" target="_blank" class="tt-dl-btn tt-dl-primary">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/>
+            </svg>
+            Download Video (No Watermark)
+          </a>
+          <a id="tt-dl-audio" href="#" target="_blank" class="tt-dl-btn tt-dl-secondary">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/>
+            </svg>
+            Download Audio (MP3)
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- How to use -->
+    <section class="tt-how">
+      <h2>How to Download TikTok Videos</h2>
+      <div class="tt-steps">
+        <div class="tt-step">
+          <div class="tt-step-num">1</div>
+          <div>
+            <strong>Copy the TikTok link</strong>
+            <p>Open TikTok, find the video, tap Share → Copy Link</p>
+          </div>
+        </div>
+        <div class="tt-step">
+          <div class="tt-step-num">2</div>
+          <div>
+            <strong>Paste it above</strong>
+            <p>Paste the link into the box at the top of this page</p>
+          </div>
+        </div>
+        <div class="tt-step">
+          <div class="tt-step-num">3</div>
+          <div>
+            <strong>Choose your download</strong>
+            <p>Pick video without watermark or audio-only MP3</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="tt-faq">
+      <h2>Frequently Asked Questions</h2>
+
+      <details class="tt-faq-item">
+        <summary>Does this remove the TikTok watermark?</summary>
+        <p>Yes. The "No Watermark" download option gives you a clean video without the TikTok logo or username overlay.</p>
+      </details>
+
+      <details class="tt-faq-item">
+        <summary>Can I download private TikTok videos?</summary>
+        <p>No — only public TikTok videos can be downloaded. Private videos are not accessible.</p>
+      </details>
+
+      <details class="tt-faq-item">
+        <summary>Does it work on Android and iPhone?</summary>
+        <p>Yes. This tool works on any browser — Android, iPhone, tablet, or desktop PC.</p>
+      </details>
+
+      <details class="tt-faq-item">
+        <summary>Is there a limit on downloads?</summary>
+        <p>No limit. Download as many TikTok videos as you need, completely free.</p>
+      </details>
+
+      <details class="tt-faq-item">
+        <summary>Can I download TikTok audio as MP3?</summary>
+        <p>Yes — click "Download Audio (MP3)" after pasting your link to save just the music or sound from the video.</p>
+      </details>
+    </section>
+
+  </main>
+</Layout>
+
+<style>
   .tt-page {
     max-width: 780px;
     margin: 0 auto;
@@ -336,12 +346,33 @@ const canonicalURL = "https://www.revibyte.blog/save/tok/";
     align-items: flex-start;
   }
 
-  .tt-cover {
+  .tt-cover-wrap {
     width: 90px;
     height: 120px;
-    object-fit: cover;
-    border-radius: 10px;
     flex-shrink: 0;
+    border-radius: 10px;
+    overflow: hidden;
+    background: #1a1a1a;
+    position: relative;
+  }
+
+  .tt-cover {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .tt-cover-fallback {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #555;
     background: #1a1a1a;
   }
 
@@ -517,103 +548,152 @@ const canonicalURL = "https://www.revibyte.blog/save/tok/";
   }
 </style>
 
-<script>  
-  const urlInput = document.getElementById('tt-url') as HTMLInputElement;  
-  const fetchBtn = document.getElementById('tt-fetch-btn') as HTMLButtonElement;  
-  const btnText = document.getElementById('tt-btn-text')!;  
-  const btnSpinner = document.getElementById('tt-btn-spinner')!;  
-  const errorEl = document.getElementById('tt-error')!;  
-  const resultEl = document.getElementById('tt-result')!;  
-  
-  const coverEl = document.getElementById('tt-cover') as HTMLImageElement;  
-  const authorEl = document.getElementById('tt-author')!;  
-  const titleEl = document.getElementById('tt-video-title')!;  
-  const statsEl = document.getElementById('tt-stats')!;  
-  const dlHd = document.getElementById('tt-dl-hd') as HTMLAnchorElement;  
-  const dlAudio = document.getElementById('tt-dl-audio') as HTMLAnchorElement;  
-  
-  function setLoading(loading: boolean) {  
-    fetchBtn.disabled = loading;  
-    btnText.style.display = loading ? 'none' : 'inline';  
-    btnSpinner.style.display = loading ? 'inline-flex' : 'none';  
-  }  
-  
-  function showError(msg: string) {  
-    errorEl.textContent = msg;  
-    errorEl.style.display = 'block';  
-    resultEl.style.display = 'none';  
-  }  
-  
-  function formatNumber(n: number): string {  
-    if (n >= 1_000_000) return (n / 1_000_000).toFixed(1) + 'M';  
-    if (n >= 1_000) return (n / 1_000).toFixed(1) + 'K';  
-    return String(n);  
-  }  
-  
-  async function fetchVideo() {  
-    const url = urlInput.value.trim();  
-    if (!url) { showError('Please paste a TikTok link first.'); return; }  
-  
-    errorEl.style.display = 'none';  
-    resultEl.style.display = 'none';  
-    setLoading(true);  
-  
-    try {  
-      const res = await fetch('/api/tiktok-save/', {  
-        method: 'POST',  
-        headers: { 'Content-Type': 'application/json' },  
-        body: JSON.stringify({ url }),  
-      });  
-  
-      const data = await res.json();  
-  
-      if (!res.ok || data.error) {  
-        showError(data.error || 'Could not fetch video. Try again.');  
-        return;  
-      }  
-  
-      // Populate result  
-      coverEl.src = data.cover || '';  
-      coverEl.alt = data.title || 'TikTok video';  
-      authorEl.textContent = '@' + data.author;  
-      titleEl.textContent = data.title;  
-      statsEl.textContent = `▶ ${formatNumber(data.plays)} plays · ♥ ${formatNumber(data.likes)} likes`;  
-  
-      dlHd.href = data.videoNoWatermark || data.videoSD || '#';  
-      dlAudio.href = data.audio || '#';  
-  
-      if (!data.audio) {  
-        dlAudio.style.opacity = '0.4';  
-        dlAudio.style.pointerEvents = 'none';  
-        dlAudio.textContent = 'Audio not available';  
-      } else {  
-        dlAudio.style.opacity = '1';  
-        dlAudio.style.pointerEvents = 'auto';  
-      }  
-  
-      resultEl.style.display = 'block';  
-  
-    } catch {  
-      showError('Network error. Check your connection and try again.');  
-    } finally {  
-      setLoading(false);  
-    }  
-  }  
-  
-  fetchBtn.addEventListener('click', fetchVideo);  
-  
-  urlInput.addEventListener('keydown', (e) => {  
-    if (e.key === 'Enter') fetchVideo();  
-  });  
-  
-  // Auto-paste on focus if clipboard has tiktok link  
-  urlInput.addEventListener('focus', async () => {  
-    if (urlInput.value) return;  
-    try {  
-      const text = await navigator.clipboard.readText();  
-      if (text.includes('tiktok.com')) {  
-        urlInput.value = text;  
-      }  
-    } catch { /* clipboard permission denied */ }  
-  });  
+<script>
+  const urlInput = document.getElementById('tt-url') as HTMLInputElement;
+  const fetchBtn = document.getElementById('tt-fetch-btn') as HTMLButtonElement;
+  const btnText = document.getElementById('tt-btn-text')!;
+  const btnSpinner = document.getElementById('tt-btn-spinner')!;
+  const errorEl = document.getElementById('tt-error')!;
+  const resultEl = document.getElementById('tt-result')!;
+
+  const coverEl = document.getElementById('tt-cover') as HTMLImageElement;
+  const coverFallback = document.getElementById('tt-cover-fallback') as HTMLDivElement;
+  const authorEl = document.getElementById('tt-author')!;
+  const titleEl = document.getElementById('tt-video-title')!;
+  const statsEl = document.getElementById('tt-stats')!;
+  const dlHd = document.getElementById('tt-dl-hd') as HTMLAnchorElement;
+  const dlAudio = document.getElementById('tt-dl-audio') as HTMLAnchorElement;
+
+  function setLoading(loading: boolean) {
+    fetchBtn.disabled = loading;
+    btnText.style.display = loading ? 'none' : 'inline';
+    btnSpinner.style.display = loading ? 'inline-flex' : 'none';
+  }
+
+  function showError(msg: string) {
+    errorEl.textContent = msg;
+    errorEl.style.display = 'block';
+    resultEl.style.display = 'none';
+  }
+
+  function formatNumber(n: number): string {
+    if (n >= 1_000_000) return (n / 1_000_000).toFixed(1) + 'M';
+    if (n >= 1_000) return (n / 1_000).toFixed(1) + 'K';
+    return String(n);
+  }
+
+  function setCover(src: string | undefined) {
+    // Try multiple possible field names from different APIs
+    const imageUrl = src || '';
+    
+    if (!imageUrl) {
+      coverEl.style.display = 'none';
+      coverFallback.style.display = 'flex';
+      return;
+    }
+
+    coverEl.style.display = 'block';
+    coverFallback.style.display = 'none';
+    coverEl.src = imageUrl;
+    
+    // Handle image load error (broken URL, CORS, expired)
+    coverEl.onerror = () => {
+      coverEl.style.display = 'none';
+      coverFallback.style.display = 'flex';
+    };
+    
+    // Handle successful load
+    coverEl.onload = () => {
+      coverEl.style.display = 'block';
+      coverFallback.style.display = 'none';
+    };
+  }
+
+  async function fetchVideo() {
+    const url = urlInput.value.trim();
+    if (!url) { showError('Please paste a TikTok link first.'); return; }
+
+    errorEl.style.display = 'none';
+    resultEl.style.display = 'none';
+    setLoading(true);
+
+    try {
+      const res = await fetch('/api/tiktok-save/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ url }),
+      });
+
+      const data = await res.json();
+
+      if (!res.ok || data.error) {
+        showError(data.error || 'Could not fetch video. Try again.');
+        return;
+      }
+
+      // Debug: log the response to see what fields are available
+      console.log('API Response:', data);
+
+      // Try multiple possible thumbnail field names from different APIs
+      const thumbnailUrl = data.cover || 
+                           data.cover_image_url || 
+                           data.thumbnail || 
+                           data.thumb || 
+                           data.image_src || 
+                           data.avatar || 
+                           '';
+
+      // Populate result
+      setCover(thumbnailUrl);
+      coverEl.alt = data.title || 'TikTok video';
+      authorEl.textContent = '@' + (data.author?.username || data.author || 'unknown');
+      titleEl.textContent = data.title || '';
+      statsEl.textContent = `▶ ${formatNumber(data.plays || data.view_count || data.views || 0)} plays · ♥ ${formatNumber(data.likes || data.like_count || 0)} likes`;
+
+      dlHd.href = data.videoNoWatermark || data.videoSD || data.download_url || '#';
+      dlAudio.href = data.audio || data.audio_url || '#';
+
+      if (!data.audio && !data.audio_url) {
+        dlAudio.style.opacity = '0.4';
+        dlAudio.style.pointerEvents = 'none';
+        dlAudio.innerHTML = `
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/>
+          </svg>
+          Audio not available`;
+      } else {
+        dlAudio.style.opacity = '1';
+        dlAudio.style.pointerEvents = 'auto';
+        dlAudio.innerHTML = `
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/>
+          </svg>
+          Download Audio (MP3)`;
+      }
+
+      resultEl.style.display = 'block';
+
+    } catch {
+      showError('Network error. Check your connection and try again.');
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  fetchBtn.addEventListener('click', fetchVideo);
+
+  urlInput.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') fetchVideo();
+  });
+
+  // Auto-paste on focus if clipboard has tiktok link
+  urlInput.addEventListener('focus', async () => {
+    if (urlInput.value) return;
+    try {
+      const text = await navigator.clipboard.readText();
+      if (text.includes('tiktok.com')) {
+        urlInput.value = text;
+      }
+    } catch { /* clipboard permission denied */ }
+  });
 </script>
