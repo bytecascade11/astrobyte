@@ -6,7 +6,7 @@ pubDatetime: "2026-05-20T14:38:00Z"
 lastUpdated: "eFootball™ 2026 – May 2026 Update"  
 coverImage: "/assets/efootball/best-4-2-1-3-formation-efootball-2026.jpg"  
 coverImageAlt: "Best 4-2-1-3 Formation Instructions in eFootball™ 2026 – May 2026 Update"  
-type: formation-guide  
+type: formation
 gameMode: Multiplayer  
 season: "eFootball™ 2026 – May 2026"  
 slug: "best-4-2-1-3-formation-efootball-2026"  
