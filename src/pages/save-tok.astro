@@ -68,7 +68,11 @@ const canonicalURL = "https://www.revibyte.blog/save/tok/";
   </Fragment>
 
   <main class="tt-page">
-
+<!-- Nav -->
+<nav class="tt-nav">
+  <a href="/" class="tt-nav-back">← ReviByte Blog</a>
+  <a href="/save/" class="tt-nav-save">ReviByte Save ↗</a>
+</nav>
     <!-- Hero -->
     <section class="tt-hero">
       <div class="tt-badge">Free Tool</div>
@@ -202,6 +206,39 @@ const canonicalURL = "https://www.revibyte.blog/save/tok/";
 </Layout>
 
 <style>
+/* Nav */
+.tt-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.75rem 0 1.5rem;
+}
+
+.tt-nav-back {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: inherit !important;
+  text-decoration: none;
+  opacity: 0.6;
+  transition: opacity 0.15s;
+}
+
+.tt-nav-back:hover { opacity: 1; }
+
+.tt-nav-save {
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: #ff0050 !important;
+  text-decoration: none;
+  border: 1px solid rgba(255, 0, 80, 0.3);
+  border-radius: 999px;
+  padding: 0.3rem 0.85rem;
+  transition: background 0.15s;
+}
+
+.tt-nav-save:hover {
+  background: rgba(255, 0, 80, 0.08);
+}
   .tt-page {
     max-width: 780px;
     margin: 0 auto;
