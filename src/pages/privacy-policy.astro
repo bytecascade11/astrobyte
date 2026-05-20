@@ -16,7 +16,7 @@ const description = "Transparent privacy practices at ReviByte Opinion – we co
         We value your privacy. This document explains what data we collect (very little), why, and how it's used.
       </p>
       <p class="mt-4 text-lg font-medium text-gray-500 dark:text-gray-400">
-        Last updated: May 16, 2026
+        Last updated: May 20, 2026
       </p>
       <p class="mt-2">
         Questions? Email us at
@@ -38,6 +38,8 @@ const description = "Transparent privacy practices at ReviByte Opinion – we co
         <li>• You can request deletion or opt out of personalized ads anytime.</li>
         <li>• This site complies with GDPR, CCPA, COPPA, and advertising policies.</li>
         <li>• Some links are affiliate links — we may earn a small commission at no cost to you.</li>
+        <li>• Heliara AI messages are processed by Groq — we do not store your chat history.</li>
+        <li>• ReviByte Save sends URLs to third-party APIs to fetch media — we do not store those URLs.</li>
       </ul>
     </div>
 
@@ -61,6 +63,24 @@ const description = "Transparent privacy practices at ReviByte Opinion – we co
         <li>You can unsubscribe from notifications at any time through your browser settings.</li>
       </ul>
 
+      <h3 class="text-xl font-semibold mt-6 mb-3">Heliara AI</h3>
+      <ul class="mt-2">
+        <li>When you use Heliara AI, your messages are sent to <strong>Groq's API</strong> for processing. Groq may log requests per their own privacy policy.</li>
+        <li>ReviByte does <strong>not store</strong> your Heliara AI conversation history on any server.</li>
+        <li>Chat history exists only in your browser session memory and is cleared when you close or refresh the page.</li>
+        <li>Do not share sensitive personal information (passwords, financial details, ID numbers) with Heliara AI.</li>
+      </ul>
+
+      <h3 class="text-xl font-semibold mt-6 mb-3">ReviByte Save (Media Downloader)</h3>
+      <ul class="mt-2">
+        <li>RapidAPI — API gateway used by ReviByte Save to process media download 
+requests. URLs submitted are routed through RapidAPI's infrastructure. 
+ReviByte does not store submitted URLs or downloaded media.
+(privacy policy: https://rapidapi.com/privacy)</li>
+        <li>ReviByte does <strong>not store</strong> the URLs you submit or the media you download.</li>
+        <li>ReviByte Save is intended for personal use only. Users are responsible for ensuring they have rights to download any content.</li>
+      </ul>
+
       <h3 class="text-xl font-semibold mt-6 mb-3">If You Contact Us</h3>
       <ul class="mt-2">
         <li>Name and email address you provide</li>
@@ -78,6 +98,8 @@ const description = "Transparent privacy practices at ReviByte Opinion – we co
         <li>To display relevant advertisements (via Google AdSense)</li>
         <li>To send push notifications about new posts (only if you opted in)</li>
         <li>To count anonymous post views for editorial purposes</li>
+        <li>To process Heliara AI chat messages via Groq's API</li>
+        <li>To fetch media information via third-party APIs for ReviByte Save</li>
         <li>To reply to your emails or support requests</li>
       </ul>
     </section>
@@ -144,6 +166,17 @@ const description = "Transparent privacy practices at ReviByte Opinion – we co
           (<a href="https://supabase.com/privacy" target="_blank" rel="noopener" class="text-blue-600 hover:underline">privacy policy</a>)
         </li>
         <li>
+          <strong>Groq</strong> — AI inference for Heliara AI. Your chat messages are processed by Groq's servers. ReviByte does not store chat data.
+          (<a href="https://groq.com/privacy-policy/" target="_blank" rel="noopener" class="text-blue-600 hover:underline">privacy policy</a>)
+        </li>
+        <li>
+         <li>
+  <strong>RapidAPI</strong> — API gateway used by ReviByte Save to process 
+  media download requests. URLs you submit are routed through RapidAPI's 
+  infrastructure. ReviByte does not store submitted URLs or downloaded media.
+  (<a href="https://rapidapi.com/privacy" target="_blank" rel="noopener" class="text-blue-600 hover:underline">privacy policy</a>)
+</li>
+        <li>
           <strong>Microsoft Store / PWABuilder</strong> — ReviByte is listed as a Progressive Web App on the Microsoft Store
         </li>
       </ul>
@@ -169,7 +202,7 @@ const description = "Transparent privacy practices at ReviByte Opinion – we co
 
     <section class="mt-12">
       <h2 class="text-2xl font-semibold mb-4">7. Children's Privacy</h2>
-      <p>ReviByte Opinion is not intended for users under 13. We do not knowingly collect data from children. Gaming content on this site (COD Mobile, eFootball) is intended for general audiences and does not target minors.</p>
+      <p>ReviByte Opinion is not intended for users under 13. We do not knowingly collect data from children. Gaming content on this site (COD Mobile, eFootball) is intended for general audiences and does not target minors. Heliara AI and ReviByte Save are also not intended for users under 13.</p>
     </section>
 
     <section class="mt-12">
@@ -180,12 +213,14 @@ const description = "Transparent privacy practices at ReviByte Opinion – we co
         <li>Post view counts: indefinitely (anonymous, not linked to any identity)</li>
         <li>Emails/messages: kept only as long as needed</li>
         <li>Ad data: controlled by Google</li>
+        <li>Heliara AI chat messages: not stored by ReviByte — session only</li>
+        <li>ReviByte Save submitted URLs: not stored by ReviByte</li>
       </ul>
     </section>
 
     <section class="mt-12">
       <h2 class="text-2xl font-semibold mb-4">9. Security</h2>
-      <p>We use HTTPS encryption, security headers (X-Frame-Options, X-Content-Type-Options, Strict-Transport-Security), and rely on secure third-party platforms to protect any stored data. No sensitive personal data is stored on ReviByte's servers.</p>
+      <p>We use HTTPS encryption, security headers (X-Frame-Options, X-Content-Type-Options, Strict-Transport-Security), and rely on secure third-party platforms to protect any stored data. No sensitive personal data is stored on ReviByte's servers. Heliara AI and ReviByte Save API endpoints are server-side only — API keys are never exposed to the browser.</p>
     </section>
 
     <section class="mt-12">
@@ -201,7 +236,6 @@ const description = "Transparent privacy practices at ReviByte Opinion – we co
 </Layout>
 
 <style>
-  /* Light mode text */
   article.prose p,
   article.prose li,
   article.prose dd,
@@ -219,7 +253,6 @@ const description = "Transparent privacy practices at ReviByte Opinion – we co
     color: #006cac !important;
   }
 
-  /* Dark mode text */
   html[data-theme="dark"] article.prose p,
   html[data-theme="dark"] article.prose li,
   html[data-theme="dark"] article.prose dd,
