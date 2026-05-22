@@ -34,7 +34,7 @@ That's the filter I used building this list.
 The AI Apps Actually Worth Installing
 
 1. Claude (Anthropic)
-
+![Claude Android app chat interface showing a long-form response on a dark background](/assets/posts/claude-android-app.jpg)
 This goes first because it's where the most time gets saved — not because it's the flashiest, but because it handles the kind of tasks that actually take up your day.
 
 What separates Claude from the others isn't raw capability. It's how it handles complexity. Give it a meaty brief — a post outline, a technical argument to pressure-test, a concept that needs explaining without the textbook tone — and the response quality holds up in a way that others drop off. The Projects feature is the specific thing that changed my workflow: persistent context across multiple conversations, organized by topic, so you're not re-explaining your situation every session.
@@ -60,7 +60,7 @@ Where it loses to Claude: depth on complex written tasks. ChatGPT tends to smoot
 ---
 
 3. Perplexity AI
-
+![Perplexity AI Android app showing a search result with inline source citations](/assets/posts/perplexity-android.jpg)
 Search with citations. That's the pitch and it's mostly accurate.
 
 When writing a phone review or comparison — say, Snapdragon vs MediaTek — the problem with regular AI is hallucinated specifics that sound plausible until you check. Perplexity shows sources inline, right next to the claim. Click through, verify, move on. That's not a minor detail when the accuracy of your writing is the point.
@@ -82,7 +82,7 @@ The real limitations: conversational memory isn't as sticky as Claude's Projects
 ---
 
 5. Gemini (Google)
-
+![Gemini Android app showing the home screen with suggested prompts and Google integration indicators](/assets/posts/gemini-android.jpg)
 This one earns its spot purely on Android integration. Gemini is embedded in ways other AI apps can't match because it's Google — it can read your screen, pull from your Gmail, summarize your calendar, and respond in your notification shade. That level of OS-level access is genuinely different from an app you open separately.
 
 For pure conversation quality, I'd rank it below Claude and ChatGPT. But if your workflow lives in Google's ecosystem — Drive, Docs, Gmail — Gemini removes more friction than anything else on this list. The Gemini Advanced tier (bundled with Google One AI Premium) is where the serious features unlock, including the longer context window that makes document analysis actually useful.
