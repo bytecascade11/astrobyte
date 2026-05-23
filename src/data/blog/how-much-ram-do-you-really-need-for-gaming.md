@@ -1,7 +1,7 @@
 ---
 title: "How Much RAM Do You Really Need for Gaming?"
 description: "8GB, 16GB, 32GB — the spec sheet won't tell you what you need. Here's what actually matters when picking RAM for your gaming PC or laptop in 2026."
-coverImage: "/assets/posts/how-much-ram-gaming-cover.jpg"
+coverImage: /assets/posts/how-much-ram-gaming-cover.jpg
 coverImageAlt: "DDR5 RAM sticks installed in a gaming motherboard with RGB lighting"
 pubDatetime: "2026-05-23T13:55:00Z"
 tags: ["gaming", "pc", "hardware", "opinions"]
