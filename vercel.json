@@ -1,5 +1,4 @@
 {
-  "outputDirectory": "dist/client",
   "trailingSlash": true,
   "cleanUrls": false,
   "redirects": [
@@ -22,15 +21,6 @@
     "dangerouslyAllowSVG": false
   },
   "headers": [
-    {
-      "source": "/pagefind/(.*)",
-      "headers": [
-        {
-          "key": "Cache-Control",
-          "value": "public, max-age=0, must-revalidate"
-        }
-      ]
-    },
     {
       "source": "/(.*).html",
       "headers": [
