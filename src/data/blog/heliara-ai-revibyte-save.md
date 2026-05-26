@@ -68,7 +68,7 @@ Chat history lives only in your browser session and clears when you leave. Nothi
   
 ### What it is  
   
-ReviByte Save is a free media downloader tool suite. The first tool is a TikTok downloader at [revibyte.blog/save/tok/](/save-tok/). Paste a TikTok link, tap Download, choose between the video without watermark or the audio as an MP3. That's it.  
+ReviByte Save is a free media downloader tool suite. The first tool is a TikTok downloader at [revibyte.blog/save-tok/](/save-tok/). Paste a TikTok link, tap Download, choose between the video without watermark or the audio as an MP3. That's it.  
   
 No misleading buttons. No fake download prompts. No app install. Just paste and download.  
   
