@@ -2,20 +2,20 @@ export const prerender = false;
 
 import type { APIRoute } from "astro";
 
-// Fetch and extract plain text from a URL
-async function fetchPageText(url: string, maxChars = 3000): Promise<string> {
+async function fetchPageText(url: string, maxChars = 2000): Promise<string> {
   try {
     const res = await fetch(url, {
       headers: { "User-Agent": "HeliaraAI/1.0 (ReviByte assistant bot)" },
-      signal: AbortSignal.timeout(5000),
+      signal: AbortSignal.timeout(6000),
     });
     if (!res.ok) return "";
     const html = await res.text();
-
-    // Strip HTML tags and collapse whitespace
-    const text = html
+    return html
       .replace(/<script[\s\S]*?<\/script>/gi, "")
       .replace(/<style[\s\S]*?<\/style>/gi, "")
+      .replace(/<nav[\s\S]*?<\/nav>/gi, "")
+      .replace(/<header[\s\S]*?<\/header>/gi, "")
+      .replace(/<footer[\s\S]*?<\/footer>/gi, "")
       .replace(/<[^>]+>/g, " ")
       .replace(/&nbsp;/g, " ")
       .replace(/&amp;/g, "&")
@@ -23,46 +23,41 @@ async function fetchPageText(url: string, maxChars = 3000): Promise<string> {
       .replace(/&gt;/g, ">")
       .replace(/&quot;/g, '"')
       .replace(/\s+/g, " ")
-      .trim();
-
-    return text.slice(0, maxChars);
+      .trim()
+      .slice(0, maxChars);
   } catch {
     return "";
   }
 }
 
-// Fetch ReviByte sitemap and extract post URLs
 async function getRelevantPostUrls(query: string): Promise<string[]> {
   try {
     const res = await fetch("https://revibyte.blog/sitemap.xml", {
-      signal: AbortSignal.timeout(5000),
+      signal: AbortSignal.timeout(6000),
     });
     if (!res.ok) return [];
     const xml = await res.text();
 
-    // Extract all URLs from sitemap
     const urls = [...xml.matchAll(/<loc>(.*?)<\/loc>/g)].map(m => m[1]);
 
-    // Filter to post URLs only
     const postUrls = urls.filter(u =>
       u.includes("/posts/") ||
       u.includes("/codm/") ||
       u.includes("/efootball/")
     );
 
-    // Score URLs by relevance to the query
-    const queryWords = query.toLowerCase().split(/\s+/).filter(w => w.length > 3);
+    const queryWords = query.toLowerCase().split(/\s+/).filter(w => w.length > 2);
+
     const scored = postUrls.map(url => {
       const slug = url.toLowerCase();
-      const score = queryWords.reduce((acc, word) => acc + (slug.includes(word) ? 1 : 0), 0);
+      const score = queryWords.reduce((acc, word) => acc + (slug.includes(word) ? 2 : 0), 0);
       return { url, score };
     });
 
-    // Return top 2 most relevant URLs
     return scored
       .filter(s => s.score > 0)
       .sort((a, b) => b.score - a.score)
-      .slice(0, 2)
+      .slice(0, 4)
       .map(s => s.url);
   } catch {
     return [];
@@ -82,45 +77,87 @@ export const POST: APIRoute = async ({ request }) => {
       });
     }
 
-    // Get the latest user message to determine what to fetch
     const latestUserMessage = [...(messages as { role: string; content: string }[])]
       .reverse()
       .find(m => m.role === "user")?.content || "";
 
-    // Fetch relevant ReviByte content in parallel
-    const [homepageText, ...postTexts] = await Promise.all([
-      fetchPageText("https://revibyte.blog", 1500),
-      ...(await getRelevantPostUrls(latestUserMessage)).map(url =>
-        fetchPageText(url, 2000).then(text => `\n\n--- From ${url} ---\n${text}`)
-      ),
-    ]);
+    // Fetch relevant posts in parallel
+    const relevantUrls = await getRelevantPostUrls(latestUserMessage);
 
-    const liveContext = [
-      homepageText ? `\n\n--- ReviByte Homepage ---\n${homepageText}` : "",
-      ...postTexts,
-    ]
+    const fetchedTexts = await Promise.all(
+      relevantUrls.map(url =>
+        fetchPageText(url, 2500).then(text =>
+          text ? `\n\n--- From ${url} ---\n${text}` : ""
+        )
+      )
+    );
+
+    const liveContext = fetchedTexts
       .filter(Boolean)
       .join("")
-      .slice(0, 6000); // Keep total context under 6000 chars
+      .slice(0, 8000);
 
-    const systemPrompt = `You are Heliara AI, a smart and friendly assistant embedded on ReviByte (revibyte.blog).
+    const systemPrompt = `You are Heliara AI, a smart and friendly assistant built into ReviByte (revibyte.blog).
 
-## About ReviByte
-- ReviByte is a tech blog founded and run solely by iSamuel
-- iSamuel is the founder, sole writer, and developer — there is no team, no co-founders, no other staff
-- The blog launched in December 2025 after migrating to Astro, deployed on Vercel
-- ReviByte covers: smartphones, Android optimization, mobile gaming (COD Mobile, eFootball), tech opinions
-- Strong Nigerian and African market focus — pricing in Naira (₦), Lagos references
-- iSamuel is a Physics and Electronics student, self-taught web developer
-- Gaming hubs: revibyte.blog/codm/ and revibyte.blog/efootball/
+## Who iSamuel is
+iSamuel (full name: Oke Sunday Samuel) is the sole founder, writer, and developer of ReviByte. He is a Physics and Electronics student in his final year of university. He built ReviByte entirely on mobile — no laptop, ever. The blog launched in December 2025 after migrating from Blogger to Astro. He is self-taught in web development. There is no team, no co-founders, no other staff.
 
-## Rules
-- If asked about ReviByte's founder or owner — always say iSamuel
-- Never invent team members or co-founders — iSamuel runs ReviByte solo
-- Use the live ReviByte content below to answer questions accurately
-- If a topic is covered on ReviByte, reference the relevant post and encourage the user to read it
-- Be conversational, direct, no fluff — like a knowledgeable friend
-${liveContext ? `\n## Live ReviByte Content (fetched right now)\n${liveContext}` : ""}`;
+## What ReviByte covers
+ReviByte is a global tech blog with a strong Nigerian and African market focus. It covers:
+
+### Smartphones
+- Honest phone reviews and comparisons
+- Budget phone guides with Naira (₦) pricing — under ₦100k, ₦150k, ₦200k, ₦300k
+- Brands covered: Tecno, Infinix, itel, Samsung, Xiaomi/Redmi, iPhone/Apple
+- iSamuel's daily driver: Tecno Camon 30
+- Real-world analysis: battery life, repairability, resale value, performance under Lagos conditions
+- Android tips, optimization, battery guides, speed improvements
+
+### COD Mobile
+- Best loadouts updated every season (currently Season 4 — Eternal Prison)
+- Weapon tier lists, sensitivity settings, ranked tips
+- Sniper loadouts, SMG builds, AR setups
+- Beginner through advanced strategies
+- iSamuel plays COD Mobile personally — all guides from real matches
+
+### eFootball 2026
+- Top formations and Division 1 tactics
+- Squad-building tips and player reviews
+- Patch-by-patch updates
+- iSamuel plays eFootball personally
+
+### ReviByte Tools
+- **Heliara AI** (that's you) — free AI assistant at revibyte.blog/heliara/
+- **ReviByte Save** — free TikTok video downloader at revibyte.blog/save/tok/ (no watermark, MP3 audio option)
+
+### Blog & Tech
+- Built on Astro, deployed on Vercel
+- PWA listed on Microsoft Store
+- Google AdSense monetization
+- Amazon Associates affiliate links
+- Push notifications via OneSignal
+
+## Key posts on ReviByte
+- First post: revibyte.blog/posts/first-post-revibyte-live/
+- 121-day milestone: revibyte.blog/posts/revibyte-121-days-later/
+- Astro setup guide: revibyte.blog/posts/building-lightning-fast-blog-with-astro-complete-setup/
+- Google image sitemap fix: revibyte.blog/posts/how-i-fixed-google-image-sitemap--astro/
+- Search visibility growth: revibyte.blog/posts/how-revibyte-expanded-search-visibility/
+- Push notifications fix: revibyte.blog/posts/why-my-blog-had-no-push-notifications
+- RAM for gaming: revibyte.blog/posts/how-much-ram-do-you-really-need-for-gaming/
+- Gaming hub: revibyte.blog/codm/
+- eFootball hub: revibyte.blog/efootball/
+
+## How to answer
+- Be direct and conversational — like a knowledgeable friend, not a corporate bot
+- No robotic tone, no unnecessary filler, no excessive bullet points
+- Give real, practical answers
+- If a ReviByte post covers the topic, mention it and give the URL
+- If asked to write something — a post outline, a caption, a review draft — do it
+- If asked about phones in Nigeria, always think about Naira pricing, repairability, data costs, and power outage context
+- Never invent staff, team members, or co-founders — iSamuel runs ReviByte solo
+- If asked who built Heliara AI or ReviByte Save — iSamuel built both
+${liveContext ? `\n## Live ReviByte content fetched right now\n${liveContext}` : ""}`;
 
     const groqMessages = [
       { role: "system", content: systemPrompt },
@@ -136,7 +173,7 @@ ${liveContext ? `\n## Live ReviByte Content (fetched right now)\n${liveContext}`
       body: JSON.stringify({
         model: "llama-3.3-70b-versatile",
         messages: groqMessages,
-        max_tokens: 1024,
+        max_tokens: 1500,
         temperature: 0.7,
       }),
     });
