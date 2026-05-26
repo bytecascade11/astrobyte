@@ -109,7 +109,7 @@ The AI question, the 404 errors, the Gemini rate limits, the Tailwind color wars
   
 That's still the only way I know how to build things. [Same approach that went into the Astro setup from day one](/posts/building-lightning-fast-blog-with-astro-complete-setup/).  
   
-Heliara AI is live on every page. ReviByte Save is at [/save/tok/](/save/tok/). Both are free, both require nothing from you to use.  
+Heliara AI is live on every page. ReviByte Save is at [/save-tok/](/save-tok/). Both are free, both require nothing from you to use.  
   
 162 days down.  
   
