@@ -2,7 +2,7 @@
 title: "CODM Season 5 'Revenge' Is Now Live – Everything That Dropped With the Update"
 description: "CODM Season 5 Revenge is live. Here's a full breakdown of The Boys crossover, Armored Royale, the BAL-27, Battle Pass rewards, and everything else that hit the game on May 27."
 author: iSamuel
-pubDatetime: "2026-06-1T01:44:00Z"
+pubDatetime: 2026-06-1T01:44:00Z
 lastUpdated: "2026-06-01"
 coverImage: "/assets/codm/codm-season-5-revenge-2026.jpg"
 coverImageAlt: "COD Mobile Season 5 Revenge key art featuring The Boys crossover and Armored Royale"
