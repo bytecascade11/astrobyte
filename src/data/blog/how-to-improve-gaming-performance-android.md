@@ -67,7 +67,7 @@ There are a few angles to work here:
   
 ---  
     
-![Android Developer Options settings for gaming](/assets/posts/android-gaming-perf-dev-options.jpg)  
+![Android Developer Options settings for gaming](/assets/posts/android-gaming-perf-thermal.jpg)  
   
 ---  
   
