@@ -1,5 +1,5 @@
 ---  
-topic: "itel City 200 Review: Is It Worth Buying in 2026?"  
+title: "itel City 200 Review: Is It Worth Buying in 2026?"  
 description: "The itel City 200 packs a 120Hz display, 50MP camera, IP65 rating, and AI features into a slim ₦150,000 body — but an entry-level chipset raises one question: upgrade or skip?"  
 pubDatetime: 2026-06-02T17:35:00Z  
 tags:  
