@@ -7,8 +7,8 @@ tags:
   - android 
   - reviews 
   - opinions 
-author: iSamuel  
-coverImage: /assets/posts/itel-city-200-review-cover.jpg  
+author: "iSamuel"
+coverImage: "/assets/posts/itel-city-200-review-cover.jpg"
 coverImageAlt: "itel City 200 review — budget Android phone 2026"
 ---  
 
