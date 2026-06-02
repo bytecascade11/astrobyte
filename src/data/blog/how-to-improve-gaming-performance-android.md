@@ -4,7 +4,7 @@ description: "Your Android can run better games than it does right now. No root 
 coverImage: "/assets/posts/android-gaming-performance-cover.jpg"
 coverImageAlt: "Android gaming performance optimization guide showing gameplay and FPS monitoring"
 author: iSamuel  
-published: 2026-06-02T15:25:00.000Z  
+pubDatetime: 2026-06-02T15:25:00.000Z  
 tags: ["android", "games", "performance", "opinions"]  
 type: "guide"  
 relatedSlugs:  
