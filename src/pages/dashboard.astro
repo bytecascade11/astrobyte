@@ -33,9 +33,29 @@ const yesterday = new Date(Date.now() - 86400000).toISOString().slice(0, 10);
 const todayCount = totals.find(r => r.visit_date === today)?.total_visitors ?? 0;
 const yesterdayCount = totals.find(r => r.visit_date === yesterday)?.total_visitors ?? 0;
 
+// ── ADD THESE LINES ──
+let trend = null;
+if (yesterdayCount > 0) {
+  trend = (((todayCount - yesterdayCount) / yesterdayCount) * 100).toFixed(1);
+} else if (todayCount > 0) {
+  trend = "100.0";
+}
+
+const avgDaily = totals.length > 0
+  ? Math.round(totals.reduce((a, b) => a + b.total_visitors, 0) / totals.length)
+  : 0;
+
+const peak = totals.length > 0
+  ? totals.reduce((a, b) => a.total_visitors > b.total_visitors ? a : b)
+  : { date: "-", count: 0 };
+
+const totalLast30 = totals.reduce((a, b) => a + b.total_visitors, 0);
+// ── END ADD ──
+
 const chartLabels = JSON.stringify(totals.map(r => r.visit_date.slice(5)));
 const chartValues = JSON.stringify(totals.map(r => r.total_visitors));
 ---
+
 <!DOCTYPE html>  
 <html lang="en">  
 <head>  
