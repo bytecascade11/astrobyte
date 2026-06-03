@@ -13,6 +13,7 @@ import BackToTopButton from "@/components/BackToTopButton.astro";
 import RelatedPosts from "@/components/RelatedPosts.astro";
 import Comments from "@/components/Comments.astro";
 import SchemaMarkup from "@/components/SchemaMarkup.astro";
+import Comments from "@/components/Comments.astro";
 
 import { getPath } from "@/utils/getPath";
 import { slugifyStr } from "@/utils/slugify";
@@ -276,7 +277,7 @@ const postSlug = post.id;
 
     <RelatedPosts currentPost={post} allPosts={posts} limit={3} />
 
-    <Comments />
+    <Comments slug={post.slug} />
 
   </main>
 
