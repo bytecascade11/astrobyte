@@ -446,19 +446,19 @@ const currentPath = Astro.url.pathname;
       });
     </script>
 
-<script>
-  if (document.visibilityState === "visible") {
+<script is:inline>
+  (function() {
+    if (window.__revibyteTracked) return;
+    window.__revibyteTracked = true;
+
     fetch("/api/track-visit/", {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      }
-    }).catch((err) => {
-      console.log("Track visit failed:", err);
-    });
-  }
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({}),
+      keepalive: true,
+    }).catch(function() {});
+  })();
 </script>
-
     <slot />
   </body>
 </html>
