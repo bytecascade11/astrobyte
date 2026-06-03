@@ -446,6 +446,13 @@ const currentPath = Astro.url.pathname;
       });
     </script>
 
+<script>
+  // Only track real page loads, not prefetches
+  if (document.visibilityState !== "prerender") {
+    fetch("/api/track-visit", { method: "POST" }).catch(() => {});
+  }
+</script>
+
     <slot />
   </body>
 </html>
