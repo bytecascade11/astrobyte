@@ -5,6 +5,7 @@ import type { CollectionEntry } from "astro:content";
 import Layout from "@/layouts/Layout.astro";
 import SchemaMarkup from "@/components/SchemaMarkup.astro";
 import { SITE } from "@/config";
+import Comments from "@/components/Comments.astro";
 
 export async function getStaticPaths() {
   const guides = await getCollection("codm", ({ data }) => !data.draft);
@@ -208,22 +209,7 @@ const shareTitle = guide.data.title;
   </main>
 </Layout>
 
-<script src="https://giscus.app/client.js"
-        data-repo="bytecascade11/astrobyte"
-        data-repo-id="R_kgDOQobjBQ"
-        data-category="Announcements"
-        data-category-id="DIC_kwDOQobjBc4C0Dd4"
-        data-mapping="pathname"
-        data-strict="0"
-        data-reactions-enabled="1"
-        data-emit-metadata="0"
-        data-input-position="bottom"
-        data-theme="preferred_color_scheme"
-        data-lang="en"
-        data-loading="lazy"
-        crossorigin="anonymous"
-        async>
-</script>
+<Comments slug={postSlug} />
 
 <!-- ✅ Supabase view counter — same as PostDetails.astro -->
 <script is:inline define:vars={{ postSlug }}>
