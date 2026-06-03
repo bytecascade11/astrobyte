@@ -18,7 +18,7 @@ import vercel from '@astrojs/vercel';
 
 export default defineConfig({
   site: SITE.website,
-  output: "hybrid",  // ← add this line
+
   adapter: vercel(),
 
   trailingSlash: "always",   // Enforces with-trailing-slash
