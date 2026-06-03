@@ -447,11 +447,15 @@ const currentPath = Astro.url.pathname;
     </script>
 
 <script>
-  if (document.visibilityState !== "prerender") {
-    fetch("https://www.revibyte.blog/api/track-visit/", { 
+  if (document.visibilityState === "visible") {
+    fetch("/api/track-visit/", {
       method: "POST",
-      headers: { "Content-Type": "application/json" }
-    }).catch(() => {});
+      headers: {
+        "Content-Type": "application/json"
+      }
+    }).catch((err) => {
+      console.log("Track visit failed:", err);
+    });
   }
 </script>
 
