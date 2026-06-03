@@ -1,38 +1,80 @@
----  
-// src/pages/dashboard.astro  
-// Your private daily visitor dashboard.  
-// Protect this page — add a password check or keep the URL secret.  
-  
-import { createClient } from "@supabase/supabase-js";  
-  
-const supabase = createClient(  
-  import.meta.env.PUBLIC_SUPABASE_URL,  
-  import.meta.env.SUPABASE_SERVICE_ROLE_KEY  
-);  
-  
-// Fetch last 30 days of totals  
-const { data: rows } = await supabase  
-  .from("daily_visitor_totals")  
-  .select("visit_date, total_visitors")  
-  .order("visit_date", { ascending: true })  
-  .limit(30);  
-  
-const totals = rows ?? [];  
-  
-// Summary stats  
-const today = new Date().toISOString().slice(0, 10);  
-const todayCount = totals.find((r) => r.visit_date === today)?.total_visitors ?? 0;  
-const yesterday = new Date(Date.now() - 86400000).toISOString().slice(0, 10);  
-const yesterdayCount = totals.find((r) => r.visit_date === yesterday)?.total_visitors ?? 0;  
-const totalLast30 = totals.reduce((s, r) => s + r.total_visitors, 0);  
-const avgDaily = totals.length ? Math.round(totalLast30 / totals.length) : 0;  
-const peak = totals.reduce((m, r) => (r.total_visitors > m.count ? { date: r.visit_date, count: r.total_visitors } : m), { date: "-", count: 0 });  
-const trend = yesterdayCount > 0 ? (((todayCount - yesterdayCount) / yesterdayCount) * 100).toFixed(1) : null;  
-  
-const chartLabels = JSON.stringify(totals.map((r) => r.visit_date.slice(5)));   // "MM-DD"  
-const chartValues = JSON.stringify(totals.map((r) => r.total_visitors));  
----  
-  
+---
+// src/pages/dashboard.astro
+
+import { createClient } from "@supabase/supabase-js";
+
+const supabase = createClient(
+  import.meta.env.PUBLIC_SUPABASE_URL,
+  import.meta.env.SUPABASE_SERVICE_ROLE_KEY
+);
+
+// Fetch raw visitor logs
+const { data } = await supabase
+  .from("daily_visitors")
+  .select("visit_date");
+
+const rows = data ?? [];
+
+// GROUP BY DATE (create daily totals in memory)
+const map = new Map();
+
+for (const row of rows) {
+  if (!row?.visit_date) continue;
+
+  map.set(
+    row.visit_date,
+    (map.get(row.visit_date) || 0) + 1
+  );
+}
+
+const totals = Array.from(map.entries())
+  .map(([visit_date, total_visitors]) => ({
+    visit_date,
+    total_visitors,
+  }))
+  .sort((a, b) => a.visit_date.localeCompare(b.visit_date));
+
+
+// Summary stats
+const today = new Date().toISOString().slice(0, 10);
+const yesterday = new Date(Date.now() - 86400000).toISOString().slice(0, 10);
+
+const todayCount =
+  totals.find((r) => r.visit_date === today)?.total_visitors ?? 0;
+
+const yesterdayCount =
+  totals.find((r) => r.visit_date === yesterday)?.total_visitors ?? 0;
+
+const totalLast30 = totals.reduce(
+  (s, r) => s + r.total_visitors,
+  0
+);
+
+const avgDaily = totals.length
+  ? Math.round(totalLast30 / totals.length)
+  : 0;
+
+const peak = totals.reduce(
+  (m, r) =>
+    r.total_visitors > m.count
+      ? { date: r.visit_date, count: r.total_visitors }
+      : m,
+  { date: "-", count: 0 }
+);
+
+const trend =
+  yesterdayCount > 0
+    ? (((todayCount - yesterdayCount) / yesterdayCount) * 100).toFixed(1)
+    : null;
+
+const chartLabels = JSON.stringify(
+  totals.map((r) => r.visit_date.slice(5))
+);
+
+const chartValues = JSON.stringify(
+  totals.map((r) => r.total_visitors)
+);
+---
 <!DOCTYPE html>  
 <html lang="en">  
 <head>  
