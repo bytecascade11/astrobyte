@@ -304,8 +304,8 @@ const chartValues = JSON.stringify(totals.map(r => r.total_visitors));
   
       <div class="card peak">  
         <div class="card-label">Peak Day</div>  
-        <div class="card-value">{peak.count}</div>  
-        <div class="card-sub">{peak.date !== "-" ? peak.date.slice(5) : "—"}</div>  
+        <div class="card-value">{peak.total_visitors ?? 0}</div>
+       <div class="card-sub">{peak.visit_date ? peak.visit_date.slice(5) : "—"}</div>  
       </div>  
   
       <div class="card total">  
