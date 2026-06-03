@@ -259,13 +259,19 @@ const chartValues = JSON.stringify(totals.map(r => r.total_visitors));
       <div class="card today">  
         <div class="card-label">Today</div>  
         <div class="card-value">{todayCount}</div>  
-        <div class="card-sub">  
-          {trend !== null  
-            ? trend >= "0"  
-              ? <span class="trend-up">▲ {trend}% vs yesterday</span>  
-              : <span class="trend-down">▼ {Math.abs(Number(trend))}% vs yesterday</span>  
-            : "no data yet"}  
-        </div>  
+        <div class="card-sub">
+  {trend !== null ? (
+    Number(trend) >= 0 ? (
+      <span class="trend-up">▲ {trend}% vs yesterday</span>
+    ) : (
+      <span class="trend-down">
+        ▼ {Math.abs(Number(trend))}% vs yesterday
+      </span>
+    )
+  ) : (
+    "no data yet"
+  )}
+</div>
       </div>  
   
       <div class="card avg">  
