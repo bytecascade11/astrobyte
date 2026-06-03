@@ -5,6 +5,7 @@ const getRobotsTxt = (sitemapURL: string) => `
 User-agent: *
 Allow: /
 Disallow: /search/
+Disallow: /dashboard/
 
 Sitemap: ${sitemapURL}
 `.trim();
