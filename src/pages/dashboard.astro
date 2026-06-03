@@ -11,27 +11,24 @@ const supabase = createClient(
 // Fetch raw visitor logs
 const { data } = await supabase
   .from("daily_visitors")
-  .select("visit_date");
+  .select("created_at");
 
 const rows = data ?? [];
 
-// GROUP BY DATE (create daily totals in memory)
 const map = new Map();
 
-for (const row of rows) {
-  if (!row?.visit_date) continue;
+for (const r of rows) {
+  if (!r.created_at) continue;
 
-  map.set(
-    row.visit_date,
-    (map.get(row.visit_date) || 0) + 1
-  );
+  const date = new Date(r.created_at).toISOString().slice(0, 10);
+
+  map.set(date, (map.get(date) || 0) + 1);
 }
 
-const totals = Array.from(map.entries())
-  .map(([visit_date, total_visitors]) => ({
-    visit_date,
-    total_visitors,
-  }))
+const totals = Array.from(map.entries()).map(([visit_date, total_visitors]) => ({
+  visit_date,
+  total_visitors,
+}));
   .sort((a, b) => a.visit_date.localeCompare(b.visit_date));
 
 
