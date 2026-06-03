@@ -15,6 +15,7 @@ type Props = {
   pubDatetime?: Date;
   modDatetime?: Date | null;
   scrollSmooth?: boolean;
+  coverImage?: string; // ← NEW: absolute URL for LCP preload
 };
 
 const {
@@ -26,6 +27,7 @@ const {
   pubDatetime,
   modDatetime,
   scrollSmooth = false,
+  coverImage, // ← NEW
 } = Astro.props;
 
 const siteBase = SITE.website || "https://www.revibyte.blog/";
@@ -73,6 +75,11 @@ const currentPath = Astro.url.pathname;
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
     <meta name="apple-mobile-web-app-title" content="ReviByte" />
+
+    <!-- ↓ LCP cover image preload — fires immediately with first HTML byte -->
+    {coverImage && (
+      <link rel="preload" as="image" href={coverImage} fetchpriority="high" />
+    )}
 
     <style>
       *, *::before, *::after { box-sizing: border-box; }
@@ -246,24 +253,24 @@ const currentPath = Astro.url.pathname;
         </script>
 
         <!-- PWA Detection -->
-<script is:inline>
-  window.addEventListener('load', function() {
-    setTimeout(function() {
-      if (window.matchMedia('(display-mode: standalone)').matches) {
-        if (typeof gtag !== 'undefined') {
-          gtag('event', 'pwa_visit', {
-            'event_category': 'PWA',
-            'event_label': 'standalone_mode'
+        <script is:inline>
+          window.addEventListener('load', function() {
+            setTimeout(function() {
+              if (window.matchMedia('(display-mode: standalone)').matches) {
+                if (typeof gtag !== 'undefined') {
+                  gtag('event', 'pwa_visit', {
+                    'event_category': 'PWA',
+                    'event_label': 'standalone_mode'
+                  });
+                } else {
+                  console.log('gtag not found');
+                }
+              } else {
+                console.log('not standalone mode');
+              }
+            }, 2000);
           });
-        } else {
-          console.log('gtag not found');
-        }
-      } else {
-        console.log('not standalone mode');
-      }
-    }, 2000);
-  });
-</script>
+        </script>
       </>
     )}
 
@@ -292,10 +299,11 @@ const currentPath = Astro.url.pathname;
     }
     </script>
   </head>
-<HeliaraAI />
   <body>
-    <!-- OneSignal SDK — must be in <body> for v16, no defer -->
-    <script is:inline src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js"></script>
+    <HeliaraAI />
+
+    <!-- OneSignal SDK — defer is safe with OneSignalDeferred queue -->
+    <script is:inline defer src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js"></script>
 
     <!-- PWA Top Bar -->
     <div class="pwa-topbar" id="pwaTopbar">
@@ -432,53 +440,10 @@ const currentPath = Astro.url.pathname;
           });
 
           console.log("OneSignal initialized successfully");
-          var supported = OneSignal.Notifications.isPushSupported();
-          console.log("Push supported:", supported);
-          var permission = OneSignal.Notifications.permission;
-          console.log("Current permission:", permission);
-
-        } catch (err) {
-          console.error("OneSignal init failed:", err);
+        } catch (e) {
+          console.error("OneSignal init error:", e);
         }
       });
-    </script>
-
-    <!-- PWA Install Banner Script -->
-    <script is:inline>
-      window.addEventListener('beforeinstallprompt', function (e) {
-        e.preventDefault();
-        window._deferredPrompt = e;
-        var banner = document.getElementById('installBanner');
-        if (banner) banner.style.display = 'flex';
-      });
-
-      function installApp() {
-        if (window._deferredPrompt) {
-          window._deferredPrompt.prompt();
-          window._deferredPrompt.userChoice.then(function () {
-            window._deferredPrompt = null;
-            var banner = document.getElementById('installBanner');
-            if (banner) banner.style.display = 'none';
-          });
-        } else {
-          var banner = document.getElementById('installBanner');
-          if (banner) banner.style.display = 'none';
-        }
-      }
-    </script>
-
-    <script type="speculationrules" is:inline>
-    {
-      "prefetch": [{
-        "where": {
-          "and": [
-            { "href_matches": "/*" },
-            { "not": { "href_matches": "/logout" } }
-          ]
-        },
-        "eagerness": "moderate"
-      }]
-    }
     </script>
 
     <slot />
