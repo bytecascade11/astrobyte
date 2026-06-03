@@ -1,53 +1,47 @@
--- Run this in your Supabase SQL Editor
+// src/pages/api/track-visit.ts
+// Called on every page load to log a unique daily visitor.
+// Uses a hashed fingerprint (IP + UA) — no PII stored.
 
--- Table to store one record per visitor per day
-CREATE TABLE IF NOT EXISTS daily_visitors (
-  id bigint GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-  visit_date date NOT NULL DEFAULT CURRENT_DATE,
-  visitor_hash text NOT NULL,         -- hashed IP so no PII stored
-  created_at timestamptz DEFAULT now()
+import type { APIRoute } from "astro";
+import { createClient } from "@supabase/supabase-js";
+import { createHash } from "crypto";
+
+const supabase = createClient(
+  import.meta.env.PUBLIC_SUPABASE_URL,
+  import.meta.env.SUPABASE_SERVICE_ROLE_KEY // use service role so RLS insert works
 );
 
--- Unique constraint: one record per visitor per day
-CREATE UNIQUE INDEX IF NOT EXISTS daily_visitors_unique
-  ON daily_visitors (visit_date, visitor_hash);
+export const POST: APIRoute = async ({ request }) => {
+  try {
+    // Build a privacy-safe fingerprint from IP + User-Agent
+    const ip =
+      request.headers.get("x-forwarded-for")?.split(",")[0].trim() ||
+      request.headers.get("cf-connecting-ip") ||
+      "unknown";
+    const ua = request.headers.get("user-agent") || "unknown";
 
--- Table to store the daily totals (easier to query for dashboard)
-CREATE TABLE IF NOT EXISTS daily_visitor_totals (
-  visit_date date PRIMARY KEY,
-  total_visitors integer NOT NULL DEFAULT 0,
-  updated_at timestamptz DEFAULT now()
-);
+    // Hash it — we never store the raw IP
+    const visitorHash = createHash("sha256")
+      .update(`${ip}:${ua}`)
+      .digest("hex")
+      .slice(0, 32); // 32 chars is enough
 
--- Enable RLS
-ALTER TABLE daily_visitors ENABLE ROW LEVEL SECURITY;
-ALTER TABLE daily_visitor_totals ENABLE ROW LEVEL SECURITY;
+    const today = new Date().toISOString().slice(0, 10); // "YYYY-MM-DD"
 
--- Allow anonymous inserts (for tracking) and reads (for dashboard)
-CREATE POLICY "Allow insert" ON daily_visitors FOR INSERT WITH CHECK (true);
-CREATE POLICY "Allow read totals" ON daily_visitor_totals FOR ALL USING (true);
-CREATE POLICY "Allow upsert totals" ON daily_visitor_totals FOR INSERT WITH CHECK (true);
+    // Upsert: if this visitor already logged today, do nothing (conflict ignored)
+    const { error } = await supabase.from("daily_visitors").upsert(
+      {
+        visit_date: today,
+        visitor_hash: visitorHash,
+      },
+      { onConflict: "visit_date,visitor_hash", ignoreDuplicates: true }
+    );
 
--- Function to upsert totals after each visit insert
-CREATE OR REPLACE FUNCTION update_daily_totals()
-RETURNS TRIGGER AS $$
-BEGIN
-  INSERT INTO daily_visitor_totals (visit_date, total_visitors, updated_at)
-  VALUES (NEW.visit_date, 1, now())
-  ON CONFLICT (visit_date)
-  DO UPDATE SET
-    total_visitors = (
-      SELECT COUNT(DISTINCT visitor_hash)
-      FROM daily_visitors
-      WHERE visit_date = NEW.visit_date
-    ),
-    updated_at = now();
-  RETURN NEW;
-END;
-$$ LANGUAGE plpgsql SECURITY DEFINER;
+    if (error) throw error;
 
--- Attach trigger
-DROP TRIGGER IF EXISTS on_visit_insert ON daily_visitors;
-CREATE TRIGGER on_visit_insert
-  AFTER INSERT ON daily_visitors
-  FOR EACH ROW EXECUTE FUNCTION update_daily_totals();
+    return new Response(JSON.stringify({ ok: true }), { status: 200 });
+  } catch (err) {
+    console.error("track-visit error:", err);
+    return new Response(JSON.stringify({ ok: false }), { status: 500 });
+  }
+};
