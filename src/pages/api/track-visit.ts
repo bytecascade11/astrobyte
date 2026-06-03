@@ -1,39 +1,32 @@
-// src/pages/api/track-visit.ts
-// Called on every page load to log a unique daily visitor.
-// Uses a hashed fingerprint (IP + UA) — no PII stored.
-
 import type { APIRoute } from "astro";
 import { createClient } from "@supabase/supabase-js";
-import { createHash } from "crypto";
 
 const supabase = createClient(
   import.meta.env.PUBLIC_SUPABASE_URL,
-  import.meta.env.SUPABASE_SERVICE_ROLE_KEY // use service role so RLS insert works
+  import.meta.env.SUPABASE_SERVICE_ROLE_KEY
 );
 
 export const POST: APIRoute = async ({ request }) => {
   try {
-    // Build a privacy-safe fingerprint from IP + User-Agent
     const ip =
       request.headers.get("x-forwarded-for")?.split(",")[0].trim() ||
       request.headers.get("cf-connecting-ip") ||
       "unknown";
     const ua = request.headers.get("user-agent") || "unknown";
 
-    // Hash it — we never store the raw IP
-    const visitorHash = createHash("sha256")
-      .update(`${ip}:${ua}`)
-      .digest("hex")
-      .slice(0, 32); // 32 chars is enough
+    // Simple hash without crypto module
+    const raw = `${ip}:${ua}`;
+    let hash = 0;
+    for (let i = 0; i < raw.length; i++) {
+      hash = (hash << 5) - hash + raw.charCodeAt(i);
+      hash |= 0;
+    }
+    const visitorHash = Math.abs(hash).toString(36);
 
-    const today = new Date().toISOString().slice(0, 10); // "YYYY-MM-DD"
+    const today = new Date().toISOString().slice(0, 10);
 
-    // Upsert: if this visitor already logged today, do nothing (conflict ignored)
     const { error } = await supabase.from("daily_visitors").upsert(
-      {
-        visit_date: today,
-        visitor_hash: visitorHash,
-      },
+      { visit_date: today, visitor_hash: visitorHash },
       { onConflict: "visit_date,visitor_hash", ignoreDuplicates: true }
     );
 
