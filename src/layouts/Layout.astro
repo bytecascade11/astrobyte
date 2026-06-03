@@ -447,9 +447,11 @@ const currentPath = Astro.url.pathname;
     </script>
 
 <script>
-  // Only track real page loads, not prefetches
   if (document.visibilityState !== "prerender") {
-    fetch("/api/track-visit", { method: "POST" }).catch(() => {});
+    fetch("https://www.revibyte.blog/api/track-visit/", { 
+      method: "POST",
+      headers: { "Content-Type": "application/json" }
+    }).catch(() => {});
   }
 </script>
 
