@@ -1,13 +1,15 @@
 
-# Create all the fixed files for the visitor tracking system
+# Write all files with clean encoding (no BOM, UTF-8)
 
-# 1. Fixed API route - /api/track-visit.ts
-api_track_visit = '''import type { APIRoute } from "astro";
+import os
+os.makedirs('/mnt/agents/output', exist_ok=True)
+
+# 1. API Route
+api_track_visit = b'''import type { APIRoute } from "astro";
 import { createClient } from "@supabase/supabase-js";
 
 export const prerender = false;
 
-// Shared tracking logic
 async function trackVisit(request: Request) {
   const url = import.meta.env.PUBLIC_SUPABASE_URL;
   const key = import.meta.env.SUPABASE_SERVICE_ROLE_KEY;
@@ -18,7 +20,6 @@ async function trackVisit(request: Request) {
 
   const supabase = createClient(url, key);
 
-  // Get IP safely
   const ip =
     request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ||
     request.headers.get("cf-connecting-ip") ||
@@ -27,8 +28,6 @@ async function trackVisit(request: Request) {
 
   const ua = request.headers.get("user-agent") || "unknown";
 
-  // Use raw string as hash (more reliable than custom hash, avoids collisions)
-  // Truncate to avoid extremely long strings but keep uniqueness
   const raw = `${ip}:${ua}`;
   const visitorHash = raw.length > 255 ? raw.slice(0, 255) : raw;
 
@@ -53,7 +52,6 @@ async function trackVisit(request: Request) {
   return { ok: true, ip, date: today };
 }
 
-// GET - also counts visits (for img pixel / direct hits)
 export const GET: APIRoute = async ({ request }) => {
   try {
     const result = await trackVisit(request);
@@ -79,7 +77,6 @@ export const GET: APIRoute = async ({ request }) => {
   }
 };
 
-// POST - counts visits (for fetch calls)
 export const POST: APIRoute = async ({ request }) => {
   try {
     const result = await trackVisit(request);
@@ -106,51 +103,43 @@ export const POST: APIRoute = async ({ request }) => {
 };
 '''
 
-# 2. Tracking pixel component - TrackVisit.astro
-track_visit_component = '''---
+# 2. TrackVisit Component
+track_visit = b'''---
 // src/components/TrackVisit.astro
 // Add this to your layout or pages to track visits
 ---
 
 <script is:inline>
   (function() {
-    // Prevent double-counting on same page session
     if (window.__revibyteTracked) return;
     window.__revibyteTracked = true;
 
-    // Use sendBeacon for reliable tracking on page unload
-    // Fallback to fetch for browsers without sendBeacon
     const track = function() {
-      const url = '/api/track-visit/';
-      const data = new Blob([], { type: 'application/json' });
+      const url = "/api/track-visit/";
+      const data = new Blob([], { type: "application/json" });
 
       if (navigator.sendBeacon) {
         navigator.sendBeacon(url, data);
       } else {
         fetch(url, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: '{}',
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: "{}",
           keepalive: true,
         }).catch(function() {});
       }
     };
 
-    // Track immediately
     track();
   })();
 </script>
-
-<!-- Alternative: 1x1 tracking pixel for no-JS environments -->
-<!-- <img src="/api/track-visit/" width="1" height="1" style="position:absolute;opacity:0;pointer-events:none;" alt="" /> -->
 '''
 
-# 3. Fixed Dashboard - dashboard.astro
-# This queries daily_visitors directly and aggregates on-the-fly
-dashboard = '''---
+# 3. Dashboard
+dashboard = b'''---
 // src/pages/dashboard.astro
 // Your private daily visitor dashboard.
-// Protect this page — add a password check or keep the URL secret.
+// Protect this page -- add a password check or keep the URL secret.
 
 import { createClient } from "@supabase/supabase-js";
 
@@ -159,11 +148,9 @@ const supabase = createClient(
   import.meta.env.SUPABASE_SERVICE_ROLE_KEY
 );
 
-// Calculate date range for last 30 days
 const today = new Date().toISOString().slice(0, 10);
 const thirtyDaysAgo = new Date(Date.now() - 30 * 86400000).toISOString().slice(0, 10);
 
-// Fetch raw visitor data from daily_visitors and aggregate on-the-fly
 const { data: rows, error: queryError } = await supabase
   .from("daily_visitors")
   .select("visit_date, visitor_hash")
@@ -174,14 +161,12 @@ if (queryError) {
   console.error("Dashboard query error:", queryError);
 }
 
-// Aggregate: count unique visitor_hash per visit_date
 const totalsMap = new Map<string, number>();
 for (const row of (rows ?? [])) {
   const date = row.visit_date;
   totalsMap.set(date, (totalsMap.get(date) || 0) + 1);
 }
 
-// Convert to sorted array, fill missing days with 0
 const totals: { visit_date: string; total_visitors: number }[] = [];
 for (let i = 0; i < 30; i++) {
   const d = new Date(Date.now() - (29 - i) * 86400000).toISOString().slice(0, 10);
@@ -191,7 +176,6 @@ for (let i = 0; i < 30; i++) {
   });
 }
 
-// Summary stats
 const todayCount = totals.find((r) => r.visit_date === today)?.total_visitors ?? 0;
 const yesterday = new Date(Date.now() - 86400000).toISOString().slice(0, 10);
 const yesterdayCount = totals.find((r) => r.visit_date === yesterday)?.total_visitors ?? 0;
@@ -200,7 +184,7 @@ const avgDaily = totals.length ? Math.round(totalLast30 / totals.length) : 0;
 const peak = totals.reduce((m, r) => (r.total_visitors > m.count ? { date: r.visit_date, count: r.total_visitors } : m), { date: "-", count: 0 });
 const trend = yesterdayCount > 0 ? (((todayCount - yesterdayCount) / yesterdayCount) * 100).toFixed(1) : null;
 
-const chartLabels = JSON.stringify(totals.map((r) => r.visit_date.slice(5)));   // "MM-DD"
+const chartLabels = JSON.stringify(totals.map((r) => r.visit_date.slice(5)));
 const chartValues = JSON.stringify(totals.map((r) => r.total_visitors));
 ---
 
@@ -209,7 +193,7 @@ const chartValues = JSON.stringify(totals.map((r) => r.total_visitors));
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ReviByte · Visitor Dashboard</title>
+  <title>ReviByte &middot; Visitor Dashboard</title>
   <meta name="robots" content="noindex, nofollow" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
@@ -237,7 +221,6 @@ const chartValues = JSON.stringify(totals.map((r) => r.total_visitors));
       padding: 2rem 1rem;
     }
 
-    /* Grain overlay */
     body::before {
       content: '';
       position: fixed;
@@ -255,7 +238,6 @@ const chartValues = JSON.stringify(totals.map((r) => r.total_visitors));
       z-index: 1;
     }
 
-    /* Header */
     header {
       display: flex;
       align-items: baseline;
@@ -283,7 +265,6 @@ const chartValues = JSON.stringify(totals.map((r) => r.total_visitors));
       margin-left: auto;
     }
 
-    /* Stat cards */
     .stats {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
@@ -355,7 +336,6 @@ const chartValues = JSON.stringify(totals.map((r) => r.total_visitors));
     .trend-up   { color: var(--up); }
     .trend-down { color: var(--down); }
 
-    /* Chart */
     .chart-box {
       background: var(--surface);
       border: 1px solid var(--border);
@@ -391,7 +371,6 @@ const chartValues = JSON.stringify(totals.map((r) => r.total_visitors));
 
     canvas { width: 100% !important; }
 
-    /* Empty state */
     .empty {
       text-align: center;
       padding: 3rem 1rem;
@@ -400,7 +379,6 @@ const chartValues = JSON.stringify(totals.map((r) => r.total_visitors));
       font-size: 0.8rem;
     }
 
-    /* Error state */
     .error-box {
       background: rgba(255, 92, 92, 0.1);
       border: 1px solid rgba(255, 92, 92, 0.3);
@@ -412,7 +390,6 @@ const chartValues = JSON.stringify(totals.map((r) => r.total_visitors));
       font-size: 0.75rem;
     }
 
-    /* Footer */
     footer {
       margin-top: 2rem;
       text-align: center;
@@ -437,7 +414,7 @@ const chartValues = JSON.stringify(totals.map((r) => r.total_visitors));
 
     {queryError && (
       <div class="error-box">
-        ⚠ Database error: {queryError.message}. Check your Supabase connection and table setup.
+        Database error: {queryError.message}. Check your Supabase connection and table setup.
       </div>
     )}
 
@@ -448,8 +425,8 @@ const chartValues = JSON.stringify(totals.map((r) => r.total_visitors));
         <div class="card-sub">
           {trend !== null
             ? Number(trend) >= 0
-              ? <span class="trend-up">▲ {trend}% vs yesterday</span>
-              : <span class="trend-down">▼ {Math.abs(Number(trend))}% vs yesterday</span>
+              ? <span class="trend-up">&#9650; {trend}% vs yesterday</span>
+              : <span class="trend-down">&#9660; {Math.abs(Number(trend))}% vs yesterday</span>
             : "no data yet"}
         </div>
       </div>
@@ -463,7 +440,7 @@ const chartValues = JSON.stringify(totals.map((r) => r.total_visitors));
       <div class="card peak">
         <div class="card-label">Peak Day</div>
         <div class="card-value">{peak.count}</div>
-        <div class="card-sub">{peak.date !== "-" ? peak.date.slice(5) : "—"}</div>
+        <div class="card-sub">{peak.date !== "-" ? peak.date.slice(5) : "&mdash;"}</div>
       </div>
 
       <div class="card total">
@@ -485,7 +462,7 @@ const chartValues = JSON.stringify(totals.map((r) => r.total_visitors));
       }
     </div>
 
-    <footer>revibyte.blog · {today} · data from supabase</footer>
+    <footer>revibyte.blog &middot; {today} &middot; data from supabase</footer>
   </div>
 
   {totals.length > 0 && totalLast30 > 0 && (
@@ -557,13 +534,9 @@ const chartValues = JSON.stringify(totals.map((r) => r.total_visitors));
 </html>
 '''
 
-# 4. Supabase SQL setup script
-sql_setup = '''-- Run this in Supabase SQL Editor to set up your tables
+# 4. SQL Setup
+sql_setup = b'''-- Run this in Supabase SQL Editor
 
--- ============================================
--- Table: daily_visitors
--- Stores each unique visit per day (deduplicated by hash)
--- ============================================
 CREATE TABLE IF NOT EXISTS daily_visitors (
   id BIGSERIAL PRIMARY KEY,
   visit_date DATE NOT NULL,
@@ -572,17 +545,11 @@ CREATE TABLE IF NOT EXISTS daily_visitors (
   UNIQUE (visit_date, visitor_hash)
 );
 
--- Index for fast date-range queries (used by dashboard)
-CREATE INDEX IF NOT EXISTS idx_daily_visitors_date 
+CREATE INDEX IF NOT EXISTS idx_daily_visitors_date
 ON daily_visitors(visit_date);
 
--- Disable RLS (service role key handles access)
 ALTER TABLE daily_visitors DISABLE ROW LEVEL SECURITY;
 
--- ============================================
--- Optional: Auto-aggregate trigger (if you want daily_visitor_totals too)
--- This keeps a pre-computed totals table updated automatically
--- ============================================
 CREATE TABLE IF NOT EXISTS daily_visitor_totals (
   visit_date DATE PRIMARY KEY,
   total_visitors INTEGER NOT NULL DEFAULT 0,
@@ -598,15 +565,14 @@ BEGIN
   WHERE visit_date = COALESCE(NEW.visit_date, OLD.visit_date)
   GROUP BY visit_date
   ON CONFLICT (visit_date)
-  DO UPDATE SET 
+  DO UPDATE SET
     total_visitors = EXCLUDED.total_visitors,
     updated_at = NOW();
-  
+
   RETURN NEW;
 END;
 $$ LANGUAGE plpgsql;
 
--- Drop existing trigger if exists to avoid errors on re-run
 DROP TRIGGER IF EXISTS daily_visitors_change ON daily_visitors;
 
 CREATE TRIGGER daily_visitors_change
@@ -614,58 +580,25 @@ AFTER INSERT OR UPDATE OR DELETE ON daily_visitors
 FOR EACH ROW
 EXECUTE FUNCTION update_daily_totals();
 
--- Disable RLS on totals table too
 ALTER TABLE daily_visitor_totals DISABLE ROW LEVEL SECURITY;
 '''
 
-# 5. Example layout with tracking snippet
-layout_example = '''---
-// src/layouts/Layout.astro
-// Add <TrackVisit /> to your main layout to track all pages
-
-import TrackVisit from '../components/TrackVisit.astro';
-
-interface Props {
-  title?: string;
+# Write all files as raw bytes (no BOM)
+files = {
+    'api_track_visit.ts': api_track_visit,
+    'TrackVisit.astro': track_visit,
+    'dashboard.astro': dashboard,
+    'supabase_setup.sql': sql_setup,
 }
 
-const { title = 'ReviByte' } = Astro.props;
----
+for name, content in files.items():
+    with open(f'/mnt/agents/output/{name}', 'wb') as f:
+        f.write(content)
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>{title}</title>
-</head>
-<body>
-  <slot />
-  <TrackVisit />
-</body>
-</html>
-'''
+# Verify all files
+for name in files.keys():
+    with open(f'/mnt/agents/output/{name}', 'rb') as f:
+        data = f.read(10)
+        print(f"{name}: starts with '{data[:8].decode('utf-8', errors='replace')}', BOM={data.startswith(b'\\xef\\xbb\\xbf')}")
 
-# Write all files
-import os
-os.makedirs('/mnt/agents/output', exist_ok=True)
-
-with open('/mnt/agents/output/api_track_visit.ts', 'w') as f:
-    f.write(api_track_visit)
-
-with open('/mnt/agents/output/TrackVisit.astro', 'w') as f:
-    f.write(track_visit_component)
-
-with open('/mnt/agents/output/dashboard.astro', 'w') as f:
-    f.write(dashboard)
-
-with open('/mnt/agents/output/supabase_setup.sql', 'w') as f:
-    f.write(sql_setup)
-
-with open('/mnt/agents/output/Layout.astro', 'w') as f:
-    f.write(layout_example)
-
-print("All files written successfully!")
-print("\nFiles created:")
-for f in os.listdir('/mnt/agents/output'):
-    print(f"  - {f}")
+print("\nAll files written.")
