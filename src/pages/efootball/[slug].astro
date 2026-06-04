@@ -204,9 +204,8 @@ const shareTitle = guide.data.title;
     </div>
 
   </main>
-</Layout>
-
-<!-- ✅ Supabase view counter — same as PostDetails.astro -->
+</Layout
+<!-- Supabase view counter -->
 <script is:inline define:vars={{ postSlug }}>
   const SUPABASE_URL = "https://tfkrjruxqiqpaoeckfoh.supabase.co";
   const SUPABASE_KEY = "sb_publishable_fHguT58pKc7MsxhSvNpb6w_T2Xg_U_G";
@@ -224,7 +223,7 @@ const shareTitle = guide.data.title;
       });
 
       const res = await fetch(
-        `${SUPABASE_URL}/rest/v1/post_views?slug=eq.${en<Comments slug={postSlug} />codeURIComponent(slug)}&select=views`,
+        `${SUPABASE_URL}/rest/v1/post_views?slug=eq.${encodeURIComponent(slug)}&select=views`,
         {
           headers: {
             "apikey": SUPABASE_KEY,
