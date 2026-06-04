@@ -4,8 +4,8 @@ import { getCollection, render } from "astro:content";
 import type { CollectionEntry } from "astro:content";
 import Layout from "@/layouts/Layout.astro";
 import SchemaMarkup from "@/components/SchemaMarkup.astro";
-import { SITE } from "@/config";
 import Comments from "@/components/Comments.astro";
+import { SITE } from "@/config";
 
 export async function getStaticPaths() {
   const guides = await getCollection("codm", ({ data }) => !data.draft);
@@ -116,7 +116,6 @@ const shareTitle = guide.data.title;
 
       <p class="post-desc text-lg leading-relaxed">{guide.data.description}</p>
 
-      <!-- Meta row with view count -->
       <div class="mt-4 flex flex-wrap gap-x-4 gap-y-1 text-sm post-meta">
         <span>By {guide.data.author}</span>
         <span>
@@ -125,7 +124,6 @@ const shareTitle = guide.data.title;
           })}
         </span>
         {guide.data.lastUpdated && <span>🔄 Updated: {guide.data.lastUpdated}</span>}
-        <!-- ✅ View count badge — same as PostDetails.astro -->
         <span class="view-count-badge">
           👁 <span id="view-count">—</span> views
         </span>
@@ -193,6 +191,8 @@ const shareTitle = guide.data.title;
       </section>
     )}
 
+    <!-- Comments -->
+    <Comments slug={postSlug} />
 
     <!-- Back links -->
     <div class="mt-10 flex items-center gap-4">
@@ -204,9 +204,7 @@ const shareTitle = guide.data.title;
   </main>
 </Layout>
 
-<Comments slug={postSlug} />
-
-<!-- ✅ Supabase view counter — same as PostDetails.astro -->
+<!-- Supabase view counter -->
 <script is:inline define:vars={{ postSlug }}>
   const SUPABASE_URL = "https://tfkrjruxqiqpaoeckfoh.supabase.co";
   const SUPABASE_KEY = "sb_publishable_fHguT58pKc7MsxhSvNpb6w_T2Xg_U_G";
@@ -247,22 +245,6 @@ const shareTitle = guide.data.title;
 </script>
 
 <script is:inline>
-  function updateGiscusTheme() {
-    const theme = document.firstElementChild?.getAttribute("data-theme") || "light";
-    const iframe = document.querySelector("iframe.giscus-frame");
-    if (iframe) {
-      iframe.contentWindow?.postMessage(
-        { giscus: { setConfig: { theme: theme === "dark" ? "dark" : "light" } } },
-        "https://giscus.app"
-      );
-    }
-  }
-  document.addEventListener("astro:after-swap", updateGiscusTheme);
-  window.addEventListener("load", updateGiscusTheme);
-  new MutationObserver(updateGiscusTheme).observe(document.documentElement, {
-    attributes: true, attributeFilter: ["data-theme"]
-  });
-
   if (navigator.share) {
     const btn = document.getElementById('nativeShareBtn');
     if (btn) {
