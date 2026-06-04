@@ -227,8 +227,6 @@ Most players don't know their HUD is hurting them — they just blame aim or sen
 
 ---
 
-
-
 ## Frequently Asked Questions
 
 **What is the best HUD layout for Free Fire beginners?**
