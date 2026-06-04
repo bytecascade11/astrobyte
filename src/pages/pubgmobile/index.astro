@@ -1,0 +1,97 @@
+---
+// src/pages/pubgmobile/index.astro
+import { getCollection } from "astro:content";
+import Layout from "@/layouts/Layout.astro";
+import { SITE } from "@/config";
+
+const guides = await getCollection("pubgmobile", ({ data }) => !data.draft);
+guides.sort((a, b) => new Date(b.data.pubDatetime).getTime() - new Date(a.data.pubDatetime).getTime());
+
+const typeLabels: Record<string, string> = {
+  loadout: "Loadout",
+  "tier-list": "Tier List",
+  guide: "Guide",
+  settings: "Settings",
+  news: "News",
+};
+
+const websiteBase = SITE.website.endsWith("/") ? SITE.website : `${SITE.website}/`;
+const pageTitle = `PUBG Mobile Guides, Tips & Tier Lists | ${SITE.title}`;
+const pageDesc = "Best PUBG Mobile guides, weapon tier lists, settings, and tips to rank up fast. Updated for the latest season.";
+---
+
+<Layout title={pageTitle} description={pageDesc}>
+  <main id="main-content" class="mx-auto w-full max-w-4xl px-4 pb-16">
+
+    <div class="hub-hero">
+      <nav class="pt-6 pb-2 text-sm flex items-center gap-1.5 breadcrumb-nav">
+        <a href="/">Home</a>
+        <span>/</span>
+        <span>PUBG Mobile</span>
+      </nav>
+      <h1 class="hub-title">PUBG Mobile Hub</h1>
+      <p class="hub-desc">Weapon guides, tier lists, settings, and tips to dominate every match.</p>
+    </div>
+
+    {guides.length === 0 ? (
+      <div class="hub-empty">No guides yet. Check back soon!</div>
+    ) : (
+      <div class="hub-grid">
+        {guides.map(guide => {
+          const slug = guide.data.slug ?? guide.id;
+          const typeLabel = typeLabels[guide.data.type] ?? "Guide";
+          return (
+            <a href={`/pubgmobile/${slug}/`} class="hub-card">
+              {guide.data.coverImage && (
+                <img
+                  src={guide.data.coverImage}
+                  alt={guide.data.coverImageAlt ?? guide.data.title}
+                  class="hub-card-img"
+                  loading="lazy"
+                  width="400"
+                  height="210"
+                />
+              )}
+              <div class="hub-card-body">
+                <div class="hub-card-meta">
+                  <span class="badge badge--pubg">PUBG Mobile</span>
+                  <span class="badge">{typeLabel}</span>
+                  {guide.data.season && <span class="badge">{guide.data.season}</span>}
+                </div>
+                <h2 class="hub-card-title">{guide.data.title}</h2>
+                <p class="hub-card-desc">{guide.data.description}</p>
+                <div class="hub-card-date">
+                  {new Date(guide.data.pubDatetime).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })}
+                </div>
+              </div>
+            </a>
+          );
+        })}
+      </div>
+    )}
+
+  </main>
+</Layout>
+
+<style is:global>
+  .hub-hero { padding: 2rem 0 1.5rem; border-bottom: 1px solid var(--color-border, #e5e7eb); margin-bottom: 2rem; }
+  .breadcrumb-nav { color: var(--foreground); opacity: 0.6; font-size: 0.85rem; display: flex; align-items: center; gap: 0.4rem; margin-bottom: 0.75rem; }
+  .breadcrumb-nav a { color: var(--foreground); opacity: 1; text-decoration: none; }
+  .breadcrumb-nav a:hover { opacity: 0.7; }
+  .hub-title { font-size: 2rem; font-weight: 800; margin-bottom: 0.5rem; }
+  .hub-desc { opacity: 0.65; font-size: 1rem; }
+  .hub-empty { text-align: center; padding: 4rem 1rem; opacity: 0.5; }
+  .hub-grid { display: grid; grid-template-columns: 1fr; gap: 1.5rem; }
+  @media (min-width: 640px) { .hub-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (min-width: 1024px) { .hub-grid { grid-template-columns: repeat(3, 1fr); } }
+  .hub-card { border: 1px solid var(--color-border, #e5e7eb); border-radius: 12px; overflow: hidden; text-decoration: none; color: inherit; transition: transform 0.2s, box-shadow 0.2s; display: flex; flex-direction: column; }
+  .hub-card:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(0,0,0,0.08); }
+  .hub-card-img { width: 100%; height: 180px; object-fit: cover; display: block; }
+  .hub-card-body { padding: 1rem; flex: 1; display: flex; flex-direction: column; gap: 0.4rem; }
+  .hub-card-meta { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+  .hub-card-title { font-size: 0.95rem; font-weight: 700; line-height: 1.3; }
+  .hub-card-desc { font-size: 0.82rem; opacity: 0.65; line-height: 1.5; flex: 1; }
+  .hub-card-date { font-size: 0.72rem; opacity: 0.5; margin-top: auto; }
+  .badge { font-size: 0.65rem; font-weight: 600; padding: 0.15rem 0.5rem; border-radius: 99px; background: var(--color-card, #f3f4f6); border: 1px solid var(--color-border, #e5e7eb); }
+  .badge--pubg { color: #c8860a; border-color: #c8860a; }
+</style>
