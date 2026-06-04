@@ -1,0 +1,252 @@
+---
+// src/pages/pubgmobile/[slug].astro
+import { getCollection, render } from "astro:content";
+import type { CollectionEntry } from "astro:content";
+import Layout from "@/layouts/Layout.astro";
+import SchemaMarkup from "@/components/SchemaMarkup.astro";
+import Comments from "@/components/Comments.astro";
+import AffiliateCarousel from "@/components/AffiliateCarousel.astro";
+import { SITE } from "@/config";
+
+export async function getStaticPaths() {
+  const guides = await getCollection("pubgmobile", ({ data }) => !data.draft);
+  return guides.map(guide => ({
+    params: { slug: guide.data.slug ?? guide.id },
+    props: { guide },
+  }));
+}
+
+const { guide } = Astro.props;
+const { Content } = await render(guide);
+
+let relatedGuides: CollectionEntry<"pubgmobile">[] = [];
+if (guide.data.relatedSlugs?.length) {
+  const all = await getCollection("pubgmobile", ({ data }) => !data.draft);
+  relatedGuides = all.filter(g =>
+    guide.data.relatedSlugs!.includes(g.data.slug ?? g.id)
+  );
+}
+
+const pageTitle = `${guide.data.title} | ${SITE.title}`;
+const pageDesc = guide.data.description;
+const ogImage = guide.data.coverImage ?? "/og.png";
+
+const websiteBase = SITE.website.endsWith("/") ? SITE.website : `${SITE.website}/`;
+const coverImageAbs = guide.data.coverImage
+  ? new URL(
+      guide.data.coverImage.startsWith("/")
+        ? guide.data.coverImage.slice(1)
+        : guide.data.coverImage,
+      websiteBase
+    ).toString()
+  : undefined;
+
+const postUrl = `${websiteBase}pubgmobile/${guide.data.slug ?? guide.id}/`;
+const postSlug = guide.data.slug ?? guide.id;
+
+const typeLabels: Record<string, string> = {
+  loadout: "Loadout",
+  "tier-list": "Tier List",
+  guide: "Guide",
+  settings: "Settings",
+  news: "News",
+};
+const typeLabel = typeLabels[guide.data.type] ?? "Guide";
+const shareURL = postUrl;
+const shareTitle = guide.data.title;
+---
+
+<Layout title={pageTitle} description={pageDesc} ogImage={ogImage}>
+
+  <SchemaMarkup
+    type="breadcrumb"
+    breadcrumbs={[
+      { name: "Home", url: websiteBase },
+      { name: "PUBG Mobile", url: `${websiteBase}pubgmobile/` },
+      { name: typeLabel, url: `${websiteBase}pubgmobile/` },
+      { name: guide.data.title, url: postUrl },
+    ]}
+  />
+
+  <SchemaMarkup
+    type="article"
+    title={guide.data.title}
+    description={guide.data.description}
+    url={postUrl}
+    image={coverImageAbs}
+    datePublished={new Date(guide.data.pubDatetime)}
+    dateModified={guide.data.lastUpdated ? new Date(guide.data.pubDatetime) : null}
+  />
+
+  <main id="main-content" class="mx-auto w-full max-w-3xl px-4 pb-16">
+
+    <nav class="pt-6 pb-2 text-sm flex items-center gap-1.5 breadcrumb-nav">
+      <a href="/" class="hover:text-skin-accent transition-colors">Home</a>
+      <span>/</span>
+      <a href="/pubgmobile/" class="hover:text-skin-accent transition-colors">PUBG Mobile</a>
+      <span>/</span>
+      <span>{typeLabel}</span>
+    </nav>
+
+    {coverImageAbs && (
+      <div class="hub-cover-wrap">
+        <img
+          src={coverImageAbs}
+          alt={guide.data.coverImageAlt ?? guide.data.title}
+          class="hub-cover-img"
+          loading="eager"
+          fetchpriority="high"
+          width="1200"
+          height="630"
+        />
+      </div>
+    )}
+
+    <div class="mb-6">
+      <div class="flex flex-wrap gap-2 mb-3">
+        <span class="badge badge--pubg">PUBG Mobile</span>
+        <span class="badge">{typeLabel}</span>
+        {guide.data.gameMode && <span class="badge">{guide.data.gameMode}</span>}
+        {guide.data.season && <span class="badge">{guide.data.season}</span>}
+      </div>
+
+      <h1 class="text-3xl font-bold leading-tight mb-3">{guide.data.title}</h1>
+      <p class="post-desc text-lg leading-relaxed">{guide.data.description}</p>
+
+      <div class="mt-4 flex flex-wrap gap-x-4 gap-y-1 text-sm post-meta">
+        <span>By {guide.data.author}</span>
+        <span>
+          {new Date(guide.data.pubDatetime).toLocaleDateString("en-NG", {
+            year: "numeric", month: "long", day: "numeric",
+          })}
+        </span>
+        {guide.data.lastUpdated && <span>Updated: {guide.data.lastUpdated}</span>}
+        <span class="view-count-badge">
+          <span id="view-count">--</span> views
+        </span>
+      </div>
+    </div>
+
+    <div class="share-bar mb-8">
+      <span class="share-label">Share this guide</span>
+      <div class="share-buttons">
+        <button class="share-btn share-btn--native" id="nativeShareBtn" aria-label="Share" style="display:none">
+          <svg viewBox="0 0 24 24"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>
+          Share
+        </button>
+        <a href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(shareTitle)}&url=${encodeURIComponent(shareURL)}`} target="_blank" rel="noopener noreferrer" class="share-btn share-btn--x">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.73-8.835L1.254 2.25H8.08l4.261 5.632 5.903-5.632zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+          X
+        </a>
+        <a href={`https://wa.me/?text=${encodeURIComponent(shareTitle + " " + shareURL)}`} target="_blank" rel="noopener noreferrer" class="share-btn share-btn--wa">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.118.554 4.103 1.522 5.828L.057 23.012a.75.75 0 0 0 .931.931l5.184-1.465A11.945 11.945 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.75a9.724 9.724 0 0 1-4.96-1.355l-.355-.213-3.676 1.04 1.04-3.574-.234-.368A9.725 9.725 0 0 1 2.25 12C2.25 6.615 6.615 2.25 12 2.25S21.75 6.615 21.75 12 17.385 21.75 12 21.75z"/></svg>
+          WhatsApp
+        </a>
+        <button class="share-btn share-btn--copy" id="copyLinkBtn" data-url={shareURL}>
+          <svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+          <span id="copyBtnText">Copy</span>
+        </button>
+      </div>
+    </div>
+
+    <article class="prose prose-revibyte max-w-none">
+      <Content />
+    </article>
+
+    {relatedGuides.length > 0 && (
+      <section class="mt-12 border-t border-skin-line pt-8">
+        <h2 class="text-lg font-semibold mb-4">Related Guides</h2>
+        <ul class="space-y-3">
+          {relatedGuides.map(related => (
+            <li>
+              <a
+                href={`/pubgmobile/${related.data.slug ?? related.id}/`}
+                class="group flex items-start gap-3 rounded-lg border border-skin-line p-3 hover:border-skin-accent transition-colors"
+              >
+                {related.data.coverImage && (
+                  <img src={related.data.coverImage} alt={related.data.coverImageAlt ?? related.data.title} class="w-16 h-12 object-cover rounded-lg shrink-0" loading="lazy" width="64" height="48" />
+                )}
+                <div>
+                  <p class="font-medium text-sm group-hover:text-skin-accent transition-colors">{related.data.title}</p>
+                  <p class="text-xs post-meta mt-0.5">{related.data.description}</p>
+                </div>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </section>
+    )}
+
+    <AffiliateCarousel />
+    <Comments slug={postSlug} />
+
+    <div class="mt-10 flex items-center gap-4">
+      <a href="/" class="text-sm text-skin-accent hover:underline">Home</a>
+      <span class="text-skin-base/30">|</span>
+      <a href="/pubgmobile/" class="text-sm text-skin-accent hover:underline">PUBG Mobile Hub</a>
+    </div>
+
+  </main>
+</Layout>
+
+<script is:inline define:vars={{ postSlug }}>
+  const SUPABASE_URL = "https://tfkrjruxqiqpaoeckfoh.supabase.co";
+  const SUPABASE_KEY = "sb_publishable_fHguT58pKc7MsxhSvNpb6w_T2Xg_U_G";
+
+  async function getAndIncrementViews(slug) {
+    try {
+      await fetch(SUPABASE_URL + "/rest/v1/rpc/increment_views", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", "apikey": SUPABASE_KEY, "Authorization": "Bearer " + SUPABASE_KEY },
+        body: JSON.stringify({ post_slug: slug }),
+      });
+      const res = await fetch(SUPABASE_URL + "/rest/v1/post_views?slug=eq." + encodeURIComponent(slug) + "&select=views", {
+        headers: { "apikey": SUPABASE_KEY, "Authorization": "Bearer " + SUPABASE_KEY },
+      });
+      const data = await res.json();
+      const el = document.getElementById("view-count");
+      if (el) el.textContent = (data?.[0]?.views ?? 0).toLocaleString();
+    } catch { }
+  }
+  getAndIncrementViews(postSlug);
+</script>
+
+<script is:inline>
+  if (navigator.share) {
+    var btn = document.getElementById("nativeShareBtn");
+    if (btn) { btn.style.display = "flex"; btn.addEventListener("click", function() { navigator.share({ title: document.title, url: window.location.href }).catch(function(){}); }); }
+  }
+  var copyBtn = document.getElementById("copyLinkBtn");
+  if (copyBtn) {
+    copyBtn.addEventListener("click", function() {
+      navigator.clipboard.writeText(copyBtn.dataset.url || window.location.href).then(function() {
+        var label = document.getElementById("copyBtnText");
+        if (label) { label.textContent = "Copied!"; setTimeout(function() { label.textContent = "Copy"; }, 2000); }
+      }).catch(function(){});
+    });
+  }
+</script>
+
+<style is:global>
+  .breadcrumb-nav { color: var(--foreground); opacity: 0.6; }
+  .breadcrumb-nav a { color: var(--foreground); opacity: 1; }
+  .post-desc { color: var(--foreground); opacity: 0.75; }
+  .post-meta { color: var(--foreground); opacity: 0.6; }
+  .view-count-badge { display: flex; align-items: center; gap: 0.3rem; font-size: 0.82rem; opacity: 0.65; }
+  .hub-cover-wrap { width: 100%; border-radius: 16px; overflow: hidden; margin-bottom: 1.75rem; margin-top: 0.5rem; }
+  .hub-cover-img { width: 100%; height: auto; object-fit: cover; aspect-ratio: 16/9; display: block; }
+  @media (min-width: 768px) { .hub-cover-img { aspect-ratio: 21/9; } }
+  .badge { font-size: 0.72rem; font-weight: 600; padding: 0.2rem 0.65rem; border-radius: 9999px; background: var(--background-light); color: var(--foreground); border: 1px solid var(--border); }
+  .badge--pubg { color: #c8860a; border-color: #c8860a; }
+  .prose h1 { display: none; }
+  .share-bar { display: flex; align-items: center; flex-wrap: wrap; gap: 10px; padding: 12px 16px; border-radius: 12px; background: var(--background-light, rgba(99,102,241,0.06)); border: 1px solid var(--border, rgba(99,102,241,0.2)); }
+  .share-label { font-size: 0.8rem; font-weight: 600; opacity: 0.6; white-space: nowrap; }
+  .share-buttons { display: flex; flex-wrap: wrap; gap: 8px; margin-left: auto; }
+  .share-btn { display: flex; align-items: center; gap: 5px; padding: 6px 14px; border-radius: 8px; font-size: 0.78rem; font-weight: 600; cursor: pointer; border: 1px solid transparent; text-decoration: none; transition: opacity 0.15s; white-space: nowrap; }
+  .share-btn svg { width: 15px; height: 15px; flex-shrink: 0; }
+  .share-btn--native { background: var(--accent, #6366f1); color: white; border: none; }
+  .share-btn--x { background: #000; color: #fff; }
+  .share-btn--wa { background: #25D366; color: #fff; }
+  .share-btn--copy { background: var(--background-light); color: var(--foreground); border-color: var(--border); }
+  @media (max-width: 480px) { .share-bar { flex-direction: column; align-items: flex-start; } .share-buttons { margin-left: 0; } }
+</style>
