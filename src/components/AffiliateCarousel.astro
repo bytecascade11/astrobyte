@@ -1,0 +1,374 @@
+---
+// src/components/AffiliateCarousel.astro
+// Amazon Associates affiliate banner carousel
+// Add this component to your homepage and post layouts
+
+const products = [
+  {
+    name: "Samsung Galaxy A16",
+    tag: "Best Budget Pick",
+    price: "See on Amazon",
+    emoji: "📱",
+    color: "#1428A0",
+    link: "https://amzn.to/3ReCD9h",
+  },
+  {
+    name: "Samsung Galaxy A35",
+    tag: "Great Value",
+    price: "See on Amazon",
+    emoji: "📱",
+    color: "#1428A0",
+    link: "https://amzn.to/4e86TdN",
+  },
+  {
+    name: "Samsung Galaxy A55",
+    tag: "Mid-Range King",
+    price: "See on Amazon",
+    emoji: "📱",
+    color: "#1428A0",
+    link: "https://amzn.to/4uz01fP",
+  },
+  {
+    name: "Samsung Galaxy S24 FE",
+    tag: "Flagship Value",
+    price: "See on Amazon",
+    emoji: "✨",
+    color: "#6557D2",
+    link: "https://amzn.to/43RQ4Pi",
+  },
+  {
+    name: "Redmi Note 14",
+    tag: "Best for Gaming",
+    price: "See on Amazon,
+    emoji: "🎮",
+    color: "#FF6900",
+    link: "https://amzn.to/4en0BYT",
+  },
+  {
+    name: "Xiaomi 15C",
+    tag: "New Release",
+    price: "See on Amazon",
+    emoji: "🔥",
+    color: "#FF6900",
+    link: "https://amzn.to/4e13VYx",
+  },
+  {
+    name: "iPhone 16",
+    tag: "Apple Pick",
+    price: "See on Amazon",
+    emoji: "🍎",
+    color: "#555555",
+    link: "https://amzn.to/4uThwZ4",
+  },
+  {
+    name: "iPhone 15",
+    tag: "Apple Value",
+    price: "See on Amazon",
+    emoji: "🍎",
+    color: "#555555",
+    link: "https://amzn.to/4o7BxZ6",
+  },
+];
+---
+
+<div class="aff-carousel-wrap">
+  <div class="aff-header">
+    <span class="aff-sponsored">Sponsored</span>
+    <span class="aff-title">Top Picks on Amazon</span>
+    <span class="aff-disclosure">Affiliate links</span>
+  </div>
+
+  <div class="aff-track-wrap">
+    <button class="aff-nav aff-nav--prev" id="affPrev" aria-label="Previous">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+    </button>
+
+    <div class="aff-track" id="affTrack">
+      {products.map((p, i) => (
+        <a
+          href={p.link}
+          target="_blank"
+          rel="noopener noreferrer nofollow"
+          class="aff-card"
+          style={`--card-color: ${p.color}`}
+          data-index={i}
+        >
+          <div class="aff-card-inner">
+            <div class="aff-emoji">{p.emoji}</div>
+            <div class="aff-tag">{p.tag}</div>
+            <div class="aff-name">{p.name}</div>
+            <div class="aff-price">{p.price}</div>
+            <div class="aff-cta">
+              Buy on Amazon
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="12" height="12"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </div>
+          </div>
+        </a>
+      ))}
+    </div>
+
+    <button class="aff-nav aff-nav--next" id="affNext" aria-label="Next">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+    </button>
+  </div>
+
+  <div class="aff-dots" id="affDots">
+    {products.map((_, i) => (
+      <button class={`aff-dot${i === 0 ? " aff-dot--active" : ""}`} data-dot={i} aria-label={`Go to slide ${i + 1}`}></button>
+    ))}
+  </div>
+</div>
+
+<script is:inline>
+  (function () {
+    const track   = document.getElementById("affTrack");
+    const prev    = document.getElementById("affPrev");
+    const next    = document.getElementById("affNext");
+    const dotsEl  = document.getElementById("affDots");
+
+    if (!track) return;
+
+    const cards   = track.querySelectorAll(".aff-card");
+    const dots    = dotsEl ? dotsEl.querySelectorAll(".aff-dot") : [];
+    let current   = 0;
+    let autoTimer = null;
+
+    function getVisible() {
+      return window.innerWidth >= 640 ? (window.innerWidth >= 1024 ? 4 : 3) : 2;
+    }
+
+    function getCardWidth() {
+      if (!cards[0]) return 0;
+      const style = getComputedStyle(track);
+      const gap   = parseFloat(style.gap) || 12;
+      const visible = getVisible();
+      return (track.parentElement.offsetWidth - (visible - 1) * gap) / visible;
+    }
+
+    function goTo(index) {
+      const max = cards.length - getVisible();
+      current = Math.max(0, Math.min(index, max));
+      const cardW = getCardWidth();
+      const gap   = parseFloat(getComputedStyle(track).gap) || 12;
+      track.style.transform = `translateX(-${current * (cardW + gap)}px)`;
+
+      dots.forEach((d, i) => {
+        d.classList.toggle("aff-dot--active", i === current);
+      });
+
+      prev.disabled = current === 0;
+      next.disabled = current >= max;
+    }
+
+    function startAuto() {
+      autoTimer = setInterval(() => {
+        const max = cards.length - getVisible();
+        goTo(current >= max ? 0 : current + 1);
+      }, 4000);
+    }
+
+    function stopAuto() {
+      clearInterval(autoTimer);
+    }
+
+    prev.addEventListener("click", () => { stopAuto(); goTo(current - 1); startAuto(); });
+    next.addEventListener("click", () => { stopAuto(); goTo(current + 1); startAuto(); });
+
+    dots.forEach((dot, i) => {
+      dot.addEventListener("click", () => { stopAuto(); goTo(i); startAuto(); });
+    });
+
+    // Touch swipe
+    let touchStartX = 0;
+    track.addEventListener("touchstart", e => { touchStartX = e.touches[0].clientX; stopAuto(); }, { passive: true });
+    track.addEventListener("touchend", e => {
+      const diff = touchStartX - e.changedTouches[0].clientX;
+      if (Math.abs(diff) > 40) goTo(diff > 0 ? current + 1 : current - 1);
+      startAuto();
+    });
+
+    window.addEventListener("resize", () => goTo(current));
+
+    goTo(0);
+    startAuto();
+  })();
+</script>
+
+<style>
+  .aff-carousel-wrap {
+    margin: 2.5rem 0;
+    padding: 1.25rem 0;
+    border-top: 1px solid var(--color-border, #e5e7eb);
+    border-bottom: 1px solid var(--color-border, #e5e7eb);
+  }
+
+  .aff-header {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    margin-bottom: 1rem;
+    padding: 0 0.25rem;
+  }
+
+  .aff-sponsored {
+    font-size: 0.6rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    background: #f59e0b;
+    color: #000;
+    padding: 0.15rem 0.45rem;
+    border-radius: 4px;
+    flex-shrink: 0;
+  }
+
+  .aff-title {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--color-text-base, #111);
+    flex: 1;
+  }
+
+  .aff-disclosure {
+    font-size: 0.65rem;
+    color: var(--color-text-muted, #999);
+  }
+
+  .aff-track-wrap {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    overflow: hidden;
+  }
+
+  .aff-nav {
+    flex-shrink: 0;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    border: 1px solid var(--color-border, #e5e7eb);
+    background: var(--color-fill, #fff);
+    color: var(--color-text-base, #111);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s;
+    z-index: 2;
+    padding: 0;
+  }
+
+  .aff-nav:hover:not(:disabled) {
+    background: var(--color-accent, #6366f1);
+    color: #fff;
+    border-color: var(--color-accent, #6366f1);
+  }
+
+  .aff-nav:disabled { opacity: 0.3; cursor: not-allowed; }
+  .aff-nav svg { width: 14px; height: 14px; }
+
+  .aff-track {
+    display: flex;
+    gap: 12px;
+    transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    flex: 1;
+    overflow: visible;
+  }
+
+  .aff-card {
+    flex-shrink: 0;
+    width: calc((100% - 12px) / 2);
+    text-decoration: none;
+    border-radius: 12px;
+    border: 1px solid var(--color-border, #e5e7eb);
+    background: var(--color-fill, #fff);
+    overflow: hidden;
+    transition: transform 0.2s, box-shadow 0.2s;
+    position: relative;
+  }
+
+  @media (min-width: 640px) {
+    .aff-card { width: calc((100% - 24px) / 3); }
+  }
+
+  @media (min-width: 1024px) {
+    .aff-card { width: calc((100% - 36px) / 4); }
+  }
+
+  .aff-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+  }
+
+  .aff-card-inner {
+    padding: 1rem;
+    border-top: 3px solid var(--card-color, #6366f1);
+  }
+
+  .aff-emoji {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+    display: block;
+  }
+
+  .aff-tag {
+    font-size: 0.6rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--card-color, #6366f1);
+    margin-bottom: 0.3rem;
+  }
+
+  .aff-name {
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: var(--color-text-base, #111);
+    line-height: 1.3;
+    margin-bottom: 0.3rem;
+  }
+
+  .aff-price {
+    font-size: 0.75rem;
+    color: var(--color-text-muted, #888);
+    margin-bottom: 0.75rem;
+  }
+
+  .aff-cta {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: var(--card-color, #6366f1);
+    background: color-mix(in srgb, var(--card-color, #6366f1) 10%, transparent);
+    padding: 0.35rem 0.6rem;
+    border-radius: 6px;
+    width: fit-content;
+  }
+
+  .aff-dots {
+    display: flex;
+    justify-content: center;
+    gap: 6px;
+    margin-top: 1rem;
+  }
+
+  .aff-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--color-border, #e5e7eb);
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    transition: all 0.2s;
+  }
+
+  .aff-dot--active {
+    background: var(--color-accent, #6366f1);
+    width: 18px;
+    border-radius: 3px;
+  }
+</style>
