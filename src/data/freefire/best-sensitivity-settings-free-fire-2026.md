@@ -6,7 +6,7 @@ pubDatetime: 2026-06-04T15:13:00Z
 type: "guide"
 gameMode: "Battle Royale"
 season: "2026"
-coverImage: "/assets/posts/best-sensitivity-settings-free-fire-2026.jpg"
+coverImage: "/assets/freefire/best-sensitivity-settings-free-fire-2026.jpg"
 coverImageAlt: "Best sensitivity settings for Free Fire 2026"
 slug: "best-sensitivity-settings-free-fire-2026"
 featured: true
