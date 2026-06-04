@@ -2,7 +2,7 @@
 title: "Best Sensitivity Settings for Free Fire 2026 — Stop Missing Shots"
 description: "Find the best sensitivity settings for Free Fire in 2026. Covers general, red dot, scope, and gyroscope settings for mobile players who want tighter aim and fewer missed shots."
 author: "iSamuel"
-pubDatetime: 2026-06-04T15:13:00Z
+pubDatetime: 2026-06-04T20:28:00Z
 type: "guide"
 gameMode: "Battle Royale"
 season: "2026"
@@ -37,16 +37,16 @@ The goal isn't the "highest" or "lowest" setting. The goal is **control at every
 
 ## General Sensitivity Settings
 
-These affect your camera movement when you're not ADS (aiming down sights). Think of this as your free-look and hip-fire sensitivity.
+These affect your camera movement when you're not ADS (aiming down sights). Think of this as your free-look and hip-fire sensitivity. All values below are based on Free Fire's current **0–200 sensitivity scale** — if your sliders only go to 100, your game version likely needs updating.
 
 | Setting | Baseline Range | Notes |
 |---|---|---|
-| General | 90 – 100 | Controls overall camera movement and hip-fire responsiveness |
-| Red Dot | 75 – 85 | Balanced for close-range flicks |
-| 2x Scope | 65 – 75 | Good for mid-range tracking |
-| 4x Scope | 45 – 55 | Slows down for precision at distance |
-| AWM Scope | 20 – 30 | Sniper scopes need the most control |
-| Free Look | 80 – 90 | For map awareness while moving |
+| General | 150 – 170 | Controls overall camera movement and hip-fire responsiveness |
+| Red Dot | 140 – 158 | Balanced for close-range flicks |
+| 2x Scope | 120 – 138 | Good for mid-range tracking |
+| 4x Scope | 88 – 105 | Slows down for precision at distance |
+| Sniper Scope | 45 – 62 | Sniper scopes need the most control |
+| Free Look | 130 – 148 | For map awareness while moving |
 
 If you're on a budget device — say a Tecno Camon 30 or a Galaxy A-series — I'd lean toward the lower end of each range. Higher-end devices handle fast inputs more accurately, so you can push the values up without the jitter you'd get on a phone struggling to hold 60fps.
 
@@ -58,12 +58,12 @@ This is where most players get it wrong. A lot of guides tell you to match your 
 
 | Scope | Baseline Range | Notes |
 |---|---|---|
-| Red Dot / Iron Sight | 78 – 88 | Quick snaps, close fights |
-| 2x Scope | 68 – 76 | Track without overshooting |
-| 4x Scope | 46 – 54 | Controlled drag shots |
-| 8x Scope | 22 – 28 | Precision pixel-level adjustments |
+| Red Dot / Iron Sight | 148 – 165 | Quick snaps, close fights |
+| 2x Scope | 128 – 145 | Track without overshooting |
+| 4x Scope | 88 – 105 | Controlled drag shots |
+| Sniper Scope | 42 – 58 | Precision pixel-level adjustments |
 
-The 4x is probably the one you'll spend the most time adjusting. I've seen players drop it as low as 35 if they play a very passive, long-range style. If you push aggressively and use the 4x at 50–80 metre engagements more than 150+ metres, go slightly higher — around 52–54.
+The 4x is probably the one you'll spend the most time adjusting. I've seen players drop it lower if they play a very passive, long-range style. If you push aggressively and use the 4x at 50–80 metre engagements more than 150+ metres, go slightly higher — closer to the top of the range.
 
 ---
 
@@ -75,11 +75,11 @@ That said, it's not for everyone. If you don't feel comfortable holding your pho
 
 | Setting | Suggested Starting Range |
 |---|---|
-| General | 100 – 120 |
-| Red Dot | 90 – 110 |
-| 2x Scope | 80 – 95 |
-| 4x Scope | 60 – 70 |
-| 8x Scope | 30 – 40 |
+| General | 165 – 188 |
+| Red Dot | 155 – 175 |
+| 2x Scope | 138 – 158 |
+| 4x Scope | 105 – 125 |
+| Sniper Scope | 55 – 72 |
 
 Keep gyro sensitivity noticeably higher than your touch sensitivity — the whole point is that small physical movements handle fine adjustments faster than your thumb can.
 
@@ -91,7 +91,7 @@ Here's the thing nobody tells you: finding your sensitivity isn't a one-session 
 
 1. **Start with the values above** as your baseline.
 2. **Play 5 training ground sessions** — not ranked, not casual. Focus entirely on tracking moving bots and snapping to stationary ones at different distances.
-3. **Adjust one value at a time.** If your 2x scope feels too twitchy at 75, drop it to 70 and test again. Don't change three settings in one session — you won't know what fixed what.
+3. **Adjust one value at a time.** If your 2x scope feels too twitchy, drop it by 8–10 points and test again. Don't change three settings in one session — you won't know what fixed what.
 4. **Play 10 real matches** before judging anything. Your muscle memory needs time to adjust before you can make an honest call on whether a setting is actually wrong or if you're just not used to it yet.
 5. **Revisit after a week.** Your hands adapt. What felt fast at first might feel perfectly normal after consistent play.
 
@@ -101,9 +101,9 @@ The biggest mistake I see is players changing settings every two days because th
 
 ## Device-Specific Notes
 
-These recommendations are calibrated for **mid-range Android devices** running Free Fire at 60fps. If you're on something more powerful or playing at 90fps+, your touch inputs register slightly differently, and you may want to experiment with going 5–10 points higher on most settings.
+These recommendations are calibrated for **mid-range Android devices** running Free Fire at 60fps. If you're on something more powerful or playing at 90fps+, your touch inputs register slightly differently, and you may want to experiment pushing most values 10–20 points higher on the 0–200 scale.
 
-If you're on a lower-end device running the game at 30fps, I'd recommend dropping your general and red dot sensitivity by about 10 points. At lower frame rates, high sensitivity becomes harder to control because you're getting fewer frames of visual feedback per swipe.
+If you're on a lower-end device running the game at 30fps, I'd recommend dropping your general and red dot sensitivity by 20–30 points from the main baseline ranges. At lower frame rates, high sensitivity becomes harder to control because you're getting fewer frames of visual feedback per swipe.
 
 ---
 
@@ -111,9 +111,9 @@ If you're on a lower-end device running the game at 30fps, I'd recommend droppin
 
 Headshots in Free Fire come down to two things: crosshair placement before the fight starts, and fine control during it. Sensitivity plays a direct role in the second part.
 
-For headshot-focused play, you want your red dot and iron sight sensitivity slightly lower than you'd normally run — enough to slow the flick just a hair so your crosshair lands on the head instead of sliding past it. In my experience, some players find that lowering red dot sensitivity slightly into the **72–78** range makes headshot flicks easier to control when snapping to moving targets at 10–20 metres.
+For headshot-focused play, you want your red dot and iron sight sensitivity slightly lower than you'd normally run — enough to slow the flick just a hair so your crosshair lands on the head instead of sliding past it. In my experience, some players find that lowering red dot sensitivity slightly into the **138–148** range makes headshot flicks easier to control when snapping to moving targets at 10–20 metres.
 
-For 2x scope headshots, the same logic applies. Dropping to around **62–68** gives you more precise control on the horizontal flick without making the scope feel sticky. The idea isn't to slow everything down — it's to remove the excess overshoot that causes you to drag through the hitbox instead of landing on it cleanly.
+For 2x scope headshots, the same logic applies. Dropping to around **118–128** gives you more precise control on the horizontal flick without making the scope feel sticky. The idea isn't to slow everything down — it's to remove the excess overshoot that causes you to drag through the hitbox instead of landing on it cleanly.
 
 Hip-fire headshots are a different challenge entirely and depend more on crosshair placement than sensitivity tuning. If you're constantly hitting body shots while hip-firing, the issue is usually where your crosshair is sitting before you engage, not what your general sensitivity is set to.
 
@@ -127,12 +127,12 @@ Lower-end devices may have slower touch response and more frame drops, which can
 
 | Setting | Baseline Range (Low-End) |
 |---|---|
-| General | 75 – 85 |
-| Red Dot | 62 – 72 |
-| 2x Scope | 52 – 62 |
-| 4x Scope | 35 – 45 |
-| AWM Scope | 15 – 22 |
-| Free Look | 65 – 75 |
+| General | 120 – 138 |
+| Red Dot | 108 – 125 |
+| 2x Scope | 92 – 110 |
+| 4x Scope | 65 – 82 |
+| Sniper Scope | 30 – 44 |
+| Free Look | 100 – 118 |
 
 These values are deliberately conservative. The goal is giving your device enough room to register your inputs accurately without the jitter that comes from asking a low-spec phone to process fast swipes at high frame costs.
 
@@ -144,15 +144,15 @@ Also worth doing: lower your in-game graphics to the lowest stable setting befor
 
 Playing Free Fire at 90fps on a device that supports it — whether that's a gaming phone or a flagship with an unlocked frame rate mode — changes how your inputs feel at a fundamental level. More frames means more visual feedback per swipe, which means the same sensitivity value will feel slightly slower and more controlled compared to 60fps.
 
-In practice, this means you can push most values 5–10 points higher than the standard ranges and still maintain the same level of control you'd have at 60fps. This isn't mandatory — some 90fps players prefer keeping values identical and simply enjoying the smoother visual response — but if you move from 60fps to 90fps and your aim suddenly feels sluggish, bumping values up is the first thing to try.
+In practice, this means you can push most values 10–20 points higher than the standard ranges and still maintain the same level of control you'd have at 60fps. This isn't mandatory — some 90fps players prefer keeping values identical and simply enjoying the smoother visual response — but if you move from 60fps to 90fps and your aim suddenly feels sluggish, bumping values up is the first thing to try.
 
 | Setting | Suggested Range (90FPS) |
 |---|---|
-| General | 95 – 108 |
-| Red Dot | 82 – 94 |
-| 2x Scope | 72 – 82 |
-| 4x Scope | 52 – 62 |
-| AWM Scope | 24 – 33 |
+| General | 162 – 182 |
+| Red Dot | 150 – 168 |
+| 2x Scope | 132 – 150 |
+| 4x Scope | 96 – 115 |
+| Sniper Scope | 50 – 66 |
 
 Gyroscope users on 90fps devices tend to benefit the most. The extra frames make tilt-based micro-adjustments feel significantly smoother, and you can run gyro sensitivity slightly lower than usual while still getting faster corrections than you'd manage at 60fps.
 
@@ -173,8 +173,6 @@ One thing worth noting: resetting sensitivity does not affect your HUD layout, c
 
 ---
 
-
-
 ## FAQ
 
 **What sensitivity do pro Free Fire players use?**
@@ -190,7 +188,7 @@ Only change it when something feels genuinely wrong — not after a losing strea
 Indirectly, yes. Higher sensitivity makes recoil harder to compensate for because small corrections become bigger movements. If you struggle with recoil on a specific gun, slightly lowering your ADS sensitivity for that scope range often helps more than changing your spray pattern.
 
 **Is there a "best" universal sensitivity?**
-No. Anyone who tells you otherwise is oversimplifying. The best sensitivity is the one that gives you consistent control at the ranges you actually play. That varies by playstyle, device, and how long you've been playing.
+No. Anyone who tells you otherwise is oversimplifying. The expanded 0–200 scale actually makes this truer than ever — there are now twice as many micro-adjustment steps between values, so what feels controlled on one device at 155 can feel completely different on another at the same number. The best sensitivity is the one that gives you consistent control at the ranges you actually play. That varies by playstyle, device, and how long you've been playing.
 
 **My aim feels good but I still lose gunfights — what's wrong?**
 Sensitivity is one piece of a larger puzzle. If your settings feel right but you're still losing, look at positioning, crosshair placement (are you pre-aiming where enemies appear?), and whether you're taking unnecessary fights. Mechanics and decision-making both matter.
