@@ -2,12 +2,13 @@
 title: "Best Sensitivity Settings for PUBG Mobile 2026 — Complete Guide"
 description: "A complete PUBG Mobile sensitivity guide for 2026, including camera, ADS, and gyroscope recommendations built around real gameplay rather than copy-paste presets."
 author: "iSamuel"
-pubDatetime: 2026-06-04T18:13:00Z
+pubDatetime: 2026-06-04T18:19:00Z
 type: "guide"
-gameMode: "Classic & Ranked"
+gameMode: "All Modes"
 season: "C9S29"
 coverImage: "/assets/pubgmobile/best-sensitivity-settings-pubg-mobile-2026.jpg"
 coverImageAlt: "Best sensitivity settings for PUBG Mobile 2026 — complete guide"
+tags: ["pubgmobile", "sensitivity", "settings", "guide", "ranked"]
 slug: "best-sensitivity-settings-pubg-mobile-2026"
 featured: true
 draft: false
