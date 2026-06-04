@@ -137,15 +137,34 @@ function formatDate(date: Date) {
         </a>
 
         <!-- eFootball Card -->
-        <a href="/efootball/" class="rb-game-card">
-          <div class="rb-game-card__icon">⚽</div>
-          <div class="rb-game-card__body">
-            <h3 class="rb-game-card__title">eFootball 2026</h3>
-            <p class="rb-game-card__desc">Top formations, Division 1 tactics, player reviews and squad-building tips for every patch.</p>
-            <span class="rb-game-card__cta">View Guides →</span>
-          </div>
-        </a>
+<a href="/efootball/" class="rb-game-card">
+  <div class="rb-game-card__icon">⚽</div>
+  <div class="rb-game-card__body">
+    <h3 class="rb-game-card__title">eFootball 2026</h3>
+    <p class="rb-game-card__desc">Top formations, Division 1 tactics, player reviews and squad-building tips for every patch.</p>
+    <span class="rb-game-card__cta">View Guides →</span>
+  </div>
+</a>
 
+<!-- PUBG Mobile Card -->
+<a href="/pubgmobile/" class="rb-game-card">
+  <div class="rb-game-card__icon">🔫</div>
+  <div class="rb-game-card__body">
+    <h3 class="rb-game-card__title">PUBG Mobile</h3>
+    <p class="rb-game-card__desc">Best weapon loadouts, tier lists, sensitivity settings and ranked guides updated every season.</p>
+    <span class="rb-game-card__cta">View Guides →</span>
+  </div>
+</a>
+
+<!-- Free Fire Card -->
+<a href="/freefire/" class="rb-game-card">
+  <div class="rb-game-card__icon">🔥</div>
+  <div class="rb-game-card__body">
+    <h3 class="rb-game-card__title">Free Fire</h3>
+    <p class="rb-game-card__desc">Best characters, weapon tier lists, sensitivity settings and ranked tips updated every season.</p>
+    <span class="rb-game-card__cta">View Guides →</span>
+  </div>
+</a>
       </div>
     </section>
 
@@ -284,13 +303,16 @@ function formatDate(date: Date) {
     gap: 2rem;
   }
 
-  @media (min-width: 900px) {
-    .rb-top-grid {
-      grid-template-columns: minmax(0, 1fr) minmax(240px, 300px);
-      gap: 2rem;
-      align-items: start;
-    }
+  @media (min-width: 600px) {
+  .rb-games-grid {
+    grid-template-columns: 1fr 1fr;
   }
+}
+@media (min-width: 900px) {
+  .rb-games-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
 
   /* Hero */
   .rb-hero {
