@@ -1,7 +1,7 @@
 ---
 title: "Infinix Hot 60i Review: Great Battery, But Is the HD+ Display Worth It?"
 description: "A no-fluff review of the Infinix Hot 60i — what works, what doesn't, and whether it's actually worth buying in 2025 over cheaper rivals."
-coverImage: "infinix-hot-60i-review.jpg"
+coverImage: "/assets/posts/infinix-hot-60i-review.jpg"
 coverImageAlt: "Infinix Hot 60i in Sleek Black colorway"
 author: iSamuel
 pubDatetime: 2026-06-05T09:19:00Z
