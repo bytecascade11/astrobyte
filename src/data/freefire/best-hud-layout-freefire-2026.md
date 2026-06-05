@@ -8,7 +8,7 @@ gameMode: "Battle Royale"
 season: "Season 2026"
 coverImage: "/assets/freefire/best-hud-layout-free-fire-2026.jpg"
 coverImageAlt: "Best HUD layout for Free Fire 2026 showing optimal button placement"
-slug: "best-hud-layout-free-fire-2026"
+slug: "best-hud-layout-freefire-2026"
 featured: true
 draft: false
 relatedSlugs:
