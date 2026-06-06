@@ -1,14 +1,15 @@
 ---
-// src/pages/codm/[slug].astro
+// src/pages/freefire/[slug].astro
 import { getCollection, render } from "astro:content";
 import type { CollectionEntry } from "astro:content";
 import Layout from "@/layouts/Layout.astro";
 import SchemaMarkup from "@/components/SchemaMarkup.astro";
 import Comments from "@/components/Comments.astro";
+import AffiliateCarousel from "@/components/AffiliateCarousel.astro";
 import { SITE } from "@/config";
 
 export async function getStaticPaths() {
-  const guides = await getCollection("codm", ({ data }) => !data.draft);
+  const guides = await getCollection("freefire", ({ data }) => !data.draft);
   return guides.map(guide => ({
     params: { slug: guide.data.slug ?? guide.id },
     props: { guide },
@@ -18,9 +19,9 @@ export async function getStaticPaths() {
 const { guide } = Astro.props;
 const { Content } = await render(guide);
 
-let relatedGuides: CollectionEntry<"codm">[] = [];
+let relatedGuides: CollectionEntry<"freefire">[] = [];
 if (guide.data.relatedSlugs?.length) {
-  const all = await getCollection("codm", ({ data }) => !data.draft);
+  const all = await getCollection("freefire", ({ data }) => !data.draft);
   relatedGuides = all.filter(g =>
     guide.data.relatedSlugs!.includes(g.data.slug ?? g.id)
   );
@@ -40,11 +41,11 @@ const coverImageAbs = guide.data.coverImage
     ).toString()
   : undefined;
 
-const postUrl = `${websiteBase}codm/${guide.data.slug ?? guide.id}/`;
+const postUrl = `${websiteBase}freefire/${guide.data.slug ?? guide.id}/`;
 const postSlug = guide.data.slug ?? guide.id;
 
 const typeLabels: Record<string, string> = {
-  loadout: "Loadout",
+  character: "Character Guide",
   "tier-list": "Tier List",
   guide: "Guide",
   settings: "Settings",
@@ -55,14 +56,14 @@ const shareURL = postUrl;
 const shareTitle = guide.data.title;
 ---
 
-<Layout title={pageTitle} description={pageDesc} ogImage={ogImage}>
+<Layout title={pageTitle} description={pageDesc} ogImage={ogImage} coverImage={coverImageAbs}>
 
   <SchemaMarkup
     type="breadcrumb"
     breadcrumbs={[
       { name: "Home", url: websiteBase },
-      { name: "COD Mobile", url: `${websiteBase}codm/` },
-      { name: typeLabel, url: `${websiteBase}codm/` },
+      { name: "Free Fire", url: `${websiteBase}freefire/` },
+      { name: typeLabel, url: `${websiteBase}freefire/` },
       { name: guide.data.title, url: postUrl },
     ]}
   />
@@ -83,7 +84,7 @@ const shareTitle = guide.data.title;
     <nav class="pt-6 pb-2 text-sm flex items-center gap-1.5 breadcrumb-nav">
       <a href="/" class="hover:text-skin-accent transition-colors">Home</a>
       <span>/</span>
-      <a href="/codm/" class="hover:text-skin-accent transition-colors">COD Mobile</a>
+      <a href="/freefire/" class="hover:text-skin-accent transition-colors">Free Fire</a>
       <span>/</span>
       <span>{typeLabel}</span>
     </nav>
@@ -106,10 +107,10 @@ const shareTitle = guide.data.title;
     <!-- Header -->
     <div class="mb-6">
       <div class="flex flex-wrap gap-2 mb-3">
-        <span class="badge badge--accent">🎮 COD Mobile</span>
+        <span class="badge badge--ff">Free Fire</span>
         <span class="badge">{typeLabel}</span>
         {guide.data.gameMode && <span class="badge">{guide.data.gameMode}</span>}
-        {guide.data.season && <span class="badge">📅 {guide.data.season}</span>}
+        {guide.data.season && <span class="badge">{guide.data.season}</span>}
       </div>
 
       <h1 class="text-3xl font-bold leading-tight mb-3">{guide.data.title}</h1>
@@ -123,7 +124,7 @@ const shareTitle = guide.data.title;
             year: "numeric", month: "long", day: "numeric",
           })}
         </span>
-        {guide.data.lastUpdated && <span>🔄 Updated: {guide.data.lastUpdated}</span>}
+        {guide.data.lastUpdated && <span>Updated: {guide.data.lastUpdated}</span>}
         <span class="view-count-badge">
           👁 <span id="view-count">—</span> views
         </span>
@@ -161,12 +162,12 @@ const shareTitle = guide.data.title;
     <!-- Related Guides -->
     {relatedGuides.length > 0 && (
       <section class="mt-12 border-t border-skin-line pt-8">
-        <h2 class="text-lg font-semibold mb-4">📎 Related Guides</h2>
+        <h2 class="text-lg font-semibold mb-4">Related Guides</h2>
         <ul class="space-y-3">
           {relatedGuides.map(related => (
             <li>
               <a
-                href={`/codm/${related.data.slug ?? related.id}/`}
+                href={`/freefire/${related.data.slug ?? related.id}/`}
                 class="group flex items-start gap-3 rounded-lg border border-skin-line p-3 hover:border-skin-accent transition-colors"
               >
                 {related.data.coverImage && (
@@ -179,7 +180,7 @@ const shareTitle = guide.data.title;
                     height="48"
                   />
                 )}
-                {!related.data.coverImage && <span class="text-xl shrink-0">🎯</span>}
+                {!related.data.coverImage && <span class="text-xl shrink-0">🔥</span>}
                 <div>
                   <p class="font-medium text-sm group-hover:text-skin-accent transition-colors">{related.data.title}</p>
                   <p class="text-xs post-meta mt-0.5">{related.data.description}</p>
@@ -191,6 +192,9 @@ const shareTitle = guide.data.title;
       </section>
     )}
 
+    <!-- Affiliate Carousel -->
+    <AffiliateCarousel />
+
     <!-- Comments -->
     <Comments slug={postSlug} />
 
@@ -198,7 +202,7 @@ const shareTitle = guide.data.title;
     <div class="mt-10 flex items-center gap-4">
       <a href="/" class="text-sm text-skin-accent hover:underline flex items-center gap-1">← Home</a>
       <span class="text-skin-base/30">|</span>
-      <a href="/codm/" class="text-sm text-skin-accent hover:underline flex items-center gap-1">COD Mobile Hub</a>
+      <a href="/freefire/" class="text-sm text-skin-accent hover:underline flex items-center gap-1">Free Fire Hub</a>
     </div>
 
   </main>
@@ -294,7 +298,7 @@ const shareTitle = guide.data.title;
     border-radius: 9999px; background: var(--background-light);
     color: var(--foreground); border: 1px solid var(--border);
   }
-  .badge--accent { color: var(--accent); border-color: var(--accent); opacity: 0.9; }
+  .badge--ff { color: #e53e3e; border-color: #e53e3e; opacity: 0.9; }
   .prose h1 { display: none; }
 
   .share-bar {
