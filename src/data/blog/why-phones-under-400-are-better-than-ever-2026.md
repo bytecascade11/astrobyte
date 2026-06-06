@@ -18,7 +18,7 @@ This piece is based on confirmed specifications, published long-term reviewer te
 
 ---
 
-## What Actually Changed at the Mid-Range {#what-actually-changed}
+## What Actually Changed at the Mid-Range
 
 The short version: chipsets and competition.
 
@@ -33,7 +33,7 @@ The other change is software. Four and five-year update commitments — which us
 
 ---
 
-## Best Camera Phone Under $400 {#best-camera-phone-under-400}
+## Best Camera Phone Under $400
 
 **Google Pixel 8a — $499 (frequently on sale at $379–$399)**
 
@@ -49,7 +49,7 @@ For an in-depth look at how this compares to Google's current flagship lineup, t
 
 ---
 
-## Best Gaming Phone Under $400 {#best-gaming-phone-under-400}
+## Best Gaming Phone Under $400
 
 **OnePlus Nord 4 — $329–$399 (varies by region and storage)**
 
@@ -65,7 +65,7 @@ If you're comparing chipsets between this and other options in the mid-range —
 
 ---
 
-## Best Battery Phone Under $400 {#best-battery-phone-under-400}
+## Best Battery Phone Under $400
 
 **Motorola Edge 50 Fusion — $299–$349**
 
@@ -79,7 +79,7 @@ What it gives up: three years of OS updates is the shortest window among the top
 
 ---
 
-## Full Comparison Table {#full-comparison-table}
+## Full Comparison Table
 
 All pricing reflects mid-2026 market rates. Sale pricing and regional variation apply.
 
@@ -102,7 +102,7 @@ For Samsung-specific context across their full lineup, the [top Samsung phones w
 
 ---
 
-## Software Support — The Number That Changes Everything {#software-support}
+## Software Support — The Number That Changes Everything
 
 This section matters more than most buyers realise when they're making the purchase decision.
 
@@ -122,7 +122,7 @@ If long-term value is a priority, the Pixel 8a's update window is the strongest 
 
 ---
 
-## Where Budget Phones Still Fall Short {#where-budget-phones-still-fall-short}
+## Where Budget Phones Still Fall Short
 
 Honest assessments require naming the gaps, not just the wins.
 
@@ -141,7 +141,7 @@ Honest assessments require naming the gaps, not just the wins.
 
 ---
 
-## Who Should Buy a Phone Under $400 {#who-should-buy}
+## Who Should Buy a Phone Under $400
 
 If your phone use covers communication, social media, streaming, photos of daily life, and navigation — that's most people — there's no case for spending more than $400 in 2026. The experience gap between a well-chosen $380 device and a $1,100 flagship is real but narrow, and it appears in scenarios most buyers encounter a handful of times per week at most.
 
@@ -157,7 +157,7 @@ If you're making a decision that also involves iPhones in this general price ran
 
 ---
 
-## FAQ {#faq}
+## FAQ
 
 **Are phones under $400 actually capable for mobile gaming?**
 
@@ -189,7 +189,7 @@ At launch MSRP, no — it typically launches at $449. In practice, it consistent
 
 ---
 
-## What About Nigeria? {#what-about-nigeria}
+## What About Nigeria?
 
 Most of the pricing in this article reflects US market rates — which don't translate directly to what you'll pay in Nigeria.
 
@@ -207,7 +207,7 @@ A few practical notes before buying:
 
 ---
 
-## Final Verdict {#final-verdict}
+## Final Verdict
 
 The mid-range has crossed a real threshold. A $380 phone in 2026 isn't a compromise most people will feel in daily life — it's a deliberate choice to stop paying for hardware that returns diminishing value above a certain price point.
 
