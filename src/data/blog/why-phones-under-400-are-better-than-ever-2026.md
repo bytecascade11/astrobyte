@@ -18,22 +18,6 @@ This piece is based on confirmed specifications, published long-term reviewer te
 
 ---
 
-## Table of Contents
-
-- [What Actually Changed at the Mid-Range](#what-actually-changed)
-- [Best Camera Phone Under $400](#best-camera-phone-under-400)
-- [Best Gaming Phone Under $400](#best-gaming-phone-under-400)
-- [Best Battery Phone Under $400](#best-battery-phone-under-400)
-- [Full Comparison Table](#full-comparison-table)
-- [Software Support — The Number That Changes Everything](#software-support)
-- [Where Budget Phones Still Fall Short](#where-budget-phones-still-fall-short)
-- [Who Should Buy a Phone Under $400](#who-should-buy)
-- [What About Nigeria?](#what-about-nigeria)
-- [FAQ](#faq)
-- [Final Verdict](#final-verdict)
-
----
-
 ## What Actually Changed at the Mid-Range {#what-actually-changed}
 
 The short version: chipsets and competition.
