@@ -2,7 +2,7 @@
 title: "Best Sensitivity Settings for Free Fire 2026 — Stop Missing Shots"
 description: "Find the best sensitivity settings for Free Fire in 2026. Covers general, red dot, scope, and gyroscope settings for mobile players who want tighter aim and fewer missed shots."
 author: "iSamuel"
-pubDatetime: 2026-06-04T20:28:00Z
+pubDatetime: 2026-06-06T05:48:00Z
 type: "guide"
 gameMode: "Battle Royale"
 season: "2026"
