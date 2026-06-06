@@ -8,7 +8,7 @@ gameMode: "Battle Royale"
 season: "2026"
 coverImage: "/assets/freefire/best-sensitivity-settings-free-fire-2026.jpg"
 coverImageAlt: "Best sensitivity settings for Free Fire 2026"
-slug: "best-sensitivity-settings-free-fire-2026"
+slug: "best-sensitivity-settings-free-ire-2026"
 featured: true
 draft: false
 ---
