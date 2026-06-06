@@ -2,7 +2,7 @@
 title: "Best HUD Layout for Free Fire 2026 — Button Placement That Actually Works"
 description: "Stop fumbling controls mid-fight. This guide breaks down the best HUD layout for Free Fire in 2026 — covering button size, placement, and setup tips for 3-finger and 4-finger claw players."
 author: "iSamuel"
-pubDatetime: 2026-06-04T22:47:00Z
+pubDatetime: 2026-06-06T05:46:00Z
 type: "guide"
 gameMode: "Battle Royale"
 season: "Season 2026"
