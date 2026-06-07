@@ -1,0 +1,171 @@
+---
+// src/pages/mlbb/index.astro
+import { getCollection } from "astro:content";
+import Layout from "@/layouts/Layout.astro";
+import { SITE } from "@/config";
+
+const allGuides = await getCollection("mlbb", ({ data }) => !data.draft);
+const sorted = allGuides.sort(
+  (a, b) => new Date(b.data.pubDatetime).getTime() - new Date(a.data.pubDatetime).getTime()
+);
+
+const heroGuides = sorted.filter(g => g.data.type === "hero-guide");
+const tierLists  = sorted.filter(g => g.data.type === "tier-list");
+const guides     = sorted.filter(g => g.data.type === "guide" || g.data.type === "settings");
+const news       = sorted.filter(g => g.data.type === "news");
+
+const pageTitle = "Mobile Legends Bang Bang Guides, Hero Tier Lists & Tips";
+const pageDesc  = "Complete Mobile Legends Bang Bang resource hub — best hero guides, tier lists, emblem builds, and ranked tips updated every season.";
+---
+
+<Layout title={`${pageTitle} | ${SITE.title}`} description={pageDesc}>
+  <main id="main-content" class="mx-auto w-full max-w-3xl px-4 pb-12">
+
+    <div class="pt-5 pb-1">
+      <a href="/" class="inline-flex items-center gap-1.5 text-sm text-skin-accent hover:underline">
+        <svg viewBox="0 0 24 24" style="width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round;">
+          <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+          <polyline points="9 22 9 12 15 12 15 22"/>
+        </svg>
+        Go to Home
+      </a>
+    </div>
+
+    <section class="mb-10 pt-4">
+      <div class="flex items-center gap-3 mb-2">
+        <h1 class="text-3xl font-bold tracking-tight">Mobile Legends Hub</h1>
+      </div>
+      <p class="text-skin-base/70 text-lg">{pageDesc}</p>
+    </section>
+
+    {heroGuides.length > 0 && (
+      <section class="mb-10">
+        <h2 class="text-xl font-semibold mb-4 border-b border-skin-line pb-2">Hero Guides</h2>
+        <ul class="space-y-4">
+          {heroGuides.map(guide => (
+            <li>
+              <a href={`/mlbb/${guide.data.slug ?? guide.id}/`}
+                class="group flex gap-3 rounded-lg border border-skin-line p-3 hover:border-skin-accent transition-colors">
+                {guide.data.coverImage && (
+                  <img src={guide.data.coverImage} alt={guide.data.coverImageAlt ?? guide.data.title}
+                    class="hub-thumb" loading="lazy" width="1200" height="630" />
+                )}
+                <div class="flex-1 min-w-0">
+                  <div class="flex items-start justify-between gap-2">
+                    <h3 class="font-medium group-hover:text-skin-accent transition-colors line-clamp-2">{guide.data.title}</h3>
+                    {guide.data.season && (
+                      <span class="shrink-0 text-xs bg-skin-card px-2 py-0.5 rounded-full text-skin-base/60">{guide.data.season}</span>
+                    )}
+                  </div>
+                  <p class="text-sm text-skin-base/60 mt-1 line-clamp-2">{guide.data.description}</p>
+                  {guide.data.role && (
+                    <span class="mt-2 inline-block text-xs text-skin-accent">{guide.data.role}</span>
+                  )}
+                </div>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </section>
+    )}
+
+    {tierLists.length > 0 && (
+      <section class="mb-10">
+        <h2 class="text-xl font-semibold mb-4 border-b border-skin-line pb-2">Tier Lists</h2>
+        <ul class="space-y-4">
+          {tierLists.map(guide => (
+            <li>
+              <a href={`/mlbb/${guide.data.slug ?? guide.id}/`}
+                class="group flex gap-3 rounded-lg border border-skin-line p-3 hover:border-skin-accent transition-colors">
+                {guide.data.coverImage && (
+                  <img src={guide.data.coverImage} alt={guide.data.coverImageAlt ?? guide.data.title}
+                    class="hub-thumb" loading="lazy" width="1200" height="630" />
+                )}
+                <div class="flex-1 min-w-0">
+                  <div class="flex items-start justify-between gap-2">
+                    <h3 class="font-medium group-hover:text-skin-accent transition-colors line-clamp-2">{guide.data.title}</h3>
+                    {guide.data.season && (
+                      <span class="shrink-0 text-xs bg-skin-card px-2 py-0.5 rounded-full text-skin-base/60">{guide.data.season}</span>
+                    )}
+                  </div>
+                  <p class="text-sm text-skin-base/60 mt-1 line-clamp-2">{guide.data.description}</p>
+                </div>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </section>
+    )}
+
+    {guides.length > 0 && (
+      <section class="mb-10">
+        <h2 class="text-xl font-semibold mb-4 border-b border-skin-line pb-2">Guides & Settings</h2>
+        <ul class="space-y-4">
+          {guides.map(guide => (
+            <li>
+              <a href={`/mlbb/${guide.data.slug ?? guide.id}/`}
+                class="group flex gap-3 rounded-lg border border-skin-line p-3 hover:border-skin-accent transition-colors">
+                {guide.data.coverImage && (
+                  <img src={guide.data.coverImage} alt={guide.data.coverImageAlt ?? guide.data.title}
+                    class="hub-thumb" loading="lazy" width="1200" height="630" />
+                )}
+                <div class="flex-1 min-w-0">
+                  <div class="flex items-start justify-between gap-2">
+                    <h3 class="font-medium group-hover:text-skin-accent transition-colors line-clamp-2">{guide.data.title}</h3>
+                    {guide.data.role && (
+                      <span class="shrink-0 text-xs bg-skin-card px-2 py-0.5 rounded-full text-skin-base/60">{guide.data.role}</span>
+                    )}
+                  </div>
+                  <p class="text-sm text-skin-base/60 mt-1 line-clamp-2">{guide.data.description}</p>
+                </div>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </section>
+    )}
+
+    {news.length > 0 && (
+      <section class="mb-10">
+        <h2 class="text-xl font-semibold mb-4 border-b border-skin-line pb-2">Latest News</h2>
+        <ul class="space-y-4">
+          {news.map(guide => (
+            <li>
+              <a href={`/mlbb/${guide.data.slug ?? guide.id}/`}
+                class="group flex gap-3 rounded-lg border border-skin-line p-3 hover:border-skin-accent transition-colors">
+                {guide.data.coverImage && (
+                  <img src={guide.data.coverImage} alt={guide.data.coverImageAlt ?? guide.data.title}
+                    class="hub-thumb" loading="lazy" width="1200" height="630" />
+                )}
+                <div class="flex-1 min-w-0">
+                  <h3 class="font-medium group-hover:text-skin-accent transition-colors line-clamp-2">{guide.data.title}</h3>
+                  <p class="text-sm text-skin-base/60 mt-1 line-clamp-2">{guide.data.description}</p>
+                </div>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </section>
+    )}
+
+    {sorted.length === 0 && (
+      <p class="text-center text-skin-base/50 py-20">Guides coming soon. Check back shortly.</p>
+    )}
+
+  </main>
+</Layout>
+
+<style is:global>
+  .hub-thumb {
+    width: 120px;
+    min-width: 120px;
+    height: 72px;
+    object-fit: cover;
+    border-radius: 8px;
+    background: var(--background-light);
+    flex-shrink: 0;
+  }
+  @media (max-width: 400px) {
+    .hub-thumb { width: 88px; min-width: 88px; height: 56px; }
+  }
+</style>
