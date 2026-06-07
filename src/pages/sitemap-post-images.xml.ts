@@ -14,7 +14,6 @@ export async function GET() {
     getCollection("codm", ({ data }) => !data.draft),
     getCollection("efootball", ({ data }) => !data.draft),
     getCollection("pubgmobile", ({ data }) => !data.draft),
-    getCollection("freefire", ({ data }) => !data.draft),
     getCollection("mlbb", ({ data }) => !data.draft),
   ]);
   // Blog posts — use getPath like before
@@ -59,11 +58,11 @@ export async function GET() {
       return buildEntry(postUrl, imageUrl, g.data.coverImageAlt || g.data.title);
     });
 
-  const freeFireEntries = freeFirePosts
+  const mlbbEntries = mlbbPosts
     .filter((g) => g.data.coverImage)
     .map((g) => {
       const slug = g.data.slug ?? g.id;
-      const postUrl = `${websiteBase}freefire/${slug}/`;
+      const postUrl = `${websiteBase}mlbb/${slug}/`;
       const imageUrl = buildImageUrl(g.data.coverImage as string, websiteBase);
       return buildEntry(postUrl, imageUrl, g.data.coverImageAlt || g.data.title);
     });
@@ -73,7 +72,6 @@ export async function GET() {
     ...codmEntries,
     ...efootballEntries,
     ...pubgEntries,
-    ...freeFireEntries,
     ...mlbbEntries,
   ].join("");
 
