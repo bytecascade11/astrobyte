@@ -108,15 +108,13 @@ const shareTitle = guide.data.title;
       <div class="flex flex-wrap gap-2 mb-3">
         <span class="badge badge--accent">⚽ eFootball 2026</span>
         <span class="badge">{typeLabel}</span>
-        {}
-        {}
       </div>
 
       <h1 class="text-3xl font-bold leading-tight mb-3">{guide.data.title}</h1>
 
       <p class="post-desc text-lg leading-relaxed">{guide.data.description}</p>
 
-      <!-- Meta row with view count -->
+      <!-- Meta row -->
       <div class="mt-4 flex flex-wrap gap-x-4 gap-y-1 text-sm post-meta">
         <span>By {guide.data.author}</span>
         <span>
@@ -125,7 +123,6 @@ const shareTitle = guide.data.title;
           })}
         </span>
         {guide.data.lastUpdated && <span>🔄 Updated: {guide.data.lastUpdated}</span>}
-        
       </div>
     </div>
 
@@ -164,10 +161,8 @@ const shareTitle = guide.data.title;
         <ul class="space-y-3">
           {relatedGuides.map(related => (
             <li>
-              
-               <a 
-                  href={`/efootball/${related.data.slug ?? related.id}/`} ...>
-
+              <a
+                href={`/efootball/${related.data.slug ?? related.id}/`}
                 class="group flex items-start gap-3 rounded-lg border border-skin-line p-3 hover:border-skin-accent transition-colors"
               >
                 {related.data.coverImage && (
@@ -191,7 +186,8 @@ const shareTitle = guide.data.title;
         </ul>
       </section>
     )}
-<!-- WhatsApp Channel CTA -->
+
+    <!-- WhatsApp Channel CTA -->
     <a
       href="https://whatsapp.com/channel/0029VbBCXzRKAwEdcyip8841"
       target="_blank"
@@ -211,6 +207,7 @@ const shareTitle = guide.data.title;
         <path d="M9 18l6-6-6-6"/>
       </svg>
     </a>
+
     <!-- Comments -->
     <Comments slug={postSlug} />
 
@@ -223,7 +220,6 @@ const shareTitle = guide.data.title;
 
   </main>
 </Layout>
-
 
 <script is:inline>
   function updateGiscusTheme() {
@@ -265,7 +261,7 @@ const shareTitle = guide.data.title;
 </script>
 
 <style is:global>
-.wa-channel-box {
+  .wa-channel-box {
     display: flex; align-items: center; gap: 14px;
     margin-top: 2rem; padding: 14px 16px;
     border-radius: 14px;
