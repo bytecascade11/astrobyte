@@ -9,14 +9,14 @@ export async function GET() {
     : `${SITE.website}/`;
 
   // Fetch all collections
-  const [blogPosts, codmPosts, efootballPosts, pubgPosts, freeFirePosts] = await Promise.all([
+  const [blogPosts, codmPosts, efootballPosts, pubgPosts, freeFirePosts, mlbbPosts] = await Promise.all([
     getCollection("blog", ({ data }) => !data.draft),
     getCollection("codm", ({ data }) => !data.draft),
     getCollection("efootball", ({ data }) => !data.draft),
     getCollection("pubgmobile", ({ data }) => !data.draft),
     getCollection("freefire", ({ data }) => !data.draft),
+    getCollection("mlbb", ({ data }) => !data.draft),
   ]);
-
   // Blog posts — use getPath like before
   const blogEntries = blogPosts
     .filter((post) => post.data.coverImage)
@@ -74,6 +74,7 @@ export async function GET() {
     ...efootballEntries,
     ...pubgEntries,
     ...freeFireEntries,
+    ...mlbbEntries,
   ].join("");
 
   const xml = `<?xml version="1.0" encoding="UTF-8"?>
