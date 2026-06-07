@@ -16,7 +16,7 @@ const description = "Transparent privacy practices at ReviByte Opinion – we co
         We value your privacy. This document explains what data we collect (very little), why, and how it's used.
       </p>
       <p class="mt-4 text-lg font-medium text-gray-500 dark:text-gray-400">
-        Last updated: June 4, 2026
+        Last updated: June 7, 2026
       </p>
       <p class="mt-2">
         Questions? Email us at
@@ -40,6 +40,7 @@ const description = "Transparent privacy practices at ReviByte Opinion – we co
         <li>• Some links are affiliate links — we may earn a small commission at no cost to you.</li>
         <li>• Heliara AI messages are processed by Groq — we do not store your chat history.</li>
         <li>• ReviByte Save sends URLs to third-party APIs to fetch media — we do not store those URLs.</li>
+        <li>• Anonymous comments are stored via Supabase — no account or personal identity required.</li>
       </ul>
     </div>
 
@@ -53,7 +54,14 @@ const description = "Transparent privacy practices at ReviByte Opinion – we co
         <li>Device type, operating system, and browser</li>
         <li>Pages viewed, time spent, and referral source</li>
         <li>Advertising identifiers (Google AdSense cookies, if ads are active)</li>
-        <li>Anonymous post view counts (stored via Supabase — no personal identity linked)</li>
+      </ul>
+
+      <h3 class="text-xl font-semibold mt-6 mb-3">Comments</h3>
+      <ul class="mt-2">
+        <li>ReviByte has an anonymous comment system. When you leave a comment, we collect your chosen display name and comment text only.</li>
+        <li>No account, email address, or personal identity is required to comment.</li>
+        <li>Comments are stored via Supabase. Your display name and comment text are visible publicly on the post.</li>
+        <li>We reserve the right to remove comments that violate our Terms and Conditions.</li>
       </ul>
 
       <h3 class="text-xl font-semibold mt-6 mb-3">Push Notifications (Optional)</h3>
@@ -73,11 +81,7 @@ const description = "Transparent privacy practices at ReviByte Opinion – we co
 
       <h3 class="text-xl font-semibold mt-6 mb-3">ReviByte Save (Media Downloader)</h3>
       <ul class="mt-2">
-        <li>RapidAPI — API gateway used by ReviByte Save to process media download 
-requests. URLs submitted are routed through RapidAPI's infrastructure. 
-ReviByte does not store submitted URLs or downloaded media.
-(privacy policy: https://rapidapi.com/privacy)</li>
-        <li>ReviByte does <strong>not store</strong> the URLs you submit or the media you download.</li>
+        <li>ReviByte Save sends URLs you submit to RapidAPI's infrastructure to fetch media information. ReviByte does not store submitted URLs or downloaded media.</li>
         <li>ReviByte Save is intended for personal use only. Users are responsible for ensuring they have rights to download any content.</li>
       </ul>
 
@@ -97,7 +101,7 @@ ReviByte does not store submitted URLs or downloaded media.
         <li>To understand visitor engagement and improve content</li>
         <li>To display relevant advertisements (via Google AdSense)</li>
         <li>To send push notifications about new posts (only if you opted in)</li>
-        <li>To count anonymous post views for editorial purposes</li>
+        <li>To store and display anonymous comments on posts</li>
         <li>To process Heliara AI chat messages via Groq's API</li>
         <li>To fetch media information via third-party APIs for ReviByte Save</li>
         <li>To reply to your emails or support requests</li>
@@ -111,10 +115,10 @@ ReviByte does not store submitted URLs or downloaded media.
         <li>Google Analytics (for understanding traffic patterns)</li>
         <li>Google AdSense / Advertising partners (for serving relevant ads)</li>
         <li>OneSignal (for push notification delivery)</li>
-        <li>Vercel Analytics (anonymous performance metrics)</li>
+        <li>Cloudflare (for security, performance, and DDoS protection)</li>
       </ul>
 
-      <p class="mt-4">These help show relevant ads and improve user experience.</p>
+      <p class="mt-4">These help show relevant ads, protect the site, and improve user experience.</p>
 
       <p class="mt-6">
         <strong>Manage or disable personalized ads:</strong><br/>
@@ -143,11 +147,12 @@ ReviByte does not store submitted URLs or downloaded media.
           (<a href="https://vercel.com/legal/privacy-policy" target="_blank" rel="noopener" class="text-blue-600 hover:underline">privacy policy</a>)
         </li>
         <li>
-          <strong>Google Analytics 4</strong> — Anonymous visitor statistics
-          (<a href="https://policies.google.com/privacy" target="_blank" rel="noopener" class="text-blue-600 hover:underline">privacy policy</a>)
+          <strong>Cloudflare</strong> — DNS, security, DDoS protection, and performance optimization. Cloudflare may process visitor IP addresses and request data to protect the site.
+          (<a href="https://www.cloudflare.com/privacypolicy/" target="_blank" rel="noopener" class="text-blue-600 hover:underline">privacy policy</a>)
         </li>
         <li>
-          <strong>Vercel Analytics</strong> — Anonymous performance and traffic metrics
+          <strong>Google Analytics 4</strong> — Anonymous visitor statistics
+          (<a href="https://policies.google.com/privacy" target="_blank" rel="noopener" class="text-blue-600 hover:underline">privacy policy</a>)
         </li>
         <li>
           <strong>Google AdSense</strong> — Displaying advertisements and using cookies for personalized ads
@@ -162,7 +167,7 @@ ReviByte does not store submitted URLs or downloaded media.
           (<a href="https://www.amazon.com/gp/help/customer/display.html?nodeId=468496" target="_blank" rel="noopener" class="text-blue-600 hover:underline">learn more</a>)
         </li>
         <li>
-          <strong>Supabase</strong> — Anonymous post view counting (no personal data stored)
+          <strong>Supabase</strong> — Anonymous comment storage. Display names and comment text are stored. No personal identity or account is required.
           (<a href="https://supabase.com/privacy" target="_blank" rel="noopener" class="text-blue-600 hover:underline">privacy policy</a>)
         </li>
         <li>
@@ -170,14 +175,11 @@ ReviByte does not store submitted URLs or downloaded media.
           (<a href="https://groq.com/privacy-policy/" target="_blank" rel="noopener" class="text-blue-600 hover:underline">privacy policy</a>)
         </li>
         <li>
-         <li>
-  <strong>RapidAPI</strong> — API gateway used by ReviByte Save to process 
-  media download requests. URLs you submit are routed through RapidAPI's 
-  infrastructure. ReviByte does not store submitted URLs or downloaded media.
-  (<a href="https://rapidapi.com/privacy" target="_blank" rel="noopener" class="text-blue-600 hover:underline">privacy policy</a>)
-</li>
+          <strong>RapidAPI</strong> — API gateway used by ReviByte Save to process media download requests. URLs you submit are routed through RapidAPI's infrastructure. ReviByte does not store submitted URLs or downloaded media.
+          (<a href="https://rapidapi.com/privacy" target="_blank" rel="noopener" class="text-blue-600 hover:underline">privacy policy</a>)
+        </li>
         <li>
-          <strong>Microsoft Store / PWABuilder</strong> — ReviByte is listed as a Progressive Web App on the Microsoft Store
+          <strong>Microsoft Store / PWABuilder</strong> — ReviByte is listed as a Progressive Web App on the Microsoft Store.
         </li>
       </ul>
     </section>
@@ -190,6 +192,7 @@ ReviByte does not store submitted URLs or downloaded media.
         <li>Request corrections or deletion</li>
         <li>Receive a copy of your data (portability)</li>
         <li>Opt out of personalized advertising</li>
+        <li>Request removal of a comment you posted</li>
         <li>Unsubscribe from push notifications via your browser settings</li>
       </ul>
       <p class="mt-4">
@@ -202,7 +205,7 @@ ReviByte does not store submitted URLs or downloaded media.
 
     <section class="mt-12">
       <h2 class="text-2xl font-semibold mb-4">7. Children's Privacy</h2>
-      <p>ReviByte is not intended for users under 13. We do not knowingly collect data from children. Gaming content on this site (COD Mobile, eFootball, PUBG Mobile, Free Fire) is intended for general audiences and does not target minors. Heliara AI and ReviByte Save are also not intended for users under 13.</p>
+      <p>ReviByte is not intended for users under 13. We do not knowingly collect data from children. Gaming content on this site (COD Mobile, eFootball, PUBG Mobile, Mobile Legends Bang Bang) is intended for general audiences and does not target minors. Heliara AI and ReviByte Save are also not intended for users under 13.</p>
     </section>
 
     <section class="mt-12">
@@ -210,7 +213,7 @@ ReviByte does not store submitted URLs or downloaded media.
       <ul>
         <li>Analytics data: up to 26 months</li>
         <li>Push notification tokens: retained until you unsubscribe</li>
-        <li>Post view counts: indefinitely (anonymous, not linked to any identity)</li>
+        <li>Comments: retained indefinitely unless you request deletion</li>
         <li>Emails/messages: kept only as long as needed</li>
         <li>Ad data: controlled by Google</li>
         <li>Heliara AI chat messages: not stored by ReviByte — session only</li>
@@ -220,7 +223,7 @@ ReviByte does not store submitted URLs or downloaded media.
 
     <section class="mt-12">
       <h2 class="text-2xl font-semibold mb-4">9. Security</h2>
-      <p>We use HTTPS encryption, security headers (X-Frame-Options, X-Content-Type-Options, Strict-Transport-Security), and rely on secure third-party platforms to protect any stored data. No sensitive personal data is stored on ReviByte's servers. Heliara AI and ReviByte Save API endpoints are server-side only — API keys are never exposed to the browser.</p>
+      <p>We use HTTPS encryption, Cloudflare security headers and DDoS protection, and rely on secure third-party platforms to protect any stored data. No sensitive personal data is stored on ReviByte's servers. Heliara AI and ReviByte Save API endpoints are server-side only — API keys are never exposed to the browser.</p>
     </section>
 
     <section class="mt-12">
@@ -229,7 +232,7 @@ ReviByte does not store submitted URLs or downloaded media.
     </section>
 
     <p class="mt-16 text-center text-lg italic text-gray-600 dark:text-gray-400">
-      Thank you for trusting <strong>ReviByte Opinion</strong> with your time — and your privacy.<br><br>
+      Thank you for trusting <strong>ReviByte Opinion</strong> with your time — and your privacy.<br /><br />
       — <strong>Oke "iSamuel"</strong>, Founder
     </p>
   </article>
