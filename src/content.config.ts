@@ -107,9 +107,9 @@ const pubgmobile = defineCollection({
     }),
 });
 
-// --------------- Free Fire Collection ---------------
-const freefire = defineCollection({
-  loader: glob({ pattern: "**/[^_]*.{md,mdx}", base: "./src/data/freefire" }),
+// --------------- Mobile Legends Collection ---------------
+const mlbb = defineCollection({
+  loader: glob({ pattern: "**/[^_]*.{md,mdx}", base: "./src/data/mlbb" }),
   schema: ({ image }) =>
     z.object({
       title: z.string(),
@@ -122,10 +122,10 @@ const freefire = defineCollection({
       canonicalURL: z.string().url().optional(),
       coverImage: z.string().optional(),
       coverImageAlt: z.string().optional(),
-      type: z.enum(["character", "tier-list", "guide", "settings", "news"]).default("guide"),
-      gameMode: z.enum(["Battle Royale", "Clash Squad", "Ranked", "All Modes"]).optional(),
+      type: z.enum(["hero-guide", "tier-list", "guide", "settings", "news"]).default("guide"),
+      role: z.enum(["Tank", "Fighter", "Assassin", "Mage", "Marksman", "Support", "All Roles"]).optional(),
       season: z.string().optional(),
-      tags: z.array(z.string()).default(["freefire"]),
+      tags: z.array(z.string()).default(["mlbb"]),
       featured: z.boolean().optional(),
       draft: z.boolean().optional().default(false),
       relatedSlugs: z.array(z.string()).optional(),
@@ -139,4 +139,5 @@ export const collections = {
   efootball,
   pubgmobile,
   freefire,
+  mlbb,
 };
