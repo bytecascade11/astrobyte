@@ -138,6 +138,5 @@ export const collections = {
   codm,
   efootball,
   pubgmobile,
-  freefire,
   mlbb,
 };
