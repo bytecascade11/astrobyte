@@ -202,9 +202,7 @@ const postSlug = post.id;
       <div class="post-meta">
         <div class="post-meta-left">
           <Datetime {pubDatetime} {modDatetime} {timezone} size="lg" />
-          <span class="view-count-badge">
-            👁 <span id="view-count">—</span> views
-          </span>
+          
         </div>
         <div class="post-share-inline">
           <ShareLinks />
@@ -306,45 +304,7 @@ const postSlug = post.id;
   </script>
 </Layout>
 
-<!-- View counter script -->
-<script is:inline define:vars={{ postSlug }}>
-  const SUPABASE_URL = "https://tfkrjruxqiqpaoeckfoh.supabase.co";
-  const SUPABASE_KEY = "sb_publishable_fHguT58pKc7MsxhSvNpb6w_T2Xg_U_G";
 
-  async function getAndIncrementViews(slug) {
-    try {
-      await fetch(`${SUPABASE_URL}/rest/v1/rpc/increment_views`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "apikey": SUPABASE_KEY,
-          "Authorization": `Bearer ${SUPABASE_KEY}`,
-        },
-        body: JSON.stringify({ post_slug: slug }),
-      });
-
-      const res = await fetch(
-        `${SUPABASE_URL}/rest/v1/post_views?slug=eq.${encodeURIComponent(slug)}&select=views`,
-        {
-          headers: {
-            "apikey": SUPABASE_KEY,
-            "Authorization": `Bearer ${SUPABASE_KEY}`,
-          },
-        }
-      );
-
-      const data = await res.json();
-      const views = data?.[0]?.views ?? 0;
-      const el = document.getElementById("view-count");
-      if (el) el.textContent = views.toLocaleString();
-    } catch {
-      const el = document.getElementById("view-count");
-      if (el) el.textContent = "—";
-    }
-  }
-
-  getAndIncrementViews(postSlug);
-</script>
 
 <style>
   /* ── Top nav ── */
@@ -393,14 +353,6 @@ const postSlug = post.id;
     align-items: center;
     flex-wrap: wrap;
     gap: 0.75rem;
-  }
-
-  .view-count-badge {
-    display: flex;
-    align-items: center;
-    gap: 0.3rem;
-    font-size: 0.82rem;
-    opacity: 0.65;
   }
 
   .post-share-inline {
