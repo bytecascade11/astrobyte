@@ -118,14 +118,15 @@ const shareTitle = guide.data.title;
       <p class="post-desc text-lg leading-relaxed">{guide.data.description}</p>
 
       <div class="mt-4 flex flex-wrap gap-x-4 gap-y-1 text-sm post-meta">
-        <span>By {guide.data.author}</span>
-        <span>
-          {new Date(guide.data.pubDatetime).toLocaleDateString("en-NG", {
-            year: "numeric", month: "long", day: "numeric",
-          })}
-        </span>
-        {guide.data.lastUpdated && <span>Updated: {guide.data.lastUpdated}</span>
-      </div>
+  <span>By {guide.data.author}</span>
+  <span>
+    {new Date(guide.data.pubDatetime).toLocaleDateString("en-NG", {
+      year: "numeric", month: "long", day: "numeric",
+    })}
+  </span>
+  {guide.data.lastUpdated && <span>Updated: {guide.data.lastUpdated}</span>}
+  <!-- Remove the extra </span> that was here -->
+</div>
     </div>
 
     <!-- Share bar -->
