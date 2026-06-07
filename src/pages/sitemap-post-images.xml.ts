@@ -9,7 +9,7 @@ export async function GET() {
     : `${SITE.website}/`;
 
   // Fetch all collections
-  const [blogPosts, codmPosts, efootballPosts, pubgPosts, freeFirePosts, mlbbPosts] = await Promise.all([
+  const [blogPosts, codmPosts, efootballPosts, pubgPosts, mlbbPosts] = await Promise.all([
     getCollection("blog", ({ data }) => !data.draft),
     getCollection("codm", ({ data }) => !data.draft),
     getCollection("efootball", ({ data }) => !data.draft),
