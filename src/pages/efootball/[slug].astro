@@ -5,6 +5,7 @@ import type { CollectionEntry } from "astro:content";
 import Layout from "@/layouts/Layout.astro";
 import SchemaMarkup from "@/components/SchemaMarkup.astro";
 import { SITE } from "@/config";
+import AffiliateCarousel from "@/components/AffiliateCarousel.astro";
 import Comments from "@/components/Comments.astro";
 
 export async function getStaticPaths() {
@@ -207,7 +208,7 @@ const shareTitle = guide.data.title;
         <path d="M9 18l6-6-6-6"/>
       </svg>
     </a>
-
+<AffiliateCarousel />
     <!-- Comments -->
     <Comments slug={postSlug} />
 
