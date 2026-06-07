@@ -209,46 +209,39 @@ const shareTitle = guide.data.title;
 
   </main>
 </Layout>
-
 <script is:inline>
-  function updateGiscusTheme() {
-    const theme = document.firstElementChild?.getAttribute("data-theme") || "light";
-    const iframe = document.querySelector("iframe.giscus-frame");
-    if (iframe) {
-      iframe.contentWindow?.postMessage(
-        { giscus: { setConfig: { theme: theme === "dark" ? "dark" : "light" } } },
-        "https://giscus.app"
-      );
-    }
-  }
-  document.addEventListener("astro:after-swap", updateGiscusTheme);
-  window.addEventListener("load", updateGiscusTheme);
-  new MutationObserver(updateGiscusTheme).observe(document.documentElement, {
-    attributes: true, attributeFilter: ["data-theme"]
-  });
-
+  // Share button (native mobile share)
   if (navigator.share) {
     const btn = document.getElementById('nativeShareBtn');
     if (btn) {
       btn.style.display = 'flex';
       btn.addEventListener('click', () => {
-        navigator.share({ title: document.title, url: window.location.href }).catch(() => {});
+        navigator.share({
+          title: document.title,
+          url: window.location.href
+        }).catch(() => {});
       });
     }
   }
 
+  // Copy link button
   const copyBtn = document.getElementById('copyLinkBtn');
   if (copyBtn) {
     copyBtn.addEventListener('click', () => {
       const url = copyBtn.dataset.url || window.location.href;
+
       navigator.clipboard.writeText(url).then(() => {
         const label = document.getElementById('copyBtnText');
-        if (label) { label.textContent = 'Copied!'; setTimeout(() => { label.textContent = 'Copy'; }, 2000); }
+        if (label) {
+          label.textContent = 'Copied!';
+          setTimeout(() => {
+            label.textContent = 'Copy';
+          }, 2000);
+        }
       }).catch(() => {});
     });
   }
 </script>
-
 <style is:global>
   .wa-channel-box {
     display: flex; align-items: center; gap: 14px;
