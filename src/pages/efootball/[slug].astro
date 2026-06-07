@@ -164,8 +164,10 @@ const shareTitle = guide.data.title;
         <ul class="space-y-3">
           {relatedGuides.map(related => (
             <li>
-              <a
-                href={`/codm/${related.data.slug ?? related.id}/`}
+              
+               <a 
+                  href={`/efootball/${related.data.slug ?? related.id}/`} ...>
+
                 class="group flex items-start gap-3 rounded-lg border border-skin-line p-3 hover:border-skin-accent transition-colors"
               >
                 {related.data.coverImage && (
