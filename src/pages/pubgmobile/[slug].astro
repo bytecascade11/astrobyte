@@ -121,9 +121,7 @@ const shareTitle = guide.data.title;
           })}
         </span>
         {guide.data.lastUpdated && <span>Updated: {guide.data.lastUpdated}</span>}
-        <span class="view-count-badge">
-          <span id="view-count">--</span> views
-        </span>
+        
       </div>
     </div>
 
@@ -208,28 +206,6 @@ const shareTitle = guide.data.title;
 
   </main>
 </Layout>
-
-<script is:inline define:vars={{ postSlug }}>
-  const SUPABASE_URL = "https://tfkrjruxqiqpaoeckfoh.supabase.co";
-  const SUPABASE_KEY = "sb_publishable_fHguT58pKc7MsxhSvNpb6w_T2Xg_U_G";
-
-  async function getAndIncrementViews(slug) {
-    try {
-      await fetch(SUPABASE_URL + "/rest/v1/rpc/increment_views", {
-        method: "POST",
-        headers: { "Content-Type": "application/json", "apikey": SUPABASE_KEY, "Authorization": "Bearer " + SUPABASE_KEY },
-        body: JSON.stringify({ post_slug: slug }),
-      });
-      const res = await fetch(SUPABASE_URL + "/rest/v1/post_views?slug=eq." + encodeURIComponent(slug) + "&select=views", {
-        headers: { "apikey": SUPABASE_KEY, "Authorization": "Bearer " + SUPABASE_KEY },
-      });
-      const data = await res.json();
-      const el = document.getElementById("view-count");
-      if (el) el.textContent = (data?.[0]?.views ?? 0).toLocaleString();
-    } catch { }
-  }
-  getAndIncrementViews(postSlug);
-</script>
 
 <script is:inline>
   if (navigator.share) {
