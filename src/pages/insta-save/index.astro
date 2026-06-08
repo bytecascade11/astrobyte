@@ -561,12 +561,10 @@
       setStatus(`<div class="spinner"></div> Fetching video info...`, 'loading');
 
       try {
-        const apiUrl = `https://revibyte.blog.workers.dev/?url=${encodeURIComponent(url)}`;
+        const apiUrl = `https://sam.okesunday503.workers.dev/?url=${encodeURIComponent(url)}`;
         const res = await fetch(apiUrl, {
           method: 'GET',
           headers: {
-            'x-rapidapi-key': RAPIDAPI_KEY,
-            'x-rapidapi-host': RAPIDAPI_HOST,
           }
         });
 
