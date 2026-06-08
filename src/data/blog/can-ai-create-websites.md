@@ -8,14 +8,14 @@ tags:
   - web-development
   - tools
   - opinions
-  - productivies 
+  - productivies
 coverImage: /assets/posts/can-ai-create-websites-hero.jpg
 coverImageAlt: "AI creating a website using a chat prompt on screen"
 ---
 
-## Table of Contents 
+## Table of Contents
 
-## Overview 
+## Overview
 
 There's a version of this conversation happening everywhere right now. Someone hears about an AI website builder, types a few sentences into a prompt box, and seconds later they're looking at something that resembles a website. The question is: did AI actually *build* that?
 
@@ -27,7 +27,7 @@ I've spent real time testing these tools while building and running ReviByte ent
 
 > **Quick Answer**
 >
-> Yes — AI can create websites, but mostly as a starting point. It's genuinely good at generating layouts, UI components, and boilerplate code fast. Where it struggles: architecture decisions, performance optimization, security, and anything that requires understanding your specific context. The best results consistently come from AI working alongside someone who can read and evaluate what it produces. If you're looking to build website with AI and ship something real, this post maps exactly where the line is.
+> Yes — AI can create websites, but mostly as a starting point. It's genuinely good at generating layouts, UI components, and boilerplate code fast. Where it struggles: architecture decisions, performance optimization, security, and anything that requires understanding your specific context. The best results consistently come from AI working alongside someone who can read and evaluate what it produces. If you're looking to build a website with AI and ship something real, this post maps exactly where the line is.
 
 ---
 
@@ -86,7 +86,7 @@ This is where most articles on AI web development go vague. Let me be specific.
 
 **What came back:** A visually clean dark-mode page with a hero section, a placeholder three-column post grid, and a footer. The layout was genuinely decent as a visual starting point. Typography and spacing were reasonable.
 
-> 📸 *Screenshot to add: Framer AI output showing the generated dark-mode layout — hero section, post grid, footer. Capture before any manual edits so the raw output is visible.*
+![Framer AI raw output showing the generated dark-mode landing page before any manual edits](/assets/posts/framer-ai-output-screenshot.jpg)
 
 **Problems encountered:** The generated code used inline styles heavily instead of CSS classes, which made it painful to maintain. There were no semantic HTML elements — everything was a `div`. No meta tags, no Open Graph, no schema markup. The "featured posts grid" was three hardcoded placeholder cards with no connection to any data source. Good prototype, bad foundation.
 
@@ -101,7 +101,7 @@ This is where most articles on AI web development go vague. Let me be specific.
 
 **What came back:** A clean, functional Astro component using the Web Share API with a clipboard fallback, correct prop types, and `--accent` properly referenced in the style block. About 60 lines of code.
 
-> 📸 *Screenshot to add: Claude conversation showing the prompt and the returned ShareBar.astro code — ideally the full response visible in one screen on mobile. This is a unique asset no competitor can replicate.*
+![Claude conversation on mobile showing the ShareBar prompt and the returned Astro component code](/assets/posts/claude-sharebar-prompt-mobile.jpg)
 
 **Problems encountered:** The copy button initially used `document.execCommand('copy')`, which is deprecated in modern browsers. Pasted the error back in, Claude immediately identified the issue and replaced it with `navigator.clipboard.writeText()`. One back-and-forth, five minutes total.
 
@@ -116,7 +116,7 @@ This is where most articles on AI web development go vague. Let me be specific.
 
 **What came back:** Claude identified that I was trying to destructure `data` from a content collection entry before checking whether the entry existed — a null reference issue that only surfaced in the production build because Vercel's Node environment handles undefined differently from the dev server.
 
-> 📸 *Screenshot to add: The Vercel build log showing the error, then the Claude response identifying the fix. Two screenshots side by side or stacked — before and after. This is the kind of proof readers trust.*
+![Vercel build log showing the error alongside Claude's response identifying the fix](/assets/posts/vercel-build-error-fix.jpg)
 
 **Problems encountered:** None that time. It was a clean, correct diagnosis.
 
@@ -131,7 +131,7 @@ This is where most articles on AI web development go vague. Let me be specific.
 
 **What came back:** A complete single HTML file, self-contained, with the correct 1200×630 canvas dimensions, Inter loaded from Google Fonts, and the layout roughly matching the description. I open it in my phone's browser, screenshot it, crop to exact dimensions.
 
-> 📸 *Screenshot to add: The finished banner HTML rendered in mobile Chrome — the full 1200×630 layout visible. Then optionally the Claude prompt that generated it. This directly proves the mobile-only workflow.*
+![Finished Open Graph banner HTML rendered in mobile Chrome showing the 1200x630 layout](/assets/posts/banner-html-mobile-chrome.jpg)
 
 **Problems encountered:** First attempt had the title overflowing on two lines due to `font-size` being too large for the container. Described the issue, got a corrected version with `font-size: clamp()` applied. Done.
 
@@ -183,7 +183,7 @@ Here's how a typical feature build actually goes:
 4. If the build fails or the component behaves wrong, I paste the error or describe the problem back to Claude.
 5. One or two exchanges usually resolves it. If it doesn't, I reconsider the approach from scratch.
 
-> 📸 *Screenshot to add: GitHub's browser editor open on mobile (the Tecno Camon 30 screen) showing an Astro component file being edited. No laptop. This one image says more about the mobile-first workflow than three paragraphs can.*
+![GitHub browser editor open on the Tecno Camon 30 showing an Astro component file being edited on mobile](/assets/posts/github-editor-mobile.jpg)
 
 This is also how the banner workflow runs. I describe the layout — dimensions, colors, font, content — Claude writes an HTML file, I load it in my browser, screenshot it, done. No Photoshop, no Canva, no design app. The whole thing runs on a mid-range Android phone.
 
