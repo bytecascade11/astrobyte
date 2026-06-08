@@ -1,17 +1,21 @@
 ---
 title: "Can AI Create Websites? What It Actually Does (and Can't Do)"
 description: "AI website builders promise a lot. Here's what they actually deliver — with real prompts, real output, honest stats, and lessons from building ReviByte entirely on mobile."
-pubDatetime: 2026-06-08T09:00:00.000Z
+pubDatetime: 2026-06-08T09:26:00.000Z
 author: iSamuel
 tags:
   - ai
   - web-development
   - tools
   - opinions
-featured: false
-draft: true
-coverImage: /images/posts/can-ai-create-websites-hero.jpg
+  - productivies 
+coverImage: /assets/posts/can-ai-create-websites-hero.jpg
+coverImageAlt: "AI creating a website using a chat prompt on screen"
 ---
+
+## Table of Contents 
+
+## Overview 
 
 There's a version of this conversation happening everywhere right now. Someone hears about an AI website builder, types a few sentences into a prompt box, and seconds later they're looking at something that resembles a website. The question is: did AI actually *build* that?
 
@@ -67,7 +71,7 @@ Here's a realistic look at the main players and what they're actually doing unde
 
 The tools in the top half create *something* fast. The tools in the bottom half create *better things* but require someone who knows what they're doing. The middle column — Copilot and Claude — is where most actual web development with AI is happening right now.
 
-![Screenshot comparison of AI-generated website layouts from different tools](https://www.revibyte.blog/images/posts/ai-website-builders-comparison.jpg)
+![Screenshot comparison of AI-generated website layouts from different tools](/assets/posts/ai-website-builders-comparison.jpg)
 
 ---
 
@@ -163,7 +167,7 @@ Let me be systematic about this because the "where it helps" list is actually lo
 
 **Security** — AI-generated code can contain vulnerabilities. Not always, not obviously, but the [Stack Overflow 2025 survey](https://survey.stackoverflow.co/2025/) found that **75% of developers still manually review every AI-generated code snippet before merging**. That number exists for a reason. Don't ship code you don't understand.
 
-![Developer reviewing AI-generated code on a laptop for security and performance issues](https://www.revibyte.blog/images/posts/ai-code-review-developer.jpg)
+![Developer reviewing AI-generated code on a laptop for security and performance issues](/assets/posts/ai-code-review-developer.jpg)
 
 ---
 
@@ -231,7 +235,7 @@ AI didn't change that. It just made the gap between floor and ceiling more visib
 
 ---
 
-![Illustration showing a developer and AI assistant working on a web project together on mobile](https://www.revibyte.blog/images/posts/human-ai-web-collaboration.jpg)
+![Illustration showing a developer and AI assistant working on a web project together on mobile](/assets/posts/human-ai-web-collaboration.jpg)
 
 ---
 
