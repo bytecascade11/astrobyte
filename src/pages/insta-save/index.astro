@@ -561,7 +561,7 @@
       setStatus(`<div class="spinner"></div> Fetching video info...`, 'loading');
 
       try {
-        const apiUrl = `https://${RAPIDAPI_HOST}/index?url=${encodeURIComponent(url)}`;
+        const apiUrl = `https://revibyte.blog.workers.dev/?url=${encodeURIComponent(url)}`;
         const res = await fetch(apiUrl, {
           method: 'GET',
           headers: {
