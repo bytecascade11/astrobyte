@@ -87,7 +87,7 @@ These values are a solid starting point based on current meta and community-test
 
 The further you zoom, the more a tiny tilt magnifies. That's why 8x sensitivity needs to be dramatically lower than Red Dot — what feels like a small hand movement becomes a wild overshoot at long range.
 
-![Smartphone gyroscope tilt illustration showing how phone movement translates to in-game aim](/assets/pubgmobile/pubgmobile-gyroscope-tilt-control.jp)
+![Smartphone gyroscope tilt illustration showing how phone movement translates to in-game aim](/assets/pubgmobile/pubgmobile-gyroscope-low-end.jpg)
 
 ---
 
