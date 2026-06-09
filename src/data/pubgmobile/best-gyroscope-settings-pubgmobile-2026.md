@@ -6,9 +6,8 @@ pubDatetime: 2026-06-09T18:27:00Z
 type: "guide"
 gameMode: "Classic"
 season: "Season 2026"
-coverImage: "/assets/pubgmobile/best-gyroscope-settings-pubgmobile-2026.jpg"
+coverImage: "/assets/pubgmobile/best-gyroscope-settings-pubg-mobile-2026.jpg"
 coverImageAlt: "Best gyroscope settings for PUBG Mobile 2026"
-tags: ["pubgmobile", "sensitivity", "gyroscope", "settings-guide"]
 slug: "best-gyroscope-settings-pubgmobile-2026"
 featured: true
 draft: false
@@ -66,7 +65,7 @@ Start with Scope On. Seriously.
 
 One thing that trips people up — calibrate your gyroscope on a **flat surface** before you test anything. An uncalibrated sensor will drift, and you'll spend hours blaming your settings when the real issue is your phone sitting on a lumpy couch.
 
-![PUBG Mobile sensitivity settings screen showing gyroscope sliders](/assets/pubgmobile/pubgmobile-sensitivity-settings-screen.jpg)
+![PUBG Mobile sensitivity settings screen showing gyroscope sliders](/assets/pubgmobile/pubgmobile-gyroscope-tilt-control.jpg)
 
 ---
 
@@ -88,7 +87,7 @@ These values are a solid starting point based on current meta and community-test
 
 The further you zoom, the more a tiny tilt magnifies. That's why 8x sensitivity needs to be dramatically lower than Red Dot — what feels like a small hand movement becomes a wild overshoot at long range.
 
-![Smartphone gyroscope tilt illustration showing how phone movement translates to in-game aim](/assets/pubgmobile/pubgmobile-gyroscope-how-it-works.jpg)
+![Smartphone gyroscope tilt illustration showing how phone movement translates to in-game aim](/assets/pubgmobile/pubgmobile-gyroscope-tilt-control.jp)
 
 ---
 
@@ -155,7 +154,7 @@ These settings are tuned specifically for 60Hz devices with limited RAM, priorit
 | 6x Scope | 70–90% |
 | 8x Scope | 45–60% |
 
-![Budget Android phone being used for mobile gaming with gyroscope](/assets/pubgmobile/pubgmobile-gyroscope-low-end-android.jpg)
+![Budget Android phone being used for mobile gaming with gyroscope](/assets/pubgmobile/low-end-android-pubgmobile-gyro-settings.jpg)
 
 A few things that make a real difference on underpowered hardware:
 
