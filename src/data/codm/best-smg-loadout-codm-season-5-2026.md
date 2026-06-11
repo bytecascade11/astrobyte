@@ -24,8 +24,8 @@ featured: true
 Season 5 — *Revenge* — dropped on May 27 and quietly flipped the SMG tier list. A stomach multiplier tweak and a stock attachment buff don't sound dramatic in patch notes, but if you've been running the same loadouts since Season 4, you're probably already losing gunfights you used to win and not sure why.  
   
 I've tested each of these SMGs across ranked multiplayer — from Hardpoint grinding to Search and Destroy — comparing them against the Season 5 balance changes before writing this. What follows is what's actually working right now, not what looked good six weeks ago.  
-  **Advertisement**
-
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4896561037705299"
+     crossorigin="anonymous"></script>
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -50,8 +50,8 @@ I've tested each of these SMGs across ranked multiplayer — from Hardpoint grin
 | CX9 | **C** | Casual only after S5 nerfs | Medium |  
   
 ---  
-**Advertisement**
-
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4896561037705299"
+     crossorigin="anonymous"></script>
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -78,8 +78,8 @@ The Season 5 balance pass targeted high-fire-rate dominance. According to verifi
 The SO-14 nerf matters as background context. One of the main reasons SMG players were struggling in Season 4 was getting punished by that marksman at ranges where they shouldn't have been losing. With its mobility reduced, aggressive SMG play is now more viable across more maps than it's been all year.  
   
 ---  
-**Advertisement**
-
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4896561037705299"
+     crossorigin="anonymous"></script>
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -139,8 +139,8 @@ If you're playing something like Summit, Monastery, or any map with longer sight
 **TTK:** Around 195–205ms at optimal range  
   
 ---  
-**Advertisement**
-
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4896561037705299"
+     crossorigin="anonymous"></script>
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -173,8 +173,8 @@ For players comfortable with mechanical aim, the QQ9 is absolutely worth running
 **Perks:** Agile / Slight of Hand / High Alert    
 **Best for:** Hardpoint, Domination, small-map aggressive    
 **TTK:** Around 155–165ms under ideal conditions (10mm, upper body)  
-**Advertisement**
-
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4896561037705299"
+     crossorigin="anonymous"></script>
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -183,7 +183,7 @@ For players comfortable with mechanical aim, the QQ9 is absolutely worth running
      data-ad-slot="7554701431"></ins>
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
-</script>  
+</script>
 ---  
   
 ## #4 — CBR4 (B-Tier)  
@@ -203,8 +203,8 @@ If you're climbing from Gold through Platinum, this is still a completely valid 
 | Stock | OWC Skeleton Stock | Mobility |  
 | Ammunition | 50 Round Extended Mag | The mag that makes this gun dangerous |  
 | Rear Grip | Stippled Grip Tape | Sprint-to-fire |  
- **Advertisement**
-
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4896561037705299"
+     crossorigin="anonymous"></script>
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -213,7 +213,7 @@ If you're climbing from Gold through Platinum, this is still a completely valid 
      data-ad-slot="7554701431"></ins>
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
-</script> 
+</script>
 ---  
   
 ## #5 — Fennec (B-Tier)  
@@ -237,8 +237,8 @@ Run the Fennec when the map demands it. Swap to the Switchblade or VMP when it d
 | Rear Grip | Rubber Grip | Flinch resistance when taking fire |  
   
 ---  
-  **Advertisement**
-
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4896561037705299"
+     crossorigin="anonymous"></script>
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -264,8 +264,8 @@ Run the Fennec when the map demands it. Swap to the Switchblade or VMP when it d
 | D | Chicom | Hasn't received enough buffs to compete — TTK is too slow |  
   
 ---  
-  **Advertisement**
-
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4896561037705299"
+     crossorigin="anonymous"></script>
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -316,8 +316,8 @@ The VMP. Battle Royale's open sightlines reward its more stable mid-range perfor
 *Patch data sourced from Season 5 balance notes cross-referenced against CODM test server reports via Leakers on Duty. Last updated: Season 5 — Revenge | June 2026.*  
   
 *Related: [CODM Season 5 Revenge Update — Full Breakdown](https://www.revibyte.blog/codm/codm-season-5-revenge-update-2026/) | [Best Guns Tier List Season 5 2026](https://www.revibyte.blog/codm/best-guns-codm-season-4-2026-tier-list/) | [Best SMG Loadouts Season 4 2026](https://www.revibyte.blog/codm/best-smg-loadout-codm-season-4-2026/)* 
-**Advertisement**
-
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4896561037705299"
+     crossorigin="anonymous"></script>
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
