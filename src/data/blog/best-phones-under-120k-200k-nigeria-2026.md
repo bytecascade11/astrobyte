@@ -43,20 +43,7 @@ author: "iSamuel"
   
 ---  
   
-## Table of Contents  
-  
-- [What the Sub-₦120k Bracket Looks Like in 2026](#what-120k-buys)  
-- [Best Phones Under ₦120,000](#under-120k)  
-- [What the Sub-₦200k Bracket Looks Like in 2026](#what-200k-buys)  
-- [Best Phones Under ₦200,000](#under-200k)  
-- [Full Comparison Tables](#tables)  
-- [Who Should Buy What](#who-buys-what)  
-- [Where to Buy in Nigeria](#where-to-buy)  
-- [FAQ](#faq)  
-  
----  
-  
-## What the Sub-₦120k Bracket Looks Like in 2026 {#what-120k-buys}  
+## What the Sub-₦120k Bracket Looks Like in 2026
   
 Phone prices in Nigeria have not come down since the naira repricing of 2023–2025. What used to sit at ₦60,000 now costs ₦100,000–₦120,000 in most stores. That is the market reality going into mid-2026.  
   
@@ -76,7 +63,7 @@ What you will not find here: 5G, AMOLED, OIS on the camera, or more than two And
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>  
-## Best Phones Under ₦120,000 {#under-120k}  
+## Best Phones Under ₦120,000
   
 ### 1. itel City 100 — ~₦110,900 (4GB/128GB)  
   
@@ -190,7 +177,7 @@ Camera is 8MP front and rear: functional for WhatsApp profile photos and documen
   
 ---  
   
-## What the Sub-₦200k Bracket Looks Like in 2026 {#what-200k-buys}  
+## What the Sub-₦200k Bracket Looks Like in 2026
   
 This is where phones become genuinely good. At ₦200,000, AMOLED displays, 8GB RAM, 256GB storage, and 45W charging all become achievable in the same device. The competitive pressure between Infinix, Tecno, and Samsung at this tier has been good for Nigerian buyers — the spec floors have moved up significantly since 2024.  
   
@@ -323,7 +310,7 @@ The 108MP primary camera is worth contextualising honestly: the phone uses pixel
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
-## Who Should Buy What {#who-buys-what}  
+## Who Should Buy What
   
 | Your Priority | Best Pick | The Reason |  
 |---|---|---|  
@@ -338,7 +325,7 @@ The 108MP primary camera is worth contextualising honestly: the phone uses pixel
   
 ---  
   
-## Where to Buy in Nigeria {#where-to-buy}  
+## Where to Buy in Nigeria  
   
 **Slot** is the most consistent choice for buyers who want no post-purchase surprises. Prices run ₦5,000–₦15,000 above open market on most models, but the warranty process is reliable and they will not dispute a defective unit during the coverage period.  
   
@@ -360,7 +347,7 @@ The 108MP primary camera is worth contextualising honestly: the phone uses pixel
 </script>
 ---  
   
-## FAQ {#faq}  
+## FAQ
   
 **Is ₦120,000 enough for a good phone in Nigeria in 2026?**  
   
