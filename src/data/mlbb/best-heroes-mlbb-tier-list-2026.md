@@ -2,8 +2,8 @@
 title: "Best Heroes in Mobile Legends: Bang Bang — Season 40 Tier List (June 2026)"
 description: "Community-based Mobile Legends Bang Bang hero tier list for Season 40 (June 2026). Find the most effective heroes for ranked play across every role, based on patch 2.1.67a meta trends."
 author: "iSamuel"
-pubDatetime: 2026-06-12T09:17:00Z
-lastUpdated: 2026-06-12T09:17:00Z
+pubDatetime: 2026-06-07T09:17:00Z
+modDatetime: 2026-06-12T09:17:00Z
 type: "tier-list"
 role: "All Roles"
 season: "Season 40 2026"
