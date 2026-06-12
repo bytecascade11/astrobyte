@@ -14,7 +14,7 @@ author: "iSamuel"
   
 ## Best Phones Under ₦120,000 and ₦200,000 in Nigeria (2026)  
   
-> **Last updated: June 11, 2026.** Phone prices in Nigeria shift with exchange rate movements. All prices in this guide reflect Nigerian market listings as of this date — confirm current pricing before purchase.  
+> **Last updated: June 12, 2026.** Phone prices in Nigeria shift with exchange rate movements. All prices in this guide reflect Nigerian market listings as of this date — confirm current pricing before purchase.  
   
 ---  
   
