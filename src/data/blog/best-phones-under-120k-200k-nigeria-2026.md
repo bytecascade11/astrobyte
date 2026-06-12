@@ -2,8 +2,8 @@
 title: "Best Phones Under ₦120,000 and ₦200,000 in Nigeria (2026)"  
 description: "We researched the best phones under ₦120k and ₦200k in Nigeria for 2026. See the models with the best battery, camera, performance, and value — with sourced specs and real Nigerian market prices."  
 coverImage: "/assets/posts/best-phones-under-120k-200k-nigeria-2026.jpg"  
+coverImageAlt: "Best phones under ₦120k and ₦200k in Nigeria 2026"
 pubDatetime: 2026-06-12T06:56:00:00Z  
-lastUpdated: 2026-06-12
 keywords: "budget phones nigeria 2026, phones under 120k nigeria, phones under 200k nigeria, infinix nigeria, tecno phones nigeria, best cheap phones nigeria"  
 tags: ["smartphones", "nigeria", "tecno", "infinix", "itel", "samsung", "android", "opinions"]  
 author: "iSamuel"  
