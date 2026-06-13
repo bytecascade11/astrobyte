@@ -6,7 +6,7 @@ pubDatetime: 2026-06-13T09:10:00Z
 modDatetime: 2026-06-13T09:10:00Z
 coverImage: "/assets/efootball/best-formations-possession-efootball-2026.jpg"
 coverImageAlt: "Best Formations for Possession Game in eFootball™ 2026"
-type: formation-guide
+type: guide
 gameMode: Multiplayer
 season: "eFootball™ 2026 – June 2026"
 slug: "best-formations-possession-efootball-2026"
