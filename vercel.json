@@ -3,6 +3,11 @@
   "cleanUrls": false,
   "redirects": [
     {
+      "source": "/save-tok/",
+      "destination": "/save/tok/",
+      "permanent": true
+    },
+    {
       "source": "/codm/best-quickscope-sniper-loadout-codm-season-14-2026/",
       "destination": "/codm/best-quickscope-sniper-loadout-codm-season-4-2026/",
       "permanent": true
