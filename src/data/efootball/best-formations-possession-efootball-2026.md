@@ -3,7 +3,7 @@ title: "Best Formations for Possession Game in eFootball 2026"
 description: "If you want to control the ball, suffocate transitions, and dictate tempo — these are the formations actually built for it."
 author: iSamuel
 pubDatetime: "2026-06-13T09:10:00Z"
-modDatetime: "eFootball™ 2026 – June 2026 Update"
+modDatetime: "2026-06-13T09:10:00Z"
 coverImage: "/assets/efootball/best-formations-possession-efootball-2026.jpg"
 coverImageAlt: "Best Formations for Possession Game in eFootball™ 2026"
 type: formation-guide
