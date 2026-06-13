@@ -1,0 +1,217 @@
+---
+import Layout from "../../layouts/Layout.astro";
+
+const title = "ReviByte Save — Free Online Video Downloaders";
+const description = "Free online tools to download videos and audio from TikTok, Instagram, YouTube and more. No login, no app install, works on Android, iPhone and PC.";
+const canonicalURL = "https://www.revibyte.blog/save/";
+
+const tools = [
+  {
+    name: "TikTok Downloader",
+    description: "Download TikTok videos without watermark or save as MP3. Free and fast.",
+    url: "/save/tok/",
+    available: true,
+    icon: "🎵",
+  },
+  {
+    name: "Instagram Downloader",
+    description: "Save Instagram Reels, photos and videos directly to your device.",
+    url: "/save/ig/",
+    available: false,
+    icon: "📸",
+  },
+  {
+    name: "YouTube Downloader",
+    description: "Download YouTube videos and audio in multiple qualities.",
+    url: "/save/yt/",
+    available: false,
+    icon: "▶️",
+  },
+  {
+    name: "Facebook Downloader",
+    description: "Save Facebook videos and Reels quickly without any app.",
+    url: "/save/fb/",
+    available: false,
+    icon: "👍",
+  },
+];
+---
+
+<Layout title={title} description={description}>
+  <Fragment slot="head">
+    <link rel="canonical" href={canonicalURL} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+  </Fragment>
+
+  <main class="save-page">
+    <nav class="save-nav">
+      <a href="/" class="save-nav-back">← ReviByte Blog</a>
+    </nav>
+
+    <section class="save-hero">
+      <div class="save-badge">Free Tools</div>
+      <h1 class="save-title">ReviByte <span class="save-accent">Save</span></h1>
+      <p class="save-subtitle">Free online downloaders for your favourite platforms. No login, no app, no cost.</p>
+    </section>
+
+    <section class="save-grid">
+      {tools.map((tool) => (
+        <div class={`save-card ${!tool.available ? 'save-card--soon' : ''}`}>
+          <div class="save-card-icon">{tool.icon}</div>
+          <div class="save-card-body">
+            <h2 class="save-card-name">{tool.name}</h2>
+            <p class="save-card-desc">{tool.description}</p>
+          </div>
+          {tool.available ? (
+            <a href={tool.url} class="save-card-btn">Open Tool →</a>
+          ) : (
+            <span class="save-card-soon">Coming Soon</span>
+          )}
+        </div>
+      ))}
+    </section>
+  </main>
+</Layout>
+
+<style>
+  .save-page {
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 2rem 1.25rem 5rem;
+  }
+
+  .save-nav {
+    padding: 0.75rem 0 1.5rem;
+  }
+
+  .save-nav-back {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: inherit !important;
+    text-decoration: none;
+    opacity: 0.6;
+    transition: opacity 0.15s;
+  }
+
+  .save-nav-back:hover { opacity: 1; }
+
+  .save-hero {
+    text-align: center;
+    padding: 2.5rem 0 2.5rem;
+  }
+
+  .save-badge {
+    display: inline-block;
+    background: rgba(255, 0, 80, 0.1);
+    color: #ff0050;
+    border: 1px solid rgba(255, 0, 80, 0.25);
+    border-radius: 999px;
+    font-size: 0.72rem;
+    font-weight: 700;
+    padding: 0.28rem 0.85rem;
+    margin-bottom: 1rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  .save-title {
+    font-size: clamp(2rem, 6vw, 3.2rem);
+    font-weight: 800;
+    line-height: 1.15;
+    margin-bottom: 0.85rem;
+    letter-spacing: -0.02em;
+  }
+
+  .save-accent {
+    background: linear-gradient(135deg, #ff0050, #ff6b00);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .save-subtitle {
+    font-size: 1.05rem;
+    line-height: 1.65;
+    opacity: 0.7;
+    max-width: 480px;
+    margin: 0 auto;
+    color: inherit !important;
+  }
+
+  .save-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .save-card {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid #222;
+    border-radius: 16px;
+    padding: 1.25rem 1.5rem;
+    transition: border-color 0.2s;
+  }
+
+  .save-card:hover { border-color: #444; }
+
+  .save-card--soon { opacity: 0.5; }
+
+  .save-card-icon {
+    font-size: 2rem;
+    flex-shrink: 0;
+    width: 48px;
+    text-align: center;
+  }
+
+  .save-card-body {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .save-card-name {
+    font-size: 1rem;
+    font-weight: 700;
+    margin-bottom: 0.25rem;
+  }
+
+  .save-card-desc {
+    font-size: 0.85rem;
+    opacity: 0.6;
+    margin: 0;
+    line-height: 1.5;
+    color: inherit !important;
+  }
+
+  .save-card-btn {
+    background: linear-gradient(135deg, #ff0050, #ff6b00);
+    color: #fff !important;
+    text-decoration: none;
+    padding: 0.6rem 1.1rem;
+    border-radius: 10px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    white-space: nowrap;
+    flex-shrink: 0;
+    transition: opacity 0.2s;
+  }
+
+  .save-card-btn:hover { opacity: 0.88; }
+
+  .save-card-soon {
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: #555;
+    border: 1px solid #333;
+    border-radius: 999px;
+    padding: 0.3rem 0.8rem;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+</style>
