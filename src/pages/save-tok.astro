@@ -142,7 +142,31 @@ const canonicalURL = "https://www.revibyte.blog/save/tok/";
         </div>
       </div>
     </section>
+<!-- Ad Gate Overlay -->
+<div id="tt-ad-gate" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.88); z-index:9999; align-items:center; justify-content:center; padding:1rem;">
+  <div style="background:#111; border:1px solid #333; border-radius:16px; padding:1.75rem 1.5rem; max-width:460px; width:100%; text-align:center;">
+    <p style="font-size:0.8rem; opacity:0.5; margin-bottom:1rem; text-transform:uppercase; letter-spacing:0.06em;">Preparing your download...</p>
 
+    <!-- AdSense unit -->
+    <ins class="adsbygoogle"
+      style="display:block; min-height:100px;"
+      data-ad-client="ca-pub-4896561037705299"
+      data-ad-slot="4282672192"
+      data-ad-format="auto"
+      data-full-width-responsive="true">
+    </ins>
+
+    <div id="tt-gate-countdown" style="margin-top:1.25rem; font-size:0.9rem; opacity:0.6;">
+      Download unlocks in <strong id="tt-gate-secs">5</strong>s...
+    </div>
+
+    <button id="tt-gate-dl-btn" disabled style="margin-top:1rem; width:100%; padding:0.85rem; border-radius:12px; border:none; background:linear-gradient(135deg,#ff0050,#ff6b00); color:#fff; font-size:1rem; font-weight:700; cursor:not-allowed; opacity:0.4; transition:opacity 0.2s;">
+      ⬇ Download Now
+    </button>
+
+    <button id="tt-gate-close" style="margin-top:0.75rem; background:none; border:none; color:inherit; opacity:0.35; font-size:0.8rem; cursor:pointer;">Cancel</button>
+  </div>
+</div>
     <!-- How to use -->
     <section class="tt-how">
       <h2>How to Download TikTok Videos</h2>
@@ -867,20 +891,70 @@ const canonicalURL = "https://www.revibyte.blog/save/tok/";
     }
   }
 
-  fetchBtn.addEventListener('click', fetchVideo);
+  // --- Ad Gate Logic ---
+  const adGate = document.getElementById('tt-ad-gate')!;
+  const gateDlBtn = document.getElementById('tt-gate-dl-btn') as HTMLButtonElement;
+  const gateSecsEl = document.getElementById('tt-gate-secs')!;
+  const gateClose = document.getElementById('tt-gate-close')!;
+  let pendingDownloadUrl = '';
+  let gateTimer: ReturnType<typeof setInterval> | null = null;
 
+  function openAdGate(downloadUrl: string) {
+    pendingDownloadUrl = downloadUrl;
+    adGate.style.display = 'flex';
+    try {
+      ((window as any).adsbygoogle = (window as any).adsbygoogle || []).push({});
+    } catch(e) {}
+    gateDlBtn.disabled = true;
+    gateDlBtn.style.opacity = '0.4';
+    gateDlBtn.style.cursor = 'not-allowed';
+    gateSecsEl.textContent = '5';
+    let secs = 5;
+    if (gateTimer) clearInterval(gateTimer);
+    gateTimer = setInterval(() => {
+      secs--;
+      gateSecsEl.textContent = String(secs);
+      if (secs <= 0) {
+        clearInterval(gateTimer!);
+        gateDlBtn.disabled = false;
+        gateDlBtn.style.opacity = '1';
+        gateDlBtn.style.cursor = 'pointer';
+        document.getElementById('tt-gate-countdown')!.textContent = '✅ Your download is ready!';
+      }
+    }, 1000);
+  }
+
+  gateDlBtn.addEventListener('click', () => {
+    if (pendingDownloadUrl) {
+      window.open(pendingDownloadUrl, '_blank');
+      adGate.style.display = 'none';
+    }
+  });
+
+  gateClose.addEventListener('click', () => {
+    adGate.style.display = 'none';
+    if (gateTimer) clearInterval(gateTimer);
+  });
+
+  document.addEventListener('click', (e) => {
+    const target = e.target as HTMLElement;
+    const btn = target.closest('#tt-dl-hd, #tt-dl-audio') as HTMLAnchorElement | null;
+    if (!btn || btn.classList.contains('tt-dl-disabled')) return;
+    const href = btn.getAttribute('href');
+    if (!href || href === '#') return;
+    e.preventDefault();
+    openAdGate(href);
+  });
+
+  fetchBtn.addEventListener('click', fetchVideo);
   urlInput.addEventListener('keydown', (e) => {
     if (e.key === 'Enter') fetchVideo();
   });
-
-  // Auto-paste on focus if clipboard has tiktok link
   urlInput.addEventListener('focus', async () => {
     if (urlInput.value) return;
     try {
       const text = await navigator.clipboard.readText();
-      if (text.includes('tiktok.com')) {
-        urlInput.value = text;
-      }
-    } catch { /* clipboard permission denied */ }
+      if (text.includes('tiktok.com')) urlInput.value = text;
+    } catch { }
   });
 </script>
