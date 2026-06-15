@@ -1,14 +1,13 @@
 ---
 title: "How to Play Joy Like a Pro in Mobile Legends (2026 Guide)"
-description: "Master Joy in Mobile Legends with this pro-level guide covering her skills, best build, emblem setup, combos, and ranked tips — updated for patch 2.1.67a."
+description: "Master Joy in Mobile Legends with this pro-level guide covering her skills, best build, emblem setup, combos, and ranked tips for 2026."
 author: "iSamuel"
-pubDatetime: 2026-06-15T23:40:00Z
+pubDatetime: 2026-06-16T12:04:00Z
 type: "hero-guide"
 role: "Assassin"
 season: "Season 2026"
 coverImage: "/assets/mlbb/how-to-play-joy-mlbb-pro-guide.jpg"
 coverImageAlt: "How to play Joy like a pro in Mobile Legends Bang Bang 2026"
-tags: ["mlbb", "hero-guide", "assassin", "joy", "joy build 2026", "joy combo mobile legends", "best emblem for joy mlbb"]
 slug: "how-to-play-joy-mlbb-pro-guide"
 featured: true
 draft: false
@@ -18,13 +17,11 @@ draft: false
 
 ## How to Play Joy Like a Pro in Mobile Legends (2026 Guide)
 
-> **Last updated:** June 2026 · Patch 2.1.67a · Win rate data sourced from [MLBBHub ranked stats](https://mlbbhub.com/heroes/joy)
+> **Last updated:** June 2026 · Win rate data sourced from [MLBBHub](https://mlbbhub.com/heroes/joy) · Skill data cross-referenced with [Liquipedia MLBB](https://liquipedia.net/mobilelegends/Joy)
 
-Joy plays nothing like any other assassin in Mobile Legends. Most assassins mash skills in sequence and let the damage do the work. Joy is different — her entire kit is a rhythm game layered on top of a MOBA. Miss the beat on her second skill and you're half-damage, open to a counter-engage, with no escape window. Hit every beat, and you're weaving through enemies untouched while stacking shields and feeding your ultimate with energy.
+Joy remains one of the most elusive magic damage assassins in Mobile Legends. Following her post-revamp mechanics, the strict "musical rhythm game" from her original release has been streamlined — you no longer need perfect beat timing just to deal damage or generate shields. Hit a target, the dash continues. But that's where the basic understanding ends and the real skill ceiling begins.
 
-She has a genuinely high skill ceiling. The difference between a Joy player at Game 1 and Game 50 is enormous, and that gap shows directly in the stats. At Epic and Legend rank she sits around 46% win rate in ranked play; in the hands of Mythic players who've put time into the rhythm mechanic, that number climbs meaningfully. This guide is about closing that gap faster.
-
----
+What separates average Joy players from pro-level ones isn't rhythm timing anymore — it's **macro-positioning, proxy stacking through minions and jungle camps, and knowing exactly when to commit the ultimate for full CC immunity.** She sits at around 48.7% win rate across all ranks (source: MLBBHub) — a number that includes a large pool of players who don't yet understand these deeper mechanics. This guide closes that gap.
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4896561037705299"
      crossorigin="anonymous"></script>
 <ins class="adsbygoogle"
@@ -36,43 +33,19 @@ She has a genuinely high skill ceiling. The difference between a Joy player at G
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
+---
+
 ## Joy's Role and Positioning in the 2026 Meta
 
 Joy is a magic damage assassin. Her job is to hunt isolated squishies — the mage, the marksman, the support sitting slightly too far from peel — and burst them before they can respond. She runs mid lane or jungle, and both are viable depending on your team's draft.
 
-The current meta leans toward hybrid-utility builds and high-mobility roamers, which means glass-cannon assassins are punished harder than they were a year ago. Joy handles this better than most because her rhythm chain generates shields passively, and her ultimate grants physical and magic defense buffs during the dive. She doesn't need to run tank items. She just needs to execute properly.
+The current meta leans toward hybrid-utility builds and high-mobility roamers, which punishes glass-cannon assassins harder than it used to. Joy handles this better than most because her rhythm chain generates shields passively, and her ultimate grants physical and magic defense buffs during the dive. She doesn't need to run tank items. She just needs to execute properly.
 
-**Preferred roles:** Mid Lane · Jungle  
+**Preferred roles:** Jungle · EXP Lane · Mid Lane  
 **Damage type:** Magic  
-**Difficulty:** High
+**Difficulty:** Medium-High
 
-> **Internal link:** If you're building your ranked draft around Joy, see the [MLBB tier list for Season 2026](/mlbb/best-heroes-mlbb-tier-list-2026/) for full role context and current top picks.
-
----
-
-## Joy's Skills — What Each One Actually Does
-
-Knowing the skill descriptions isn't enough. You need to understand the *interactions* between them, because Joy's damage ceiling depends entirely on how the three stack together.
-
-### Passive — Humph, Joy's Angry!
-
-Every skill hit on a non-minion enemy triggers a burst of magic damage and gives Joy 60% movement speed that decays over four seconds. Basic attacks also proc it. In practice, this means Joy is constantly generating small movement speed boosts mid-combo, which is a large part of why she feels so slippery in fights. The passive also converts basic attacks to magic damage (scaling off both Magic Power and Physical Attack), which is relevant when choosing items — more magic power means her autos hit harder too.
-
-### Skill 1 — Look, Leonin Crystal!
-
-Joy throws a Leonin Crystal to a target location, dealing magic damage and applying a 30% slow for one second to enemies nearby. The Crystal lasts two seconds on the field. Critical mechanic: **the Crystal counts as a valid S2 target.** That means if your first dash misses the enemy, you can redirect off the Crystal and continue the chain. This is your safety net. Place it first in every engage without exception — it's not just a slow, it's the fallback that keeps your entire combo alive.
-
-### Skill 2 — Meow, Rhythm of Joy!
-
-The skill that defines everything. Joy dashes in a direction, hitting enemies in the path for magic damage. Hitting an enemy or the Crystal gives her a 0.8-second window to cast it again, up to four consecutive times. If you release the recast *on the beat* — timed to an audio cue — the dash deals double damage and generates an 80-point magic shield (scales with Magic Power). Chain all four dashes on beat and you walk out with a full shield stack and massive burst damage. Miss beats and you're doing roughly half the damage you should be with no sustain.
-
-**Turn your sound on.** This is non-negotiable. The beat cue is an audio signal, not a visual one. Trying to time this by sight alone is guesswork.
-
-### Ultimate — Ha, Electrifying Beats!
-
-After building five beats through rhythmic S2 casts, Joy activates her ultimate: she removes all control effects on herself, gains movement speed, boosts her physical and magic defense, and pulses multiple waves of magic damage around her over a short duration. Each S2 cast that landed *on the beat* increases the ultimate's damage significantly. Hit all five beats perfectly and the ultimate also grants Spell Vamp — sustaining her through the full dive.
-
-Key detail: the ultimate cleanses debuffs on activation. That's your window if an enemy crowd controls you mid-combo — the ult cast clears it. The defense buff and CC immunity during the ult are also why Joy can dive hard-engage supports and survive long enough to finish the job.
+> **See also:** [MLBB Season 2026 tier list — all roles](/mlbb/best-heroes-mlbb-tier-list-2026/) to see how Joy fits into the current draft landscape.
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4896561037705299"
      crossorigin="anonymous"></script>
 <ins class="adsbygoogle"
@@ -86,36 +59,102 @@ Key detail: the ultimate cleanses debuffs on activation. That's your window if a
 </script>
 ---
 
+## Joy's Skills — What Each One Actually Does
+
+Knowing the descriptions isn't enough. You need to understand the *interactions* between skills, because Joy's entire damage ceiling depends on how they stack together.
+
+### Passive — Humph, Joy's Angry!
+
+Whenever Joy's skills deal damage to a non-minion enemy, she gains a burst of movement speed and a protective shield. Basic attacks also proc the passive. In practice this means Joy is constantly generating micro-boosts mid-combo — small shields and speed pulses that make her harder to pin down and more resilient during dives than her assassin label suggests.
+
+Her basic attacks also scale off Total Magic Power through her passive. This is why she doesn't build any physical items despite having a Physical Attack base stat — Magic Power amplifies both her skills and her autos.
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4896561037705299"
+     crossorigin="anonymous"></script>
+<ins class="adsbygoogle"
+     style="display:block; text-align:center;"
+     data-ad-layout="in-article"
+     data-ad-format="fluid"
+     data-ad-client="ca-pub-4896561037705299"
+     data-ad-slot="7554701431"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+### Skill 1 — Look, Leonin Crystal!
+
+Joy throws a Leonin Crystal to a target location, dealing magic damage and slowing nearby enemies. The Crystal stays on the field briefly. **Critical mechanic: the Crystal counts as a valid target for Skill 2.** If your first dash misses the enemy, you can redirect the chain off the Crystal and keep it alive. This is your safety net on every engage — place it first, every single time. It's not just a slow tool; it's what keeps your combo from dying on one missed dash.
+
+### Skill 2 — Meow, Rhythm of Joy!
+
+This is the skill that defines her entire kit. Joy dashes in a target direction, dealing magic damage to enemies in her path. Hitting **an enemy hero, a minion, a jungle monster, or the Leonin Crystal** opens a 0.8-second window to recast the skill, gaining 1 Beat Energy per successful hit. She can chain this up to **4 times in succession**.
+
+**This is the mechanic most guides get wrong:** you do not need to time every dash to a musical beat just to deal damage or generate shields. The chain continues as long as you hit *any* valid target within the recast window. What the beat timing *does* do is amplify your damage and shield generation — hitting the beat deals increased damage and produces a larger magic shield. Better timing means more output, but missing the beat doesn't break the chain.
+
+**The practical implication:** minions and jungle camps are valid S2 targets. You can stack your first 2–3 dashes safely on nearby creeps or minion waves before flying into the enemy backline with your remaining dashes. This is called **proxy stacking**, and it's the core skill that separates a good Joy from a great one.
+
+Each successful hit grants 1 Beat Energy. How much you build across the chain determines the power of your ultimate.
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4896561037705299"
+     crossorigin="anonymous"></script>
+<ins class="adsbygoogle"
+     style="display:block; text-align:center;"
+     data-ad-layout="in-article"
+     data-ad-format="fluid"
+     data-ad-client="ca-pub-4896561037705299"
+     data-ad-slot="7554701431"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+### Ultimate — Ha, Electrifying Beats!
+
+Once Joy builds Beat Energy through her S2 chain, she can activate her ultimate at any point — she does not need to complete all four dashes first. On activation, she gains movement speed and a boost to physical and magic defense, then pulses multiple waves of magic damage to nearby enemies over several seconds. The more S2 dashes she landed on the beat, the higher the ultimate's damage.
+
+**The full CC immunity threshold:** Activate the ultimate after completing **all 4 dashes** and Joy becomes **completely immune to crowd control effects** for the entire duration. This is the condition pro players always aim for when diving a CC-heavy backline — maximum Beat Energy, maximum damage, full untouchability.
+
+**Early activation is still valid:** If you're low on HP mid-dive and can't safely complete the 4th dash, pop the ultimate with 2 or 3 Beat Energy stacks. You still deal damage, still gain the defense buff, and still gain Spell Vamp if any dashes landed on beat. Dying while chasing the perfect chain is a worse outcome than securing the kill with 3 stacks.
+
+**Suppression is the exception:** Full CC immunity does not block *suppression* skills. Franco's Bloody Hunt and Kaja's Divine Judgment will pull Joy out of her ultimate regardless of how many stacks she entered with. Do not pick Joy blindly into either of these heroes.
+
+---
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4896561037705299"
+     crossorigin="anonymous"></script>
+<ins class="adsbygoogle"
+     style="display:block; text-align:center;"
+     data-ad-layout="in-article"
+     data-ad-format="fluid"
+     data-ad-client="ca-pub-4896561037705299"
+     data-ad-slot="7554701431"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
 ## Best Joy Build 2026 — Mid Lane and Jungle
 
-Joy's damage is entirely magical. Her basic attacks convert to magic damage off her passive, so every gold piece should go into Magic Power, Magic Penetration, or survivability. No crit, no attack speed, no physical hybrid items.
+Joy's damage is entirely magical. Every gold piece should go into Magic Power, Magic Penetration, or survivability. No crit, no attack speed, no physical items.
 
 ### Mid Lane Build
 
 | Slot | Item | Purpose |
 |------|------|---------|
-| 1 | Magic Shoes | CDR from the first purchase; lets you practice the combo more frequently in early laning |
-| 2 | Genius Wand | Reduces magic defense with each hit — stacks across multiple S2 dashes in one chain |
-| 3 | Holy Crystal | Large Magic Power spike; directly multiplies scaling on every skill |
-| 4 | Concentrated Energy | Spell Vamp to survive dives without needing to retreat |
-| 5 | Divine Glaive | Late-game armor penetration against enemies who stack Magic Defense |
-| 6 | Blood Wings | Final power spike — high Magic Power + a bonus shield on top |
+| 1 | Magic Shoes | CDR from the first buy; more frequent combos in early laning |
+| 2 | Genius Wand | Reduces magic defense on each hit — stacks across four S2 dashes in one chain |
+| 3 | Holy Crystal | Large Magic Power spike that multiplies scaling on every skill |
+| 4 | Concentrated Energy | Spell Vamp to sustain through dives without needing to retreat |
+| 5 | Divine Glaive | Late-game magic penetration against enemies stacking Magic Defense |
+| 6 | Blood Wings | Final power spike — high Magic Power plus a bonus shield on top |
 
 ### Joy Jungle Build MLBB
 
 | Slot | Item | Purpose |
 |------|------|---------|
-| 1 | Arcane Boots (Ice Retribution) | Magic penetration + slow effect; keeps targets in range during the dash chain |
+| 1 | Arcane Boots (Ice Retribution) | Magic penetration + slow; keeps targets in dash range mid-chain |
 | 2 | Genius Wand | Mandatory first damage item regardless of role |
-| 3 | Holy Crystal | Core burst |
+| 3 | Holy Crystal | Core burst item |
 | 4 | Blood Wings | Magic Power and sustain for mid-game dives |
-| 5 | Divine Glaive | Anti-tank penetration in the late game |
-| 6 | Winter Truncheon | Swap in when the enemy team has heavy burst or multiple hard CC heroes |
+| 5 | Divine Glaive | Anti-tank penetration in late game |
+| 6 | Winter Crown | Activate mid-ultimate if you're about to take fatal burst — the ult continues pulsing while you're frozen |
 
-**Situational swaps:**  
-- Three or more tanks on the enemy team → replace Blood Wings with a second penetration item  
-- Heavy CC enemy draft (Atlas, Tigreal, Franco) → Winter Truncheon at slot five is more valuable than the extra Magic Power from Blood Wings  
-- Need more burst in mid-game → swap Concentrated Energy for Lightning Truncheon if you're ahead
+**Situational swaps:**
+- Three or more tanks → replace Blood Wings with a second penetration item
+- Heavy CC draft (Atlas, Tigreal, Franco) → Winter Crown at slot five over Blood Wings
+- Ahead mid-game → swap Concentrated Energy for Lightning Truncheon for more burst
 
 ---
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4896561037705299"
@@ -131,15 +170,17 @@ Joy's damage is entirely magical. Her basic attacks convert to magic damage off 
 </script>
 ## Best Emblem for Joy MLBB
 
-The Assassin Emblem is the correct choice. The talent path below is what most high-rank Joy players consistently run in 2026 ranked:
+**Custom Mage Emblem** is the recommended setup in 2026. The talent path:
 
 | Tier | Talent | Why |
 |------|--------|-----|
-| Tier 1 | Rupture | Adaptive penetration from level one, before Genius Wand comes online |
-| Tier 2 | Master Assassin | +7% damage to isolated targets — exactly the 1v1 scenario Joy is designed to create |
-| Tier 3 | Killing Spree | 15% lost HP recovery + 20% movement speed after a kill. This talent is what enables chaining two kills in one teamfight instead of one |
+| Tier 1 | Rupture | Flat magic penetration from level one, before Genius Wand comes online |
+| Tier 2 | Wilderness Blessing | Faster jungle rotation speed, which is where Joy creates most of her early advantages |
+| Tier 3 | Temporal Reign | Activating the ultimate reduces the remaining cooldowns of Skill 1 and Skill 2 — lets Joy escape or start a second proxy stack chain immediately after the ult ends |
 
-Killing Spree at Tier 3 is not optional. A Joy with it can eliminate the carry, recover the HP she spent diving, and immediately chain into the next target. Without it, you're picking off one squishy and running. With it, a single fed Joy can collapse a teamfight from one side to the other.
+Temporal Reign is the talent that makes Joy's post-ultimate window safe. Without it, she exits a 4-second ultimate with both offensive skills on cooldown and limited escape options. With it, she can immediately reposition or chain into a second target.
+
+**Note on Killing Spree:** The Assassin Emblem with Killing Spree is a valid alternative if you're consistently chaining multi-kills and want the HP recovery. Temporal Reign on the Mage Emblem is the higher ceiling pick for macro-oriented players.
 
 ---
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4896561037705299"
@@ -155,35 +196,35 @@ Killing Spree at Tier 3 is not optional. A Joy with it can eliminate the carry, 
 </script>
 ## Joy Combo Guide — Mobile Legends
 
-### Combo 1 — Lane Poke / Safe Trade
+### Combo 1 — Safe Poke / Lane Trade
 
 ```
 S1 → AA → S2 → AA
 ```
 
-Drop the Crystal, land one basic attack, fire a single S2 on beat, basic attack again. Safe, low-commitment poke for early lane pressure. Doesn't expose you to a counter-engage because you're not going deep.
+Place the Crystal, land a basic attack, fire one S2 dash, follow with another basic attack. Low-commitment harassment for early pressure. Doesn't expose you to a counter-engage because you're not committing the full chain.
 
-### Combo 2 — Full Kill Rotation
+### Combo 2 — Proxy Stack Dive (The Pro Engage)
 
 ```
-S1 → S2 (×4, on beat) → Ultimate → S1 (behind escaping enemy) → AA
+S2 (on creep/minion) → S2 (on creep/minion) → S1 (toward enemy) → S2 (through Crystal) → S2 (onto target) → Ultimate
 ```
 
-Full sequence. Place the Crystal first to secure the S2 fallback target, chain four dashes on rhythm to build all five beats, activate the ultimate. While the ult pulses, throw S1 behind a retreating target to cut off their escape with the slow. End with a basic attack to squeeze the passive trigger one more time.
+This is the engage pattern that defines high-level Joy play. Stack your first 2 dashes on a nearby jungle camp or minion wave — safely, with no enemy CC risk. By the time your third and fourth dashes land on the enemy hero, you immediately activate the ultimate with 4 Beat Energy and full CC immunity. The enemy has no window to react because your first two stacks were invisible to them.
 
-**Why S1 comes first, every time:** without the Crystal placed, if the enemy sidesteps your first dash, the chain dies — there's no secondary target to redirect onto. The Crystal is the safety net. Players who open with S2 are gambling their entire combo on a single dash landing clean.
+**Why this works:** A Joy diving straight from outside the fog has her full dash chain telegraphed. A Joy who proxy-stacks on creeps first arrives at the kill range already at 2 Beat Energy — two dashes away from CC immunity before she even touches the enemy.
+
+### Combo 3 — Direct Frontal Burst (Isolated Target)
+
+```
+S1 → S2 (through Crystal) → S2 → S2 → S2 → Ultimate
+```
+
+For caught-out targets with no CC nearby. Place the Crystal to secure the chain fallback, run all four dashes through any available targets, activate the ult with full stacks. Straightforward when the enemy is alone and there's no CC waiting.
+
+**When to pop the ult early:** If you're low on HP mid-dive and the 4th dash risks your life, activate with 2–3 stacks. Spell Vamp from on-beat dashes will sustain you through the pulse window. Dying for a perfect chain is always the wrong call.
 
 ---
-
-## Matchup and Rotation Tips
-
-**Mid lane:** Joy's cleanest matchups are against mages with one escape and limited burst tools — Pharsa, Kagura, Valentina. Place S1 in their retreat path before dashing, and even if they burn their escape on your first dash, the slow from the Crystal makes the follow-up land. Stay near your blue buff and use the low cooldowns to fight repeatedly through mid game.
-
-**Jungle:** Prioritise Turtle control over early fights. Joy's jungle clear is functional but not fast, and she wants Genius Wand online before she hunts. Once you hit two items, start rotating through mid and EXP lanes to find picks on immobile targets.
-
-**Never pick Joy into Phoveus.** His passive (Demonic Force) charges every time an enemy hero dashes within range. A single Joy combo — four S2 dashes plus multiple dashes during the ultimate — gives him enough stacks to burst her mid-chain. It is one of the hardest counters in the entire game.
-
-> **Internal link:** Check our full [MLBB assassin tier list](/mlbb/best-heroes-mlbb-tier-list-2026/) to see how Joy stacks up against other roaming and mid-lane picks this season.
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4896561037705299"
      crossorigin="anonymous"></script>
 <ins class="adsbygoogle"
@@ -195,6 +236,30 @@ Full sequence. Place the Crystal first to secure the S2 fallback target, chain f
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
+## Matchup and Rotation Tips
+
+**Jungle:** Prioritise stacking Beat Energy on camps before rotating. Clear a camp, use 1–2 dashes on the last creep, arrive at the lane with pre-built stacks. This habit turns every rotation into a potential instant-ult dive from the moment you reach the enemy. Prioritise Turtle control over raw skirmishing in the early game — Joy wants Genius Wand online before hunting seriously.
+
+**EXP Lane:** If you're against a high-sustain fighter like Ruby or Yu Zhong, don't waste time trying to win the 1v1. You won't — they outlast you in extended trades. Instead, cut the minion wave behind their tower to deny XP, then immediately rotate to Mid Lane or Turtle fights where your burst actually ends kills. Joy's mobility is her EXP lane superpower, not her trading.
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4896561037705299"
+     crossorigin="anonymous"></script>
+<ins class="adsbygoogle"
+     style="display:block; text-align:center;"
+     data-ad-layout="in-article"
+     data-ad-format="fluid"
+     data-ad-client="ca-pub-4896561037705299"
+     data-ad-slot="7554701431"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+**Mid lane:** Cleanest matchups are against immobile mages — Pharsa, Valentina, Xavier. Place S1 in their retreat path before engaging. Even if they burn their escape on your first dash, the Crystal slow catches the follow-up.
+
+**Never pick Joy into Franco or Kaja.** Their suppression skills (Bloody Hunt and Divine Judgment respectively) pull Joy out of her ultimate even at full 4-stack CC immunity. This is the one CC type her ult cannot block. If either is in the enemy draft, play a different assassin.
+
+**Never pick Joy into Phoveus.** His Demonic Force passive charges off every dash within range. A full Joy combo feeds him enough stacks to burst her mid-chain. Structural counter — skip the matchup.
+
+> **See also:** Full [MLBB assassin and meta picks for Season 2026](/mlbb/best-heroes-mlbb-tier-list-2026/) for full draft context around Joy.
+
 ---
 
 ## Heroes That Counter Joy
@@ -202,10 +267,10 @@ Full sequence. Place the Crystal first to secure the S2 fallback target, chain f
 | Counter Hero | Why They're Dangerous |
 |---|---|
 | Phoveus | Passive charges off every Joy dash — a full combo hands him enough stacks to delete her mid-chain |
-| Atlas | His ultimate (Annihilate) locks Joy before she can build to CC immunity |
-| Kaja | Ring of Order pulls Joy out of her dash chain before she builds rhythm |
-| Nana | Molina's Spell polymorph interrupts the combo and Joy has no reliable escape after being transformed |
-| Hanabi | Passive reflects CC to nearby enemies; Joy tends to cluster around Hanabi's position mid-combo |
+| Atlas | Fatal Links can lock Joy before she builds 3 Beat Energy for the cleanse window |
+| Kaja | Ring of Order pulls Joy out of her dash chain before rhythm builds |
+| Nana | Molina's Spell polymorph interrupts mid-combo; Joy has no fast escape after being transformed |
+| Hanabi | Passive reflects CC to nearby enemies; Joy clusters closely during the dash chain |
 
 ---
 
@@ -216,8 +281,10 @@ Full sequence. Place the Crystal first to secure the S2 fallback target, chain f
 | Pharsa | Squishy, one escape, can't kite a committed four-dash chain once the Crystal is placed |
 | Beatrix | Short effective range, no reliable escape once Joy is mid-dash |
 | Gloo | Split mechanic doesn't protect against burst; Joy deletes before Gloo can respond |
-| Yve | Immobile during ultimate; Joy dives in and forces the cancel |
-| Gusion | In direct 1v1 with items, Joy's CC immunity during ult nullifies his burst window |
+| Yve | Immobile during ultimate; Joy dives and forces the cancel |
+| Gusion | In a direct 1v1, Joy's dive timing nullifies his burst window |
+
+---
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4896561037705299"
      crossorigin="anonymous"></script>
 <ins class="adsbygoogle"
@@ -229,23 +296,17 @@ Full sequence. Place the Crystal first to secure the S2 fallback target, chain f
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
----
-
 ## Common Mistakes to Stop Making
 
-**Opening with S2.** Crystal comes first. Every single time. No exceptions.
+**Diving straight in without proxy stacking.** Walking directly at an enemy from range telegraphs your entire chain. Stacking 1–2 dashes on nearby creeps or minions first means you arrive at kill range with Beat Energy already built and CC immunity a single dash away.
 
-**Sound off.** If you're playing Joy in silent mode, you're flying blind on the most important mechanic in her kit. The beat cue is audio. Turn it on.
+**Ignoring minions and jungle camps as S2 targets.** These are free Beat Energy stacks with zero counterplay risk. Every experienced Joy player is mentally tracking nearby creep waves before engaging.
 
-**Panic-pressing the ultimate.** The ultimate only activates once you've built five beats. You cannot pop it defensively without the full chain — it won't fire. Trying this mid-escape and failing wastes your combo buildup.
+**Always chasing 4 stacks when low HP.** If you're going to die before completing the 4th dash, pop the ultimate at 2–3 stacks. Spell Vamp from on-beat dashes will sustain the remainder. A kill at 3 stacks beats a death at 4.
 
-**Diving without CC immunity timing.** The CC immunity only applies *during* the ultimate, not during the S2 chain. If you dive into Atlas or Tigreal before your ult is active, you're getting stunned mid-dash with no answer.
+**Picking Joy into Franco or Kaja.** Suppression bypasses CC immunity. This is the hard rule that no amount of stack management changes.
 
-**Skipping Divine Glaive against tanky compositions.** Without magic penetration, your damage falls off hard in the late game against anyone stacking Athena's Shield or Oracle. Glaive is mandatory in those matchups, not a luxury.
-
-**Picking Joy into Phoveus.** Already mentioned — this isn't a tough matchup, it's a structural counter. If Phoveus is in the draft, swap to a different assassin.
-
----
+**Picking Joy into Phoveus.** Every dash feeds his passive. A full combo is essentially charging his burst. Not a difficult matchup — a structural one. Choose a different assassin.
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4896561037705299"
      crossorigin="anonymous"></script>
 <ins class="adsbygoogle"
@@ -257,30 +318,39 @@ Full sequence. Place the Crystal first to secure the S2 fallback target, chain f
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
+**Skipping Divine Glaive against tanks.** Without magic penetration, damage falls off hard late against anyone stacking Athena's Shield or Oracle. It's a mandatory item in those matchups, not a luxury swap.
+
+**Not using Winter Crown aggressively.** Most players save it for emergencies. The correct use is activating it intentionally mid-ultimate when you're about to take fatal burst — the ult pulses continue while you're frozen, and you come out with full health from the Spell Vamp.
+
+---
+
 ## Joy Quick Build Summary — TL;DR
 
 > **Too busy to read the full guide? Here's everything in 30 seconds.**
 
 **Mid Lane**  
 `Magic Shoes → Genius Wand → Holy Crystal → Concentrated Energy → Divine Glaive → Blood Wings`  
-Spell: **Vengeance** · Emblem: **Assassin** (Rupture / Master Assassin / Killing Spree)
+Spell: **Vengeance** · Emblem: **Custom Mage** (Rupture / Wilderness Blessing / Temporal Reign)
 
 **Jungle**  
-`Arcane Boots (Ice Retribution) → Genius Wand → Holy Crystal → Blood Wings → Divine Glaive → Winter Truncheon`  
-Spell: **Retribution** · Emblem: **Assassin** (Rupture / Master Assassin / Killing Spree)
+`Arcane Boots (Ice Retribution) → Genius Wand → Holy Crystal → Blood Wings → Divine Glaive → Winter Crown`  
+Spell: **Retribution** · Emblem: **Custom Mage** (Rupture / Wilderness Blessing / Temporal Reign)
 
 **Combo Cheat Sheet**
 
 | Situation | Sequence |
 |-----------|----------|
-| Laning poke | S1 → AA → S2 → AA |
-| Full kill rotation | S1 → S2 ×4 (on beat) → Ult → S1 → AA |
+| Safe poke | S1 → AA → S2 → AA |
+| Proxy stack dive (pro engage) | S2 on creep × 2 → S1 → S2 through Crystal → S2 onto target → Ult |
+| Isolated target | S1 → S2 × 4 → Ultimate |
 | Enemy escaping during ult | Cast S1 *behind* them to slow and cut the path |
 
 **Golden rules:**  
-✔ Crystal (S1) placed first, every engage  
-✔ Sound on — the beat cue is audio  
-✔ Ult only fires after five beats are built  
+✔ Stack S2 on creeps/minions before diving — free Beat Energy with no risk  
+✔ 4 dashes before ult = full CC immunity  
+✔ Pop ult early at 2–3 stacks rather than die chasing a perfect chain  
+✔ Suppression (Franco, Kaja) bypasses CC immunity — avoid the matchup  
+✔ Never pick Joy into Phoveus
 
 ---
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4896561037705299"
@@ -296,8 +366,6 @@ Spell: **Retribution** · Emblem: **Assassin** (Rupture / Master Assassin / Kill
 </script>
 ## FAQ — Joy MLBB
 
-{/* FAQ Schema — structured for Google rich results / featured snippets */}
-
 <div itemscope itemtype="https://schema.org/FAQPage">
 
 <div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
@@ -305,7 +373,7 @@ Spell: **Retribution** · Emblem: **Assassin** (Rupture / Master Assassin / Kill
 <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
 <div itemprop="text">
 
-No — and that's not a knock on the hero. Joy has one of the higher skill floors in the assassin class because her damage output is directly tied to landing rhythm inputs correctly under pressure. If you're new to MLBB, Gusion or Ling are better starting points. Come back to Joy once you understand assassin positioning.
+No — and that's not a knock on the hero. Joy has one of the higher skill floors in the assassin class because her damage output is directly tied to landing rhythm inputs correctly under pressure. If you're new to MLBB, Gusion or Ling are better starting points. Return to Joy once you understand assassin positioning and game sense.
 
 </div>
 </div>
@@ -316,29 +384,40 @@ No — and that's not a knock on the hero. Joy has one of the higher skill floor
 <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
 <div itemprop="text">
 
-Mid lane in most drafts. Jungle works if your team needs a roaming carry, but mid gives the most consistent access to squishy targets and blue buff uptime. She's too squishy for gold lane and lacks the wave-clear identity for EXP lane.
+Jungle is the primary role in most drafts, followed by EXP Lane and Mid Lane. Jungle gives Joy the fastest access to proxy stacking targets (jungle camps) and the freedom to rotate at will. EXP Lane works well when she needs to be a skirmisher who cuts off minion waves and rotates mid. Mid Lane is viable but she benefits less from blue buff than traditional mages who need it more. She's too squishy for gold lane.
 
 </div>
 </div>
 </div>
 
 <div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
-<h3 itemprop="name">Why does Joy's ultimate not activate when I press it?</h3>
+<h3 itemprop="name">How many dashes does Joy's Skill 2 have in 2026?</h3>
 <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
 <div itemprop="text">
 
-The five-beat threshold hasn't been reached. Joy's Beat Energy bar must be full before S3 lights up. If you're missing beats on the S2 chain, energy builds slower. Practice the full combo in Training Mode until hitting every beat on timing is muscle memory before bringing Joy into ranked.
+Joy's Skill 2 — Meow, Rhythm of Joy! — can be cast up to 4 times in succession. Each hit on an enemy or the Leonin Crystal from Skill 1 opens a 0.8-second recast window. Hitting every dash on the beat deals increased damage and generates a shield stack.
 
 </div>
 </div>
 </div>
 
 <div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
-<h3 itemprop="name">Which battle spell should I use on Joy — Flicker, Vengeance, or Retribution?</h3>
+<h3 itemprop="name">How does Joy's ultimate work — when can I activate it?</h3>
 <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
 <div itemprop="text">
 
-Mid lane: Vengeance. The damage reflection keeps you alive during dives before CC immunity kicks in, buying time to complete the rhythm chain. Jungle: Retribution is mandatory for camps and objective control — upgrade to Ice Retribution for the slow effect that helps you stick to targets. Flicker is situational at best since Joy's S2 already covers most escape needs.
+Joy's ultimate, Ha, Electrifying Beats!, can be activated once she has built any Beat Energy through S2 hits — she doesn't need to complete all four dashes first. On activation she gains movement speed, a physical and magic defense boost, and pulses AoE magic damage over several seconds. The key threshold is **4 dashes before activating**: this grants full crowd control immunity for the entire ult duration. Activating with fewer stacks still deals damage and provides the defense buff, but without the CC immunity. Spell Vamp is also granted if S2 dashes landed on the beat.
+
+</div>
+</div>
+</div>
+
+<div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+<h3 itemprop="name">Which battle spell should I use on Joy?</h3>
+<div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+<div itemprop="text">
+
+Mid lane: Vengeance. The damage reflection keeps you alive during dives before you reach the Beat Energy cleanse threshold. Jungle: Retribution is mandatory for camp efficiency and objective control — upgrade to Ice Retribution for the slow that helps stick to targets mid-dash. Flicker is situational at best since Joy's Skill 2 already covers most escape needs.
 
 </div>
 </div>
@@ -349,7 +428,7 @@ Mid lane: Vengeance. The damage reflection keeps you alive during dives before C
 <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
 <div itemprop="text">
 
-Training Mode with sound on and the target dummy set to immobile. Drill S1 → S2 ×4 repeatedly, focusing on the audio beat cue before each recast — not the visual button. Repeat until the timing is automatic, then run Classic matches before touching ranked.
+Training Mode with sound on, target dummy set to immobile. Drill S1 → S2 ×4 repeatedly and focus entirely on the audio beat cue before each recast — not the visual button flash. Repeat until the timing is automatic. Run Classic matches before taking Joy into ranked.
 
 </div>
 </div>
@@ -360,7 +439,7 @@ Training Mode with sound on and the target dummy set to immobile. Drill S1 → S
 <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
 <div itemprop="text">
 
-She's skill-dependent rather than meta-dependent. Her overall win rate sits at around 48.7% in ranked play (source: MLBBHub, patch 2.1.67a), which looks modest — but that pool includes many players still learning the rhythm mechanic. At Mythic and above, practiced Joy players consistently outperform that baseline. She won't carry on autopilot, but she has no hard meta disadvantage either.
+She's skill-dependent rather than meta-dependent. Her overall win rate sits at around 48.7% across ranked (source: MLBBHub), which includes a large pool of players still learning the rhythm mechanic. At Mythic and above, practiced Joy players consistently outperform that average. She won't carry on autopilot, but she has no hard meta disadvantage either.
 
 </div>
 </div>
@@ -381,13 +460,14 @@ Yes, though she's a mid-priority jungle pick. Clear speed is functional rather t
 
 ---
 
-Joy rewards patience in a way most MLBB heroes don't. The first several games on her will be frustrating — missed combos, broken chains, dying mid-dive because the ult didn't have five beats yet. That's part of the process. The ceiling is worth working toward. Once the rhythm clicks and you're chaining four on-beat dashes into a full-power ultimate with Killing Spree firing back-to-back, you'll understand why Joy has one of the most dedicated player bases in the roster.
+Joy rewards smart positioning in a way most MLBB heroes don't. The first several games will be frustrating — dying mid-dive because you didn't proxy stack first, burning the ult at 2 stacks without Spell Vamp, forgetting there's a minion wave you could have used. That's the learning curve. Once the proxy habit clicks and you're arriving at kill range with 2 stacks already built, popping full CC immunity before the enemy can react, you'll understand why Joy has one of the most dedicated player bases in the game.
 
-Crystal placement first. Sound on. Everything else follows.
+Proxy first. Four stacks for CC immunity. Winter Crown mid-ult when it matters. Everything else follows.
 
 ---
 
-*Stats referenced from MLBBHub ranked data (patch 2.1.67a, May 2026). Lore details sourced from the official [Mobile Legends Wiki](https://mobile-legends.fandom.com/wiki/Joy).*
+*Win rate data from [MLBBHub](https://mlbbhub.com/heroes/joy). Skill mechanics cross-referenced against [Liquipedia MLBB — Joy](https://liquipedia.net/mobilelegends/Joy) and [ONE Esports Joy Guide](https://www.oneesports.gg/mobile-legends/mlbb-joy-guide-best-build-emblem/).*
+
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4896561037705299"
      crossorigin="anonymous"></script>
 <ins class="adsbygoogle"
