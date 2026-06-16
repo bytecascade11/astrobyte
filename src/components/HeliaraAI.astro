@@ -88,7 +88,9 @@ const {
       </button>
     </div>
 
-    <div id="hl-footer">Powered by <strong>Heliara AI</strong> × Gemini</div>
+    <div id="hl-footer">
+      <span id="hl-footer-text">Powered by <strong>Heliara AI</strong> × Groq</span>
+    </div>
   </div>
 </div>
 
@@ -411,12 +413,29 @@ const {
   #hl-footer {
     text-align: center;
     font-size: 10.5px;
-    color: #aaaaaa !important;
-    padding: 6px 0 10px;
+    color: #888888 !important;
+    padding: 6px 14px 10px;
     flex-shrink: 0;
+    min-height: 28px;
+  }
+
+  #hl-footer-text {
+    display: inline-block;
+    transition: opacity 0.4s ease;
+  }
+
+  #hl-footer-text.fade {
+    opacity: 0;
   }
 
   #hl-footer strong { color: #ffffff !important; }
+
+  #hl-footer a {
+    color: var(--hl-accent, #6c63ff) !important;
+    text-decoration: none;
+  }
+
+  #hl-footer a:hover { text-decoration: underline; }
 
   @media (max-width: 420px) {
     #hl-root { bottom: 16px; right: 16px; }
@@ -436,6 +455,7 @@ const {
   const clearBtn = document.getElementById('hl-clear')!;
   const suggestionsEl = document.getElementById('hl-suggestions')!;
   const pulse = document.getElementById('hl-pulse')!;
+  const footerText = document.getElementById('hl-footer-text')!;
 
   const API_ENDPOINT = root.dataset.endpoint || '/api/heliara/';
 
@@ -445,6 +465,30 @@ const {
 
   const GREETING = messagesEl.querySelector('.hl-msg-bubble')?.textContent || '';
 
+  // ── Rotating footer messages ──────────────────────────────────────────────
+  const footerMessages = [
+    `Powered by <strong>Heliara AI</strong> × Groq`,
+    `🎉 ReviByte is <strong>181 days</strong> old & growing!`,
+    `🚀 <strong>400+ daily visitors</strong> and counting`,
+    `📖 New posts dropping on <a href="https://revibyte.blog" target="_blank" rel="noopener">revibyte.blog</a>`,
+    `👋 Come back soon — iSamuel publishes weekly`,
+    `⭐ Enjoying ReviByte? <a href="https://revibyte.blog" target="_blank" rel="noopener">Bookmark the blog</a>`,
+  ];
+
+  let footerIndex = 0;
+
+  function rotateFooter() {
+    footerText.classList.add('fade');
+    setTimeout(() => {
+      footerIndex = (footerIndex + 1) % footerMessages.length;
+      footerText.innerHTML = footerMessages[footerIndex];
+      footerText.classList.remove('fade');
+    }, 400);
+  }
+
+  setInterval(rotateFooter, 4000);
+
+  // ── Panel toggle ──────────────────────────────────────────────────────────
   function togglePanel() {
     isOpen = !isOpen;
     panel.classList.toggle('open', isOpen);
