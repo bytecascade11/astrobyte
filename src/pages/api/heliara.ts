@@ -2,55 +2,95 @@ export const prerender = false;
 
 import type { APIRoute } from "astro";
 
-async function fetchPageText(url: string, maxChars = 2000): Promise<string> {
+// ─── Content fetcher ────────────────────────────────────────────────────────
+async function fetchPageText(url: string, maxChars = 4000): Promise<string> {
   try {
     const res = await fetch(url, {
       headers: { "User-Agent": "HeliaraAI/1.0 (ReviByte assistant bot)" },
-      signal: AbortSignal.timeout(6000),
+      signal: AbortSignal.timeout(8000),
     });
     if (!res.ok) return "";
     const html = await res.text();
-    return html
+
+    // Remove non-content blocks
+    const cleaned = html
       .replace(/<script[\s\S]*?<\/script>/gi, "")
       .replace(/<style[\s\S]*?<\/style>/gi, "")
       .replace(/<nav[\s\S]*?<\/nav>/gi, "")
       .replace(/<header[\s\S]*?<\/header>/gi, "")
       .replace(/<footer[\s\S]*?<\/footer>/gi, "")
+      .replace(/<aside[\s\S]*?<\/aside>/gi, "")
+      .replace(/<form[\s\S]*?<\/form>/gi, "")
+      // Preserve heading text with a newline prefix
+      .replace(/<h[1-6][^>]*>([\s\S]*?)<\/h[1-6]>/gi, "\n## $1\n")
+      // Preserve paragraph breaks
+      .replace(/<\/p>/gi, "\n")
+      .replace(/<br\s*\/?>/gi, "\n")
+      .replace(/<li[^>]*>/gi, "\n- ")
+      // Strip remaining tags
       .replace(/<[^>]+>/g, " ")
+      // Decode entities
       .replace(/&nbsp;/g, " ")
       .replace(/&amp;/g, "&")
       .replace(/&lt;/g, "<")
       .replace(/&gt;/g, ">")
       .replace(/&quot;/g, '"')
-      .replace(/\s+/g, " ")
-      .trim()
-      .slice(0, maxChars);
+      .replace(/&#39;/g, "'")
+      // Collapse whitespace but keep newlines
+      .replace(/[ \t]+/g, " ")
+      .replace(/\n{3,}/g, "\n\n")
+      .trim();
+
+    return cleaned.slice(0, maxChars);
   } catch {
     return "";
   }
 }
 
+// ─── Sitemap URL scorer ──────────────────────────────────────────────────────
 async function getRelevantPostUrls(query: string): Promise<string[]> {
   try {
     const res = await fetch("https://revibyte.blog/sitemap.xml", {
-      signal: AbortSignal.timeout(6000),
+      signal: AbortSignal.timeout(8000),
     });
     if (!res.ok) return [];
     const xml = await res.text();
 
     const urls = [...xml.matchAll(/<loc>(.*?)<\/loc>/g)].map(m => m[1]);
 
-    const postUrls = urls.filter(u =>
+    // All content hubs + posts
+    const contentUrls = urls.filter(u =>
       u.includes("/posts/") ||
       u.includes("/codm/") ||
-      u.includes("/efootball/")
+      u.includes("/efootball/") ||
+      u.includes("/pubgmobile/") ||
+      u.includes("/mlbb/") ||
+      u.includes("/save/") ||
+      u.includes("/heliara/")
     );
 
-    const queryWords = query.toLowerCase().split(/\s+/).filter(w => w.length > 2);
+    const queryLower = query.toLowerCase();
+    const queryWords = queryLower
+      .split(/\s+/)
+      .filter(w => w.length > 2);
 
-    const scored = postUrls.map(url => {
+    const scored = contentUrls.map(url => {
       const slug = url.toLowerCase();
-      const score = queryWords.reduce((acc, word) => acc + (slug.includes(word) ? 2 : 0), 0);
+      let score = 0;
+
+      // Word match in slug
+      for (const word of queryWords) {
+        if (slug.includes(word)) score += 2;
+      }
+
+      // Boost hub index pages if query mentions the game/hub
+      if ((queryLower.includes("cod") || queryLower.includes("call of duty") || queryLower.includes("warzone")) && slug.includes("/codm/")) score += 3;
+      if ((queryLower.includes("efootball") || queryLower.includes("pes") || queryLower.includes("efoot")) && slug.includes("/efootball/")) score += 3;
+      if ((queryLower.includes("pubg") || queryLower.includes("battlegrounds")) && slug.includes("/pubgmobile/")) score += 3;
+      if ((queryLower.includes("mlbb") || queryLower.includes("mobile legends") || queryLower.includes("bang bang")) && slug.includes("/mlbb/")) score += 3;
+      if ((queryLower.includes("tiktok") || queryLower.includes("download") || queryLower.includes("save")) && slug.includes("/save/")) score += 3;
+      if ((queryLower.includes("heliara") || queryLower.includes("ai assistant")) && slug.includes("/heliara/")) score += 3;
+
       return { url, score };
     });
 
@@ -64,6 +104,7 @@ async function getRelevantPostUrls(query: string): Promise<string[]> {
   }
 }
 
+// ─── API Route ───────────────────────────────────────────────────────────────
 export const POST: APIRoute = async ({ request }) => {
   try {
     const { messages } = await request.json();
@@ -86,7 +127,7 @@ export const POST: APIRoute = async ({ request }) => {
 
     const fetchedTexts = await Promise.all(
       relevantUrls.map(url =>
-        fetchPageText(url, 2500).then(text =>
+        fetchPageText(url, 4000).then(text =>
           text ? `\n\n--- From ${url} ---\n${text}` : ""
         )
       )
@@ -95,49 +136,60 @@ export const POST: APIRoute = async ({ request }) => {
     const liveContext = fetchedTexts
       .filter(Boolean)
       .join("")
-      .slice(0, 8000);
+      .slice(0, 12000);
 
-    const systemPrompt = `You are Heliara AI, a smart and friendly assistant built into ReviByte (revibyte.blog).
+    const systemPrompt = `You are Heliara AI, a smart and friendly assistant built into ReviByte (revibyte.blog). You have access to live content fetched directly from ReviByte posts and hubs — use it to give accurate, up-to-date answers.
 
 ## Who iSamuel is
-iSamuel (full name: Oke Sunday Samuel) is the sole founder, writer, and developer of ReviByte. He is a Physics and Electronics student in his final year of university. He built ReviByte entirely on mobile — no laptop, ever. The blog launched in December 2025 after migrating from Blogger to Astro. He is self-taught in web development. There is no team, no co-founders, no other staff.
+iSamuel (full name: Oke Sunday Samuel) is the sole founder, writer, and developer of ReviByte. He is a Physics and Electronics student in his final year of university. He built ReviByte entirely on mobile — no laptop, ever. The blog launched December 15, 2025 after migrating from Blogger to Astro. He is self-taught in web development. There is no team, no co-founders, no other staff.
 
 ## What ReviByte covers
-ReviByte is a global tech blog with a strong Nigerian and African market focus. It covers:
 
 ### Smartphones
 - Honest phone reviews and comparisons
 - Budget phone guides with Naira (₦) pricing — under ₦100k, ₦150k, ₦200k, ₦300k
 - Brands covered: Tecno, Infinix, itel, Samsung, Xiaomi/Redmi, iPhone/Apple
 - iSamuel's daily driver: Tecno Camon 30
-- Real-world analysis: battery life, repairability, resale value, performance under Lagos conditions
+- Real-world analysis: battery life, repairability, resale value, performance in Nigerian conditions
 - Android tips, optimization, battery guides, speed improvements
 
-### COD Mobile
-- Best loadouts updated every season (currently Season 4 — Eternal Prison)
+### COD Mobile Hub — revibyte.blog/codm/
+- Best loadouts updated every season
 - Weapon tier lists, sensitivity settings, ranked tips
 - Sniper loadouts, SMG builds, AR setups
 - Beginner through advanced strategies
-- iSamuel plays COD Mobile personally — all guides from real matches
+- iSamuel plays COD Mobile personally
 
-### eFootball 2026
+### eFootball Hub — revibyte.blog/efootball/
 - Top formations and Division 1 tactics
 - Squad-building tips and player reviews
 - Patch-by-patch updates
 - iSamuel plays eFootball personally
 
+### PUBG Mobile Hub — revibyte.blog/pubgmobile/
+- Gyroscope settings and sensitivity guides
+- Best landing spots, weapon guides, survival tips
+- Settings optimization for mid-range Android phones
+
+### Mobile Legends Bang Bang (MLBB) Hub — revibyte.blog/mlbb/
+- Hero guides, best builds, counters
+- Rank push tips, meta updates
+- Beginner and advanced MLBB strategies
+
 ### ReviByte Tools
-- **Heliara AI** (that's you) — free AI assistant at revibyte.blog/heliara/
+- **Heliara AI** — free AI assistant at revibyte.blog/heliara/
 - **ReviByte Save** — free TikTok video downloader at revibyte.blog/save/tok/ (no watermark, MP3 audio option)
 
 ### Blog & Tech
-- Built on Astro, deployed on Vercel
+- Built on Astro, deployed on Vercel, DNS via Cloudflare
 - PWA listed on Microsoft Store
-- Google AdSense monetization
+- Google AdSense monetization (pub-4896561037705299)
 - Amazon Associates affiliate links
 - Push notifications via OneSignal
+- Anonymous comment system powered by Supabase
+- Visitor tracking dashboard (private)
 
-## Key posts on ReviByte
+## Key posts
 - First post: revibyte.blog/posts/first-post-revibyte-live/
 - 121-day milestone: revibyte.blog/posts/revibyte-121-days-later/
 - Astro setup guide: revibyte.blog/posts/building-lightning-fast-blog-with-astro-complete-setup/
@@ -145,19 +197,17 @@ ReviByte is a global tech blog with a strong Nigerian and African market focus. 
 - Search visibility growth: revibyte.blog/posts/how-revibyte-expanded-search-visibility/
 - Push notifications fix: revibyte.blog/posts/why-my-blog-had-no-push-notifications
 - RAM for gaming: revibyte.blog/posts/how-much-ram-do-you-really-need-for-gaming/
-- Gaming hub: revibyte.blog/codm/
-- eFootball hub: revibyte.blog/efootball/
 
 ## How to answer
 - Be direct and conversational — like a knowledgeable friend, not a corporate bot
 - No robotic tone, no unnecessary filler, no excessive bullet points
-- Give real, practical answers
-- If a ReviByte post covers the topic, mention it and give the URL
+- When live content is available below, use it — it reflects the actual post
+- If a ReviByte post or hub covers the topic, mention it and give the full URL
 - If asked to write something — a post outline, a caption, a review draft — do it
-- If asked about phones in Nigeria, always think about Naira pricing, repairability, data costs, and power outage context
+- If asked about phones in Nigeria, always factor in Naira pricing, repairability, data costs, and power outage context
 - Never invent staff, team members, or co-founders — iSamuel runs ReviByte solo
 - If asked who built Heliara AI or ReviByte Save — iSamuel built both
-${liveContext ? `\n## Live ReviByte content fetched right now\n${liveContext}` : ""}`;
+${liveContext ? `\n## Live ReviByte content fetched for this query\n${liveContext}` : ""}`;
 
     const groqMessages = [
       { role: "system", content: systemPrompt },
@@ -208,3 +258,4 @@ ${liveContext ? `\n## Live ReviByte content fetched right now\n${liveContext}` :
     );
   }
 };
+                                    
