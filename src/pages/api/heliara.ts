@@ -50,16 +50,35 @@ async function fetchPageText(url: string, maxChars = 4000): Promise<string> {
 // ─── Sitemap URL scorer ──────────────────────────────────────────────────────
 async function getRelevantPostUrls(query: string): Promise<string[]> {
   try {
-    const res = await fetch("https://revibyte.blog/sitemap.xml", {
-      signal: AbortSignal.timeout(8000),
-    });
-    if (!res.ok) return [];
-    const xml = await res.text();
+    // Try sitemap-index first, fallback to sitemap.xml
+    let xml = "";
+    for (const sitemapUrl of [
+      "https://revibyte.blog/sitemap-index.xml",
+      "https://revibyte.blog/sitemap.xml",
+    ]) {
+      const res = await fetch(sitemapUrl, { signal: AbortSignal.timeout(8000) });
+      if (res.ok) { xml = await res.text(); break; }
+    }
+    if (!xml) return [];
 
-    const urls = [...xml.matchAll(/<loc>(.*?)<\/loc>/g)].map(m => m[1]);
+    // If it's a sitemap index, fetch child sitemaps and merge
+    const childSitemaps = [...xml.matchAll(/<loc>(.*?sitemap.*?)<\/loc>/gi)].map(m => m[1]);
+    if (childSitemaps.length > 0) {
+      const childXmls = await Promise.all(
+        childSitemaps.map(async u => {
+          try {
+            const r = await fetch(u, { signal: AbortSignal.timeout(6000) });
+            return r.ok ? r.text() : "";
+          } catch { return ""; }
+        })
+      );
+      xml = childXmls.join("\n");
+    }
+
+    const allUrls = [...xml.matchAll(/<loc>(.*?)<\/loc>/g)].map(m => m[1]);
 
     // All content hubs + posts
-    const contentUrls = urls.filter(u =>
+    const contentUrls = allUrls.filter(u =>
       u.includes("/posts/") ||
       u.includes("/codm/") ||
       u.includes("/efootball/") ||
@@ -70,20 +89,27 @@ async function getRelevantPostUrls(query: string): Promise<string[]> {
     );
 
     const queryLower = query.toLowerCase();
-    const queryWords = queryLower
-      .split(/\s+/)
-      .filter(w => w.length > 2);
+
+    // ── "Latest / recent / new" intent ──────────────────────────────────────
+    const isLatestQuery = /\b(latest|recent|new|last|update|just published|newest)\b/.test(queryLower);
+    if (isLatestQuery) {
+      // Sitemap lists URLs in document order — last entries tend to be newest.
+      // Return the last 4 post/hub URLs.
+      const reversed = [...contentUrls].reverse();
+      return reversed.slice(0, 4);
+    }
+
+    // ── Keyword scoring for specific queries ─────────────────────────────────
+    const queryWords = queryLower.split(/\s+/).filter(w => w.length > 2);
 
     const scored = contentUrls.map(url => {
       const slug = url.toLowerCase();
       let score = 0;
 
-      // Word match in slug
       for (const word of queryWords) {
         if (slug.includes(word)) score += 2;
       }
 
-      // Boost hub index pages if query mentions the game/hub
       if ((queryLower.includes("cod") || queryLower.includes("call of duty") || queryLower.includes("warzone")) && slug.includes("/codm/")) score += 3;
       if ((queryLower.includes("efootball") || queryLower.includes("pes") || queryLower.includes("efoot")) && slug.includes("/efootball/")) score += 3;
       if ((queryLower.includes("pubg") || queryLower.includes("battlegrounds")) && slug.includes("/pubgmobile/")) score += 3;
@@ -258,4 +284,3 @@ ${liveContext ? `\n## Live ReviByte content fetched for this query\n${liveContex
     );
   }
 };
-                                    
