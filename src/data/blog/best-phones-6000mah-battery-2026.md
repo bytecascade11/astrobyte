@@ -4,7 +4,7 @@ description: "Tired of hunting for a socket before noon? These are the best phon
 coverImage: "/assets/posts/best-phones-6000mah-battery-2026.jpg"
 coverImageAlt: "Best phones with 6000mAh battery in 2026 lineup"
 author: iSamuel
-pubDatetime: 2026-06-17T08:29:00:00:00Z
+pubDatetime: 2026-06-17T08:29:00Z
 tags: ["android", "battery", "phones", "tecno", "infinix", "samsung", "redmi", "opinions"]
 ---
 
