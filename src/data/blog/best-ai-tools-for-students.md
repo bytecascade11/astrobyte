@@ -10,7 +10,6 @@ coverImageAlt: "Student studying with a laptop open to an AI chat interface, not
 tags: ["ai", "productivities", "students"]
 slug: "best-ai-tools-for-students-2026"
 featured: false
-draft: true
 ---
 
 ## Table of Contents 
