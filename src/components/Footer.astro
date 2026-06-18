@@ -40,9 +40,27 @@ const { noMarginTop = false } = Astro.props;
         <p class="footer-newsletter-sub">
           Stay updated with the latest tech reviews, guides, and opinions — delivered straight to your inbox.
         </p>
-        <div class="footer-form">
-  <script async src="https://eomail5.com/form/a0ff8318-6b29-11f1-985b-f32f81b6eef6.js" data-form="a0ff8318-6b29-11f1-985b-f32f81b6eef6"></script>
-</div>
+        <form
+  action="https://api.follow.it/subscription-form/bWZOckxmelNNL2wyVVpERE50M0MxMWVhRC9ON2dBQnBKTEJzTlZJTGNIencrSFYrZVFpQ3FPY211M0dGVVJvZkxoWkcxUjd0TThLYmpMMnJuV1dMN3kzaC9uSkorZXlCYWdEZURrTmkxYW9aRGIxKzBJVW1pQXBVbDNBbGxjM098UDVxajlvNmc3NHYyc2ZJRFp4T1pDRncwNS9hMTBmajBaUlU0L1VrbW9XWT0=/8"
+  method="post"
+  target="_blank"
+  class="footer-form"
+>
+  <input
+    type="email"
+    name="email"
+    placeholder="your@email.com"
+    required
+    class="footer-input"
+    aria-label="Email address"
+  />
+  <button type="submit" class="footer-btn">
+    <span>Subscribe</span>
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M5 12h14M12 5l7 7-7 7"/>
+    </svg>
+  </button>
+</form>
         <p class="footer-disclaimer">No spam ever. Unsubscribe anytime.</p>
       </section>
 
