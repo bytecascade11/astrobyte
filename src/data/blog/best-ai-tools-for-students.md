@@ -4,12 +4,9 @@ description: "A practical look at the AI tools students are actually using in 20
 author: "iSamuel"
 pubDatetime: 2026-03-15T08:00:00Z
 modDatetime: 2026-06-18T23:47:00Z
-type: "guide"
 coverImage: "/assets/posts/best-ai-tools-students-2026.jpg"
 coverImageAlt: "Student studying with a laptop open to an AI chat interface, notebooks and coffee on the desk"
 tags: ["ai", "productivities", "students"]
-slug: "best-ai-tools-for-students-2026"
-featured: false
 ---
 
 ## Table of Contents 
