@@ -4,7 +4,7 @@ description: "Not every Pixel handles a full day the same way. Here's an honest 
 coverImage: "/assets/posts/best-google-pixel-battery-life-cover.jpg"
 coverImageAlt: "Google Pixel 10 Pro XL and Pixel 10a side by side showing battery stats"
 author: "iSamuel"
-pubDatetime: 2026-06-19T07:39:00Z
+pubDatetime: 2026-06-20T07:39:00Z
 tags: ["google", "battery", "android", "pixel", "opinions"]
 ---
 
