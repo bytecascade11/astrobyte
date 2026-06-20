@@ -1,7 +1,7 @@
 ---  
 title: "Best TECNO Phone for Battery Life in 2026: Which Model Actually Lasts?"  
 description: "I analyzed battery capacity, charging speed, display efficiency, and chipset behavior across TECNO's 2026 lineup to find which model genuinely survives a long day — and which ones are just marketing."  
-coverImage: "/assets/posts/tecno-battery-cover.jpg"  
+coverImage: "/assets/posts/tecno-battery-life-2026-cover.jpg"  
 coverImageAlt: "Smartphone glowing with a battery charge icon on a dark background"
 pubDatetime: "2026-06-20T11:15:00Z"
 tags: ["tecno", "battery", "android", "opinions"]  
