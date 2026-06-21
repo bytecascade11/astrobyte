@@ -408,6 +408,9 @@ const currentPath = Astro.url.pathname;
   window.addEventListener('appinstalled', function() {
     document.getElementById('installBanner').style.display = 'none';
     deferredPrompt = null;
+    if (typeof umami !== 'undefined') {
+      umami.track('pwa-install');
+    }
   });
 </script>
 
