@@ -9,8 +9,8 @@ tags:
   - games 
   - smartphone  
   - opinions 
-cover: /assets/posts/best-infinix-phone-gaming-cover.jpg  
-coverAlt: "Best Infinix phones for gaming in Nigeria 2026"  
+coverImage: /assets/posts/best-infinix-phone-gaming-cover.jpg  
+coverImageAlt: "Best Infinix phones for gaming in Nigeria 2026"  
 ---  
 
 ## Table of Contents 
