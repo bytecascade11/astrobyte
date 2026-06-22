@@ -9,6 +9,7 @@ import {
   transformerNotationWordHighlight,
 } from "@shikijs/transformers";
 import { transformerFileName } from "./src/utils/transformers/fileName";
+import { rehypeOptimizeImages } from "./src/utils/rehype-optimize-images.mjs";
 import { SITE } from "./src/config";
 import indexnow from "./src/integrations/indexnow";
 import tailwindcss from "@tailwindcss/vite";
@@ -150,6 +151,8 @@ export default defineConfig({
         },
       ],
     ],
+
+    rehypePlugins: [rehypeOptimizeImages],
 
     shikiConfig: {
       transformers: [
