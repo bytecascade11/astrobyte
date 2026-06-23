@@ -151,8 +151,6 @@ export default defineConfig({
       ],
     ],
 
-    rehypePlugins: [rehypeOptimizeImages],
-
     shikiConfig: {
       transformers: [
         transformerNotationDiff(),
