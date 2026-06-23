@@ -490,14 +490,19 @@ const {
 
   // ── Panel toggle ──────────────────────────────────────────────────────────
   function togglePanel() {
-    isOpen = !isOpen;
-    panel.classList.toggle('open', isOpen);
-    panel.setAttribute('aria-hidden', String(!isOpen));
-    btnIcon.style.display = isOpen ? 'none' : 'flex';
-    btnClose.style.display = isOpen ? 'flex' : 'none';
-    pulse.style.display = isOpen ? 'none' : 'block';
-    if (isOpen) { input.focus(); scrollToBottom(); }
+  isOpen = !isOpen;
+  panel.classList.toggle('open', isOpen);
+  panel.setAttribute('aria-hidden', String(!isOpen));
+  if (isOpen) {
+    panel.removeAttribute('inert');
+  } else {
+    panel.setAttribute('inert', '');
   }
+  btnIcon.style.display = isOpen ? 'none' : 'flex';
+  btnClose.style.display = isOpen ? 'flex' : 'none';
+  pulse.style.display = isOpen ? 'none' : 'block';
+  if (isOpen) { input.focus(); scrollToBottom(); }
+}
 
   function scrollToBottom() {
     requestAnimationFrame(() => { messagesEl.scrollTop = messagesEl.scrollHeight; });
