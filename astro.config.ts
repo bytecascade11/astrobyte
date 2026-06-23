@@ -9,7 +9,6 @@ import {
   transformerNotationWordHighlight,
 } from "@shikijs/transformers";
 import { transformerFileName } from "./src/utils/transformers/fileName";
-import { rehypeOptimizeImages } from "./src/utils/rehype-optimize-images";
 import { SITE } from "./src/config";
 import indexnow from "./src/integrations/indexnow";
 import tailwindcss from "@tailwindcss/vite";
