@@ -6,7 +6,7 @@ pubDatetime: 2026-06-26T23:52:00Z
 type: "guide"
 gameMode: "Classic"
 season: "Season 2026"
-coverImage: "/assets/posts/best-sniper-rifle-pubgmobile-2026.jpg"
+coverImage: "/assets/pubgmobile/best-sniper-rifle-pubgmobile-2026.jpg"
 coverImageAlt: "Best sniper rifle in PUBG Mobile 2026 — AWM, Kar98k, M24 comparison"
 slug: "best-sniper-rifle-pubgmobile-2026"
 featured: true
@@ -53,7 +53,7 @@ Neither is strictly better — they reward different playstyles and fill differe
 
 ---
 
-![PUBG Mobile sniper rifle tier list 2026](/assets/posts/pubgmobile-sniper-tier-list-2026.jpg)
+![PUBG Mobile sniper rifle tier list 2026](/assets/pubgmobile/pubgmobile-sniper-tier-list-2026.jpg)
 
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4896561037705299"
      crossorigin="anonymous"></script>
@@ -102,7 +102,7 @@ Neither is strictly better — they reward different playstyles and fill differe
 
 ### S Tier: AWM — The Only Sniper That Doesn't Negotiate
 
-![AWM sniper rifle PUBG Mobile 2026](/assets/posts/pubgmobile-awm-sniper-2026.jpg)
+![AWM sniper rifle PUBG Mobile 2026](/assets/pubgmobile/pubgmobile-awm-sniper-2026.jpg)
 
 Let's be blunt: the AWM is in a category by itself. Every other sniper in this game negotiates with Level 3 helmets. The AWM doesn't. One clean headshot, and it doesn't matter what armor your enemy is running — they're done.
 
@@ -170,7 +170,7 @@ If you're on one of those maps and find it early, run it — it does the job. Bu
 
 ## Bolt-Action Sniper Comparison
 
-![PUBG Mobile bolt-action sniper rifle comparison chart 2026](/assets/posts/pubgmobile-sniper-comparison-chart-2026.jpg)
+![PUBG Mobile bolt-action sniper rifle comparison chart 2026](/assets/pubgmobile/pubgmobile-sniper-comparison-chart-2026.jpg)
 
 | | AWM | M24 | Kar98k | Mosin Nagant |
 |---|---|---|---|---|
