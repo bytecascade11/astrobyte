@@ -6,7 +6,7 @@ pubDatetime: 2026-06-26T15:05:00Z
 type: "guide"  
 gameMode: "Classic"  
 season: "Season 2026"  
-coverImage: "/assets/posts/best-4-finger-hud-layout-pubgmobile-2026.jpg"  
+coverImage: "/assets/pubgmobile/best-4-finger-hud-layout-pubgmobile-2026.jpg"  
 coverImageAlt: "Best 4 finger HUD layout for PUBG Mobile 2026"  
 slug: "best-4-finger-hud-layout-pubgmobile-2026"  
 featured: true  
@@ -61,7 +61,7 @@ Some players use pinky fingers on the back for stability, or ring fingers restin
 - **Left index finger** — fire button (left side, upper area)  
 - **Right index finger** — scope / ADS button  
   
-![4 Finger Claw Grip Hand Position on Mobile Phone — index fingers on upper screen](/assets/posts/pubgmobile-4-finger-claw-grip-hand-position.jpg)  
+![4 Finger Claw Grip Hand Position on Mobile Phone — index fingers on upper screen](/assets/pubgmobile/pubgmobile-4-finger-claw-grip-hand-position.jpg)  
   
 Get comfortable holding your phone this way for 10 minutes before you even open the game. Grip stability matters more than most players realize — if your phone shifts during a fight, every placement decision you made in HUD settings becomes irrelevant.  
   
@@ -79,7 +79,7 @@ Get comfortable holding your phone this way for 10 minutes before you even open 
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
-![Full 4 Finger HUD Screen Layout with labeled button zones — PUBG Mobile 2026](/assets/posts/4-finger-hud-button-placement-pubgmobile-labeled.jpg)  
+![Full 4 Finger HUD Screen Layout with labeled button zones — PUBG Mobile 2026](/assets/pubgmobile/4-finger-hud-button-placement-pubgmobile-labeled.jpg)  
   
 Here's a layout built for control and speed. Every button position is intentional — nothing placed by feel or default.  
   
@@ -169,7 +169,7 @@ Free-peeking is one of the highest-value mechanics in ranked play — it exposes
   
 Both peek buttons should sit near the top of the screen, reachable by index fingers without shifting grip. Left peek slightly inward from the left edge, right peek inward from the right. Keep them large enough that a quick upper-screen tap lands consistently.  
   
-![Close-up of left and right control zones — fire, scope, crouch, and peek button placement](/assets/posts/pubgmobile-4-finger-hud-left-right-zones-closeup.jpg)  
+![Close-up of left and right control zones — fire, scope, crouch, and peek button placement](/assets/pubgmobile/pubgmobile-4-finger-hud-left-right-zones-closeup.jpg)  
   
 ---  
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4896561037705299"
