@@ -1,0 +1,665 @@
+---
+import Layout from "../../layouts/Layout.astro";
+
+const title = "Instagram Reels Downloader — Save Reels Online | ReviByte";
+const description = "Free online downloader for Instagram Reels. Save Reels in original quality on Android, iPhone, and PC. Not affiliated with Instagram.";
+const canonicalURL = "https://www.revibyte.blog/save/ig/";
+---
+
+<Layout title={title} description={description}>
+  <Fragment slot="head">
+    <link rel="canonical" href={canonicalURL} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "ReviByte Save Instagram Reels Downloader",
+      "url": canonicalURL,
+      "description": description,
+      "applicationCategory": "MultimediaApplication",
+      "operatingSystem": "Web, Android, iOS",
+      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+      "author": { "@type": "Person", "name": "iSamuel", "url": "https://revibyte.blog" }
+    })} />
+
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "How do I download an Instagram Reel?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Paste the Instagram Reel link into the box on this page and click Download. Your Reel will be ready to save in a few seconds."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Does this remove the watermark from Reels?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Instagram does not add a watermark to Reels, so you get the original, unmodified video quality."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can I download private Instagram Reels?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No, only public Reels can be downloaded. Private accounts are not accessible."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Is this Instagram downloader free?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes, ReviByte's Instagram Reels downloader is completely free with no login or app install required."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Does it work on Android and iPhone?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes, it works on any device with a browser — Android, iPhone, tablet, or PC."
+          }
+        }
+      ]
+    })} />
+  </Fragment>
+
+  <main class="ig-page">
+    <nav class="ig-nav">
+      <a href="/" class="ig-nav-back">← ReviByte Blog</a>
+    </nav>
+
+    <section class="ig-hero">
+      <div class="ig-badge">Free Tool</div>
+      <h1 class="ig-title">Instagram Reels <span class="ig-accent">Downloader</span></h1>
+      <p class="ig-subtitle">Download Instagram Reels in original quality. Free, fast, no login needed.</p>
+    </section>
+
+    <section class="ig-tool">
+      <div class="ig-input-wrap">
+        <input
+          id="ig-url"
+          type="url"
+          placeholder="Paste Instagram Reel link here... (e.g. https://www.instagram.com/reel/...)"
+          autocomplete="off"
+          spellcheck="false"
+        />
+        <button id="ig-fetch-btn">
+          <span id="ig-btn-text">Download</span>
+          <span id="ig-btn-spinner" style="display:none">
+            <svg class="ig-spin" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <path d="M21 12a9 9 0 1 1-6.219-8.56"/>
+            </svg>
+          </span>
+        </button>
+      </div>
+
+      <p class="ig-hint">
+        Open the Reel → tap <strong>Share</strong> → <strong>Copy Link</strong> → paste above
+      </p>
+
+      <div id="ig-error" class="ig-error" style="display:none"></div>
+
+      <div id="ig-result" class="ig-result" style="display:none">
+        <div class="ig-video-meta">
+          <div class="ig-cover-wrap">
+            <img id="ig-cover" src="" alt="Reel thumbnail" class="ig-cover" />
+            <div id="ig-cover-fallback" class="ig-cover-fallback" style="display:none">
+              <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+                <circle cx="8.5" cy="8.5" r="1.5"/>
+                <polyline points="21 15 16 10 5 21"/>
+              </svg>
+            </div>
+          </div>
+          <div class="ig-meta-info">
+            <div class="ig-ready">Your Reel is ready</div>
+            <div id="ig-size" class="ig-size"></div>
+          </div>
+        </div>
+
+        <div class="ig-download-btns">
+          <a id="ig-dl-video" href="#" target="_blank" class="ig-dl-btn ig-dl-primary">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/>
+            </svg>
+            Download Reel (MP4)
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <div id="ig-ad-gate" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.88); z-index:9999; align-items:center; justify-content:center; padding:1rem;">
+      <div style="background:#111; border:1px solid #333; border-radius:16px; padding:1.75rem 1.5rem; max-width:460px; width:100%; text-align:center;">
+        <p style="font-size:0.8rem; opacity:0.5; margin-bottom:1rem; text-transform:uppercase; letter-spacing:0.06em;">Preparing your download...</p>
+
+        <ins class="adsbygoogle"
+          style="display:block; min-height:100px;"
+          data-ad-client="ca-pub-4896561037705299"
+          data-ad-slot="4282672192"
+          data-ad-format="auto"
+          data-full-width-responsive="true">
+        </ins>
+
+        <div id="ig-gate-countdown" style="margin-top:1.25rem; font-size:0.9rem; opacity:0.6;">
+          Download unlocks in <strong id="ig-gate-secs">5</strong>s...
+        </div>
+
+        <button id="ig-gate-dl-btn" disabled style="margin-top:1rem; width:100%; padding:0.85rem; border-radius:12px; border:none; background:linear-gradient(135deg,#833ab4,#fd1d1d,#fcb045); color:#fff; font-size:1rem; font-weight:700; cursor:not-allowed; opacity:0.4; transition:opacity 0.2s;">
+          ⬇ Download Now
+        </button>
+
+        <button id="ig-gate-close" style="margin-top:0.75rem; background:none; border:none; color:inherit; opacity:0.35; font-size:0.8rem; cursor:pointer;">Cancel</button>
+      </div>
+    </div>
+
+    <section class="ig-how">
+      <h2>How to Download Instagram Reels</h2>
+      <div class="ig-steps">
+        <div class="ig-step">
+          <div class="ig-step-num">1</div>
+          <div>
+            <strong>Copy the Reel link</strong>
+            <p>Open Instagram, find the Reel, tap Share → Copy Link</p>
+          </div>
+        </div>
+        <div class="ig-step">
+          <div class="ig-step-num">2</div>
+          <div>
+            <strong>Paste it above</strong>
+            <p>Paste the link into the box at the top of this page</p>
+          </div>
+        </div>
+        <div class="ig-step">
+          <div class="ig-step-num">3</div>
+          <div>
+            <strong>Download</strong>
+            <p>Tap Download and save the Reel directly to your device</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="ig-faq">
+      <h2>Frequently Asked Questions</h2>
+
+      <details class="ig-faq-item">
+        <summary>Does this remove the watermark?</summary>
+        <p>Instagram doesn't add a watermark to Reels, so you always get the original quality video.</p>
+      </details>
+
+      <details class="ig-faq-item">
+        <summary>Can I download private Reels?</summary>
+        <p>No — only public Reels can be downloaded. Private accounts are not accessible.</p>
+      </details>
+
+      <details class="ig-faq-item">
+        <summary>Does it work on Android and iPhone?</summary>
+        <p>Yes. This tool works on any browser — Android, iPhone, tablet, or desktop PC.</p>
+      </details>
+
+      <details class="ig-faq-item">
+        <summary>Is there a limit on downloads?</summary>
+        <p>No limit. Download as many Reels as you need, completely free.</p>
+      </details>
+    </section>
+
+  </main>
+</Layout>
+
+<style>
+  .ig-nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.75rem 0 1.5rem;
+  }
+
+  .ig-nav-back {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: inherit !important;
+    text-decoration: none;
+    opacity: 0.6;
+    transition: opacity 0.15s;
+  }
+
+  .ig-nav-back:hover { opacity: 1; }
+
+  .ig-page {
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 2rem 1.25rem 5rem;
+  }
+
+  .ig-hero {
+    text-align: center;
+    padding: 2.5rem 0 2rem;
+  }
+
+  .ig-badge {
+    display: inline-block;
+    background: rgba(253, 29, 29, 0.1);
+    color: #fd1d1d;
+    border: 1px solid rgba(253, 29, 29, 0.25);
+    border-radius: 999px;
+    font-size: 0.72rem;
+    font-weight: 700;
+    padding: 0.28rem 0.85rem;
+    margin-bottom: 1rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  .ig-title {
+    font-size: clamp(1.8rem, 5.5vw, 3rem);
+    font-weight: 800;
+    line-height: 1.15;
+    margin-bottom: 0.85rem;
+    letter-spacing: -0.02em;
+  }
+
+  .ig-accent {
+    background: linear-gradient(135deg, #833ab4, #fd1d1d, #fcb045);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .ig-subtitle {
+    color: inherit !important;
+    font-size: 1.05rem;
+    line-height: 1.65;
+    opacity: 0.75;
+    max-width: 520px;
+    margin: 0 auto;
+  }
+
+  .ig-tool {
+    background: rgba(253, 29, 29, 0.04);
+    border: 1px solid rgba(253, 29, 29, 0.15);
+    border-radius: 20px;
+    padding: 2rem 1.5rem;
+    margin: 2rem 0;
+  }
+
+  .ig-input-wrap {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 0.75rem;
+  }
+
+  #ig-url {
+    flex: 1;
+    background: #111;
+    border: 1px solid #333;
+    border-radius: 12px;
+    padding: 0.85rem 1rem;
+    color: #fff;
+    font-size: 0.95rem;
+    font-family: inherit;
+    outline: none;
+    transition: border-color 0.15s;
+    min-width: 0;
+  }
+
+  #ig-url::placeholder { color: #555; }
+  #ig-url:focus { border-color: #fd1d1d; }
+
+  #ig-fetch-btn {
+    background: linear-gradient(135deg, #833ab4, #fd1d1d, #fcb045);
+    color: #fff;
+    border: none;
+    border-radius: 12px;
+    padding: 0.85rem 1.5rem;
+    font-size: 0.95rem;
+    font-weight: 700;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    white-space: nowrap;
+    transition: opacity 0.2s, transform 0.15s;
+    flex-shrink: 0;
+  }
+
+  #ig-fetch-btn:hover { opacity: 0.9; transform: scale(1.02); }
+  #ig-fetch-btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+
+  .ig-spin { animation: igspin 0.8s linear infinite; }
+  @keyframes igspin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+
+  .ig-hint {
+    color: inherit !important;
+    font-size: 0.82rem;
+    opacity: 0.55;
+    text-align: center;
+    margin-bottom: 0;
+  }
+
+  .ig-error {
+    background: rgba(253, 29, 29, 0.08);
+    border: 1px solid rgba(253, 29, 29, 0.3);
+    border-radius: 10px;
+    color: #ff6b8a;
+    padding: 0.85rem 1rem;
+    font-size: 0.9rem;
+    margin-top: 1rem;
+  }
+
+  .ig-result {
+    margin-top: 1.5rem;
+    border-top: 1px solid #222;
+    padding-top: 1.5rem;
+  }
+
+  .ig-video-meta {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1.25rem;
+    align-items: flex-start;
+  }
+
+  .ig-cover-wrap {
+    width: 90px;
+    height: 120px;
+    flex-shrink: 0;
+    border-radius: 10px;
+    overflow: hidden;
+    background: #1a1a1a;
+    position: relative;
+  }
+
+  .ig-cover {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .ig-cover-fallback {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #555;
+    background: #1a1a1a;
+  }
+
+  .ig-meta-info { flex: 1; min-width: 0; }
+
+  .ig-ready {
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: #fd1d1d;
+    margin-bottom: 0.4rem;
+  }
+
+  .ig-size {
+    color: inherit !important;
+    font-size: 0.78rem;
+    opacity: 0.5;
+  }
+
+  .ig-download-btns {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .ig-dl-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 0.85rem 1.25rem;
+    border-radius: 12px;
+    font-size: 0.95rem;
+    font-weight: 700;
+    text-decoration: none;
+    transition: opacity 0.2s, transform 0.15s;
+    cursor: pointer;
+  }
+
+  .ig-dl-btn:hover { opacity: 0.9; transform: translateY(-1px); }
+
+  .ig-dl-primary {
+    background: linear-gradient(135deg, #833ab4, #fd1d1d, #fcb045);
+    color: #fff !important;
+  }
+
+  .ig-how { margin: 2.5rem 0; }
+  .ig-how h2 { font-size: 1.4rem; font-weight: 700; margin-bottom: 1.25rem; }
+  .ig-steps { display: flex; flex-direction: column; gap: 1rem; }
+  .ig-step { display: flex; gap: 1rem; align-items: flex-start; }
+
+  .ig-step-num {
+    width: 36px; height: 36px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #833ab4, #fd1d1d, #fcb045);
+    color: #fff;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 800; font-size: 0.95rem; flex-shrink: 0;
+  }
+
+  .ig-step strong { display: block; font-size: 0.95rem; margin-bottom: 0.2rem; }
+  .ig-step p { color: inherit !important; font-size: 0.875rem; opacity: 0.7; margin: 0; line-height: 1.5; }
+
+  .ig-faq { margin: 2.5rem 0; }
+  .ig-faq h2 { font-size: 1.4rem; font-weight: 700; margin-bottom: 1rem; }
+
+  .ig-faq-item {
+    border: 1px solid #222;
+    border-radius: 12px;
+    margin-bottom: 0.6rem;
+    overflow: hidden;
+  }
+
+  .ig-faq-item summary {
+    padding: 1rem 1.25rem;
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: background 0.15s;
+  }
+
+  .ig-faq-item summary:hover { background: rgba(255,255,255,0.03); }
+  .ig-faq-item summary::after { content: "+"; font-size: 1.2rem; opacity: 0.5; flex-shrink: 0; }
+  .ig-faq-item[open] summary::after { content: "−"; }
+
+  .ig-faq-item p {
+    padding: 0 1.25rem 1rem;
+    font-size: 0.875rem;
+    line-height: 1.65;
+    opacity: 0.85 !important;
+    margin: 0 !important;
+    color: #000000 !important;
+    display: block !important;
+    visibility: visible !important;
+  }
+
+  @media (max-width: 480px) {
+    .ig-input-wrap { flex-direction: column; }
+    #ig-fetch-btn { width: 100%; justify-content: center; }
+  }
+</style>
+
+<script>
+  const WORKER_URL = 'https://sam.okesunday503.workers.dev/';
+
+  const urlInput = document.getElementById('ig-url') as HTMLInputElement;
+  const fetchBtn = document.getElementById('ig-fetch-btn') as HTMLButtonElement;
+  const btnText = document.getElementById('ig-btn-text')!;
+  const btnSpinner = document.getElementById('ig-btn-spinner')!;
+  const errorEl = document.getElementById('ig-error')!;
+  const resultEl = document.getElementById('ig-result')!;
+
+  const coverEl = document.getElementById('ig-cover') as HTMLImageElement;
+  const coverFallback = document.getElementById('ig-cover-fallback') as HTMLDivElement;
+  const sizeEl = document.getElementById('ig-size')!;
+  const dlVideo = document.getElementById('ig-dl-video') as HTMLAnchorElement;
+
+  function setLoading(loading: boolean) {
+    fetchBtn.disabled = loading;
+    btnText.style.display = loading ? 'none' : 'inline';
+    btnSpinner.style.display = loading ? 'inline-flex' : 'none';
+  }
+
+  function showError(msg: string) {
+    errorEl.textContent = msg;
+    errorEl.style.display = 'block';
+    resultEl.style.display = 'none';
+  }
+
+  function setCover(src: string | null | undefined) {
+    if (!src) {
+      coverEl.style.display = 'none';
+      coverFallback.style.display = 'flex';
+      return;
+    }
+    coverEl.style.display = 'block';
+    coverFallback.style.display = 'none';
+    coverEl.src = src;
+    coverEl.onerror = () => {
+      coverEl.style.display = 'none';
+      coverFallback.style.display = 'flex';
+    };
+  }
+
+  function formatSize(bytes: string | number | null): string {
+    if (!bytes) return '';
+    const n = Number(bytes);
+    if (!n) return '';
+    if (n >= 1_000_000) return (n / 1_000_000).toFixed(1) + ' MB';
+    if (n >= 1_000) return (n / 1_000).toFixed(0) + ' KB';
+    return n + ' B';
+  }
+
+  function isValidReelURL(url: string): boolean {
+    return /instagram\.com\/(reel|reels)\//i.test(url);
+  }
+
+  async function fetchReel() {
+    const url = urlInput.value.trim();
+    if (!url) { showError('Please paste an Instagram Reel link first.'); return; }
+    if (!isValidReelURL(url)) { showError('That doesn\'t look like a Reel link. Use Share → Copy Link on a Reel.'); return; }
+
+    errorEl.style.display = 'none';
+    resultEl.style.display = 'none';
+    setLoading(true);
+
+    try {
+      const res = await fetch(`${WORKER_URL}?url=${encodeURIComponent(url)}`);
+      const data = await res.json();
+
+      if (!res.ok || data.error) {
+        showError(data.error || 'Could not fetch that Reel. Try again.');
+        return;
+      }
+
+      console.log('=== Worker Response ===', data);
+
+      const videoUrl = data.videoUrl || data.video || data.url || null;
+      const thumbnail = data.thumbnail || data.thumb || null;
+      const size = data.size || null;
+
+      if (!videoUrl) {
+        showError('Could not find a downloadable video for that Reel.');
+        return;
+      }
+
+      setCover(thumbnail);
+      sizeEl.textContent = size ? formatSize(size) : '';
+      dlVideo.href = videoUrl;
+
+      resultEl.style.display = 'block';
+    } catch (err) {
+      console.error('Fetch error:', err);
+      showError('Network error. Check your connection and try again.');
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  const adGate = document.getElementById('ig-ad-gate')!;
+  const gateDlBtn = document.getElementById('ig-gate-dl-btn') as HTMLButtonElement;
+  const gateSecsEl = document.getElementById('ig-gate-secs')!;
+  const gateClose = document.getElementById('ig-gate-close')!;
+  let pendingDownloadUrl = '';
+  let gateTimer: ReturnType<typeof setInterval> | null = null;
+
+  function openAdGate(downloadUrl: string) {
+    pendingDownloadUrl = downloadUrl;
+    adGate.style.display = 'flex';
+    try {
+      ((window as any).adsbygoogle = (window as any).adsbygoogle || []).push({});
+    } catch (e) {}
+    gateDlBtn.disabled = true;
+    gateDlBtn.style.opacity = '0.4';
+    gateDlBtn.style.cursor = 'not-allowed';
+    gateSecsEl.textContent = '5';
+    let secs = 5;
+    if (gateTimer) clearInterval(gateTimer);
+    gateTimer = setInterval(() => {
+      secs--;
+      gateSecsEl.textContent = String(secs);
+      if (secs <= 0) {
+        clearInterval(gateTimer!);
+        gateDlBtn.disabled = false;
+        gateDlBtn.style.opacity = '1';
+        gateDlBtn.style.cursor = 'pointer';
+        document.getElementById('ig-gate-countdown')!.textContent = '✅ Your download is ready!';
+      }
+    }, 1000);
+  }
+
+  gateDlBtn.addEventListener('click', () => {
+    if (pendingDownloadUrl) {
+      window.open(pendingDownloadUrl, '_blank');
+      adGate.style.display = 'none';
+    }
+  });
+
+  gateClose.addEventListener('click', () => {
+    adGate.style.display = 'none';
+    if (gateTimer) clearInterval(gateTimer);
+  });
+
+  document.addEventListener('click', (e) => {
+    const target = e.target as HTMLElement;
+    const btn = target.closest('#ig-dl-video') as HTMLAnchorElement | null;
+    if (!btn) return;
+    const href = btn.getAttribute('href');
+    if (!href || href === '#') return;
+    e.preventDefault();
+    openAdGate(href);
+  });
+
+  fetchBtn.addEventListener('click', fetchReel);
+  urlInput.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') fetchReel();
+  });
+  urlInput.addEventListener('focus', async () => {
+    if (urlInput.value) return;
+    try {
+      const text = await navigator.clipboard.readText();
+      if (text.includes('instagram.com')) urlInput.value = text;
+    } catch {}
+  });
+</script>
