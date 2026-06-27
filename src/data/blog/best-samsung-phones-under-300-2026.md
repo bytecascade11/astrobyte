@@ -4,7 +4,7 @@ description: "Looking for a solid Samsung phone without spending a fortune? Thes
 pubDatetime: 2026-06-27T11:57:00Z
 modDatetime: 2026-06-27T11:57:00Z
 slug: "best-samsung-phones-under-300-2026"
-coverImage: "/assets/samsung/best-samsung-phones-under-300-cover.jpg"
+coverImage: "/assets/posts/samsung/best-samsung-phones-under-300-cover.jpg"
 coverImageAlt: "Best Samsung phones under $300 lined up on a dark surface"
 tag: ["samsung", "opinions", "android", "reviews"]
 featured: true
@@ -52,7 +52,7 @@ Here's what to actually watch out for in this price range:
 </script>
 ## The Best Samsung Phones Under $300 Right Now
 
-![Samsung Galaxy A55 5G held outdoors showing rear camera module design](/assets/samsung/galaxy-a55-review-2026.jpg)
+![Samsung Galaxy A55 5G held outdoors showing rear camera module design](/assets/posts/samsung/galaxy-a55-review-2026.jpg)
 
 ### 1. Samsung Galaxy A55 5G — The Sensible All-Rounder
 
@@ -86,7 +86,7 @@ Samsung promises four major OS upgrades and five years of security patches here.
 </script>
 ### 2. Samsung Galaxy A35 5G — Best for Value Hunters
 
-![Street market photo taken with Samsung Galaxy A35 showing color accuracy in mixed lighting](/assets/samsung/galaxy-a35-camera-sample.jpg)
+![Street market photo taken with Samsung Galaxy A35 showing color accuracy in mixed lighting](/assets/posts/samsung/galaxy-a35-camera-sample.jpg)
 
 Drop your budget another $50 and the A35 enters the picture. It's not as fast as the A55 and the chipset has a narrower performance ceiling, but the fundamentals are solid — and in one area, the A35 actually outpaces its more expensive sibling: peak display brightness. At 1,200 nits versus the A55's 1,000 nits, outdoor visibility is genuinely better on the A35, which is worth noting if you're regularly in direct sunlight.
 
@@ -165,7 +165,7 @@ If you're shopping in Nigeria specifically, check out the [best Samsung phones u
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
-![Samsung Galaxy A55 and A35 placed side by side on a wooden desk for comparison](/assets/samsung/galaxy-a55-vs-a35-comparison.jpg)
+![Samsung Galaxy A55 and A35 placed side by side on a wooden desk for comparison](/assets/posts/samsung/galaxy-a55-vs-a35-comparison.jpg)
 
 ---
 
@@ -195,7 +195,7 @@ For a broader look at options across all brands at this price, the [best phones 
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
-![Close-up of Samsung Galaxy A55 running One UI 8.5 home screen interface](/assets/samsung/samsung-one-ui-interface-a55.jpg)
+![Close-up of Samsung Galaxy A55 running One UI 8.5 home screen interface](/assets/posts/samsung/samsung-one-ui-interface-a55.jpg)
 
 ## Frequently Asked Questions
 
