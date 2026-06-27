@@ -1,7 +1,7 @@
 ---
 title: "Best Phones Under $400 to Buy in 2026: The Only Guide You'll Need"
 description: "Not every great phone costs $1,000. Here are the best smartphones to buy under $400 in 2026 — rigorously researched, honestly reviewed, with verified specs and real trade-offs so you don't regret your purchase."
-coverImage: "/assets/posts/best-phones-under-400-2026.jpg"
+coverImage: "/assets/posts/hero-best-phones-under-400-2026.jpg"
 coverImageAlt: "Best smartphones under $400 in 2026 lined up on a dark stone surface"
 pubDatetime: "2026-06-27T10:47:00Z"
 lastReviewed: "2026-06-27"
