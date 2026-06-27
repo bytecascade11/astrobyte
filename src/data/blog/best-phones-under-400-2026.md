@@ -6,7 +6,7 @@ coverImageAlt: "Best smartphones under $400 in 2026 lined up on a dark stone sur
 pubDatetime: "2026-06-27T10:47:00Z"
 lastReviewed: "2026-06-27"
 author: "iSamuel"
-tags: ["android", "opinions", "google", "pixel", "samsung"]
+tags: ["android", "opinions", "google", "pixel", "samsung", "motorola", "nothingphone"]
 ---
 
 ## Table of Contents 
