@@ -4,7 +4,7 @@ import type { APIRoute } from "astro";
 
 interface AllowedSource {
   match: (hostname: string) => boolean;
-  referer: string;
+  referer?: string;
 }
 
 const allowedSources: AllowedSource[] = [
@@ -28,7 +28,13 @@ const allowedSources: AllowedSource[] = [
       (h.endsWith(".fbcdn.net") && h.includes("instagram")),
     referer: "https://www.instagram.com/",
   },
+  {
+    match: (h) => h.endsWith("akhmadjonov.uz"),
+  },
 ];
+
+const BROWSER_UA =
+  "Mozilla/5.0 (Linux; Android 13; Pixel 7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Mobile Safari/537.36";
 
 export const GET: APIRoute = async ({ url }) => {
   const imageUrl = url.searchParams.get("url");
@@ -51,11 +57,13 @@ export const GET: APIRoute = async ({ url }) => {
   }
 
   try {
+    const headers: Record<string, string> = {
+      "User-Agent": BROWSER_UA,
+    };
+    if (source.referer) headers["Referer"] = source.referer;
+
     const res = await fetch(imageUrl, {
-      headers: {
-        "Referer": source.referer,
-        "User-Agent": "Mozilla/5.0 (compatible; ReviByte/1.0)",
-      },
+      headers,
       signal: AbortSignal.timeout(8000),
     });
 
