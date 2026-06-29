@@ -39,7 +39,7 @@ const description = "Transparent privacy practices at ReviByte Opinion – we co
         <li>• This site complies with GDPR, CCPA, COPPA, and advertising policies.</li>
         <li>• Some links are affiliate links — we may earn a small commission at no cost to you.</li>
         <li>• Heliara AI messages are processed by Groq — we do not store your chat history.</li>
-        <li>• ReviByte Save sends URLs to third-party APIs to fetch media — we do not store those URLs.</li>
+        <li>• ReviByte Save sends URLs to third-party APIs (RapidAPI) and our own Cloudflare Worker to fetch media — we do not store those URLs.</li>
         <li>• Anonymous comments are stored via Supabase — no account or personal identity required.</li>
       </ul>
     </div>
@@ -81,7 +81,7 @@ const description = "Transparent privacy practices at ReviByte Opinion – we co
 
       <h3 class="text-xl font-semibold mt-6 mb-3">ReviByte Save (Media Downloader)</h3>
       <ul class="mt-2">
-        <li>ReviByte Save sends URLs you submit to RapidAPI's infrastructure to fetch media information. ReviByte does not store submitted URLs or downloaded media.</li>
+        <li>ReviByte Save sends URLs you submit to RapidAPI's infrastructure (via our own Cloudflare Worker, for some tools) to fetch media information. ReviByte does not store submitted URLs or downloaded media.</li>
         <li>ReviByte Save is intended for personal use only. Users are responsible for ensuring they have rights to download any content.</li>
       </ul>
 
@@ -147,7 +147,7 @@ const description = "Transparent privacy practices at ReviByte Opinion – we co
           (<a href="https://vercel.com/legal/privacy-policy" target="_blank" rel="noopener" class="text-blue-600 hover:underline">privacy policy</a>)
         </li>
         <li>
-          <strong>Cloudflare</strong> — DNS, security, DDoS protection, and performance optimization. Cloudflare may process visitor IP addresses and request data to protect the site.
+          <strong>Cloudflare</strong> — DNS, security, DDoS protection, performance optimization, and serverless processing (Cloudflare Workers) for some ReviByte Save tools. Cloudflare may process visitor IP addresses, request data, and submitted media URLs.
           (<a href="https://www.cloudflare.com/privacypolicy/" target="_blank" rel="noopener" class="text-blue-600 hover:underline">privacy policy</a>)
         </li>
         <li>
