@@ -535,7 +535,7 @@ const canonicalURL = "https://www.revibyte.blog/save/ig/";
     }
     coverEl.style.display = 'block';
     coverFallback.style.display = 'none';
-    coverEl.src = src;
+    coverEl.src = `/api/img-proxy/?url=${encodeURIComponent(src)}`;
     coverEl.onerror = () => {
       coverEl.style.display = 'none';
       coverFallback.style.display = 'flex';
