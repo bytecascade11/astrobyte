@@ -2,24 +2,40 @@ export const prerender = false;
 
 import type { APIRoute } from "astro";
 
+interface AllowedSource {
+  match: (hostname: string) => boolean;
+  referer: string;
+}
+
+const allowedSources: AllowedSource[] = [
+  {
+    match: (h) =>
+      [
+        "p16-sign.tiktokcdn.com",
+        "p19-sign.tiktokcdn.com",
+        "p16-sign-va.tiktokcdn.com",
+        "p16-sign-sg.tiktokcdn.com",
+        "p77-sign-sg.tiktokcdn.com",
+        "p16.tiktokcdn.com",
+        "tikwm.com",
+        "www.tikwm.com",
+      ].some((d) => h.endsWith(d)),
+    referer: "https://www.tiktok.com/",
+  },
+  {
+    match: (h) =>
+      h.endsWith(".cdninstagram.com") ||
+      (h.endsWith(".fbcdn.net") && h.includes("instagram")),
+    referer: "https://www.instagram.com/",
+  },
+];
+
 export const GET: APIRoute = async ({ url }) => {
   const imageUrl = url.searchParams.get("url");
 
   if (!imageUrl) {
     return new Response("Missing url param", { status: 400 });
   }
-
-  // Only allow known TikTok CDN domains
-  const allowed = [
-    "p16-sign.tiktokcdn.com",
-    "p19-sign.tiktokcdn.com",
-    "p16-sign-va.tiktokcdn.com",
-    "p16-sign-sg.tiktokcdn.com",
-    "p77-sign-sg.tiktokcdn.com",
-    "p16.tiktokcdn.com",
-    "tikwm.com",
-    "www.tikwm.com",
-  ];
 
   let hostname = "";
   try {
@@ -28,14 +44,16 @@ export const GET: APIRoute = async ({ url }) => {
     return new Response("Invalid URL", { status: 400 });
   }
 
-  if (!allowed.some(d => hostname.endsWith(d))) {
+  const source = allowedSources.find((s) => s.match(hostname));
+
+  if (!source) {
     return new Response("Domain not allowed", { status: 403 });
   }
 
   try {
     const res = await fetch(imageUrl, {
       headers: {
-        "Referer": "https://www.tiktok.com/",
+        "Referer": source.referer,
         "User-Agent": "Mozilla/5.0 (compatible; ReviByte/1.0)",
       },
       signal: AbortSignal.timeout(8000),
