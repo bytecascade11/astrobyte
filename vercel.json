@@ -16,6 +16,11 @@
       "source": "/codm/best-smg-loadout-codm-season-14-2026/",
       "destination": "/codm/best-quickscope-sniper-loadout-codm-season-4-2026/",
       "permanent": true
+    },
+    {
+      "source": "/ads.txt",
+      "destination": "https://srv.adstxtmanager.com/19390/revibyte.blog",
+      "permanent": true
     }
   ],
   "images": {
@@ -26,14 +31,6 @@
     "dangerouslyAllowSVG": false
   },
   "headers": [
-    {
-      "source": "/ads.txt",
-      "headers": [
-        { "key": "Content-Type", "value": "text/plain; charset=utf-8" },
-        { "key": "Cache-Control", "value": "no-cache, no-store, must-revalidate" },
-        { "key": "X-Robots-Tag", "value": "noindex" }
-      ]
-    },
     {
       "source": "/(.*).html",
       "headers": [
