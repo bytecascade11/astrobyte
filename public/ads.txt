@@ -1,2 +1,3 @@
 google.com, pub-4896561037705299, DIRECT, f08c47fec0942fa0
+ezoic.ai, cdc31d448b54507ac48fcc6d734b8113, DIRECT
 adsterra.com, 1880425, DIRECT
