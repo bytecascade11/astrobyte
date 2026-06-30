@@ -16,11 +16,6 @@
       "source": "/codm/best-smg-loadout-codm-season-14-2026/",
       "destination": "/codm/best-quickscope-sniper-loadout-codm-season-4-2026/",
       "permanent": true
-    },
-    {
-      "source": "/ads.txt",
-      "destination": "https://srv.adstxtmanager.com/19390/revibyte.blog",
-      "statusCode": 301
     }
   ],
   "images": {
