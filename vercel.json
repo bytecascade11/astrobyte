@@ -20,7 +20,7 @@
     {
       "source": "/ads.txt",
       "destination": "https://srv.adstxtmanager.com/19390/revibyte.blog",
-      "permanent": true
+      "statusCode": 301
     }
   ],
   "images": {
