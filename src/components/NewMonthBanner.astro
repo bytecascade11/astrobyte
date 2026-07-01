@@ -101,15 +101,21 @@
 <script>
   (function () {
     const STORAGE_PREFIX = "rb-new-month-dismissed-";
+    const ACTIVE_DAYS = 4; // banner is only eligible to show on day 1–4 of the month
     const now = new Date();
     const monthKey = now.getFullYear() + "-" + now.getMonth(); // e.g. 2026-6
     const monthName = now.toLocaleString("en-US", { month: "long" });
+    const dayOfMonth = now.getDate();
 
     const banner = document.getElementById("rb-new-month-banner");
     const monthSpan = document.getElementById("rb-month");
     const closeBtn = document.getElementById("rb-close");
 
     if (!banner) return;
+
+    // Outside the active window (day 5+ of the month) — never show, stop here.
+    if (dayOfMonth > ACTIVE_DAYS) return;
+
     if (monthSpan) monthSpan.textContent = monthName;
 
     const alreadyDismissed = localStorage.getItem(STORAGE_PREFIX + monthKey);
