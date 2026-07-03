@@ -7,10 +7,11 @@
   },
   "scripts": {
     "dev": "astro dev",
-    "build": "astro build",
+    "build": "npm run optimize-images && astro build",
     "preview": "astro preview",
     "sync": "astro sync",
     "astro": "astro",
+    "optimize-images": "node scripts/optimize-all-images.js",
     "format:check": "prettier --check .",
     "format": "prettier --write .",
     "lint": "eslint ."
