@@ -350,4 +350,211 @@ section, footer, main {
 
 [data-theme="dark"] .prose tr {
   border-color: var(--border);
-    }
+}
+
+/* ========================= */
+/* PWA COMPONENT STYLES      */
+/* (Moved from Layout.astro) */
+/* ========================= */
+
+/* ── OneSignal Slidedown Custom Dark Theme ── */
+#onesignal-slidedown-container,
+.onesignal-slidedown-container {
+  --onesignal-bg: #0f172a !important;
+  --onesignal-text: #ffffff !important;
+  --onesignal-subtext: rgba(255,255,255,0.6) !important;
+  --onesignal-accent: #6366f1 !important;
+  --onesignal-btn-allow-bg: linear-gradient(135deg, #6366f1 0%, #a855f7 100%) !important;
+  --onesignal-btn-allow-text: #ffffff !important;
+  --onesignal-btn-cancel-bg: rgba(255,255,255,0.08) !important;
+  --onesignal-btn-cancel-text: rgba(255,255,255,0.5) !important;
+  --onesignal-btn-cancel-border: rgba(255,255,255,0.12) !important;
+  --onesignal-icon-bg: linear-gradient(135deg, #6366f1 0%, #a855f7 100%) !important;
+}
+
+#onesignal-slidedown-container .slidedown-body,
+.onesignal-slidedown-container .slidedown-body {
+  border-radius: 24px 24px 0 0 !important;
+  box-shadow: 0 -8px 40px rgba(0,0,0,0.5) !important;
+}
+
+/* ── PWA Top Bar ── */
+.pwa-topbar {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 56px;
+  background: #0f172a;
+  color: white;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 16px;
+  z-index: 9990;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.3);
+}
+.pwa-topbar-title {
+  font-size: 18px;
+  font-weight: 700;
+  color: white;
+  text-decoration: none;
+  letter-spacing: -0.3px;
+}
+.pwa-topbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.pwa-topbar-btn {
+  background: rgba(255,255,255,0.1);
+  border: none;
+  color: white;
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background 0.2s;
+}
+.pwa-topbar-btn:hover {
+  background: rgba(255,255,255,0.2);
+}
+.pwa-topbar-btn svg {
+  width: 20px;
+  height: 20px;
+  stroke: white;
+  fill: none;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* ── Bottom Nav ── */
+.bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: #0f172a;
+  display: none;
+  justify-content: space-around;
+  align-items: center;
+  height: 64px;
+  z-index: 9990;
+  border-top: 1px solid rgba(255,255,255,0.08);
+  box-shadow: 0 -4px 20px rgba(0,0,0,0.3);
+}
+.bottom-nav a {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  color: rgba(255,255,255,0.5);
+  text-decoration: none;
+  font-size: 10px;
+  font-weight: 500;
+  flex: 1;
+  height: 100%;
+  transition: color 0.2s;
+}
+.bottom-nav a:hover,
+.bottom-nav a.active {
+  color: #6366f1;
+}
+.bottom-nav a svg {
+  width: 22px;
+  height: 22px;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.bottom-nav a.active svg {
+  fill: rgba(99,102,241,0.15);
+}
+
+/* ── More Menu ── */
+.more-menu {
+  position: fixed;
+  bottom: 64px;
+  left: 0;
+  width: 100%;
+  background: #0f172a;
+  border-top: 1px solid rgba(255,255,255,0.08);
+  z-index: 9989;
+  display: none;
+  flex-direction: column;
+  box-shadow: 0 -4px 20px rgba(0,0,0,0.3);
+}
+.more-menu.open {
+  display: flex;
+}
+.more-menu a {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 16px 24px;
+  color: rgba(255,255,255,0.8);
+  text-decoration: none;
+  font-size: 15px;
+  font-weight: 500;
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+  transition: background 0.2s;
+}
+.more-menu a:hover {
+  background: rgba(255,255,255,0.05);
+  color: #6366f1;
+}
+.more-menu a svg {
+  width: 20px;
+  height: 20px;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  opacity: 0.7;
+}
+
+/* ── PWA Mode (JS-driven, matches inline logic) ── */
+body.is-pwa .bottom-nav,
+body.is-pwa .pwa-topbar {
+  display: flex;
+}
+body.is-pwa {
+  padding-top: 56px;
+  padding-bottom: 64px;
+}
+body.is-pwa header {
+  display: none !important;
+  visibility: hidden !important;
+  height: 0 !important;
+  overflow: hidden !important;
+  pointer-events: none !important;
+}
+
+/* ── Desktop overrides ── */
+@media (min-width: 768px) {
+  .bottom-nav,
+  .more-menu,
+  .pwa-topbar {
+    display: none !important;
+  }
+  body.is-pwa {
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+  }
+  body.is-pwa header {
+    display: block !important;
+    visibility: visible !important;
+    height: auto !important;
+    overflow: visible !important;
+    pointer-events: auto !important;
+  }
+}
