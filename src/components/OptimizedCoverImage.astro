@@ -1,0 +1,54 @@
+---
+import imageManifest from '@/data/image-manifest.json';
+
+interface Props {
+  src: string;
+  alt: string;
+  width?: number;
+  height?: number;
+  loading?: 'eager' | 'lazy';
+  sizes?: string;
+}
+
+const { src, alt, width = 1200, height = 630, loading = 'eager', sizes = '100vw' } = Astro.props;
+
+// Normalize src to manifest key
+const normalize = (s: string) => s
+  .replace(/^\/images\//, '')
+  .replace(/^\/assets\//, '')
+  .replace(/^\//, '');
+
+const key = normalize(src);
+const entry = imageManifest[key];
+const webp = entry?.optimized;
+
+const fallback = src;
+---
+
+{webp ? (
+  <div class="hero-cover" style={`aspect-ratio: ${width}/${height};`}>
+    <img 
+      src={webp[800] || webp[480] || fallback}
+      srcset={`${webp[480]} 480w, ${webp[800]} 800w, ${webp[1200]} 1200w`}
+      sizes={sizes}
+      loading={loading}
+      alt={alt}
+      width={width}
+      height={height}
+      fetchpriority={loading === 'eager' ? 'high' : 'auto'}
+      style="width: 100%; height: 100%; object-fit: cover; display: block;"
+    />
+  </div>
+) : (
+  <div class="hero-cover" style={`aspect-ratio: ${width}/${height};`}>
+    <img 
+      src={fallback} 
+      alt={alt}
+      width={width}
+      height={height}
+      loading={loading}
+      fetchpriority={loading === 'eager' ? 'high' : 'auto'}
+      style="width: 100%; height: 100%; object-fit: cover; display: block;"
+    />
+  </div>
+)}
