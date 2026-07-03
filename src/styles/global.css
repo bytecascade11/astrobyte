@@ -416,6 +416,19 @@ section, footer, main {
 /* PWA COMPONENT STYLES      */
 /* (Moved from Layout.astro) */
 /* ========================= */
+/* Scrollbar gutter prevents shift when scrollbar appears */
+html {
+  scrollbar-gutter: stable;
+}
+
+/* Content visibility for off-screen sections */
+.article-list,
+.comments-section,
+.related-posts,
+footer {
+  content-visibility: auto;
+  contain-intrinsic-size: 0 500px;
+}
 
 /* ── OneSignal Slidedown Custom Dark Theme ── */
 #onesignal-slidedown-container,
