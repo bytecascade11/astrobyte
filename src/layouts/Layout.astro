@@ -3,7 +3,7 @@ import { SITE } from "@/config";
 import SchemaMarkup from "@/components/SchemaMarkup.astro";
 import HeliaraAI from '../components/HeliaraAI.astro';
 import NewMonthBanner from "../components/NewMonthBanner.astro";
-import "@/styles/global.css";  // ← Tailwind + all styles now imported here
+import "@/styles/global.css";
 const { PUBLIC_GOOGLE_SITE_VERIFICATION } = import.meta.env;
 
 type Props = {
@@ -169,21 +169,15 @@ const currentPath = Astro.url.pathname;
       <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@400;500;600;700&display=swap" rel="stylesheet" />
     </noscript>
 
-    <!-- Google AdSense — async is required by AdSense, keep in head -->
-    <script is:inline async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4896561037705299" crossorigin="anonymous"></script>
-
-    <!-- Google Analytics — async, non-blocking -->
+    <!-- Google Analytics — async loader only, config deferred to idle -->
     {SITE.analytics?.googleAnalyticsId && (
-      <>
-        <script is:inline async src={`https://www.googletagmanager.com/gtag/js?id=${SITE.analytics.googleAnalyticsId}`}></script>
-        <script is:inline define:vars={{ gaId: SITE.analytics.googleAnalyticsId }}>
-          window.dataLayer = window.dataLayer || [];
-          function gtag(){dataLayer.push(arguments);}
-          gtag('js', new Date());
-          gtag('config', gaId);
-        </script>
-      </>
+      <script is:inline async src={`https://www.googletagmanager.com/gtag/js?id=${SITE.analytics.googleAnalyticsId}`}></script>
     )}
+    <script is:inline>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+    </script>
 
     <script type="application/ld+json" is:inline>
     {
@@ -279,16 +273,48 @@ const currentPath = Astro.url.pathname;
       </button>
     </nav>
 
-    <!-- PWA Install Banner -->
+    <!-- PWA Install Banner — remembers dismissal -->
     <div id="installBanner" style="display:none; position:fixed; bottom:74px; left:50%; transform:translateX(-50%); background:#0f172a; color:white; padding:12px 24px; border-radius:12px; box-shadow:0 4px 20px rgba(0,0,0,0.3); z-index:9998; align-items:center; gap:12px;">
       <span>📱 Install ReviByte for a better experience!</span>
       <button onclick="installApp()" style="background:#6366f1; color:white; border:none; padding:8px 16px; border-radius:8px; cursor:pointer; font-weight:600;">Install</button>
-      <button onclick="document.getElementById('installBanner').style.display='none'" style="background:transparent; color:white; border:none; cursor:pointer; font-size:18px;">✕</button>
+      <button onclick="dismissInstallBanner()" style="background:transparent; color:white; border:none; cursor:pointer; font-size:18px;">✕</button>
     </div>
 
     <slot />
 
-    <!-- ================= NON-CRITICAL SCRIPTS — LOADED AFTER CONTENT ================= -->
+    <!-- ================= IDLE-LOADED SCRIPTS (After LCP) ================= -->
+
+    <!-- Google AdSense — loaded after LCP to prevent blocking -->
+    <script is:inline>
+      (function() {
+        function loadScript(src, attrs) {
+          var s = document.createElement('script');
+          s.src = src;
+          for (var k in attrs) s.setAttribute(k, attrs[k]);
+          document.body.appendChild(s);
+        }
+        function loadAds() {
+          if (window.__adsLoaded) return;
+          window.__adsLoaded = true;
+          loadScript('https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4896561037705299', {
+            crossorigin: 'anonymous',
+            async: 'true'
+          });
+        }
+        // Load after first interaction or 3s
+        window.addEventListener('scroll', loadAds, { once: true, passive: true });
+        window.addEventListener('click', loadAds, { once: true });
+        window.addEventListener('touchstart', loadAds, { once: true, passive: true });
+        setTimeout(loadAds, 3000);
+      })();
+    </script>
+
+    <!-- GA config — deferred -->
+    {SITE.analytics?.googleAnalyticsId && (
+      <script is:inline define:vars={{ gaId: SITE.analytics.googleAnalyticsId }}>
+        gtag('config', gaId);
+      </script>
+    )}
 
     <!-- OneSignal SDK -->
     <script is:inline defer src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js"></script>
@@ -299,14 +325,15 @@ const currentPath = Astro.url.pathname;
     <!-- EffectiveCPM Network -->
     <script defer src="https://pl30185153.effectivecpmnetwork.com/e6/ae/ad/e6aead240feb47b7e9faf60864c52a6b.js"></script>
 
-    <!-- PWA Install Logic -->
+    <!-- PWA Install Logic — remembers dismissal with localStorage -->
     <script is:inline>
       let deferredPrompt;
       window.addEventListener('beforeinstallprompt', function(e) {
         e.preventDefault();
         deferredPrompt = e;
         var isPWA = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true;
-        if (!isPWA) {
+        var dismissed = localStorage.getItem('pwaBannerDismissed');
+        if (!isPWA && !dismissed) {
           document.getElementById('installBanner').style.display = 'flex';
         }
       });
@@ -320,9 +347,14 @@ const currentPath = Astro.url.pathname;
           document.getElementById('installBanner').style.display = 'none';
         });
       }
+      function dismissInstallBanner() {
+        document.getElementById('installBanner').style.display = 'none';
+        localStorage.setItem('pwaBannerDismissed', 'true');
+      }
       window.addEventListener('appinstalled', function() {
         document.getElementById('installBanner').style.display = 'none';
         deferredPrompt = null;
+        localStorage.setItem('pwaBannerDismissed', 'true');
         if (typeof umami !== 'undefined') umami.track('pwa-install');
       });
     </script>
