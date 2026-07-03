@@ -4,7 +4,7 @@ description: "ReviByte hits Day 200 with an Instagram Reels downloader as the mi
 author: "iSamuel"  
 pubDatetime: 2026-07-03T04:24:00Z  
 featured: true  
-coverImage: "/assets/posts/revibyte-200-days-cover.jpg"  
+coverImage: "/assets/posts/instagram-reels-downloader-revibyte.jpg"  
 coverImageAlt: "ReviByte Instagram Reels downloader interface"
 tags: ["milestone", "save-hub", "opinions"]  
 ---  
@@ -17,11 +17,13 @@ Two hundred days ago, ReviByte was just a domain and three sentences of a homepa
   
 Here's the actual build story, not the polished version.  
   
-![ReviByte /save/ hub showing TikTok and Instagram downloader options](/assets/posts/save-hub-overview.jpg)  
+![ReviByte /save/ hub showing TikTok and Instagram downloader options](/assets/posts/revibyte-save-hub-overview.jpg)  
   
 ## How It Actually Works  
   
 The downloader runs on the same architecture as the TikTok tool: a Cloudflare Worker sits in front, receives the Instagram Reel URL from the user, and calls out to a RapidAPI endpoint that resolves the actual media file. Nothing on ReviByte's own server ever touches Instagram directly — the worker handles that layer entirely, which keeps the whole thing fast and keeps ReviByte's own infrastructure out of Instagram's rate limits.
+
+![Diagram of the Cloudflare Worker to RapidAPI request pipeline](/assets/posts/cloudflare-worker-rapidapi-pipeline.jpg)
 
 Most of the actual coding — debugging the request handler, working through the payload differences, writing this post itself — happens the same way [I run the rest of ReviByte from my phone](/posts/how-i-use-chatgpt-and-claude-to--run-my-blog-faster/), no local dev environment involved.
   
@@ -50,7 +52,7 @@ The thumbnail bug was the worst one. It looked fixed three separate times before
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
-![Before and after comparison of broken vs working thumbnail previews](/assets/posts/thumbnail-before-after.jpg)  
+![Before and after comparison of broken vs working thumbnail previews](/assets/posts/instagram-thumbnail-fix-before-after.jpg)  
   
 ## What Users Actually Get  
   
@@ -61,7 +63,7 @@ None of this matters if it doesn't make things easier for whoever's actually usi
 - **Handles Reels, single posts, and carousels** without needing separate tools for each  
 - **Free**, with no daily limit currently in place  
   
-![User downloading an Instagram Reel through ReviByte on a mobile browser](/assets/posts/mobile-download-flow.jpg)  
+![User downloading an Instagram Reel through ReviByte on a mobile browser](/assets/posts/instagram-downloader-mobile-flow.jpg)  
 
 New posts like this one get indexed and get their images picked up quickly, partly because of a [sitemap fix I made months ago](/posts/how-i-fixed-google-image-sitemap--astro/) that was silently blocking Google from crawling post images properly. Worth the read if you're on Astro and wondering why your images aren't showing in Search.
   
