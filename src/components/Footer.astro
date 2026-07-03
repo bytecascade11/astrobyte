@@ -32,33 +32,34 @@ const { noMarginTop = false } = Astro.props;
       <div class="footer-divider"></div>
 
       <!-- Newsletter -->
-      
+      <section class="footer-newsletter">
         <h3 class="footer-newsletter-heading">Get new posts by email</h3>
         <p class="footer-newsletter-sub">
           Stay updated with the latest tech reviews, guides, and opinions — delivered straight to your inbox.
         </p>
-<script async src="https://eomail5.com/form/a0ff8318-6b29-11f1-985b-f32f81b6eef6.js" data-form="a0ff8318-6b29-11f1-985b-f32f81b6eef6"></script>
+        <!-- Email form script — deferred to prevent blocking -->
+        <script defer src="https://eomail5.com/form/a0ff8318-6b29-11f1-985b-f32f81b6eef6.js" data-form="a0ff8318-6b29-11f1-985b-f32f81b6eef6"></script>
         <form
-  action="https://api.follow.it/subscription-form/bWZOckxmelNNL2wyVVpERE50M0MxMWVhRC9ON2dBQnBKTEJzTlZJTGNIencrSFYrZVFpQ3FPY211M0dGVVJvZkxoWkcxUjd0TThLYmpMMnJuV1dMN3kzaC9uSkorZXlCYWdEZURrTmkxYW9aRGIxKzBJVW1pQXBVbDNBbGxjM098UDVxajlvNmc3NHYyc2ZJRFp4T1pDRncwNS9hMTBmajBaUlU0L1VrbW9XWT0=/8"
-  method="post"
-  target="_blank"
-  class="footer-form"
->
-  <input
-    type="email"
-    name="email"
-    placeholder="your@email.com"
-    required
-    class="footer-input"
-    aria-label="Email address"
-  />
-  <button type="submit" class="footer-btn">
-    <span>Subscribe</span>
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-      <path d="M5 12h14M12 5l7 7-7 7"/>
-    </svg>
-  </button>
-</form>
+          action="https://api.follow.it/subscription-form/bWZOckxmelNNL2wyVVpERE50M0MxMWVhRC9ON2dBQnBKTEJzTlZJTGNIencrSFYrZVFpQ3FPY211M0dGVVJvZkxoWkcxUjd0TThLYmpMMnJuV1dMN3kzaC9uSkorZXlCYWdEZURrTmkxYW9aRGIxKzBJVW1pQXBVbDNBbGxjM098UDVxajlvNmc3NHYyc2ZJRFp4T1pDRncwNS9hMTBmajBaUlU0L1VrbW9XWT0=/8"
+          method="post"
+          target="_blank"
+          class="footer-form"
+        >
+          <input
+            type="email"
+            name="email"
+            placeholder="your@email.com"
+            required
+            class="footer-input"
+            aria-label="Email address"
+          />
+          <button type="submit" class="footer-btn">
+            <span>Subscribe</span>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M5 12h14M12 5l7 7-7 7"/>
+            </svg>
+          </button>
+        </form>
         <p class="footer-disclaimer">No spam ever. Unsubscribe anytime.</p>
       </section>
 
@@ -81,25 +82,25 @@ const { noMarginTop = false } = Astro.props;
 
         <!-- Nav Links — bold vertical list -->
         <nav class="footer-nav">
-  <a href="/about">About the Editor</a>
-  <a href="/privacy-policy">Privacy Policy</a>
-  <a href="/contact">Contact Us</a>
-  <a href="/terms-and-conditions">Terms and Conditions</a>
-  <a href="/disclaimer">Disclaimer</a>
-  <a href="/sitemap">Sitemap</a>
-</nav>
+          <a href="/about">About the Editor</a>
+          <a href="/privacy-policy">Privacy Policy</a>
+          <a href="/contact">Contact Us</a>
+          <a href="/terms-and-conditions">Terms and Conditions</a>
+          <a href="/disclaimer">Disclaimer</a>
+          <a href="/sitemap">Sitemap</a>
+        </nav>
 
-<div class="footer-divider"></div>
+        <div class="footer-divider"></div>
 
-<div class="footer-hubs">
-  <div class="footer-hubs-label">Game Guides</div>
-  <div class="footer-hubs-links">
-    <a href="/codm/">COD Mobile</a>
-    <a href="/efootball/">eFootball</a>
-    <a href="/pubgmobile/">PUBG Mobile</a>
-    <a href="/mlbb/">Mobile Legends</a>
-  </div>
-</div>
+        <div class="footer-hubs">
+          <div class="footer-hubs-label">Game Guides</div>
+          <div class="footer-hubs-links">
+            <a href="/codm/">COD Mobile</a>
+            <a href="/efootball/">eFootball</a>
+            <a href="/pubgmobile/">PUBG Mobile</a>
+            <a href="/mlbb/">Mobile Legends</a>
+          </div>
+        </div>
 
         <!-- Divider -->
         <div class="footer-divider"></div>
