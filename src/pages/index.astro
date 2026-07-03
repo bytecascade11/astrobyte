@@ -128,80 +128,82 @@ function getSrcset(src: string): string {
     <Hr class="my-10" />
 
     <!-- ── GAMES HUB SECTION ── -->
-    <section class="rb-games-hub mb-12">
-      <div class="rb-section-header">
-        <h2 class="rb-section-heading">Gaming Hub</h2>
-        <p class="rb-section-sub">In-depth guides, tips & tier lists</p>
-      </div>
+    <section class="rb-games-hub mb-10">
+      <h2 class="rb-section-heading">🎮 Game Guides</h2>
+      <p class="rb-games-hub__sub">In-depth loadouts, formations and tier lists — updated every season.</p>
 
       <div class="rb-games-grid">
-        <a href="/codm/" class="rb-game-card rb-game-card--codm">
-          <div class="rb-game-card__inner">
-            <div class="rb-game-card__icon">⚔️</div>
-            <div class="rb-game-card__title">COD Mobile</div>
-            <div class="rb-game-card__count">Loadouts, Guides & Tier Lists</div>
+
+        <!-- COD Mobile Card -->
+        <a href="/codm/" class="rb-game-card">
+          <div class="rb-game-card__icon">🎯</div>
+          <div class="rb-game-card__body">
+            <h3 class="rb-game-card__title">COD Mobile</h3>
+            <p class="rb-game-card__desc">Best loadouts, weapon tier lists, sensitivity settings and ranked guides — updated every season.</p>
+            <span class="rb-game-card__cta">View Guides →</span>
           </div>
         </a>
 
-        <a href="/efootball/" class="rb-game-card rb-game-card--efootball">
-          <div class="rb-game-card__inner">
-            <div class="rb-game-card__icon">⚽</div>
-            <div class="rb-game-card__title">eFootball</div>
-            <div class="rb-game-card__count">Formations, Player Builds & Tips</div>
-          </div>
-        </a>
+        <!-- eFootball Card -->
+<a href="/efootball/" class="rb-game-card">
+  <div class="rb-game-card__icon">⚽</div>
+  <div class="rb-game-card__body">
+    <h3 class="rb-game-card__title">eFootball 2026</h3>
+    <p class="rb-game-card__desc">Top formations, Division 1 tactics, player reviews and squad-building tips for every patch.</p>
+    <span class="rb-game-card__cta">View Guides →</span>
+  </div>
+</a>
 
-        <a href="/pubgmobile/" class="rb-game-card rb-game-card--pubg">
-          <div class="rb-game-card__inner">
-            <div class="rb-game-card__icon">🎯</div>
-            <div class="rb-game-card__title">PUBG Mobile</div>
-            <div class="rb-game-card__count">Sensitivity, Maps & Strategies</div>
-          </div>
-        </a>
-
-        <a href="/mlbb/" class="rb-game-card rb-game-card--mlbb">
-          <div class="rb-game-card__inner">
-            <div class="rb-game-card__icon">⚡</div>
-            <div class="rb-game-card__title">Mobile Legends</div>
-            <div class="rb-game-card__count">Hero Guides, Builds & Meta</div>
-          </div>
-        </a>
+<!-- PUBG Mobile Card -->
+<a href="/pubgmobile/" class="rb-game-card">
+  <div class="rb-game-card__icon">🔫</div>
+  <div class="rb-game-card__body">
+    <h3 class="rb-game-card__title">PUBG Mobile</h3>
+    <p class="rb-game-card__desc">Best weapon loadouts, tier lists, sensitivity settings and ranked guides updated every season.</p>
+    <span class="rb-game-card__cta">View Guides →</span>
+  </div>
+</a>
+<!-- Mobile Legends Card -->
+<a href="/mlbb/" class="rb-game-card">
+  <div class="rb-game-card__icon">⚔️</div>
+  <div class="rb-game-card__body">
+    <h3 class="rb-game-card__title">Mobile Legends</h3>
+    <p class="rb-game-card__desc">Best hero guides, tier lists, emblem builds, and ranked tips updated every season.</p>
+    <span class="rb-game-card__cta">View Guides →</span>
+ </div>
+</a>
       </div>
     </section>
 
     <Hr class="my-10" />
 
     <!-- ── TOOLS SECTION ── -->
-    <section class="rb-tools-section mb-12">
-      <div class="rb-section-header">
-        <h2 class="rb-section-heading">Free Tools</h2>
-        <p class="rb-section-sub">Handy utilities for everyday tasks</p>
-      </div>
+    <section class="rb-tools-hub mb-10">
+      <h2 class="rb-section-heading">🛠️ ReviByte Tools</h2>
+      <p class="rb-games-hub__sub">Free tools built for everyday use — no login.</p>
 
-      <div class="rb-tools-grid">
-        <a href="/tools/password-generator/" class="rb-tool-card">
-          <div class="rb-tool-card__icon">🔐</div>
-          <div class="rb-tool-card__title">Password Generator</div>
-          <div class="rb-tool-card__desc">Create strong, secure passwords instantly</div>
+      <div class="rb-games-grid">
+
+        <!-- Heliara AI -->
+        <a href="/heliara/" class="rb-game-card rb-tool-card--ai">
+          <div class="rb-game-card__icon">✨</div>
+          <div class="rb-game-card__body">
+            <h3 class="rb-game-card__title">Heliara AI</h3>
+            <p class="rb-game-card__desc">Ask anything about phones, Android, COD Mobile, eFootball, or general tech. Instant answers powered by AI.</p>
+            <span class="rb-game-card__cta">Try Heliara AI →</span>
+          </div>
         </a>
 
-        <a href="/tools/age-calculator/" class="rb-tool-card">
-          <div class="rb-tool-card__icon">📅</div>
-          <div class="rb-tool-card__title">Age Calculator</div>
-          <div class="rb-tool-card__desc">Calculate exact age from birthdate</div>
+        <!-- ReviByte Save -->
+        <a href="/save/" class="rb-game-card rb-tool-card--save">
+          <div class="rb-game-card__icon">⬇️</div>
+          <div class="rb-game-card__body">
+            <h3 class="rb-game-card__title">ReviByte Save</h3>
+            <p class="rb-game-card__desc">Download TikTok videos without watermark, save audio as MP3, and more. Free media downloader tools.</p>
+            <span class="rb-game-card__cta">Open ReviByte Save →</span>
+          </div>
         </a>
 
-        <a href="/tools/qr-code-generator/" class="rb-tool-card">
-          <div class="rb-tool-card__icon">📱</div>
-          <div class="rb-tool-card__title">QR Code Generator</div>
-          <div class="rb-tool-card__desc">Generate QR codes for any URL or text</div>
-        </a>
-
-        <a href="/tools/unit-converter/" class="rb-tool-card">
-          <div class="rb-tool-card__icon">⚖️</div>
-          <div class="rb-tool-card__title">Unit Converter</div>
-          <div class="rb-tool-card__desc">Convert length, weight, temperature & more</div>
-        </a>
       </div>
     </section>
 
