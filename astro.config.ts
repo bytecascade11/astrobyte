@@ -21,10 +21,11 @@ export default defineConfig({
 
   adapter: vercel(),
 
-  trailingSlash: "always",   // Enforces with-trailing-slash
+  trailingSlash: "always",
 
   build: {
-    format: "directory",     // Important: builds as /posts/slug/index.html
+    format: "directory",
+    inlineStylesheets: "auto",  // ← ADDED: Inlines small critical CSS automatically
   },
 
   image: {
@@ -46,7 +47,7 @@ export default defineConfig({
       filename: "sw.js",
 
       injectManifest: {
-        rollupFormat: "es",  // changed from "iife"
+        rollupFormat: "es",
         minify: false,
       },
 
@@ -165,6 +166,9 @@ export default defineConfig({
     plugins: [tailwindcss()],
     optimizeDeps: {
       exclude: ["@resvg/resvg-js"],
+    },
+    build: {
+      cssCodeSplit: true,  // ← ADDED: Splits CSS per route for smaller chunks
     },
   },
 });
