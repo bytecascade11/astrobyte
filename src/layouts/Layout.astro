@@ -2,8 +2,8 @@
 import { SITE } from "@/config";
 import SchemaMarkup from "@/components/SchemaMarkup.astro";
 import HeliaraAI from '../components/HeliaraAI.astro';
-import "@/styles/global.css";
 import NewMonthBanner from "../components/NewMonthBanner.astro";
+import "@/styles/global.css";  // ← Tailwind + all styles now imported here
 const { PUBLIC_GOOGLE_SITE_VERIFICATION } = import.meta.env;
 
 type Props = {
@@ -15,7 +15,7 @@ type Props = {
   pubDatetime?: Date;
   modDatetime?: Date | null;
   scrollSmooth?: boolean;
-  coverImage?: string; // ← NEW: absolute URL for LCP preload
+  coverImage?: string;
 };
 
 const {
@@ -27,19 +27,16 @@ const {
   pubDatetime,
   modDatetime,
   scrollSmooth = false,
-  coverImage, // ← NEW
+  coverImage,
 } = Astro.props;
 
 const siteBase = SITE.website || "https://www.revibyte.blog/";
 
 let canonicalURL = new URL(Astro.url.pathname, siteBase);
-
 if (canonicalURL.pathname.endsWith("/index.html")) {
   canonicalURL.pathname = canonicalURL.pathname.replace("/index.html", "/");
 }
-
 let canonical = canonicalURL.toString();
-
 if (propCanonical) {
   canonical = new URL(propCanonical, siteBase).toString();
 }
@@ -57,11 +54,13 @@ const currentPath = Astro.url.pathname;
   <head>
     <meta charset="UTF-8" />
 
-    <!-- PWA header hide — must be first to prevent flash -->
+    <!-- CRITICAL: PWA header hide + box-sizing — must be first to prevent flash -->
     <style>
       @media (display-mode: standalone) {
         header { display: none !important; visibility: hidden !important; height: 0 !important; overflow: hidden !important; pointer-events: none !important; }
       }
+      *, *::before, *::after { box-sizing: border-box; }
+      html, body { width: 100%; max-width: 100%; margin: 0; padding: 0; overflow-x: hidden; }
     </style>
 
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -69,85 +68,18 @@ const currentPath = Astro.url.pathname;
     <link rel="icon" type="image/x-icon" href="/favicon.ico" />
     <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png" />
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
-    <!-- PWA Manifest -->
     <link rel="manifest" href="/site.webmanifest" />
     <meta name="theme-color" content="#0f172a" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
     <meta name="apple-mobile-web-app-title" content="ReviByte" />
 
-    <!-- ↓ LCP cover image preload — fires immediately with first HTML byte -->
+    <!-- LCP cover image preload — highest priority -->
     {coverImage && (
       <link rel="preload" as="image" href={coverImage} fetchpriority="high" />
     )}
 
-    <style>
-      *, *::before, *::after { box-sizing: border-box; }
-      html, body {
-        width: 100%;
-        max-width: 100%;
-        margin: 0;
-        padding: 0;
-        overflow-x: hidden;
-      }
-
-      /* ── OneSignal Slidedown Custom Dark Theme ── */
-      #onesignal-slidedown-container,
-      .onesignal-slidedown-container {
-        --onesignal-bg: #0f172a !important;
-        --onesignal-text: #ffffff !important;
-        --onesignal-subtext: rgba(255,255,255,0.6) !important;
-        --onesignal-accent: #6366f1 !important;
-        --onesignal-btn-allow-bg: linear-gradient(135deg, #6366f1 0%, #a855f7 100%) !important;
-        --onesignal-btn-allow-text: #ffffff !important;
-        --onesignal-btn-cancel-bg: rgba(255,255,255,0.08) !important;
-        --onesignal-btn-cancel-text: rgba(255,255,255,0.5) !important;
-        --onesignal-btn-cancel-border: rgba(255,255,255,0.12) !important;
-        --onesignal-icon-bg: linear-gradient(135deg, #6366f1 0%, #a855f7 100%) !important;
-      }
-
-      #onesignal-slidedown-container .slidedown-body,
-      .onesignal-slidedown-container .slidedown-body {
-        border-radius: 24px 24px 0 0 !important;
-        box-shadow: 0 -8px 40px rgba(0,0,0,0.5) !important;
-      }
-
-      /* ── PWA Top Bar ── */
-      .pwa-topbar { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 56px; background: #0f172a; color: white; align-items: center; justify-content: space-between; padding: 0 16px; z-index: 9990; box-shadow: 0 2px 12px rgba(0,0,0,0.3); }
-      .pwa-topbar-title { font-size: 18px; font-weight: 700; color: white; text-decoration: none; letter-spacing: -0.3px; }
-      .pwa-topbar-actions { display: flex; align-items: center; gap: 8px; }
-      .pwa-topbar-btn { background: rgba(255,255,255,0.1); border: none; color: white; width: 38px; height: 38px; border-radius: 10px; display: flex; align-items: center; justify-content: center; cursor: pointer; text-decoration: none; transition: background 0.2s; }
-      .pwa-topbar-btn:hover { background: rgba(255,255,255,0.2); }
-      .pwa-topbar-btn svg { width: 20px; height: 20px; stroke: white; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
-
-      /* ── Bottom Nav ── */
-      .bottom-nav { position: fixed; bottom: 0; left: 0; width: 100%; background: #0f172a; display: none; justify-content: space-around; align-items: center; height: 64px; z-index: 9990; border-top: 1px solid rgba(255,255,255,0.08); box-shadow: 0 -4px 20px rgba(0,0,0,0.3); }
-      .bottom-nav a { display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;color:rgba(255,255,255,0.5);text-decoration:none;font-size:10px;font-weight:500;flex:1;height:100%;transition:color 0.2s; }
-      .bottom-nav a:hover, .bottom-nav a.active { color: #6366f1; }
-      .bottom-nav a svg { width: 22px; height: 22px; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
-      .bottom-nav a.active svg { fill: rgba(99,102,241,0.15); }
-
-      /* ── More Menu ── */
-      .more-menu { position: fixed; bottom: 64px; left: 0; width: 100%; background: #0f172a; border-top: 1px solid rgba(255,255,255,0.08); z-index: 9989; display: none; flex-direction: column; box-shadow: 0 -4px 20px rgba(0,0,0,0.3); }
-      .more-menu.open { display: flex; }
-      .more-menu a { display: flex; align-items: center; gap: 14px; padding: 16px 24px; color: rgba(255,255,255,0.8); text-decoration: none; font-size: 15px; font-weight: 500; border-bottom: 1px solid rgba(255,255,255,0.05); transition: background 0.2s; }
-      .more-menu a:hover { background: rgba(255,255,255,0.05); color: #6366f1; }
-      .more-menu a svg { width: 20px; height: 20px; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; opacity: 0.7; }
-
-      /* ── PWA Mode ── */
-      body.is-pwa .bottom-nav, body.is-pwa .pwa-topbar { display: flex; }
-      body.is-pwa { padding-top: 56px; padding-bottom: 64px; }
-      body.is-pwa header { display: none !important; visibility: hidden !important; height: 0 !important; overflow: hidden !important; pointer-events: none !important; }
-
-      /* ── Desktop ── */
-      @media (min-width: 768px) {
-        .bottom-nav, .more-menu, .pwa-topbar { display: none !important; }
-        body.is-pwa { padding-top: 0 !important; padding-bottom: 0 !important; }
-        body.is-pwa header { display: block !important; visibility: visible !important; height: auto !important; overflow: visible !important; pointer-events: auto !important; }
-      }
-    </style>
-
-    <!-- Theme Handling — must stay blocking to prevent flash -->
+    <!-- Theme Handling — critical, must stay blocking to prevent flash -->
     <script is:inline>
       const primaryColorScheme = "";
       function getPreferTheme() {
@@ -160,9 +92,7 @@ const currentPath = Astro.url.pathname;
       function setPreference() { localStorage.setItem("theme", themeValue); reflectPreference(); }
       function reflectPreference() {
         document.documentElement.setAttribute("data-theme", themeValue);
-        if (document.readyState !== "loading") {
-          updateThemeIcon();
-        }
+        if (document.readyState !== "loading") updateThemeIcon();
       }
       function updateThemeIcon() {
         const icon = document.getElementById('pwa-theme-icon');
@@ -226,6 +156,7 @@ const currentPath = Astro.url.pathname;
       <meta name="google-site-verification" content={PUBLIC_GOOGLE_SITE_VERIFICATION} />
     )}
 
+    <!-- Fonts: preconnect + non-blocking load -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -238,10 +169,10 @@ const currentPath = Astro.url.pathname;
       <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@400;500;600;700&display=swap" rel="stylesheet" />
     </noscript>
 
-    <!-- Google AdSense -->
+    <!-- Google AdSense — async is required by AdSense, keep in head -->
     <script is:inline async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4896561037705299" crossorigin="anonymous"></script>
 
-    <!-- Google Analytics -->
+    <!-- Google Analytics — async, non-blocking -->
     {SITE.analytics?.googleAnalyticsId && (
       <>
         <script is:inline async src={`https://www.googletagmanager.com/gtag/js?id=${SITE.analytics.googleAnalyticsId}`}></script>
@@ -250,26 +181,6 @@ const currentPath = Astro.url.pathname;
           function gtag(){dataLayer.push(arguments);}
           gtag('js', new Date());
           gtag('config', gaId);
-        </script>
-
-        <!-- PWA Detection -->
-        <script is:inline>
-          window.addEventListener('load', function() {
-            setTimeout(function() {
-              if (window.matchMedia('(display-mode: standalone)').matches) {
-                if (typeof gtag !== 'undefined') {
-                  gtag('event', 'pwa_visit', {
-                    'event_category': 'PWA',
-                    'event_label': 'standalone_mode'
-                  });
-                } else {
-                  console.log('gtag not found');
-                }
-              } else {
-                console.log('not standalone mode');
-              }
-            }, 2000);
-          });
         </script>
       </>
     )}
@@ -297,12 +208,12 @@ const currentPath = Astro.url.pathname;
         "priceCurrency": "USD"
       }
     }
+    </script>
   </head>
+
   <body>
     <HeliaraAI />
- <NewMonthBanner />
-    <!-- OneSignal SDK — defer is safe with OneSignalDeferred queue -->
-    <script is:inline defer src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js"></script>
+    <NewMonthBanner />
 
     <!-- PWA Top Bar -->
     <div class="pwa-topbar" id="pwaTopbar">
@@ -367,51 +278,54 @@ const currentPath = Astro.url.pathname;
         More
       </button>
     </nav>
-<!-- PWA Install Banner -->
+
+    <!-- PWA Install Banner -->
     <div id="installBanner" style="display:none; position:fixed; bottom:74px; left:50%; transform:translateX(-50%); background:#0f172a; color:white; padding:12px 24px; border-radius:12px; box-shadow:0 4px 20px rgba(0,0,0,0.3); z-index:9998; align-items:center; gap:12px;">
       <span>📱 Install ReviByte for a better experience!</span>
       <button onclick="installApp()" style="background:#6366f1; color:white; border:none; padding:8px 16px; border-radius:8px; cursor:pointer; font-weight:600;">Install</button>
       <button onclick="document.getElementById('installBanner').style.display='none'" style="background:transparent; color:white; border:none; cursor:pointer; font-size:18px;">✕</button>
     </div>
 
+    <slot />
+
+    <!-- ================= NON-CRITICAL SCRIPTS — LOADED AFTER CONTENT ================= -->
+
+    <!-- OneSignal SDK -->
+    <script is:inline defer src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js"></script>
+
+    <!-- Umami Analytics -->
+    <script defer src="https://cloud.umami.is/script.js" data-website-id="5a7a4a29-83ee-40a8-8b0d-d5afae7d11e5"></script>
+
+    <!-- EffectiveCPM Network -->
+    <script defer src="https://pl30185153.effectivecpmnetwork.com/e6/ae/ad/e6aead240feb47b7e9faf60864c52a6b.js"></script>
+
     <!-- PWA Install Logic -->
-<script is:inline>
-  let deferredPrompt;
-
-  window.addEventListener('beforeinstallprompt', function(e) {
-    e.preventDefault();
-    deferredPrompt = e;
-    var isPWA = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true;
-    if (!isPWA) {
-      document.getElementById('installBanner').style.display = 'flex';
-    }
-  });
-
-  function installApp() {
-    if (!deferredPrompt) {
-      console.log('Install prompt not available');
-      return;
-    }
-    deferredPrompt.prompt();
-    deferredPrompt.userChoice.then(function(choiceResult) {
-      if (choiceResult.outcome === 'accepted') {
-        console.log('User accepted install');
-      } else {
-        console.log('User dismissed install');
+    <script is:inline>
+      let deferredPrompt;
+      window.addEventListener('beforeinstallprompt', function(e) {
+        e.preventDefault();
+        deferredPrompt = e;
+        var isPWA = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true;
+        if (!isPWA) {
+          document.getElementById('installBanner').style.display = 'flex';
+        }
+      });
+      function installApp() {
+        if (!deferredPrompt) { console.log('Install prompt not available'); return; }
+        deferredPrompt.prompt();
+        deferredPrompt.userChoice.then(function(choiceResult) {
+          if (choiceResult.outcome === 'accepted') console.log('User accepted install');
+          else console.log('User dismissed install');
+          deferredPrompt = null;
+          document.getElementById('installBanner').style.display = 'none';
+        });
       }
-      deferredPrompt = null;
-      document.getElementById('installBanner').style.display = 'none';
-    });
-  }
-
-  window.addEventListener('appinstalled', function() {
-    document.getElementById('installBanner').style.display = 'none';
-    deferredPrompt = null;
-    if (typeof umami !== 'undefined') {
-      umami.track('pwa-install');
-    }
-  });
-</script>
+      window.addEventListener('appinstalled', function() {
+        document.getElementById('installBanner').style.display = 'none';
+        deferredPrompt = null;
+        if (typeof umami !== 'undefined') umami.track('pwa-install');
+      });
+    </script>
 
     <!-- PWA Detection -->
     <script is:inline>
@@ -432,6 +346,19 @@ const currentPath = Astro.url.pathname;
       document.addEventListener('astro:after-swap', checkPWA);
     </script>
 
+    <!-- PWA Analytics Event -->
+    <script is:inline>
+      window.addEventListener('load', function() {
+        setTimeout(function() {
+          if (window.matchMedia('(display-mode: standalone)').matches) {
+            if (typeof gtag !== 'undefined') {
+              gtag('event', 'pwa_visit', { 'event_category': 'PWA', 'event_label': 'standalone_mode' });
+            }
+          }
+        }, 2000);
+      });
+    </script>
+
     <!-- Close More Menu when clicking outside -->
     <script is:inline>
       document.addEventListener('click', function(e) {
@@ -446,7 +373,6 @@ const currentPath = Astro.url.pathname;
     <!-- OneSignal Init -->
     <script is:inline>
       window.OneSignalDeferred = window.OneSignalDeferred || [];
-
       OneSignalDeferred.push(async function (OneSignal) {
         try {
           await OneSignal.init({
@@ -456,36 +382,25 @@ const currentPath = Astro.url.pathname;
             autoResubscribe: true,
             promptOptions: {
               slidedown: {
-                prompts: [
-                  {
-                    type: "push",
-                    autoPrompt: true,
-                    text: {
-                      actionMessage: "⚡ Stay Ahead in Tech",
-                      acceptButtonText: "Allow 🔔",
-                      cancelButtonText: "Not Now",
-                      confirmMessage: "Hit Allow to get instant updates on new posts, phone comparisons, and buying guides that actually help."
-                    },
-                    delay: {
-                      pageViews: 0,
-                      timeDelay: 3
-                    }
-                  }
-                ]
+                prompts: [{
+                  type: "push",
+                  autoPrompt: true,
+                  text: {
+                    actionMessage: "⚡ Stay Ahead in Tech",
+                    acceptButtonText: "Allow 🔔",
+                    cancelButtonText: "Not Now",
+                    confirmMessage: "Hit Allow to get instant updates on new posts, phone comparisons, and buying guides that actually help."
+                  },
+                  delay: { pageViews: 0, timeDelay: 3 }
+                }]
               }
             }
           });
-
           console.log("OneSignal initialized successfully");
         } catch (e) {
           console.error("OneSignal init error:", e);
         }
       });
     </script>
-
-<script async src="https://cloud.umami.is/script.js" data-website-id="5a7a4a29-83ee-40a8-8b0d-d5afae7d11e5"></script>
-  <script src="https://pl30185153.effectivecpmnetwork.com/e6/ae/ad/e6aead240feb47b7e9faf60864c52a6b.js"></script>
-
-<slot />
   </body>
 </html>
