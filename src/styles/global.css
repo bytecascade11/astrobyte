@@ -140,6 +140,66 @@ button:not(:disabled),
 }
 
 /* ========================= */
+/* AD SLOT RESERVES — prevents CLS */
+/* ========================= */
+.ad-slot-top,
+.ad-slot-inline,
+.ad-slot-sidebar {
+  min-height: 250px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.02);
+  border-radius: 8px;
+}
+
+.ad-slot-top:empty::before,
+.ad-slot-inline:empty::before {
+  content: "";
+  display: block;
+  width: 100%;
+  height: 250px;
+}
+
+/* Leaderboard size */
+.ad-slot-top[data-size="leaderboard"] {
+  min-height: 90px;
+}
+
+/* Medium rectangle */
+.ad-slot-sidebar[data-size="medium-rectangle"] {
+  min-height: 250px;
+  max-width: 300px;
+}
+
+/* ========================= */
+/* SCROLLBAR GUTTER — prevents shift when scrollbar appears */
+/* ========================= */
+html {
+  scrollbar-gutter: stable;
+}
+
+/* ========================= */
+/* CONTENT-VISIBILITY — skip rendering off-screen */
+/* ========================= */
+.article-list,
+.comments-section,
+.related-posts,
+footer {
+  content-visibility: auto;
+  contain-intrinsic-size: 0 500px;
+}
+
+/* ========================= */
+/* FONT DISPLAY — already have swap, but ensure it */
+/* ========================= */
+@font-face {
+  font-family: 'Source Code Pro';
+  font-display: swap;
+}
+
+/* ========================= */
 /* CONTAINER / MAX WIDTH     */
 /* ========================= */
 section, footer, main {
