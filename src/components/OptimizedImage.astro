@@ -1,37 +1,65 @@
 ---
+import imageManifest from '@/data/image-manifest.json';
+
 interface Props {
-  src: string;
+  src: string;           // Original path: "/images/posts/hero.jpg" or "@/assets/posts/hero.jpg"
   alt: string;
   width?: number;
   height?: number;
+  loading?: 'eager' | 'lazy';
   class?: string;
-  loading?: "lazy" | "eager";
-  fetchpriority?: "high" | "low" | "auto";
+  sizes?: string;
 }
 
-const {
-  src,
-  alt,
-  width = 800,
-  height = 450,
-  class: className,
-  loading = "lazy",
-  fetchpriority,
+const { 
+  src, 
+  alt, 
+  width = 800, 
+  height = 450, 
+  loading = 'lazy',
+  class: className = '',
+  sizes = '(max-width: 800px) 100vw, 800px'
 } = Astro.props;
 
-// Build Vercel optimized image URL for local images
-const optimizedSrc = src.startsWith("http")
-  ? src
-  : `/_vercel/image?url=${encodeURIComponent(src)}&w=${width}&q=75`;
+// Normalize src to match manifest keys
+const normalizeSrc = (s: string) => {
+  return s
+    .replace(/^@\/assets\//, '')
+    .replace(/^\/images\//, '')
+    .replace(/^\/assets\//, '')
+    .replace(/^\//, '');
+};
+
+const key = normalizeSrc(src);
+const entry = imageManifest[key];
+const webp = entry?.optimized?.webp;
+
+// Fallback to original if not optimized
+const fallbackSrc = src.startsWith('@/') 
+  ? src.replace('@/', '/src/')  // Vite handles @/ alias
+  : src;
 ---
 
-<img
-  src={optimizedSrc}
-  alt={alt}
-  width={width}
-  height={height}
-  class={className}
-  loading={loading}
-  fetchpriority={fetchpriority}
-  decoding="async"
-/>
+{webp ? (
+  <img 
+    src={webp[800] || webp[480]}
+    srcset={CONFIG.widths.map(w => `${webp[w]} ${w}w`).join(', ')}
+    sizes={sizes}
+    loading={loading}
+    alt={alt}
+    width={width}
+    height={height}
+    class={className}
+    decoding="async"
+  />
+) : (
+  <img 
+    src={fallbackSrc} 
+    alt={alt}
+    width={width}
+    height={height}
+    loading={loading}
+    class={className}
+    decoding="async"
+  />
+)}
