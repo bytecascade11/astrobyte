@@ -16,6 +16,7 @@ type Props = {
   modDatetime?: Date | null;
   scrollSmooth?: boolean;
   coverImage?: string;
+  coverImageAlt?: string;
 };
 
 const {
@@ -28,6 +29,7 @@ const {
   modDatetime,
   scrollSmooth = false,
   coverImage,
+  coverImageAlt = "",
 } = Astro.props;
 
 const siteBase = SITE.website || "https://www.revibyte.blog/";
@@ -76,13 +78,31 @@ const currentPath = Astro.url.pathname;
 
     <!-- LCP cover image preload — highest priority -->
     {coverImage && (
-      <link rel="preload" as="image" href={coverImage} fetchpriority="high" />
+      <>
+        <link rel="preload" as="image" href={coverImage} fetchpriority="high" />
+        <!-- CLS FIX: Reserve space with aspect ratio before image loads -->
+        <style is:inline>
+          .hero-cover {
+            aspect-ratio: 16 / 9;
+            width: 100%;
+            max-height: 630px;
+            background: var(--background-light, #1e293b);
+            overflow: hidden;
+            position: relative;
+          }
+          .hero-cover img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+          }
+        </style>
+      </>
     )}
 
     <!-- Font preload to prevent FOUT/CLS -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link rel="preload" href="https://fonts.gstatic.com/s/sourcecodepro/v22/HI_SiYsKILxRpg3hIP6sJ7fM7PqlPevW.woff2" as="font" type="font/woff2" crossorigin />
 
     <!-- Theme Handling — critical, must stay blocking to prevent flash -->
     <script is:inline>
@@ -283,10 +303,19 @@ const currentPath = Astro.url.pathname;
       <button onclick="dismissInstallBanner()" style="background:transparent; color:white; border:none; cursor:pointer; font-size:18px;">✕</button>
     </div>
 
-    <!-- Ad Slot Reserves — prevents CLS from AdSense -->
-    <div class="ad-slot-top" style="min-height:250px; display:flex; align-items:center; justify-content:center; background:rgba(255,255,255,0.02);">
-      <!-- AdSense will inject here -->
-    </div>
+    <!-- CLS FIX: Hero cover image with reserved space -->
+    {coverImage && (
+      <div class="hero-cover">
+        <img 
+          src={coverImage} 
+          alt={coverImageAlt || title}
+          width="1200"
+          height="630"
+          loading="eager"
+          fetchpriority="high"
+        />
+      </div>
+    )}
 
     <slot />
 
