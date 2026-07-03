@@ -2,7 +2,7 @@
 import imageManifest from '@/data/image-manifest.json';
 
 interface Props {
-  src: string;           // Original path: "/images/posts/hero.jpg" or "@/assets/posts/hero.jpg"
+  src: string;
   alt: string;
   width?: number;
   height?: number;
@@ -21,29 +21,24 @@ const {
   sizes = '(max-width: 800px) 100vw, 800px'
 } = Astro.props;
 
-// Normalize src to match manifest keys
-const normalizeSrc = (s: string) => {
-  return s
-    .replace(/^@\/assets\//, '')
-    .replace(/^\/images\//, '')
-    .replace(/^\/assets\//, '')
-    .replace(/^\//, '');
-};
+// Normalize src to manifest key
+const normalize = (s: string) => s
+  .replace(/^@\/assets\//, '')
+  .replace(/^\/images\//, '')
+  .replace(/^\/assets\//, '')
+  .replace(/^\//, '');
 
-const key = normalizeSrc(src);
+const key = normalize(src);
 const entry = imageManifest[key];
-const webp = entry?.optimized?.webp;
+const webp = entry?.optimized;
 
-// Fallback to original if not optimized
-const fallbackSrc = src.startsWith('@/') 
-  ? src.replace('@/', '/src/')  // Vite handles @/ alias
-  : src;
+const fallback = src.startsWith('@/') ? src.replace('@/', '/src/') : src;
 ---
 
 {webp ? (
   <img 
-    src={webp[800] || webp[480]}
-    srcset={CONFIG.widths.map(w => `${webp[w]} ${w}w`).join(', ')}
+    src={webp[800] || webp[480] || fallback}
+    srcset={`${webp[480]} 480w, ${webp[800]} 800w, ${webp[1200]} 1200w`}
     sizes={sizes}
     loading={loading}
     alt={alt}
@@ -54,7 +49,7 @@ const fallbackSrc = src.startsWith('@/')
   />
 ) : (
   <img 
-    src={fallbackSrc} 
+    src={fallback} 
     alt={alt}
     width={width}
     height={height}
