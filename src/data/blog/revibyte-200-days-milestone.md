@@ -13,7 +13,7 @@ tags: ["milestone", "save-hub", "opinions"]
 
 ## Overview 
 
-Two hundred days ago, ReviByte was just a domain and three sentences of a homepage. For Day 200, instead of writing a long look-back post, I wanted the milestone to be something people could actually use — so I built an Instagram Reels downloader for the `/save/` hub, next to the TikTok downloader that's already been running there for weeks.  
+Two hundred days ago, ReviByte was just a domain and three sentences of a homepage — you can still read [that first post](/posts/first-post-revibyte-live/) if you want the unfiltered starting point. I wrote about the next stretch of that in the [121-day milestone post](/posts/revibyte-121-days-later/), back when the site was still finding its footing. For Day 200, instead of writing another long look-back, I wanted the milestone to be something people could actually use — so I built an Instagram Reels downloader for the `/save/` hub, next to the TikTok downloader that's already been running there for weeks.  
   
 Here's the actual build story, not the polished version.  
   
@@ -21,7 +21,9 @@ Here's the actual build story, not the polished version.
   
 ## How It Actually Works  
   
-The downloader runs on the same architecture as the TikTok tool: a Cloudflare Worker sits in front, receives the Instagram Reel URL from the user, and calls out to a RapidAPI endpoint that resolves the actual media file. Nothing on ReviByte's own server ever touches Instagram directly — the worker handles that layer entirely, which keeps the whole thing fast and keeps ReviByte's own infrastructure out of Instagram's rate limits.  
+The downloader runs on the same architecture as the TikTok tool: a Cloudflare Worker sits in front, receives the Instagram Reel URL from the user, and calls out to a RapidAPI endpoint that resolves the actual media file. Nothing on ReviByte's own server ever touches Instagram directly — the worker handles that layer entirely, which keeps the whole thing fast and keeps ReviByte's own infrastructure out of Instagram's rate limits.
+
+Most of the actual coding — debugging the request handler, working through the payload differences, writing this post itself — happens the same way [I run the rest of ReviByte from my phone](/posts/how-i-use-chatgpt-and-claude-to--run-my-blog-faster/), no local dev environment involved.
   
 ## By the Numbers
 
@@ -60,6 +62,8 @@ None of this matters if it doesn't make things easier for whoever's actually usi
 - **Free**, with no daily limit currently in place  
   
 ![User downloading an Instagram Reel through ReviByte on a mobile browser](/assets/posts/mobile-download-flow.jpg)  
+
+New posts like this one get indexed and get their images picked up quickly, partly because of a [sitemap fix I made months ago](/posts/how-i-fixed-google-image-sitemap--astro/) that was silently blocking Google from crawling post images properly. Worth the read if you're on Astro and wondering why your images aren't showing in Search.
   
 ## FAQ  
   
@@ -73,7 +77,10 @@ Instagram's API responses are heavier and route through the image proxy for thum
 No. It only works on publicly accessible posts, the same restriction any similar tool has.  
   
 **Will carousel posts download every item at once?**  
-Right now it correctly detects and resolves carousels instead of failing, but full multi-item batch downloading in one click isn't built yet — that's a likely next step.  
+Right now it correctly detects and resolves carousels instead of failing, but full multi-item batch downloading in one click isn't built yet — that's a likely next step.
+
+**Will there be a push notification when new downloader features ship?**
+Possibly — push notifications are still a work in progress on ReviByte. I wrote about [why they weren't showing up at all](/posts/why-my-blog-had-no-push-notifications/) for a while, and that's since been fixed.
   
 ---  
   
