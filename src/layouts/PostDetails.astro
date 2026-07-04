@@ -2,7 +2,6 @@
 import { render, type CollectionEntry } from "astro:content";
 import Layout from "@/layouts/Layout.astro";
 import Header from "@/components/Header.astro";
-import OptimizedImage from "@/components/OptimizedImage.astro";
 import Breadcrumbs from "@/components/Breadcrumbs.astro";
 import Footer from "@/components/Footer.astro";
 import Tag from "@/components/Tag.astro";
@@ -83,7 +82,8 @@ const layoutProps = {
   canonicalURL: postUrl,
   ogImage,
   scrollSmooth: true,
-  coverImage: coverImageAbsoluteSrc, // ← NEW: triggers <link rel="preload"> in <head>
+  coverImage: coverImageAbsoluteSrc,
+  coverImageAlt: coverImageAlt || title,
 };
 
 const allPosts = posts.map(({ data: { title }, id, filePath }) => ({
@@ -176,19 +176,6 @@ const postSlug = post.id;
       />
       <BackButton />
     </div>
-
-    <!-- Cover image -->
-    {coverImageAbsoluteSrc && (
-      <OptimizedImage
-        src={coverImage as string}
-        alt={coverImageAlt || title}
-        class="post-cover-image"
-        loading="eager"
-        fetchpriority="high"
-        width={1200}
-        height={630}
-      />
-    )}
 
     <!-- Adsterra: Under Cover Image -->
 <div style="margin: 1.5rem 0; min-height: 300px; contain: layout;">
@@ -321,22 +308,6 @@ const postSlug = post.id;
     gap: 1rem;
     flex-wrap: wrap;
     margin-bottom: 1.5rem;
-  }
-
-  /* ── Cover image ── */
-  .post-cover-image {
-    width: 100%;
-    object-fit: cover;
-    aspect-ratio: 16/9;
-    display: block;
-    border-radius: 16px;
-    margin-bottom: 1.75rem;
-  }
-
-  @media (min-width: 768px) {
-    .post-cover-image {
-      aspect-ratio: 21/9;
-    }
   }
 
   /* ── Post header ── */
