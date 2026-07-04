@@ -1,4 +1,4 @@
----
+ ---
 import { SITE } from "@/config";
 import SchemaMarkup from "@/components/SchemaMarkup.astro";
 import HeliaraAI from '../components/HeliaraAI.astro';
@@ -77,12 +77,8 @@ const currentPath = Astro.url.pathname;
     <meta name="apple-mobile-web-app-title" content="ReviByte" />
 
     <!-- LCP cover image preload — highest priority -->
-        <!-- CLS FIX: Reserve space for cover image -->
     {coverImage && (
-      <style is:inline>
-        .hero-cover { aspect-ratio: 16 / 9; width: 100%; max-height: 630px; background: var(--background-light, #1e293b); overflow: hidden; }
-        .hero-cover img { width: 100%; height: 100%; object-fit: cover; display: block; }
-      </style>
+      <link rel="preload" as="image" href={coverImage} fetchpriority="high" />
     )}
 
     <!-- Font preload to prevent FOUT/CLS -->
@@ -287,8 +283,9 @@ const currentPath = Astro.url.pathname;
       <button onclick="dismissInstallBanner()" style="background:transparent; color:white; border:none; cursor:pointer; font-size:18px;">✕</button>
     </div>
 
-    <!-- CLS FIX: Hero cover image with reserved space -->
-        {coverImage && (
+    <slot name="header" />
+
+    {coverImage && (
       <OptimizedCoverImage 
         src={coverImage}
         alt={coverImageAlt || title}
