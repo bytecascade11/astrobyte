@@ -1,222 +1,586 @@
 ---
-import { slugifyStr } from "@/utils/slugify";
-import type { CollectionEntry } from "astro:content";
-import { getPath } from "@/utils/getPath";
-import Datetime from "./Datetime.astro";
-
-export interface Props extends CollectionEntry<"blog"> {
-  variant?: "h2" | "h3";
+interface Props {
+  siteName?: string;
+  accentColor?: string;
+  apiEndpoint?: string;
+  greeting?: string;
 }
 
-const { variant: Tag = "h2", data, id, filePath } = Astro.props;
-const { title, description, pubDatetime, modDatetime, timezone, tags = [], coverImage } = data;
-const postPath = getPath(id, filePath);
-
-// Generate responsive srcset if using Astro image optimization
-// Fallback to raw URL if not available
-const imgSrc = coverImage;
+const {
+  siteName = "Heliara AI",
+  accentColor = "#6c63ff",
+  apiEndpoint = "/api/heliara/",
+  greeting = "Hey! I'm Heliara AI. Ask me anything — phones, Android, gaming, or general tech. What's up?",
+} = Astro.props;
 ---
 
-<li class="card">
-  {coverImage && (
-    <div class="card__media">
-      <img
-        src={imgSrc}
-        alt=""
-        width="736"
-        height="414"
-        loading="eager"
-        decoding="async"
-        fetchpriority="high"
-      />
-    </div>
-  )}
+<div id="hl-root" data-endpoint={apiEndpoint}>
+  <div id="hl-pulse"></div>
 
-  <div class="card__body">
-    <div class="card__meta">
-      <Datetime {pubDatetime} {modDatetime} {timezone} />
-      {tags[0] && <span class="card__tag">{tags[0]}</span>}
-    </div>
-
-    <a href={postPath} class="card__link">
-      <Tag class="card__title" style={{ viewTransitionName: slugifyStr(title) }}>
-        {title}
-      </Tag>
-    </a>
-
-    <p class="card__desc">{description}</p>
-
-    <a href={postPath} class="card__more">
-      Read more
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M5 12h14M12 5l7 7-7 7"/>
+  <button id="hl-toggle" aria-label="Open Heliara AI" style={`--hl-accent: ${accentColor}; color: #ffffff !important;`}>
+    <span id="hl-btn-icon">
+      <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/>
       </svg>
-    </a>
+    </span>
+    <span id="hl-btn-close" style="display:none">
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+      </svg>
+    </span>
+  </button>
+
+  <div id="hl-panel" aria-hidden="true" style={`--hl-accent: ${accentColor}; color: #ffffff !important;`}>
+
+    <div id="hl-header">
+      <div id="hl-header-left">
+        <div id="hl-logo">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/>
+          </svg>
+        </div>
+        <div>
+          <div id="hl-title">{siteName}</div>
+          <div id="hl-status">
+            <span id="hl-status-dot"></span>
+            <span>Online</span>
+          </div>
+        </div>
+      </div>
+      <div id="hl-header-actions">
+        <button id="hl-clear" title="New conversation" aria-label="Clear chat">
+          <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 .49-3.51"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <div id="hl-messages">
+      <div class="hl-msg hl-msg-ai">
+        <div class="hl-msg-avatar">
+          <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/>
+          </svg>
+        </div>
+        <div class="hl-msg-bubble">{greeting}</div>
+      </div>
+    </div>
+
+    <div id="hl-suggestions">
+      <button class="hl-suggestion">Best phones under ₦150k?</button>
+      <button class="hl-suggestion">COD Mobile sniper tips</button>
+      <button class="hl-suggestion">Speed up my Android</button>
+    </div>
+
+    <div id="hl-input-area">
+      <input
+        id="hl-input"
+        type="text"
+        placeholder="Ask Heliara anything..."
+        autocomplete="off"
+        maxlength="600"
+      />
+      <button id="hl-send" aria-label="Send message">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/>
+        </svg>
+      </button>
+    </div>
+
+    <div id="hl-footer">
+      <span id="hl-footer-text">Powered by <strong>Heliara AI</strong> × Groq</span>
+    </div>
   </div>
-</li>
+</div>
 
 <style>
-  .card {
-    --card-accent: #6366f1;
-    --card-radius: 16px;
-    
-    position: relative;
-    list-style: none;
-    margin: 1.25rem 0;
-    border-radius: var(--card-radius);
-    background: #fff;
-    border: 1px solid color-mix(in srgb, var(--card-accent) 10%, transparent);
-    box-shadow: 0 1px 4px rgb(0 0 0 / 0.06);
-    overflow: clip;
-    transition: translate 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+  #hl-root {
+    position: fixed;
+    bottom: 28px;
+    right: 28px;
+    z-index: 99999;
+    font-family: 'Outfit', 'DM Sans', 'Segoe UI', sans-serif;
   }
 
-  [data-theme="dark"] .card {
-    background: rgb(15 23 42 / 0.6);
-    border-color: color-mix(in srgb, var(--card-accent) 15%, transparent);
-  }
-
-  .card:hover {
-    translate: 0 -3px;
-    border-color: color-mix(in srgb, var(--card-accent) 35%, transparent);
-    box-shadow: 0 12px 40px color-mix(in srgb, var(--card-accent) 15%, transparent);
-  }
-
-  [data-theme="dark"] .card:hover {
-    box-shadow: 0 12px 40px color-mix(in srgb, var(--card-accent) 25%, transparent);
-  }
-
-  .card::before {
-    content: "";
+  #hl-pulse {
     position: absolute;
-    inset: -1px;
-    border-radius: inherit;
-    background: linear-gradient(135deg, color-mix(in srgb, var(--card-accent) 15%, transparent), transparent 60%);
-    opacity: 0;
-    transition: opacity 0.3s ease;
+    bottom: 0;
+    right: 0;
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: var(--hl-accent, #6c63ff);
+    opacity: 0.25;
+    animation: hl-pulse 2.5s ease-out infinite;
     pointer-events: none;
-    z-index: 1;
   }
 
-  .card:hover::before {
-    opacity: 1;
+  @keyframes hl-pulse {
+    0%   { transform: scale(1);   opacity: 0.25; }
+    70%  { transform: scale(1.7); opacity: 0; }
+    100% { transform: scale(1.7); opacity: 0; }
   }
 
-  /* Media — aspect-ratio fallback via padding hack for ancient browsers */
-  .card__media {
+  #hl-toggle {
     position: relative;
-    aspect-ratio: 16 / 9;
-    overflow: clip;
-    background: #e2e8f0; /* placeholder color while loading */
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    border: none;
+    background: var(--hl-accent, #6c63ff);
+    color: #fff;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 24px color-mix(in srgb, var(--hl-accent, #6c63ff) 50%, transparent);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    margin-left: auto;
   }
 
-  /* Fallback for browsers without aspect-ratio support */
-  @supports not (aspect-ratio: 16 / 9) {
-    .card__media {
-      padding-top: 56.25%;
-      height: 0;
-    }
-    .card__media img {
-      position: absolute;
-      inset: 0;
-    }
-  }
+  #hl-toggle:hover { transform: scale(1.08); }
+  #hl-toggle:active { transform: scale(0.94); }
 
-  [data-theme="dark"] .card__media {
-    background: #1e293b;
-  }
-
-  .card__media::after {
-    content: "";
+  #hl-panel {
     position: absolute;
-    inset: 0;
-    background: linear-gradient(180deg, transparent 50%, rgb(15 23 42 / 0.4));
-    z-index: 1;
+    bottom: 68px;
+    right: 0;
+    width: 348px;
+    max-height: 520px;
+    background: #0d0d0d;
+    border: 1px solid #2a2a2a;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.7), 0 0 0 1px rgba(255,255,255,0.06);
+    transform: scale(0.9) translateY(16px);
+    opacity: 0;
+    pointer-events: none;
+    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.2s ease;
+    transform-origin: bottom right;
   }
 
-  .card__media img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: scale 0.4s ease;
+  #hl-panel.open {
+    transform: scale(1) translateY(0);
+    opacity: 1;
+    pointer-events: all;
   }
 
-  .card:hover .card__media img {
-    scale: 1.03;
-  }
-
-  .card__body {
-    padding: 1.1rem 1.25rem 1.25rem;
-  }
-
-  .card__meta {
+  #hl-header {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 0.5rem;
-    margin-bottom: 0.6rem;
-    flex-wrap: wrap;
+    padding: 14px 16px;
+    background: #111111;
+    border-bottom: 1px solid #2a2a2a;
+    flex-shrink: 0;
   }
 
-  .card__tag {
-    font-size: 0.65rem;
-    font-weight: 700;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--card-accent);
-    background: color-mix(in srgb, var(--card-accent) 10%, transparent);
-    border: 1px solid color-mix(in srgb, var(--card-accent) 20%, transparent);
-    padding: 2px 8px;
-    border-radius: 999px;
-    white-space: nowrap;
-  }
-
-  .card__link {
-    text-decoration: none;
-  }
-
-  .card__title {
-    font-size: 1.05rem;
-    font-weight: 700;
-    line-height: 1.4;
-    letter-spacing: -0.2px;
-    color: #0f172a;
-    margin-bottom: 0.5rem;
-    transition: color 0.2s;
-  }
-
-  [data-theme="dark"] .card__title {
-    color: #f1f5f9;
-  }
-
-  .card:hover .card__title {
-    color: var(--card-accent);
-  }
-
-  .card__desc {
-    font-size: 0.85rem;
-    line-height: 1.65;
-    opacity: 0.6;
-    margin-bottom: 1rem;
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-  }
-
-  .card__more {
-    display: inline-flex;
+  #hl-header-left {
+    display: flex;
     align-items: center;
-    gap: 0.4rem;
-    font-size: 0.78rem;
-    font-weight: 600;
-    color: var(--card-accent);
-    text-decoration: none;
-    letter-spacing: 0.01em;
-    transition: gap 0.2s ease;
+    gap: 10px;
   }
 
-  .card__more:hover {
-    gap: 0.65rem;
+  #hl-logo {
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    background: var(--hl-accent, #6c63ff);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    flex-shrink: 0;
+  }
+
+  #hl-title {
+    font-size: 14px;
+    font-weight: 700;
+    color: #ffffff !important;
+    letter-spacing: -0.2px;
+  }
+
+  #hl-status {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 11px;
+    color: #aaaaaa !important;
+    margin-top: 1px;
+  }
+
+  #hl-status-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #22c55e;
+    animation: hl-blink 2s ease infinite;
+  }
+
+  @keyframes hl-blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.4; }
+  }
+
+  #hl-header-actions { display: flex; gap: 4px; }
+
+  #hl-clear {
+    background: none;
+    border: none;
+    color: #888888 !important;
+    cursor: pointer;
+    padding: 6px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    transition: color 0.15s, background 0.15s;
+  }
+
+  #hl-clear:hover {
+    color: var(--hl-accent, #6c63ff);
+    background: rgba(108, 99, 255, 0.08);
+  }
+
+  #hl-messages {
+    flex: 1;
+    overflow-y: auto;
+    padding: 16px 14px 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    scrollbar-width: thin;
+    scrollbar-color: #2a2a2a transparent;
+  }
+
+  #hl-messages::-webkit-scrollbar { width: 3px; }
+  #hl-messages::-webkit-scrollbar-thumb { background: #2a2a2a; border-radius: 4px; }
+
+  .hl-msg {
+    display: flex;
+    gap: 8px;
+    align-items: flex-end;
+    animation: hl-pop 0.22s ease;
+  }
+
+  @keyframes hl-pop {
+    from { opacity: 0; transform: translateY(8px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .hl-msg-ai { align-self: flex-start; }
+  .hl-msg-user { align-self: flex-end; flex-direction: row-reverse; }
+
+  .hl-msg-avatar {
+    width: 26px;
+    height: 26px;
+    border-radius: 8px;
+    background: var(--hl-accent, #6c63ff);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    flex-shrink: 0;
+    margin-bottom: 2px;
+  }
+
+  .hl-msg-bubble {
+    max-width: 240px;
+    padding: 10px 13px;
+    border-radius: 14px;
+    font-size: 13.5px;
+    line-height: 1.6;
+    word-break: break-word;
+  }
+
+  .hl-msg-ai .hl-msg-bubble {
+    background: #1e1e1e;
+    color: #ffffff !important;
+    border-bottom-left-radius: 4px;
+    border: 1px solid #2a2a2a;
+  }
+
+  .hl-msg-user .hl-msg-bubble {
+    background: var(--hl-accent, #6c63ff);
+    color: #ffffff !important;
+    border-bottom-right-radius: 4px;
+  }
+
+  .hl-typing-bubble {
+    background: #1e1e1e;
+    border: 1px solid #2a2a2a;
+    border-bottom-left-radius: 4px;
+    padding: 12px 16px;
+    border-radius: 14px;
+  }
+
+  .hl-dots { display: flex; gap: 4px; align-items: center; }
+
+  .hl-dots span {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--hl-accent, #6c63ff);
+    animation: hl-bounce 1.2s infinite;
+    opacity: 0.7;
+  }
+
+  .hl-dots span:nth-child(2) { animation-delay: 0.15s; }
+  .hl-dots span:nth-child(3) { animation-delay: 0.3s; }
+
+  @keyframes hl-bounce {
+    0%, 80%, 100% { transform: translateY(0); opacity: 0.4; }
+    40% { transform: translateY(-5px); opacity: 1; }
+  }
+
+  #hl-suggestions {
+    display: flex;
+    gap: 6px;
+    padding: 0 14px 10px;
+    overflow-x: auto;
+    scrollbar-width: none;
+    flex-shrink: 0;
+  }
+
+  #hl-suggestions::-webkit-scrollbar { display: none; }
+
+  .hl-suggestion {
+    white-space: nowrap;
+    background: #1e1e1e;
+    border: 1px solid #333333;
+    border-radius: 20px;
+    color: #ffffff !important;
+    font-size: 11.5px;
+    padding: 5px 11px;
+    cursor: pointer;
+    font-family: inherit;
+    transition: border-color 0.15s, color 0.15s, background 0.15s;
+    flex-shrink: 0;
+  }
+
+  .hl-suggestion:hover {
+    border-color: var(--hl-accent, #6c63ff);
+    color: var(--hl-accent, #6c63ff);
+    background: #252525;
+  }
+
+  #hl-input-area {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 14px;
+    border-top: 1px solid #1e1e1e;
+    background: #0d0d0d;
+    flex-shrink: 0;
+  }
+
+  #hl-input {
+    flex: 1;
+    background: #1e1e1e;
+    border: 1px solid #333333;
+    border-radius: 12px;
+    padding: 9px 13px;
+    color: #ffffff !important;
+    font-size: 13px;
+    font-family: inherit;
+    outline: none;
+    transition: border-color 0.15s;
+  }
+
+  #hl-input::placeholder { color: #555555 !important; }
+  #hl-input:focus { border-color: var(--hl-accent, #6c63ff); }
+
+  #hl-send {
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    border: none;
+    background: var(--hl-accent, #6c63ff);
+    color: #fff;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    transition: opacity 0.15s, transform 0.15s;
+  }
+
+  #hl-send:hover { opacity: 0.88; transform: scale(1.05); }
+  #hl-send:disabled { opacity: 0.35; cursor: not-allowed; transform: none; }
+
+  #hl-footer {
+    text-align: center;
+    font-size: 10.5px;
+    color: #888888 !important;
+    padding: 6px 14px 10px;
+    flex-shrink: 0;
+  }
+
+  #hl-footer strong { color: #ffffff !important; }
+
+  #hl-footer a {
+    color: var(--hl-accent, #6c63ff) !important;
+    text-decoration: none;
+  }
+
+  #hl-footer a:hover { text-decoration: underline; }
+
+  @media (max-width: 420px) {
+    #hl-root { bottom: 16px; right: 16px; }
+    #hl-panel { width: calc(100vw - 32px); right: 0; max-height: 70vh; }
   }
 </style>
+
+<script>
+  const root = document.getElementById('hl-root')!;
+  const toggle = document.getElementById('hl-toggle')!;
+  const panel = document.getElementById('hl-panel')!;
+  const btnIcon = document.getElementById('hl-btn-icon')!;
+  const btnClose = document.getElementById('hl-btn-close')!;
+  const messagesEl = document.getElementById('hl-messages')!;
+  const input = document.getElementById('hl-input') as HTMLInputElement;
+  const sendBtn = document.getElementById('hl-send') as HTMLButtonElement;
+  const clearBtn = document.getElementById('hl-clear')!;
+  const suggestionsEl = document.getElementById('hl-suggestions')!;
+  const pulse = document.getElementById('hl-pulse')!;
+
+  const API_ENDPOINT = root.dataset.endpoint || '/api/heliara/';
+
+  let isOpen = false;
+  let isLoading = false;
+  let history: { role: string; content: string }[] = [];
+
+  const GREETING = messagesEl.querySelector('.hl-msg-bubble')?.textContent || '';
+
+  // ── Panel toggle ──────────────────────────────────────────────────────────
+  function togglePanel() {
+  isOpen = !isOpen;
+  panel.classList.toggle('open', isOpen);
+  panel.setAttribute('aria-hidden', String(!isOpen));
+  if (isOpen) {
+    panel.removeAttribute('inert');
+  } else {
+    panel.setAttribute('inert', '');
+  }
+  btnIcon.style.display = isOpen ? 'none' : 'flex';
+  btnClose.style.display = isOpen ? 'flex' : 'none';
+  pulse.style.display = isOpen ? 'none' : 'block';
+  if (isOpen) { input.focus(); scrollToBottom(); }
+}
+
+  function scrollToBottom() {
+    requestAnimationFrame(() => { messagesEl.scrollTop = messagesEl.scrollHeight; });
+  }
+
+  function addMessage(text: string, role: 'user' | 'ai') {
+    if (role === 'user') suggestionsEl.style.display = 'none';
+
+    const wrap = document.createElement('div');
+    wrap.className = `hl-msg hl-msg-${role}`;
+
+    if (role === 'ai') {
+      wrap.innerHTML = `
+        <div class="hl-msg-avatar">
+          <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/>
+          </svg>
+        </div>
+        <div class="hl-msg-bubble">${text.replace(/\n/g, '<br>')}</div>`;
+    } else {
+      wrap.innerHTML = `<div class="hl-msg-bubble">${text.replace(/\n/g, '<br>')}</div>`;
+    }
+
+    messagesEl.appendChild(wrap);
+    scrollToBottom();
+  }
+
+  function addTyping() {
+    const wrap = document.createElement('div');
+    wrap.className = 'hl-msg hl-msg-ai';
+    wrap.id = 'hl-typing';
+    wrap.innerHTML = `
+      <div class="hl-msg-avatar">
+        <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/>
+        </svg>
+      </div>
+      <div class="hl-typing-bubble">
+        <div class="hl-dots"><span></span><span></span><span></span></div>
+      </div>`;
+    messagesEl.appendChild(wrap);
+    scrollToBottom();
+    return wrap;
+  }
+
+  async function sendMessage(text?: string) {
+    const userText = text || input.value.trim();
+    if (!userText || isLoading) return;
+
+    input.value = '';
+    isLoading = true;
+    sendBtn.disabled = true;
+
+    addMessage(userText, 'user');
+    history.push({ role: 'user', content: userText });
+
+    const typing = addTyping();
+
+    try {
+      const res = await fetch(API_ENDPOINT, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ messages: history }),
+      });
+
+      const data = await res.json();
+      typing.remove();
+
+      const reply = data.error ? 'Something went wrong. Please try again.' : data.reply;
+      addMessage(reply, 'ai');
+      if (!data.error) history.push({ role: 'assistant', content: reply });
+
+    } catch {
+      typing.remove();
+      addMessage('Network error. Check your connection and try again.', 'ai');
+    }
+
+    isLoading = false;
+    sendBtn.disabled = false;
+    input.focus();
+  }
+
+  function resetChat() {
+    history = [];
+    suggestionsEl.style.display = 'flex';
+    messagesEl.innerHTML = `
+      <div class="hl-msg hl-msg-ai">
+        <div class="hl-msg-avatar">
+          <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/>
+          </svg>
+        </div>
+        <div class="hl-msg-bubble">${GREETING}</div>
+      </div>`;
+  }
+
+  toggle.addEventListener('click', togglePanel);
+  sendBtn.addEventListener('click', () => sendMessage());
+  clearBtn.addEventListener('click', resetChat);
+
+  input.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendMessage(); }
+  });
+
+  document.querySelectorAll('.hl-suggestion').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      if (!isOpen) togglePanel();
+      sendMessage((btn as HTMLElement).textContent || '');
+    });
+  });
+
+  document.addEventListener('click', (e) => {
+    if (isOpen && !root.contains(e.target as Node)) togglePanel();
+  });
+</script>
