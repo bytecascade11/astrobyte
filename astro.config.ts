@@ -1,5 +1,6 @@
 // astro.config.ts
 import { defineConfig } from "astro/config";
+import { rehypeOptimizeImages } from "./src/utils/rehype-optimize-images";
 import sitemap from "@astrojs/sitemap";
 import remarkToc from "remark-toc";
 import remarkCollapse from "remark-collapse";
