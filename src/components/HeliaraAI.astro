@@ -14,30 +14,40 @@ const {
 } = Astro.props;
 ---
 
+<!-- SVG Symbols — defined once, reused -->
+<svg style="display:none;">
+  <symbol id="hl-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/>
+  </symbol>
+  <symbol id="hl-close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+    <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+  </symbol>
+  <symbol id="hl-refresh" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 .49-3.51"/>
+  </symbol>
+  <symbol id="hl-send" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+    <line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/>
+  </symbol>
+</svg>
+
 <div id="hl-root" data-endpoint={apiEndpoint}>
   <div id="hl-pulse"></div>
 
-  <button id="hl-toggle" aria-label="Open Heliara AI" style={`--hl-accent: ${accentColor}; color: #ffffff !important;`}>
+  <button id="hl-toggle" aria-label="Open Heliara AI" style={`--hl-accent: ${accentColor};`}>
     <span id="hl-btn-icon">
-      <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/>
-      </svg>
+      <svg width="22" height="22"><use href="#hl-icon"/></svg>
     </span>
     <span id="hl-btn-close" style="display:none">
-      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-        <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
-      </svg>
+      <svg width="20" height="20"><use href="#hl-close"/></svg>
     </span>
   </button>
 
-  <div id="hl-panel" aria-hidden="true" style={`--hl-accent: ${accentColor}; color: #ffffff !important;`}>
+  <div id="hl-panel" aria-hidden="true" style={`--hl-accent: ${accentColor};`}>
 
     <div id="hl-header">
       <div id="hl-header-left">
         <div id="hl-logo">
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/>
-          </svg>
+          <svg width="16" height="16"><use href="#hl-icon"/></svg>
         </div>
         <div>
           <div id="hl-title">{siteName}</div>
@@ -49,9 +59,7 @@ const {
       </div>
       <div id="hl-header-actions">
         <button id="hl-clear" title="New conversation" aria-label="Clear chat">
-          <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 .49-3.51"/>
-          </svg>
+          <svg width="15" height="15"><use href="#hl-refresh"/></svg>
         </button>
       </div>
     </div>
@@ -59,9 +67,7 @@ const {
     <div id="hl-messages">
       <div class="hl-msg hl-msg-ai">
         <div class="hl-msg-avatar">
-          <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/>
-          </svg>
+          <svg width="12" height="12"><use href="#hl-icon"/></svg>
         </div>
         <div class="hl-msg-bubble">{greeting}</div>
       </div>
@@ -82,9 +88,7 @@ const {
         maxlength="600"
       />
       <button id="hl-send" aria-label="Send message">
-        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-          <line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/>
-        </svg>
+        <svg width="16" height="16"><use href="#hl-send"/></svg>
       </button>
     </div>
 
@@ -101,6 +105,8 @@ const {
     right: 28px;
     z-index: 99999;
     font-family: 'Outfit', 'DM Sans', 'Segoe UI', sans-serif;
+    content-visibility: auto;
+    contain-intrinsic-size: 56px 56px;
   }
 
   #hl-pulse {
@@ -199,7 +205,7 @@ const {
   #hl-title {
     font-size: 14px;
     font-weight: 700;
-    color: #ffffff !important;
+    color: #ffffff;
     letter-spacing: -0.2px;
   }
 
@@ -208,7 +214,7 @@ const {
     align-items: center;
     gap: 5px;
     font-size: 11px;
-    color: #aaaaaa !important;
+    color: #aaaaaa;
     margin-top: 1px;
   }
 
@@ -230,7 +236,7 @@ const {
   #hl-clear {
     background: none;
     border: none;
-    color: #888888 !important;
+    color: #888888;
     cursor: pointer;
     padding: 6px;
     border-radius: 8px;
@@ -297,14 +303,14 @@ const {
 
   .hl-msg-ai .hl-msg-bubble {
     background: #1e1e1e;
-    color: #ffffff !important;
+    color: #ffffff;
     border-bottom-left-radius: 4px;
     border: 1px solid #2a2a2a;
   }
 
   .hl-msg-user .hl-msg-bubble {
     background: var(--hl-accent, #6c63ff);
-    color: #ffffff !important;
+    color: #ffffff;
     border-bottom-right-radius: 4px;
   }
 
@@ -351,7 +357,7 @@ const {
     background: #1e1e1e;
     border: 1px solid #333333;
     border-radius: 20px;
-    color: #ffffff !important;
+    color: #ffffff;
     font-size: 11.5px;
     padding: 5px 11px;
     cursor: pointer;
@@ -382,14 +388,14 @@ const {
     border: 1px solid #333333;
     border-radius: 12px;
     padding: 9px 13px;
-    color: #ffffff !important;
+    color: #ffffff;
     font-size: 13px;
     font-family: inherit;
     outline: none;
     transition: border-color 0.15s;
   }
 
-  #hl-input::placeholder { color: #555555 !important; }
+  #hl-input::placeholder { color: #555555; }
   #hl-input:focus { border-color: var(--hl-accent, #6c63ff); }
 
   #hl-send {
@@ -413,7 +419,7 @@ const {
   #hl-footer {
     text-align: center;
     font-size: 10.5px;
-    color: #888888 !important;
+    color: #888888;
     padding: 6px 14px 10px;
     flex-shrink: 0;
     min-height: 28px;
@@ -428,10 +434,10 @@ const {
     opacity: 0;
   }
 
-  #hl-footer strong { color: #ffffff !important; }
+  #hl-footer strong { color: #ffffff; }
 
   #hl-footer a {
-    color: var(--hl-accent, #6c63ff) !important;
+    color: var(--hl-accent, #6c63ff);
     text-decoration: none;
   }
 
@@ -444,177 +450,175 @@ const {
 </style>
 
 <script>
-  const root = document.getElementById('hl-root')!;
-  const toggle = document.getElementById('hl-toggle')!;
-  const panel = document.getElementById('hl-panel')!;
-  const btnIcon = document.getElementById('hl-btn-icon')!;
-  const btnClose = document.getElementById('hl-btn-close')!;
-  const messagesEl = document.getElementById('hl-messages')!;
-  const input = document.getElementById('hl-input') as HTMLInputElement;
-  const sendBtn = document.getElementById('hl-send') as HTMLButtonElement;
-  const clearBtn = document.getElementById('hl-clear')!;
-  const suggestionsEl = document.getElementById('hl-suggestions')!;
-  const pulse = document.getElementById('hl-pulse')!;
-  const footerText = document.getElementById('hl-footer-text')!;
+  (function() {
+    'use strict';
 
-  const API_ENDPOINT = root.dataset.endpoint || '/api/heliara/';
+    function initHeliara() {
+      const root = document.getElementById('hl-root');
+      const toggle = document.getElementById('hl-toggle');
+      const panel = document.getElementById('hl-panel');
+      const btnIcon = document.getElementById('hl-btn-icon');
+      const btnClose = document.getElementById('hl-btn-close');
+      const messagesEl = document.getElementById('hl-messages');
+      const input = document.getElementById('hl-input');
+      const sendBtn = document.getElementById('hl-send');
+      const clearBtn = document.getElementById('hl-clear');
+      const suggestionsEl = document.getElementById('hl-suggestions');
+      const pulse = document.getElementById('hl-pulse');
+      const footerText = document.getElementById('hl-footer-text');
 
-  let isOpen = false;
-  let isLoading = false;
-  let history: { role: string; content: string }[] = [];
+      if (!root || !toggle || !panel) return;
 
-  const GREETING = messagesEl.querySelector('.hl-msg-bubble')?.textContent || '';
+      const API_ENDPOINT = root.dataset.endpoint || '/api/heliara/';
 
-  // ── Rotating footer messages ──────────────────────────────────────────────
-  const footerMessages = [
-    `Powered by <strong>Heliara AI</strong> × Groq`,
-    `🎉 ReviByte is <strong>181 days</strong> old & growing!`,
-    `🚀 <strong>400+ daily visitors</strong> and counting`,
-    `📖 New posts dropping on <a href="https://revibyte.blog" target="_blank" rel="noopener">revibyte.blog</a>`,
-    `👋 Come back soon — iSamuel publishes weekly`,
-    `⭐ Enjoying ReviByte? <a href="https://revibyte.blog" target="_blank" rel="noopener">Bookmark the blog</a>`,
-  ];
+      let isOpen = false;
+      let isLoading = false;
+      let history = [];
 
-  let footerIndex = 0;
+      const GREETING = messagesEl?.querySelector('.hl-msg-bubble')?.textContent || '';
 
-  function rotateFooter() {
-    footerText.classList.add('fade');
-    setTimeout(() => {
-      footerIndex = (footerIndex + 1) % footerMessages.length;
-      footerText.innerHTML = footerMessages[footerIndex];
-      footerText.classList.remove('fade');
-    }, 400);
-  }
+      // ── Rotating footer messages ──
+      const footerMessages = [
+        'Powered by <strong>Heliara AI</strong> × Groq',
+        '🎉 ReviByte is <strong>200 days</strong> old & growing!',
+        '📖 New posts dropping on <a href="https://revibyte.blog" target="_blank" rel="noopener">revibyte.blog</a>',
+        '👋 Come back',
+        '⭐ Enjoying ReviByte? <a href="https://revibyte.blog" target="_blank" rel="noopener">Bookmark the blog</a>',
+      ];
 
-  setInterval(rotateFooter, 4000);
+      let footerIndex = 0;
 
-  // ── Panel toggle ──────────────────────────────────────────────────────────
-  function togglePanel() {
-  isOpen = !isOpen;
-  panel.classList.toggle('open', isOpen);
-  panel.setAttribute('aria-hidden', String(!isOpen));
-  if (isOpen) {
-    panel.removeAttribute('inert');
-  } else {
-    panel.setAttribute('inert', '');
-  }
-  btnIcon.style.display = isOpen ? 'none' : 'flex';
-  btnClose.style.display = isOpen ? 'flex' : 'none';
-  pulse.style.display = isOpen ? 'none' : 'block';
-  if (isOpen) { input.focus(); scrollToBottom(); }
-}
+      function rotateFooter() {
+        footerText.classList.add('fade');
+        setTimeout(function() {
+          footerIndex = (footerIndex + 1) % footerMessages.length;
+          footerText.innerHTML = footerMessages[footerIndex];
+          footerText.classList.remove('fade');
+        }, 400);
+      }
 
-  function scrollToBottom() {
-    requestAnimationFrame(() => { messagesEl.scrollTop = messagesEl.scrollHeight; });
-  }
+      setInterval(rotateFooter, 4000);
 
-  function addMessage(text: string, role: 'user' | 'ai') {
-    if (role === 'user') suggestionsEl.style.display = 'none';
+      // ── Panel toggle ──
+      function togglePanel() {
+        isOpen = !isOpen;
+        panel.classList.toggle('open', isOpen);
+        panel.setAttribute('aria-hidden', String(!isOpen));
+        if (isOpen) {
+          panel.removeAttribute('inert');
+        } else {
+          panel.setAttribute('inert', '');
+        }
+        btnIcon.style.display = isOpen ? 'none' : 'flex';
+        btnClose.style.display = isOpen ? 'flex' : 'none';
+        pulse.style.display = isOpen ? 'none' : 'block';
+        if (isOpen && input) { input.focus(); scrollToBottom(); }
+      }
 
-    const wrap = document.createElement('div');
-    wrap.className = `hl-msg hl-msg-${role}`;
+      function scrollToBottom() {
+        requestAnimationFrame(function() {
+          messagesEl.scrollTop = messagesEl.scrollHeight;
+        });
+      }
 
-    if (role === 'ai') {
-      wrap.innerHTML = `
-        <div class="hl-msg-avatar">
-          <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/>
-          </svg>
-        </div>
-        <div class="hl-msg-bubble">${text.replace(/\n/g, '<br>')}</div>`;
-    } else {
-      wrap.innerHTML = `<div class="hl-msg-bubble">${text.replace(/\n/g, '<br>')}</div>`;
-    }
+      function addMessage(text, role) {
+        if (role === 'user' && suggestionsEl) suggestionsEl.style.display = 'none';
 
-    messagesEl.appendChild(wrap);
-    scrollToBottom();
-  }
+        const wrap = document.createElement('div');
+        wrap.className = 'hl-msg hl-msg-' + role;
 
-  function addTyping() {
-    const wrap = document.createElement('div');
-    wrap.className = 'hl-msg hl-msg-ai';
-    wrap.id = 'hl-typing';
-    wrap.innerHTML = `
-      <div class="hl-msg-avatar">
-        <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/>
-        </svg>
-      </div>
-      <div class="hl-typing-bubble">
-        <div class="hl-dots"><span></span><span></span><span></span></div>
-      </div>`;
-    messagesEl.appendChild(wrap);
-    scrollToBottom();
-    return wrap;
-  }
+        if (role === 'ai') {
+          wrap.innerHTML = '<div class="hl-msg-avatar"><svg width="12" height="12"><use href="#hl-icon"/></svg></div><div class="hl-msg-bubble">' + text.replace(/\n/g, '<br>') + '</div>';
+        } else {
+          wrap.innerHTML = '<div class="hl-msg-bubble">' + text.replace(/\n/g, '<br>') + '</div>';
+        }
 
-  async function sendMessage(text?: string) {
-    const userText = text || input.value.trim();
-    if (!userText || isLoading) return;
+        messagesEl.appendChild(wrap);
+        scrollToBottom();
+      }
 
-    input.value = '';
-    isLoading = true;
-    sendBtn.disabled = true;
+      function addTyping() {
+        const wrap = document.createElement('div');
+        wrap.className = 'hl-msg hl-msg-ai';
+        wrap.id = 'hl-typing';
+        wrap.innerHTML = '<div class="hl-msg-avatar"><svg width="12" height="12"><use href="#hl-icon"/></svg></div><div class="hl-typing-bubble"><div class="hl-dots"><span></span><span></span><span></span></div></div>';
+        messagesEl.appendChild(wrap);
+        scrollToBottom();
+        return wrap;
+      }
 
-    addMessage(userText, 'user');
-    history.push({ role: 'user', content: userText });
+      async function sendMessage(text) {
+        const userText = text || (input ? input.value.trim() : '');
+        if (!userText || isLoading) return;
 
-    const typing = addTyping();
+        if (input) input.value = '';
+        isLoading = true;
+        if (sendBtn) sendBtn.disabled = true;
 
-    try {
-      const res = await fetch(API_ENDPOINT, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ messages: history }),
+        addMessage(userText, 'user');
+        history.push({ role: 'user', content: userText });
+
+        const typing = addTyping();
+
+        try {
+          const res = await fetch(API_ENDPOINT, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ messages: history }),
+          });
+
+          const data = await res.json();
+          typing.remove();
+
+          const reply = data.error ? 'Something went wrong. Please try again.' : data.reply;
+          addMessage(reply, 'ai');
+          if (!data.error) history.push({ role: 'assistant', content: reply });
+
+        } catch (e) {
+          typing.remove();
+          addMessage('Network error. Check your connection and try again.', 'ai');
+        }
+
+        isLoading = false;
+        if (sendBtn) sendBtn.disabled = false;
+        if (input) input.focus();
+      }
+
+      function resetChat() {
+        history = [];
+        if (suggestionsEl) suggestionsEl.style.display = 'flex';
+        if (messagesEl) {
+          messagesEl.innerHTML = '<div class="hl-msg hl-msg-ai"><div class="hl-msg-avatar"><svg width="12" height="12"><use href="#hl-icon"/></svg></div><div class="hl-msg-bubble">' + GREETING + '</div></div>';
+        }
+      }
+
+      toggle.addEventListener('click', togglePanel);
+      if (sendBtn) sendBtn.addEventListener('click', function() { sendMessage(); });
+      if (clearBtn) clearBtn.addEventListener('click', resetChat);
+
+      if (input) {
+        input.addEventListener('keydown', function(e) {
+          if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendMessage(); }
+        });
+      }
+
+      document.querySelectorAll('.hl-suggestion').forEach(function(btn) {
+        btn.addEventListener('click', function() {
+          if (!isOpen) togglePanel();
+          sendMessage(btn.textContent || '');
+        });
       });
 
-      const data = await res.json();
-      typing.remove();
-
-      const reply = data.error ? 'Something went wrong. Please try again.' : data.reply;
-      addMessage(reply, 'ai');
-      if (!data.error) history.push({ role: 'assistant', content: reply });
-
-    } catch {
-      typing.remove();
-      addMessage('Network error. Check your connection and try again.', 'ai');
+      document.addEventListener('click', function(e) {
+        if (isOpen && !root.contains(e.target)) togglePanel();
+      });
     }
 
-    isLoading = false;
-    sendBtn.disabled = false;
-    input.focus();
-  }
-
-  function resetChat() {
-    history = [];
-    suggestionsEl.style.display = 'flex';
-    messagesEl.innerHTML = `
-      <div class="hl-msg hl-msg-ai">
-        <div class="hl-msg-avatar">
-          <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/>
-          </svg>
-        </div>
-        <div class="hl-msg-bubble">${GREETING}</div>
-      </div>`;
-  }
-
-  toggle.addEventListener('click', togglePanel);
-  sendBtn.addEventListener('click', () => sendMessage());
-  clearBtn.addEventListener('click', resetChat);
-
-  input.addEventListener('keydown', (e) => {
-    if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendMessage(); }
-  });
-
-  document.querySelectorAll('.hl-suggestion').forEach((btn) => {
-    btn.addEventListener('click', () => {
-      if (!isOpen) togglePanel();
-      sendMessage((btn as HTMLElement).textContent || '');
-    });
-  });
-
-  document.addEventListener('click', (e) => {
-    if (isOpen && !root.contains(e.target as Node)) togglePanel();
-  });
+    // Defer initialization until browser is idle
+    if ('requestIdleCallback' in window) {
+      requestIdleCallback(initHeliara, { timeout: 3000 });
+    } else {
+      setTimeout(initHeliara, 3000);
+    }
+  })();
 </script>
