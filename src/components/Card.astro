@@ -8,134 +8,148 @@ export interface Props extends CollectionEntry<"blog"> {
   variant?: "h2" | "h3";
 }
 
-const { variant = "h2", data, id, filePath } = Astro.props;
-
+const { variant: Tag = "h2", data, id, filePath } = Astro.props;
 const { title, description, pubDatetime, modDatetime, timezone, tags = [], coverImage } = data;
-
 const postPath = getPath(id, filePath);
 
-const headerProps = {
-  style: { viewTransitionName: slugifyStr(title) },
-  class: "card-title",
-};
+// Generate responsive srcset if using Astro image optimization
+// Fallback to raw URL if not available
+const imgSrc = coverImage;
 ---
 
-<li class="card-wrapper">
-  <a href={postPath} class="card-link" tabindex="-1" aria-hidden="true">
-    {coverImage && (
-      <div class="card-image-wrap">
-        <img
-          src={coverImage}
-          alt={title}
-          class="card-image"
-          loading="lazy"
-        />
-        <div class="card-image-overlay"></div>
-      </div>
-    )}
-  </a>
+<li class="card">
+  {coverImage && (
+    <div class="card__media">
+      <img
+        src={imgSrc}
+        alt=""
+        width="736"
+        height="414"
+        loading="eager"
+        decoding="async"
+        fetchpriority="high"
+      />
+    </div>
+  )}
 
-  <div class="card-body">
-    <!-- Top row: date + tag -->
-    <div class="card-meta">
+  <div class="card__body">
+    <div class="card__meta">
       <Datetime {pubDatetime} {modDatetime} {timezone} />
-      {tags[0] && (
-        <span class="card-tag">{tags[0]}</span>
-      )}
+      {tags[0] && <span class="card__tag">{tags[0]}</span>}
     </div>
 
-    <!-- Title -->
-    <a href={postPath} class="card-title-link">
-      {variant === "h2" ? (
-        <h2 {...headerProps}>{title}</h2>
-      ) : (
-        <h3 {...headerProps}>{title}</h3>
-      )}
+    <a href={postPath} class="card__link">
+      <Tag class="card__title" style={{ viewTransitionName: slugifyStr(title) }}>
+        {title}
+      </Tag>
     </a>
 
-    <!-- Description -->
-    <p class="card-desc">{description}</p>
+    <p class="card__desc">{description}</p>
 
-    <!-- Read more -->
-    <a href={postPath} class="card-read-more">
-      <span>Read more</span>
+    <a href={postPath} class="card__more">
+      Read more
       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
         <path d="M5 12h14M12 5l7 7-7 7"/>
       </svg>
     </a>
   </div>
-
-  <!-- Glow border effect on hover -->
-  <div class="card-glow" aria-hidden="true"></div>
 </li>
 
 <style>
-  .card-wrapper {
+  .card {
+    --card-accent: #6366f1;
+    --card-radius: 16px;
+    
     position: relative;
     list-style: none;
     margin: 1.25rem 0;
-    border-radius: 16px;
-    border: 1px solid rgba(99, 102, 241, 0.1);
-    background: #ffffff;
-    backdrop-filter: none;
-    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
-    overflow: hidden;
-    transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+    border-radius: var(--card-radius);
+    background: #fff;
+    border: 1px solid color-mix(in srgb, var(--card-accent) 10%, transparent);
+    box-shadow: 0 1px 4px rgb(0 0 0 / 0.06);
+    overflow: clip;
+    transition: translate 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
   }
 
-  [data-theme="dark"] .card-wrapper {
-    background: rgba(15, 23, 42, 0.6);
-    border-color: rgba(99, 102, 241, 0.15);
-    box-shadow: none;
+  [data-theme="dark"] .card {
+    background: rgb(15 23 42 / 0.6);
+    border-color: color-mix(in srgb, var(--card-accent) 15%, transparent);
   }
 
-  .card-wrapper:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 12px 40px rgba(99, 102, 241, 0.15);
-    border-color: rgba(99, 102, 241, 0.35);
+  .card:hover {
+    translate: 0 -3px;
+    border-color: color-mix(in srgb, var(--card-accent) 35%, transparent);
+    box-shadow: 0 12px 40px color-mix(in srgb, var(--card-accent) 15%, transparent);
   }
 
-  [data-theme="dark"] .card-wrapper:hover {
-    box-shadow: 0 12px 40px rgba(99, 102, 241, 0.25);
+  [data-theme="dark"] .card:hover {
+    box-shadow: 0 12px 40px color-mix(in srgb, var(--card-accent) 25%, transparent);
   }
 
-  /* Cover image */
-  .card-link {
-    display: block;
-    text-decoration: none;
+  .card::before {
+    content: "";
+    position: absolute;
+    inset: -1px;
+    border-radius: inherit;
+    background: linear-gradient(135deg, color-mix(in srgb, var(--card-accent) 15%, transparent), transparent 60%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+    z-index: 1;
   }
 
-  .card-image-wrap {
+  .card:hover::before {
+    opacity: 1;
+  }
+
+  /* Media — aspect-ratio fallback via padding hack for ancient browsers */
+  .card__media {
     position: relative;
-    width: 100%;
-    aspect-ratio: 16/9;
-    overflow: hidden;
+    aspect-ratio: 16 / 9;
+    overflow: clip;
+    background: #e2e8f0; /* placeholder color while loading */
   }
 
-  .card-image {
+  /* Fallback for browsers without aspect-ratio support */
+  @supports not (aspect-ratio: 16 / 9) {
+    .card__media {
+      padding-top: 56.25%;
+      height: 0;
+    }
+    .card__media img {
+      position: absolute;
+      inset: 0;
+    }
+  }
+
+  [data-theme="dark"] .card__media {
+    background: #1e293b;
+  }
+
+  .card__media::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, transparent 50%, rgb(15 23 42 / 0.4));
+    z-index: 1;
+  }
+
+  .card__media img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    transition: transform 0.4s ease;
+    transition: scale 0.4s ease;
   }
 
-  .card-wrapper:hover .card-image {
-    transform: scale(1.03);
+  .card:hover .card__media img {
+    scale: 1.03;
   }
 
-  .card-image-overlay {
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(180deg, transparent 50%, rgba(15,23,42,0.4) 100%);
-  }
-
-  /* Body */
-  .card-body {
+  .card__body {
     padding: 1.1rem 1.25rem 1.25rem;
   }
 
-  /* Meta row */
-  .card-meta {
+  .card__meta {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -144,26 +158,24 @@ const headerProps = {
     flex-wrap: wrap;
   }
 
-  .card-tag {
+  .card__tag {
     font-size: 0.65rem;
     font-weight: 700;
     letter-spacing: 0.1em;
     text-transform: uppercase;
-    color: #6366f1;
-    background: rgba(99, 102, 241, 0.1);
-    border: 1px solid rgba(99, 102, 241, 0.2);
+    color: var(--card-accent);
+    background: color-mix(in srgb, var(--card-accent) 10%, transparent);
+    border: 1px solid color-mix(in srgb, var(--card-accent) 20%, transparent);
     padding: 2px 8px;
     border-radius: 999px;
     white-space: nowrap;
   }
 
-  /* Title */
-  .card-title-link {
+  .card__link {
     text-decoration: none;
-    display: block;
   }
 
-  .card-title {
+  .card__title {
     font-size: 1.05rem;
     font-weight: 700;
     line-height: 1.4;
@@ -173,16 +185,15 @@ const headerProps = {
     transition: color 0.2s;
   }
 
-  [data-theme="dark"] .card-title {
+  [data-theme="dark"] .card__title {
     color: #f1f5f9;
   }
 
-  .card-wrapper:hover .card-title {
-    color: #6366f1;
+  .card:hover .card__title {
+    color: var(--card-accent);
   }
 
-  /* Description */
-  .card-desc {
+  .card__desc {
     font-size: 0.85rem;
     line-height: 1.65;
     opacity: 0.6;
@@ -193,35 +204,19 @@ const headerProps = {
     overflow: hidden;
   }
 
-  /* Read more */
-  .card-read-more {
+  .card__more {
     display: inline-flex;
     align-items: center;
     gap: 0.4rem;
     font-size: 0.78rem;
     font-weight: 600;
-    color: #6366f1;
+    color: var(--card-accent);
     text-decoration: none;
     letter-spacing: 0.01em;
     transition: gap 0.2s ease;
   }
 
-  .card-read-more:hover {
+  .card__more:hover {
     gap: 0.65rem;
-  }
-
-  /* Glow effect */
-  .card-glow {
-    position: absolute;
-    inset: -1px;
-    border-radius: 16px;
-    background: linear-gradient(135deg, rgba(99,102,241,0.15), transparent 60%);
-    opacity: 0;
-    transition: opacity 0.3s ease;
-    pointer-events: none;
-  }
-
-  .card-wrapper:hover .card-glow {
-    opacity: 1;
   }
 </style>
