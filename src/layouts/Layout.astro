@@ -283,7 +283,9 @@ const currentPath = Astro.url.pathname;
       <button onclick="dismissInstallBanner()" style="background:transparent; color:white; border:none; cursor:pointer; font-size:18px;">✕</button>
     </div>
 
-    <slot name="header" />
+<slot name="header" />
+
+    <slot name="top-nav" />
 
     {coverImage && (
       <OptimizedCoverImage 
