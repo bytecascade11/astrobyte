@@ -160,13 +160,7 @@ const postSlug = post.id;
 
   <Header slot="header" />
 
-  <main
-    id="main-content"
-    class="pb-12 mx-auto w-full max-w-3xl px-4 mt-8"
-  >
-
-    <!-- Top nav -->
-    <div class="post-top-nav mx-auto w-full max-w-3xl px-4 mt-8" slot="top-nav">
+  <div class="post-top-nav mx-auto w-full max-w-3xl px-4 mt-8" slot="top-nav">
     <Breadcrumbs
       items={[
         { label: "Home", href: "/" },
@@ -176,6 +170,11 @@ const postSlug = post.id;
     />
     <BackButton />
   </div>
+
+  <main
+    id="main-content"
+    class="pb-12 mx-auto w-full max-w-3xl px-4 mt-8"
+  >
 
     <!-- Adsterra: Under Cover Image -->
 <div style="margin: 1.5rem 0; min-height: 300px; contain: layout;">
