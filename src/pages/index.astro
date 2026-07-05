@@ -40,7 +40,7 @@ function getSrcset(src: string): string {
   const key = normalize(src);
   const entry = imageManifest[key];
   const webp = entry?.optimized;
-  if (!webp) return '';
+  if (!webp) return src;
   return `${webp[480]} 480w, ${webp[800]} 800w, ${webp[1200]} 1200w`;
 }
 ---
