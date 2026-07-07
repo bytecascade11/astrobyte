@@ -183,7 +183,6 @@ html {
 /* ========================= */
 /* CONTENT-VISIBILITY — skip rendering off-screen */
 /* ========================= */
-.article-list,
 .comments-section,
 .related-posts,
 footer {
@@ -422,7 +421,6 @@ html {
 }
 
 /* Content visibility for off-screen sections */
-.article-list,
 .comments-section,
 .related-posts,
 footer {
