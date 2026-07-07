@@ -334,7 +334,7 @@ const currentPath = Astro.url.pathname;
     )}
 
     <!-- OneSignal SDK -->
-    </scripts>
+    <script is:inline defer src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js"></script>
     <!-- Umami Analytics -->
     <script defer src="https://cloud.umami.is/script.js" data-website-id="5a7a4a29-83ee-40a8-8b0d-d5afae7d11e5"></script>
 
@@ -414,8 +414,46 @@ const currentPath = Astro.url.pathname;
         }
       });
     </script>
-
-  
+<script is:inline>
+  (function() {
+    var isPWA = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true;
+    if (isPWA) {
+      document.documentElement.classList.add('is-pwa-early');
+    }
+  })();
+</script>
+<!-- OneSignal Init -->
+    <script is:inline>
+      window.OneSignalDeferred = window.OneSignalDeferred || [];
+      OneSignalDeferred.push(async function (OneSignal) {
+        try {
+          await OneSignal.init({
+            appId: "bbd38552-99d1-4cda-96f9-5c0cacfba192",
+            notifyButton: { enable: false },
+            allowLocalhostAsSecureOrigin: true,
+            autoResubscribe: true,
+            promptOptions: {
+              slidedown: {
+                prompts: [{
+                  type: "push",
+                  autoPrompt: true,
+                  text: {
+                    actionMessage: "⚡ Stay Ahead in Tech",
+                    acceptButtonText: "Allow 🔔",
+                    cancelButtonText: "Not Now",
+                    confirmMessage: "Hit Allow to get instant updates on new posts, phone comparisons, and buying guides that actually help."
+                  },
+                  delay: { pageViews: 0, timeDelay: 3 }
+                }]
+              }
+            }
+          });
+          console.log("OneSignal initialized successfully");
+        } catch (e) {
+          console.error("OneSignal init error:", e);
+        }
+      });
+    </script>
 <!-- TEMP: CLS diagnostic — remove after use -->
     <script is:inline>
       if (location.search.includes('debug=cls')) {
