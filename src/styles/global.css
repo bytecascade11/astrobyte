@@ -63,7 +63,17 @@ html[data-theme="light"] body {
   background: #ffffff;
   animation: none;
 }
-
+html.is-pwa-early body {
+  padding-top: 56px;
+  padding-bottom: 64px;
+}
+html.is-pwa-early .bottom-nav,
+html.is-pwa-early .pwa-topbar {
+  display: flex;
+}
+html.is-pwa-early header {
+  display: none !important;
+}
 /* ========================= */
 /* BACKGROUND TEXT — REVIBYTE */
 /* ========================= */
