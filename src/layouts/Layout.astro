@@ -448,30 +448,5 @@ const currentPath = Astro.url.pathname;
         }
       });
     </script>
-<!-- TEMP: CLS diagnostic — remove after use -->
-    <script is:inline>
-      if (location.search.includes('debug=cls')) {
-        var s = document.createElement('script');
-        s.src = 'https://cdn.jsdelivr.net/npm/eruda';
-        document.body.appendChild(s);
-        s.onload = function () {
-          eruda.init();
-          var po = new PerformanceObserver(function (list) {
-            list.getEntries().forEach(function (entry) {
-              (entry.sources || []).forEach(function (src) {
-                console.log(
-                  'CLS:', entry.value.toFixed(4),
-                  '| Tag:', src.node && src.node.tagName,
-                  '| Class:', src.node && src.node.className,
-                  '| Prev rect:', JSON.stringify(src.previousRect),
-                  '| Curr rect:', JSON.stringify(src.currentRect)
-                );
-              });
-            });
-          });
-          po.observe({ type: 'layout-shift', buffered: true });
-        };
-      }
-    </script>
   </body>
 </html>
