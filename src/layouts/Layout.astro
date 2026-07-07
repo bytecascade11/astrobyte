@@ -84,7 +84,7 @@ const currentPath = Astro.url.pathname;
     <!-- Font preload to prevent FOUT/CLS -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@400;500;600;700&display=swap" />
     <!-- Theme Handling — critical, must stay blocking to prevent flash -->
     <script is:inline>
       const primaryColorScheme = "";
