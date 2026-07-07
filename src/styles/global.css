@@ -63,17 +63,7 @@ html[data-theme="light"] body {
   background: #ffffff;
   animation: none;
 }
-html.is-pwa-early body {
-  padding-top: 56px;
-  padding-bottom: 64px;
-}
-html.is-pwa-early .bottom-nav,
-html.is-pwa-early .pwa-topbar {
-  display: flex;
-}
-html.is-pwa-early header {
-  display: none !important;
-}
+
 /* ========================= */
 /* BACKGROUND TEXT — REVIBYTE */
 /* ========================= */
@@ -241,53 +231,6 @@ section, footer, main {
 }
 
 /* ========================= */
-/* PWA — HIDE SITE HEADER    */
-/* ========================= */
-@media (display-mode: standalone) {
-  header,
-  header * {
-    display: none !important;
-    visibility: hidden !important;
-    height: 0 !important;
-    min-height: 0 !important;
-    max-height: 0 !important;
-    overflow: hidden !important;
-    padding: 0 !important;
-    margin: 0 !important;
-    border: none !important;
-    pointer-events: none !important;
-    opacity: 0 !important;
-  }
-
-  body {
-    padding-top: 56px !important;
-    padding-bottom: 64px !important;
-  }
-}
-
-@media (display-mode: standalone) and (min-width: 768px) {
-  header,
-  header * {
-    display: revert !important;
-    visibility: visible !important;
-    height: auto !important;
-    min-height: revert !important;
-    max-height: revert !important;
-    overflow: revert !important;
-    padding: revert !important;
-    margin: revert !important;
-    border: revert !important;
-    pointer-events: auto !important;
-    opacity: 1 !important;
-  }
-
-  body {
-    padding-top: 0 !important;
-    padding-bottom: 0 !important;
-  }
-}
-
-/* ========================= */
 /* DARK MODE TEXT FIX        */
 /* ========================= */
 
@@ -421,23 +364,6 @@ section, footer, main {
   border-color: var(--border);
 }
 
-/* ========================= */
-/* PWA COMPONENT STYLES      */
-/* (Moved from Layout.astro) */
-/* ========================= */
-/* Scrollbar gutter prevents shift when scrollbar appears */
-html {
-  scrollbar-gutter: stable;
-}
-
-/* Content visibility for off-screen sections */
-.comments-section,
-.related-posts,
-footer {
-  content-visibility: auto;
-  contain-intrinsic-size: 0 500px;
-}
-
 /* ── OneSignal Slidedown Custom Dark Theme ── */
 #onesignal-slidedown-container,
 .onesignal-slidedown-container {
@@ -458,6 +384,7 @@ footer {
   border-radius: 24px 24px 0 0 !important;
   box-shadow: 0 -8px 40px rgba(0,0,0,0.5) !important;
 }
+
 /* Ad slot reserves — prevents CLS */
 .rb-ad-banner,
 .rb-ad-in-list,
@@ -470,185 +397,4 @@ footer {
 /* Leaderboard size */
 [data-ad-format="horizontal"] {
   min-height: 90px;
-}
-
-/* ── PWA Top Bar ── */
-.pwa-topbar {
-  display: none;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 56px;
-  background: #0f172a;
-  color: white;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 16px;
-  z-index: 9990;
-  box-shadow: 0 2px 12px rgba(0,0,0,0.3);
-}
-.pwa-topbar-title {
-  font-size: 18px;
-  font-weight: 700;
-  color: white;
-  text-decoration: none;
-  letter-spacing: -0.3px;
-}
-.pwa-topbar-actions {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-.pwa-topbar-btn {
-  background: rgba(255,255,255,0.1);
-  border: none;
-  color: white;
-  width: 38px;
-  height: 38px;
-  border-radius: 10px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  text-decoration: none;
-  transition: background 0.2s;
-}
-.pwa-topbar-btn:hover {
-  background: rgba(255,255,255,0.2);
-}
-.pwa-topbar-btn svg {
-  width: 20px;
-  height: 20px;
-  stroke: white;
-  fill: none;
-  stroke-width: 2;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-}
-
-/* ── Bottom Nav ── */
-.bottom-nav {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  background: #0f172a;
-  display: none;
-  justify-content: space-around;
-  align-items: center;
-  height: 64px;
-  z-index: 9990;
-  border-top: 1px solid rgba(255,255,255,0.08);
-  box-shadow: 0 -4px 20px rgba(0,0,0,0.3);
-}
-.bottom-nav a {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 4px;
-  color: rgba(255,255,255,0.5);
-  text-decoration: none;
-  font-size: 10px;
-  font-weight: 500;
-  flex: 1;
-  height: 100%;
-  transition: color 0.2s;
-}
-.bottom-nav a:hover,
-.bottom-nav a.active {
-  color: #6366f1;
-}
-.bottom-nav a svg {
-  width: 22px;
-  height: 22px;
-  stroke: currentColor;
-  fill: none;
-  stroke-width: 2;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-}
-.bottom-nav a.active svg {
-  fill: rgba(99,102,241,0.15);
-}
-
-/* ── More Menu ── */
-.more-menu {
-  position: fixed;
-  bottom: 64px;
-  left: 0;
-  width: 100%;
-  background: #0f172a;
-  border-top: 1px solid rgba(255,255,255,0.08);
-  z-index: 9989;
-  display: none;
-  flex-direction: column;
-  box-shadow: 0 -4px 20px rgba(0,0,0,0.3);
-}
-.more-menu.open {
-  display: flex;
-}
-.more-menu a {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  padding: 16px 24px;
-  color: rgba(255,255,255,0.8);
-  text-decoration: none;
-  font-size: 15px;
-  font-weight: 500;
-  border-bottom: 1px solid rgba(255,255,255,0.05);
-  transition: background 0.2s;
-}
-.more-menu a:hover {
-  background: rgba(255,255,255,0.05);
-  color: #6366f1;
-}
-.more-menu a svg {
-  width: 20px;
-  height: 20px;
-  stroke: currentColor;
-  fill: none;
-  stroke-width: 2;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-  opacity: 0.7;
-}
-
-/* ── PWA Mode (JS-driven, matches inline logic) ── */
-body.is-pwa .bottom-nav,
-body.is-pwa .pwa-topbar {
-  display: flex;
-}
-body.is-pwa {
-  padding-top: 56px;
-  padding-bottom: 64px;
-}
-body.is-pwa header {
-  display: none !important;
-  visibility: hidden !important;
-  height: 0 !important;
-  overflow: hidden !important;
-  pointer-events: none !important;
-}
-
-/* ── Desktop overrides ── */
-@media (min-width: 768px) {
-  .bottom-nav,
-  .more-menu,
-  .pwa-topbar {
-    display: none !important;
-  }
-  body.is-pwa {
-    padding-top: 0 !important;
-    padding-bottom: 0 !important;
-  }
-  body.is-pwa header {
-    display: block !important;
-    visibility: visible !important;
-    height: auto !important;
-    overflow: visible !important;
-    pointer-events: auto !important;
-  }
 }
