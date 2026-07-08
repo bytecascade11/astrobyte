@@ -34,6 +34,8 @@ At under ₦150,000 in April 2026, you should realistically expect a 6.6–6.9 i
 What you will not get at this price: an AMOLED display, 5G, a camera with optical image stabilisation, or more than two to three years of guaranteed OS updates — except for one specific entry on this list. Set those expectations before you walk into a store.
 
 ---
+<script async="async" data-cfasync="false" src="https://pl28410703.effectivecpmnetwork.com/100c0408033e7aba877563ba9293a45d/invoke.js"></script>
+<div id="container-100c0408033e7aba877563ba9293a45d"></div>
 
 ## 1. Infinix Hot 60i — ₦143,900 (4GB/128GB)
 
@@ -53,7 +55,7 @@ Storage is eMMC 5.1, not the faster UFS standard. You will feel the difference w
 **Where to buy:** Slot, Jumia, Kara — from ₦143,900 new; from around ₦109,000 used on Jiji
 
 ---
-
+https://pl28410703.effectivecpmnetwork.com/100c0408033e7aba877563ba9293a45d/invoke.js
 ## 2. POCO C85 — ₦142,000 (6GB/128GB)
 
 The POCO C85 is the battery-first pick on this list and it earns that position genuinely. The **6,000mAh cell is the largest at this price tier in this guide** — not by a small margin. If you live somewhere with erratic power supply, and honestly that describes most of Nigeria outside specific parts of Lagos and Abuja, that matters more than almost any other specification.
@@ -100,6 +102,8 @@ HiOS — Tecno's software skin — has improved substantially since 2023. There 
 **Where to buy:** Slot, Jumia, Tecno experience centres, Konga — from ₦142,700
 
 ---
+<script async="async" data-cfasync="false" src="https://pl28410703.effectivecpmnetwork.com/100c0408033e7aba877563ba9293a45d/invoke.js"></script>
+<div id="container-100c0408033e7aba877563ba9293a45d"></div>
 
 ## 4. Samsung Galaxy A07 4G — ₦138,000 (4GB/64GB)
 
@@ -120,7 +124,7 @@ The 64GB storage on the base model is genuinely tight in 2026. A microSD card is
 **Where to buy:** Slot, Samsung authorised dealers, Jumia, Konga — from ₦138,000 (4GB/64GB base)
 
 ---
-
+https://pl28410703.effectivecpmnetwork.com/100c0408033e7aba877563ba9293a45d/invoke.js
 ## 5. Tecno Pop 10 Pro — ₦127,000 (4GB/128GB)
 
 ![Tecno Pop 10 Pro in Ink Black showing its camera module and display on a clean neutral surface](/assets/posts/tecno-pop-10-pro-nigeria.jpg)
@@ -157,6 +161,8 @@ One thing to know: the Smart 10 Plus runs Android 15 Go Edition — the lightwei
 **Where to buy:** Slot, Jumia, 3CHub, Jiji — from ₦126,000
 
 ---
+<script async="async" data-cfasync="false" src="https://pl28410703.effectivecpmnetwork.com/100c0408033e7aba877563ba9293a45d/invoke.js"></script>
+<div id="container-100c0408033e7aba877563ba9293a45d"></div>
 
 ## Budget Fallbacks: Tecno Pop 10, itel City 100, and POCO C71
 
@@ -169,6 +175,8 @@ If ₦126,000 is still above where your budget sits comfortably, these three cov
 **POCO C71 — ₦104,900 (4GB/128GB):** The better raw spec deal at sub-₦110k. 4GB RAM and 128GB storage at this price is genuinely difficult to match. The 5,000mAh battery is standard, 18W charging is adequate, and the processor handles daily use without embarrassment. Xiaomi's software bloatware is manageable after initial setup. If you are buying a first phone for someone or a reliable secondary device, this works without making apologies.
 
 ---
+<script async="async" data-cfasync="false" src="https://pl28410703.effectivecpmnetwork.com/100c0408033e7aba877563ba9293a45d/invoke.js"></script>
+<div id="container-100c0408033e7aba877563ba9293a45d"></div>
 
 ## Full Comparison Table
 
@@ -200,6 +208,8 @@ If ₦126,000 is still above where your budget sits comfortably, these three cov
 | Tightest budget, best specs | POCO C71 | 4GB/128GB under ₦110k |
 
 ---
+<script async="async" data-cfasync="false" src="https://pl28410703.effectivecpmnetwork.com/100c0408033e7aba877563ba9293a45d/invoke.js"></script>
+<div id="container-100c0408033e7aba877563ba9293a45d"></div>
 
 ## Where to Buy — and What to Watch Out For
 
