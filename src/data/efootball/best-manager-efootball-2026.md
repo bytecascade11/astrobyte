@@ -83,17 +83,9 @@ Pick wrong, and you're leaving stat points on the table every single match.
 ### S-Tier – These Win You Games
 
 ---
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4896561037705299"
-     crossorigin="anonymous"></script>
-<ins class="adsbygoogle"
-     style="display:block; text-align:center;"
-     data-ad-layout="in-article"
-     data-ad-format="fluid"
-     data-ad-client="ca-pub-4896561037705299"
-     data-ad-slot="7554701431"></ins>
-<script>
-     (adsbygoogle = window.adsbygoogle || []).push({});
-</script>
+<script async="async" data-cfasync="false" src="https://pl28410703.effectivecpmnetwork.com/100c0408033e7aba877563ba9293a45d/invoke.js"></script>
+<div id="container-100c0408033e7aba877563ba9293a45d"></div>
+
 ### 1. Fabio Capello – Long Ball Counter King
 
 If you're playing Long Ball Counter and you're *not* using Capello, what are you doing? Seriously.
@@ -135,17 +127,9 @@ The 5-2-3 is his signature formation in-game, and it holds up. Wing-backs push h
 **Boosters:** Speed +1, Aggression +1
 
 ---
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4896561037705299"
-     crossorigin="anonymous"></script>
-<ins class="adsbygoogle"
-     style="display:block; text-align:center;"
-     data-ad-layout="in-article"
-     data-ad-format="fluid"
-     data-ad-client="ca-pub-4896561037705299"
-     data-ad-slot="7554701431"></ins>
-<script>
-     (adsbygoogle = window.adsbygoogle || []).push({});
-</script>
+<script async="async" data-cfasync="false" src="https://pl28410703.effectivecpmnetwork.com/100c0408033e7aba877563ba9293a45d/invoke.js"></script>
+<div id="container-100c0408033e7aba877563ba9293a45d"></div>
+
 ### 3. Xabi Alonso – The Attacking Precision Build
 
 Alonso dropped in January 2026 with the v5.2.2 update and gave a very specific type of player exactly what they wanted: a coach built entirely around *scoring*. His proficiency sits in **Quick Counter and Out Wide**, and his double booster — **Ball Control +1 and Finishing +1** — makes your attack numerically better in the most direct way possible.
