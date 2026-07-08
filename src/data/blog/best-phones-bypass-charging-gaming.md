@@ -1,7 +1,7 @@
 ---
 title: "Best Phones With Bypass Charging for Gaming (2026 Nigeria Guide)"
 description: "Bypass charging stops your battery from cooking itself while you play plugged in. Here are the phones that actually do it, with sourced specs, prices, and what to skip."
-coverImage: "/assets/posts/bypass-charging-gaming-cover.jpg"
+coverImage: "/assets/posts/gaming-phone-plugged-in-charging.jpg"
 coverImageAlt: "Gaming phone with bypass charging plugged in during a gameplay session"
 pubDatetime: 2026-07-07T1:25:00Z
 author: iSamuel 
@@ -16,7 +16,6 @@ If you've ever felt your phone turn into a small frying pan halfway through a ra
 
 The catch: it isn't standard, and where it does exist, it's implemented differently from brand to brand. Below are the phones confirmed to have it, based on manufacturer spec sheets and independent lab testing — not marketing copy — plus what each implementation actually looks like in practice.
 
-![Gaming phone plugged in and charging while a game is running](/assets/posts/gaming-phone-plugged-in-charging.jpg)
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4896561037705299"
      crossorigin="anonymous"></script>
 <ins class="adsbygoogle"
@@ -64,7 +63,7 @@ Bypass charging sounds like a nice-to-have until you factor in how a lot of Nige
 
 Infinix's own hands-on materials and GSMArena's review both confirm the headline gaming features: capacitive GT Shoulder Triggers, a 144Hz AMOLED display, and the Dimensity 8350 Ultimate chipset backed by a multi-layer vapor chamber. Bypass charging is built into the phone's charging system and documented in Infinix's official user manual, which describes it as powering the device directly from the charger during gaming to reduce battery wear. GSMArena's review lists it plainly in the spec sheet as "Bypass Charging" alongside the 45W wired and 30W wireless charging specs.
 
-![Infinix GT 30 Pro GT Shoulder Triggers and Cyber Mecha design](/images/infinix-gt-30-pro-shoulder-triggers.jpg)
+![Infinix GT 30 Pro GT Shoulder Triggers and Cyber Mecha design](/assets/posts/infinix-gt-30-pro-shoulder-triggers.jpg)
 
 ### Infinix Note 60 Pro — Best Value
 
