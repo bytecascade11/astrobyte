@@ -267,8 +267,22 @@ const postSlug = post.id;
 
     <RelatedPosts currentPost={post} allPosts={posts} limit={3} />
 <AffiliateCarousel />
-    <Comments slug={post.id} />
 
+    <!-- Adsterra: Above Comments -->
+    <div style="margin: 1.5rem 0; min-height: 50px; display:flex; justify-content:center; contain: layout;">
+      <script is:inline>
+        atOptions = {
+          'key' : '2b0c33ae294502978b9bfb23cc9b43f0',
+          'format' : 'iframe',
+          'height' : 50,
+          'width' : 320,
+          'params' : {}
+        };
+      </script>
+      <script is:inline src="https://www.highperformanceformat.com/2b0c33ae294502978b9bfb23cc9b43f0/invoke.js"></script>
+    </div>
+
+    <Comments slug={post.id} />
   </main>
 
   <Footer />
