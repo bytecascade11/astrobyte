@@ -260,17 +260,9 @@ Patch 2.1.67's Gold Lane overhaul made the lane more volatile. Strong early lane
 **Weak against:** Hanabi is countered by dive assassins (Lancelot, Gusion) who can burst her before bounces proc. Melissa's doll has limited effectiveness vs ranged heroes who poke from outside its range.
 
 ---
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4896561037705299"
-     crossorigin="anonymous"></script>
-<ins class="adsbygoogle"
-     style="display:block; text-align:center;"
-     data-ad-layout="in-article"
-     data-ad-format="fluid"
-     data-ad-client="ca-pub-4896561037705299"
-     data-ad-slot="7554701431"></ins>
-<script>
-     (adsbygoogle = window.adsbygoogle || []).push({});
-</script>
+<script async="async" data-cfasync="false" src="https://pl28410703.effectivecpmnetwork.com/100c0408033e7aba877563ba9293a45d/invoke.js"></script>
+<div id="container-100c0408033e7aba877563ba9293a45d"></div>
+
 ## Support / Roam Tier List
 
 Support impact in Season 40 is measured by healing uptime, how well a hero can peel for their carry, and whether they create win conditions without needing resources. The best roam picks this season either provide healing that scales globally or CC that counters the dominant team compositions.
@@ -289,17 +281,9 @@ Support impact in Season 40 is measured by healing uptime, how well a hero can p
 > **Marcel note:** Classified Support/Tank and commonly used in the Roam lane, but placed in the Overall S-Tier section above because his impact is primarily a draft consideration at high ranks. When available at lower brackets, he's a strong teamfight-disruptor pick worth learning.
 
 **Weak against:** Floryn is hard-countered by Baxia — his passive reduces shield and HP regen effects on any hero he hits with a skill, directly suppressing her healing output. Diggie's ultimate has a delay before activating, which skilled opponents can exploit.
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4896561037705299"
-     crossorigin="anonymous"></script>
-<ins class="adsbygoogle"
-     style="display:block; text-align:center;"
-     data-ad-layout="in-article"
-     data-ad-format="fluid"
-     data-ad-client="ca-pub-4896561037705299"
-     data-ad-slot="7554701431"></ins>
-<script>
-     (adsbygoogle = window.adsbygoogle || []).push({});
-</script>
+<script async="async" data-cfasync="false" src="https://pl28410703.effectivecpmnetwork.com/100c0408033e7aba877563ba9293a45d/invoke.js"></script>
+<div id="container-100c0408033e7aba877563ba9293a45d"></div>
+
 ---
 
 ![Mobile Legends Floryn support Season 40](/assets/mlbb/mlbb-floryn-top-support-season-40.jpg)
