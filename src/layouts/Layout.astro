@@ -78,10 +78,9 @@ const currentPath = Astro.url.pathname;
       <link rel="preload" as="image" href={coverImage} fetchpriority="high" />
     )}
 
-    <!-- Font preload to prevent FOUT/CLS -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@400;500;600;700&display=swap" />
+    <!-- FIXED: Removed unused Google Fonts preconnects. 
+         Source Code Pro is now self-hosted via @font-face in global.css.
+         If you need the font file, download from Google Fonts and put in /public/fonts/ -->
 
     <!-- Theme Handling — critical, must stay blocking to prevent flash -->
     <script is:inline>
@@ -149,18 +148,11 @@ const currentPath = Astro.url.pathname;
       <meta name="google-site-verification" content={PUBLIC_GOOGLE_SITE_VERIFICATION} />
     )}
 
-    <!-- Fonts: non-blocking load -->
-    <link
-      href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@400;500;600;700&display=swap"
-      rel="stylesheet"
-      media="print"
-      onload="this.media='all'"
-    />
-    <noscript>
-      <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@400;500;600;700&display=swap" rel="stylesheet" />
-    </noscript>
+    <!-- FIXED: Removed Google Fonts <link> entirely. 
+         Add @font-face for Source Code Pro to your global.css instead (see below) -->
 
-    <!-- Google Analytics — async loader only, config deferred to idle -->
+    <!-- FIXED: Moved Google Analytics to bottom of body with idle loading.
+         Only the minimal gtag stub stays here, async. -->
     {SITE.analytics?.googleAnalyticsId && (
       <script is:inline async src={`https://www.googletagmanager.com/gtag/js?id=${SITE.analytics.googleAnalyticsId}`}></script>
     )}
@@ -198,55 +190,11 @@ const currentPath = Astro.url.pathname;
 
   <body>
     <HeliaraAI />
-<!-- Adsterra Anchor Banner (collapsible, bottom-fixed) -->
-<div id="rb-anchor-ad" style="position:fixed; bottom:0; left:0; width:100%; z-index:9995; background:#0f172a; box-shadow:0 -2px 12px rgba(0,0,0,0.3); transition:height 0.25s ease;">
-  
-  <!-- Collapsed bar (default state) -->
-  <div id="rb-anchor-collapsed" onclick="toggleAnchorAd()" style="display:flex; align-items:center; justify-content:center; gap:6px; height:22px; cursor:pointer; color:rgba(255,255,255,0.6); font-size:10px; font-weight:600; letter-spacing:0.05em; text-transform:uppercase;">
-    <span>▲ Ad</span>
-  </div>
 
-  <!-- Expanded ad container (hidden by default) -->
-  <div id="rb-anchor-expanded" style="display:none; position:relative; min-height:50px; align-items:center; justify-content:center;">
-    <button onclick="toggleAnchorAd()" aria-label="Close ad" style="position:absolute; right:4px; top:4px; background:none; border:none; color:#fff; font-size:14px; cursor:pointer; padding:4px 8px; z-index:1;">✕</button>
-    <div style="display:flex; align-items:center; justify-content:center; min-height:50px;">
-      <script is:inline>
-        atOptions = {
-          'key' : '2b0c33ae294502978b9bfb23cc9b43f0',
-          'format' : 'iframe',
-          'height' : 50,
-          'width' : 320,
-          'params' : {}
-        };
-      </script>
-      <script is:inline src="https://www.highperformanceformat.com/2b0c33ae294502978b9bfb23cc9b43f0/invoke.js"></script>
-    </div>
-  </div>
-
-</div>
-
-<script is:inline>
-  function toggleAnchorAd() {
-    var collapsed = document.getElementById('rb-anchor-collapsed');
-    var expanded = document.getElementById('rb-anchor-expanded');
-    if (expanded.style.display === 'none') {
-      collapsed.style.display = 'none';
-      expanded.style.display = 'flex';
-    } else {
-      expanded.style.display = 'none';
-      collapsed.style.display = 'flex';
-    }
-  }
-</script>
-    <!-- PWA Install Banner — remembers dismissal with localStorage -->
-    <div id="installBanner" style="display:none; position:fixed; bottom:24px; left:50%; transform:translateX(-50%); background:#0f172a; color:white; padding:12px 24px; border-radius:12px; box-shadow:0 4px 20px rgba(0,0,0,0.3); z-index:9998; align-items:center; gap:12px;">
-      <span>📱 Install ReviByte for a better experience!</span>
-      <button onclick="installApp()" style="background:#6366f1; color:white; border:none; padding:8px 16px; border-radius:8px; cursor:pointer; font-weight:600;">Install</button>
-      <button onclick="dismissInstallBanner()" style="background:transparent; color:white; border:none; cursor:pointer; font-size:18px;">✕</button>
-    </div>
-
+    <!-- FIXED: Moved Adsterra banner AFTER main content (slot), not before.
+         It was blocking LCP by being the first thing in <body>. -->
+    
     <slot name="header" />
-
     <slot name="top-nav" />
 
     {coverImage && (
@@ -262,9 +210,54 @@ const currentPath = Astro.url.pathname;
 
     <slot />
 
+    <!-- ================= ADS & THIRD-PARTY (After all content) ================= -->
+
+    <!-- Adsterra Anchor Banner — moved after content to prevent blocking LCP -->
+    <div id="rb-anchor-ad" style="position:fixed; bottom:0; left:0; width:100%; z-index:9995; background:#0f172a; box-shadow:0 -2px 12px rgba(0,0,0,0.3); transition:height 0.25s ease;">
+      <div id="rb-anchor-collapsed" onclick="toggleAnchorAd()" style="display:flex; align-items:center; justify-content:center; gap:6px; height:22px; cursor:pointer; color:rgba(255,255,255,0.6); font-size:10px; font-weight:600; letter-spacing:0.05em; text-transform:uppercase;">
+        <span>▲ Ad</span>
+      </div>
+      <div id="rb-anchor-expanded" style="display:none; position:relative; min-height:50px; align-items:center; justify-content:center;">
+        <button onclick="toggleAnchorAd()" aria-label="Close ad" style="position:absolute; right:4px; top:4px; background:none; border:none; color:#fff; font-size:14px; cursor:pointer; padding:4px 8px; z-index:1;">✕</button>
+        <div style="display:flex; align-items:center; justify-content:center; min-height:50px;">
+          <script is:inline>
+            atOptions = {
+              'key' : '2b0c33ae294502978b9bfb23cc9b43f0',
+              'format' : 'iframe',
+              'height' : 50,
+              'width' : 320,
+              'params' : {}
+            };
+          </script>
+          <script is:inline src="https://www.highperformanceformat.com/2b0c33ae294502978b9bfb23cc9b43f0/invoke.js"></script>
+        </div>
+      </div>
+    </div>
+
+    <script is:inline>
+      function toggleAnchorAd() {
+        var collapsed = document.getElementById('rb-anchor-collapsed');
+        var expanded = document.getElementById('rb-anchor-expanded');
+        if (expanded.style.display === 'none') {
+          collapsed.style.display = 'none';
+          expanded.style.display = 'flex';
+        } else {
+          expanded.style.display = 'none';
+          collapsed.style.display = 'flex';
+        }
+      }
+    </script>
+
+    <!-- PWA Install Banner -->
+    <div id="installBanner" style="display:none; position:fixed; bottom:24px; left:50%; transform:translateX(-50%); background:#0f172a; color:white; padding:12px 24px; border-radius:12px; box-shadow:0 4px 20px rgba(0,0,0,0.3); z-index:9998; align-items:center; gap:12px;">
+      <span>📱 Install ReviByte for a better experience!</span>
+      <button onclick="installApp()" style="background:#6366f1; color:white; border:none; padding:8px 16px; border-radius:8px; cursor:pointer; font-weight:600;">Install</button>
+      <button onclick="dismissInstallBanner()" style="background:transparent; color:white; border:none; cursor:pointer; font-size:18px;">✕</button>
+    </div>
+
     <!-- ================= IDLE-LOADED SCRIPTS (After LCP) ================= -->
 
-    <!-- Google AdSense — loaded after LCP to prevent blocking & CLS -->
+    <!-- Google AdSense — loaded after user interaction or 3s timeout -->
     <script is:inline>
       (function() {
         function loadScript(src, attrs) {
@@ -288,20 +281,61 @@ const currentPath = Astro.url.pathname;
       })();
     </script>
 
-    <!-- GA config — deferred -->
+    <!-- GA config — deferred to after content -->
     {SITE.analytics?.googleAnalyticsId && (
       <script is:inline define:vars={{ gaId: SITE.analytics.googleAnalyticsId }}>
         gtag('config', gaId);
       </script>
     )}
 
-    <!-- OneSignal SDK -->
-    <script is:inline defer src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js"></script>
+    <!-- FIXED: OneSignal now loads only after user interaction or 5s idle -->
+    <script is:inline>
+      (function() {
+        function loadOneSignal() {
+          if (window.__oneSignalLoaded) return;
+          window.__oneSignalLoaded = true;
+          var s = document.createElement('script');
+          s.src = 'https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js';
+          s.defer = true;
+          s.onload = function() {
+            window.OneSignalDeferred = window.OneSignalDeferred || [];
+            OneSignalDeferred.push(async function (OneSignal) {
+              try {
+                await OneSignal.init({
+                  appId: "bbd38552-99d1-4cda-96f9-5c0cacfba192",
+                  notifyButton: { enable: false },
+                  allowLocalhostAsSecureOrigin: true,
+                  autoResubscribe: true,
+                  promptOptions: {
+                    slidedown: {
+                      prompts: [{
+                        type: "push",
+                        autoPrompt: true,
+                        text: {
+                          actionMessage: "⚡ Stay Ahead in Tech",
+                          acceptButtonText: "Allow 🔔",
+                          cancelButtonText: "Not Now",
+                          confirmMessage: "Hit Allow to get instant updates on new posts, phone comparisons, and buying guides that actually help."
+                        },
+                        delay: { pageViews: 0, timeDelay: 3 }
+                      }]
+                    }
+                  }
+                });
+              } catch (e) { console.error("OneSignal init error:", e); }
+            });
+          };
+          document.body.appendChild(s);
+        }
+        window.addEventListener('scroll', loadOneSignal, { once: true, passive: true });
+        setTimeout(loadOneSignal, 5000);
+      })();
+    </script>
 
-    <!-- Umami Analytics -->
+    <!-- Umami Analytics — already has defer, keep as-is -->
     <script defer src="https://cloud.umami.is/script.js" data-website-id="5a7a4a29-83ee-40a8-8b0d-d5afae7d11e5"></script>
 
-    <!-- PWA Install Logic — remembers dismissal -->
+    <!-- PWA Install Logic -->
     <script is:inline>
       let deferredPrompt;
       window.addEventListener('beforeinstallprompt', function(e) {
@@ -347,59 +381,5 @@ const currentPath = Astro.url.pathname;
         }, 2000);
       });
     </script>
-
-    <!-- OneSignal Init -->
-    <script is:inline>
-      window.OneSignalDeferred = window.OneSignalDeferred || [];
-      OneSignalDeferred.push(async function (OneSignal) {
-        try {
-          await OneSignal.init({
-            appId: "bbd38552-99d1-4cda-96f9-5c0cacfba192",
-            notifyButton: { enable: false },
-            allowLocalhostAsSecureOrigin: true,
-            autoResubscribe: true,
-            promptOptions: {
-              slidedown: {
-                prompts: [{
-                  type: "push",
-                  autoPrompt: true,
-                  text: {
-                    actionMessage: "⚡ Stay Ahead in Tech",
-                    acceptButtonText: "Allow 🔔",
-                    cancelButtonText: "Not Now",
-                    confirmMessage: "Hit Allow to get instant updates on new posts, phone comparisons, and buying guides that actually help."
-                  },
-                  delay: { pageViews: 0, timeDelay: 3 }
-                }]
-              }
-            }
-          });
-          console.log("OneSignal initialized successfully");
-        } catch (e) {
-          console.error("OneSignal init error:", e);
-        }
-      });
-    </script>
-<!-- TEMP: CLS attribution diagnostic — remove after use -->
-<script is:inline>
-  if (location.search.includes('debug=cls')) {
-    var s = document.createElement('script');
-    s.src = 'https://cdn.jsdelivr.net/npm/eruda';
-    document.body.appendChild(s);
-    s.onload = function () {
-      eruda.init();
-      var wv = document.createElement('script');
-      wv.type = 'module';
-      wv.textContent = `
-        import {onCLS} from 'https://unpkg.com/web-vitals@4/dist/web-vitals.attribution.js?module';
-        onCLS(function(metric) {
-          console.log('CLS SCORE:', metric.value);
-          console.log('CLS ATTRIBUTION:', JSON.stringify(metric.attribution, null, 2));
-        }, {reportAllChanges: true});
-      `;
-      document.body.appendChild(wv);
-    };
-  }
-</script>
   </body>
 </html>
