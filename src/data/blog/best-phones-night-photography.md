@@ -90,18 +90,11 @@ If your night photography is mostly stills — parties, street scenes, portraits
 
 **Skip it if:** you plan to shoot a lot of handheld night video, or you want night mode processing you can trust without double-checking the result.
 
-## Related Posts
-
-- [Top Samsung Phones for the Best Camera](https://www.revibyte.blog/posts/top-samsung-phones-best-camera/) — Where the Galaxy A-series and flagship Samsung cameras rank against each other, if photography is your main buying criteria.
-- [Best Google Pixel Camera Phone (2026)](https://www.revibyte.blog/posts/best-google-pixel-camera-phone-2026/) — A closer look at Google's Pixel lineup and which model gives you the best computational photography for the price.
-- [Best Phones with 6000mAh Battery (2026)](https://www.revibyte.blog/posts/best-phones-6000mah-battery-2026/) — For readers who want a phone that survives a full day of shooting, editing, and sharing without hunting for a charger.
-- [Best Phones with Bypass Charging for Gaming](https://www.revibyte.blog/posts/best-phones-bypass-charging-gaming/) — Useful if you also game or record content while plugged in, since bypass charging protects battery health during long sessions.
-- [Phones with the Fastest Charging (2026)](https://www.revibyte.blog/posts/phones-with-fastest-charging-2026/) — A quick top-up between events matters as much as a good camera; this covers which phones charge fastest right now.
-
 ## Google Pixel 9a — Best Software, Smallest Sensor
 
+![Google Pixel 9a dual rear camera bar](/assets/posts/google-pixel-9a-night-sight-camera.jpg)
 
-    <div style="margin: 1.5rem 0; min-height: 250px; display:flex; justify-content:center; contain: layout;">
+<div style="margin: 1.5rem 0; min-height: 250px; display:flex; justify-content:center; contain: layout;">
       <script is:inline>
         atOptions = {
           'key' : '3de9102309ceb722a1529e96b401e327',
@@ -113,7 +106,6 @@ If your night photography is mostly stills — parties, street scenes, portraits
       </script>
       <script is:inline src="https://www.highperformanceformat.com/3de9102309ceb722a1529e96b401e327/invoke.js"></script>
     </div>
-![Google Pixel 9a dual rear camera bar](/assets/posts/google-pixel-9a-night-sight-camera.jpg)
 
 The Pixel 9a is the outlier here: its 48MP main sensor at f/1.7 is physically smaller (1/2.0″) than the Tecno and Infinix options, yet GSMArena's testing rated its low-light stills among the cleanest in this comparison, with strong detail retention and minimal noise. That's almost entirely down to Google's computational photography — Night Sight stacks multiple frames intelligently, and the phone even supports basic astrophotography when mounted on a tripod. The ultrawide lens is the clear weak point, producing soft, blown-out results once light drops, a gap Google hasn't fully closed on the "a" series.
 
