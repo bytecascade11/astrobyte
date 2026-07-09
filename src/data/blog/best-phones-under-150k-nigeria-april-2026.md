@@ -34,8 +34,18 @@ At under ₦150,000 in April 2026, you should realistically expect a 6.6–6.9 i
 What you will not get at this price: an AMOLED display, 5G, a camera with optical image stabilisation, or more than two to three years of guaranteed OS updates — except for one specific entry on this list. Set those expectations before you walk into a store.
 
 ---
-<script async="async" data-cfasync="false" src="https://pl28410703.effectivecpmnetwork.com/100c0408033e7aba877563ba9293a45d/invoke.js"></script>
-<div id="container-100c0408033e7aba877563ba9293a45d"></div>
+    <div style="margin: 1.5rem 0; min-height: 250px; display:flex; justify-content:center; contain: layout;">
+      <script is:inline>
+        atOptions = {
+          'key' : '3de9102309ceb722a1529e96b401e327',
+          'format' : 'iframe',
+          'height' : 250,
+          'width' : 300,
+          'params' : {}
+        };
+      </script>
+      <script is:inline src="https://www.highperformanceformat.com/3de9102309ceb722a1529e96b401e327/invoke.js"></script>
+    </div>
 
 ## 1. Infinix Hot 60i — ₦143,900 (4GB/128GB)
 
@@ -102,8 +112,19 @@ HiOS — Tecno's software skin — has improved substantially since 2023. There 
 **Where to buy:** Slot, Jumia, Tecno experience centres, Konga — from ₦142,700
 
 ---
-<script async="async" data-cfasync="false" src="https://pl28410703.effectivecpmnetwork.com/100c0408033e7aba877563ba9293a45d/invoke.js"></script>
-<div id="container-100c0408033e7aba877563ba9293a45d"></div>
+<div style="margin: 1.5rem 0; min-height: 250px; display:flex; justify-content:center; contain: layout;">
+      <script is:inline>
+        atOptions = {
+          'key' : '3de9102309ceb722a1529e96b401e327',
+          'format' : 'iframe',
+          'height' : 250,
+          'width' : 300,
+          'params' : {}
+        };
+      </script>
+      <script is:inline src="https://www.highperformanceformat.com/3de9102309ceb722a1529e96b401e327/invoke.js"></script>
+    </div>
+
 
 ## 4. Samsung Galaxy A07 4G — ₦138,000 (4GB/64GB)
 
@@ -161,8 +182,19 @@ One thing to know: the Smart 10 Plus runs Android 15 Go Edition — the lightwei
 **Where to buy:** Slot, Jumia, 3CHub, Jiji — from ₦126,000
 
 ---
-<script async="async" data-cfasync="false" src="https://pl28410703.effectivecpmnetwork.com/100c0408033e7aba877563ba9293a45d/invoke.js"></script>
-<div id="container-100c0408033e7aba877563ba9293a45d"></div>
+<div style="margin: 1.5rem 0; min-height: 250px; display:flex; justify-content:center; contain: layout;">
+      <script is:inline>
+        atOptions = {
+          'key' : '3de9102309ceb722a1529e96b401e327',
+          'format' : 'iframe',
+          'height' : 250,
+          'width' : 300,
+          'params' : {}
+        };
+      </script>
+      <script is:inline src="https://www.highperformanceformat.com/3de9102309ceb722a1529e96b401e327/invoke.js"></script>
+    </div>
+
 
 ## Budget Fallbacks: Tecno Pop 10, itel City 100, and POCO C71
 
@@ -175,8 +207,18 @@ If ₦126,000 is still above where your budget sits comfortably, these three cov
 **POCO C71 — ₦104,900 (4GB/128GB):** The better raw spec deal at sub-₦110k. 4GB RAM and 128GB storage at this price is genuinely difficult to match. The 5,000mAh battery is standard, 18W charging is adequate, and the processor handles daily use without embarrassment. Xiaomi's software bloatware is manageable after initial setup. If you are buying a first phone for someone or a reliable secondary device, this works without making apologies.
 
 ---
-<script async="async" data-cfasync="false" src="https://pl28410703.effectivecpmnetwork.com/100c0408033e7aba877563ba9293a45d/invoke.js"></script>
-<div id="container-100c0408033e7aba877563ba9293a45d"></div>
+<div style="margin: 1.5rem 0; min-height: 250px; display:flex; justify-content:center; contain: layout;">
+      <script is:inline>
+        atOptions = {
+          'key' : '3de9102309ceb722a1529e96b401e327',
+          'format' : 'iframe',
+          'height' : 250,
+          'width' : 300,
+          'params' : {}
+        };
+      </script>
+      <script is:inline src="https://www.highperformanceformat.com/3de9102309ceb722a1529e96b401e327/invoke.js"></script>
+    </div>
 
 ## Full Comparison Table
 
@@ -208,8 +250,18 @@ If ₦126,000 is still above where your budget sits comfortably, these three cov
 | Tightest budget, best specs | POCO C71 | 4GB/128GB under ₦110k |
 
 ---
-<script async="async" data-cfasync="false" src="https://pl28410703.effectivecpmnetwork.com/100c0408033e7aba877563ba9293a45d/invoke.js"></script>
-<div id="container-100c0408033e7aba877563ba9293a45d"></div>
+<div style="margin: 1.5rem 0; min-height: 250px; display:flex; justify-content:center; contain: layout;">
+      <script is:inline>
+        atOptions = {
+          'key' : '3de9102309ceb722a1529e96b401e327',
+          'format' : 'iframe',
+          'height' : 250,
+          'width' : 300,
+          'params' : {}
+        };
+      </script>
+      <script is:inline src="https://www.highperformanceformat.com/3de9102309ceb722a1529e96b401e327/invoke.js"></script>
+    </div>
 
 ## Where to Buy — and What to Watch Out For
 
