@@ -34,7 +34,9 @@ At under ₦150,000 in April 2026, you should realistically expect a 6.6–6.9 i
 What you will not get at this price: an AMOLED display, 5G, a camera with optical image stabilisation, or more than two to three years of guaranteed OS updates — except for one specific entry on this list. Set those expectations before you walk into a store.
 
 ---
-    <div style="margin: 1.5rem 0; min-height: 250px; display:flex; justify-content:center; contain: layout;">
+    
+## 1. Infinix Hot 60i — ₦143,900 (4GB/128GB)
+<div style="margin: 1.5rem 0; min-height: 250px; display:flex; justify-content:center; contain: layout;">
       <script is:inline>
         atOptions = {
           'key' : '3de9102309ceb722a1529e96b401e327',
@@ -46,8 +48,7 @@ What you will not get at this price: an AMOLED display, 5G, a camera with optica
       </script>
       <script is:inline src="https://www.highperformanceformat.com/3de9102309ceb722a1529e96b401e327/invoke.js"></script>
     </div>
-
-## 1. Infinix Hot 60i — ₦143,900 (4GB/128GB)
+    
 
 ![Infinix Hot 60i in Neon Red and Shadow Blue placed on a surface showing front and back design](/assets/posts/infinix-hot-60i-nigeria-colors.jpg)
 *The Hot 60i launched in Nigeria in mid-2025 and has moved consistently at this price point since. The Neon Red and Shadow Blue variants have good shelf presence.*
