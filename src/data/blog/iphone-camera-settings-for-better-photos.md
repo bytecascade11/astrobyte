@@ -5,7 +5,7 @@ coverImage: "/assets/posts/iphone-camera-settings-hero.jpg"
 coverImageAlt: "iPhone camera app open showing Photographic Styles and resolution controls"
 pubDatetime: 2026-07-10T09:30:00Z
 author: iSamuel 
-tag: ["iphone", "opinions", "technology"]
+tags: ["iphone", "opinions", "technology"]
 ---
 
 ## Table of Contents 
