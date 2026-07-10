@@ -220,9 +220,7 @@ const postSlug = post.id;
 
     <!-- Author card -->
     <div class="author-card">
-      <div class="author-avatar">
-        {(SITE.author || "iSamuel").charAt(0).toUpperCase()}
-      </div>
+      <img src="/assets/isamuel.jpg" alt={SITE.author || "iSamuel"} class="author-avatar" />
       <div class="author-info">
         <p class="author-name">{SITE.author || "iSamuel"}</p>
         <p class="author-bio">
@@ -364,19 +362,13 @@ const postSlug = post.id;
   }
 
   .author-avatar {
-    width: 52px;
-    height: 52px;
-    min-width: 52px;
-    border-radius: 14px;
-    background: linear-gradient(135deg, #6366f1, #818cf8);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.4rem;
-    font-weight: 800;
-    color: white;
-    box-shadow: 0 4px 12px rgba(99,102,241,0.3);
-  }
+  width: 52px;
+  height: 52px;
+  min-width: 52px;
+  border-radius: 14px;
+  object-fit: cover;
+  box-shadow: 0 4px 12px rgba(99,102,241,0.3);
+}
 
   .author-info { flex: 1; }
 
