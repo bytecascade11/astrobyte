@@ -147,8 +147,6 @@ Only if you actually edit your photos afterward. Without post-processing, ProRAW
 ## Methodology and Sourcing
 
 Settings, menu paths, and feature availability referenced in this guide were verified against Apple's official Support documentation for Photographic Styles, ProRAW, and advanced camera settings, current as of mid-2026. Model-by-model feature availability (48MP resolution, ProRAW support) was cross-checked against Apple's published tech specs and Apple Support community threads confirming real-world behavior on non-Pro models. Supplementary context on resolution trade-offs and real-world usage patterns was cross-checked against recent camera-focused coverage from Tom's Guide and other technology outlets. No first-person testing claims are made; all recommendations reflect documented feature behavior rather than personal shooting results.
-
-**Pre-publish note:** The five image placeholders in this draft (`iphone-camera-settings-hero.jpg`, `iphone-camera-settings-menu.jpg`, `iphone-photographic-styles-comparison.jpg`, `iphone-grid-composition-example.jpg`, `iphone-night-mode-settings.jpg`) mark where real screenshots or original photography should go before this goes live — placeholders alone aren't publish-ready.
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4896561037705299"
      crossorigin="anonymous"></script>
 <ins class="adsbygoogle"
@@ -160,11 +158,3 @@ Settings, menu paths, and feature availability referenced in this guide were ver
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
-## References
-
-- Apple Support — Use Photographic Styles with your iPhone camera: https://support.apple.com/guide/iphone/use-photographic-styles-iph629d2cd37/ios
-- Apple Support — Take Apple ProRAW photos with your iPhone camera: https://support.apple.com/guide/iphone/take-apple-proraw-photos-iphae1e882a3/ios
-- Apple Support — Change advanced camera settings on iPhone: https://support.apple.com/guide/iphone/change-advanced-camera-settings-iphb362b394e/ios
-- Tom's Guide — Stop taking average iPhone photos, change these 3 camera settings right now: https://www.tomsguide.com/phones/iphones/stop-taking-average-iphone-photos-change-these-3-camera-settings-right-now
-- Apple Support — About Apple ProRAW: https://support.apple.com/en-us/119916
-- Apple Support — iPhone 16 Pro Max Tech Specs: https://support.apple.com/en-us/121032
