@@ -3,7 +3,7 @@ export const SITE = {
   author: "iSamuel",
   profile: "https://pin.it/1NYS28vrR",
 
-  desc: "ReviByte Technology Opinions delivers the latest tech news, gadget reviews, Android updates, and in-depth guides to keep you informed and ahead in the digital world.",
+  desc: "ReviByte delivers in-depth tech news, smartphone reviews, Android guides, and mobile esports coverage — from COD Mobile to eFootball, PUBG Mobile, and MLBB — to keep you informed and ahead in the digital world.",
 
   title: "ReviByte Opinions",
   ogImage: "astropaper-og.jpg",
