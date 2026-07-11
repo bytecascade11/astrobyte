@@ -4,7 +4,7 @@ description: "My honest picks for the best second strikers in eFootball 2026 —
 author: iSamuel  
 pubDatetime: "2026-07-11T23:00:00Z"  
 lastUpdated: "eFootball™ 2026 – July 2026 Update"  
-coverImage: "/assets/efootball/best-ss-efootball-2026.jpg"  
+coverImage: "/assets/efootball/best-ss-efootball-2026-cover.jpg"  
 coverImageAlt: "Best Second Strikers in eFootball™ 2026 – July 2026 Update"  
 type: tier-list  
 gameMode: Multiplayer  
