@@ -5,7 +5,7 @@ coverImage: "/assets/posts/phones-ai-photo-editing-cover.jpg"
 coverImageAlt: "Person editing a photo on a smartphone, illustrating AI-powered photo editing tools on phones sold in Nigeria"
 pubDatetime: "2026-07-11T08:10:29Z"
 author: iSamuel
-tags: ["ai", "opinions", "technology", "samsung", "apple", "honor", "tecno"]
+tags: ["ai", "opinions", "technology", "samsung", "galaxy", "apple", "honor", "tecno", "google", "pixel"]
 ---
 
 ## Table of Contents 
