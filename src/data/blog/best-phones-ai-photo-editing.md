@@ -3,9 +3,9 @@ title: "Phones With the Best AI Photo Editing in 2026 (Nigeria Buyer's Guide)"
 description: "Galaxy AI's Generative Edit, Google's Magic Editor, or Apple's Clean Up — which phone actually edits your photos best, and which of them make sense to buy in Nigeria right now."
 coverImage: "/assets/posts/smartphone-photography-flatlay-cover.jpg"
 coverImageAlt: "Person editing a photo on a smartphone, illustrating AI-powered photo editing tools on phones sold in Nigeria"
-pubDatetime: "2026-07-11T08:10:29:00Z"
-author: "iSamuel"
-tags: ["ai", "opinions", "technology", "samsung", "apple"]
+pubDatetime: "2026-07-11T08:10:29Z"
+author: iSamuel
+tags: ["ai", "opinions", "technology", "samsung", "apple", "honor", "tecno"]
 ---
 
 ## Table of Contents 
