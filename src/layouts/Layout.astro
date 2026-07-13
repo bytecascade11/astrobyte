@@ -78,10 +78,6 @@ const currentPath = Astro.url.pathname;
       <link rel="preload" as="image" href={coverImage} fetchpriority="high" />
     )}
 
-    <!-- FIXED: Removed unused Google Fonts preconnects. 
-         Source Code Pro is now self-hosted via @font-face in global.css.
-         If you need the font file, download from Google Fonts and put in /public/fonts/ -->
-
     <!-- Theme Handling — critical, must stay blocking to prevent flash -->
     <script is:inline>
       const primaryColorScheme = "";
@@ -148,11 +144,6 @@ const currentPath = Astro.url.pathname;
       <meta name="google-site-verification" content={PUBLIC_GOOGLE_SITE_VERIFICATION} />
     )}
 
-    <!-- FIXED: Removed Google Fonts <link> entirely. 
-         Add @font-face for Source Code Pro to your global.css instead (see below) -->
-
-    <!-- FIXED: Moved Google Analytics to bottom of body with idle loading.
-         Only the minimal gtag stub stays here, async. -->
     {SITE.analytics?.googleAnalyticsId && (
       <script is:inline async src={`https://www.googletagmanager.com/gtag/js?id=${SITE.analytics.googleAnalyticsId}`}></script>
     )}
@@ -186,23 +177,33 @@ const currentPath = Astro.url.pathname;
       }
     }
     </script>
-<script type="text/javascript">
-    (function(c,l,a,r,i,t,y){
-        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
-        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
-        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
-    })(window, document, "clarity", "script", "xjz9wkvh5l");
-</script>
+    <script type="text/javascript">
+        (function(c,l,a,r,i,t,y){
+            c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+            t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+            y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+        })(window, document, "clarity", "script", "xjz9wkvh5l");
+    </script>
   </head>
 
   <body>
     <HeliaraAI />
 
-    <!-- FIXED: Moved Adsterra banner AFTER main content (slot), not before.
-         It was blocking LCP by being the first thing in <body>. -->
-    
     <slot name="header" />
     <slot name="top-nav" />
+
+    <!-- Adsense: Top of Post (above cover image) -->
+    {coverImage && (
+      <div class="ad-slot ad-slot--top-of-post">
+        <ins class="adsbygoogle"
+             style="display:block; text-align:center;"
+             data-ad-layout="in-article"
+             data-ad-format="fluid"
+             data-ad-client="ca-pub-4896561037705299"
+             data-ad-slot="8260386160"></ins>
+        <script is:inline>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+      </div>
+    )}
 
     {coverImage && (
       <OptimizedCoverImage 
@@ -219,7 +220,7 @@ const currentPath = Astro.url.pathname;
 
     <!-- ================= ADS & THIRD-PARTY (After all content) ================= -->
 
-    <!-- Adsterra Anchor Banner — moved after content to prevent blocking LCP -->
+    <!-- Adsterra Anchor Banner -->
     <div id="rb-anchor-ad" style="position:fixed; bottom:0; left:0; width:100%; z-index:9995; background:#0f172a; box-shadow:0 -2px 12px rgba(0,0,0,0.3); transition:height 0.25s ease;">
       <div id="rb-anchor-collapsed" onclick="toggleAnchorAd()" style="display:flex; align-items:center; justify-content:center; gap:6px; height:22px; cursor:pointer; color:rgba(255,255,255,0.6); font-size:10px; font-weight:600; letter-spacing:0.05em; text-transform:uppercase;">
         <span>▲ Ad</span>
@@ -288,14 +289,13 @@ const currentPath = Astro.url.pathname;
       })();
     </script>
 
-    <!-- GA config — deferred to after content -->
     {SITE.analytics?.googleAnalyticsId && (
       <script is:inline define:vars={{ gaId: SITE.analytics.googleAnalyticsId }}>
         gtag('config', gaId);
       </script>
     )}
 
-    <!-- FIXED: OneSignal now loads only after user interaction or 5s idle -->
+    <!-- OneSignal -->
     <script is:inline>
       (function() {
         function loadOneSignal() {
@@ -385,5 +385,17 @@ const currentPath = Astro.url.pathname;
         }, 2000);
       });
     </script>
+
+    <style>
+      .ad-slot--top-of-post {
+        min-height: 100px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 0.75rem auto 1rem;
+        max-width: 768px;
+        contain: layout;
+      }
+    </style>
   </body>
 </html>
