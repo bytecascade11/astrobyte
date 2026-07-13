@@ -194,16 +194,13 @@ const currentPath = Astro.url.pathname;
 
     <!-- Adsense: Top of Post (above cover image) -->
     {coverImage && (
-      <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4896561037705299"
-     crossorigin="anonymous"></script>
-<ins class="adsbygoogle"
-     style="display:block"
-     data-ad-format="autorelaxed"
-     data-ad-client="ca-pub-4896561037705299"
-     data-ad-slot="8260386160"></ins>
-<script>
-     (adsbygoogle = window.adsbygoogle || []).push({});
-</script>
+      <div class="ad-slot ad-slot--top-of-post">
+        <ins class="adsbygoogle"
+             style="display:block"
+             data-ad-format="autorelaxed"
+             data-ad-client="ca-pub-4896561037705299"
+             data-ad-slot="8260386160"></ins>
+        <script is:inline>(adsbygoogle = window.adsbygoogle || []).push({});</script>
       </div>
     )}
 
