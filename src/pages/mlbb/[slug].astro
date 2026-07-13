@@ -248,8 +248,23 @@ const shareTitle = guide.data.title;
   🔥 Check This Out
 </a>
     <!-- Comments -->  
-    <Comments slug={postSlug} />  
-  
+    <Comments slug={postSlug} /> 
+
+    <!-- Visit ReviByte Tools -->
+    <div class="tools-box">
+      <p class="tools-box-title">Visit ReviByte Tools</p>
+      <ul class="tools-box-list">
+        <li><a href="/save/tok/">→ TikTok Downloader</a></li>
+        <li><a href="/save/ig/">→ Instagram Downloader</a></li>
+      </ul>
+    </div>
+
+    <!-- Back links -->
+    <div class="mt-10 flex items-center gap-4">
+      <a href="/" class="text-sm text-skin-accent hover:underline flex items-center gap-1">← Home</a>
+      <span class="text-skin-base/30">|</span>
+      <a href="/codm/" class="text-sm text-skin-accent hover:underline flex items-center gap-1">CODM Hub</a>
+    </div>
     <!-- Back links -->  
     <div class="mt-10 flex items-center gap-4">  
       <a href="/" class="text-sm text-skin-accent hover:underline flex items-center gap-1">← Home</a>  
@@ -376,5 +391,31 @@ const shareTitle = guide.data.title;
 .smart-link-cta:hover {
   opacity: 0.88;
   transform: translateY(-1px);
+}
+.tools-box {
+  margin-top: 1.5rem;
+  padding: 14px 16px;
+  border-radius: 12px;
+  border: 1px solid var(--border, rgba(99,102,241,0.2));
+  background: var(--background-light, rgba(99,102,241,0.06));
+}
+.tools-box-title {
+  font-size: 0.85rem;
+  font-weight: 700;
+  margin-bottom: 8px;
+  color: var(--foreground);
+}
+.tools-box-list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.tools-box-list a {
+  font-size: 0.85rem;
+  color: var(--accent, #6366f1);
+  text-decoration: none;
+}
+.tools-box-list a:hover {
+  text-decoration: underline;
 }
 </style>  
