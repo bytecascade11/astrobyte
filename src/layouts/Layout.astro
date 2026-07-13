@@ -192,15 +192,19 @@ const currentPath = Astro.url.pathname;
     <slot name="header" />
     <slot name="top-nav" />
 
-    <!-- Adsense: Top of Post (above cover image) -->
+    <!-- Adsense: Multiplex (above cover image) -->
     {coverImage && (
       <div class="ad-slot ad-slot--top-of-post">
+        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4896561037705299"
+             crossorigin="anonymous"></script>
         <ins class="adsbygoogle"
              style="display:block"
              data-ad-format="autorelaxed"
              data-ad-client="ca-pub-4896561037705299"
              data-ad-slot="8260386160"></ins>
-        <script is:inline>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+        <script>
+             (adsbygoogle = window.adsbygoogle || []).push({});
+        </script>
       </div>
     )}
 
@@ -263,30 +267,6 @@ const currentPath = Astro.url.pathname;
     </div>
 
     <!-- ================= IDLE-LOADED SCRIPTS (After LCP) ================= -->
-
-    <!-- Google AdSense — loaded after user interaction or 3s timeout -->
-    <script is:inline>
-      (function() {
-        function loadScript(src, attrs) {
-          var s = document.createElement('script');
-          s.src = src;
-          for (var k in attrs) s.setAttribute(k, attrs[k]);
-          document.body.appendChild(s);
-        }
-        function loadAds() {
-          if (window.__adsLoaded) return;
-          window.__adsLoaded = true;
-          loadScript('https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4896561037705299', {
-            crossorigin: 'anonymous',
-            async: 'true'
-          });
-        }
-        window.addEventListener('scroll', loadAds, { once: true, passive: true });
-        window.addEventListener('click', loadAds, { once: true });
-        window.addEventListener('touchstart', loadAds, { once: true, passive: true });
-        setTimeout(loadAds, 3000);
-      })();
-    </script>
 
     {SITE.analytics?.googleAnalyticsId && (
       <script is:inline define:vars={{ gaId: SITE.analytics.googleAnalyticsId }}>
@@ -386,17 +366,8 @@ const currentPath = Astro.url.pathname;
     </script>
 
     <style>
-       .ad-slot--top-of-post {
-  min-height: 300px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: 0.75rem auto 1rem;
-  max-width: 768px;
-  contain: layout;
-}
       .ad-slot--top-of-post {
-        min-height: 100px;
+        min-height: 300px;
         display: flex;
         justify-content: center;
         align-items: center;
