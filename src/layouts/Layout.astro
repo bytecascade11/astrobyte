@@ -221,44 +221,6 @@ const currentPath = Astro.url.pathname;
 
     <slot />
 
-    <!-- ================= ADS & THIRD-PARTY (After all content) ================= -->
-
-    <!-- Adsterra Anchor Banner -->
-    <div id="rb-anchor-ad" style="position:fixed; bottom:0; left:0; width:100%; z-index:9995; background:#0f172a; box-shadow:0 -2px 12px rgba(0,0,0,0.3); transition:height 0.25s ease;">
-      <div id="rb-anchor-collapsed" onclick="toggleAnchorAd()" style="display:flex; align-items:center; justify-content:center; gap:6px; height:22px; cursor:pointer; color:rgba(255,255,255,0.6); font-size:10px; font-weight:600; letter-spacing:0.05em; text-transform:uppercase;">
-        <span>▲ Ad</span>
-      </div>
-      <div id="rb-anchor-expanded" style="display:none; position:relative; min-height:50px; align-items:center; justify-content:center;">
-        <button onclick="toggleAnchorAd()" aria-label="Close ad" style="position:absolute; right:4px; top:4px; background:none; border:none; color:#fff; font-size:14px; cursor:pointer; padding:4px 8px; z-index:1;">✕</button>
-        <div style="display:flex; align-items:center; justify-content:center; min-height:50px;">
-          <script is:inline>
-            atOptions = {
-              'key' : '2b0c33ae294502978b9bfb23cc9b43f0',
-              'format' : 'iframe',
-              'height' : 50,
-              'width' : 320,
-              'params' : {}
-            };
-          </script>
-          <script is:inline src="https://www.highperformanceformat.com/2b0c33ae294502978b9bfb23cc9b43f0/invoke.js"></script>
-        </div>
-      </div>
-    </div>
-
-    <script is:inline>
-      function toggleAnchorAd() {
-        var collapsed = document.getElementById('rb-anchor-collapsed');
-        var expanded = document.getElementById('rb-anchor-expanded');
-        if (expanded.style.display === 'none') {
-          collapsed.style.display = 'none';
-          expanded.style.display = 'flex';
-        } else {
-          expanded.style.display = 'none';
-          collapsed.style.display = 'flex';
-        }
-      }
-    </script>
-
     <!-- PWA Install Banner -->
     <div id="installBanner" style="display:none; position:fixed; bottom:24px; left:50%; transform:translateX(-50%); background:#0f172a; color:white; padding:12px 24px; border-radius:12px; box-shadow:0 4px 20px rgba(0,0,0,0.3); z-index:9998; align-items:center; gap:12px;">
       <span>📱 Install ReviByte for a better experience!</span>
