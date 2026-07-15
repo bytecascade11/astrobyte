@@ -6,7 +6,7 @@ pubDatetime: "2026-07-15T06:36:00Z"
 lastUpdated: "eFootball™ 2026 – July 2026 Update"
 coverImage: "/assets/efootball/messi-vs-ronaldo-efootball-2026.jpg"
 coverImageAlt: "Messi vs Ronaldo comparison in eFootball™ 2026 – July 2026 Update"
-type: comparison
+type: Guides & Tips 
 gameMode: Multiplayer
 season: "eFootball™ 2026 – July 2026"
 slug: "messi-vs-ronaldo-efootball-2026"
