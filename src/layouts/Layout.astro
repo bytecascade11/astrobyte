@@ -192,21 +192,47 @@ const currentPath = Astro.url.pathname;
     <slot name="header" />
     <slot name="top-nav" />
 
-    <!-- Cover Image FIRST — no layout shift, eager loaded -->
+    <!-- ========== ADS AROUND COVER IMAGE ========== -->
+
     {coverImage && (
-      <OptimizedCoverImage 
-        src={coverImage}
-        alt={coverImageAlt || title}
-        width={1200}
-        height={630}
-        loading="eager"
-        sizes="100vw"
-      />
+      <div class="cover-ad-wrapper">
+        <!-- AdSense: TOP of cover image -->
+        <div class="ad-slot ad-slot--top">
+          <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4896561037705299"
+       crossorigin="anonymous"></script>
+  <!-- First -->
+  <ins class="adsbygoogle"
+       style="display:block"
+       data-ad-client="ca-pub-4896561037705299"
+       data-ad-slot="5162208208"
+       data-ad-format="auto"
+       data-full-width-responsive="true"></ins>
+  <script>
+       (adsbygoogle = window.adsbygoogle || []).push({});
+  </script>
+        </div>
+
+        <!-- Cover Image -->
+        <OptimizedCoverImage 
+          src={coverImage}
+          alt={coverImageAlt || title}
+          width={1200}
+          height={630}
+          loading="eager"
+          sizes="100vw"
+        />
+
+        <!-- Adsterra: BOTTOM of cover image -->
+        <div class="ad-slot ad-slot--bottom">
+          <!-- Paste your Adsterra code here -->
+          <!-- Example: <script src="//your-adsterra-script.js"></script> -->
+        </div>
+      </div>
     )}
 
-    <!-- Adsense: Multiplex (AFTER cover image) — min-height prevents CLS -->
-    {coverImage && (
-      <div class="ad-slot ad-slot--top-of-post">
+    <!-- Fallback: AdSense only when NO cover image -->
+    {!coverImage && (
+      <div class="ad-slot ad-slot--top">
         <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4896561037705299"
      crossorigin="anonymous"></script>
 <!-- First -->
@@ -333,13 +359,39 @@ const currentPath = Astro.url.pathname;
     </script>
 
     <style>
-      .ad-slot--top-of-post {
+      .cover-ad-wrapper {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        max-width: 100%;
+      }
+
+      .ad-slot {
         display: block;
         width: 100%;
         max-width: 768px;
-        margin: 0.75rem auto 1rem;
-        min-height: 250px;
+        margin-left: auto;
+        margin-right: auto;
         contain: layout;
+      }
+
+      .ad-slot--top {
+        margin-bottom: 0.75rem;
+        min-height: 250px;
+      }
+
+      .ad-slot--bottom {
+        margin-top: 0.75rem;
+        margin-bottom: 1rem;
+        min-height: 250px;
+      }
+
+      /* Ensure cover image sits cleanly between ads */
+      .cover-ad-wrapper :global(img),
+      .cover-ad-wrapper :global(picture) {
+        display: block;
+        width: 100%;
+        height: auto;
       }
     </style>
   </body>
