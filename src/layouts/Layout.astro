@@ -196,22 +196,8 @@ const currentPath = Astro.url.pathname;
 
     {coverImage && (
       <div class="cover-ad-wrapper">
-        <!-- AdSense: TOP of cover image -->
-        <div class="ad-slot ad-slot--top">
-          <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4896561037705299"
-       crossorigin="anonymous"></script>
-  <!-- First -->
-  <ins class="adsbygoogle"
-       style="display:block"
-       data-ad-client="ca-pub-4896561037705299"
-       data-ad-slot="5162208208"
-       data-ad-format="auto"
-       data-full-width-responsive="true"></ins>
-  <script>
-       (adsbygoogle = window.adsbygoogle || []).push({});
-  </script>
-        </div>
-
+        <!-- AdSense: TOP of 
+      
         <!-- Cover Image -->
         <OptimizedCoverImage 
           src={coverImage}
@@ -227,24 +213,6 @@ const currentPath = Astro.url.pathname;
           <!-- Paste your Adsterra code here -->
           <!-- Example: <script src="//your-adsterra-script.js"></script> -->
         </div>
-      </div>
-    )}
-
-    <!-- Fallback: AdSense only when NO cover image -->
-    {!coverImage && (
-      <div class="ad-slot ad-slot--top">
-        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4896561037705299"
-     crossorigin="anonymous"></script>
-<!-- First -->
-<ins class="adsbygoogle"
-     style="display:block"
-     data-ad-client="ca-pub-4896561037705299"
-     data-ad-slot="5162208208"
-     data-ad-format="auto"
-     data-full-width-responsive="true"></ins>
-<script>
-     (adsbygoogle = window.adsbygoogle || []).push({});
-</script>
       </div>
     )}
 
