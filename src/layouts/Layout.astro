@@ -192,7 +192,19 @@ const currentPath = Astro.url.pathname;
     <slot name="header" />
     <slot name="top-nav" />
 
-    <!-- Adsense: Multiplex (above cover image) -->
+    <!-- Cover Image FIRST — no layout shift, eager loaded -->
+    {coverImage && (
+      <OptimizedCoverImage 
+        src={coverImage}
+        alt={coverImageAlt || title}
+        width={1200}
+        height={630}
+        loading="eager"
+        sizes="100vw"
+      />
+    )}
+
+    <!-- Adsense: Multiplex (AFTER cover image) — min-height prevents CLS -->
     {coverImage && (
       <div class="ad-slot ad-slot--top-of-post">
         <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4896561037705299"
@@ -208,17 +220,6 @@ const currentPath = Astro.url.pathname;
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
       </div>
-    )}
-
-    {coverImage && (
-      <OptimizedCoverImage 
-        src={coverImage}
-        alt={coverImageAlt || title}
-        width={1200}
-        height={630}
-        loading="eager"
-        sizes="100vw"
-      />
     )}
 
     <slot />
