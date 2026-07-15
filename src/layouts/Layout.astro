@@ -358,41 +358,43 @@ const currentPath = Astro.url.pathname;
       });
     </script>
 
-<style>
-  .cover-ad-wrapper {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    max-width: 100%;
-  }
+    <style>
+      .cover-ad-wrapper {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        max-width: 100%;
+      }
 
-  .ad-slot {
-    display: block;
-    width: 100%;
-    max-width: 768px;
-    margin-left: auto;
-    margin-right: auto;
-    contain: layout;
-  }
+      .ad-slot {
+        display: block;
+        width: 100%;
+        max-width: 768px;
+        margin-left: auto;
+        margin-right: auto;
+        contain: layout;
+      }
 
-  .ad-slot--top {
-    margin-bottom: 0.35rem;
-    min-height: 80px;
-  }
+      /* Reduced min-height to prevent excessive whitespace */
+      .ad-slot--top {
+        margin-bottom: 0.5rem;
+        min-height: 90px;
+      }
 
-  .ad-slot--bottom {
-    margin-top: 0.35rem;
-    margin-bottom: 0.35rem;
-    min-height: 80px;
-  }
+      .ad-slot--bottom {
+        margin-top: 0.5rem;
+        margin-bottom: 0.5rem;
+        min-height: 90px;
+      }
 
-  .cover-ad-wrapper :global(img),
-  .cover-ad-wrapper :global(picture) {
-    display: block;
-    width: 100%;
-    height: auto;
-    margin: 0;
-  }
-</style>
+      /* Ensure cover image sits cleanly between ads with no extra gaps */
+      .cover-ad-wrapper :global(img),
+      .cover-ad-wrapper :global(picture) {
+        display: block;
+        width: 100%;
+        height: auto;
+        margin: 0;
+      }
+    </style>
   </body>
 </html>
