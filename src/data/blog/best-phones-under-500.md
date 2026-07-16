@@ -93,7 +93,7 @@ If gaming and charging speed matter more than camera nuance, it's worth reading 
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
-US retail prices don't map cleanly onto what you'll actually pay in Lagos, Abuja, or Port Harcourt. Import duty, naira volatility, and the grey market all push local prices well above a straight dollar conversion — and grey-market units frequently arrive without a full warranty or with region-locked software.
+US retail prices don't map cleanly onto what you'll actually pay in Lagos, Abuja, Port Harcourt or Ondo. Import duty, naira volatility, and the grey market all push local prices well above a straight dollar conversion — and grey-market units frequently arrive without a full warranty or with region-locked software.
 
 | Phone | Typical grey-market range (Nigeria) | Notes |
 |---|---|---|
