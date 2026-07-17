@@ -1,0 +1,61 @@
+<div id="google-subscribe-float">
+  <div id="g_id_onload"
+       data-client_id="640428648139-qci7mu4rj24p4ca4t0t34mhr6b5f6lp4.apps.googleusercontent.com"
+       data-callback="handleGoogleSubscribe"
+       data-auto_prompt="false">
+  </div>
+  <button id="subscribe-trigger" aria-label="Subscribe with Google">
+    📧 Subscribe
+  </button>
+  <div class="g_id_signin" id="hidden-google-btn" style="display:none;"></div>
+</div>
+
+<script src="https://accounts.google.com/gsi/client" async defer is:inline></script>
+
+<style>
+  #google-subscribe-float {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 9999;
+  }
+  #subscribe-trigger {
+    background: #4285F4;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 999px;
+    font-weight: 600;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    cursor: pointer;
+  }
+</style>
+
+<script is:inline>
+  function handleGoogleSubscribe(response) {
+    const payload = JSON.parse(atob(response.credential.split('.')[1]));
+    const email = payload.email;
+
+    fetch('https://revibyte-subscribe.okesunday503.workers.dev/', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email })
+    })
+    .then(res => res.json())
+    .then(() => {
+      document.getElementById('subscribe-trigger').textContent = '✅ Subscribed!';
+    })
+    .catch(() => {
+      document.getElementById('subscribe-trigger').textContent = '⚠️ Try again';
+    });
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const trigger = document.getElementById('subscribe-trigger');
+    const hiddenBtn = document.getElementById('hidden-google-btn');
+    trigger.addEventListener('click', () => {
+      const realBtn = hiddenBtn.querySelector('div[role="button"]');
+      if (realBtn) realBtn.click();
+    });
+  });
+</script>
