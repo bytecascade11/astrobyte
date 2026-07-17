@@ -43,6 +43,7 @@
     })
     .then(res => res.json())
     .then(() => {
+      localStorage.setItem('reviByteSubscribed', 'true');
       const container = document.getElementById('google-subscribe-float');
       container.style.transition = 'opacity 0.4s ease';
       container.style.opacity = '0';
@@ -56,6 +57,11 @@
   }
 
   document.addEventListener('DOMContentLoaded', () => {
+    if (localStorage.getItem('reviByteSubscribed') === 'true') {
+      document.getElementById('google-subscribe-float').style.display = 'none';
+      return;
+    }
+
     const trigger = document.getElementById('subscribe-trigger');
     const hiddenBtn = document.getElementById('hidden-google-btn');
     trigger.addEventListener('click', () => {
