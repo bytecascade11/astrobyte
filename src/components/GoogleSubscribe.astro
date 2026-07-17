@@ -16,7 +16,7 @@
   #google-subscribe-float {
     position: fixed;
     bottom: 20px;
-    right: 20px;
+    left: 20px;
     z-index: 9999;
   }
   #subscribe-trigger {
@@ -54,6 +54,7 @@
       document.getElementById('subscribe-trigger').textContent = '⚠️ Try again';
     });
   }
+
   document.addEventListener('DOMContentLoaded', () => {
     const trigger = document.getElementById('subscribe-trigger');
     const hiddenBtn = document.getElementById('hidden-google-btn');
