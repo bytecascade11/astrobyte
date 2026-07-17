@@ -60,7 +60,7 @@ This isn't a phone for the average buyer, and Xiaomi itself doesn't pretend othe
 
 **Software support:** Xiaomi has committed to 5 major Android upgrades and 6 years of security patches for the 17 series, a genuine step up from the 4-and-5 policy on the previous generation, though it still trails Samsung's 7-year commitment on the Galaxy S26 Ultra.
 
-![Close-up of the Xiaomi 17 Ultra rear camera island showing the Leica-branded quad-camera module][/assets/posts/xiaomi-17-ultra-camera-module.jpg]
+![Close-up of the Xiaomi 17 Ultra rear camera island showing the Leica-branded quad-camera module](/assets/posts/xiaomi-17-ultra-camera-module.jpg)
 
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4896561037705299"
      crossorigin="anonymous"></script>
@@ -102,7 +102,7 @@ POCO exists as Xiaomi's performance-first sub-brand, and the X8 Pro is arguably 
 
 If mobile gaming is your priority and you want steady frame rates without flagship pricing, this is a solid step up from anything covered in our [best phones under $500 roundup](https://www.revibyte.blog/posts/best-phones-under-500/).
 
-![POCO X8 Pro held in landscape orientation running a mobile game][/assets/posts/poco-x8-pro-gaming.jpg]
+![POCO X8 Pro held in landscape orientation running a mobile game](/assets/posts/poco-x8-pro-gaming.jpg)
 
 ## 4. Redmi Note 15 Pro 5G — the sensible all-rounder
 
@@ -117,7 +117,7 @@ If the Pro+ feels like overkill and the POCO X8 Pro's gaming focus doesn't matte
 
 It's the one we'd point most first-time Xiaomi buyers toward, since it hits a genuinely rare combination for its price: a bright, flat AMOLED screen, water resistance, and dependable daylight camera performance.
 
-![Redmi Note 15 Pro 5G front and back showing the flat AMOLED display and camera module][/assets/posts/redmi-note-15-pro-5g.jpg]
+![Redmi Note 15 Pro 5G front and back showing the flat AMOLED display and camera module](/assets/posts/redmi-note-15-pro-5g.jpg)
 
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4896561037705299"
      crossorigin="anonymous"></script>
@@ -144,7 +144,7 @@ Not everyone needs (or can afford) AMOLED displays and flagship chipsets, and th
 
 This is the phone we'd recommend to someone buying their first smartphone, or replacing an older device purely for basic connectivity. It won't win any camera comparisons, but for the price, the battery life alone justifies it.
 
-![Redmi 15C in hand showing its large display, positioned as an everyday budget phone][/assets/posts/redmi-15c-budget-phone.jpg]
+![Redmi 15C in hand showing its large display, positioned as an everyday budget phone](/assets/posts/redmi-15c-budget-phone.jpg)
 
 ## Xiaomi vs Redmi vs POCO: what's the actual difference?
 
