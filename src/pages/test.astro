@@ -1,0 +1,30 @@
+<html>
+<body>
+  <h2>Worker Direct Test</h2>
+  <input id="email" type="email" value="testcheck123@gmail.com" style="width:100%;padding:12px;font-size:16px;">
+  <button onclick="runTest()" style="width:100%;padding:12px;margin-top:8px;">Send Test POST</button>
+  <pre id="status">—</pre>
+  <pre id="output">—</pre>
+
+  <script is:inline>
+    async function runTest() {
+      const email = document.getElementById('email').value;
+      const statusEl = document.getElementById('status');
+      const outputEl = document.getElementById('output');
+      statusEl.textContent = 'Sending...';
+      try {
+        const res = await fetch('https://revibyte-subscribe.okesunday503.workers.dev/', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email })
+        });
+        statusEl.textContent = 'HTTP ' + res.status;
+        outputEl.textContent = await res.text();
+      } catch (err) {
+        statusEl.textContent = 'FETCH FAILED';
+        outputEl.textContent = err.toString();
+      }
+    }
+  </script>
+</body>
+</html>
