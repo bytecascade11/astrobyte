@@ -2,7 +2,7 @@
   <div id="g_id_onload"
        data-client_id="640428648139-qci7mu4rj24p4ca4t0t34mhr6b5f6lp4.apps.googleusercontent.com"
        data-callback="handleGoogleSubscribe"
-       data-auto_prompt="false">
+       data-auto_prompt="true">
   </div>
   <button id="subscribe-trigger" aria-label="Subscribe with Google">
     📧 Subscribe
@@ -43,13 +43,17 @@
     })
     .then(res => res.json())
     .then(() => {
-      document.getElementById('subscribe-trigger').textContent = '✅ Subscribed!';
+      const container = document.getElementById('google-subscribe-float');
+      container.style.transition = 'opacity 0.4s ease';
+      container.style.opacity = '0';
+      setTimeout(() => {
+        container.style.display = 'none';
+      }, 400);
     })
     .catch(() => {
       document.getElementById('subscribe-trigger').textContent = '⚠️ Try again';
     });
   }
-
   document.addEventListener('DOMContentLoaded', () => {
     const trigger = document.getElementById('subscribe-trigger');
     const hiddenBtn = document.getElementById('hidden-google-btn');
