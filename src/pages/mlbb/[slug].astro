@@ -1,5 +1,5 @@
 ---
-// src/pages/codm/[slug].astro
+// src/pages/mlbb/[slug].astro
 import { getCollection, render } from "astro:content";
 import type { CollectionEntry } from "astro:content";
 import Layout from "@/layouts/Layout.astro";
@@ -9,7 +9,7 @@ import AffiliateCarousel from "@/components/AffiliateCarousel.astro";
 import Comments from "@/components/Comments.astro";
 
 export async function getStaticPaths() {
-  const guides = await getCollection("codm", ({ data }) => !data.draft);
+  const guides = await getCollection("mlbb", ({ data }) => !data.draft);
   return guides.map(guide => ({
     params: { slug: guide.data.slug ?? guide.id },
     props: { guide },
@@ -19,9 +19,9 @@ export async function getStaticPaths() {
 const { guide } = Astro.props;
 const { Content } = await render(guide);
 
-let relatedGuides: CollectionEntry<"codm">[] = [];
+let relatedGuides: CollectionEntry<"mlbb">[] = [];
 if (guide.data.relatedSlugs?.length) {
-  const all = await getCollection("codm", ({ data }) => !data.draft);
+  const all = await getCollection("mlbb", ({ data }) => !data.draft);
   relatedGuides = all.filter(g =>
     guide.data.relatedSlugs!.includes(g.data.slug ?? g.id)
   );
@@ -41,7 +41,7 @@ const coverImageAbs = guide.data.coverImage
     ).toString()
   : undefined;
 
-const postUrl = `${websiteBase}codm/${guide.data.slug ?? guide.id}/`;
+const postUrl = `${websiteBase}mlbb/${guide.data.slug ?? guide.id}/`;
 const postSlug = guide.data.slug ?? guide.id;
 
 const typeLabels: Record<string, string> = {
@@ -61,8 +61,8 @@ const shareTitle = guide.data.title;
     type="breadcrumb"
     breadcrumbs={[
       { name: "Home", url: websiteBase },
-      { name: "CODM", url: `${websiteBase}codm/` },
-      { name: typeLabel, url: `${websiteBase}codm/` },
+      { name: "MLBB", url: `${websiteBase}mlbb/` },
+      { name: typeLabel, url: `${websiteBase}mlbb/` },
       { name: guide.data.title, url: postUrl },
     ]}
   />
@@ -83,7 +83,7 @@ const shareTitle = guide.data.title;
     <nav class="pt-6 pb-2 text-sm flex items-center gap-1.5 breadcrumb-nav">
       <a href="/" class="hover:text-skin-accent transition-colors">Home</a>
       <span>/</span>
-      <a href="/codm/" class="hover:text-skin-accent transition-colors">CODM</a>
+      <a href="/mlbb/" class="hover:text-skin-accent transition-colors">MLBB</a>
       <span>/</span>
       <span>{typeLabel}</span>
     </nav>
@@ -133,7 +133,7 @@ const shareTitle = guide.data.title;
     <!-- Header -->
     <div class="mb-6">
       <div class="flex flex-wrap gap-2 mb-3">
-        <span class="badge badge--accent">🎮 CODM</span>
+        <span class="badge badge--accent">🎮 MLBB</span>
         <span class="badge">{typeLabel}</span>
       </div>
 
@@ -187,7 +187,7 @@ const shareTitle = guide.data.title;
           {relatedGuides.map(related => (
             <li>
               <a
-                href={`/codm/${related.data.slug ?? related.id}/`}
+                href={`/mlbb/${related.data.slug ?? related.id}/`}
                 class="group flex items-start gap-3 rounded-lg border border-skin-line p-3 hover:border-skin-accent transition-colors"
               >
                 {related.data.coverImage && (
@@ -265,7 +265,7 @@ const shareTitle = guide.data.title;
     <div class="mt-10 flex items-center gap-4">
       <a href="/" class="text-sm text-skin-accent hover:underline flex items-center gap-1">← Home</a>
       <span class="text-skin-base/30">|</span>
-      <a href="/codm/" class="text-sm text-skin-accent hover:underline flex items-center gap-1">CODM Hub</a>
+      <a href="/mlbb/" class="text-sm text-skin-accent hover:underline flex items-center gap-1">MLBB Hub</a>
     </div>
 
     <!-- Adsterra: Bottom of Hub (300x250) -->
