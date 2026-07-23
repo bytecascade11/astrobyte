@@ -5,7 +5,7 @@ author: iSamuel
 pubDatetime: 2026-07-23T06:40:00Z
 coverImage: /assets/posts/best-foldable-phones-nigeria-2026-cover.jpg
 coverImageAlt: A hand holding an open book-style foldable smartphone showing its inner display, with a folded flip phone beside it on a desk
-tags: ["samsung", "tecno", "foldable"]
+tags: ["samsung", "galaxy", "tecno", "google", "pixel", "flip", "fold"]
 ---
 
 ## Table of Contents 
