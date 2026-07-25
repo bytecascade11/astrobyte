@@ -5,7 +5,7 @@ pubDatetime: 2026-07-25T19:30:00Z
 coverImage: "/assets/posts/pagespeed-100-astro-mobile.jpg"
 coverImageAlt: "Screenshot of PageSpeed Insights showing a perfect 100 Performance score for ReviByte on mobile"
 author: iSamuel 
-tags: ["productive", "revibyte", "review", "opinions"]
+tags: ["productive", "revibyte", "review", "opinions", "news"]
 ---
 
 ## Table of Contents 
