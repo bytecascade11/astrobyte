@@ -2,7 +2,7 @@
 title: "How ReviByte Hit a 100 PageSpeed Score on Astro — Fixing CLS, Ads, and Canonical URLs From My Phone"
 description: "A breakdown of the fixes that got ReviByte to a 100 Performance score in PageSpeed Insights, including how Astro's layout shift, AdSense CLS, and canonical URL bugs were fixed entirely from a mobile device."
 pubDatetime: 2026-07-25T19:30:00Z
-coverImage: "/assets/posts/placeholder-pagespeed-100.jpg"
+coverImage: "/assets/posts/pagespeed-100-astro-mobile.jpg"
 coverImageAlt: "Screenshot of PageSpeed Insights showing a perfect 100 Performance score for ReviByte on mobile"
 author: iSamuel 
 tags: ["productive", "revibyte", "review", "opinions"]
