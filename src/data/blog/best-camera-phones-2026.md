@@ -62,7 +62,7 @@ Here's the one that actually matters for most people reading this. The main came
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
-*[The Infinix Note 60 Ultra's rear camera island showing the 200MP main sensor and periscope zoom lens][infinix-note-60-ultra-camera-island.jpg]*
+![The Infinix Note 60 Ultra's rear camera island showing the 200MP main sensor and periscope zoom lens](/assets/posts/infinix-note-60-ultra-camera-island.jpg)
 
 ## Full camera specification comparison
 
