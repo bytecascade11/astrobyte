@@ -3,7 +3,7 @@ title: "Best Camera Phones in Nigeria (2026): The Ones Actually Worth Your Naira
 description: "From the iPhone 17 Pro Max's night mode to the Infinix Note 60 Ultra's periscope zoom, here's a verified breakdown of the best camera phones you can actually buy in Nigeria in 2026."
 author: iSamuel
 pubDatetime: 2026-07-25T08:06:00Z
-coverImage: /assets/posts/best-camera-phones-2026-cover.jpg
+coverImage: /assets/posts/best-camera-phones-2026.jpg
 coverImageAlt: "Five flagship and mid-range smartphones laid out side by side showing their rear camera modules"
 tags: ["smartphones", "android", "iphone", "nigeria", "opinions", "Infinix", "ultra", "samsung", "google", "pixel", "xiaomi"]
 ---
