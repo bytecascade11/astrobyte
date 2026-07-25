@@ -6,7 +6,7 @@ coverImage: "/assets/posts/placeholder-pagespeed-100.jpg"
 coverImageAlt: "Screenshot of PageSpeed Insights showing a perfect 100 Performance score for ReviByte on mobile"
 author: iSamuel 
 tags: ["productive", "revibyte", "review", "opinions"]
---
+---
 
 ## Table of Contents 
 
