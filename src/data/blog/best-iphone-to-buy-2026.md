@@ -3,7 +3,7 @@ title: "Best iPhone to Buy in 2026: Which Model Actually Makes Sense for You (wi
 description: "A detailed 2026 iPhone buying guide with Nigerian naira pricing, camera and battery comparisons, and honest recommendations for every budget — from the base iPhone 17 to the Pro Max."  
 coverImage: "/assets/posts/all-four-iphone-17-models.jpg" 
 coverImageAlt: "Best iPhone to buy in 2026 lineup"
-pubDatetime: 2026-07-26T11:12:00:00Z
+pubDatetime: 2026-07-26T11:12:00Z
 author: iSamuel 
 tags: ["iphone", "apple", "smartphones", "nigeria", "opinions"]  
 ---  
