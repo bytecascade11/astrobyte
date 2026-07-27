@@ -189,7 +189,7 @@ const currentPath = Astro.url.pathname;
 
   <body>
     <HeliaraAI />
-<GoogleSubscribe />
+    <GoogleSubscribe />
     <slot name="header" />
     <slot name="top-nav" />
 
@@ -197,10 +197,23 @@ const currentPath = Astro.url.pathname;
 
     {coverImage && (
       <div class="cover-ad-wrapper">
-        <!-- AdSense: TOP of 
-      
+        <!-- AdSense: TOP of cover image -->
+        <div class="ad-slot ad-slot--top">
+          <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4896561037705299"
+               crossorigin="anonymous"></script>
+          <ins class="adsbygoogle"
+               style="display:block"
+               data-ad-format="fluid"
+               data-ad-layout-key="-gf-2b-2i-8t+14w"
+               data-ad-client="ca-pub-4896561037705299"
+               data-ad-slot="2743091672"></ins>
+          <script is:inline>
+               (adsbygoogle = window.adsbygoogle || []).push({});
+          </script>
+        </div>
+
         <!-- Cover Image -->
-        <OptimizedCoverImage 
+        <OptimizedCoverImage
           src={coverImage}
           alt={coverImageAlt || title}
           width={1200}
@@ -209,10 +222,10 @@ const currentPath = Astro.url.pathname;
           sizes="100vw"
         />
 
-        <!-- Adsterra: BOTTOM of cover image -->
+        <!-- Adsterra: BOTTOM of cover image (normal size, matches ad-slot--bottom) -->
         <div class="ad-slot ad-slot--bottom">
-          <!-- Paste your Adsterra code here -->
-          <!-- Example: <script src="//your-adsterra-script.js"></script> -->
+          <script async data-cfasync="false" src="https://pl28410703.effectivecpmnetwork.com/100c0408033e7aba877563ba9293a45d/invoke.js"></script>
+          <div id="container-100c0408033e7aba877563ba9293a45d"></div>
         </div>
       </div>
     )}
@@ -344,7 +357,7 @@ const currentPath = Astro.url.pathname;
         contain: layout;
       }
 
-      /* Reduced min-height to prevent excessive whitespace */
+      /* Reserved space prevents layout shift while the ad script loads */
       .ad-slot--top {
         margin-bottom: 0.5rem;
         min-height: 90px;
