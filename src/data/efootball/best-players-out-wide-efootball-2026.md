@@ -2,7 +2,7 @@
 title: "Best Players for Out Wide in eFootball 2026"
 description: "Vinícius Jr, Yamal, Doku, Salah — here's who's actually delivering out wide in eFootball 2026, broken down by playstyle, strengths, weaknesses, and the formations that get the most out of them."
 author: iSamuel
-pubDatetime: "2026-06-28T07:30:00Z"
+pubDatetime: "2026-07-27T07:30:00Z"
 coverImage: "/assets/efootball/best-players-out-wide-efootball-2026.jpg"
 coverImageAlt: "Best players for out wide roles in eFootball 2026"
 type: guide
