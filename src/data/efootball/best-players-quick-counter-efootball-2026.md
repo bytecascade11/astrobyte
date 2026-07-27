@@ -7,7 +7,7 @@ coverImage: "/assets/efootball/best-players-quick-counter-efootball-2026.jpg"
 coverImageAlt: "Best Players for Quick Counter in eFootball™ 2026"
 type: guide
 gameMode: Multiplayer
-season: "eFootball™ 2026 – June 2026"
+season: "eFootball™ 2026 – July 2026"
 slug: "best-players-quick-counter-efootball-2026"
 relatedSlugs:
   - "best-quick-counter-formation-efootball-2026"
