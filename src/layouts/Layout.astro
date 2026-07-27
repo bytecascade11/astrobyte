@@ -55,6 +55,7 @@ const currentPath = Astro.url.pathname;
 <!doctype html>
 <html dir={SITE.dir} lang={SITE.lang ?? "en"} class={scrollSmooth ? "scroll-smooth" : undefined}>
   <head>
+
     <meta charset="UTF-8" />
 
     <!-- box-sizing reset — must be first to prevent flash -->
@@ -62,7 +63,7 @@ const currentPath = Astro.url.pathname;
       *, *::before, *::after { box-sizing: border-box; }
       html, body { width: 100%; max-width: 100%; margin: 0; padding: 0; overflow-x: hidden; }
     </style>
-
+<meta name="monetag" content="beb9956ba17aee3da44d38ba36d4fc4b">
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="icon" type="image/x-icon" href="/favicon.ico" />
