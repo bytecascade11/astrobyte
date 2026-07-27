@@ -2,7 +2,7 @@
 title: "Best Players for Quick Counter in eFootball 2026"
 description: "The honest breakdown of which players actually make a Quick Counter setup work in eFootball 2026 — pace, dribbling, decision-making, and the roles that matter most on the break."
 author: iSamuel
-pubDatetime: "2026-06-27T09:40:00Z"
+pubDatetime: "2026-06-27T16:00:00Z"
 coverImage: "/assets/efootball/best-players-quick-counter-efootball-2026.jpg"
 coverImageAlt: "Best Players for Quick Counter in eFootball™ 2026"
 type: guide
