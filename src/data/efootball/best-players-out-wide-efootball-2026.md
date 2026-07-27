@@ -51,11 +51,11 @@ Yamal cutting in from the right onto his stronger left foot is the classic inver
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4896561037705299"
      crossorigin="anonymous"></script>
 <ins class="adsbygoogle"
-     style="display:block; text-align:center;"
-     data-ad-layout="in-article"
+     style="display:block"
      data-ad-format="fluid"
+     data-ad-layout-key="-gf-2b-2i-8t+14w"
      data-ad-client="ca-pub-4896561037705299"
-     data-ad-slot="7554701431"></ins>
+     data-ad-slot="2743091672"></ins>
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
