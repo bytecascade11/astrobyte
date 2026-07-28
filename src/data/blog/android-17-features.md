@@ -7,6 +7,7 @@ lastUpdated: 2026-07-28T19:08:00Z
 coverImage: "/assets/posts/android-17-features.jpg"
 coverImageAlt: "Android 17 logo over a frosted-glass style phone interface showing the new Material 3 Expressive design"
 slug: "android-17-features"
+tags: ["android", "opinions", "productivity", "google", "Samsung", "OnePlus", "oppo", xiaomi"]
 relatedSlugs:
   - "best-android-phones-2026"
   - "best-samsung-phones-2026"
@@ -127,9 +128,8 @@ Android's system update notes also describe scanning of installed apps for suspi
 
 For most people reading this from Nigeria, the honest advice is: don't buy a phone purely to chase Gemini Intelligence unless you're already shopping in flagship territory. The security and interface improvements land on every eligible device — including older Pixels and mid-rangers once OEMs push their skinned updates later in the year — so a budget or mid-tier phone still benefits meaningfully from Android 17. If camera performance matters more to you than AI extras, our [best camera phones 2026 guide](https://www.revibyte.blog/posts/best-camera-phones-2026/) is a better starting point, and if you're torn between ecosystems entirely, it's worth checking our [iPhone buying guide for 2026](https://www.revibyte.blog/posts/best-iphone-to-buy-2026/) or the [OnePlus lineup breakdown](https://www.revibyte.blog/posts/best-oneplus-phone-2026/) before committing.
 
-<video controls width="100%" preload="metadata">
+<video autoplay muted loop playsinline width="100%">
   <source src="/videos/android-17-device-rollout-chart.mp4" type="video/mp4" />
-  Your browser doesn't support video playback.
 </video>
 
 ## FAQ
