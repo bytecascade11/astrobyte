@@ -3,7 +3,7 @@ title: "Best OnePlus Phone to Buy in 2026 (Nigeria Buyer's Guide)"
 description: "Confused about which OnePlus phone to buy in Nigeria in 2026? We break down the OnePlus 15, 15R, 13, and Nord 5 by price, battery, and camera so you don't overspend."
 author: "iSamuel"
 pubDatetime: 2026-07-28T06:35:00Z
-coverImage: "/assets/posts/oneplus-15-cover.jpg"
+coverImage: "/assets/posts/oneplus-15.jpg"
 coverImageAlt: "OnePlus 15 flagship smartphone lineup for 2026 placed side by side on a desk"
 tags: ["oneplus", "android", "opinions", "nigeria", "smartphones"]
 ---
