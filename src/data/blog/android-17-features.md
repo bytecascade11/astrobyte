@@ -4,7 +4,7 @@ description: "Android 17 is here with Gemini Intelligence, Bubbles, Material 3 E
 author: "iSamuel"
 pubDatetime: 2026-07-28T19:08:00Z
 lastUpdated: 2026-07-28T19:08:00Z
-coverImage: "/assets/posts/android-17-features-cover.jpg"
+coverImage: "/assets/posts/android-17-features.jpg"
 coverImageAlt: "Android 17 logo over a frosted-glass style phone interface showing the new Material 3 Expressive design"
 slug: "android-17-features"
 relatedSlugs:
