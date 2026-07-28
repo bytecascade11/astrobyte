@@ -94,7 +94,7 @@ For social media, streaming, and most games at high settings, the difference fro
 
 ### OnePlus 13 — Best If You Want Last Year's Flagship for Less
 
-![OnePlus 13 rear camera module close-up](/assets/posts/best-oneplus-phone-2026/oneplus-13-camera-module.jpg)
+![OnePlus 13 rear camera module close-up](/assets/posts/oneplus-13-camera-module.jpg)
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4896561037705299"
      crossorigin="anonymous"></script>
 <ins class="adsbygoogle"
