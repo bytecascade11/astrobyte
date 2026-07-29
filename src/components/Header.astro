@@ -1,6 +1,5 @@
 ---
 import Hr from "./Hr.astro";
-import IconX from "@/assets/icons/IconX.svg";
 import IconMoon from "@/assets/icons/IconMoon.svg";
 import IconSearch from "@/assets/icons/IconSearch.svg";
 import IconSunHigh from "@/assets/icons/IconSunHigh.svg";
@@ -17,29 +16,6 @@ const isActive = (path: string) => {
   if (path === "/") return currentPath === "/";
   return currentPath === path || currentPath.startsWith(path + "/");
 };
-
-// --- Sidebar content -------------------------------------------------
-const categories = [
-  { label: "News", href: "/tags/news/" },
-  { label: "Samsung", href: "/tags/samsung/" },
-  { label: "Apple", href: "/tags/apple/" },
-  { label: "Android", href: "/tags/android/" },
-  { label: "Games", href: "/tags/games/" },
-  { label: "AI", href: "/tags/ai/" },
-  { label: "Opinions", href: "/tags/opinions/" },
-];
-
-const tools = [
-  { label: "Save (Video Downloader)", href: "/save/", badge: "Free" },
-  { label: "Heliara AI Chat", href: "/heliara/", badge: "AI" },
-];
-
-const gamingHub = [
-  { label: "COD Mobile", href: "/codm/" },
-  { label: "eFootball", href: "/efootball/" },
-  { label: "PUBG Mobile", href: "/pubgmobile/" },
-  { label: "MLBB", href: "/mlbb/" },
-];
 ---
 
 <header>
@@ -58,7 +34,7 @@ const gamingHub = [
         {SITE.title}
       </a>
 
-      <!-- Top bar controls (always visible) -->
+      <!-- Top bar controls -->
       <div class="flex items-center gap-x-1">
         <LinkButton
           href="/search/"
@@ -84,7 +60,6 @@ const gamingHub = [
           )
         }
 
-        <!-- Menu trigger — opens the sidebar on both mobile and desktop -->
         <button
           id="menu-btn"
           class="p-2"
@@ -99,192 +74,20 @@ const gamingHub = [
   </div>
 
   <Hr />
-
-  <!-- Sidebar root — FIXED position to escape header stacking context -->
-  <div
-    id="sidebar-root"
-    class="fixed inset-0 pointer-events-none"
-    style="z-index: 99999;"
-  >
-    <div
-      id="sidebar-overlay"
-      class="pointer-events-auto fixed inset-0 hidden bg-black/60"
-      style="z-index: 1;"
-    ></div>
-
-    <aside
-      id="app-sidebar"
-      class="pointer-events-auto fixed right-0 top-0 h-full w-[85%] max-w-[340px] translate-x-full overflow-y-auto bg-background shadow-2xl transition-transform duration-300 ease-out"
-      style="background-color: var(--color-background, #ffffff); z-index: 2; will-change: transform;"
-      aria-hidden="true"
-    >
-      <div class="flex items-center justify-between p-4 bg-background">
-        <span class="text-lg font-semibold">{SITE.title}</span>
-        <button id="sidebar-close" aria-label="Close menu" class="p-2 hover:[&>svg]:stroke-accent">
-          <IconX />
-        </button>
-      </div>
-      <Hr />
-
-      <nav aria-label="Sidebar navigation" class="px-4 py-3 bg-background min-h-[calc(100%-60px)]">
-        <!-- Browse -->
-        <ul class="space-y-1 [&>li>a]:block [&>li>a]:rounded-lg [&>li>a]:px-3 [&>li>a]:py-2.5 [&>li>a]:font-medium [&>li>a]:hover:bg-black/5 dark:[&>li>a]:hover:bg-white/10 [&>li>a]:hover:text-accent">
-          <li>
-            <a href="/" aria-current={isActive("/") ? "page" : undefined}>Home</a>
-          </li>
-          <li>
-            <a href="/posts/" aria-current={isActive("/posts") ? "page" : undefined}>Posts</a>
-          </li>
-        </ul>
-
-        <!-- Categories -->
-        <p class="mt-5 px-3 pb-1 text-xs font-semibold uppercase tracking-wider opacity-60">
-          Categories
-        </p>
-        <ul class="grid grid-cols-2 gap-1 [&>li>a]:block [&>li>a]:rounded-lg [&>li>a]:px-3 [&>li>a]:py-2.5 [&>li>a]:text-sm [&>li>a]:font-medium [&>li>a]:hover:bg-black/5 dark:[&>li>a]:hover:bg-white/10 [&>li>a]:hover:text-accent">
-          {categories.map((c) => (
-            <li>
-              <a href={c.href} aria-current={isActive(c.href.slice(0, -1)) ? "page" : undefined}>
-                {c.label}
-              </a>
-            </li>
-          ))}
-        </ul>
-
-        <!-- ReviByte Tools -->
-        <p class="mt-5 px-3 pb-1 text-xs font-semibold uppercase tracking-wider opacity-60">
-          ReviByte Tools
-        </p>
-        <ul class="space-y-1">
-          {tools.map((t) => (
-            <li>
-              <a
-                href={t.href}
-                class="flex items-center justify-between rounded-lg px-3 py-2.5 text-sm font-medium hover:bg-black/5 hover:text-accent dark:hover:bg-white/10"
-              >
-                <span>{t.label}</span>
-                <span class="rounded-full bg-accent/10 px-2 py-0.5 text-[10px] font-semibold text-accent">
-                  {t.badge}
-                </span>
-              </a>
-            </li>
-          ))}
-        </ul>
-
-        <!-- Gaming Hub (collapsible) -->
-        <button
-          id="gaming-hub-toggle"
-          class="mt-5 flex w-full items-center justify-between rounded-lg px-3 py-2 text-xs font-semibold uppercase tracking-wider opacity-60 hover:text-accent"
-          aria-expanded="true"
-          aria-controls="gaming-hub-list"
-        >
-          Gaming Hub
-          <svg
-            id="gaming-hub-chevron"
-            xmlns="http://www.w3.org/2000/svg"
-            width="14"
-            height="14"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            class="transition-transform duration-200"
-          >
-            <polyline points="6 9 12 15 18 9"></polyline>
-          </svg>
-        </button>
-        <ul id="gaming-hub-list" class="space-y-1">
-          {gamingHub.map((g) => (
-            <li>
-              <a
-                href={g.href}
-                class="block rounded-lg px-3 py-2.5 text-sm font-medium hover:bg-black/5 hover:text-accent dark:hover:bg-white/10"
-              >
-                {g.label}
-              </a>
-            </li>
-          ))}
-        </ul>
-
-        <!-- WhatsApp CTA -->
-        <a
-          href="https://whatsapp.com/channel/YOUR_CHANNEL_ID"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="mt-6 flex items-center justify-center rounded-lg bg-accent px-4 py-2.5 text-sm font-semibold text-background"
-        >
-          Join WhatsApp Channel
-        </a>
-      </nav>
-    </aside>
-  </div>
 </header>
 
 <script>
-  function initNav() {
-    const menuBtn = document.querySelector("#menu-btn");
-    const sidebar = document.querySelector("#app-sidebar");
-    const overlay = document.querySelector("#sidebar-overlay");
-    const closeBtn = document.querySelector("#sidebar-close");
-    const gamingToggle = document.querySelector("#gaming-hub-toggle");
-    const gamingList = document.querySelector("#gaming-hub-list");
-    const gamingChevron = document.querySelector("#gaming-hub-chevron");
-
-    if (!menuBtn || !sidebar || !overlay || !closeBtn) return;
-
-    const openSidebar = () => {
-      sidebar.classList.remove("translate-x-full");
-      overlay.classList.remove("hidden");
-      sidebar.setAttribute("aria-hidden", "false");
-      menuBtn.setAttribute("aria-expanded", "true");
-      document.body.style.overflow = "hidden";
-    };
-
-    const closeSidebar = () => {
-      sidebar.classList.add("translate-x-full");
-      overlay.classList.add("hidden");
-      sidebar.setAttribute("aria-hidden", "true");
-      menuBtn.setAttribute("aria-expanded", "false");
-      document.body.style.overflow = "";
-    };
-
-    menuBtn.addEventListener("click", openSidebar);
-    closeBtn.addEventListener("click", closeSidebar);
-    overlay.addEventListener("click", closeSidebar);
-    document.addEventListener("keydown", (e) => {
-      if (e.key === "Escape") closeSidebar();
-    });
-
-    gamingToggle?.addEventListener("click", () => {
-      const nowHidden = gamingList?.classList.toggle("hidden");
-      gamingToggle.setAttribute("aria-expanded", String(!nowHidden));
-      gamingChevron?.classList.toggle("rotate-180", !!nowHidden);
-    });
-  }
-
   function initThemeToggle() {
     const themeBtn = document.querySelector("#theme-btn");
     if (!themeBtn) return;
-
     themeBtn.addEventListener("click", () => {
       const currentTheme = localStorage.getItem("theme");
-      const isDark =
-        currentTheme === "dark" ||
-        (!currentTheme && document.documentElement.getAttribute("data-theme") === "dark");
-
+      const isDark = currentTheme === "dark" || (!currentTheme && document.documentElement.getAttribute("data-theme") === "dark");
       const newTheme = isDark ? "light" : "dark";
       localStorage.setItem("theme", newTheme);
       document.documentElement.setAttribute("data-theme", newTheme);
     });
   }
-
-  initNav();
   initThemeToggle();
-
-  document.addEventListener("astro:after-swap", () => {
-    initNav();
-    initThemeToggle();
-  });
+  document.addEventListener("astro:after-swap", initThemeToggle);
 </script>
