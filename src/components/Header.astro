@@ -100,19 +100,19 @@ const gamingHub = [
 
   <Hr />
 
-  <!-- Overlay -->
-  <div
-    id="sidebar-overlay"
-    class="fixed inset-0 z-[9998] hidden bg-black/50 backdrop-blur-sm"
-  ></div>
+  <!-- Sidebar root â€” single isolated stacking context so nothing on the page can render between the overlay and the panel -->
+  <div id="sidebar-root" class="fixed inset-0 z-[9999] pointer-events-none" style="transform: translateZ(0);">
+    <div
+      id="sidebar-overlay"
+      class="pointer-events-auto absolute inset-0 hidden bg-black/60"
+    ></div>
 
-  <!-- Sidebar -->
-  <aside
-    id="app-sidebar"
-    class="fixed right-0 top-0 z-[9999] h-full w-[85%] max-w-[340px] translate-x-full transform overflow-y-auto bg-background shadow-2xl transition-transform duration-300 ease-out isolate"
-    style="background-color: var(--color-background, #ffffff);"
-    aria-hidden="true"
-  >
+    <aside
+      id="app-sidebar"
+      class="pointer-events-auto absolute right-0 top-0 h-full w-[85%] max-w-[340px] translate-x-full transform overflow-y-auto bg-background shadow-2xl transition-transform duration-300 ease-out"
+      style="background-color: var(--color-background, #ffffff); will-change: transform;"
+      aria-hidden="true"
+    >
     <div class="flex items-center justify-between p-4">
       <span class="text-lg font-semibold">{SITE.title}</span>
       <button id="sidebar-close" aria-label="Close menu" class="p-2 hover:[&>svg]:stroke-accent">
@@ -213,7 +213,8 @@ const gamingHub = [
         Join WhatsApp Channel
       </a>
     </nav>
-  </aside>
+    </aside>
+  </div>
 </header>
 
 <script>
