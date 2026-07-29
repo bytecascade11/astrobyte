@@ -70,7 +70,7 @@ Since it's a step down from the current-generation Ultra, the 15T Pro is now sit
 
 This is where Xiaomi's 2026 lineup gets interesting for the average Nigerian buyer. A 200MP main camera, IP68/IP69 water resistance, and a battery built around silicon-carbon chemistry that noticeably outlasts older Redmi Notes — community reports across forums consistently mention two full days of moderate use, though your mileage will vary with 5G and screen brightness. At its price bracket, I don't think there's a more complete Xiaomi-family phone right now.
 
-![Redmi Note 15 Pro+ front display and camera module](/assets/posts/best-xiaomi-phone-2026/redmi-note-15-pro-plus.jpg)
+![Redmi Note 15 Pro+ front display and camera module](/assets/posts/redmi-note-15-pro-plus.jpg)
 
 ## Redmi Note 15 Pro — same DNA, smaller bill
 
@@ -80,7 +80,7 @@ Drop the "+"model and you lose a bit of charging speed and premium material, but
 
 An 8,500 mAh battery is not a typo. In exchange for carrying a slightly thicker phone, you get multi-day battery life that most flagships can't touch. It's not the sharpest camera phone on this list, and it's an import-heavy device in Nigeria, so warranty support needs checking before you buy — but as a battery-first pick, nothing else here comes close.
 
-![POCO X8 Pro Max held in hand showing its thicker battery-focused build](/assets/posts/best-xiaomi-phone-2026/poco-x8-pro-max.jpg)
+![POCO X8 Pro Max held in hand showing its thicker battery-focused build](/assets/posts/poco-x8-pro-max.jpg)
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4896561037705299"
      crossorigin="anonymous"></script>
 <ins class="adsbygoogle"
