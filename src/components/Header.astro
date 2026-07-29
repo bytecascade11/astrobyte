@@ -1,153 +1,261 @@
----  
-import Hr from "./Hr.astro";  
-import IconX from "@/assets/icons/IconX.svg";  
-import IconMoon from "@/assets/icons/IconMoon.svg";  
-import IconSearch from "@/assets/icons/IconSearch.svg";  
-import IconSunHigh from "@/assets/icons/IconSunHigh.svg";  
-import IconMenuDeep from "@/assets/icons/IconMenuDeep.svg";  
-import LinkButton from "./LinkButton.astro";  
-import { SITE } from "@/config";  
-  
-const { pathname } = Astro.url;  
-  
-const currentPath =  
-  pathname !== "/" && pathname.endsWith("/") ? pathname.slice(0, -1) : pathname;  
-  
-const isActive = (path: string) => {  
-  if (path === "/") return currentPath === "/";  
-  return currentPath === path || currentPath.startsWith(path + "/");  
-};  
----  
-  
-<header>  
-  <a  
-    id="skip-to-content"  
-    href="#main-content"  
-    class="absolute start-16 -top-full z-50 bg-background px-3 py-2 text-accent backdrop-blur-lg transition-all focus:top-4"  
-  >  
-    Skip to content  
-  </a>  
-  
-  <div class="mx-auto flex max-w-app flex-col sm:flex-row items-center justify-between">  
-    <div class="relative flex w-full items-baseline justify-between bg-background p-4 sm:items-center sm:py-6">  
-      <!-- Logo -->  
-      <a href="/" class="absolute py-1 text-xl font-semibold sm:static sm:text-2xl">  
-        {SITE.title}  
-      </a>  
-  
-      <!-- Navigation -->
-      <nav aria-label="Main navigation" class="flex w-full flex-col sm:flex-row sm:justify-end sm:gap-x-5">  
-        <!-- Mobile toggle -->  
-        <button  
-          id="menu-btn"  
-          class="self-end p-2 sm:hidden"  
-          aria-label="Open Menu"  
-          aria-expanded="false"  
-          aria-controls="menu-items"  
-        >  
-          <IconX id="close-icon" class="hidden" />  
-          <IconMenuDeep id="menu-icon" />  
-        </button>  
-  
-        <!-- Menu -->  
-        <ul  
-          id="menu-items"  
-          class:list={[  
-            "mt-4 grid w-44 grid-cols-2 gap-2 text-center",  
-            "[&>li>a]:block [&>li>a]:px-4 [&>li>a]:py-3 [&>li>a]:font-medium [&>li>a]:hover:text-accent",  
-            "hidden",  
-            "sm:mt-0 sm:flex sm:w-auto sm:gap-x-5 sm:gap-y-0 sm:[&>li>a]:px-2 sm:[&>li>a]:py-1",  
-          ]}  
-        >  
-          <li class="col-span-2">  
-            <a href="/" class:list={{ "active-nav": isActive("/") }} aria-current={isActive("/") ? "page" : undefined}>Home</a>  
-          </li>
+---
+import Hr from "./Hr.astro";
+import IconX from "@/assets/icons/IconX.svg";
+import IconMoon from "@/assets/icons/IconMoon.svg";
+import IconSearch from "@/assets/icons/IconSearch.svg";
+import IconSunHigh from "@/assets/icons/IconSunHigh.svg";
+import IconMenuDeep from "@/assets/icons/IconMenuDeep.svg";
+import LinkButton from "./LinkButton.astro";
+import { SITE } from "@/config";
 
-          <!-- Posts hub — helps Google discover all posts -->
-          <li class="col-span-2">
-            <a href="/posts/" class:list={{ "active-nav": isActive("/posts") }} aria-current={isActive("/posts") ? "page" : undefined}>Posts</a>
-          </li>
+const { pathname } = Astro.url;
 
-          <li class="col-span-2">  
-            <a href="/tags/news/" class:list={{ "active-nav": isActive("/tags/news") }} aria-current={isActive("/tags/news") ? "page" : undefined}>News</a>  
-          </li>  
-          <li class="col-span-2">  
-            <a href="/tags/samsung/" class:list={{ "active-nav": isActive("/tags/samsung") }} aria-current={isActive("/tags/samsung") ? "page" : undefined}>Samsung</a>  
-          </li>  
-          <li class="col-span-2">  
-            <a href="/tags/apple/" class:list={{ "active-nav": isActive("/tags/apple") }} aria-current={isActive("/tags/apple") ? "page" : undefined}>Apple</a>  
-          </li>  
-          <li class="col-span-2">  
-            <a href="/tags/android/" class:list={{ "active-nav": isActive("/tags/android") }} aria-current={isActive("/tags/android") ? "page" : undefined}>Android</a>  
-          </li>  
-          <li class="col-span-2">  
-            <a href="/tags/games/" class:list={{ "active-nav": isActive("/tags/games") }} aria-current={isActive("/tags/games") ? "page" : undefined}>Games</a>  
-          </li>  
-          <li class="col-span-2">  
-            <a href="/tags/ai/" class:list={{ "active-nav": isActive("/tags/ai") }} aria-current={isActive("/tags/ai") ? "page" : undefined}>AI</a>  
-          </li>  
-          <li class="col-span-2">  
-            <a href="/tags/opinions/" class:list={{ "active-nav": isActive("/tags/opinions") }} aria-current={isActive("/tags/opinions") ? "page" : undefined}>Opinions</a>  
-          </li>  
-  
-          <!-- Search -->  
-          <li class="col-span-1 flex justify-center">  
-            <LinkButton  
-              href="/search/"  
-              class:list={[  
-                "flex p-3 sm:p-1",  
-                { "[&>svg]:stroke-accent": isActive("/search") },  
-              ]}  
-              ariaLabel="Search"  
-              title="Search"  
-            >  
-              <IconSearch />  
-              <span class="sr-only">Search</span>  
-            </LinkButton>  
-          </li>  
-  
-          <!-- Theme toggle -->  
-          {  
-            SITE.lightAndDarkMode && (  
-              <li class="col-span-1 flex justify-center">  
-                <button  
-                  id="theme-btn"  
-                  class="relative size-12 p-4 sm:size-8 hover:[&>svg]:stroke-accent"  
-                  title="Toggle theme"  
-                  aria-label="Toggle theme"  
-                >  
-                  <IconMoon class="absolute inset-1/2 -translate-x-1/2 -translate-y-1/2 transition-all dark:scale-0" />  
-                  <IconSunHigh class="absolute inset-1/2 -translate-x-1/2 -translate-y-1/2 scale-0 transition-all dark:scale-100" />  
-                </button>  
-              </li>  
-            )  
-          }  
-        </ul>  
-      </nav>  
-    </div>  
-  </div>  
-  
-  <Hr />  
-</header>  
-  
-<script>  
-  function initNav() {  
-    const btn = document.querySelector("#menu-btn");  
-    const menu = document.querySelector("#menu-items");  
-    const openIcon = document.querySelector("#menu-icon");  
-    const closeIcon = document.querySelector("#close-icon");  
-  
-    if (!btn || !menu || !openIcon || !closeIcon) return;  
-  
-    btn.addEventListener("click", () => {  
-      const open = btn.getAttribute("aria-expanded") === "true";  
-      btn.setAttribute("aria-expanded", String(!open));  
-      btn.setAttribute("aria-label", open ? "Open Menu" : "Close Menu");  
-      menu.classList.toggle("hidden");  
-      openIcon.classList.toggle("hidden");  
-      closeIcon.classList.toggle("hidden");  
-    });  
-  }  
+const currentPath =
+  pathname !== "/" && pathname.endsWith("/") ? pathname.slice(0, -1) : pathname;
+
+const isActive = (path: string) => {
+  if (path === "/") return currentPath === "/";
+  return currentPath === path || currentPath.startsWith(path + "/");
+};
+
+// --- Sidebar content -------------------------------------------------
+const categories = [
+  { label: "News", href: "/tags/news/" },
+  { label: "Samsung", href: "/tags/samsung/" },
+  { label: "Apple", href: "/tags/apple/" },
+  { label: "Android", href: "/tags/android/" },
+  { label: "Games", href: "/tags/games/" },
+  { label: "AI", href: "/tags/ai/" },
+  { label: "Opinions", href: "/tags/opinions/" },
+];
+
+const tools = [
+  { label: "Save (Video Downloader)", href: "/save/", badge: "Free" },
+  { label: "Heliara AI Chat", href: "/heliara/", badge: "AI" },
+];
+
+const gamingHub = [
+  { label: "COD Mobile", href: "/codm/" },
+  { label: "eFootball", href: "/efootball/" },
+  { label: "PUBG Mobile", href: "/pubgmobile/" },
+  { label: "MLBB", href: "/mlbb/" },
+];
+---
+
+<header>
+  <a
+    id="skip-to-content"
+    href="#main-content"
+    class="absolute start-16 -top-full z-50 bg-background px-3 py-2 text-accent backdrop-blur-lg transition-all focus:top-4"
+  >
+    Skip to content
+  </a>
+
+  <div class="mx-auto flex max-w-app flex-col sm:flex-row items-center justify-between">
+    <div class="relative flex w-full items-center justify-between bg-background p-4 sm:py-6">
+      <!-- Logo -->
+      <a href="/" class="text-xl font-semibold sm:text-2xl">
+        {SITE.title}
+      </a>
+
+      <!-- Top bar controls (always visible) -->
+      <div class="flex items-center gap-x-1">
+        <LinkButton
+          href="/search/"
+          class:list={["flex p-3 sm:p-1", { "[&>svg]:stroke-accent": isActive("/search") }]}
+          ariaLabel="Search"
+          title="Search"
+        >
+          <IconSearch />
+          <span class="sr-only">Search</span>
+        </LinkButton>
+
+        {
+          SITE.lightAndDarkMode && (
+            <button
+              id="theme-btn"
+              class="relative size-12 p-4 sm:size-8 hover:[&>svg]:stroke-accent"
+              title="Toggle theme"
+              aria-label="Toggle theme"
+            >
+              <IconMoon class="absolute inset-1/2 -translate-x-1/2 -translate-y-1/2 transition-all dark:scale-0" />
+              <IconSunHigh class="absolute inset-1/2 -translate-x-1/2 -translate-y-1/2 scale-0 transition-all dark:scale-100" />
+            </button>
+          )
+        }
+
+        <!-- Menu trigger â€” opens the sidebar on both mobile and desktop -->
+        <button
+          id="menu-btn"
+          class="p-2"
+          aria-label="Open Menu"
+          aria-expanded="false"
+          aria-controls="app-sidebar"
+        >
+          <IconMenuDeep />
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <Hr />
+
+  <!-- Overlay -->
+  <div
+    id="sidebar-overlay"
+    class="fixed inset-0 z-40 hidden bg-black/50 backdrop-blur-sm"
+  ></div>
+
+  <!-- Sidebar -->
+  <aside
+    id="app-sidebar"
+    class="fixed right-0 top-0 z-50 h-full w-[85%] max-w-[340px] translate-x-full transform overflow-y-auto bg-background shadow-2xl transition-transform duration-300 ease-out"
+    aria-hidden="true"
+  >
+    <div class="flex items-center justify-between p-4">
+      <span class="text-lg font-semibold">{SITE.title}</span>
+      <button id="sidebar-close" aria-label="Close menu" class="p-2 hover:[&>svg]:stroke-accent">
+        <IconX />
+      </button>
+    </div>
+    <Hr />
+
+    <nav aria-label="Sidebar navigation" class="px-4 py-3">
+      <!-- Browse -->
+      <ul class="space-y-1 [&>li>a]:block [&>li>a]:rounded-lg [&>li>a]:px-3 [&>li>a]:py-2.5 [&>li>a]:font-medium [&>li>a]:hover:bg-black/5 dark:[&>li>a]:hover:bg-white/10 [&>li>a]:hover:text-accent">
+        <li>
+          <a href="/" aria-current={isActive("/") ? "page" : undefined}>Home</a>
+        </li>
+        <li>
+          <a href="/posts/" aria-current={isActive("/posts") ? "page" : undefined}>Posts</a>
+        </li>
+      </ul>
+
+      <!-- Categories -->
+      <p class="mt-5 px-3 pb-1 text-xs font-semibold uppercase tracking-wider opacity-60">
+        Categories
+      </p>
+      <ul class="grid grid-cols-2 gap-1 [&>li>a]:block [&>li>a]:rounded-lg [&>li>a]:px-3 [&>li>a]:py-2.5 [&>li>a]:text-sm [&>li>a]:font-medium [&>li>a]:hover:bg-black/5 dark:[&>li>a]:hover:bg-white/10 [&>li>a]:hover:text-accent">
+        {categories.map((c) => (
+          <li>
+            <a href={c.href} aria-current={isActive(c.href.slice(0, -1)) ? "page" : undefined}>
+              {c.label}
+            </a>
+          </li>
+        ))}
+      </ul>
+
+      <!-- ReviByte Tools -->
+      <p class="mt-5 px-3 pb-1 text-xs font-semibold uppercase tracking-wider opacity-60">
+        ReviByte Tools
+      </p>
+      <ul class="space-y-1">
+        {tools.map((t) => (
+          <li>
+            <a
+              href={t.href}
+              class="flex items-center justify-between rounded-lg px-3 py-2.5 text-sm font-medium hover:bg-black/5 hover:text-accent dark:hover:bg-white/10"
+            >
+              <span>{t.label}</span>
+              <span class="rounded-full bg-accent/10 px-2 py-0.5 text-[10px] font-semibold text-accent">
+                {t.badge}
+              </span>
+            </a>
+          </li>
+        ))}
+      </ul>
+
+      <!-- Gaming Hub (collapsible) -->
+      <button
+        id="gaming-hub-toggle"
+        class="mt-5 flex w-full items-center justify-between rounded-lg px-3 py-2 text-xs font-semibold uppercase tracking-wider opacity-60 hover:text-accent"
+        aria-expanded="true"
+        aria-controls="gaming-hub-list"
+      >
+        Gaming Hub
+        <svg
+          id="gaming-hub-chevron"
+          xmlns="http://www.w3.org/2000/svg"
+          width="14"
+          height="14"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          class="transition-transform duration-200"
+        >
+          <polyline points="6 9 12 15 18 9"></polyline>
+        </svg>
+      </button>
+      <ul id="gaming-hub-list" class="space-y-1">
+        {gamingHub.map((g) => (
+          <li>
+            <a
+              href={g.href}
+              class="block rounded-lg px-3 py-2.5 text-sm font-medium hover:bg-black/5 hover:text-accent dark:hover:bg-white/10"
+            >
+              {g.label}
+            </a>
+          </li>
+        ))}
+      </ul>
+
+      <!-- WhatsApp CTA -->
+      <a
+        href="https://whatsapp.com/channel/YOUR_CHANNEL_ID"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="mt-6 flex items-center justify-center rounded-lg bg-accent px-4 py-2.5 text-sm font-semibold text-background"
+      >
+        Join WhatsApp Channel
+      </a>
+    </nav>
+  </aside>
+</header>
+
+<script>
+  function initNav() {
+    const menuBtn = document.querySelector("#menu-btn");
+    const sidebar = document.querySelector("#app-sidebar");
+    const overlay = document.querySelector("#sidebar-overlay");
+    const closeBtn = document.querySelector("#sidebar-close");
+    const gamingToggle = document.querySelector("#gaming-hub-toggle");
+    const gamingList = document.querySelector("#gaming-hub-list");
+    const gamingChevron = document.querySelector("#gaming-hub-chevron");
+
+    if (!menuBtn || !sidebar || !overlay || !closeBtn) return;
+
+    const openSidebar = () => {
+      sidebar.classList.remove("translate-x-full");
+      overlay.classList.remove("hidden");
+      sidebar.setAttribute("aria-hidden", "false");
+      menuBtn.setAttribute("aria-expanded", "true");
+      document.body.style.overflow = "hidden";
+    };
+
+    const closeSidebar = () => {
+      sidebar.classList.add("translate-x-full");
+      overlay.classList.add("hidden");
+      sidebar.setAttribute("aria-hidden", "true");
+      menuBtn.setAttribute("aria-expanded", "false");
+      document.body.style.overflow = "";
+    };
+
+    menuBtn.addEventListener("click", openSidebar);
+    closeBtn.addEventListener("click", closeSidebar);
+    overlay.addEventListener("click", closeSidebar);
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") closeSidebar();
+    });
+
+    gamingToggle?.addEventListener("click", () => {
+      const nowHidden = gamingList?.classList.toggle("hidden");
+      gamingToggle.setAttribute("aria-expanded", String(!nowHidden));
+      gamingChevron?.classList.toggle("rotate-180", !!nowHidden);
+    });
+  }
 
   function initThemeToggle() {
     const themeBtn = document.querySelector("#theme-btn");
@@ -164,7 +272,7 @@ const isActive = (path: string) => {
       document.documentElement.setAttribute("data-theme", newTheme);
     });
   }
-  
+
   initNav();
   initThemeToggle();
 
