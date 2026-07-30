@@ -118,7 +118,7 @@ If the Pro and Pro+ feel like overkill, the standard Note 15 5G is where the rea
 
 The Redmi 15C is the phone to recommend to a parent, a student, or anyone buying their first proper Android device, running a lighter version of HyperOS 2 (Android version varies by release). Up to a 6,000mAh battery and up to 33W charging cover the basics well, and an up-to-120Hz display is a genuinely rare inclusion this far down the price ladder. The Redmi A5 goes even cheaper, dropping to a smaller battery and a weaker chipset, but it's still a legitimate daily driver for calls, WhatsApp, and light browsing rather than a phone you'll regret buying.
 
-![Redmi A5 budget smartphone front view](/assets/posts/best-redmi-phone-2026/redmi-a5.jpg)
+![Redmi A5 budget smartphone front view](/assets/posts/redmi-a5.jpg)
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4896561037705299"
      crossorigin="anonymous"></script>
 <ins class="adsbygoogle"
