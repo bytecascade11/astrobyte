@@ -54,7 +54,7 @@ function getSrcset(src: string): string {
       <section class="rb-top-grid mb-10">
 
         <article class="rb-hero">
-          <a href={`/posts/${heroPost.id}`} class="rb-hero__img-wrap">
+          <a href={`/posts/${heroPost.id}/`} class="rb-hero__img-wrap">
             {heroPost.data.coverImage && (
               <img
                 src={getOptimizedSrc(heroPost.data.coverImage, 800)}
@@ -80,7 +80,7 @@ function getSrcset(src: string): string {
             )}
 
             <h1 class="rb-hero__title">
-              <a href={`/posts/${heroPost.id}`}>{heroPost.data.title}</a>
+              <a href={`/posts/${heroPost.id}/`}>{heroPost.data.title}</a>
             </h1>
 
             {heroPost.data.description && (
@@ -93,7 +93,7 @@ function getSrcset(src: string): string {
               <time>{formatDate(heroPost.data.pubDatetime)}</time>
             </div>
 
-            <a href={`/posts/${heroPost.id}`} class="rb-read-btn">
+            <a href={`/posts/${heroPost.id}/`} class="rb-read-btn">
               Read Article <span>→</span>
             </a>
           </div>
@@ -111,7 +111,7 @@ function getSrcset(src: string): string {
                       <span class="rb-tag">{post.data.tags[0]}</span>
                     </div>
                   )}
-                  <a href={`/posts/${post.id}`} class="rb-sidebar__title">
+                  <a href={`/posts/${post.id}/`} class="rb-sidebar__title">
                     {post.data.title}
                   </a>
                   <time class="rb-sidebar__date">{formatDate(post.data.pubDatetime)}</time>
@@ -222,7 +222,7 @@ function getSrcset(src: string): string {
         <div class="rb-list">
           {listPosts.map((post) => (
             <article class="rb-list-card">
-              <a href={`/posts/${post.id}`} class="rb-list-card__img-wrap">
+              <a href={`/posts/${post.id}/`} class="rb-list-card__img-wrap">
                 {post.data.coverImage && (
                   <img
                     src={getOptimizedSrc(post.data.coverImage, 480)}
@@ -246,7 +246,7 @@ function getSrcset(src: string): string {
                   </div>
                 )}
                 <h3 class="rb-list-card__title">
-                  <a href={`/posts/${post.id}`}>{post.data.title}</a>
+                  <a href={`/posts/${post.id}/`}>{post.data.title}</a>
                 </h3>
                 {post.data.description && (
                   <p class="rb-list-card__desc">{post.data.description}</p>
