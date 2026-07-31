@@ -7,6 +7,7 @@ modDatetime: 2026-07-31T22:27:00Z
 coverImage: "/assets/posts/best-honor-phones-2026-cover.jpg"
 coverImageAlt: "Lineup of the best Honor phones in 2026 including the Magic7 Pro and Magic V5"
 slug: "best-honor-phone-2026"
+tags: ["honor", "reviews", "opinions"]
 relatedSlugs:
   - "best-phones-with-5g-nigeria-2026"
   - "best-xiaomi-phone-2026"
