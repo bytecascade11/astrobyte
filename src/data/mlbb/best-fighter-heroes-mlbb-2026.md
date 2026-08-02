@@ -2,10 +2,10 @@
 title: "Best Fighter Heroes in Mobile Legends 2026 — Season 41 Tier List"
 description: "The strongest fighter heroes in Mobile Legends Bang Bang for Season 41 (Patch 2.1.90), backed by ranked win rates, ban rates, and patch notes rather than guesswork."
 author: "iSamuel"
-pubDatetime: 2026-08-02T19:01:00Z
+pubDatetime: "2026-08-02T19:01:00Z"
 type: "tier-list"
 role: "Fighter"
-season: "Season 4"
+season: "Season 41"
 coverImage: "/assets/mlbb/best-fighter-heroes-mlbb-2026.jpg"
 coverImageAlt: "Best fighter heroes in Mobile Legends Bang Bang Season 41 tier list"
 slug: "best-fighter-heroes-mlbb-2026"
