@@ -3,9 +3,10 @@ title: "Best Fighter Heroes in Mobile Legends 2026 — Season 41 Tier List"
 description: "The strongest fighter heroes in Mobile Legends Bang Bang for Season 41 (Patch 2.1.90), backed by ranked win rates, ban rates, and patch notes rather than guesswork."
 author: "iSamuel"
 pubDatetime: "2026-08-02T19:01:00Z"
-type: "tier-list"
-role: "Fighting"
-season: "Season 41"
+type: "tier-list"  
+role: "Fighter"  
+season: "Season 41 (Scarlet Embers)"  
+patch: "2.1.90"  
 coverImage: "/assets/mlbb/best-fighter-heroes-mlbb-2026.jpg"
 coverImageAlt: "Best fighter heroes in Mobile Legends Bang Bang Season 41 tier list"
 slug: "best-fighter-heroes-mlbb-2026"
@@ -20,7 +21,7 @@ relatedSlugs:
 ## Table of Contents 
 
 ## Overview 
-
+![Best fighter heroes in Mobile Legends Season 41 tier list](/assets/mlbb/fighter-tier-list-overview-2026.jpg)  
 > **Last updated for Patch 2.1.90** (Season 41, Scarlet Embers). Fighter rankings, builds, and matchup notes on this page reflect this patch specifically — check the note below for exactly how the data was pulled.
 
 Season 41, nicknamed Scarlet Embers, opened on June 17 with Patch 2.1.88 and rewrote the fighter role from the ground up. That patch leaned hard into durability — roaming heroes, tanks, and a chunk of the fighter pool got tankier, the jungle economy changed, and eleven heroes took nerfs while a smaller group got buffed. Three weeks later, Patch 2.1.90 landed on July 8 as a mid-season correction: the new jungle economy had overtuned tank junglers, so Baxia, Fredrinn, and Akai got trimmed, while several EXP-lane fighters that had gone quiet — Esmeralda, Minsitthar, Argus, Aulus, and Nolan — got lifted back into relevance.
@@ -150,6 +151,7 @@ Minsitthar is the most beginner-friendly hero on this list, and also one of the 
 Guinevere rounds out S-tier at a 51.1% win rate, giving the EXP lane another strong dueling option, though with a lower profile than the four heroes above — her ban and pick rates are modest enough that she's more of a comfort pick than a first-ban priority right now. Just below her, Argus has quietly become one of the highest win-rate fighters in the role after being buffed in back-to-back patches; his immortality window still wins isolated 1v1s that would kill most other bruisers. Lukas and Silvanna both sit in reliable A-tier territory — not draft-warping, but consistently winnable if you're comfortable on the hero.
 
 ## The Anti-Heal Problem
+![Anti-heal build inventory screenshot placeholder](/assets/mlbb/anti-heal-inventory-screenshot-2026.jpg)  
 
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4896561037705299"
      crossorigin="anonymous"></script>
