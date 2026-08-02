@@ -8,6 +8,12 @@ season: "Season 41"
 coverImage: "/assets/mlbb/best-fighter-heroes-mlbb-2026.jpg"
 coverImageAlt: "Best fighter heroes in Mobile Legends Bang Bang Season 41 tier list"
 slug: "best-fighter-heroes-mlbb-2026"
+relatedSlugs:
+  - "how-to-play-joy-mlbb-pro-guide"
+  - "most-overpowered-heroes-mlbb-season-40-2026"
+  - "best-assassin-heroes-mlbb-2026"
+  - "best-marksman-heroes-mlbb-2026"
+  - "best-heroes-mlbb-tier-list-2026"
 ---
 
 ## Table of Contents 
@@ -144,7 +150,6 @@ Guinevere rounds out S-tier at a 51.1% win rate, giving the EXP lane another str
 
 ## The Anti-Heal Problem
 
-![Anti-heal build inventory screenshot placeholder](assets/mlbb/anti-heal-inventory-screenshot-2026.jpg)
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4896561037705299"
      crossorigin="anonymous"></script>
 <ins class="adsbygoogle"
