@@ -4,6 +4,7 @@ description: "The strongest fighter heroes in Mobile Legends Bang Bang for Seaso
 author: "iSamuel"
 pubDatetime: "2026-08-02T19:01:00Z"
 type: "tier-list"
+role: "Fighting"
 season: "Season 41"
 coverImage: "/assets/mlbb/best-fighter-heroes-mlbb-2026.jpg"
 coverImageAlt: "Best fighter heroes in Mobile Legends Bang Bang Season 41 tier list"
@@ -50,7 +51,7 @@ Statistics on this page are based on ranked match data as of **August 1, 2026**,
 | Guinevere | 51.1% | Low | EXP Lane | Medium |
 | Paquito | 51.0% | ~65% (highest in game) | EXP Lane | Hard |
 
-![Masha teamfight screenshot placeholder](assets/mlbb/masha-teamfight-screenshot-2026.jpg)
+![Masha teamfight screenshot placeholder](/assets/mlbb/masha-teamfight-screenshot-2026.jpg)
 
 The gap between Masha's win rate and her ban rate tells its own story. She's the strongest fighter in the game by a wide margin but almost nobody bans or even picks her — a sign she's still under most players' radar rather than a false alarm in the data. Paquito is the opposite case: a middling 51% win rate that looks unremarkable until you notice he's removed from roughly two out of every three ranked drafts, which is the highest ban rate of any hero in Mobile Legends right now, tank or fighter. His raw numbers are modest because the games where he actually gets played are the games where the enemy team failed to ban him — a self-selecting, harder pool.
 
@@ -174,12 +175,11 @@ If your team doesn't have at least one anti-heal item somewhere in the build ord
 
 ## Who Should You Pick First?
 
-<!-- PLACEHOLDER IMAGE 4 (GAMEPLAY SCREENSHOT): /assets/mlbb/minsitthar-kings-calling-screenshot-2026.jpg — an actual match screenshot of Minsitthar's King's Calling ultimate caging an enemy hero, not a static portrait, used near the beginner recommendation section -->
-![Minsitthar King's Calling screenshot placeholder](assets/mlbb/minsitthar-kings-calling-screenshot-2026.jpg)
+![Minsitthar King's Calling screenshot placeholder](/assets/mlbb/minsitthar-kings-calling-screenshot-2026.jpg)
 
 If you're newer to the fighter role, Minsitthar is the easiest entry point on this list — his difficulty rating is Easy, and his combo rewards patience over reaction speed. Masha is a reasonable second pick: Medium difficulty, and her power comes from a clear pattern (get low, hit harder) rather than a tight input sequence. Save Paquito for later. He's rated Hard for a reason, and his whole kit depends on choosing the right enhanced skill under pressure, which takes real repetition to get comfortable with.
 
-![Paquito Champ Stance combo screenshot placeholder](assets/mlbb/paquito-champ-stance-combo.jpg)
+![Paquito Champ Stance combo screenshot placeholder](/assets/mlbb/paquito-champ-stance-combo.jpg)
 
 ## FAQ
 
