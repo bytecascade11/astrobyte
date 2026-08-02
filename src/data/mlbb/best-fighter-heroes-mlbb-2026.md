@@ -8,12 +8,6 @@ season: "Season 41"
 coverImage: "/assets/mlbb/best-fighter-heroes-mlbb-2026.jpg"
 coverImageAlt: "Best fighter heroes in Mobile Legends Bang Bang Season 41 tier list"
 slug: "best-fighter-heroes-mlbb-2026"
-relatedSlugs:
-  - "how-to-play-joy-mlbb-pro-guide"
-  - "most-overpowered-heroes-mlbb-season-40-2026"
-  - "best-assassin-heroes-mlbb-2026"
-  - "best-marksman-heroes-mlbb-2026"
-  - "best-heroes-mlbb-tier-list-2026"
 ---
 
 ## Table of Contents 
