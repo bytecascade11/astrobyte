@@ -11,7 +11,7 @@ coverImageAlt: "Best Marksman heroes in Mobile Legends Season 41 gold lane tier 
 slug: "best-marksman-heroes-mlbb-2026"
 ---
 
-## Table of Content 
+## Table of Contents
 
 ## Best Marksman Heroes in Mobile Legends Season 41
 
