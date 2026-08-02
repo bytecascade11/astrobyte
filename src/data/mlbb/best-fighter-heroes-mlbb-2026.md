@@ -21,8 +21,6 @@ relatedSlugs:
 
 ## Overview 
 
-![Best fighter heroes in Mobile Legends Season 41 tier list](assets/mlbb/fighter-tier-list-overview-2026.jpg)
-
 > **Last updated for Patch 2.1.90** (Season 41, Scarlet Embers). Fighter rankings, builds, and matchup notes on this page reflect this patch specifically — check the note below for exactly how the data was pulled.
 
 Season 41, nicknamed Scarlet Embers, opened on June 17 with Patch 2.1.88 and rewrote the fighter role from the ground up. That patch leaned hard into durability — roaming heroes, tanks, and a chunk of the fighter pool got tankier, the jungle economy changed, and eleven heroes took nerfs while a smaller group got buffed. Three weeks later, Patch 2.1.90 landed on July 8 as a mid-season correction: the new jungle economy had overtuned tank junglers, so Baxia, Fredrinn, and Akai got trimmed, while several EXP-lane fighters that had gone quiet — Esmeralda, Minsitthar, Argus, Aulus, and Nolan — got lifted back into relevance.
