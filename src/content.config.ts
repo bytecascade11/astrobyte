@@ -165,6 +165,5 @@ export const collections = {
   efootball,
   pubgmobile,
   mlbb,
-  itel,
   samsung,
 };
