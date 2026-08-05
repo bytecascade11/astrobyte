@@ -9,10 +9,18 @@ import IconArrowRight from "@/assets/icons/IconArrowRight.svg";
 import { SITE } from "@/config";
 import imageManifest from '@/data/image-manifest.json';
 
-const posts = await getCollection("blog");
+const blogPosts = await getCollection("blog");
+const itelPosts = await getCollection("itel");
 
-const sortedPosts = posts
+const taggedBlog = blogPosts
   .filter(post => !post.data.draft)
+  .map(post => ({ ...post, hubPath: "posts" }));
+
+const taggedItel = itelPosts
+  .filter(post => !post.data.draft)
+  .map(post => ({ ...post, hubPath: "itel" }));
+
+const sortedPosts = [...taggedBlog, ...taggedItel]
   .sort((a, b) => b.data.pubDatetime.valueOf() - a.data.pubDatetime.valueOf());
 
 const heroPost = sortedPosts[0];
@@ -54,7 +62,7 @@ function getSrcset(src: string): string {
       <section class="rb-top-grid mb-10">
 
         <article class="rb-hero">
-          <a href={`/posts/${heroPost.id}/`} class="rb-hero__img-wrap">
+          <a href={`/${heroPost.hubPath}/${heroPost.id}/`} class="rb-hero__img-wrap">
             {heroPost.data.coverImage && (
               <img
                 src={getOptimizedSrc(heroPost.data.coverImage, 800)}
@@ -80,7 +88,7 @@ function getSrcset(src: string): string {
             )}
 
             <h1 class="rb-hero__title">
-              <a href={`/posts/${heroPost.id}/`}>{heroPost.data.title}</a>
+              <a href={`/${heroPost.hubPath}/${heroPost.id}/`}>{heroPost.data.title}</a>
             </h1>
 
             {heroPost.data.description && (
@@ -93,7 +101,7 @@ function getSrcset(src: string): string {
               <time>{formatDate(heroPost.data.pubDatetime)}</time>
             </div>
 
-            <a href={`/posts/${heroPost.id}/`} class="rb-read-btn">
+            <a href={`/${heroPost.hubPath}/${heroPost.id}/`} class="rb-read-btn">
               Read Article <span>→</span>
             </a>
           </div>
@@ -111,7 +119,7 @@ function getSrcset(src: string): string {
                       <span class="rb-tag">{post.data.tags[0]}</span>
                     </div>
                   )}
-                  <a href={`/posts/${post.id}/`} class="rb-sidebar__title">
+                  <a href={`/${post.hubPath}/${post.id}/`} class="rb-sidebar__title">
                     {post.data.title}
                   </a>
                   <time class="rb-sidebar__date">{formatDate(post.data.pubDatetime)}</time>
@@ -177,6 +185,17 @@ function getSrcset(src: string): string {
             <span class="rb-list-card-arrow">→</span>
           </a>
         </li>
+
+        <li class="rb-list-card-item">
+          <a href="/itel/" class="rb-list-card-link">
+            <span class="rb-list-card-icon">📱</span>
+            <div class="rb-list-card-info">
+              <h3 class="rb-list-card-title">itel Phones</h3>
+              <p class="rb-list-card-desc">Reviews, prices in naira, and buying guides for itel's Nigerian phone lineup.</p>
+            </div>
+            <span class="rb-list-card-arrow">→</span>
+          </a>
+        </li>
       </ul>
     </section>
 
@@ -191,25 +210,7 @@ function getSrcset(src: string): string {
 
       <ul class="rb-list-cards">
         <li class="rb-list-card-item">
-          <a href="/heliara/" class="rb-list-card-link">
-            <span class="rb-list-card-icon">✨</span>
-            <div class="rb-list-card-info">
-              <h3 class="rb-list-card-title">Heliara AI</h3>
-              <p class="rb-list-card-desc">Ask anything about phones, Android, COD Mobile, eFootball, or general tech. Instant answers powered by AI.</p>
-            </div>
-            <span class="rb-list-card-arrow">→</span>
-          </a>
-        </li>
-
-        <li class="rb-list-card-item">
-          <a href="/save/" class="rb-list-card-link">
-            <span class="rb-list-card-icon">⬇️</span>
-            <div class="rb-list-card-info">
-              <h3 class="rb-list-card-title">ReviByte Save</h3>
-              <p class="rb-list-card-desc">Download TikTok videos without watermark, save audio as MP3, and more. Free media downloader tools.</p>
-            </div>
-            <span class="rb-list-card-arrow">→</span>
-          </a>
+          <a href="/
         </li>
       </ul>
     </section>
@@ -222,7 +223,7 @@ function getSrcset(src: string): string {
         <div class="rb-list">
           {listPosts.map((post) => (
             <article class="rb-list-card">
-              <a href={`/posts/${post.id}/`} class="rb-list-card__img-wrap">
+              <a href={`/${post.hubPath}/${post.id}/`} class="rb-list-card__img-wrap">
                 {post.data.coverImage && (
                   <img
                     src={getOptimizedSrc(post.data.coverImage, 480)}
@@ -246,7 +247,7 @@ function getSrcset(src: string): string {
                   </div>
                 )}
                 <h3 class="rb-list-card__title">
-                  <a href={`/posts/${post.id}/`}>{post.data.title}</a>
+                  <a href={`/${post.hubPath}/${post.id}/`}>{post.data.title}</a>
                 </h3>
                 {post.data.description && (
                   <p class="rb-list-card__desc">{post.data.description}</p>
@@ -273,7 +274,6 @@ function getSrcset(src: string): string {
   </main>
   <Footer />
 </Layout>
-
 <style>
   /* ── Layout ── */
   .rb-home {
