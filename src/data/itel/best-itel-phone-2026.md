@@ -8,7 +8,6 @@ coverImage: /assets/itel/best-itel-phone-2026.jpg
 coverImageAlt: Lineup of the best itel phones available in Nigeria in 2026
 slug: best-itel-phone-2026
 relatedSlugs: [best-tecno-phone-2026, best-poco-phone-2026, best-honor-phone-2026, best-nothing-phone-2026, best-vivo-phones-nigeria-2026]
-tags: ["itel", "smartphones", "nigeria", "opinions", "android"]
 ---
 
 ## Table of Contents
