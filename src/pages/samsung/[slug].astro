@@ -8,7 +8,7 @@ import AffiliateCarousel from "@/components/AffiliateCarousel.astro";
 import Comments from "@/components/Comments.astro";
 
 export async function getStaticPaths() {
-  const posts = await getCollection("itel", ({ data }) => !data.draft);
+  const posts = await getCollection("samsung", ({ data }) => !data.draft);
   return posts.map(post => ({
     params: { slug: post.data.slug ?? post.id },
     props: { post },
@@ -18,9 +18,9 @@ export async function getStaticPaths() {
 const { post } = Astro.props;
 const { Content } = await render(post);
 
-let relatedPosts: CollectionEntry<"itel">[] = [];
+let relatedPosts: CollectionEntry<"samsung">[] = [];
 if (post.data.relatedSlugs?.length) {
-  const all = await getCollection("itel", ({ data }) => !data.draft);
+  const all = await getCollection("samsung", ({ data }) => !data.draft);
   relatedPosts = all.filter(p =>
     post.data.relatedSlugs!.includes(p.data.slug ?? p.id)
   );
@@ -40,7 +40,7 @@ const coverImageAbs = post.data.coverImage
     ).toString()
   : undefined;
 
-const postUrl = `${websiteBase}itel/${post.data.slug ?? post.id}/`;
+const postUrl = `${websiteBase}samsung/${post.data.slug ?? post.id}/`;
 const postSlug = post.data.slug ?? post.id;
 
 const typeLabels: Record<string, string> = {
@@ -60,8 +60,8 @@ const shareTitle = post.data.title;
     type="breadcrumb"
     breadcrumbs={[
       { name: "Home", url: websiteBase },
-      { name: "itel", url: `${websiteBase}itel/` },
-      { name: typeLabel, url: `${websiteBase}itel/` },
+      { name: "Samsung", url: `${websiteBase}samsung/` },
+      { name: typeLabel, url: `${websiteBase}samsung/` },
       { name: post.data.title, url: postUrl },
     ]}
   />
@@ -81,7 +81,7 @@ const shareTitle = post.data.title;
     <nav class="pt-6 pb-2 text-sm flex items-center gap-1.5 breadcrumb-nav">
       <a href="/" class="hover:text-skin-accent transition-colors">Home</a>
       <span>/</span>
-      <a href="/itel/" class="hover:text-skin-accent transition-colors">itel</a>
+      <a href="/samsung/" class="hover:text-skin-accent transition-colors">Samsung</a>
       <span>/</span>
       <span>{typeLabel}</span>
     </nav>
@@ -106,7 +106,7 @@ const shareTitle = post.data.title;
 
     <div class="mb-6">
       <div class="flex flex-wrap gap-2 mb-3">
-        <span class="badge badge--accent">📱 itel {post.data.model ?? ""}</span>
+        <span class="badge badge--accent">📲 Samsung {post.data.model ?? ""}</span>
         <span class="badge">{typeLabel}</span>
         {post.data.rating && <span class="badge">⭐ {post.data.rating}/5</span>}
       </div>
@@ -158,13 +158,13 @@ const shareTitle = post.data.title;
         <ul class="space-y-3">
           {relatedPosts.map(related => (
             <li>
-              <a href={`/itel/${related.data.slug ?? related.id}/`}
+              <a href={`/samsung/${related.data.slug ?? related.id}/`}
                 class="group flex items-start gap-3 rounded-lg border border-skin-line p-3 hover:border-skin-accent transition-colors">
                 {related.data.coverImage && (
                   <img src={related.data.coverImage} alt={related.data.coverImageAlt ?? related.data.title}
                     class="w-16 h-12 object-cover rounded-lg shrink-0" loading="lazy" width="64" height="48" />
                 )}
-                {!related.data.coverImage && <span class="text-xl shrink-0">📱</span>}
+                {!related.data.coverImage && <span class="text-xl shrink-0">📲</span>}
                 <div>
                   <p class="font-medium text-sm group-hover:text-skin-accent transition-colors">{related.data.title}</p>
                   <p class="text-xs post-meta mt-0.5">{related.data.description}</p>
@@ -217,7 +217,7 @@ const shareTitle = post.data.title;
     <div class="mt-10 flex items-center gap-4">
       <a href="/" class="text-sm text-skin-accent hover:underline flex items-center gap-1">← Home</a>
       <span class="text-skin-base/30">|</span>
-      <a href="/itel/" class="text-sm text-skin-accent hover:underline flex items-center gap-1">itel Hub</a>
+      <a href="/samsung/" class="text-sm text-skin-accent hover:underline flex items-center gap-1">Samsung Hub</a>
     </div>
 
     <div style="margin: 1.5rem 0; min-height: 250px; display:flex; justify-content:center; contain: layout;">
@@ -268,7 +268,6 @@ const shareTitle = post.data.title;
     });
   }
 </script>
-
 <style is:global>
   .wa-channel-box {
     display: flex; align-items: center; gap: 14px;
