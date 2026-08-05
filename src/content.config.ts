@@ -27,7 +27,32 @@ const blog = defineCollection({
       hideEditPost: z.boolean().optional().default(false),
     }),
 });
-
+// --------------- itel Collection ---------------
+const itel = defineCollection({
+  loader: glob({ pattern: "**/[^_]*.{md,mdx}", base: "./src/data/itel" }),
+  schema: ({ image }) =>
+    z.object({
+      title: z.string(),
+      description: z.string(),
+      author: z.string().default(SITE.author),
+      pubDatetime: z.coerce.date(),
+      modDatetime: z.coerce.date().optional().nullable(),
+      lastUpdated: z.string().optional(),
+      ogImage: image().optional().or(z.string().url().optional()),
+      canonicalURL: z.string().url().optional(),
+      coverImage: z.string().optional(),
+      coverImageAlt: z.string().optional(),
+      type: z.enum(["review", "comparison", "buying-guide", "news"]).default("review"),
+      model: z.string().optional(),       // e.g. "itel S24"
+      priceNGN: z.number().optional(),    // naira price for your market context
+      rating: z.number().min(0).max(5).optional(),
+      tags: z.array(z.string()).default(["itel"]),
+      featured: z.boolean().optional(),
+      draft: z.boolean().optional().default(false),
+      relatedSlugs: z.array(z.string()).optional(),
+      slug: z.string().optional(),
+    }),
+});
 // --------------- CODM Collection ---------------
 const codm = defineCollection({
   loader: glob({ pattern: "**/[^_]*.{md,mdx}", base: "./src/data/codm" }),
