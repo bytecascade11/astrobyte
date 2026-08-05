@@ -43,8 +43,8 @@ const itel = defineCollection({
       coverImage: z.string().optional(),
       coverImageAlt: z.string().optional(),
       type: z.enum(["review", "comparison", "buying-guide", "news"]).default("review"),
-      model: z.string().optional(),       // e.g. "itel S24"
-      priceNGN: z.number().optional(),    // naira price for your market context
+      model: z.string().optional(),        // e.g. "itel S24"
+      priceNGN: z.number().optional(),
       rating: z.number().min(0).max(5).optional(),
       tags: z.array(z.string()).default(["itel"]),
       featured: z.boolean().optional(),
