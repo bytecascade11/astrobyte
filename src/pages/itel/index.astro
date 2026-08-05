@@ -3,7 +3,7 @@ import { getCollection } from "astro:content";
 import Layout from "@/layouts/Layout.astro";
 import { SITE } from "@/config";
 
-const allPosts = await getCollection("itel", ({ data }) => !data.draft);
+const allPosts = await getCollection("samsung", ({ data }) => !data.draft);
 const sorted = allPosts.sort(
   (a, b) => new Date(b.data.pubDatetime).getTime() - new Date(a.data.pubDatetime).getTime()
 );
@@ -13,8 +13,8 @@ const comparisons  = sorted.filter(g => g.data.type === "comparison");
 const buyingGuides = sorted.filter(g => g.data.type === "buying-guide");
 const news         = sorted.filter(g => g.data.type === "news");
 
-const pageTitle = "itel Phone Reviews, Prices & Buying Guides";
-const pageDesc  = "Your complete itel resource — hands-on reviews, price comparisons in naira, and buying guides for the Nigerian market.";
+const pageTitle = "Samsung Galaxy Reviews, Prices & Buying Guides";
+const pageDesc  = "Your complete Samsung resource — hands-on Galaxy reviews, price comparisons in naira, and buying guides for the Nigerian market.";
 ---
 
 <Layout title={`${pageTitle} | ${SITE.title}`} description={pageDesc}>
@@ -32,8 +32,8 @@ const pageDesc  = "Your complete itel resource — hands-on reviews, price compa
 
     <section class="mb-10 pt-4">
       <div class="flex items-center gap-3 mb-2">
-        <span class="text-3xl">📱</span>
-        <h1 class="text-3xl font-bold tracking-tight">itel Phone Hub</h1>
+        <span class="text-3xl">📲</span>
+        <h1 class="text-3xl font-bold tracking-tight">Samsung Galaxy Hub</h1>
       </div>
       <p class="text-skin-base/70 text-lg">{pageDesc}</p>
     </section>
@@ -44,7 +44,7 @@ const pageDesc  = "Your complete itel resource — hands-on reviews, price compa
         <ul class="space-y-4">
           {reviews.map(post => (
             <li>
-              <a href={`/itel/${post.data.slug ?? post.id}/`}
+              <a href={`/samsung/${post.data.slug ?? post.id}/`}
                 class="group flex gap-3 rounded-lg border border-skin-line p-3 hover:border-skin-accent transition-colors">
                 {post.data.coverImage && (
                   <img src={post.data.coverImage} alt={post.data.coverImageAlt ?? post.data.title}
@@ -75,7 +75,7 @@ const pageDesc  = "Your complete itel resource — hands-on reviews, price compa
         <ul class="space-y-4">
           {comparisons.map(post => (
             <li>
-              <a href={`/itel/${post.data.slug ?? post.id}/`}
+              <a href={`/samsung/${post.data.slug ?? post.id}/`}
                 class="group flex gap-3 rounded-lg border border-skin-line p-3 hover:border-skin-accent transition-colors">
                 {post.data.coverImage && (
                   <img src={post.data.coverImage} alt={post.data.coverImageAlt ?? post.data.title}
@@ -98,7 +98,7 @@ const pageDesc  = "Your complete itel resource — hands-on reviews, price compa
         <ul class="space-y-4">
           {buyingGuides.map(post => (
             <li>
-              <a href={`/itel/${post.data.slug ?? post.id}/`}
+              <a href={`/samsung/${post.data.slug ?? post.id}/`}
                 class="group flex gap-3 rounded-lg border border-skin-line p-3 hover:border-skin-accent transition-colors">
                 {post.data.coverImage && (
                   <img src={post.data.coverImage} alt={post.data.coverImageAlt ?? post.data.title}
@@ -121,7 +121,7 @@ const pageDesc  = "Your complete itel resource — hands-on reviews, price compa
         <ul class="space-y-4">
           {news.map(post => (
             <li>
-              <a href={`/itel/${post.data.slug ?? post.id}/`}
+              <a href={`/samsung/${post.data.slug ?? post.id}/`}
                 class="group flex gap-3 rounded-lg border border-skin-line p-3 hover:border-skin-accent transition-colors">
                 {post.data.coverImage && (
                   <img src={post.data.coverImage} alt={post.data.coverImageAlt ?? post.data.title}
@@ -156,7 +156,7 @@ const pageDesc  = "Your complete itel resource — hands-on reviews, price compa
         </span>
         <div class="flex-1 min-w-0">
           <p class="font-semibold text-sm leading-tight">Join the ReviByte WhatsApp Channel</p>
-          <p class="text-xs text-skin-base/60 mt-0.5">Get notified when new itel reviews drop</p>
+          <p class="text-xs text-skin-base/60 mt-0.5">Get notified when new Samsung reviews drop</p>
         </div>
         <svg viewBox="0 0 24 24" width="16" height="16" class="shrink-0 text-skin-base/40" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
           <path d="M9 18l6-6-6-6"/>
