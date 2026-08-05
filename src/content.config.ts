@@ -160,6 +160,7 @@ const mlbb = defineCollection({
 
 export const collections = {
   blog,
+  itel,
   codm,
   efootball,
   pubgmobile,
