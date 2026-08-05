@@ -11,6 +11,7 @@ import imageManifest from '@/data/image-manifest.json';
 
 const blogPosts = await getCollection("blog");
 const itelPosts = await getCollection("itel");
+const samsungPosts = await getCollection("samsung");
 
 const taggedBlog = blogPosts
   .filter(post => !post.data.draft)
@@ -20,7 +21,11 @@ const taggedItel = itelPosts
   .filter(post => !post.data.draft)
   .map(post => ({ ...post, hubPath: "itel" }));
 
-const sortedPosts = [...taggedBlog, ...taggedItel]
+const taggedSamsung = samsungPosts
+  .filter(post => !post.data.draft)
+  .map(post => ({ ...post, hubPath: "samsung" }));
+
+const sortedPosts = [...taggedBlog, ...taggedItel, ...taggedSamsung]
   .sort((a, b) => b.data.pubDatetime.valueOf() - a.data.pubDatetime.valueOf());
 
 const heroPost = sortedPosts[0];
@@ -196,6 +201,17 @@ function getSrcset(src: string): string {
             <span class="rb-list-card-arrow">→</span>
           </a>
         </li>
+
+        <li class="rb-list-card-item">
+          <a href="/samsung/" class="rb-list-card-link">
+            <span class="rb-list-card-icon">📲</span>
+            <div class="rb-list-card-info">
+              <h3 class="rb-list-card-title">Samsung Phones</h3>
+              <p class="rb-list-card-desc">Galaxy reviews, comparisons, and buying guides with Nigerian pricing.</p>
+            </div>
+            <span class="rb-list-card-arrow">→</span>
+          </a>
+        </li>
       </ul>
     </section>
 
@@ -210,7 +226,25 @@ function getSrcset(src: string): string {
 
       <ul class="rb-list-cards">
         <li class="rb-list-card-item">
-          <a href="/
+          <a href="/heliara/" class="rb-list-card-link">
+            <span class="rb-list-card-icon">✨</span>
+            <div class="rb-list-card-info">
+              <h3 class="rb-list-card-title">Heliara AI</h3>
+              <p class="rb-list-card-desc">Ask anything about phones, Android, COD Mobile, eFootball, or general tech. Instant answers powered by AI.</p>
+            </div>
+            <span class="rb-list-card-arrow">→</span>
+          </a>
+        </li>
+
+        <li class="rb-list-card-item">
+          <a href="/save/" class="rb-list-card-link">
+            <span class="rb-list-card-icon">⬇️</span>
+            <div class="rb-list-card-info">
+              <h3 class="rb-list-card-title">ReviByte Save</h3>
+              <p class="rb-list-card-desc">Download TikTok videos without watermark, save audio as MP3, and more. Free media downloader tools.</p>
+            </div>
+            <span class="rb-list-card-arrow">→</span>
+          </a>
         </li>
       </ul>
     </section>
