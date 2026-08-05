@@ -3,7 +3,7 @@ title: "Best itel Phone in 2026: Which Model Actually Makes Sense to Buy | ReviB
 description: "From the curved-AMOLED Super 26 Ultra to the 10,000mAh Power 70, here's an honest breakdown of the best itel phones to buy in Nigeria in 2026, with pricing and real trade-offs."
 pubDatetime: 2026-08-05T13:26:00.000Z
 author: "iSamuel"
-coverImage: "/assets/pots/best-itel-phone-2026.jpg"
+coverImage: "/assets/posts/best-itel-phone-2026.jpg"
 coverImageAlt: "Lineup of the best itel phones available in Nigeria in 2026"
 slug: "best-itel-phone-2026"
 relatedSlugs:
