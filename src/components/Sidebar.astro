@@ -53,6 +53,7 @@ const gamingHub = [
     class="pointer-events-auto fixed right-0 top-0 h-full w-[85%] max-w-[340px] translate-x-full overflow-y-auto bg-background shadow-2xl transition-transform duration-300 ease-out"
     style="background-color: var(--color-background, #ffffff); z-index: 2; will-change: transform;"
     aria-hidden="true"
+    inert
   >
     <div class="flex items-center justify-between p-4 bg-background">
       <span class="text-lg font-semibold">{SITE.title}</span>
@@ -113,20 +114,28 @@ const gamingHub = [
 
 <script>
   function initNav() {
-    const menuBtn = document.querySelector("#menu-btn");
-    const sidebar = document.querySelector("#app-sidebar");
-    const overlay = document.querySelector("#sidebar-overlay");
-    const closeBtn = document.querySelector("#sidebar-close");
-    const gamingToggle = document.querySelector("#gaming-hub-toggle");
-    const gamingList = document.querySelector("#gaming-hub-list");
-    const gamingChevron = document.querySelector("#gaming-hub-chevron");
+    const menuBtn = document.querySelector<HTMLElement>("#menu-btn");
+    const sidebar = document.querySelector<HTMLElement>("#app-sidebar");
+    const overlay = document.querySelector<HTMLElement>("#sidebar-overlay");
+    const closeBtn = document.querySelector<HTMLElement>("#sidebar-close");
+    const gamingToggle = document.querySelector<HTMLElement>("#gaming-hub-toggle");
+    const gamingList = document.querySelector<HTMLElement>("#gaming-hub-list");
+    const gamingChevron = document.querySelector<HTMLElement>("#gaming-hub-chevron");
 
     if (!menuBtn || !sidebar || !overlay || !closeBtn) return;
+
+    // Guard: astro:after-swap can re-run initNav on the same persisted DOM
+    // nodes. Without this guard, every navigation stacks another set of
+    // click/keydown listeners on the same elements, so a single tap ends up
+    // firing the handler multiple times — a common cause of INP > 200ms.
+    if (menuBtn.dataset.navInit === "true") return;
+    menuBtn.dataset.navInit = "true";
 
     const openSidebar = () => {
       sidebar.classList.remove("translate-x-full");
       overlay.classList.remove("hidden");
       sidebar.setAttribute("aria-hidden", "false");
+      sidebar.removeAttribute("inert");
       menuBtn.setAttribute("aria-expanded", "true");
       document.body.style.overflow = "hidden";
     };
@@ -135,6 +144,7 @@ const gamingHub = [
       sidebar.classList.add("translate-x-full");
       overlay.classList.add("hidden");
       sidebar.setAttribute("aria-hidden", "true");
+      sidebar.setAttribute("inert", "");
       menuBtn.setAttribute("aria-expanded", "false");
       document.body.style.overflow = "";
     };
@@ -142,7 +152,9 @@ const gamingHub = [
     menuBtn.addEventListener("click", openSidebar);
     closeBtn.addEventListener("click", closeSidebar);
     overlay.addEventListener("click", closeSidebar);
-    document.addEventListener("keydown", (e) => { if (e.key === "Escape") closeSidebar(); });
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") closeSidebar();
+    });
 
     gamingToggle?.addEventListener("click", () => {
       const nowHidden = gamingList?.classList.toggle("hidden");
