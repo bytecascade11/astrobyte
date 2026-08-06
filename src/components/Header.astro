@@ -78,16 +78,27 @@ const isActive = (path: string) => {
 
 <script>
   function initThemeToggle() {
-    const themeBtn = document.querySelector("#theme-btn");
+    const themeBtn = document.querySelector<HTMLElement>("#theme-btn");
     if (!themeBtn) return;
+
+    // Guard: astro:after-swap can re-run this on the same persisted button.
+    // Without it, every navigation stacks another click listener on the
+    // same node, so one tap fires the handler N times — wasted work on
+    // every click and a contributor to INP > 200ms.
+    if (themeBtn.dataset.themeInit === "true") return;
+    themeBtn.dataset.themeInit = "true";
+
     themeBtn.addEventListener("click", () => {
       const currentTheme = localStorage.getItem("theme");
-      const isDark = currentTheme === "dark" || (!currentTheme && document.documentElement.getAttribute("data-theme") === "dark");
+      const isDark =
+        currentTheme === "dark" ||
+        (!currentTheme && document.documentElement.getAttribute("data-theme") === "dark");
       const newTheme = isDark ? "light" : "dark";
       localStorage.setItem("theme", newTheme);
       document.documentElement.setAttribute("data-theme", newTheme);
     });
   }
+
   initThemeToggle();
   document.addEventListener("astro:after-swap", initThemeToggle);
 </script>
