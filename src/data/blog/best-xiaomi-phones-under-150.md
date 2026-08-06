@@ -1,7 +1,7 @@
 ---
 title: "Best Xiaomi Phones Under $150 in 2026: 5 Real Options Worth Your Naira"
 description: "Looking for a solid Xiaomi phone under $150 in Nigeria? Here's an honest breakdown of the Redmi and POCO models that actually deliver at this price, with exact configs, pricing, and trade-offs."
-pubDate: 2026-08-06T21:35:00Z
+pubDatetime: 2026-08-06T21:35:00Z
 author: "iSamuel"
 tags: ["xiaomi", "redmi", "poco", "opinions"]
 coverImage: "/assets/posts/cover-xiaomi-budget-lineup.jpg"
