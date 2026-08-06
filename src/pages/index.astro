@@ -17,10 +17,6 @@ const taggedBlog = blogPosts
   .filter(post => !post.data.draft)
   .map(post => ({ ...post, hubPath: "posts" }));
 
-const taggedItel = itelPosts
-  .filter(post => !post.data.draft)
-  .map(post => ({ ...post, hubPath: "itel" }));
-
 const taggedSamsung = samsungPosts
   .filter(post => !post.data.draft)
   .map(post => ({ ...post, hubPath: "samsung" }));
