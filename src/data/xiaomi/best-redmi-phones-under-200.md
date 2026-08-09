@@ -2,7 +2,7 @@
 title: "Best Redmi Phones Under $200 in Nigeria (2026): Full Buying Guide"
 description: "An independent breakdown of the best Redmi phones you can buy under $200 in Nigeria right now, covering specifications, Naira pricing, battery life, cameras, and who each model actually suits."
 author: "iSamuel"
-pubDatetime: 2026-08-09T08:02:00Z
+pubDatetime: "2026-08-09T08:02:00Z"
 coverImage: "/assets/xiaomi/lineup-of-redmi-smartphones-under-200.jpg"
 coverImageAlt: "Lineup of Redmi smartphones under $200 arranged on a table showing display and camera modules"
 slug: "best-redmi-phones-under-200"
