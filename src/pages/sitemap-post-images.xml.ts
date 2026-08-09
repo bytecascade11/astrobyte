@@ -9,13 +9,17 @@ export async function GET() {
     : `${SITE.website}/`;
 
   // Fetch all collections
-  const [blogPosts, codmPosts, efootballPosts, pubgPosts, mlbbPosts] = await Promise.all([
+  const [blogPosts, codmPosts, efootballPosts, pubgPosts, mlbbPosts, itelPosts, samsungPosts, xiaomiPosts] = await Promise.all([
     getCollection("blog", ({ data }) => !data.draft),
     getCollection("codm", ({ data }) => !data.draft),
     getCollection("efootball", ({ data }) => !data.draft),
     getCollection("pubgmobile", ({ data }) => !data.draft),
     getCollection("mlbb", ({ data }) => !data.draft),
+    getCollection("itel", ({ data }) => !data.draft),
+    getCollection("samsung", ({ data }) => !data.draft),
+    getCollection("xiaomi", ({ data }) => !data.draft),
   ]);
+
   // Blog posts — use getPath like before
   const blogEntries = blogPosts
     .filter((post) => post.data.coverImage)
@@ -67,12 +71,43 @@ export async function GET() {
       return buildEntry(postUrl, imageUrl, g.data.coverImageAlt || g.data.title);
     });
 
+  // Device hub posts — use slug-based URLs
+  const itelEntries = itelPosts
+    .filter((g) => g.data.coverImage)
+    .map((g) => {
+      const slug = g.data.slug ?? g.id;
+      const postUrl = `${websiteBase}itel/${slug}/`;
+      const imageUrl = buildImageUrl(g.data.coverImage as string, websiteBase);
+      return buildEntry(postUrl, imageUrl, g.data.coverImageAlt || g.data.title);
+    });
+
+  const samsungEntries = samsungPosts
+    .filter((g) => g.data.coverImage)
+    .map((g) => {
+      const slug = g.data.slug ?? g.id;
+      const postUrl = `${websiteBase}samsung/${slug}/`;
+      const imageUrl = buildImageUrl(g.data.coverImage as string, websiteBase);
+      return buildEntry(postUrl, imageUrl, g.data.coverImageAlt || g.data.title);
+    });
+
+  const xiaomiEntries = xiaomiPosts
+    .filter((g) => g.data.coverImage)
+    .map((g) => {
+      const slug = g.data.slug ?? g.id;
+      const postUrl = `${websiteBase}xiaomi/${slug}/`;
+      const imageUrl = buildImageUrl(g.data.coverImage as string, websiteBase);
+      return buildEntry(postUrl, imageUrl, g.data.coverImageAlt || g.data.title);
+    });
+
   const allEntries = [
     ...blogEntries,
     ...codmEntries,
     ...efootballEntries,
     ...pubgEntries,
     ...mlbbEntries,
+    ...itelEntries,
+    ...samsungEntries,
+    ...xiaomiEntries,
   ].join("");
 
   const xml = `<?xml version="1.0" encoding="UTF-8"?>
