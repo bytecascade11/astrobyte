@@ -6,7 +6,7 @@ pubDatetime: 2026-08-10T07:53:00Z
 coverImage: "/assets/posts/best-poco-phones-under-200.jpg"
 coverImageAlt: "Five POCO smartphones under $200 arranged side by side showing their rear camera modules"
 slug: "best-poco-phones-under-200"
-tags: ["poco", "xiaomi", "opinions, "nigeria"]
+tags: ["poco", "xiaomi", "opinions", "nigeria"]
 ---
 
 ## Table of Contents 
