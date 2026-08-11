@@ -23,7 +23,7 @@ const sortedPosts = posts
         <article
           class="overflow-hidden rounded-2xl shadow-lg bg-card hover:shadow-xl transition-shadow duration-300"
         >
-          <a href={`/posts/${post.id}`}>
+          <a href={`/posts/${post.id}/`}>
             <img
               src={post.data.coverImage || "/og.png"}
               alt={`${post.data.title} – Cover image | ${SITE.title}`}
@@ -37,7 +37,7 @@ const sortedPosts = posts
           <div class="p-6">
             <h2 class="text-xl font-semibold mb-2 line-clamp-2">
               <a
-                href={`/posts/${post.id}`}
+                href={`/posts/${post.id}/`}
                 class="hover:text-accent transition-colors"
               >
                 {post.data.title}
@@ -58,7 +58,7 @@ const sortedPosts = posts
               </p>
             )}
 
-            <LinkButton href={`/posts/${post.id}`} class="mt-2 inline-block">
+            <LinkButton href={`/posts/${post.id}/`} class="mt-2 inline-block">
               Read more →
             </LinkButton>
           </div>
