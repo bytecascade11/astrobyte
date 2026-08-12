@@ -6,6 +6,7 @@ import Layout from "@/layouts/Layout.astro";
 <Layout title="Free Image Compressor & Converter — ReviByte Tools">
   <main class="ic-wrap">
     <header class="ic-head">
+      <a href="/tools/" class="ic-back">← ReviByte Tools</a>
       <p class="ic-eyebrow">ReviByte Tools</p>
       <h1 class="ic-title">Image Compressor</h1>
       <p class="ic-sub">
@@ -56,6 +57,16 @@ import Layout from "@/layouts/Layout.astro";
   }
 
   .ic-head { margin-bottom: 1.75rem; }
+  .ic-back {
+    display: inline-block;
+    font-family: "JetBrains Mono", monospace;
+    font-size: 0.85rem;
+    font-weight: 800;
+    color: #ff3d3d;
+    text-decoration: none;
+    margin-bottom: 0.9rem;
+  }
+  .ic-back:hover { text-decoration: underline; }
   .ic-eyebrow {
     font-family: "JetBrains Mono", monospace;
     font-size: 0.78rem;
@@ -74,7 +85,8 @@ import Layout from "@/layouts/Layout.astro";
     color: #ffffff;
   }
   .ic-sub {
-    color: #c7cbd1;
+    color: #e2e4e8;
+    font-weight: 500;
     font-size: 0.98rem;
     line-height: 1.55;
     margin: 0;
@@ -172,8 +184,10 @@ import Layout from "@/layouts/Layout.astro";
   .result-info { flex: 1; min-width: 0; }
   .result-name {
     font-size: 0.94rem;
-    font-weight: 600;
+    font-weight: 700;
     color: #ffffff;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -181,14 +195,16 @@ import Layout from "@/layouts/Layout.astro";
   }
   .result-stats {
     font-family: "JetBrains Mono", monospace;
-    font-size: 0.85rem;
-    font-weight: 600;
-    color: #d7dade;
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: #ffffff;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
     display: flex;
     align-items: center;
     gap: 0.45rem;
   }
-  .result-saved { color: #4ade80; font-weight: 700; }
+  .result-saved { color: #4ade80; font-weight: 800; }
   .result-download {
     background: transparent;
     border: 1px solid #3a4150;
