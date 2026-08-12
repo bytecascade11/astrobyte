@@ -1,0 +1,306 @@
+---
+// src/pages/tools/battery-estimator.astro
+import Layout from "@/layouts/Layout.astro";
+---
+
+<Layout title="Battery Health & Charging Time Estimator — ReviByte Tools">
+  <main class="be-wrap">
+    <header class="be-head">
+      <a href="/tools/" class="be-back">← ReviByte Tools</a>
+      <p class="be-eyebrow">ReviByte Tools</p>
+      <h1 class="be-title">Battery Health &amp; Charging Time Estimator</h1>
+      <p class="be-sub">
+        Physics-based estimates for charge time and battery wear. Everything
+        runs on your device — nothing is uploaded anywhere.
+      </p>
+    </header>
+
+    <section class="be-card">
+      <p class="be-card-label">Charging Time</p>
+      <div class="be-field">
+        <label for="capacity">Battery capacity (mAh)</label>
+        <input type="number" id="capacity" value="5000" min="500" step="50" />
+      </div>
+      <div class="be-field">
+        <label for="current">Current charge level (%)</label>
+        <input type="number" id="current" value="20" min="0" max="99" step="1" />
+      </div>
+      <div class="be-field">
+        <label for="watts">Charger output (W)</label>
+        <input type="number" id="watts" value="25" min="2" max="240" step="1" />
+      </div>
+      <div class="be-field">
+        <label for="voltage">Battery nominal voltage (V)</label>
+        <input type="number" id="voltage" value="3.85" min="3.0" max="4.5" step="0.05" />
+        <p class="be-hint">3.85V is typical for phones — check your device spec if known.</p>
+      </div>
+      <button id="calcTime" class="be-btn">Estimate charging time</button>
+    </section>
+
+    <section class="be-results" id="timeResults"></section>
+
+    <section class="be-card">
+      <p class="be-card-label">Battery Health</p>
+      <div class="be-field">
+        <label for="designCap">Original design capacity (mAh)</label>
+        <input type="number" id="designCap" value="5000" min="500" step="50" />
+      </div>
+      <div class="be-field">
+        <label for="currentCap">Current max capacity (mAh)</label>
+        <input type="number" id="currentCap" value="4400" min="100" step="10" />
+        <p class="be-hint">Found in Settings → Battery on most Android/iOS devices, or a battery-info app.</p>
+      </div>
+      <button id="calcHealth" class="be-btn">Check battery health</button>
+    </section>
+
+    <section class="be-results" id="healthResults"></section>
+
+    <section class="be-note">
+      <p class="be-card-label">How this works</p>
+      <p>
+        Lithium-ion batteries charge in two phases: <strong>constant current (CC)</strong>,
+        where the charger delivers steady power up to roughly 80%, then
+        <strong>constant voltage (CV)</strong>, where current tapers off to protect the
+        cell as it approaches full. That's the physics behind why the last 20%
+        always charges slower than the first 80%.
+      </p>
+      <p>
+        Battery health is degradation of maximum charge capacity over charge
+        cycles — most phone-grade Li-ion cells are rated for roughly 80% of
+        original capacity after around 500 full charge cycles, though this
+        varies by chemistry, temperature exposure, and charge habits.
+      </p>
+      <p class="be-disclaimer">
+        These are physics-based estimates, not manufacturer-calibrated readings —
+        actual charge controllers vary by device.
+      </p>
+    </section>
+  </main>
+</Layout>
+
+<style>
+  .be-wrap {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 2.5rem 1.25rem 4rem;
+    font-family: "Inter", system-ui, sans-serif;
+    color: #1a1d23;
+  }
+
+  .be-head { margin-bottom: 1.75rem; }
+  .be-back {
+    display: inline-block;
+    font-family: "JetBrains Mono", monospace;
+    font-size: 0.85rem;
+    font-weight: 800;
+    color: #e11d1d;
+    text-decoration: none;
+    margin-bottom: 0.9rem;
+  }
+  .be-back:hover { text-decoration: underline; }
+  .be-eyebrow {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #e11d1d;
+    margin: 0 0 0.5rem;
+  }
+  .be-title {
+    font-family: "Space Grotesk", system-ui, sans-serif;
+    font-size: 2.1rem;
+    font-weight: 800;
+    letter-spacing: -0.01em;
+    margin: 0 0 0.6rem;
+    color: #0f1115;
+  }
+  .be-sub {
+    color: #3f4450;
+    font-weight: 500;
+    font-size: 0.98rem;
+    line-height: 1.55;
+    margin: 0;
+    max-width: 48ch;
+  }
+
+  .be-card {
+    background: #f7f8fa;
+    border: 1px solid #e3e6eb;
+    border-radius: 10px;
+    padding: 1.25rem 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-top: 1.5rem;
+  }
+  .be-card-label {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #e11d1d;
+    margin: 0;
+  }
+  .be-field { display: flex; flex-direction: column; gap: 0.4rem; }
+  .be-field label {
+    font-size: 0.82rem;
+    color: #565c68;
+    font-family: "JetBrains Mono", monospace;
+  }
+  .be-field input {
+    background: #ffffff;
+    border: 1px solid #d3d7de;
+    color: #1a1d23;
+    padding: 0.55rem 0.65rem;
+    border-radius: 6px;
+    font-size: 0.95rem;
+  }
+  .be-hint {
+    margin: 0;
+    font-size: 0.78rem;
+    color: #7a8291;
+  }
+  .be-btn {
+    margin-top: 0.25rem;
+    background: #e11d1d;
+    color: #ffffff;
+    border: none;
+    font-weight: 700;
+    font-size: 0.95rem;
+    padding: 0.7rem 1rem;
+    border-radius: 7px;
+    cursor: pointer;
+    transition: filter 0.15s ease;
+  }
+  .be-btn:hover { filter: brightness(1.08); }
+
+  .be-results { display: flex; flex-direction: column; gap: 0.75rem; margin-top: 0.75rem; }
+  .be-results:empty { margin-top: 0; }
+  .be-result-card {
+    background: #f7f8fa;
+    border: 1px solid #e3e6eb;
+    border-radius: 10px;
+    padding: 1rem 1.1rem;
+  }
+  .be-result-stat {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: #0f1115;
+    margin: 0 0 0.35rem;
+  }
+  .be-result-stat .good { color: #15803d; }
+  .be-result-stat .fair { color: #b45309; }
+  .be-result-stat .bad { color: #e11d1d; }
+  .be-result-note {
+    font-size: 0.85rem;
+    color: #565c68;
+    margin: 0;
+    line-height: 1.5;
+  }
+
+  .be-note {
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid #e3e6eb;
+  }
+  .be-note p { font-size: 0.92rem; line-height: 1.65; color: #3f4450; }
+  .be-disclaimer { font-size: 0.8rem; color: #7a8291; font-style: italic; }
+
+  @media (max-width: 480px) {
+    .be-title { font-size: 1.6rem; }
+  }
+</style>
+
+<script>
+  const timeResults = document.getElementById("timeResults") as HTMLElement;
+  const healthResults = document.getElementById("healthResults") as HTMLElement;
+
+  function estimateCVPhaseMinutes(capacityMah: number, peakCurrentMa: number) {
+    const cvCapacity = capacityMah * 0.2;
+    const avgCurrent = peakCurrentMa * 0.4; // tapered average during CV phase
+    return (cvCapacity / avgCurrent) * 60;
+  }
+
+  function estimateChargeTime(
+    capacityMah: number,
+    currentPercent: number,
+    chargerWatts: number,
+    batteryVoltage: number
+  ) {
+    const efficiency = 0.85; // AC-DC + charge controller losses
+    const chargerCurrentMa = (chargerWatts * 1000 * efficiency) / batteryVoltage;
+    const maxUsableCurrentMa = Math.min(chargerCurrentMa, capacityMah * 1.5); // ~1.5C fast-charge ceiling
+
+    let totalMinutes = 0;
+    if (currentPercent < 80) {
+      const ccCapacity = capacityMah * (0.8 - currentPercent / 100);
+      totalMinutes += (ccCapacity / maxUsableCurrentMa) * 60;
+      totalMinutes += estimateCVPhaseMinutes(capacityMah, maxUsableCurrentMa);
+    } else {
+      const fraction = Math.max(0, (100 - currentPercent) / 20);
+      totalMinutes += estimateCVPhaseMinutes(capacityMah, maxUsableCurrentMa) * fraction;
+    }
+    return totalMinutes;
+  }
+
+  function formatMinutes(mins: number) {
+    if (mins <= 0) return "Already fully charged";
+    const h = Math.floor(mins / 60);
+    const m = Math.round(mins % 60);
+    return h > 0 ? `${h}h ${m}m` : `${m} minutes`;
+  }
+
+  document.getElementById("calcTime")?.addEventListener("click", () => {
+    const capacity = parseFloat((document.getElementById("capacity") as HTMLInputElement).value);
+    const current = parseFloat((document.getElementById("current") as HTMLInputElement).value);
+    const watts = parseFloat((document.getElementById("watts") as HTMLInputElement).value);
+    const voltage = parseFloat((document.getElementById("voltage") as HTMLInputElement).value);
+
+    if (!capacity || !watts || !voltage || current < 0 || current > 100) {
+      timeResults.innerHTML = `<div class="be-result-card"><p class="be-result-note">Please check your inputs.</p></div>`;
+      return;
+    }
+
+    const minutes = estimateChargeTime(capacity, current, watts, voltage);
+    timeResults.innerHTML = `
+      <div class="be-result-card">
+        <p class="be-result-stat">${formatMinutes(minutes)} to full charge</p>
+        <p class="be-result-note">0–80% charges fast (constant current); 80–100% tapers off (constant voltage) — this is normal Li-ion behavior, not a slow charger.</p>
+      </div>
+    `;
+  });
+
+  document.getElementById("calcHealth")?.addEventListener("click", () => {
+    const design = parseFloat((document.getElementById("designCap") as HTMLInputElement).value);
+    const current = parseFloat((document.getElementById("currentCap") as HTMLInputElement).value);
+
+    if (!design || !current || current > design * 1.05) {
+      healthResults.innerHTML = `<div class="be-result-card"><p class="be-result-note">Please check your inputs.</p></div>`;
+      return;
+    }
+
+    const health = (current / design) * 100;
+    let verdictClass = "good";
+    let verdict = "Excellent — performing close to new.";
+    if (health < 70) {
+      verdictClass = "bad";
+      verdict = "Degraded — consider a battery replacement.";
+    } else if (health < 80) {
+      verdictClass = "fair";
+      verdict = "Fair — you may notice reduced screen-on time.";
+    } else if (health < 90) {
+      verdictClass = "good";
+      verdict = "Good — normal wear for a well-used battery.";
+    }
+
+    healthResults.innerHTML = `
+      <div class="be-result-card">
+        <p class="be-result-stat"><span class="${verdictClass}">${health.toFixed(1)}%</span> battery health</p>
+        <p class="be-result-note">${verdict} Most phone Li-ion cells are rated for ~80% capacity after roughly 500 full charge cycles.</p>
+      </div>
+    `;
+  });
+</script>
