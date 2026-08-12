@@ -53,7 +53,7 @@ import Layout from "@/layouts/Layout.astro";
     margin: 0 auto;
     padding: 2.5rem 1.25rem 4rem;
     font-family: "Inter", system-ui, sans-serif;
-    color: #e8e6df;
+    color: #1a1d23;
   }
 
   .ic-head { margin-bottom: 1.75rem; }
@@ -62,7 +62,7 @@ import Layout from "@/layouts/Layout.astro";
     font-family: "JetBrains Mono", monospace;
     font-size: 0.85rem;
     font-weight: 800;
-    color: #ff3d3d;
+    color: #e11d1d;
     text-decoration: none;
     margin-bottom: 0.9rem;
   }
@@ -73,7 +73,7 @@ import Layout from "@/layouts/Layout.astro";
     font-weight: 700;
     letter-spacing: 0.12em;
     text-transform: uppercase;
-    color: #ff3d3d;
+    color: #e11d1d;
     margin: 0 0 0.5rem;
   }
   .ic-title {
@@ -82,10 +82,10 @@ import Layout from "@/layouts/Layout.astro";
     font-weight: 800;
     letter-spacing: -0.01em;
     margin: 0 0 0.6rem;
-    color: #ffffff;
+    color: #0f1115;
   }
   .ic-sub {
-    color: #e2e4e8;
+    color: #3f4450;
     font-weight: 500;
     font-size: 0.98rem;
     line-height: 1.55;
@@ -94,13 +94,13 @@ import Layout from "@/layouts/Layout.astro";
   }
 
   .tray {
-    border: 1.5px dashed #3a4150;
+    border: 1.5px dashed #d3d7de;
     border-radius: 10px;
-    background: #1c222c;
+    background: #f7f8fa;
     transition: border-color 0.15s ease, background 0.15s ease;
     cursor: pointer;
   }
-  .tray.drag { border-color: #ff9d3d; background: #232a35; }
+  .tray.drag { border-color: #e11d1d; background: #fdf1f1; }
   .tray-inner {
     padding: 2.75rem 1.5rem;
     display: flex;
@@ -109,21 +109,21 @@ import Layout from "@/layouts/Layout.astro";
     text-align: center;
     gap: 0.5rem;
   }
-  .tray-icon { width: 30px; height: 30px; color: #ff9d3d; margin-bottom: 0.25rem; }
-  .tray-text { margin: 0; font-size: 0.98rem; color: #d7d4cb; }
-  .tray-link { color: #ff9d3d; text-decoration: underline; text-underline-offset: 2px; }
+  .tray-icon { width: 30px; height: 30px; color: #e11d1d; margin-bottom: 0.25rem; }
+  .tray-text { margin: 0; font-size: 0.98rem; color: #2a2d34; }
+  .tray-link { color: #e11d1d; text-decoration: underline; text-underline-offset: 2px; }
   .tray-hint {
     margin: 0;
     font-family: "JetBrains Mono", monospace;
     font-size: 0.72rem;
-    color: #5c6470;
+    color: #7a8291;
     letter-spacing: 0.04em;
   }
 
   .controls {
     margin-top: 1.5rem;
-    background: #1c222c;
-    border: 1px solid #2a303b;
+    background: #f7f8fa;
+    border: 1px solid #e3e6eb;
     border-radius: 10px;
     padding: 1.25rem 1.5rem;
     display: flex;
@@ -133,28 +133,28 @@ import Layout from "@/layouts/Layout.astro";
   .control-row { display: flex; flex-direction: column; gap: 0.4rem; }
   .control-row label {
     font-size: 0.82rem;
-    color: #9aa1ac;
+    color: #565c68;
     font-family: "JetBrains Mono", monospace;
   }
   .control-row select {
-    background: #14181f;
-    border: 1px solid #3a4150;
-    color: #e8e6df;
+    background: #ffffff;
+    border: 1px solid #d3d7de;
+    color: #1a1d23;
     padding: 0.5rem 0.6rem;
     border-radius: 6px;
     font-size: 0.9rem;
     width: fit-content;
   }
   .control-row input[type="range"] {
-    accent-color: #ff9d3d;
+    accent-color: #e11d1d;
     width: 100%;
   }
   .process-btn {
     margin-top: 0.25rem;
-    background: #ff9d3d;
-    color: #14181f;
+    background: #e11d1d;
+    color: #ffffff;
     border: none;
-    font-weight: 600;
+    font-weight: 700;
     font-size: 0.95rem;
     padding: 0.7rem 1rem;
     border-radius: 7px;
@@ -166,8 +166,8 @@ import Layout from "@/layouts/Layout.astro";
 
   .results { margin-top: 1.75rem; display: flex; flex-direction: column; gap: 0.75rem; }
   .result-card {
-    background: #1c222c;
-    border: 1px solid #2a303b;
+    background: #f7f8fa;
+    border: 1px solid #e3e6eb;
     border-radius: 10px;
     padding: 1rem 1.1rem;
     display: flex;
@@ -179,15 +179,13 @@ import Layout from "@/layouts/Layout.astro";
     object-fit: cover;
     border-radius: 6px;
     flex-shrink: 0;
-    background: #14181f;
+    background: #e3e6eb;
   }
   .result-info { flex: 1; min-width: 0; }
   .result-name {
     font-size: 0.94rem;
     font-weight: 700;
-    color: #ffffff;
-    -webkit-font-smoothing: antialiased;
-    text-rendering: optimizeLegibility;
+    color: #0f1115;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -197,18 +195,17 @@ import Layout from "@/layouts/Layout.astro";
     font-family: "JetBrains Mono", monospace;
     font-size: 0.9rem;
     font-weight: 700;
-    color: #ffffff;
-    -webkit-font-smoothing: antialiased;
-    text-rendering: optimizeLegibility;
+    color: #0f1115;
     display: flex;
     align-items: center;
     gap: 0.45rem;
   }
-  .result-saved { color: #4ade80; font-weight: 800; }
+  .result-saved { color: #15803d; font-weight: 800; }
   .result-download {
-    background: transparent;
-    border: 1px solid #3a4150;
-    color: #e8e6df;
+    background: #ffffff;
+    border: 1px solid #d3d7de;
+    color: #0f1115;
+    font-weight: 600;
     font-size: 0.82rem;
     padding: 0.4rem 0.75rem;
     border-radius: 6px;
@@ -216,7 +213,7 @@ import Layout from "@/layouts/Layout.astro";
     text-decoration: none;
     white-space: nowrap;
   }
-  .result-download:hover { border-color: #ff9d3d; color: #ff9d3d; }
+  .result-download:hover { border-color: #e11d1d; color: #e11d1d; }
 
   @media (max-width: 480px) {
     .ic-title { font-size: 1.7rem; }
