@@ -16,7 +16,7 @@ const description = "Transparent privacy practices at ReviByte Opinion – we co
         We value your privacy. This document explains what data we collect (very little), why, and how it's used.
       </p>
       <p class="mt-4 text-lg font-medium text-gray-500 dark:text-gray-400">
-        Last updated: June 29, 2026
+        Last updated: August 12, 2026
       </p>
       <p class="mt-2">
         Questions? Email us at
@@ -39,7 +39,7 @@ const description = "Transparent privacy practices at ReviByte Opinion – we co
         <li>• This site complies with GDPR, CCPA, COPPA, and advertising policies.</li>
         <li>• Some links are affiliate links — we may earn a small commission at no cost to you.</li>
         <li>• Heliara AI messages are processed by Groq — we do not store your chat history.</li>
-        <li>• ReviByte Save sends URLs to third-party APIs (RapidAPI) and our own Cloudflare Worker to fetch media — we do not store those URLs.</li>
+        <li>• ReviByte Tools (like the Image Compressor) run entirely in your browser — no files or URLs are ever sent to our servers or any third party.</li>
         <li>• Anonymous comments are stored via Supabase — no account or personal identity required.</li>
       </ul>
     </div>
@@ -79,10 +79,10 @@ const description = "Transparent privacy practices at ReviByte Opinion – we co
         <li>Do not share sensitive personal information (passwords, financial details, ID numbers) with Heliara AI.</li>
       </ul>
 
-      <h3 class="text-xl font-semibold mt-6 mb-3">ReviByte Save (Media Downloader)</h3>
+      <h3 class="text-xl font-semibold mt-6 mb-3">ReviByte Tools</h3>
       <ul class="mt-2">
-        <li>ReviByte Save sends URLs you submit to RapidAPI's infrastructure (via our own Cloudflare Worker, for some tools) to fetch media information. ReviByte does not store submitted URLs or downloaded media.</li>
-        <li>ReviByte Save is intended for personal use only. Users are responsible for ensuring they have rights to download any content.</li>
+        <li>ReviByte Tools (such as the Image Compressor) run entirely in your browser using client-side processing. Your files are never uploaded to ReviByte's servers or any third-party API.</li>
+        <li>We do not see, store, or have access to any file you process using ReviByte Tools.</li>
       </ul>
 
       <h3 class="text-xl font-semibold mt-6 mb-3">If You Contact Us</h3>
@@ -103,7 +103,6 @@ const description = "Transparent privacy practices at ReviByte Opinion – we co
         <li>To send push notifications about new posts (only if you opted in)</li>
         <li>To store and display anonymous comments on posts</li>
         <li>To process Heliara AI chat messages via Groq's API</li>
-        <li>To fetch media information via third-party APIs for ReviByte Save</li>
         <li>To reply to your emails or support requests</li>
       </ul>
     </section>
@@ -147,7 +146,7 @@ const description = "Transparent privacy practices at ReviByte Opinion – we co
           (<a href="https://vercel.com/legal/privacy-policy" target="_blank" rel="noopener" class="text-blue-600 hover:underline">privacy policy</a>)
         </li>
         <li>
-          <strong>Cloudflare</strong> — DNS, security, DDoS protection, performance optimization, and serverless processing (Cloudflare Workers) for some ReviByte Save tools. Cloudflare may process visitor IP addresses, request data, and submitted media URLs.
+          <strong>Cloudflare</strong> — DNS, security, DDoS protection, and performance optimization. Cloudflare may process visitor IP addresses and request data.
           (<a href="https://www.cloudflare.com/privacypolicy/" target="_blank" rel="noopener" class="text-blue-600 hover:underline">privacy policy</a>)
         </li>
         <li>
@@ -175,13 +174,12 @@ const description = "Transparent privacy practices at ReviByte Opinion – we co
           (<a href="https://groq.com/privacy-policy/" target="_blank" rel="noopener" class="text-blue-600 hover:underline">privacy policy</a>)
         </li>
         <li>
-          <strong>RapidAPI</strong> — API gateway used by ReviByte Save to process media download requests. URLs you submit are routed through RapidAPI's infrastructure. ReviByte does not store submitted URLs or downloaded media. ReviByte Save is not affiliated with TikTok, Instagram, Meta, ByteDance, or any platform it supports.
-          (<a href="https://rapidapi.com/privacy" target="_blank" rel="noopener" class="text-blue-600 hover:underline">privacy policy</a>)
-        </li>
-        <li>
           <strong>Microsoft Store / PWABuilder</strong> — ReviByte is listed as a Progressive Web App on the Microsoft Store.
         </li>
       </ul>
+      <p class="mt-4 text-sm italic opacity-75">
+        Note: ReviByte Tools no longer uses any third-party media API. Earlier tools that relied on RapidAPI have been retired, and ReviByte Tools now processes everything locally in your browser.
+      </p>
     </section>
 
     <section class="mt-12">
@@ -205,7 +203,7 @@ const description = "Transparent privacy practices at ReviByte Opinion – we co
 
     <section class="mt-12">
       <h2 class="text-2xl font-semibold mb-4">7. Children's Privacy</h2>
-      <p>ReviByte is not intended for users under 13. We do not knowingly collect data from children. Gaming content on this site (COD Mobile, eFootball, PUBG Mobile, Mobile Legends Bang Bang) is intended for general audiences and does not target minors. Heliara AI and ReviByte Save are also not intended for users under 13.</p>
+      <p>ReviByte is not intended for users under 13. We do not knowingly collect data from children. Gaming content on this site (COD Mobile, eFootball, PUBG Mobile, Mobile Legends Bang Bang) is intended for general audiences and does not target minors. Heliara AI and ReviByte Tools are also not intended for users under 13.</p>
     </section>
 
     <section class="mt-12">
@@ -217,13 +215,13 @@ const description = "Transparent privacy practices at ReviByte Opinion – we co
         <li>Emails/messages: kept only as long as needed</li>
         <li>Ad data: controlled by Google</li>
         <li>Heliara AI chat messages: not stored by ReviByte — session only</li>
-        <li>ReviByte Save submitted URLs: not stored by ReviByte</li>
+        <li>ReviByte Tools files: never transmitted or stored — processed entirely in your browser</li>
       </ul>
     </section>
 
     <section class="mt-12">
       <h2 class="text-2xl font-semibold mb-4">9. Security</h2>
-      <p>We use HTTPS encryption, Cloudflare security headers and DDoS protection, and rely on secure third-party platforms to protect any stored data. No sensitive personal data is stored on ReviByte's servers. Heliara AI and ReviByte Save API endpoints are server-side only — API keys are never exposed to the browser.</p>
+      <p>We use HTTPS encryption, Cloudflare security headers and DDoS protection, and rely on secure third-party platforms to protect any stored data. No sensitive personal data is stored on ReviByte's servers. Heliara AI's API endpoint is server-side only — API keys are never exposed to the browser. ReviByte Tools process files entirely client-side, so no file data ever reaches a server.</p>
     </section>
 
     <section class="mt-12">
