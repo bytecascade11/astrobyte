@@ -2,8 +2,8 @@
 import Layout from "../../layouts/Layout.astro";
 
 const title = "ReviByte Tools — Free Online Tools";
-const description = "Free online tools from ReviByte. More tools launching soon — check back for updates.";
-const canonicalURL = "https://www.revibyte.blog/save/";
+const description = "Free online tools from ReviByte. Compress images instantly in your browser — more tools launching soon.";
+const canonicalURL = "https://www.revibyte.blog/tools/";
 ---
 
 <Layout title={title} description={description}>
@@ -24,12 +24,23 @@ const canonicalURL = "https://www.revibyte.blog/save/";
     <section class="save-hero">
       <div class="save-badge">Free Tools</div>
       <h1 class="save-title">ReviByte <span class="save-accent">Tools</span></h1>
-      <p class="save-subtitle">We're building a set of free tools for you. More things are coming soon — check back here for updates.</p>
+      <p class="save-subtitle">Free tools built for everyday use. More things are coming soon — check back here for updates.</p>
+    </section>
+
+    <section class="tool-grid">
+      <a href="/tools/image-compressor/" class="tool-card">
+        <div class="tool-icon">🖼️</div>
+        <div class="tool-info">
+          <h2 class="tool-name">Image Compressor</h2>
+          <p class="tool-desc">Shrink photos and screenshots right in your browser. Nothing is uploaded anywhere.</p>
+        </div>
+        <span class="tool-arrow">→</span>
+      </a>
     </section>
 
     <section class="save-empty">
       <div class="save-empty-icon">🛠️</div>
-      <p class="save-empty-text">Nothing live here yet, but new tools are on the way.</p>
+      <p class="save-empty-text">More tools are on the way.</p>
     </section>
   </main>
 </Layout>
@@ -99,17 +110,71 @@ const canonicalURL = "https://www.revibyte.blog/save/";
     color: inherit !important;
   }
 
+  .tool-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 0.85rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .tool-card {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    background: rgba(255, 0, 80, 0.04);
+    border: 1px solid rgba(255, 0, 80, 0.18);
+    border-radius: 14px;
+    padding: 1.25rem 1.4rem;
+    text-decoration: none;
+    color: inherit !important;
+    transition: border-color 0.15s ease, background 0.15s ease;
+  }
+
+  .tool-card:hover {
+    border-color: rgba(255, 0, 80, 0.4);
+    background: rgba(255, 0, 80, 0.07);
+  }
+
+  .tool-icon {
+    font-size: 1.75rem;
+    flex-shrink: 0;
+  }
+
+  .tool-info { flex: 1; min-width: 0; }
+
+  .tool-name {
+    font-size: 1.05rem;
+    font-weight: 700;
+    margin: 0 0 0.3rem;
+    color: inherit !important;
+  }
+
+  .tool-desc {
+    font-size: 0.88rem;
+    line-height: 1.5;
+    opacity: 0.7;
+    margin: 0;
+    color: inherit !important;
+  }
+
+  .tool-arrow {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #ff0050;
+    flex-shrink: 0;
+  }
+
   .save-empty {
     text-align: center;
     background: rgba(255, 255, 255, 0.03);
     border: 1px dashed #333;
     border-radius: 16px;
-    padding: 3rem 1.5rem;
+    padding: 2.5rem 1.5rem;
   }
 
   .save-empty-icon {
-    font-size: 2.5rem;
-    margin-bottom: 1rem;
+    font-size: 2rem;
+    margin-bottom: 0.75rem;
   }
 
   .save-empty-text {
