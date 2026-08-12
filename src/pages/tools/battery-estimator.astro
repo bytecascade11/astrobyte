@@ -55,6 +55,25 @@ import Layout from "@/layouts/Layout.astro";
 
     <section class="be-results" id="healthResults"></section>
 
+    <section class="be-note be-howto">
+      <p class="be-card-label">How to use</p>
+      <ol class="be-steps">
+        <li>
+          <strong>Charging Time:</strong> Enter your phone's battery capacity (search
+          "[your phone model] battery mAh"), your current charge % from your
+          battery indicator, your charger's wattage (printed on the brick),
+          and leave voltage at 3.85V unless you know your device's exact spec.
+        </li>
+        <li>
+          <strong>Battery Health:</strong> Enter the original design capacity
+          (same spec as above) and your current max capacity. On iPhone this
+          is under Settings → Battery → Battery Health. On Android it's
+          usually Settings → Battery → Battery Health, though some brands
+          hide it — a free app like AccuBattery can surface it if so.
+        </li>
+      </ol>
+    </section>
+
     <section class="be-note">
       <p class="be-card-label">How this works</p>
       <p>
@@ -208,6 +227,20 @@ import Layout from "@/layouts/Layout.astro";
   }
   .be-note p { font-size: 0.92rem; line-height: 1.65; color: #3f4450; }
   .be-disclaimer { font-size: 0.8rem; color: #7a8291; font-style: italic; }
+
+  .be-howto { border-top: none; padding-top: 0; margin-top: 2rem; }
+  .be-steps {
+    margin: 0.75rem 0 0;
+    padding-left: 1.2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.85rem;
+  }
+  .be-steps li {
+    font-size: 0.92rem;
+    line-height: 1.6;
+    color: #3f4450;
+  }
 
   @media (max-width: 480px) {
     .be-title { font-size: 1.6rem; }
