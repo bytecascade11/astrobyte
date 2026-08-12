@@ -1,0 +1,327 @@
+---
+// src/pages/tools/qr-code-generator.astro
+import Layout from "@/layouts/Layout.astro";
+
+const title = "Free QR Code Generator — ReviByte Tools";
+const description = "Generate a QR code for any link, text, or Wi-Fi network — free, instant, and works entirely in your browser.";
+const canonicalURL = "https://www.revibyte.blog/tools/qr-code-generator/";
+---
+
+<Layout title={title} description={description}>
+  <Fragment slot="head">
+    <link rel="canonical" href={canonicalURL} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+  </Fragment>
+
+  <main class="qr-wrap">
+    <header class="qr-head">
+      <a href="/save/" class="qr-back">← ReviByte Tools</a>
+      <p class="qr-eyebrow">ReviByte Tools</p>
+      <h1 class="qr-title">QR Code Generator</h1>
+      <p class="qr-sub">
+        Turn any link or text into a QR code instantly. Nothing is sent
+        anywhere — it's generated right in your browser.
+      </p>
+    </header>
+
+    <section class="panel">
+      <div class="field">
+        <label for="qrInput">Text or URL</label>
+        <input type="text" id="qrInput" placeholder="https://revibyte.blog" />
+      </div>
+
+      <div class="field-row">
+        <div class="field">
+          <label for="qrSize">Size</label>
+          <select id="qrSize">
+            <option value="200">200 × 200</option>
+            <option value="400" selected>400 × 400</option>
+            <option value="600">600 × 600</option>
+            <option value="1000">1000 × 1000</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="qrColor">Color</label>
+          <input type="color" id="qrColor" value="#0f1115" />
+        </div>
+      </div>
+
+      <button id="generateBtn" class="generate-btn">Generate QR Code</button>
+    </section>
+
+    <section class="result" id="resultSection" hidden>
+      <div class="qr-canvas-wrap">
+        <canvas id="qrCanvas"></canvas>
+      </div>
+      <a id="downloadBtn" class="download-btn" download="qrcode.png">Download PNG</a>
+    </section>
+
+    <section class="info-block">
+      <h2 class="info-title">How to use this QR code generator</h2>
+      <ol class="info-list">
+        <li>Type or paste your link, text, or Wi-Fi details into the box above.</li>
+        <li>Pick a size and color that suits where you'll use it — bigger sizes print more clearly.</li>
+        <li>Tap <strong>Generate QR Code</strong> — it appears instantly, right in your browser.</li>
+        <li>Tap <strong>Download PNG</strong> to save it to your device, then share or print it.</li>
+      </ol>
+    </section>
+
+    <section class="info-block">
+      <h2 class="info-title">Common uses for QR codes</h2>
+      <ul class="info-list">
+        <li><strong>Sharing a link</strong> — send people straight to a website, blog post, or product page without typing a URL.</li>
+        <li><strong>Wi-Fi access</strong> — let guests connect to your network by scanning instead of typing a password.</li>
+        <li><strong>Business cards & flyers</strong> — add a scannable link to a portfolio, social profile, or contact card.</li>
+        <li><strong>Event check-ins</strong> — print codes that link to a form, ticket, or menu.</li>
+      </ul>
+    </section>
+
+    <section class="info-block">
+      <h2 class="info-title">FAQ</h2>
+      <div class="faq-item">
+        <h3 class="faq-q">Do QR codes expire?</h3>
+        <p class="faq-a">No. A QR code generated here encodes your text or link directly, so it works for as long as that link or text stays valid — there's no expiration built into the code itself.</p>
+      </div>
+      <div class="faq-item">
+        <h3 class="faq-q">Is this QR code generator free?</h3>
+        <p class="faq-a">Yes, completely free, with no limit on how many codes you generate.</p>
+      </div>
+      <div class="faq-item">
+        <h3 class="faq-q">Does this tool store or see my data?</h3>
+        <p class="faq-a">No. Everything happens locally in your browser — your text, link, or Wi-Fi details are never sent to ReviByte's servers or anywhere else.</p>
+      </div>
+      <div class="faq-item">
+        <h3 class="faq-q">What size should I use?</h3>
+        <p class="faq-a">400×400 works well for most screens and printing. For posters, flyers, or anything scanned from a distance, use 1000×1000 for a sharper result.</p>
+      </div>
+    </section>
+  </main>
+</Layout>
+
+<style>
+  .qr-wrap {
+    max-width: 620px;
+    margin: 0 auto;
+    padding: 2.5rem 1.25rem 4rem;
+    font-family: "Inter", system-ui, sans-serif;
+    color: #1a1d23;
+  }
+
+  .qr-head { margin-bottom: 1.75rem; }
+  .qr-back {
+    display: inline-block;
+    font-family: "JetBrains Mono", monospace;
+    font-size: 0.85rem;
+    font-weight: 800;
+    color: #e11d1d;
+    text-decoration: none;
+    margin-bottom: 0.9rem;
+  }
+  .qr-back:hover { text-decoration: underline; }
+  .qr-eyebrow {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #e11d1d;
+    margin: 0 0 0.5rem;
+  }
+  .qr-title {
+    font-family: "Space Grotesk", system-ui, sans-serif;
+    font-size: 2.3rem;
+    font-weight: 800;
+    letter-spacing: -0.01em;
+    margin: 0 0 0.6rem;
+    color: #0f1115;
+  }
+  .qr-sub {
+    color: #3f4450;
+    font-weight: 500;
+    font-size: 0.98rem;
+    line-height: 1.55;
+    margin: 0;
+    max-width: 46ch;
+  }
+
+  .panel {
+    margin-top: 1.5rem;
+    background: #f7f8fa;
+    border: 1px solid #e3e6eb;
+    border-radius: 10px;
+    padding: 1.25rem 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  .field { display: flex; flex-direction: column; gap: 0.4rem; flex: 1; }
+  .field-row { display: flex; gap: 1rem; }
+  .field label {
+    font-size: 0.82rem;
+    color: #565c68;
+    font-family: "JetBrains Mono", monospace;
+  }
+  .field input[type="text"] {
+    background: #ffffff;
+    border: 1px solid #d3d7de;
+    color: #0f1115;
+    padding: 0.6rem 0.7rem;
+    border-radius: 6px;
+    font-size: 0.95rem;
+  }
+  .field select {
+    background: #ffffff;
+    border: 1px solid #d3d7de;
+    color: #0f1115;
+    padding: 0.5rem 0.6rem;
+    border-radius: 6px;
+    font-size: 0.9rem;
+  }
+  .field input[type="color"] {
+    width: 100%;
+    height: 38px;
+    border: 1px solid #d3d7de;
+    border-radius: 6px;
+    padding: 2px;
+    background: #ffffff;
+    cursor: pointer;
+  }
+  .generate-btn {
+    margin-top: 0.25rem;
+    background: #e11d1d;
+    color: #ffffff;
+    border: none;
+    font-weight: 700;
+    font-size: 0.95rem;
+    padding: 0.7rem 1rem;
+    border-radius: 7px;
+    cursor: pointer;
+    transition: filter 0.15s ease;
+  }
+  .generate-btn:hover { filter: brightness(1.08); }
+
+  .result {
+    margin-top: 1.75rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    background: #f7f8fa;
+    border: 1px solid #e3e6eb;
+    border-radius: 10px;
+    padding: 1.5rem;
+  }
+  .qr-canvas-wrap {
+    background: #ffffff;
+    padding: 1rem;
+    border-radius: 8px;
+    border: 1px solid #e3e6eb;
+  }
+  #qrCanvas { display: block; max-width: 100%; height: auto; }
+  .download-btn {
+    background: #ffffff;
+    border: 1px solid #d3d7de;
+    color: #0f1115;
+    font-weight: 600;
+    font-size: 0.88rem;
+    padding: 0.55rem 1rem;
+    border-radius: 6px;
+    text-decoration: none;
+  }
+  .download-btn:hover { border-color: #e11d1d; color: #e11d1d; }
+
+  .info-block {
+    margin-top: 2.25rem;
+    padding-top: 2rem;
+    border-top: 1px solid #e3e6eb;
+  }
+  .info-title {
+    font-family: "Space Grotesk", system-ui, sans-serif;
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: #0f1115;
+    margin: 0 0 0.9rem;
+  }
+  .info-list {
+    margin: 0;
+    padding-left: 1.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.55rem;
+  }
+  .info-list li {
+    color: #2a2d34;
+    font-size: 0.95rem;
+    line-height: 1.55;
+  }
+  .faq-item { margin-bottom: 1.1rem; }
+  .faq-item:last-child { margin-bottom: 0; }
+  .faq-q {
+    font-size: 0.98rem;
+    font-weight: 700;
+    color: #0f1115;
+    margin: 0 0 0.3rem;
+  }
+  .faq-a {
+    font-size: 0.93rem;
+    line-height: 1.55;
+    color: #3f4450;
+    margin: 0;
+  }
+
+  @media (max-width: 480px) {
+    .qr-title { font-size: 1.7rem; }
+    .field-row { flex-direction: column; }
+  }
+</style>
+
+<script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js" is:inline></script>
+<script>
+  const input = document.getElementById("qrInput") as HTMLInputElement;
+  const sizeSel = document.getElementById("qrSize") as HTMLSelectElement;
+  const colorInput = document.getElementById("qrColor") as HTMLInputElement;
+  const generateBtn = document.getElementById("generateBtn") as HTMLButtonElement;
+  const resultSection = document.getElementById("resultSection") as HTMLElement;
+  const canvas = document.getElementById("qrCanvas") as HTMLCanvasElement;
+  const downloadBtn = document.getElementById("downloadBtn") as HTMLAnchorElement;
+
+  // @ts-ignore - QRCode is loaded globally from the CDN script
+  declare const QRCode: any;
+
+  function generate() {
+    const text = input.value.trim();
+    if (!text) {
+      input.focus();
+      return;
+    }
+    const size = Number(sizeSel.value);
+    const color = colorInput.value;
+
+    QRCode.toCanvas(
+      canvas,
+      text,
+      {
+        width: size,
+        margin: 2,
+        color: { dark: color, light: "#ffffff" },
+      },
+      (err: Error | null) => {
+        if (err) {
+          console.error("QR generation failed", err);
+          return;
+        }
+        resultSection.hidden = false;
+        downloadBtn.href = canvas.toDataURL("image/png");
+      }
+    );
+  }
+
+  generateBtn.addEventListener("click", generate);
+  input.addEventListener("keydown", (e) => {
+    if (e.key === "Enter") generate();
+  });
+</script>
