@@ -1,0 +1,329 @@
+---
+// src/pages/tools/image-compressor.astro
+import Layout from "../../layouts/Layout.astro";
+---
+
+<Layout title="Free Image Compressor & Converter — ReviByte Tools">
+  <main class="ic-wrap">
+    <header class="ic-head">
+      <p class="ic-eyebrow">ReviByte Tools</p>
+      <h1 class="ic-title">Image Compressor</h1>
+      <p class="ic-sub">
+        Shrink photos and screenshots before you post them. Everything happens
+        on your device — nothing is uploaded anywhere.
+      </p>
+    </header>
+
+    <section class="tray" id="dropZone">
+      <input type="file" id="fileInput" accept="image/png,image/jpeg,image/webp" multiple hidden />
+      <div class="tray-inner" id="trayInner">
+        <svg class="tray-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <path d="M12 16V4M12 4l-4 4M12 4l4 4" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <p class="tray-text">Drop images here, or <span class="tray-link">choose files</span></p>
+        <p class="tray-hint">JPG · PNG · WebP</p>
+      </div>
+    </section>
+
+    <section class="controls" id="controls" hidden>
+      <div class="control-row">
+        <label for="format">Convert to</label>
+        <select id="format">
+          <option value="image/jpeg">JPG</option>
+          <option value="image/webp">WebP</option>
+          <option value="image/png">PNG</option>
+        </select>
+      </div>
+      <div class="control-row">
+        <label for="quality">Quality — <span id="qualityVal">75</span>%</label>
+        <input type="range" id="quality" min="10" max="100" value="75" />
+      </div>
+      <button id="processBtn" class="process-btn">Compress images</button>
+    </section>
+
+    <section class="results" id="results"></section>
+  </main>
+</Layout>
+
+<style>
+  .ic-wrap {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 2.5rem 1.25rem 4rem;
+    font-family: "Inter", system-ui, sans-serif;
+    color: #e8e6df;
+  }
+
+  .ic-head { margin-bottom: 1.75rem; }
+  .ic-eyebrow {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 0.75rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #ff9d3d;
+    margin: 0 0 0.5rem;
+  }
+  .ic-title {
+    font-family: "Space Grotesk", system-ui, sans-serif;
+    font-size: 2.1rem;
+    font-weight: 600;
+    margin: 0 0 0.5rem;
+    color: #f4f2ec;
+  }
+  .ic-sub {
+    color: #9aa1ac;
+    font-size: 0.95rem;
+    line-height: 1.5;
+    margin: 0;
+    max-width: 46ch;
+  }
+
+  .tray {
+    border: 1.5px dashed #3a4150;
+    border-radius: 10px;
+    background: #1c222c;
+    transition: border-color 0.15s ease, background 0.15s ease;
+    cursor: pointer;
+  }
+  .tray.drag { border-color: #ff9d3d; background: #232a35; }
+  .tray-inner {
+    padding: 2.75rem 1.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 0.5rem;
+  }
+  .tray-icon { width: 30px; height: 30px; color: #ff9d3d; margin-bottom: 0.25rem; }
+  .tray-text { margin: 0; font-size: 0.98rem; color: #d7d4cb; }
+  .tray-link { color: #ff9d3d; text-decoration: underline; text-underline-offset: 2px; }
+  .tray-hint {
+    margin: 0;
+    font-family: "JetBrains Mono", monospace;
+    font-size: 0.72rem;
+    color: #5c6470;
+    letter-spacing: 0.04em;
+  }
+
+  .controls {
+    margin-top: 1.5rem;
+    background: #1c222c;
+    border: 1px solid #2a303b;
+    border-radius: 10px;
+    padding: 1.25rem 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  .control-row { display: flex; flex-direction: column; gap: 0.4rem; }
+  .control-row label {
+    font-size: 0.82rem;
+    color: #9aa1ac;
+    font-family: "JetBrains Mono", monospace;
+  }
+  .control-row select {
+    background: #14181f;
+    border: 1px solid #3a4150;
+    color: #e8e6df;
+    padding: 0.5rem 0.6rem;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    width: fit-content;
+  }
+  .control-row input[type="range"] {
+    accent-color: #ff9d3d;
+    width: 100%;
+  }
+  .process-btn {
+    margin-top: 0.25rem;
+    background: #ff9d3d;
+    color: #14181f;
+    border: none;
+    font-weight: 600;
+    font-size: 0.95rem;
+    padding: 0.7rem 1rem;
+    border-radius: 7px;
+    cursor: pointer;
+    transition: filter 0.15s ease;
+  }
+  .process-btn:hover { filter: brightness(1.08); }
+  .process-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+  .results { margin-top: 1.75rem; display: flex; flex-direction: column; gap: 0.75rem; }
+  .result-card {
+    background: #1c222c;
+    border: 1px solid #2a303b;
+    border-radius: 10px;
+    padding: 1rem 1.1rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+  .result-thumb {
+    width: 52px; height: 52px;
+    object-fit: cover;
+    border-radius: 6px;
+    flex-shrink: 0;
+    background: #14181f;
+  }
+  .result-info { flex: 1; min-width: 0; }
+  .result-name {
+    font-size: 0.88rem;
+    color: #d7d4cb;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin: 0 0 0.3rem;
+  }
+  .result-stats {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 0.78rem;
+    color: #9aa1ac;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+  }
+  .result-saved { color: #7fd858; }
+  .result-download {
+    background: transparent;
+    border: 1px solid #3a4150;
+    color: #e8e6df;
+    font-size: 0.82rem;
+    padding: 0.4rem 0.75rem;
+    border-radius: 6px;
+    cursor: pointer;
+    text-decoration: none;
+    white-space: nowrap;
+  }
+  .result-download:hover { border-color: #ff9d3d; color: #ff9d3d; }
+
+  @media (max-width: 480px) {
+    .ic-title { font-size: 1.7rem; }
+    .result-card { flex-wrap: wrap; }
+  }
+</style>
+
+<script>
+  const dropZone = document.getElementById("dropZone") as HTMLElement;
+  const fileInput = document.getElementById("fileInput") as HTMLInputElement;
+  const controls = document.getElementById("controls") as HTMLElement;
+  const formatSel = document.getElementById("format") as HTMLSelectElement;
+  const qualityInput = document.getElementById("quality") as HTMLInputElement;
+  const qualityVal = document.getElementById("qualityVal") as HTMLElement;
+  const processBtn = document.getElementById("processBtn") as HTMLButtonElement;
+  const resultsEl = document.getElementById("results") as HTMLElement;
+
+  let files: File[] = [];
+
+  function formatBytes(bytes: number) {
+    if (bytes < 1024) return bytes + " B";
+    if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(1) + " KB";
+    return (bytes / (1024 * 1024)).toFixed(2) + " MB";
+  }
+
+  function addFiles(list: FileList | File[]) {
+    const incoming = Array.from(list).filter((f) => f.type.startsWith("image/"));
+    if (!incoming.length) return;
+    files = files.concat(incoming);
+    controls.hidden = false;
+    dropZone.querySelector(".tray-text")!.textContent =
+      files.length === 1 ? "1 image ready" : `${files.length} images ready`;
+  }
+
+  dropZone.addEventListener("click", () => fileInput.click());
+  fileInput.addEventListener("change", () => {
+    if (fileInput.files) addFiles(fileInput.files);
+  });
+
+  ["dragenter", "dragover"].forEach((evt) =>
+    dropZone.addEventListener(evt, (e) => {
+      e.preventDefault();
+      dropZone.classList.add("drag");
+    })
+  );
+  ["dragleave", "drop"].forEach((evt) =>
+    dropZone.addEventListener(evt, (e) => {
+      e.preventDefault();
+      dropZone.classList.remove("drag");
+    })
+  );
+  dropZone.addEventListener("drop", (e: DragEvent) => {
+    if (e.dataTransfer?.files) addFiles(e.dataTransfer.files);
+  });
+
+  qualityInput.addEventListener("input", () => {
+    qualityVal.textContent = qualityInput.value;
+  });
+
+  function compressImage(file: File, mime: string, quality: number): Promise<Blob> {
+    return new Promise((resolve, reject) => {
+      const img = new Image();
+      const url = URL.createObjectURL(file);
+      img.onload = () => {
+        const canvas = document.createElement("canvas");
+        canvas.width = img.width;
+        canvas.height = img.height;
+        const ctx = canvas.getContext("2d");
+        if (!ctx) return reject(new Error("Canvas not supported"));
+        ctx.drawImage(img, 0, 0);
+        canvas.toBlob(
+          (blob) => {
+            URL.revokeObjectURL(url);
+            if (blob) resolve(blob);
+            else reject(new Error("Compression failed"));
+          },
+          mime,
+          mime === "image/png" ? undefined : quality
+        );
+      };
+      img.onerror = reject;
+      img.src = url;
+    });
+  }
+
+  processBtn.addEventListener("click", async () => {
+    if (!files.length) return;
+    processBtn.disabled = true;
+    processBtn.textContent = "Compressing…";
+    resultsEl.innerHTML = "";
+
+    const mime = formatSel.value;
+    const quality = Number(qualityInput.value) / 100;
+    const ext = mime === "image/jpeg" ? "jpg" : mime === "image/webp" ? "webp" : "png";
+
+    for (const file of files) {
+      try {
+        const blob = await compressImage(file, mime, quality);
+        const outUrl = URL.createObjectURL(blob);
+        const savedPct = Math.max(
+          0,
+          Math.round((1 - blob.size / file.size) * 100)
+        );
+        const baseName = file.name.replace(/\.[^.]+$/, "");
+
+        const card = document.createElement("div");
+        card.className = "result-card";
+        card.innerHTML = `
+          <img class="result-thumb" src="${outUrl}" alt="" />
+          <div class="result-info">
+            <p class="result-name">${baseName}.${ext}</p>
+            <div class="result-stats">
+              <span>${formatBytes(file.size)}</span>
+              <span>→</span>
+              <span>${formatBytes(blob.size)}</span>
+              ${savedPct > 0 ? `<span class="result-saved">−${savedPct}%</span>` : ""}
+            </div>
+          </div>
+          <a class="result-download" href="${outUrl}" download="${baseName}.${ext}">Download</a>
+        `;
+        resultsEl.appendChild(card);
+      } catch (err) {
+        console.error("Failed to compress", file.name, err);
+      }
+    }
+
+    processBtn.disabled = false;
+    processBtn.textContent = "Compress images";
+  });
+</script>
