@@ -6,6 +6,7 @@ pubDatetime: 2026-08-12T12:34:00Z
 coverImage: "/assets/posts/best-tecno-phones-under-150-cover.jpg"  
 coverImageAlt: "Five TECNO smartphones under $150 lined up side by side against a plain background"  
 slug: "best-tecno-phones-under-150-nigeria-2026"  
+tags: ["Tecno", "android", "opinions"]
 relatedSlugs:  
   - "best-phones-under-150k-nigeria-april-2026"  
   - "tecno-pop-20-review-best-budget-phone-2026"  
