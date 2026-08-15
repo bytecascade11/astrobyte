@@ -79,7 +79,7 @@ The catch: with the Camon 50 Pro now offering a very similar main-camera and tel
   
 ## 4. TECNO Camon 40 Pro 5G / 4G — the mid-range value pick  
   
-![TECNO Camon 40 Pro rear camera module](/assets/posts/tecno-camon-40-pro.jpg)  
+![TECNO Camon 40 Pro rear camera module](/assets/posts/tecno-camon-40-pro-5g.jpg)  
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4896561037705299"
      crossorigin="anonymous"></script>
 <ins class="adsbygoogle"
