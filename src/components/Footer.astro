@@ -79,6 +79,7 @@ const { noMarginTop = false } = Astro.props;
             <div class="footer-col-label">Links</div>
             <nav class="footer-nav">
               <a href="/about">About the Editor</a>
+              <a href="/work-with-us">Work With Us</a>
               <a href="/privacy-policy">Privacy Policy</a>
               <a href="/contact">Contact Us</a>
               <a href="/terms-and-conditions">Terms and Conditions</a>
@@ -86,8 +87,6 @@ const { noMarginTop = false } = Astro.props;
               <a href="/sitemap">Sitemap</a>
             </nav>
           </div>
-
-          <div class="footer-col-divider"></div>
 
           <div class="footer-col">
             <div class="footer-col-label">Game Guides</div>
@@ -169,19 +168,19 @@ const { noMarginTop = false } = Astro.props;
 </footer>
 
 <style>
-  /* ── Wrapper ── */
+  /* ── Wrapper — own black background, independent of site theme ── */
   .footer-wrapper {
     position: relative;
-    border-top: 1px solid var(--color-border);
-    background: var(--color-card, transparent);
+    background: #000;
+    color: #fff;
   }
 
   /* ── Accent top line ── */
   .footer-glow-line {
     width: 100%;
-    height: 2px;
+    height: 3px;
     background: linear-gradient(90deg, transparent, var(--color-accent), transparent);
-    opacity: 0.5;
+    opacity: 0.9;
   }
 
   /* ── Inner container ── */
@@ -218,13 +217,13 @@ const { noMarginTop = false } = Astro.props;
     font-size: 1.1rem;
     font-weight: 700;
     letter-spacing: -0.3px;
-    color: var(--color-foreground);
+    color: #fff;
   }
 
   .footer-tagline {
     font-size: 0.72rem;
-    color: var(--color-foreground);
-    opacity: 0.45;
+    color: #fff;
+    opacity: 0.5;
     letter-spacing: 0.04em;
     text-transform: uppercase;
     margin-top: 2px;
@@ -234,7 +233,7 @@ const { noMarginTop = false } = Astro.props;
   .footer-divider {
     width: 100%;
     height: 1px;
-    background: var(--color-border);
+    background: rgba(255, 255, 255, 0.14);
     margin: 1.5rem 0;
   }
 
@@ -257,11 +256,11 @@ const { noMarginTop = false } = Astro.props;
     flex: 1;
     padding: 0.65rem 1rem;
     border-radius: 8px;
-    border: 1px solid var(--color-border);
-    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.05);
     font-size: 0.875rem;
     outline: none;
-    color: var(--color-foreground);
+    color: #fff;
     transition: border-color 0.2s;
   }
 
@@ -270,8 +269,8 @@ const { noMarginTop = false } = Astro.props;
   }
 
   .footer-input::placeholder {
-    opacity: 0.35;
-    color: var(--color-foreground);
+    opacity: 0.4;
+    color: #fff;
   }
 
   .footer-btn {
@@ -298,8 +297,8 @@ const { noMarginTop = false } = Astro.props;
   .footer-disclaimer {
     text-align: center;
     font-size: 0.68rem;
-    color: var(--color-foreground);
-    opacity: 0.4;
+    color: #fff;
+    opacity: 0.45;
     margin-top: 0.65rem;
   }
 
@@ -326,8 +325,8 @@ const { noMarginTop = false } = Astro.props;
     width: 32px;
     height: 32px;
     border-radius: 6px;
-    color: var(--color-foreground);
-    opacity: 0.5;
+    color: #fff;
+    opacity: 0.6;
     transition: opacity 0.2s, color 0.2s;
   }
 
@@ -336,21 +335,22 @@ const { noMarginTop = false } = Astro.props;
     color: var(--color-accent);
   }
 
-  /* ── Links + Game Guides side-by-side columns ── */
+  /* ── Links + Game Guides side-by-side columns (Punch-style) ── */
   .footer-columns {
     display: flex;
     justify-content: center;
     align-items: flex-start;
-    gap: 2.5rem;
+    gap: 3.5rem;
     width: 100%;
-    flex-wrap: wrap;
+    padding: 0.5rem 0 1rem;
   }
 
   .footer-col {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    min-width: 9rem;
+    align-items: flex-start;
+    flex: 1;
+    max-width: 14rem;
   }
 
   .footer-col-label {
@@ -359,42 +359,36 @@ const { noMarginTop = false } = Astro.props;
     letter-spacing: 0.12em;
     text-transform: uppercase;
     color: var(--color-accent);
-    opacity: 0.75;
-    margin-bottom: 0.75rem;
-  }
-
-  .footer-col-divider {
-    width: 1px;
-    align-self: stretch;
-    background: var(--color-border);
+    opacity: 0.85;
+    margin-bottom: 1rem;
   }
 
   @media (max-width: 480px) {
     .footer-columns {
-      gap: 2rem;
+      gap: 1.5rem;
     }
-    .footer-col-divider {
-      display: none;
+    .footer-col-label {
+      font-size: 0.58rem;
     }
   }
 
-  /* ── Nav — used inside each column ── */
+  /* ── Nav — plain bold list, used inside each column ── */
   .footer-nav {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    gap: 0.6rem;
+    align-items: flex-start;
+    gap: 1.1rem;
+    width: 100%;
   }
 
   .footer-nav a {
-    font-size: 0.88rem;
-    font-weight: 600;
-    color: var(--color-foreground);
-    opacity: 0.85;
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: #fff;
+    opacity: 0.92;
     text-decoration: none;
     letter-spacing: 0.01em;
     transition: color 0.2s, opacity 0.2s;
-    white-space: nowrap;
   }
 
   .footer-nav a:hover {
@@ -422,7 +416,7 @@ const { noMarginTop = false } = Astro.props;
   .footer-theme-card {
     width: 100%;
     max-width: 26rem;
-    border: 1px solid var(--color-border);
+    border: 1px solid rgba(255, 255, 255, 0.14);
     border-radius: 12px;
     padding: 1.1rem 1.25rem;
     text-align: center;
@@ -435,25 +429,25 @@ const { noMarginTop = false } = Astro.props;
     letter-spacing: 0.12em;
     text-transform: uppercase;
     color: var(--color-accent);
-    border: 1px solid var(--color-border);
+    border: 1px solid rgba(255, 255, 255, 0.2);
     padding: 2px 8px;
     border-radius: 999px;
     margin-bottom: 0.5rem;
-    opacity: 0.8;
+    opacity: 0.9;
   }
 
   .footer-theme-title {
     font-size: 0.9rem;
     font-weight: 700;
     margin-bottom: 0.4rem;
-    color: var(--color-foreground);
+    color: #fff;
     letter-spacing: -0.15px;
   }
 
   .footer-theme-desc {
     font-size: 0.75rem;
-    color: var(--color-foreground);
-    opacity: 0.6;
+    color: #fff;
+    opacity: 0.65;
     line-height: 1.6;
     margin-bottom: 0.85rem;
   }
@@ -491,13 +485,13 @@ const { noMarginTop = false } = Astro.props;
     gap: 0.35rem;
     padding: 0.42rem 0.9rem;
     background: transparent;
-    border: 1px solid var(--color-border);
-    color: var(--color-foreground);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: #fff;
     border-radius: 7px;
     font-size: 0.78rem;
     font-weight: 600;
     text-decoration: none;
-    opacity: 0.75;
+    opacity: 0.8;
     transition: border-color 0.2s, color 0.2s, transform 0.2s;
   }
 
@@ -511,8 +505,8 @@ const { noMarginTop = false } = Astro.props;
   /* ── Copyright ── */
   .footer-copy {
     font-size: 0.7rem;
-    color: var(--color-foreground);
-    opacity: 0.4;
+    color: #fff;
+    opacity: 0.45;
     display: flex;
     align-items: center;
     gap: 0.45rem;
