@@ -39,7 +39,7 @@ Specs pulled from TECNO's official Nigeria spec pages and checked in August 2026
   
 ## 1. TECNO Camon 50 Ultra 5G — the new flagship pick  
   
-![TECNO Camon 50 Ultra 5G rear triple-camera module](/assets/posts/camon-50-ultra-5g.jpg)  
+![TECNO Camon 50 Ultra 5G rear triple-camera module](/assets/posts/tecno-camon-50-ultra-5g.jpg)  
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4896561037705299"
      crossorigin="anonymous"></script>
 <ins class="adsbygoogle"
@@ -59,7 +59,7 @@ Nigerian retail pricing for brand-new units is still shaking out as stock arrive
   
 ## 2. TECNO Camon 50 Pro — best camera-to-price balance right now  
   
-![TECNO Camon 50 Pro rear camera module](/assets/posts/camon-50-pro.jpg)  
+![TECNO Camon 50 Pro rear camera module](/assets/posts/tecno-camon-50-pro.jpg)  
   
 In Nigeria, the Camon 50 Pro ships as a **4G** device on the Helio G200 Ultimate chipset — it's not the same phone as the differently-specced "Pro 5G" sold under the same family name in some other markets, so don't assume the name alone tells you the network or processor. TECNO's official Nigeria spec page lists a 50MP OIS main camera, a genuine 50MP 3x telephoto, an 8MP ultrawide, a 32MP front camera, a 6,150mAh battery, and 45W charging. Nigerian retailers currently list it from around ₦450,000 to ₦540,000.  
   
@@ -69,7 +69,7 @@ The Camon 50 Pro shares the same core rear-camera configuration as the Ultra —
   
 ## 3. TECNO Camon 40 Premier 5G — still capable, now worth comparing on price  
   
-![TECNO Camon 40 Premier 5G triple-camera module](/assets/posts/camon-40-premier-5g.jpg)  
+![TECNO Camon 40 Premier 5G triple-camera module](/assets/posts/tecno-camon-40-premier-5g.jpg)  
   
 This was last year's flagship, and the triple 50MP setup — a 50MP OIS main, a genuine 3x telephoto, and a 50MP ultrawide that outresolves the Camon 50 series' 8MP ultrawide — is still a strong combination on paper. The 50MP autofocus selfie camera remains a good pick for content creators. It runs on the Dimensity 8350 Ultimate chipset with a 5,100mAh battery and 70W charging — the fastest charging speed on this list. Current Nigerian listings put it at roughly ₦550,000 to ₦690,000.  
   
@@ -79,7 +79,7 @@ The catch: with the Camon 50 Pro now offering a very similar main-camera and tel
   
 ## 4. TECNO Camon 40 Pro 5G / 4G — the mid-range value pick  
   
-![TECNO Camon 40 Pro rear camera module](/assets/posts/camon-40-pro.jpg)  
+![TECNO Camon 40 Pro rear camera module](/assets/posts/tecno-camon-40-pro.jpg)  
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4896561037705299"
      crossorigin="anonymous"></script>
 <ins class="adsbygoogle"
@@ -101,7 +101,7 @@ The Camon 40 Pro 5G is also the phone that earned TECNO's first DXOMARK Smart Ch
   
 ## 5. TECNO Camon 50 (4G) — the budget camera pick  
   
-![TECNO Camon 50 4G rear camera module](/assets/posts/camon-50-4g.jpg)  
+![TECNO Camon 50 4G rear camera module](/assets/posts/tecno-camon-50-4g.jpg)  
   
 The standard Camon 50 keeps the same core rear-camera hardware as the Pro — a 50MP OIS main lens plus an 8MP autofocus ultrawide — but drops the telephoto lens and runs on the same Helio G200 Ultimate chipset. Up front it carries a 32MP selfie camera, and the whole package is backed by a 6,150mAh battery with 45W charging. Nigerian retail pricing runs roughly ₦300,000 to ₦380,000.  
   
