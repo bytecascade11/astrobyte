@@ -168,11 +168,16 @@ const { noMarginTop = false } = Astro.props;
 </footer>
 
 <style>
-  /* ── Wrapper — own black background, independent of site theme ── */
+  /* ── Wrapper — own black background, full-bleed edge to edge ── */
+  /* full-bleed trick: breaks out of any parent max-width/padding container */
   .footer-wrapper {
     position: relative;
     background: #000;
     color: #fff;
+    width: 100vw;
+    max-width: 100vw;
+    margin-left: calc(50% - 50vw);
+    margin-right: calc(50% - 50vw);
   }
 
   /* ── Accent top line ── */
