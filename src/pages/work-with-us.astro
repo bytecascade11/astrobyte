@@ -1,118 +1,97 @@
 ---
-import Layout from "@layouts/Layout.astro";
-import Header from "@components/Header.astro";
-import Footer from "@components/Footer.astro";
+import Layout from "@/layouts/Layout.astro";
+import BackButton from "@/components/BackButton.astro";
 
-const pageTitle = "Work With Us | ReviByte";
-const pageDesc =
-  "Partner with ReviByte for sponsored posts, banner placements, and product reviews reaching a growing global tech and mobile gaming audience.";
+const title = "Work With Us — Advertise on ReviByte | Oke iSamuel";
+const description = "Partner with ReviByte for sponsored posts, banner placements, and product reviews reaching a growing global tech and mobile gaming audience.";
 ---
 
-<Layout title={pageTitle} description={pageDesc}>
-  <Header />
-  <main id="main-content" class="mx-auto max-w-3xl px-4 pb-16 pt-8">
-    <article class="prose">
-      <h1 class="text-3xl font-bold mb-4">Work With Us</h1>
+<Layout title={title} description={description}>
+  <div style="max-width:56rem; margin: 1rem auto; padding: 0 1rem;">
+    <BackButton />
+  </div>
+  <article class="prose prose-lg mx-auto max-w-4xl px-6 py-16 dark:prose-invert">
 
-      <p class="mb-6 text-lg">
-        ReviByte is a fast-growing tech and mobile gaming blog covering
-        smartphone reviews, Android optimization, and mobile gaming hubs like
-        COD Mobile, eFootball, PUBG Mobile, and MLBB. We work with brands who
-        want to reach an engaged, global audience — with strong representation
-        across Nigeria, the US, and Indonesia.
-      </p>
+    <h1 class="mb-4 text-4xl font-bold">Work With Us</h1>
+    <p class="lead text-xl">
+      ReviByte is a fast-growing tech and mobile gaming blog covering
+      smartphone reviews, Android optimization, and mobile gaming hubs like
+      COD Mobile, eFootball, PUBG Mobile, and MLBB. We work with brands who
+      want to reach an engaged, global audience — with strong representation
+      across Nigeria, the US, and Indonesia.
+    </p>
 
-      <section class="mb-8">
-        <h2 class="text-2xl font-semibold mb-3">Why Partner With ReviByte</h2>
-        <ul class="list-disc list-inside space-y-2">
-          <li>
-            500–700 daily visitors, with the majority coming from organic
-            Google Search
-          </li>
-          <li>Growing visibility across Google Search and AI-powered search experiences</li>
-          <li>Trusted, fact-checked reviews with real editorial standards</li>
-          <li>
-            Dedicated hubs for top mobile games and phone brands, giving
-            sponsors targeted placement options
-          </li>
-          <li>Growing newsletter and push notification subscriber base</li>
-        </ul>
-      </section>
+    <h2>Why Partner With ReviByte</h2>
+    <ul>
+      <li>
+        500–700 daily visitors, with the majority coming from organic
+        Google Search
+      </li>
+      <li>Growing visibility across Google Search and AI-powered search experiences</li>
+      <li>Trusted, fact-checked reviews with real editorial standards</li>
+      <li>
+        Dedicated hubs for top mobile games and phone brands, giving
+        sponsors targeted placement options
+      </li>
+      <li>Growing newsletter and push notification subscriber base</li>
+    </ul>
 
-      <section class="mb-8">
-        <h2 class="text-2xl font-semibold mb-3">Ways to Partner</h2>
-        <div class="space-y-4">
-          <div>
-            <h3 class="text-xl font-medium">Sponsored Posts</h3>
-            <p>
-              A dedicated review or feature article about your product, written
-              with the same editorial care as our regular content.
-            </p>
-          </div>
-          <div>
-            <h3 class="text-xl font-medium">Banner & Display Ads</h3>
-            <p>
-              Placements across posts, gaming hubs, and device hubs, including
-              high-visibility spots above the fold.
-            </p>
-          </div>
-          <div>
-            <h3 class="text-xl font-medium">Product Reviews</h3>
-            <p>
-              Honest, hands-on reviews of your device or app, published to our
-              dedicated review hubs. We accept review units, but receiving a
-              product does not guarantee a positive review.
-            </p>
-          </div>
-          <div>
-            <h3 class="text-xl font-medium">Newsletter & Push Mentions</h3>
-            <p>
-              Feature your brand to subscribers via our email newsletter or
-              push notifications.
-            </p>
-          </div>
-        </div>
-      </section>
+    <h2>Ways to Partner</h2>
 
-      <section class="mb-8">
-        <h2 class="text-2xl font-semibold mb-3">Editorial Independence</h2>
-        <p>
-          Sponsored content is clearly disclosed, and paid partnerships do not
-          guarantee positive editorial coverage. Our reviews reflect our honest
-          assessment, regardless of any commercial relationship.
-        </p>
-      </section>
+    <h3>Sponsored Posts</h3>
+    <p>
+      A dedicated review or feature article about your product, written
+      with the same editorial care as our regular content.
+    </p>
 
-      <section class="mb-8">
-        <h2 class="text-2xl font-semibold mb-3">Rates</h2>
-        <p>
-          Pricing depends on placement type and duration. Reach out with your
-          goals and budget, and we'll put together a package that fits.
-        </p>
-      </section>
+    <h3>Banner & Display Ads</h3>
+    <p>
+      Placements across posts, gaming hubs, and device hubs, including
+      high-visibility spots above the fold.
+    </p>
 
-      <section class="mb-8">
-        <h2 class="text-2xl font-semibold mb-3">Get in Touch</h2>
-        <p>
-          Ready to work together? Email us at
-          <a
-            href="mailto:revibyte20@gmail.com">revibyte20@gmail.com</a
-          >
-          with the following details so we can get back to you quickly:
-        </p>
-        <ul class="list-disc list-inside space-y-2">
-          <li>Brand/company</li>
-          <li>Product or service</li>
-          <li>Campaign type</li>
-          <li>Desired publication date</li>
-          <li>Budget (optional)</li>
-        </ul>
-      </section>
-    </article>
-  </main>
-  <Footer />
+    <h3>Product Reviews</h3>
+    <p>
+      Honest, hands-on reviews of your device or app, published to our
+      dedicated review hubs. We accept review units, but receiving a
+      product does not guarantee a positive review.
+    </p>
+
+    <h3>Newsletter & Push Mentions</h3>
+    <p>
+      Feature your brand to subscribers via our email newsletter or
+      push notifications.
+    </p>
+
+    <h2>Editorial Independence</h2>
+    <p>
+      Sponsored content is clearly disclosed, and paid partnerships do not
+      guarantee positive editorial coverage. Our reviews reflect our honest
+      assessment, regardless of any commercial relationship.
+    </p>
+
+    <h2>Rates</h2>
+    <p>
+      Pricing depends on placement type and duration. Reach out with your
+      goals and budget, and we'll put together a package that fits.
+    </p>
+
+    <h2>Get in Touch</h2>
+    <p>
+      Ready to work together? Email us at
+      <a href="mailto:revibyte20@gmail.com">revibyte20@gmail.com</a>
+      with the following details so we can get back to you quickly:
+    </p>
+    <ul>
+      <li>Brand/company</li>
+      <li>Product or service</li>
+      <li>Campaign type</li>
+      <li>Desired publication date</li>
+      <li>Budget (optional)</li>
+    </ul>
+
+  </article>
 </Layout>
-
 <style>
   /* Light mode text */
   article.prose p,
