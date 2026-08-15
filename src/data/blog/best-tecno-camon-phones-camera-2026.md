@@ -130,7 +130,7 @@ The Camon 40 Premier 5G supports 70W wired charging, the fastest on this list, w
   
 ---  
   
-*Specs and prices were checked against TECNO's official Nigeria spec pages, GSMArena, and Nigerian retail/marketplace listings as of August 14, 2026, and will shift as new stock arrives and currency conditions change — always confirm current pricing with your dealer before buying.*
+*Specs and prices were checked against TECNO's official Nigeria spec pages, GSMArena, and Nigerian retail/marketplace listings as of August 15, 2026, and will shift as new stock arrives and currency conditions change — always confirm current pricing with your dealer before buying.*
 
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4896561037705299"
      crossorigin="anonymous"></script>
