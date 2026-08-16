@@ -10,7 +10,8 @@ relatedSlugs:
   - "samsung-battery-life"  
   - "top-samsung-phones-best-camera"  
   - "samsung-phones-that-dont-lag"  
-  - "best-samsung-phones-for-students"  
+  - "best-samsung-phones-for-students"
+tags: ["samsung", "android", "opinions" "5g"]
 featured: false  
 ---
 
