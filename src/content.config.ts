@@ -132,7 +132,6 @@ const mlbb = defineCollection({
       slug: z.string().optional(),
     }),
 });
-
 // --------------- Samsung Collection ---------------
 const samsung = defineCollection({
   loader: glob({ pattern: "**/[^_]*.{md,mdx}", base: "./src/data/samsung" }),
@@ -152,6 +151,10 @@ const samsung = defineCollection({
       model: z.string().optional(),        // e.g. "Galaxy S25 Ultra"
       priceNGN: z.number().optional(),
       rating: z.number().min(0).max(5).optional(),
+      ram: z.string().optional(),          // e.g. "12GB"
+      storage: z.string().optional(),      // e.g. "256GB"
+      battery: z.string().optional(),      // e.g. "5000mAh"
+      display: z.string().optional(),      // e.g. "6.8in Dynamic AMOLED"
       tags: z.array(z.string()).default(["samsung"]),
       featured: z.boolean().optional(),
       draft: z.boolean().optional().default(false),
