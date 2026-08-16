@@ -187,6 +187,39 @@ const xiaomi = defineCollection({
       slug: z.string().optional(),
     }),
 });
+// --------------- Tecno Collection ---------------
+const tecno = defineCollection({
+  loader: glob({ pattern: "**/[^_]*.{md,mdx}", base: "./src/data/tecno" }),
+  schema: ({ image }) =>
+    z.object({
+      title: z.string(),
+      description: z.string(),
+      author: z.string().default(SITE.author),
+      pubDatetime: z.coerce.date(),
+      modDatetime: z.coerce.date().optional().nullable(),
+      lastUpdated: z.string().optional(),
+      ogImage: image().optional().or(z.string().url().optional()),
+      canonicalURL: z.string().url().optional(),
+      coverImage: z.string().optional(),
+      coverImageAlt: z.string().optional(),
+      type: z.enum(["review", "comparison", "buying-guide", "news"]).default("review"),
+      model: z.string().optional(),        // e.g. "Camon 40 Pro"
+      software: z.string().optional(),     // e.g. "HiOS 15"
+      priceNGN: z.number().optional(),
+      rating: z.number().min(0).max(5).optional(),
+      ram: z.string().optional(),          // e.g. "8GB"
+      storage: z.string().optional(),      // e.g. "256GB"
+      battery: z.string().optional(),      // e.g. "5000mAh"
+      display: z.string().optional(),      // e.g. "6.78in AMOLED"
+      comparedTo: z.string().optional(),        // e.g. "itel S25"
+      comparedToSlug: z.string().optional(),    // slug of the comparison post
+      tags: z.array(z.string()).default(["tecno"]),
+      featured: z.boolean().optional(),
+      draft: z.boolean().optional().default(false),
+      relatedSlugs: z.array(z.string()).optional(),
+      slug: z.string().optional(),
+    }),
+});
 export const collections = {
   blog,
   codm,
@@ -195,4 +228,5 @@ export const collections = {
   mlbb,
   samsung,
   xiaomi,
+  tecno,
 };
