@@ -10,6 +10,8 @@ import imageManifest from '@/data/image-manifest.json';
 
 const blogPosts = await getCollection("blog");
 const samsungPosts = await getCollection("samsung");
+const xiaomiPosts = await getCollection("xiaomi");
+const tecnoPosts = await getCollection("tecno");
 
 const taggedBlog = blogPosts
   .filter(post => !post.data.draft)
@@ -19,7 +21,15 @@ const taggedSamsung = samsungPosts
   .filter(post => !post.data.draft)
   .map(post => ({ ...post, hubPath: "samsung" }));
 
-const sortedPosts = [...taggedBlog, ...taggedSamsung]
+const taggedXiaomi = xiaomiPosts
+  .filter(post => !post.data.draft)
+  .map(post => ({ ...post, hubPath: "xiaomi" }));
+
+const taggedTecno = tecnoPosts
+  .filter(post => !post.data.draft)
+  .map(post => ({ ...post, hubPath: "tecno" }));
+
+const sortedPosts = [...taggedBlog, ...taggedSamsung, ...taggedXiaomi, ...taggedTecno]
   .sort((a, b) => b.data.pubDatetime.valueOf() - a.data.pubDatetime.valueOf());
 
 const heroPost = sortedPosts[0];
