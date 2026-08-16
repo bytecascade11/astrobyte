@@ -1,19 +1,20 @@
 import type { APIRoute } from "astro";
-import { SITE } from "../config"; // Adjust path if needed
+import { SITE } from "../config";
 
-const getRobotsTxt = (sitemapURL: string) => `
+const getRobotsTxt = (sitemapIndexURL: string, hubsSitemapURL: string) => `
 User-agent: *
 Allow: /
 Disallow: /search/
 Disallow: /dashboard/
 
-Sitemap: ${sitemapURL}
+Sitemap: ${sitemapIndexURL}
+Sitemap: ${hubsSitemapURL}
 `.trim();
 
 export const GET: APIRoute = () => {
-  // Use the website URL from your config
-  const sitemapURL = new URL("sitemap-index.xml", SITE.website).href;
-  return new Response(getRobotsTxt(sitemapURL), {
+  const sitemapIndexURL = new URL("sitemap-index.xml", SITE.website).href;
+  const hubsSitemapURL = new URL("sitemap-hubs.xml", SITE.website).href;
+  return new Response(getRobotsTxt(sitemapIndexURL, hubsSitemapURL), {
     headers: { "Content-Type": "text/plain" },
   });
 };
