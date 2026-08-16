@@ -27,8 +27,6 @@ If you've walked through Computer Village or scrolled Jiji.ng lately, you'll not
   
 The catch is that TECNO now ships so many Camon and Phantom variants — Pro, Pro 5G, Ultra, Premier — that half the "latest" listings you'll see online are actually last year's stock repackaged with a new sticker, and some retailer copy blurs specs between models that aren't actually identical. So I went through GSMArena's device listings and TECNO's own spec sheets for each model below, cross-checked them against current retailer pricing, and corrected a few things that don't match the marketing copy.  
   
-**Placeholder image 1:** `/images/posts/best-tecno-camera-phones-nigeria-2026/lineup-overview.jpg` — wide shot of all five phones side by side, rear cameras facing up.  
-  
 ## Quick comparison table  
   
 | Phone | Rear camera | Front camera | IP rating | Price in Nigeria (approx.) | Best for |  
