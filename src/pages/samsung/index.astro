@@ -15,9 +15,27 @@ const news         = sorted.filter(g => g.data.type === "news");
 
 const pageTitle = "Samsung Galaxy Reviews, Prices & Buying Guides";
 const pageDesc  = "Your complete Samsung resource — hands-on Galaxy reviews, price comparisons in naira, and buying guides for the Nigerian market.";
+
+const websiteBase = SITE.website.endsWith("/") ? SITE.website : `${SITE.website}/`;
+
+// Hub-level ItemList schema — same signal that helped Tecno get indexed
+const itemListSchema = {
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  "name": pageTitle,
+  "description": pageDesc,
+  "itemListElement": sorted.map((post, i) => ({
+    "@type": "ListItem",
+    "position": i + 1,
+    "url": `${websiteBase}samsung/${post.data.slug ?? post.id}/`,
+    "name": post.data.title,
+  })),
+};
 ---
 
 <Layout title={`${pageTitle} | ${SITE.title}`} description={pageDesc}>
+  <script type="application/ld+json" set:html={JSON.stringify(itemListSchema)} />
+
   <main id="main-content" class="mx-auto w-full max-w-3xl px-4 pb-12">
 
     <div class="pt-5 pb-1">
@@ -36,6 +54,9 @@ const pageDesc  = "Your complete Samsung resource — hands-on Galaxy reviews, p
         <h1 class="text-3xl font-bold tracking-tight">Samsung Galaxy Hub</h1>
       </div>
       <p class="text-skin-base/70 text-lg">{pageDesc}</p>
+      <a href="/tecno/" class="inline-flex items-center gap-1 mt-3 text-sm text-skin-accent hover:underline">
+        🟡 Looking for a budget alternative? Browse the Tecno Hub →
+      </a>
     </section>
 
     {reviews.length > 0 && (
