@@ -4,6 +4,7 @@ import SchemaMarkup from "@/components/SchemaMarkup.astro";
 import HeliaraAI from '../components/HeliaraAI.astro';
 import OptimizedCoverImage from '@/components/OptimizedCoverImage.astro';
 import Sidebar from "@/components/Sidebar.astro"; // ← ADD THIS
+import Footer from "@/components/Footer.astro";
 import "@/styles/global.css";
 import GoogleSubscribe from '../components/GoogleSubscribe.astro';
 const { PUBLIC_GOOGLE_SITE_VERIFICATION } = import.meta.env;
@@ -342,7 +343,7 @@ const currentPath = Astro.url.pathname;
         }, 2000);
       });
     </script>
-
+  <Footer />
     <!-- SIDEBAR — rendered LAST so it's on top of everything -->
     <Sidebar />
 
