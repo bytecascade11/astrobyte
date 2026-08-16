@@ -2,7 +2,7 @@
 title: "Best Samsung 5G Phones Under $300 (2026): 5 Picks Worth Your Money"  
 description: "Looking for a Samsung 5G phone without spending big? Here are five Galaxy A-series models under $300 in 2026, compared on display, battery, camera, and software support."  
 author: "iSamuel"  
-pubDatetime: 2026-08-16T29:58:00Z
+pubDatetime: 2026-08-16T20:58:00Z
 coverImage: "/assets/samsung/best-samsung-5g-under-300-cover.jpg"  
 coverImageAlt: "Samsung Galaxy A-series 5G phones lined up side by side"  
 slug: "best-samsung-5g-phones-under-300"  
