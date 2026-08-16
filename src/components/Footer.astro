@@ -73,7 +73,7 @@ const { noMarginTop = false } = Astro.props;
         <!-- Divider -->
         <div class="footer-divider"></div>
 
-        <!-- Links + Game Guides side by side -->
+        <!-- Links + Devices + Game Guides side by side -->
         <div class="footer-columns">
           <div class="footer-col">
             <div class="footer-col-label">Links</div>
@@ -85,6 +85,15 @@ const { noMarginTop = false } = Astro.props;
               <a href="/terms-and-conditions">Terms and Conditions</a>
               <a href="/disclaimer">Disclaimer</a>
               <a href="/sitemap">Sitemap</a>
+            </nav>
+          </div>
+
+          <div class="footer-col">
+            <div class="footer-col-label">Devices</div>
+            <nav class="footer-nav">
+              <a href="/tecno/">Tecno</a>
+              <a href="/samsung/">Samsung</a>
+              <a href="/xiaomi/">Xiaomi</a>
             </nav>
           </div>
 
@@ -340,14 +349,15 @@ const { noMarginTop = false } = Astro.props;
     color: var(--color-accent);
   }
 
-  /* ── Links + Game Guides side-by-side columns (Punch-style) ── */
+  /* ── Links + Devices + Game Guides side-by-side columns (Punch-style) ── */
   .footer-columns {
     display: flex;
     justify-content: center;
     align-items: flex-start;
-    gap: 3.5rem;
+    gap: 2.5rem;
     width: 100%;
     padding: 0.5rem 0 1rem;
+    flex-wrap: wrap;
   }
 
   .footer-col {
@@ -355,7 +365,8 @@ const { noMarginTop = false } = Astro.props;
     flex-direction: column;
     align-items: flex-start;
     flex: 1;
-    max-width: 14rem;
+    max-width: 12rem;
+    min-width: 8rem;
   }
 
   .footer-col-label {
@@ -370,7 +381,13 @@ const { noMarginTop = false } = Astro.props;
 
   @media (max-width: 480px) {
     .footer-columns {
-      gap: 1.5rem;
+      gap: 1.25rem;
+      justify-content: flex-start;
+    }
+    .footer-col {
+      max-width: none;
+      min-width: 0;
+      flex: 1 1 40%;
     }
     .footer-col-label {
       font-size: 0.58rem;
