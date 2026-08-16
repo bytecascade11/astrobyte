@@ -52,6 +52,43 @@ const typeLabels: Record<string, string> = {
 const typeLabel = typeLabels[post.data.type] ?? "Review";
 const shareURL = postUrl;
 const shareTitle = post.data.title;
+
+// Product/Review schema — same addition that helped Tecno's indexing signal
+const price = post.data.priceNGN ?? 0;
+const productSchema = post.data.rating ? {
+  "@context": "https://schema.org",
+  "@type": "Product",
+  "name": post.data.title.replace(/ Review$/i, ""),
+  "image": coverImageAbs,
+  "description": post.data.description,
+  "brand": { "@type": "Brand", "name": "Samsung" },
+  ...(price > 0 && {
+    "offers": {
+      "@type": "Offer",
+      "priceCurrency": "NGN",
+      "price": price,
+      "availability": "https://schema.org/InStock",
+    },
+  }),
+  "review": {
+    "@type": "Review",
+    "reviewRating": {
+      "@type": "Rating",
+      "ratingValue": post.data.rating,
+      "bestRating": "5",
+    },
+    "author": { "@type": "Person", "name": post.data.author },
+  },
+} : null;
+
+// Spec strip — same as Tecno. Fields are optional so this degrades
+// gracefully on older Samsung posts that don't have them yet.
+const specs = [
+  post.data.ram && { label: "RAM", value: post.data.ram },
+  post.data.storage && { label: "Storage", value: post.data.storage },
+  post.data.battery && { label: "Battery", value: post.data.battery },
+  post.data.display && { label: "Display", value: post.data.display },
+].filter(Boolean) as { label: string; value: string }[];
 ---
 
 <Layout title={pageTitle} description={pageDesc} ogImage={ogImage}>
@@ -75,6 +112,10 @@ const shareTitle = post.data.title;
     datePublished={new Date(post.data.pubDatetime)}
     dateModified={post.data.lastUpdated ? new Date(post.data.pubDatetime) : null}
   />
+
+  {productSchema && (
+    <script type="application/ld+json" set:html={JSON.stringify(productSchema)} />
+  )}
 
   <main id="main-content" class="mx-auto w-full max-w-3xl px-4 pb-16">
 
@@ -126,7 +167,18 @@ const shareTitle = post.data.title;
       </div>
     </div>
 
-    <div class="share-bar mb-8">
+    {specs.length > 0 && (
+      <div class="spec-strip">
+        {specs.map(s => (
+          <div class="spec-strip-item">
+            <span class="spec-strip-label">{s.label}</span>
+            <span class="spec-strip-value">{s.value}</span>
+          </div>
+        ))}
+      </div>
+    )}
+
+    <div class="share-bar mb-8 mt-6">
       <span class="share-label">Share this review</span>
       <div class="share-buttons">
         <button class="share-btn share-btn--native" id="nativeShareBtn" aria-label="Share" style="display:none">
@@ -315,6 +367,19 @@ const shareTitle = post.data.title;
   }
   .badge--accent { color: var(--accent); border-color: var(--accent); opacity: 0.9; }
   .prose h1 { display: none; }
+
+  .spec-strip {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(90px, 1fr));
+    gap: 1px; margin: 1.25rem 0;
+    border: 1px solid var(--border); border-radius: 12px;
+    overflow: hidden; background: var(--border);
+  }
+  .spec-strip-item {
+    background: var(--background-light); padding: 10px 8px;
+    display: flex; flex-direction: column; align-items: center; gap: 2px;
+  }
+  .spec-strip-label { font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.03em; opacity: 0.5; }
+  .spec-strip-value { font-size: 0.85rem; font-weight: 700; color: var(--foreground); }
 
   .share-bar {
     display: flex; align-items: center; flex-wrap: wrap; gap: 10px;
