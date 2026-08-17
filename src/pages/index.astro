@@ -29,11 +29,11 @@ const taggedTecno = tecnoPosts
   .filter(post => !post.data.draft)
   .map(post => ({ ...post, hubPath: "tecno" }));
 
-const taggedmotorola = tecnoPosts
+const taggedmotorola = motorolaPosts
   .filter(post => !post.data.draft)
   .map(post => ({ ...post, hubPath: "motorola" }));
 
-const sortedPosts = [...taggedBlog, ...taggedSamsung, ...taggedXiaomi, ...taggedTecno]
+const sortedPosts = [...taggedBlog, ...taggedSamsung, ...taggedXiaomi, ...taggedTecno, ...taggedMotorola]
   .sort((a, b) => b.data.pubDatetime.valueOf() - a.data.pubDatetime.valueOf());
 
 const heroPost = sortedPosts[0];
