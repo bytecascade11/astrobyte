@@ -223,6 +223,34 @@ const tecno = defineCollection({
       slug: z.string().optional(),
     }),
 });
+// --------------- Motorola Collection ---------------
+const motorola = defineCollection({
+  loader: glob({ pattern: "**/[^_]*.{md,mdx}", base: "./src/data/motorola" }),
+  schema: ({ image }) =>
+    z.object({
+      title: z.string(),
+      description: z.string(),
+      author: z.string().default(SITE.author),
+      pubDatetime: z.coerce.date(),
+      modDatetime: z.coerce.date().optional().nullable(),
+      lastUpdated: z.string().optional(),
+      ogImage: image().optional().or(z.string().url().optional()),
+      canonicalURL: z.string().url().optional(),
+      coverImage: z.string().optional(),
+      coverImageAlt: z.string().optional(),
+      type: z.enum(["review", "comparison", "buying-guide", "news"]).default("review"),
+      model: z.string().optional(),        // e.g. "Edge 60 Pro"
+      chargingSpeed: z.string().optional(), // e.g. "125W TurboPower"
+      software: z.string().optional(),     // e.g. "Android 15, Hello UX"
+      priceNGN: z.number().optional(),
+      rating: z.number().min(0).max(5).optional(),
+      tags: z.array(z.string()).default(["motorola"]),
+      featured: z.boolean().optional(),
+      draft: z.boolean().optional().default(false),
+      relatedSlugs: z.array(z.string()).optional(),
+      slug: z.string().optional(),
+    }),
+});
 export const collections = {
   blog,
   codm,
@@ -232,4 +260,5 @@ export const collections = {
   samsung,
   xiaomi,
   tecno,
+  motorola,
 };
