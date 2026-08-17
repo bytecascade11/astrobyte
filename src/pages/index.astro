@@ -1,17 +1,8 @@
----
-import Layout from "@/layouts/Layout.astro";
-import Header from "@/components/Header.astro";
-import { getCollection } from "astro:content";
-import LinkButton from "@/components/LinkButton.astro";
-import Hr from "@/components/Hr.astro";
-import IconArrowRight from "@/assets/icons/IconArrowRight.svg";
-import { SITE } from "@/config";
-import imageManifest from '@/data/image-manifest.json';
-
 const blogPosts = await getCollection("blog");
 const samsungPosts = await getCollection("samsung");
 const xiaomiPosts = await getCollection("xiaomi");
 const tecnoPosts = await getCollection("tecno");
+const motorolaPosts = await getCollection("motorola");
 
 const taggedBlog = blogPosts
   .filter(post => !post.data.draft)
@@ -29,7 +20,7 @@ const taggedTecno = tecnoPosts
   .filter(post => !post.data.draft)
   .map(post => ({ ...post, hubPath: "tecno" }));
 
-const taggedmotorola = motorolaPosts
+const taggedMotorola = motorolaPosts
   .filter(post => !post.data.draft)
   .map(post => ({ ...post, hubPath: "motorola" }));
 
