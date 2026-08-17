@@ -3,7 +3,7 @@ title: "Best Motorola Phones Under $200 in Nigeria (2026): 5 Top Picks"
 description: "Hunting for a solid Motorola phone that won't wreck your budget? Here are the 5 best Motorola phones under $200 in Nigeria for 2026, with Naira pricing, specs, and honest trade-offs."  
 pubDatetime: 2026-08-17T10:50:00Z  
 author: iSamuel  
-type: guide  
+type: review 
 coverImage: "/assets/motorola/best-motorola-phones-under-200-nigeria-2026-cover.jpg"  
 coverImageAlt: "Five Motorola smartphones under $200 lined up side by side against a plain background, showing back panels and camera modules"  
 slug: best-motorola-phones-under-200-nigeria-2026  
