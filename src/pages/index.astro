@@ -29,6 +29,10 @@ const taggedTecno = tecnoPosts
   .filter(post => !post.data.draft)
   .map(post => ({ ...post, hubPath: "tecno" }));
 
+const taggedmotorola = tecnoPosts
+  .filter(post => !post.data.draft)
+  .map(post => ({ ...post, hubPath: "motorola" }));
+
 const sortedPosts = [...taggedBlog, ...taggedSamsung, ...taggedXiaomi, ...taggedTecno]
   .sort((a, b) => b.data.pubDatetime.valueOf() - a.data.pubDatetime.valueOf());
 
