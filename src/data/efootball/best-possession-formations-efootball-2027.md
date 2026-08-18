@@ -8,7 +8,6 @@ author: iSamuel
 type: guide
 gameMode: Multiplayer
 season: "eFootball™ 2027 – August 2026"
-slug: "best-possession-formations-efootball-2027"
 relatedSlugs:
   - "top-10-best-players-efootball-mobile-2026"
   - "best-manager-efootball-2026"
