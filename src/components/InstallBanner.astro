@@ -1,0 +1,98 @@
+---
+// src/components/InstallBanner.astro
+---
+<div id="install-banner" class="install-banner" hidden>
+  <span class="install-banner__text">Get the ReviByte app — faster access, offline reading</span>
+  <div class="install-banner__actions">
+    <button id="install-banner__download" class="install-banner__download">Download</button>
+    <button id="install-banner__close" class="install-banner__close" aria-label="Close">✕</button>
+  </div>
+</div>
+
+<style>
+  .install-banner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    padding: 0.5rem 0.9rem;
+    background: #0f5da8;
+    color: #fff;
+    font-size: 0.85rem;
+  }
+  .install-banner[hidden] { display: none; }
+  .install-banner__actions {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex-shrink: 0;
+  }
+  .install-banner__download {
+    background: #fff;
+    color: #0f5da8;
+    border: none;
+    border-radius: 6px;
+    padding: 0.35rem 0.7rem;
+    font-weight: 600;
+    font-size: 0.8rem;
+  }
+  .install-banner__close {
+    background: transparent;
+    border: none;
+    color: #fff;
+    font-size: 1rem;
+    line-height: 1;
+    padding: 0.2rem 0.3rem;
+  }
+</style>
+
+<script>
+  const DISMISS_KEY = 'installBannerDismissedAt';
+  const DISMISS_DAYS = 14;
+
+  let deferredPrompt: any = null;
+  const banner = document.getElementById('install-banner') as HTMLElement;
+  const downloadBtn = document.getElementById('install-banner__download') as HTMLButtonElement;
+  const closeBtn = document.getElementById('install-banner__close') as HTMLButtonElement;
+
+  function isStandalone() {
+    return window.matchMedia('(display-mode: standalone)').matches
+      || (navigator as any).standalone === true;
+  }
+
+  function recentlyDismissed() {
+    const ts = localStorage.getItem(DISMISS_KEY);
+    if (!ts) return false;
+    const days = (Date.now() - Number(ts)) / (1000 * 60 * 60 * 24);
+    return days < DISMISS_DAYS;
+  }
+
+  window.addEventListener('beforeinstallprompt', (e) => {
+    e.preventDefault();
+    deferredPrompt = e;
+    if (!isStandalone() && !recentlyDismissed()) {
+      banner.hidden = false;
+    }
+  });
+
+  downloadBtn?.addEventListener('click', async () => {
+    if (!deferredPrompt) return;
+    deferredPrompt.prompt();
+    const { outcome } = await deferredPrompt.userChoice;
+    deferredPrompt = null;
+    banner.hidden = true;
+    if (outcome === 'accepted') {
+      localStorage.setItem(DISMISS_KEY, String(Date.now()));
+    }
+  });
+
+  closeBtn?.addEventListener('click', () => {
+    banner.hidden = true;
+    localStorage.setItem(DISMISS_KEY, String(Date.now()));
+  });
+
+  window.addEventListener('appinstalled', () => {
+    banner.hidden = true;
+    localStorage.setItem(DISMISS_KEY, String(Date.now()));
+  });
+</script>
