@@ -212,7 +212,22 @@ const shareTitle = guide.data.title;
         </ul>
       </section>
     )}
-
+<!-- Author card -->
+    <div class="author-card">
+      <img src="/assets/isamuel.jpg" alt={SITE.author || "iSamuel"} class="author-avatar" />
+      <div class="author-info">
+        <p class="author-name">{SITE.author || "iSamuel"}</p>
+        <p class="author-bio">
+          Founder and lead technology analyst behind ReviByte Opinions.
+          Writes practical tech analysis for everyday users in Nigeria and beyond —
+          focusing on honest real-world explanations of phones, gadgets, AI and
+          how technology works in daily life.
+        </p>
+        <a href="/about" class="author-link">
+          Learn more about iSamuel and ReviByte →
+        </a>
+      </div>
+    </div>
     <!-- WhatsApp Channel CTA -->
     <a
       href="https://whatsapp.com/channel/0029VbBCXzRKAwEdcyip8841"
@@ -322,6 +337,59 @@ const shareTitle = guide.data.title;
 </script>
 
 <style is:global>
+  /* ── Author Card ── */
+  .author-card {
+    display: flex;
+    gap: 1.25rem;
+    align-items: flex-start;
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 1.5rem;
+    margin-top: 2rem;
+    margin-bottom: 1.5rem;
+    color: var(--foreground);
+  }
+
+  .author-avatar {
+  width: 52px;
+  height: 52px;
+  min-width: 52px;
+  border-radius: 14px;
+  object-fit: cover;
+  box-shadow: 0 4px 12px rgba(99,102,241,0.3);
+}
+
+  .author-info { flex: 1; }
+
+  .author-name {
+    font-weight: 700;
+    font-size: 1rem;
+    margin-bottom: 0.35rem;
+    color: var(--foreground);
+  }
+
+  .author-bio {
+    font-size: 0.85rem;
+    line-height: 1.65;
+    opacity: 0.7;
+    margin-bottom: 0.75rem;
+    color: var(--foreground);
+  }
+
+  .author-link {
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: #6366f1;
+    text-decoration: none;
+    transition: opacity 0.2s;
+  }
+
+  :global([data-theme="dark"]) .author-link {
+    color: var(--accent);
+  }
+
+  .author-link:hover { opacity: 0.75; }
+
   .wa-channel-box {
     display: flex; align-items: center; gap: 14px;
     margin-top: 2rem; padding: 14px 16px;
