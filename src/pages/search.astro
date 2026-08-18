@@ -5,12 +5,32 @@ import Footer from "@/components/Footer.astro";
 import { getCollection } from "astro:content";
 import { SITE } from "@/config";
 
-const [blogPosts, motorolaPosts, itelPosts] = await Promise.all([
+const [
+  blogPosts,
+  motorolaPosts,
+  itelPosts,
+  tecnoPosts,
+  xiaomiPosts,
+  samsungPosts,
+  codmPosts,
+  efootballPosts,
+  pubgmobilePosts,
+  mlbbPosts,
+] = await Promise.all([
   getCollection("blog", ({ data }) => !data.draft),
   getCollection("motorola", ({ data }) => !data.draft),
   getCollection("itel", ({ data }) => !data.draft),
-  // add more hubs here the same way — tecno, xiaomi, samsung, codm, efootball, pubgmobile, mlbb
+  getCollection("tecno", ({ data }) => !data.draft),
+  getCollection("xiaomi", ({ data }) => !data.draft),
+  getCollection("samsung", ({ data }) => !data.draft),
+  getCollection("codm", ({ data }) => !data.draft),
+  getCollection("efootball", ({ data }) => !data.draft),
+  getCollection("pubgmobile", ({ data }) => !data.draft),
+  getCollection("mlbb", ({ data }) => !data.draft),
 ]);
+
+const fmtDate = (d: Date | string) =>
+  new Date(d).toLocaleDateString("en-US", { year: "numeric", month: "short", day: "numeric" });
 
 const searchData = [
   ...blogPosts.map(post => ({
@@ -18,7 +38,7 @@ const searchData = [
     description: post.data.description ?? "",
     tags: post.data.tags ?? [],
     url: `/posts/${post.id}/`,
-    date: post.data.pubDatetime.toLocaleDateString("en-US", { year: "numeric", month: "short", day: "numeric" }),
+    date: fmtDate(post.data.pubDatetime),
     coverImage: post.data.coverImage ?? "",
   })),
   ...motorolaPosts.map(post => ({
@@ -26,7 +46,7 @@ const searchData = [
     description: post.data.description ?? "",
     tags: [post.data.type ?? "", "motorola"].filter(Boolean),
     url: `/motorola/${post.data.slug ?? post.id}/`,
-    date: new Date(post.data.pubDatetime).toLocaleDateString("en-US", { year: "numeric", month: "short", day: "numeric" }),
+    date: fmtDate(post.data.pubDatetime),
     coverImage: post.data.coverImage ?? "",
   })),
   ...itelPosts.map(post => ({
@@ -34,7 +54,63 @@ const searchData = [
     description: post.data.description ?? "",
     tags: ["itel"],
     url: `/itel/${post.data.slug ?? post.id}/`,
-    date: new Date(post.data.pubDatetime).toLocaleDateString("en-US", { year: "numeric", month: "short", day: "numeric" }),
+    date: fmtDate(post.data.pubDatetime),
+    coverImage: post.data.coverImage ?? "",
+  })),
+  ...tecnoPosts.map(post => ({
+    title: post.data.title,
+    description: post.data.description ?? "",
+    tags: ["tecno"],
+    url: `/tecno/${post.data.slug ?? post.id}/`,
+    date: fmtDate(post.data.pubDatetime),
+    coverImage: post.data.coverImage ?? "",
+  })),
+  ...xiaomiPosts.map(post => ({
+    title: post.data.title,
+    description: post.data.description ?? "",
+    tags: [post.data.subBrand ?? "", "xiaomi"].filter(Boolean),
+    url: `/xiaomi/${post.data.slug ?? post.id}/`,
+    date: fmtDate(post.data.pubDatetime),
+    coverImage: post.data.coverImage ?? "",
+  })),
+  ...samsungPosts.map(post => ({
+    title: post.data.title,
+    description: post.data.description ?? "",
+    tags: ["samsung"],
+    url: `/samsung/${post.data.slug ?? post.id}/`,
+    date: fmtDate(post.data.pubDatetime),
+    coverImage: post.data.coverImage ?? "",
+  })),
+  ...codmPosts.map(post => ({
+    title: post.data.title,
+    description: post.data.description ?? "",
+    tags: ["codm", "gaming"],
+    url: `/codm/${post.data.slug ?? post.id}/`,
+    date: fmtDate(post.data.pubDatetime),
+    coverImage: post.data.coverImage ?? "",
+  })),
+  ...efootballPosts.map(post => ({
+    title: post.data.title,
+    description: post.data.description ?? "",
+    tags: ["efootball", "gaming"],
+    url: `/efootball/${post.data.slug ?? post.id}/`,
+    date: fmtDate(post.data.pubDatetime),
+    coverImage: post.data.coverImage ?? "",
+  })),
+  ...pubgmobilePosts.map(post => ({
+    title: post.data.title,
+    description: post.data.description ?? "",
+    tags: ["pubg mobile", "gaming"],
+    url: `/pubgmobile/${post.data.slug ?? post.id}/`,
+    date: fmtDate(post.data.pubDatetime),
+    coverImage: post.data.coverImage ?? "",
+  })),
+  ...mlbbPosts.map(post => ({
+    title: post.data.title,
+    description: post.data.description ?? "",
+    tags: ["mlbb", "gaming"],
+    url: `/mlbb/${post.data.slug ?? post.id}/`,
+    date: fmtDate(post.data.pubDatetime),
     coverImage: post.data.coverImage ?? "",
   })),
 ];
@@ -75,15 +151,14 @@ const searchData = [
   const emptyEl = document.getElementById("search-empty");
   const hintEl = document.getElementById("search-hint");
 
-  // Weighted so a title match ranks well above a description/tag match
   const fuse = new Fuse(searchData, {
     keys: [
       { name: "title", weight: 0.6 },
       { name: "tags", weight: 0.25 },
       { name: "description", weight: 0.15 },
     ],
-    threshold: 0.35,      // lower = stricter match, higher = more typo-tolerant
-    ignoreLocation: true, // match term anywhere in the string, not just near the start
+    threshold: 0.35,
+    ignoreLocation: true,
     minMatchCharLength: 2,
   });
 
