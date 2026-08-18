@@ -6,6 +6,7 @@ import SchemaMarkup from "@/components/SchemaMarkup.astro";
 import { SITE } from "@/config";
 import AffiliateCarousel from "@/components/AffiliateCarousel.astro";
 import Comments from "@/components/Comments.astro";
+import Header from "@/components/Header.astro";
 
 export async function getStaticPaths() {
   const posts = await getCollection("tecno", ({ data }) => !data.draft);
@@ -95,6 +96,7 @@ const specs = [
 ---
 
 <Layout title={pageTitle} description={pageDesc} ogImage={ogImage}>
+<Header slot="header" />
 
   <SchemaMarkup
     type="breadcrumb"
