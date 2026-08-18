@@ -7,6 +7,7 @@ import Sidebar from "@/components/Sidebar.astro"; // ← ADD THIS
 import Footer from "@/components/Footer.astro";
 import "@/styles/global.css";
 import GoogleSubscribe from '../components/GoogleSubscribe.astro';
+import InstallBanner from '../components/InstallBanner.astro';
 const { PUBLIC_GOOGLE_SITE_VERIFICATION } = import.meta.env;
 
 type Props = {
@@ -192,10 +193,11 @@ const currentPath = Astro.url.pathname;
   </head>
 
   <body>
-    <HeliaraAI />
-    <GoogleSubscribe />
-    <slot name="header" />
-    <slot name="top-nav" />
+     <InstallBanner />
+     <HeliaraAI />
+     <GoogleSubscribe />
+     <slot name="header" />
+     <slot name="top-nav" />
 
     <!-- ========== ADS AROUND COVER IMAGE ========== -->
 
@@ -238,12 +240,6 @@ const currentPath = Astro.url.pathname;
 
     <!-- ================= ADS & THIRD-PARTY (After all content) ================= -->
 
-    <!-- PWA Install Banner -->
-    <div id="installBanner" style="display:none; position:fixed; bottom:24px; left:50%; transform:translateX(-50%); background:#0f172a; color:white; padding:12px 24px; border-radius:12px; box-shadow:0 4px 20px rgba(0,0,0,0.3); z-index:9998; align-items:center; gap:12px;">
-      <span>📱 Install ReviByte for a better experience!</span>
-      <button onclick="installApp()" style="background:#6366f1; color:white; border:none; padding:8px 16px; border-radius:8px; cursor:pointer; font-weight:600;">Install</button>
-      <button onclick="dismissInstallBanner()" style="background:transparent; color:white; border:none; cursor:pointer; font-size:18px;">✕</button>
-    </div>
 
     <!-- ================= IDLE-LOADED SCRIPTS (After LCP) ================= -->
 
@@ -296,41 +292,7 @@ const currentPath = Astro.url.pathname;
         setTimeout(loadOneSignal, 5000);
       })();
     </script>
-
-    <!-- PWA Install Logic -->
-    <script is:inline>
-      let deferredPrompt;
-      window.addEventListener('beforeinstallprompt', function(e) {
-        e.preventDefault();
-        deferredPrompt = e;
-        var isPWA = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true;
-        var dismissed = localStorage.getItem('pwaBannerDismissed');
-        if (!isPWA && !dismissed) {
-          document.getElementById('installBanner').style.display = 'flex';
-        }
-      });
-      function installApp() {
-        if (!deferredPrompt) { console.log('Install prompt not available'); return; }
-        deferredPrompt.prompt();
-        deferredPrompt.userChoice.then(function(choiceResult) {
-          if (choiceResult.outcome === 'accepted') console.log('User accepted install');
-          else console.log('User dismissed install');
-          deferredPrompt = null;
-          document.getElementById('installBanner').style.display = 'none';
-        });
-      }
-      function dismissInstallBanner() {
-        document.getElementById('installBanner').style.display = 'none';
-        localStorage.setItem('pwaBannerDismissed', 'true');
-      }
-      window.addEventListener('appinstalled', function() {
-        document.getElementById('installBanner').style.display = 'none';
-        deferredPrompt = null;
-        localStorage.setItem('pwaBannerDismissed', 'true');
-        if (typeof umami !== 'undefined') umami.track('pwa-install');
-      });
-    </script>
-
+    
     <!-- PWA Analytics Event -->
     <script is:inline>
       window.addEventListener('load', function() {
