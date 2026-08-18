@@ -3,8 +3,8 @@ title: "Best Possession Formations in eFootball 2027: 5 Setups That Work"
 description: "Struggling to keep the ball in eFootball 2027? Here are 5 possession formations that actually hold up online, with strengths, weaknesses, and the player types each one needs."
 coverImage: "/assets/efootball/possession-formations-2027-cover.jpg"
 coverImageAlt: "4-3-3 possession formation diagram on eFootball tactics pitch'
-pubDatetime: 2026-08-18T06:35:00Z
-author: "iSamuel"
+pubDatetime: "2026-08-18T06:35:00Z"
+author: iSamuel
 type: guide
 gameMode: Multiplayer
 season: "eFootball™ 2027 – August 2026"
