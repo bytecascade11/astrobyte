@@ -99,7 +99,7 @@ This is the phone I'd point most people toward if they want something that handl
   
 ## 5. Moto G86 5G - the value entry point  
   
-![Moto G86 5G](/assets//best-motorola-phones-for-gaming-2026/moto-g86-5g.jpg)  
+![Moto G86 5G](/assets/best-motorola-phones-for-gaming-2026/moto-g86-5g.jpg)  
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4896561037705299"
      crossorigin="anonymous"></script>
 <ins class="adsbygoogle"
