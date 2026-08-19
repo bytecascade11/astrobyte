@@ -4,7 +4,7 @@ description: "Tired of charging twice a day? Here are 5 Motorola phones in 2026 
 pubDatetime: 2026-08-19T06:36:00Z  
 author: iSamuel  
 type: review  
-coverImage: "/assets/motorola/motorola/best-motorola-battery-phones-2026-cover.jpg"  
+coverImage: "/assets/motorola/best-motorola-battery-phones-2026-cover.jpg"  
 coverImageAlt: "Five Motorola phones lined up side by side showing their screens and battery icons"  
 relatedSlugs:  
   - motorola/best-motorola-phones-under-200-nigeria-2026  
@@ -52,7 +52,7 @@ This isn't a pure battery-test leaderboard. It considers independently tested en
   
 The Edge 70 Pro's 6,500mAh silicon-carbon cell is the largest in Motorola's current lineup. Motorola's own official figures put it at up to 68 hours of rated battery life, though that's a manufacturer claim rather than an independent lab result, so treat it as a ceiling rather than a guarantee — an independent battery-test figure for this specific model wasn't available at the time of writing. Charging is the stronger, more verifiable half of the story: Motorola's spec sheet lists 90W wired TurboPower charging, officially rated to take the phone from empty to a full charge in about an hour, with roughly 12 hours of use recoverable in around 42 minutes on the 15W wireless pad.  
   
-![Motorola Edge 70 Pro plugged into a charger](/assets/motorola/motorola/moto-edge-70-pro-charging.jpg)  
+![Motorola Edge 70 Pro plugged into a charger](/assets/motorola/moto-edge-70-pro-charging.jpg)  
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4896561037705299"
      crossorigin="anonymous"></script>
 <ins class="adsbygoogle"
@@ -72,7 +72,7 @@ None of that comes free — this is Motorola's upper-mid-range phone, not a budg
   
 This is the one to flag if a specific, independently measured number matters to you. In Tom's Guide's continuous web-browsing battery test, the Moto G (2026) held out for 19 hours and 11 minutes — the outlet's longest result ever recorded for a budget phone, and around 40 minutes better than the previous-generation model. It pairs a 5,200mAh battery with 30W wired charging, and Tom's Guide noted the drained battery can reach more than 50% after just 30 minutes on the charger.  
   
-![Moto G (2026) screen showing battery percentage](/assets/motorola/motorola/moto-g-2026-screen-on-time.jpg)  
+![Moto G (2026) screen showing battery percentage](/assets/motorola/moto-g-2026-screen-on-time.jpg)  
   
 **Nigeria context:** As a newer 2026 release, dedicated Nigerian retail pricing wasn't consistently available at the time of writing. Older Moto G variants have historically sold in Nigeria anywhere from roughly ₦100,000 to ₦350,000+ depending on condition (new vs. UK-used) and import source — treat that as a rough band rather than a quote, and confirm current pricing directly with sellers.  
   
@@ -80,7 +80,7 @@ This is the one to flag if a specific, independently measured number matters to 
   
 The Play carries the same 5,200mAh capacity as its pricier Moto G Power sibling, and in Tom's Guide's testing it turned in 18 hours and 50 minutes of continuous web browsing — not far behind the standard Moto G, and at a lower price. The trade-off is charging speed: at 18W, TurboPower recovery is noticeably slower than the 30W and above options elsewhere on this list. If your budget is the primary constraint, this is where to start, and it pairs well with the picks in our [Motorola phones under ₦200k in Nigeria guide](https://www.revibyte.blog/motorola/best-motorola-phones-under-200-nigeria-2026/).  
   
-![Moto G Play (2026) in hand, back panel visible](/assets/motorola/motorola/moto-g-play-2026-hands-on.jpg)  
+![Moto G Play (2026) in hand, back panel visible](/assets/motorola/moto-g-play-2026-hands-on.jpg)  
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4896561037705299"
      crossorigin="anonymous"></script>
 <ins class="adsbygoogle"
@@ -104,7 +104,7 @@ The Power shares the Play's 5,200mAh cell and steps up to a larger, sharper 6.8-
   
 Foldables have historically been the weak link in any battery conversation, so it's worth noting explicitly: Tom's Guide clocked the Razr Ultra (2026) at 16 hours and 20 minutes on its battery drain test, making it the longest-lasting foldable the outlet has ever tested — beating even Motorola's own larger, book-style Razr Fold. That's thanks to a 5,000mAh silicon-carbon cell (up from 4,700mAh the year before) paired with a more efficient Snapdragon 8 Elite chip. Charging is rated at 68W wired and 30W wireless, with Motorola claiming a full day's power in around 8 minutes on the fast charger.  
   
-![Razr Ultra (2026) unfolded, showing display](/assets/motorola/motorola/razr-ultra-2026-open.jpg)  
+![Razr Ultra (2026) unfolded, showing display](/assets/motorola/razr-ultra-2026-open.jpg)  
   
 **Nigeria context:** Foldables remain a niche, higher-cost import category in the Nigerian market, generally only available through specialist grey-market sellers rather than mainstream retail. Budget for a significant markup over international pricing.  
   
