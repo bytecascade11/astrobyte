@@ -251,6 +251,40 @@ const motorola = defineCollection({
       slug: z.string().optional(),
     }),
 });
+// --------------- Huawei Collection ---------------
+const huawei = defineCollection({
+  loader: glob({ pattern: "**/[^_]*.{md,mdx}", base: "./src/data/huawei" }),
+  schema: ({ image }) =>
+    z.object({
+      title: z.string(),
+      description: z.string(),
+      author: z.string().default(SITE.author),
+      pubDatetime: z.coerce.date(),
+      modDatetime: z.coerce.date().optional().nullable(),
+      lastUpdated: z.string().optional(),
+      ogImage: image().optional().or(z.string().url().optional()),
+      canonicalURL: z.string().url().optional(),
+      coverImage: z.string().optional(),
+      coverImageAlt: z.string().optional(),
+      type: z.enum(["review", "comparison", "buying-guide", "news"]).default("review"),
+      model: z.string().optional(),          // e.g. "Pura 70 Pro"
+      gmsStatus: z.enum(["full", "appgallery", "partial"]).optional(), // Google Play Store availability
+      cameraHighlight: z.string().optional(), // e.g. "50MP Leica-tuned triple camera"
+      ram: z.string().optional(),
+      storage: z.string().optional(),
+      battery: z.string().optional(),
+      display: z.string().optional(),
+      priceNGN: z.number().optional(),
+      rating: z.number().min(0).max(5).optional(),
+      tags: z.array(z.string()).default(["huawei"]),
+      featured: z.boolean().optional(),
+      draft: z.boolean().optional().default(false),
+      relatedSlugs: z.array(z.string()).optional(),
+      comparedTo: z.string().optional(),
+      comparedToSlug: z.string().optional(),
+      slug: z.string().optional(),
+    }),
+});
 export const collections = {
   blog,
   codm,
@@ -261,4 +295,5 @@ export const collections = {
   xiaomi,
   tecno,
   motorola,
+  huawei,
 };
