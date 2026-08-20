@@ -2,7 +2,7 @@
 title: "Best Huawei Phones Under $200 in 2026: 5 Options Still Worth Considering"  
 description: "Huawei's budget lineup in Nigeria is mostly older stock in 2026 — here are 5 Huawei phones under $200 still worth considering, plus what to check before buying."  
 author: "iSamuel"  
-pubDatetime: 2026-08-20T23:50:00Z
+pubDatetime: 2026-08-21T24:06:00Z
 coverImage: "/assets/huawei/huawei-phones-under-200-2026-cover.jpg" 
 coverImageAlt: "Huawei Nova Y71 smartphone, one of the best Huawei phones under $200 in 2026"
 slug: "best-huawei-phones-under-200-2026"
