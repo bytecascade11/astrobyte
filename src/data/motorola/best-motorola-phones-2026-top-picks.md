@@ -6,14 +6,12 @@ pubDatetime: 2026-08-20T08:21:00Z
 coverImage: "/assets/motorola/best-motorola-phones-2026-cover.jpg"  
 coverImageAlt: "Five Motorola phones lined up side by side, including the Razr Ultra, Edge, and Moto G series"  
 slug: "best-motorola-phones-2026-top-picks"  
-relatedSlugs:  
-  - "motorola/best-motorola-phones-under-200-nigeria-2026"  
-  - "motorola/best-motorola-camera-phones-2026"  
-  - "motorola/best-motorola-phones-for-gaming-2026"  
-  - "motorola/best-motorola-phones-for-battery-life-2026"  
-  - "android-17-features"  
-  - "best-samsung-phones-for-students"  
----  
+relatedSlugs:
+  - "best-motorola-phones-under-200-nigeria-2026"
+  - "best-motorola-camera-phones-2026"
+  - "best-motorola-phones-for-gaming-2026"
+  - "best-motorola-phones-for-battery-life-2026"
+---
 
 ## Table of Contents 
 
