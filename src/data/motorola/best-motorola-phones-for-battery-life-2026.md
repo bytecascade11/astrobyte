@@ -7,8 +7,8 @@ type: review
 coverImage: "/assets/motorola/best-motorola-battery-phones-2026-cover.jpg"  
 coverImageAlt: "Five Motorola phones lined up side by side showing their screens and battery icons"  
 relatedSlugs:  
-  - motorola/best-motorola-phones-under-200-nigeria-2026  
-  - motorola/best-motorola-camera-phones-2026  
+  - best-motorola-phones-under-200-nigeria-2026  
+  - best-motorola-camera-phones-2026  
 tags:  
   - motorola  
   - battery
