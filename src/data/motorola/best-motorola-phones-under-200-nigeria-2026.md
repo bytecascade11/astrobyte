@@ -7,11 +7,12 @@ type: review
 coverImage: "/assets/motorola/best-motorola-phones-under-200-nigeria-2026-cover.jpg"  
 coverImageAlt: "Five Motorola smartphones under $200 lined up side by side against a plain background, showing back panels and camera modules"  
 slug: best-motorola-phones-under-200-nigeria-2026  
-relatedSlugs:  
-  - best-tecno-phones-under-200  
-  - best-tecno-camon-phones-camera-2026  
-  - best-tecno-5g-phones-nigeria-2026  
-  - best-samsung-5g-phones-under-300  
+relatedSlugs:
+  - "best-motorola-phones-under-200-nigeria-2026"
+  - "best-motorola-camera-phones-2026"
+  - "best-motorola-phones-for-gaming-2026"
+  - "best-motorola-phones-for-battery-life-2026"
+  - "best-motorola-phones-2026-top-picks"
 tags:  
   - motorola  
   - opinions 
