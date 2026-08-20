@@ -111,6 +111,14 @@ The Y5p is Huawei's cheapest recent phone, and in 2026 it's genuinely hard to re
   
 Who it's for: an absolute first phone, or a backup device, where price is the only deciding factor.  
   
+## Related Reading
+
+- [Best Motorola Phones Under $200 in Nigeria (2026)](https://www.revibyte.blog/motorola/best-motorola-phones-under-200-nigeria-2026/) — Top budget Motorola picks for Nigerian buyers this year.
+- [Best Motorola Camera Phones (2026)](https://www.revibyte.blog/motorola/best-motorola-camera-phones-2026/) — Motorola's strongest options for photography on a budget.
+- [Best Motorola Phones for Gaming (2026)](https://www.revibyte.blog/motorola/best-motorola-phones-for-gaming-2026/) — Motorola devices built to handle mobile gaming without lag.
+- [Best Motorola Phones for Battery Life (2026)](https://www.revibyte.blog/motorola/best-motorola-phones-for-battery-life-2026/) — Motorola's longest-lasting phones for all-day use.
+- [Best Motorola Phones (2026): Top Picks](https://www.revibyte.blog/motorola/best-motorola-phones-2026-top-picks/) — A full roundup of Motorola's best phones across every price range.
+
 ![Huawei Y5p](/assets/huawei/huawei-y5p-official.jpg)
   
 ## Where to buy in Nigeria, and what to check  
