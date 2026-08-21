@@ -45,10 +45,8 @@
     padding: 0.2rem 0.3rem;
   }
 </style>
-
 <script>
-  const DISMISS_KEY = 'installBannerDismissedAt';
-  const DISMISS_DAYS = 14;
+  const INSTALLED_KEY = 'pwaInstalled';
 
   let deferredPrompt: any = null;
   const banner = document.getElementById('install-banner') as HTMLElement;
@@ -60,17 +58,20 @@
       || (navigator as any).standalone === true;
   }
 
-  function recentlyDismissed() {
-    const ts = localStorage.getItem(DISMISS_KEY);
-    if (!ts) return false;
-    const days = (Date.now() - Number(ts)) / (1000 * 60 * 60 * 24);
-    return days < DISMISS_DAYS;
+  function isInstalled() {
+    return isStandalone() || localStorage.getItem(INSTALLED_KEY) === 'true';
+  }
+
+  // If already installed (e.g. opened in standalone mode), lock it in
+  // so future checks don't depend on display-mode alone.
+  if (isStandalone()) {
+    localStorage.setItem(INSTALLED_KEY, 'true');
   }
 
   window.addEventListener('beforeinstallprompt', (e) => {
     e.preventDefault();
     deferredPrompt = e;
-    if (!isStandalone() && !recentlyDismissed()) {
+    if (!isInstalled()) {
       banner.hidden = false;
     }
   });
@@ -82,17 +83,19 @@
     deferredPrompt = null;
     banner.hidden = true;
     if (outcome === 'accepted') {
-      localStorage.setItem(DISMISS_KEY, String(Date.now()));
+      localStorage.setItem(INSTALLED_KEY, 'true');
     }
+    // if 'dismissed' from the native prompt, don't store anything —
+    // banner can come back on next reload
   });
 
   closeBtn?.addEventListener('click', () => {
     banner.hidden = true;
-    localStorage.setItem(DISMISS_KEY, String(Date.now()));
+    // no localStorage write here — this is what makes it reappear on reload
   });
 
   window.addEventListener('appinstalled', () => {
     banner.hidden = true;
-    localStorage.setItem(DISMISS_KEY, String(Date.now()));
+    localStorage.setItem(INSTALLED_KEY, 'true');
   });
 </script>
