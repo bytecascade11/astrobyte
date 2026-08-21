@@ -91,7 +91,6 @@ const shareTitle = guide.data.title;
     </nav>
 {coverImageAbs && (
       <div class="cover-ad-wrapper">
-        <!-- AdSense placeholder: TOP of cover image — matches Layout.astro exactly -->
         <div class="ad-slot ad-slot--top">
           <ins class="adsbygoogle"
                style="display:block"
@@ -102,11 +101,10 @@ const shareTitle = guide.data.title;
         </div>
 
         <div class="hub-cover-wrap">
-          <img src={coverImageAbs} alt={post.data.coverImageAlt ?? post.data.title}
+          <img src={coverImageAbs} alt={guide.data.coverImageAlt ?? guide.data.title}
             class="hub-cover-img" loading="eager" fetchpriority="high" width="1200" height="630" />
         </div>
 
-        <!-- Adsterra placeholder: BOTTOM of cover image — matches Layout.astro exactly -->
         <div class="ad-slot ad-slot--bottom">
           <div id="container-100c0408033e7aba877563ba9293a45d"></div>
         </div>
