@@ -89,46 +89,29 @@ const shareTitle = guide.data.title;
       <span>/</span>
       <span>{typeLabel}</span>
     </nav>
+{coverImageAbs && (
+      <div class="cover-ad-wrapper">
+        <!-- AdSense placeholder: TOP of cover image — matches Layout.astro exactly -->
+        <div class="ad-slot ad-slot--top">
+          <ins class="adsbygoogle"
+               style="display:block"
+               data-ad-format="fluid"
+               data-ad-layout-key="-gf-2b-2i-8t+14w"
+               data-ad-client="ca-pub-4896561037705299"
+               data-ad-slot="2743091672"></ins>
+        </div>
 
-    <!-- Adsterra: Top of Cover -->
-    <div style="display:flex; justify-content:center; margin: 1rem 0;">
-      <script is:inline>
-        atOptions = {
-          'key' : '2b0c33ae294502978b9bfb23cc9b43f0',
-          'format' : 'iframe',
-          'height' : 50,
-          'width' : 320,
-          'params' : {}
-        };
-      </script>
-      <script is:inline src="https://www.highperformanceformat.com/2b0c33ae294502978b9bfb23cc9b43f0/invoke.js"></script>
-    </div>
-    <!-- Cover Image -->
-    {coverImageAbs && (
-      <div class="hub-cover-wrap">
-        <img
-          src={coverImageAbs}
-          alt={guide.data.coverImageAlt ?? guide.data.title}
-          class="hub-cover-img"
-          loading="eager"
-          fetchpriority="high"
-          width="1200"
-          height="630"
-        />
+        <div class="hub-cover-wrap">
+          <img src={coverImageAbs} alt={post.data.coverImageAlt ?? post.data.title}
+            class="hub-cover-img" loading="eager" fetchpriority="high" width="1200" height="630" />
+        </div>
+
+        <!-- Adsterra placeholder: BOTTOM of cover image — matches Layout.astro exactly -->
+        <div class="ad-slot ad-slot--bottom">
+          <div id="container-100c0408033e7aba877563ba9293a45d"></div>
+        </div>
       </div>
     )}
-<!-- Adsense: Under Cover Image -->
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4896561037705299"
-     crossorigin="anonymous"></script>
-<ins class="adsbygoogle"
-     style="display:block; text-align:center;"
-     data-ad-layout="in-article"
-     data-ad-format="fluid"
-     data-ad-client="ca-pub-4896561037705299"
-     data-ad-slot="7554701431"></ins>
-<script is:inline>
-           (adsbygoogle = window.adsbygoogle || []).push({});
-      </script>
     <!-- Header -->
     <div class="mb-6">
       <div class="flex flex-wrap gap-2 mb-3">
@@ -260,6 +243,14 @@ const shareTitle = guide.data.title;
 >
   🔥 Check This Out
 </a>
+<!-- AdSense + Adsterra libraries for the cover-image ad-slots above — loaded here, after main content, so they don't compete with early taps for INP -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4896561037705299"
+         crossorigin="anonymous"></script>
+    <script is:inline>
+      (adsbygoogle = window.adsbygoogle || []).push({});
+    </script>
+
+    <script async data-cfasync="false" src="https://pl28410703.effectivecpmnetwork.com/100c0408033e7aba877563ba9293a45d/invoke.js"></script>
     <!-- Comments -->
     <Comments slug={postSlug} />
     
@@ -319,6 +310,32 @@ const shareTitle = guide.data.title;
   }
 </script>
 <style is:global>
+.cover-ad-wrapper {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .ad-slot {
+    display: block;
+    width: 100%;
+    max-width: 768px;
+    margin-left: auto;
+    margin-right: auto;
+    contain: layout;
+  }
+
+  .ad-slot--top {
+    margin-bottom: 0.5rem;
+    min-height: 280px; /* verify against real rendered height in DevTools */
+  }
+
+  .ad-slot--bottom {
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+    min-height: 250px; /* verify against real rendered height in DevTools */
+  }
   /* ── Author Card ── */
   .author-card {
     display: flex;
