@@ -199,23 +199,18 @@ const currentPath = Astro.url.pathname;
      <slot name="header" />
      <slot name="top-nav" />
 
-    <!-- ========== ADS AROUND COVER IMAGE ========== -->
+    <!-- ========== COVER IMAGE + AD PLACEHOLDERS (scripts moved below, after content) ========== -->
 
     {coverImage && (
       <div class="cover-ad-wrapper">
-        <!-- AdSense: TOP of cover image -->
+        <!-- AdSense placeholder: TOP of cover image (script loads after content, near OneSignal) -->
         <div class="ad-slot ad-slot--top">
-          <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4896561037705299"
-               crossorigin="anonymous"></script>
           <ins class="adsbygoogle"
                style="display:block"
                data-ad-format="fluid"
                data-ad-layout-key="-gf-2b-2i-8t+14w"
                data-ad-client="ca-pub-4896561037705299"
                data-ad-slot="2743091672"></ins>
-          <script is:inline>
-               (adsbygoogle = window.adsbygoogle || []).push({});
-          </script>
         </div>
 
         <!-- Cover Image -->
@@ -228,9 +223,8 @@ const currentPath = Astro.url.pathname;
           sizes="100vw"
         />
 
-        <!-- Adsterra: BOTTOM of cover image (normal size, matches ad-slot--bottom) -->
+        <!-- Adsterra placeholder: BOTTOM of cover image (script loads after content, near OneSignal) -->
         <div class="ad-slot ad-slot--bottom">
-          <script async data-cfasync="false" src="https://pl28410703.effectivecpmnetwork.com/100c0408033e7aba877563ba9293a45d/invoke.js"></script>
           <div id="container-100c0408033e7aba877563ba9293a45d"></div>
         </div>
       </div>
@@ -238,16 +232,22 @@ const currentPath = Astro.url.pathname;
 
     <slot />
 
-    <!-- ================= ADS & THIRD-PARTY (After all content) ================= -->
-
-
-    <!-- ================= IDLE-LOADED SCRIPTS (After LCP) ================= -->
+    <!-- ================= IDLE-LOADED SCRIPTS (After LCP / content) ================= -->
 
     {SITE.analytics?.googleAnalyticsId && (
       <script is:inline define:vars={{ gaId: SITE.analytics.googleAnalyticsId }}>
         gtag('config', gaId);
       </script>
     )}
+
+    <!-- AdSense + Adsterra: load libraries after content, then push/invoke the reserved slots -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4896561037705299"
+         crossorigin="anonymous"></script>
+    <script is:inline>
+      (adsbygoogle = window.adsbygoogle || []).push({});
+    </script>
+
+    <script async data-cfasync="false" src="https://pl28410703.effectivecpmnetwork.com/100c0408033e7aba877563ba9293a45d/invoke.js"></script>
 
     <!-- OneSignal -->
     <script is:inline>
@@ -292,7 +292,23 @@ const currentPath = Astro.url.pathname;
         setTimeout(loadOneSignal, 5000);
       })();
     </script>
-    
+
+    <!-- Monetag Vignette — deferred until first scroll or 5s idle, same pattern as OneSignal, so it never competes with early taps/INP -->
+    <script is:inline>
+      (function() {
+        function loadVignette() {
+          if (window.__vignetteLoaded) return;
+          window.__vignetteLoaded = true;
+          var s = document.createElement('script');
+          s.dataset.zone = '11436447';
+          s.src = 'https://n6wxm.com/vignette.min.js';
+          document.body.appendChild(s);
+        }
+        window.addEventListener('scroll', loadVignette, { once: true, passive: true });
+        setTimeout(loadVignette, 5000);
+      })();
+    </script>
+
     <!-- PWA Analytics Event -->
     <script is:inline>
       window.addEventListener('load', function() {
@@ -326,16 +342,18 @@ const currentPath = Astro.url.pathname;
         contain: layout;
       }
 
-      /* Reserved space prevents layout shift while the ad script loads */
+      /* Reserved space prevents layout shift while the ad script loads.
+         IMPORTANT: verify these against the real rendered height in DevTools
+         on a live post — adjust if your actual fluid/invoke.js height differs. */
       .ad-slot--top {
         margin-bottom: 0.5rem;
-        min-height: 90px;
+        min-height: 280px;
       }
 
       .ad-slot--bottom {
         margin-top: 0.5rem;
         margin-bottom: 0.5rem;
-        min-height: 90px;
+        min-height: 250px;
       }
 
       /* Ensure cover image sits cleanly between ads with no extra gaps */
@@ -347,6 +365,5 @@ const currentPath = Astro.url.pathname;
         margin: 0;
       }
     </style>
-<script set:html={`(function(s){s.dataset.zone='11436447',s.src='https://n6wxm.com/vignette.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))`}></script>
   </body>
 </html>
