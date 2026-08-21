@@ -18,8 +18,10 @@ const blogPosts = await getCollection("blog", ({ data }) => !data.draft);
 const samsungPosts = await getCollection("samsung", ({ data }) => !data.draft);
 const xiaomiPosts = await getCollection("xiaomi", ({ data }) => !data.draft);
 const tecnoPosts = await getCollection("tecno", ({ data }) => !data.draft);
+const motorolaPosts = await getCollection("motorola", ({ data }) => !data.draft);
+const huaweiPosts = await getCollection("huawei", ({ data }) => !data.draft);
 
-const allPosts = [...blogPosts, ...samsungPosts, ...xiaomiPosts, ...tecnoPosts];
+const allPosts = [...blogPosts, ...samsungPosts, ...xiaomiPosts, ...tecnoPosts, ...motorolaPosts, ...huaweiPosts];
 
 const sortedPosts = getSortedPosts(allPosts);
 const tags = getUniqueTags(sortedPosts);
