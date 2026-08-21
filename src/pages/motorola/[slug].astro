@@ -44,8 +44,6 @@ const coverImageAbs = post.data.coverImage
 const postUrl = `${websiteBase}motorola/${post.data.slug ?? post.id}/`;
 const postSlug = post.data.slug ?? post.id;
 
-// Flat tags (no series field) — tier derived from price only, same
-// grouping logic as the hub index.
 const price = post.data.priceNGN ?? 0;
 const tierLabel = price >= 350000 ? "Flagship" : price >= 150000 ? "Mid-range" : price > 0 ? "Budget" : "Reviews";
 
@@ -85,8 +83,6 @@ const productSchema = post.data.rating ? {
   },
 } : null;
 
-// chargingSpeed is included here — Motorola's TurboPower fast charging is
-// a genuine differentiator for the brand, unlike Tecno's spec strip
 const specs = [
   post.data.ram && { label: "RAM", value: post.data.ram },
   post.data.storage && { label: "Storage", value: post.data.storage },
@@ -141,15 +137,28 @@ const specs = [
     </div>
 
     {coverImageAbs && (
-      <div class="hub-cover-wrap">
-        <img src={coverImageAbs} alt={post.data.coverImageAlt ?? post.data.title}
-          class="hub-cover-img" loading="eager" fetchpriority="high" width="1200" height="630" />
+      <div class="cover-ad-wrapper">
+        <!-- AdSense placeholder: TOP of cover image — matches Layout.astro exactly -->
+        <div class="ad-slot ad-slot--top">
+          <ins class="adsbygoogle"
+               style="display:block"
+               data-ad-format="fluid"
+               data-ad-layout-key="-gf-2b-2i-8t+14w"
+               data-ad-client="ca-pub-4896561037705299"
+               data-ad-slot="2743091672"></ins>
+        </div>
+
+        <div class="hub-cover-wrap">
+          <img src={coverImageAbs} alt={post.data.coverImageAlt ?? post.data.title}
+            class="hub-cover-img" loading="eager" fetchpriority="high" width="1200" height="630" />
+        </div>
+
+        <!-- Adsterra placeholder: BOTTOM of cover image — matches Layout.astro exactly -->
+        <div class="ad-slot ad-slot--bottom">
+          <div id="container-100c0408033e7aba877563ba9293a45d"></div>
+        </div>
       </div>
     )}
-
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4896561037705299" crossorigin="anonymous"></script>
-    <ins class="adsbygoogle" style="display:block; text-align:center;" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-4896561037705299" data-ad-slot="7554701431"></ins>
-    <script is:inline>(adsbygoogle = window.adsbygoogle || []).push({});</script>
 
     <div class="mb-6">
       <div class="flex flex-wrap gap-2 mb-3">
@@ -284,6 +293,15 @@ const specs = [
       🔥 Check This Out
     </a>
 
+    <!-- AdSense + Adsterra libraries for the cover-image ad-slots above — loaded here, after main content, so they don't compete with early taps for INP -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4896561037705299"
+         crossorigin="anonymous"></script>
+    <script is:inline>
+      (adsbygoogle = window.adsbygoogle || []).push({});
+    </script>
+
+    <script async data-cfasync="false" src="https://pl28410703.effectivecpmnetwork.com/100c0408033e7aba877563ba9293a45d/invoke.js"></script>
+
     <Comments slug={postSlug} />
     <div class="mt-10 flex items-center gap-4">
       <a href="/" class="text-sm text-skin-accent hover:underline flex items-center gap-1">← Home</a>
@@ -340,6 +358,33 @@ const specs = [
   }
 </script>
 <style is:global>
+  .cover-ad-wrapper {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .ad-slot {
+    display: block;
+    width: 100%;
+    max-width: 768px;
+    margin-left: auto;
+    margin-right: auto;
+    contain: layout;
+  }
+
+  .ad-slot--top {
+    margin-bottom: 0.5rem;
+    min-height: 280px; /* verify against real rendered height in DevTools */
+  }
+
+  .ad-slot--bottom {
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+    min-height: 250px; /* verify against real rendered height in DevTools */
+  }
+
   /* ── Author Card ── */
   .author-card {
     display: flex;
