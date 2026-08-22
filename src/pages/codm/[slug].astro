@@ -8,6 +8,7 @@ import { SITE } from "@/config";
 import AffiliateCarousel from "@/components/AffiliateCarousel.astro";
 import Comments from "@/components/Comments.astro";
 import Header from "@/components/Header.astro";
+import HubGuideCard from "@/components/HubGuideCard.astro";
 
 export async function getStaticPaths() {
   const guides = await getCollection("codm", ({ data }) => !data.draft);
@@ -54,6 +55,11 @@ const typeLabels: Record<string, string> = {
 const typeLabel = typeLabels[guide.data.type] ?? "Guide";
 const shareURL = postUrl;
 const shareTitle = guide.data.title;
+
+// Vercel-proxied cover image URL — routes public/ images through on-the-fly optimization
+const coverImageOptimized = coverImageAbs
+  ? `/_vercel/image?url=${encodeURIComponent(coverImageAbs)}&w=1200&q=75`
+  : undefined;
 ---
 
 <Layout title={pageTitle} description={pageDesc} ogImage={ogImage}>
@@ -89,7 +95,7 @@ const shareTitle = guide.data.title;
       <span>/</span>
       <span>{typeLabel}</span>
     </nav>
-{coverImageAbs && (
+{coverImageOptimized && (
       <div class="cover-ad-wrapper">
         <div class="ad-slot ad-slot--top">
           <ins class="adsbygoogle"
@@ -101,7 +107,7 @@ const shareTitle = guide.data.title;
         </div>
 
         <div class="hub-cover-wrap">
-          <img src={coverImageAbs} alt={guide.data.coverImageAlt ?? guide.data.title}
+          <img src={coverImageOptimized} alt={guide.data.coverImageAlt ?? guide.data.title}
             class="hub-cover-img" loading="eager" fetchpriority="high" width="1200" height="630" />
         </div>
 
@@ -165,28 +171,13 @@ const shareTitle = guide.data.title;
         <h2 class="text-lg font-semibold mb-4">📎 Related Guides</h2>
         <ul class="space-y-3">
           {relatedGuides.map(related => (
-            <li>
-              <a
-                href={`/codm/${related.data.slug ?? related.id}/`}
-                class="group flex items-start gap-3 rounded-lg border border-skin-line p-3 hover:border-skin-accent transition-colors"
-              >
-                {related.data.coverImage && (
-                  <img
-                    src={related.data.coverImage}
-                    alt={related.data.coverImageAlt ?? related.data.title}
-                    class="w-16 h-12 object-cover rounded-lg shrink-0"
-                    loading="lazy"
-                    width="64"
-                    height="48"
-                  />
-                )}
-                {!related.data.coverImage && <span class="text-xl shrink-0">🎮</span>}
-                <div>
-                  <p class="font-medium text-sm group-hover:text-skin-accent transition-colors">{related.data.title}</p>
-                  <p class="text-xs post-meta mt-0.5">{related.data.description}</p>
-                </div>
-              </a>
-            </li>
+            <HubGuideCard
+              href={`/codm/${related.data.slug ?? related.id}/`}
+              title={related.data.title}
+              description={related.data.description}
+              coverImage={related.data.coverImage}
+              coverImageAlt={related.data.coverImageAlt}
+            />
           ))}
         </ul>
       </section>
