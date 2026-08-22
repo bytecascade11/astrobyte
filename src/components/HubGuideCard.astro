@@ -1,0 +1,38 @@
+---
+// src/components/HubGuideCard.astro
+// Shared card used by every hub index page (codm, itel, samsung, xiaomi, tecno, motorola, etc.)
+// Handles the image-optimization concern in ONE place, permanently.
+import HubThumb from "@/components/HubThumb.astro";
+
+interface Props {
+  href: string;
+  title: string;
+  description?: string;
+  coverImage?: string;
+  coverImageAlt?: string;
+  badge?: string; // e.g. season, gameMode
+}
+const { href, title, description, coverImage, coverImageAlt, badge } = Astro.props;
+---
+<li>
+  <a href={href} class="group flex gap-3 rounded-lg border border-skin-line p-3 hover:border-skin-accent transition-colors">
+    {coverImage && (
+      <HubThumb src={coverImage} alt={coverImageAlt ?? title} />
+    )}
+    <div class="flex-1 min-w-0">
+      <div class="flex items-start justify-between gap-2">
+        <h3 class="font-medium group-hover:text-skin-accent transition-colors line-clamp-2">
+          {title}
+        </h3>
+        {badge && (
+          <span class="shrink-0 text-xs bg-skin-card px-2 py-0.5 rounded-full text-skin-base/60">
+            {badge}
+          </span>
+        )}
+      </div>
+      {description && (
+        <p class="text-sm text-skin-base/60 mt-1 line-clamp-2">{description}</p>
+      )}
+    </div>
+  </a>
+</li>
