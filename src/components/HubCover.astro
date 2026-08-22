@@ -1,0 +1,28 @@
+---
+// src/components/HubCover.astro
+// Shared hero/cover-image block for every hub's [slug].astro
+// Always eager + high priority (this is the page's LCP element) — never lazy.
+interface Props {
+  src: string;
+  alt: string;
+}
+const { src, alt } = Astro.props;
+const optimizedSrc = `/_vercel/image?url=${encodeURIComponent(src)}&w=1200&q=75`;
+---
+<div class="hub-cover-wrap">
+  <img
+    src={optimizedSrc}
+    alt={alt}
+    class="hub-cover-img"
+    loading="eager"
+    fetchpriority="high"
+    width="1200"
+    height="630"
+  />
+</div>
+
+<style is:global>
+  .hub-cover-wrap { width: 100%; border-radius: 16px; overflow: hidden; margin-bottom: 1.75rem; margin-top: 0.5rem; background: var(--background-light); }
+  .hub-cover-img { width: 100%; height: auto; object-fit: cover; aspect-ratio: 16/9; display: block; }
+  @media (min-width: 768px) { .hub-cover-img { aspect-ratio: 21/9; } }
+</style>
