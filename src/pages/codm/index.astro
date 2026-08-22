@@ -3,6 +3,7 @@
 import { getCollection } from "astro:content";
 import Layout from "@/layouts/Layout.astro";
 import { SITE } from "@/config";
+import HubGuideCard from "@/components/HubGuideCard.astro";
 
 const allGuides = await getCollection("codm", ({ data }) => !data.draft);
 const sorted = allGuides.sort(
@@ -76,33 +77,13 @@ const pageDesc  = "Complete COD Mobile resource hub — best loadouts per season
 
         <ul class="space-y-4">
           {currentSeasonPosts.map(post => (
-            <li>
-              <a
-                href={`/codm/${post.data.slug ?? post.id}/`}
-                class="group flex gap-3 rounded-lg border border-skin-line p-3 hover:border-skin-accent transition-colors"
-              >
-                {post.data.coverImage && (
-                  <img
-                    src={post.data.coverImage}
-                    alt={post.data.coverImageAlt ?? post.data.title}
-                    class="hub-thumb"
-                    loading="lazy"
-                    width="1200"
-                    height="630"
-                  />
-                )}
-
-                <div class="flex-1 min-w-0">
-                  <h3 class="font-medium group-hover:text-skin-accent transition-colors line-clamp-2">
-                    {post.data.title}
-                  </h3>
-
-                  <p class="text-sm text-skin-base/60 mt-1 line-clamp-2">
-                    {post.data.description}
-                  </p>
-                </div>
-              </a>
-            </li>
+            <HubGuideCard
+              href={`/codm/${post.data.slug ?? post.id}/`}
+              title={post.data.title}
+              description={post.data.description}
+              coverImage={post.data.coverImage}
+              coverImageAlt={post.data.coverImageAlt}
+            />
           ))}
         </ul>
       </section>
@@ -146,37 +127,14 @@ const pageDesc  = "Complete COD Mobile resource hub — best loadouts per season
         <h2 class="text-xl font-semibold mb-4 border-b border-skin-line pb-2">🔫 Best Loadouts</h2>
         <ul class="space-y-4">
           {loadouts.map(guide => (
-            <li>
-              <a href={`/codm/${guide.data.slug ?? guide.id}/`}
-                class="group flex gap-3 rounded-lg border border-skin-line p-3 hover:border-skin-accent transition-colors">
-                {guide.data.coverImage && (
-                  <img
-                    src={guide.data.coverImage}
-                    alt={guide.data.coverImageAlt ?? guide.data.title}
-                    class="hub-thumb"
-                    loading="lazy"
-                    width="1200"
-                    height="630"
-                  />
-                )}
-                <div class="flex-1 min-w-0">
-                  <div class="flex items-start justify-between gap-2">
-                    <h3 class="font-medium group-hover:text-skin-accent transition-colors line-clamp-2">
-                      {guide.data.title}
-                    </h3>
-                    {guide.data.season && (
-                      <span class="shrink-0 text-xs bg-skin-card px-2 py-0.5 rounded-full text-skin-base/60">
-                        {guide.data.season}
-                      </span>
-                    )}
-                  </div>
-                  <p class="text-sm text-skin-base/60 mt-1 line-clamp-2">{guide.data.description}</p>
-                  {guide.data.gameMode && (
-                    <span class="mt-2 inline-block text-xs text-skin-accent">{guide.data.gameMode}</span>
-                  )}
-                </div>
-              </a>
-            </li>
+            <HubGuideCard
+              href={`/codm/${guide.data.slug ?? guide.id}/`}
+              title={guide.data.title}
+              description={guide.data.description}
+              coverImage={guide.data.coverImage}
+              coverImageAlt={guide.data.coverImageAlt}
+              badge={guide.data.season}
+            />
           ))}
         </ul>
       </section>
@@ -188,24 +146,14 @@ const pageDesc  = "Complete COD Mobile resource hub — best loadouts per season
         <h2 class="text-xl font-semibold mb-4 border-b border-skin-line pb-2">📊 Tier Lists</h2>
         <ul class="space-y-4">
           {tierLists.map(guide => (
-            <li>
-              <a href={`/codm/${guide.data.slug ?? guide.id}/`}
-                class="group flex gap-3 rounded-lg border border-skin-line p-3 hover:border-skin-accent transition-colors">
-                {guide.data.coverImage && (
-                  <img src={guide.data.coverImage} alt={guide.data.coverImageAlt ?? guide.data.title}
-                    class="hub-thumb" loading="lazy" width="1200" height="630" />
-                )}
-                <div class="flex-1 min-w-0">
-                  <div class="flex items-start justify-between gap-2">
-                    <h3 class="font-medium group-hover:text-skin-accent transition-colors line-clamp-2">{guide.data.title}</h3>
-                    {guide.data.season && (
-                      <span class="shrink-0 text-xs bg-skin-card px-2 py-0.5 rounded-full text-skin-base/60">{guide.data.season}</span>
-                    )}
-                  </div>
-                  <p class="text-sm text-skin-base/60 mt-1 line-clamp-2">{guide.data.description}</p>
-                </div>
-              </a>
-            </li>
+            <HubGuideCard
+              href={`/codm/${guide.data.slug ?? guide.id}/`}
+              title={guide.data.title}
+              description={guide.data.description}
+              coverImage={guide.data.coverImage}
+              coverImageAlt={guide.data.coverImageAlt}
+              badge={guide.data.season}
+            />
           ))}
         </ul>
       </section>
@@ -217,24 +165,14 @@ const pageDesc  = "Complete COD Mobile resource hub — best loadouts per season
         <h2 class="text-xl font-semibold mb-4 border-b border-skin-line pb-2">📖 Guides & Settings</h2>
         <ul class="space-y-4">
           {guides.map(guide => (
-            <li>
-              <a href={`/codm/${guide.data.slug ?? guide.id}/`}
-                class="group flex gap-3 rounded-lg border border-skin-line p-3 hover:border-skin-accent transition-colors">
-                {guide.data.coverImage && (
-                  <img src={guide.data.coverImage} alt={guide.data.coverImageAlt ?? guide.data.title}
-                    class="hub-thumb" loading="lazy" width="1200" height="630" />
-                )}
-                <div class="flex-1 min-w-0">
-                  <div class="flex items-start justify-between gap-2">
-                    <h3 class="font-medium group-hover:text-skin-accent transition-colors line-clamp-2">{guide.data.title}</h3>
-                    {guide.data.gameMode && (
-                      <span class="shrink-0 text-xs bg-skin-card px-2 py-0.5 rounded-full text-skin-base/60">{guide.data.gameMode}</span>
-                    )}
-                  </div>
-                  <p class="text-sm text-skin-base/60 mt-1 line-clamp-2">{guide.data.description}</p>
-                </div>
-              </a>
-            </li>
+            <HubGuideCard
+              href={`/codm/${guide.data.slug ?? guide.id}/`}
+              title={guide.data.title}
+              description={guide.data.description}
+              coverImage={guide.data.coverImage}
+              coverImageAlt={guide.data.coverImageAlt}
+              badge={guide.data.gameMode}
+            />
           ))}
         </ul>
       </section>
@@ -246,19 +184,13 @@ const pageDesc  = "Complete COD Mobile resource hub — best loadouts per season
         <h2 class="text-xl font-semibold mb-4 border-b border-skin-line pb-2">📰 Latest News</h2>
         <ul class="space-y-4">
           {news.map(guide => (
-            <li>
-              <a href={`/codm/${guide.data.slug ?? guide.id}/`}
-                class="group flex gap-3 rounded-lg border border-skin-line p-3 hover:border-skin-accent transition-colors">
-                {guide.data.coverImage && (
-                  <img src={guide.data.coverImage} alt={guide.data.coverImageAlt ?? guide.data.title}
-                    class="hub-thumb" loading="lazy" width="1200" height="630" />
-                )}
-                <div class="flex-1 min-w-0">
-                  <h3 class="font-medium group-hover:text-skin-accent transition-colors line-clamp-2">{guide.data.title}</h3>
-                  <p class="text-sm text-skin-base/60 mt-1 line-clamp-2">{guide.data.description}</p>
-                </div>
-              </a>
-            </li>
+            <HubGuideCard
+              href={`/codm/${guide.data.slug ?? guide.id}/`}
+              title={guide.data.title}
+              description={guide.data.description}
+              coverImage={guide.data.coverImage}
+              coverImageAlt={guide.data.coverImageAlt}
+            />
           ))}
         </ul>
       </section>
