@@ -14,6 +14,8 @@ const xiaomiPosts = await getCollection("xiaomi");
 const tecnoPosts = await getCollection("tecno");
 const motorolaPosts = await getCollection("motorola");
 const huaweiPosts = await getCollection("huawei");
+const honorPosts = await getCollection("honor");
+
 
 const taggedBlog = blogPosts
   .filter(post => !post.data.draft)
@@ -39,7 +41,11 @@ const taggedHuawei = huaweiPosts
   .filter(post => !post.data.draft)
   .map(post => ({ ...post, hubPath: "huawei" }));
 
-const sortedPosts = [...taggedBlog, ...taggedSamsung, ...taggedXiaomi, ...taggedTecno, ...taggedMotorola, ...taggedHuawei]
+const taggedHonor = honorPosts
+  .filter(post => !post.data.draft)
+  .map(post => ({ ...post, hubPath: "honor" }));
+
+const sortedPosts = [...taggedBlog, ...taggedSamsung, ...taggedXiaomi, ...taggedTecno, ...taggedMotorola, ...taggedHuawei, ...taggedHonor]
   .sort((a, b) => b.data.pubDatetime.valueOf() - a.data.pubDatetime.valueOf());
 
 const heroPost = sortedPosts[0];
