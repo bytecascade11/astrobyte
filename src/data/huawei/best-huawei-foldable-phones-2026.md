@@ -11,7 +11,7 @@ relatedSlugs:
   - best-huawei-phones-2026  
 tags:  
   - huawei  
-  - foldable
+  - fold
   - android  
   - opinions 
 ---  
