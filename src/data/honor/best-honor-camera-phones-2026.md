@@ -2,7 +2,7 @@
 title: "Best Honor Camera Phones in 2026: 5 Worth Buying"  
 description: "Honor's 2026 camera lineup ranges from a periscope-heavy flagship to a motorized gimbal phone that actually launched. Here are five models worth your money, with sourced specs, pricing, and honest trade-offs."  
 author: iSamuel  
-pubDate: 2026-08-23T16:00:00.000Z  
+pubDatetime: 2026-08-23T16:00:00.000Z  
 coverImage: "/assets/honor/honor-camera-phones-2026-cover.jpg"  
 coverImageAlt: "Honor smartphone camera modules lined up against a dark background"  
 slug: "best-honor-camera-phones-2026"  
