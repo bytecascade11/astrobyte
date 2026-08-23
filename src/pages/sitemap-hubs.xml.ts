@@ -17,6 +17,7 @@ const HUBS = [
   { collection: "mlbb", path: "mlbb" },
   { collection: "motorola", path: "motorola" },
   { collection: "huawei", path: "huawei" },
+  { collection: "honor", path: "honor" },
 ] as const;
 
 function urlEntry(loc: string, lastmod: string, changefreq: string, priority: string) {
