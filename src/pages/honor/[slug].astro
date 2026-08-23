@@ -1,0 +1,538 @@
+---
+import { getCollection, render } from "astro:content";
+import type { CollectionEntry } from "astro:content";
+import Layout from "@/layouts/Layout.astro";
+import SchemaMarkup from "@/components/SchemaMarkup.astro";
+import { SITE } from "@/config";
+import AffiliateCarousel from "@/components/AffiliateCarousel.astro";
+import Comments from "@/components/Comments.astro";
+import Header from "@/components/Header.astro";
+
+export async function getStaticPaths() {
+  const posts = await getCollection("honor", ({ data }) => !data.draft);
+  return posts.map(post => ({
+    params: { slug: post.data.slug ?? post.id },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+
+let relatedPosts: CollectionEntry<"honor">[] = [];
+if (post.data.relatedSlugs?.length) {
+  const all = await getCollection("honor", ({ data }) => !data.draft);
+  relatedPosts = all.filter(p =>
+    post.data.relatedSlugs!.includes(p.data.slug ?? p.id)
+  );
+}
+
+const pageTitle = `${post.data.title} | ${SITE.title}`;
+const pageDesc = post.data.description;
+const ogImage = post.data.coverImage ?? "/og.png";
+
+const websiteBase = SITE.website.endsWith("/") ? SITE.website : `${SITE.website}/`;
+const coverImageAbs = post.data.coverImage
+  ? new URL(
+      post.data.coverImage.startsWith("/")
+        ? post.data.coverImage.slice(1)
+        : post.data.coverImage,
+      websiteBase
+    ).toString()
+  : undefined;
+
+const postUrl = `${websiteBase}honor/${post.data.slug ?? post.id}/`;
+const postSlug = post.data.slug ?? post.id;
+
+const typeLabels: Record<string, string> = {
+  review: "Review",
+  comparison: "Comparison",
+  "buying-guide": "Buying Guide",
+  news: "News",
+};
+const typeLabel = typeLabels[post.data.type] ?? "Review";
+const shareURL = postUrl;
+const shareTitle = post.data.title;
+
+const price = post.data.priceNGN ?? 0;
+
+const productSchema = post.data.rating ? {
+  "@context": "https://schema.org",
+  "@type": "Product",
+  "name": post.data.title.replace(/ Review$/i, ""),
+  "image": coverImageAbs,
+  "description": post.data.description,
+  "brand": { "@type": "Brand", "name": "Honor" },
+  ...(price > 0 && {
+    "offers": {
+      "@type": "Offer",
+      "priceCurrency": "NGN",
+      "price": price,
+      "availability": "https://schema.org/InStock",
+    },
+  }),
+  "review": {
+    "@type": "Review",
+    "reviewRating": {
+      "@type": "Rating",
+      "ratingValue": post.data.rating,
+      "bestRating": "5",
+    },
+    "author": { "@type": "Person", "name": post.data.author },
+  },
+} : null;
+
+const specs = [
+  post.data.ram && { label: "RAM", value: post.data.ram },
+  post.data.storage && { label: "Storage", value: post.data.storage },
+  post.data.battery && { label: "Battery", value: post.data.battery },
+  post.data.display && { label: "Display", value: post.data.display },
+  post.data.curvedDisplay && { label: "Screen", value: "Curved" },
+].filter(Boolean) as { label: string; value: string }[];
+---
+
+<Layout title={pageTitle} description={pageDesc} ogImage={ogImage}>
+<Header slot="header" />
+
+  <SchemaMarkup
+    type="breadcrumb"
+    breadcrumbs={[
+      { name: "Home", url: websiteBase },
+      { name: "Honor", url: `${websiteBase}honor/` },
+      { name: post.data.title, url: postUrl },
+    ]}
+  />
+
+  <SchemaMarkup
+    type="article"
+    title={post.data.title}
+    description={post.data.description}
+    url={postUrl}
+    image={coverImageAbs}
+    datePublished={new Date(post.data.pubDatetime)}
+    dateModified={post.data.lastUpdated ? new Date(post.data.pubDatetime) : null}
+  />
+
+  {productSchema && (
+    <script type="application/ld+json" set:html={JSON.stringify(productSchema)} />
+  )}
+
+  <main id="main-content" class="mx-auto w-full max-w-3xl px-4 pb-16">
+
+    <nav class="pt-6 pb-2 text-sm flex items-center gap-1.5 breadcrumb-nav">
+      <a href="/" class="hover:text-skin-accent transition-colors">Home</a>
+      <span>/</span>
+      <a href="/honor/" class="hover:text-skin-accent transition-colors">Honor</a>
+      <span>/</span>
+      <span>{post.data.title}</span>
+    </nav>
+
+    {coverImageAbs && (
+      <div class="cover-ad-wrapper">
+        <div class="ad-slot ad-slot--top">
+          <ins class="adsbygoogle"
+               style="display:block"
+               data-ad-format="fluid"
+               data-ad-layout-key="-gf-2b-2i-8t+14w"
+               data-ad-client="ca-pub-4896561037705299"
+               data-ad-slot="2743091672"></ins>
+        </div>
+
+        <div class="hub-cover-wrap">
+          <img src={coverImageAbs} alt={post.data.coverImageAlt ?? post.data.title}
+            class="hub-cover-img" loading="eager" fetchpriority="high" width="1200" height="630" />
+        </div>
+
+        <div class="ad-slot ad-slot--bottom">
+          <div id="container-100c0408033e7aba877563ba9293a45d"></div>
+        </div>
+      </div>
+    )}
+
+    <div class="mb-6">
+      <div class="flex flex-wrap gap-2 mb-3">
+        <span class="badge badge--accent">🔷 Honor {post.data.model ?? ""}</span>
+        <span class="badge">{typeLabel}</span>
+        {post.data.curvedDisplay && <span class="badge badge--accent">Curved Display</span>}
+        {post.data.rating && <span class="badge">⭐ {post.data.rating}/5</span>}
+      </div>
+
+      <h1 class="text-3xl font-bold leading-tight mb-3">{post.data.title}</h1>
+      <p class="post-desc text-lg leading-relaxed">{post.data.description}</p>
+
+      <div class="mt-4 flex flex-wrap gap-x-4 gap-y-1 text-sm post-meta">
+        <span>By {post.data.author}</span>
+        <span>
+          {new Date(post.data.pubDatetime).toLocaleDateString("en-NG", {
+            year: "numeric", month: "long", day: "numeric",
+          })}
+        </span>
+        {post.data.lastUpdated && <span>🔄 Updated: {post.data.lastUpdated}</span>}
+        {post.data.priceNGN && <span>💰 ₦{post.data.priceNGN.toLocaleString()}</span>}
+      </div>
+    </div>
+
+    {specs.length > 0 && (
+      <div class="spec-strip">
+        {specs.map(s => (
+          <div class="spec-strip-item">
+            <span class="spec-strip-label">{s.label}</span>
+            <span class="spec-strip-value">{s.value}</span>
+          </div>
+        ))}
+      </div>
+    )}
+
+    {post.data.comparedTo && (
+      <a href={`/honor/${post.data.comparedToSlug ?? ""}/`} class="vs-callout">
+        ⚔️ How does this compare to the {post.data.comparedTo}? See the head-to-head →
+      </a>
+    )}
+
+    <div class="share-bar mb-8 mt-6">
+      <span class="share-label">Share this review</span>
+      <div class="share-buttons">
+        <button class="share-btn share-btn--native" id="nativeShareBtn" aria-label="Share" style="display:none">
+          <svg viewBox="0 0 24 24"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>
+          Share
+        </button>
+        <a href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(shareTitle)}&url=${encodeURIComponent(shareURL)}`} target="_blank" rel="noopener noreferrer" class="share-btn share-btn--x">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.73-8.835L1.254 2.25H8.08l4.261 5.632 5.903-5.632zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+          X
+        </a>
+        <a href={`https://wa.me/?text=${encodeURIComponent(shareTitle + " " + shareURL)}`} target="_blank" rel="noopener noreferrer" class="share-btn share-btn--wa">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.118.554 4.103 1.522 5.828L.057 23.012a.75.75 0 0 0 .931.931l5.184-1.465A11.945 11.945 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.75a9.724 9.724 0 0 1-4.96-1.355l-.355-.213-3.676 1.04 1.04-3.574-.234-.368A9.725 9.725 0 0 1 2.25 12C2.25 6.615 6.615 2.25 12 2.25S21.75 6.615 21.75 12 17.385 21.75 12 21.75z"/></svg>
+          WhatsApp
+        </a>
+        <button class="share-btn share-btn--copy" id="copyLinkBtn" data-url={shareURL}>
+          <svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+          <span id="copyBtnText">Copy</span>
+        </button>
+      </div>
+    </div>
+
+    <article class="prose prose-revibyte max-w-none">
+      <Content />
+    </article>
+
+    {relatedPosts.length > 0 && (
+      <section class="mt-12 border-t border-skin-line pt-8">
+        <h2 class="text-lg font-semibold mb-4">📎 Related Reviews</h2>
+        <ul class="space-y-3">
+          {relatedPosts.map(related => (
+            <li>
+              <a href={`/honor/${related.data.slug ?? related.id}/`}
+                class="group flex items-start gap-3 rounded-lg border border-skin-line p-3 hover:border-skin-accent transition-colors">
+                {related.data.coverImage && (
+                  <img src={related.data.coverImage} alt={related.data.coverImageAlt ?? related.data.title}
+                    class="w-16 h-12 object-cover rounded-lg shrink-0" loading="lazy" width="64" height="48" />
+                )}
+                {!related.data.coverImage && <span class="text-xl shrink-0">🔷</span>}
+                <div>
+                  <p class="font-medium text-sm group-hover:text-skin-accent transition-colors">{related.data.title}</p>
+                  <p class="text-xs post-meta mt-0.5">{related.data.description}</p>
+                </div>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </section>
+    )}
+<!-- Author card -->
+    <div class="author-card">
+      <img src="/assets/isamuel.jpg" alt={SITE.author || "iSamuel"} class="author-avatar" />
+      <div class="author-info">
+        <p class="author-name">{SITE.author || "iSamuel"}</p>
+        <p class="author-bio">
+          Founder and lead technology analyst behind ReviByte Opinions.
+          Writes practical tech analysis for everyday users in Nigeria and beyond —
+          focusing on honest real-world explanations of phones, gadgets, AI and
+          how technology works in daily life.
+        </p>
+        <a href="/about" class="author-link">
+          Learn more about iSamuel and ReviByte →
+        </a>
+      </div>
+    </div>
+    <a href="https://whatsapp.com/channel/0029VbBCXzRKAwEdcyip8841" target="_blank" rel="noopener noreferrer" class="wa-channel-box">
+      <span class="wa-channel-icon">
+        <svg viewBox="0 0 24 24" width="22" height="22" fill="#25D366">
+          <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/>
+        </svg>
+      </span>
+      <div class="wa-channel-text">
+        <p class="wa-channel-title">Get reviews on WhatsApp</p>
+        <p class="wa-channel-sub">Join the ReviByte channel for instant updates</p>
+      </div>
+      <svg viewBox="0 0 24 24" width="15" height="15" class="wa-channel-arrow" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M9 18l6-6-6-6"/>
+      </svg>
+    </a>
+
+    <AffiliateCarousel />
+
+    <div style="margin: 1.5rem 0; min-height: 50px; display:flex; justify-content:center; contain: layout;">
+      <script is:inline>
+        atOptions = { 'key' : '2b0c33ae294502978b9bfb23cc9b43f0', 'format' : 'iframe', 'height' : 50, 'width' : 320, 'params' : {} };
+      </script>
+      <script is:inline src="https://www.highperformanceformat.com/2b0c33ae294502978b9bfb23cc9b43f0/invoke.js"></script>
+    </div>
+
+    <a href="https://omg10.com/4/11483020" target="_blank" rel="noopener noreferrer sponsored" class="smart-link-cta">
+      🔥 Check This Out
+    </a>
+<!-- AdSense + Adsterra libraries for the cover-image ad-slots above — loaded here, after main content, so they don't compete with early taps for INP -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4896561037705299"
+         crossorigin="anonymous"></script>
+    <script is:inline>
+      (adsbygoogle = window.adsbygoogle || []).push({});
+    </script>
+
+    <script async data-cfasync="false" src="https://pl28410703.effectivecpmnetwork.com/100c0408033e7aba877563ba9293a45d/invoke.js"></script>
+
+    <Comments slug={postSlug} />
+
+    <div class="mt-10 flex items-center gap-4">
+      <a href="/" class="text-sm text-skin-accent hover:underline flex items-center gap-1">← Home</a>
+      <span class="text-skin-base/30">|</span>
+      <a href="/honor/" class="text-sm text-skin-accent hover:underline flex items-center gap-1">Honor Hub</a>
+    </div>
+
+    <div style="margin: 1.5rem 0; min-height: 250px; display:flex; justify-content:center; contain: layout;">
+      <script is:inline>
+        atOptions = { 'key' : '3de9102309ceb722a1529e96b401e327', 'format' : 'iframe', 'height' : 250, 'width' : 300, 'params' : {} };
+      </script>
+      <script is:inline src="https://www.highperformanceformat.com/3de9102309ceb722a1529e96b401e327/invoke.js"></script>
+    </div>
+
+  </main>
+</Layout>
+
+<script is:inline>
+  function updateGiscusTheme() {
+    const theme = document.firstElementChild?.getAttribute("data-theme") || "light";
+    const iframe = document.querySelector("iframe.giscus-frame");
+    if (iframe) {
+      iframe.contentWindow?.postMessage(
+        { giscus: { setConfig: { theme: theme === "dark" ? "dark" : "light" } } },
+        "https://giscus.app"
+      );
+    }
+  }
+  document.addEventListener("astro:after-swap", updateGiscusTheme);
+  window.addEventListener("load", updateGiscusTheme);
+  new MutationObserver(updateGiscusTheme).observe(document.documentElement, {
+    attributes: true, attributeFilter: ["data-theme"]
+  });
+
+  if (navigator.share) {
+    const btn = document.getElementById('nativeShareBtn');
+    if (btn) {
+      btn.style.display = 'flex';
+      btn.addEventListener('click', () => {
+        navigator.share({ title: document.title, url: window.location.href }).catch(() => {});
+      });
+    }
+  }
+
+  const copyBtn = document.getElementById('copyLinkBtn');
+  if (copyBtn) {
+    copyBtn.addEventListener('click', () => {
+      const url = copyBtn.dataset.url || window.location.href;
+      navigator.clipboard.writeText(url).then(() => {
+        const label = document.getElementById('copyBtnText');
+        if (label) { label.textContent = 'Copied!'; setTimeout(() => { label.textContent = 'Copy'; }, 2000); }
+      }).catch(() => {});
+    });
+  }
+</script>
+<style is:global>
+.cover-ad-wrapper {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .ad-slot {
+    display: block;
+    width: 100%;
+    max-width: 768px;
+    margin-left: auto;
+    margin-right: auto;
+    contain: layout;
+  }
+
+  .ad-slot--top {
+    margin-bottom: 0.5rem;
+    min-height: 280px;
+  }
+
+  .ad-slot--bottom {
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+    min-height: 250px;
+  }
+  .author-card {
+    display: flex;
+    gap: 1.25rem;
+    align-items: flex-start;
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 1.5rem;
+    margin-top: 2rem;
+    margin-bottom: 1.5rem;
+    color: var(--foreground);
+  }
+
+  .author-avatar {
+  width: 52px;
+  height: 52px;
+  min-width: 52px;
+  border-radius: 14px;
+  object-fit: cover;
+  box-shadow: 0 4px 12px rgba(99,102,241,0.3);
+}
+
+  .author-info { flex: 1; }
+
+  .author-name {
+    font-weight: 700;
+    font-size: 1rem;
+    margin-bottom: 0.35rem;
+    color: var(--foreground);
+  }
+
+  .author-bio {
+    font-size: 0.85rem;
+    line-height: 1.65;
+    opacity: 0.7;
+    margin-bottom: 0.75rem;
+    color: var(--foreground);
+  }
+
+  .author-link {
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: #6366f1;
+    text-decoration: none;
+    transition: opacity 0.2s;
+  }
+
+  :global([data-theme="dark"]) .author-link {
+    color: var(--accent);
+  }
+
+  .author-link:hover { opacity: 0.75; }
+
+  .wa-channel-box {
+    display: flex; align-items: center; gap: 14px;
+    margin-top: 2rem; padding: 14px 16px;
+    border-radius: 14px;
+    border: 1px solid rgba(37, 211, 102, 0.35);
+    background: rgba(37, 211, 102, 0.07);
+    text-decoration: none;
+    transition: border-color 0.2s, background 0.2s;
+  }
+  .wa-channel-box:hover {
+    border-color: rgba(37, 211, 102, 0.65);
+    background: rgba(37, 211, 102, 0.13);
+  }
+  .wa-channel-icon {
+    display: flex; align-items: center; justify-content: center;
+    width: 42px; height: 42px; border-radius: 50%;
+    background: rgba(37, 211, 102, 0.15); flex-shrink: 0;
+  }
+  .wa-channel-text { flex: 1; min-width: 0; }
+  .wa-channel-title { font-size: 0.875rem; font-weight: 700; line-height: 1.3; color: var(--foreground); }
+  .wa-channel-sub { font-size: 0.75rem; opacity: 0.6; margin-top: 2px; color: var(--foreground); }
+  .wa-channel-arrow { flex-shrink: 0; opacity: 0.4; color: var(--foreground); }
+  .breadcrumb-nav { color: var(--foreground); opacity: 0.6; }
+  .breadcrumb-nav a { color: var(--foreground); opacity: 1; }
+  .breadcrumb-nav a:hover { color: var(--accent); opacity: 1; }
+  .post-desc { color: var(--foreground); opacity: 0.75; }
+  .post-meta { color: var(--foreground); opacity: 0.6; }
+
+  .hub-cover-wrap {
+    width: 100%; border-radius: 16px; overflow: hidden;
+    margin-bottom: 1.75rem; margin-top: 0.5rem;
+    background: var(--background-light);
+  }
+  .hub-cover-img {
+    width: 100%; height: auto; object-fit: cover;
+    aspect-ratio: 16/9; display: block;
+  }
+  @media (min-width: 768px) { .hub-cover-img { aspect-ratio: 21/9; } }
+
+  .badge {
+    font-size: 0.72rem; font-weight: 600; padding: 0.2rem 0.65rem;
+    border-radius: 9999px; background: var(--background-light);
+    color: var(--foreground); border: 1px solid var(--border);
+  }
+  .badge--accent { color: var(--accent); border-color: var(--accent); opacity: 0.9; }
+  .prose h1 { display: none; }
+
+  .spec-strip {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(90px, 1fr));
+    gap: 1px; margin: 1.25rem 0;
+    border: 1px solid var(--border); border-radius: 12px;
+    overflow: hidden; background: var(--border);
+  }
+  .spec-strip-item {
+    background: var(--background-light); padding: 10px 8px;
+    display: flex; flex-direction: column; align-items: center; gap: 2px;
+  }
+  .spec-strip-label { font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.03em; opacity: 0.5; }
+  .spec-strip-value { font-size: 0.85rem; font-weight: 700; color: var(--foreground); }
+
+  .vs-callout {
+    display: block; margin-top: 1.25rem; padding: 12px 16px;
+    border-radius: 10px; font-size: 0.85rem; font-weight: 600;
+    background: rgba(99,102,241,0.08); border: 1px solid rgba(99,102,241,0.25);
+    color: var(--accent, #6366f1); text-decoration: none;
+  }
+  .vs-callout:hover { background: rgba(99,102,241,0.14); }
+
+  .share-bar {
+    display: flex; align-items: center; flex-wrap: wrap; gap: 10px;
+    padding: 12px 16px; border-radius: 12px;
+    background: var(--background-light, rgba(99,102,241,0.06));
+    border: 1px solid var(--border, rgba(99,102,241,0.2));
+  }
+  .share-label { font-size: 0.8rem; font-weight: 600; opacity: 0.6; white-space: nowrap; }
+  .share-buttons { display: flex; flex-wrap: wrap; gap: 8px; margin-left: auto; }
+  .share-btn {
+    display: flex; align-items: center; gap: 5px; padding: 6px 14px;
+    border-radius: 8px; font-size: 0.78rem; font-weight: 600; cursor: pointer;
+    border: 1px solid transparent; text-decoration: none;
+    transition: opacity 0.15s, transform 0.1s; white-space: nowrap;
+  }
+  .share-btn:hover { opacity: 0.85; transform: translateY(-1px); }
+  .share-btn svg { width: 15px; height: 15px; flex-shrink: 0; }
+  .share-btn--native { background: var(--accent, #6366f1); color: white; border: none; }
+  .share-btn--x { background: #000; color: #fff; }
+  .share-btn--wa { background: #25D366; color: #fff; }
+  .share-btn--copy { background: var(--background-light); color: var(--foreground); border-color: var(--border); }
+
+  @media (max-width: 480px) {
+    .share-bar { flex-direction: column; align-items: flex-start; }
+    .share-buttons { margin-left: 0; }
+  }
+.smart-link-cta {
+  display: block;
+  text-align: center;
+  margin: 1.5rem 0;
+  padding: 12px 20px;
+  border-radius: 10px;
+  background: var(--accent, #6366f1);
+  color: #fff;
+  font-weight: 700;
+  font-size: 0.9rem;
+  text-decoration: none;
+  transition: opacity 0.15s, transform 0.1s;
+}
+.smart-link-cta:hover {
+  opacity: 0.88;
+  transform: translateY(-1px);
+}
+</style>
