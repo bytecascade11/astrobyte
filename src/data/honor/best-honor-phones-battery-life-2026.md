@@ -66,7 +66,7 @@ With the Magic8 Pro out, the Magic7 Pro has slid down in price while remaining a
 
 It won't match the Magic8 Pro's raw capacity, but for buyers priced out of the current flagship, it's the most complete phone on this list for the money.
 
-![Honor Magic7 Pro smartphone shown from the front and back](/assets/honor/honor-magic7-pro-product-shot.jpg)
+![Honor Magic7 Pro smartphone shown from the front and back](/assets/honor/honor-magic7-pro.jpg)
 
 ## 5. Honor 400 — the affordable, everyday pick
 
