@@ -15,7 +15,7 @@ async function watermark(inputPath: string, outputPath: string): Promise<void> {
     throw new Error(`Could not read dimensions for ${inputPath}`);
   }
 
-  const logoWidth = Math.round(width * 0.18); // ~18% of image width
+  const logoWidth = Math.round(width * 0.18);
   const logo = await sharp(LOGO_PATH)
     .resize({ width: logoWidth })
     .toBuffer();
@@ -43,19 +43,19 @@ async function run(): Promise<void> {
   for (const file of files) {
     const raw = fs.readFileSync(file, "utf-8");
     const { data } = matter(raw);
-    if (!data.image) continue;
+    if (!data.coverImage) continue;
 
     const parts = file.split(path.sep);
     const collection = parts[parts.length - 2];
-    const slug = path.basename(file, path.extname(file));
+    const slug = data.slug ?? path.basename(file, path.extname(file));
 
-    const inputPath = path.join("public", data.image.replace(/^\//, ""));
+    const inputPath = path.join("public", data.coverImage.replace(/^\//, ""));
     const outDir = path.join(OUTPUT_DIR, collection);
     fs.mkdirSync(outDir, { recursive: true });
     const outputPath = path.join(outDir, `${slug}.jpg`);
 
     if (!fs.existsSync(inputPath)) {
-      console.warn(`Skipping ${collection}/${slug}: image not found at ${inputPath}`);
+      console.warn(`Skipping ${collection}/${slug}: coverImage not found at ${inputPath}`);
       continue;
     }
 
