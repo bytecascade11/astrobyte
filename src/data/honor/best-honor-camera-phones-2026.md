@@ -7,7 +7,8 @@ coverImage: "/assets/honor/honor-camera-phones-2026-cover.jpg"
 coverImageAlt: "Honor smartphone camera modules lined up against a dark background"  
 slug: "best-honor-camera-phones-2026"  
 tags: ["honor", "cameras", "opinions"]    
-relatedSlugs: best-honor-phones-battery-life-2026
+relatedSlugs: 
+      - best-honor-phones-battery-life-2026
 --- 
 
 ## Table of Contents 
