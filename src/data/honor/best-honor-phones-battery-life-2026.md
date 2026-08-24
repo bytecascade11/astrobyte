@@ -1,10 +1,10 @@
  ---  
 title: "Best Honor Phones for Battery Life in 2026: 5 That Last All Day and Beyond"  
 description: "Honor's silicon-carbon batteries have pushed capacities past 10,000mAh. Here are the five Honor phones worth buying in 2026 if all-day (or multi-day) battery life is the priority."  
-author: iSamuel  
-pubDatetime: 2026-08-24T07:40:00Z
-coverImage: /assets/honor/best-honor-phones-battery-life-2026-cover.jpg  
-coverImageAlt: Five Honor smartphones with large batteries laid out side by side  
+author: "iSamuel" 
+pubDatetime: "2026-08-24T07:40:00Z"
+coverImage: "/assets/honor/best-honor-phones-battery-life-2026-cover.jpg"
+coverImageAlt: "Five Honor smartphones with large batteries laid out side by side"
 slug: best-honor-phones-battery-life-2026  
 relatedSlugs:  
   - best-honor-camera-phones-2026  
