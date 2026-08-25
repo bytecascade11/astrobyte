@@ -8,6 +8,7 @@ coverImageAlt: Five Honor smartphones with large batteries laid out side by side
 slug: best-honor-phones-battery-life-2026
 relatedSlugs:
   - best-honor-camera-phones-2026
+  - best-honor-phones-fast-charging-2026
 ---
 
 ## Table of Contents 
