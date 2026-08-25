@@ -10,6 +10,7 @@ tags: ["honor", "cameras", "opinions"]
 relatedSlugs: 
       - best-honor-phones-battery-life-2026
       - best-honor-phones-fast-charging-2026
+      - best-honor-phones-under-200-2026
 --- 
 
 ## Table of Contents 
