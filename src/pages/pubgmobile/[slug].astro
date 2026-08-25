@@ -8,6 +8,7 @@ import Comments from "@/components/Comments.astro";
 import AffiliateCarousel from "@/components/AffiliateCarousel.astro";
 import { SITE } from "@/config";
 import Header from "@/components/Header.astro";
+import { getWatermarkedOgImage } from "@/utils/getWatermarkedOgImage";
 
 export async function getStaticPaths() {
   const guides = await getCollection("pubgmobile", ({ data }) => !data.draft);
@@ -30,7 +31,7 @@ if (guide.data.relatedSlugs?.length) {
 
 const pageTitle = `${guide.data.title} | ${SITE.title}`;
 const pageDesc = guide.data.description;
-const ogImage = guide.data.coverImage ?? "/og.png";
+const ogImage = getWatermarkedOgImage("pubgmobile", post.data.slug ?? post.id, !!post.data.coverImage);
 
 const websiteBase = SITE.website.endsWith("/") ? SITE.website : `${SITE.website}/`;
 const coverImageAbs = guide.data.coverImage
