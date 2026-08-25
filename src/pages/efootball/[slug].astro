@@ -31,7 +31,7 @@ if (guide.data.relatedSlugs?.length) {
 
 const pageTitle = `${guide.data.title} | ${SITE.title}`;
 const pageDesc = guide.data.description;
-const ogImage = getWatermarkedOgImage("efootball", post.data.slug ?? post.id, !!post.data.coverImage);
+const ogImage = getWatermarkedOgImage("efootball", guide.data.slug ?? guide.id, !!guide.data.coverImage);
 
 const websiteBase = SITE.website.endsWith("/") ? SITE.website : `${SITE.website}/`;
 const coverImageAbs = guide.data.coverImage
