@@ -13,6 +13,7 @@ import RelatedPosts from "@/components/RelatedPosts.astro";
 import SchemaMarkup from "@/components/SchemaMarkup.astro";
 import AffiliateCarousel from "@/components/AffiliateCarousel.astro";
 import Comments from "@/components/Comments.astro";
+import { getWatermarkedOgImage } from "@/utils/getWatermarkedOgImage";
 
 import { getPath } from "@/utils/getPath";
 import { slugifyStr } from "@/utils/slugify";
@@ -51,8 +52,8 @@ const postUrl = new URL(postPath.startsWith("/") ? postPath.slice(1) : postPath,
 let ogImageUrl: string | undefined;
 
 if (coverImage && typeof coverImage === "string" && coverImage.trim() !== "") {
-  const cleanPath = coverImage.startsWith("/") ? coverImage.slice(1) : coverImage;
-  ogImageUrl = new URL(cleanPath, websiteBase).toString();
+  const watermarkedPath = getWatermarkedOgImage("blog", postSlug, true);
+  ogImageUrl = new URL(watermarkedPath.slice(1), websiteBase).toString();
 } else if (typeof initOgImage === "string" && initOgImage.trim() !== "") {
   const cleanPath = initOgImage.startsWith("/") ? initOgImage.slice(1) : initOgImage;
   ogImageUrl = new URL(cleanPath, websiteBase).toString();
