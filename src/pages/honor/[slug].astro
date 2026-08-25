@@ -7,6 +7,7 @@ import { SITE } from "@/config";
 import AffiliateCarousel from "@/components/AffiliateCarousel.astro";
 import Comments from "@/components/Comments.astro";
 import Header from "@/components/Header.astro";
+import { getWatermarkedOgImage } from "@/utils/getWatermarkedOgImage";
 
 export async function getStaticPaths() {
   const posts = await getCollection("honor", ({ data }) => !data.draft);
@@ -29,7 +30,7 @@ if (post.data.relatedSlugs?.length) {
 
 const pageTitle = `${post.data.title} | ${SITE.title}`;
 const pageDesc = post.data.description;
-const ogImage = post.data.coverImage ?? "/og.png";
+const ogImage = getWatermarkedOgImage("tecno", post.data.slug ?? post.id, !!post.data.coverImage);
 
 const websiteBase = SITE.website.endsWith("/") ? SITE.website : `${SITE.website}/`;
 const coverImageAbs = post.data.coverImage
