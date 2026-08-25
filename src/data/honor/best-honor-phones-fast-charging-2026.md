@@ -9,6 +9,8 @@ slug: best-honor-phones-fast-charging-2026
 tags: ["honor", "battery", "smartphones"]  
 category: Honor  
 relatedSlugs: 
+        - best-honor-phones-battery-life-2026
+        - best-honor-camera-phones-2026
 ---  
 
 ## Table of Contents 
