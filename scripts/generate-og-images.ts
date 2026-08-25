@@ -38,8 +38,7 @@ async function watermark(inputPath: string, outputPath: string): Promise<void> {
 async function run(): Promise<void> {
   fs.mkdirSync(OUTPUT_DIR, { recursive: true });
 
-  const files = await glob("src/content/**/*.{md,mdx}");
-
+  const files = await glob("src/data/**/*.{md,mdx}");
   for (const file of files) {
     const raw = fs.readFileSync(file, "utf-8");
     const { data } = matter(raw);
