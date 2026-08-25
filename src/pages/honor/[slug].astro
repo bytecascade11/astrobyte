@@ -30,7 +30,7 @@ if (post.data.relatedSlugs?.length) {
 
 const pageTitle = `${post.data.title} | ${SITE.title}`;
 const pageDesc = post.data.description;
-const ogImage = getWatermarkedOgImage("tecno", post.data.slug ?? post.id, !!post.data.coverImage);
+const ogImage = getWatermarkedOgImage("honor", post.data.slug ?? post.id, !!post.data.coverImage);
 
 const websiteBase = SITE.website.endsWith("/") ? SITE.website : `${SITE.website}/`;
 const coverImageAbs = post.data.coverImage
