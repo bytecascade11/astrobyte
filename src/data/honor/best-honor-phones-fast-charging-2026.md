@@ -11,6 +11,7 @@ category: Honor
 relatedSlugs: 
        - best-honor-camera-phones-2026
        - best-honor-phones-battery-life-2026
+       - best-honor-phones-under-200-2026
 ---  
 
 ## Table of Contents 
