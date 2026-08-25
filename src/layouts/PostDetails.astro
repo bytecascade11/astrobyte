@@ -52,7 +52,7 @@ const postUrl = new URL(postPath.startsWith("/") ? postPath.slice(1) : postPath,
 let ogImageUrl: string | undefined;
 
 if (coverImage && typeof coverImage === "string" && coverImage.trim() !== "") {
-  const watermarkedPath = getWatermarkedOgImage("blog", postSlug, true);
+  const watermarkedPath = getWatermarkedOgImage("blog", post.id, true);
   ogImageUrl = new URL(watermarkedPath.slice(1), websiteBase).toString();
 } else if (typeof initOgImage === "string" && initOgImage.trim() !== "") {
   const cleanPath = initOgImage.startsWith("/") ? initOgImage.slice(1) : initOgImage;
