@@ -1,97 +1,20 @@
+import fs from "node:fs";
+import path from "node:path";
 import satori from "satori";
-// import { html } from "satori-html";
 import { SITE } from "@/config";
 import loadGoogleFonts from "../loadGoogleFont";
 
-// const markup = html`<div
-//       style={{
-//         background: "#fefbfb",
-//         width: "100%",
-//         height: "100%",
-//         display: "flex",
-//         alignItems: "center",
-//         justifyContent: "center",
-//       }}
-//     >
-//       <div
-//         style={{
-//           position: "absolute",
-//           top: "-1px",
-//           right: "-1px",
-//           border: "4px solid #000",
-//           background: "#ecebeb",
-//           opacity: "0.9",
-//           borderRadius: "4px",
-//           display: "flex",
-//           justifyContent: "center",
-//           margin: "2.5rem",
-//           width: "88%",
-//           height: "80%",
-//         }}
-//       />
+function getLogoDataUri() {
+  const logoPath = path.join(process.cwd(), "public", "watermark-logo.png");
+  const buffer = fs.readFileSync(logoPath);
+  return `data:image/png;base64,${buffer.toString("base64")}`;
+}
 
-//       <div
-//         style={{
-//           border: "4px solid #000",
-//           background: "#fefbfb",
-//           borderRadius: "4px",
-//           display: "flex",
-//           justifyContent: "center",
-//           margin: "2rem",
-//           width: "88%",
-//           height: "80%",
-//         }}
-//       >
-//         <div
-//           style={{
-//             display: "flex",
-//             flexDirection: "column",
-//             justifyContent: "space-between",
-//             margin: "20px",
-//             width: "90%",
-//             height: "90%",
-//           }}
-//         >
-//           <p
-//             style={{
-//               fontSize: 72,
-//               fontWeight: "bold",
-//               maxHeight: "84%",
-//               overflow: "hidden",
-//             }}
-//           >
-//             {post.data.title}
-//           </p>
-//           <div
-//             style={{
-//               display: "flex",
-//               justifyContent: "space-between",
-//               width: "100%",
-//               marginBottom: "8px",
-//               fontSize: 28,
-//             }}
-//           >
-//             <span>
-//               by{" "}
-//               <span
-//                 style={{
-//                   color: "transparent",
-//                 }}
-//               >
-//                 "
-//               </span>
-//               <span style={{ overflow: "hidden", fontWeight: "bold" }}>
-//                 {post.data.author}
-//               </span>
-//             </span>
-
-//             <span style={{ overflow: "hidden", fontWeight: "bold" }}>
-//               {SITE.title}
-//             </span>
-//           </div>
-//         </div>
-//       </div>
-//     </div>`;
+const logoSrc = getLogoDataUri();
+// Your logo's native aspect ratio (width/height) — used to size it proportionally
+const LOGO_ASPECT_RATIO = 520 / 125;
+const LOGO_RENDER_WIDTH = 200;
+const LOGO_RENDER_HEIGHT = Math.round(LOGO_RENDER_WIDTH / LOGO_ASPECT_RATIO);
 
 export default async post => {
   return satori(
@@ -211,6 +134,19 @@ export default async post => {
                     },
                   ],
                 },
+              },
+            },
+          },
+          {
+            type: "img",
+            props: {
+              src: logoSrc,
+              width: LOGO_RENDER_WIDTH,
+              height: LOGO_RENDER_HEIGHT,
+              style: {
+                position: "absolute",
+                bottom: "56px",
+                right: "72px",
               },
             },
           },
