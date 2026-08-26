@@ -8,6 +8,7 @@ coverImageAlt: "Lineup of the best Huawei phones to buy in 2026, including the M
 slug: best-huawei-phones-2026  
 relatedSlugs:  
   - best-huawei-phones-under-200-2026
+  - best-huawei-camera-phones-2026
 ---
 
 ## Table of Contents 
