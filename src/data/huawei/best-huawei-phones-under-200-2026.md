@@ -9,6 +9,7 @@ slug: "best-huawei-phones-under-200-2026"
 tags: ["huawei", "opinions", "smartphones"]  
 relatedSlugs:
        - best-huawei-camera-phones-2026
+       - best-huawei-phones-2026
 ---  
 
 ## Table of Contents 
