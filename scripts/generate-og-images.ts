@@ -15,13 +15,13 @@ async function watermark(inputPath: string, outputPath: string): Promise<void> {
     throw new Error(`Could not read dimensions for ${inputPath}`);
   }
 
-  const logoWidth = Math.round(width * 0.18);
+  const logoWidth = Math.round(width * 0.26); // ~26% of image width
   const logo = await sharp(LOGO_PATH)
     .resize({ width: logoWidth })
     .toBuffer();
   const logoMeta = await sharp(logo).metadata();
 
-  const padding = Math.round(width * 0.02);
+  const padding = Math.round(width * 0.03); // ~3% edge padding
 
   await base
     .composite([
