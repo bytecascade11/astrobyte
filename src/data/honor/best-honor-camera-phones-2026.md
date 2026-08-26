@@ -117,7 +117,7 @@ The Honor 600 Pro is the strongest balance for most buyers — a high-end main c
 The Magic8 Pro and 600 Pro both have a confirmed retail presence in Nigeria (Jumia and Slot, respectively). The Magic7 Pro shows up on secondary marketplaces like Jiji. The Robot Phone is currently available for retail sale in China, with no confirmed Nigeria or broader international release date.  
   
 **Is the Honor 600 (non-Pro) worth buying over the Pro model?**  
-Only if the telephoto camera isn't a priority. The standard 600 keeps the 200MP main sensor and matches the Pro's battery capacity at a noticeably lower price, but loses the dedicated telephoto — digital zoom fills the gap, with the expected drop in detail past roughly 2x.
+Only if the telephoto camera isn't a priority. The standard 600 keeps the 200MP main sensor and matches the Pro's battery capacity at a noticeably lower price, but loses the dedicated telephoto — digital zoom fills the gap, with the expected drop in detail past roughly 2x. **Read** *[Best POCO Camera Phones 2026](https://www.revibyte.blog/xiaomi/best-poco-camera-phones-2026/)*
 
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4896561037705299"
      crossorigin="anonymous"></script>
