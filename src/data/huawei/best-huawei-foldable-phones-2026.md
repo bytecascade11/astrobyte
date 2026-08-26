@@ -8,7 +8,8 @@ coverImageAlt: "Huawei foldable phones lineup for 2026 including the Mate X6 and
 slug: best-huawei-foldable-phones-2026  
 relatedSlugs:  
   - best-huawei-phones-under-200-2026
-  - best-huawei-phones-2026  
+  - best-huawei-phones-2026
+  - best-huawei-camera-phones-2026
 tags:  
   - huawei  
   - fold
