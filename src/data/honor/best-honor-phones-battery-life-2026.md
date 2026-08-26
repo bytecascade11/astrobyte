@@ -9,6 +9,7 @@ slug: best-honor-phones-battery-life-2026
 relatedSlugs:
   - best-honor-camera-phones-2026
   - best-honor-phones-fast-charging-2026
+  - best-honor-foldable-phones-2026
 ---
 
 ## Table of Contents 
