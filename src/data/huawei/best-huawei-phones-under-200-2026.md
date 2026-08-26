@@ -7,6 +7,8 @@ coverImage: "/assets/huawei/huawei-phones-under-200-2026-cover.jpg"
 coverImageAlt: "Huawei Nova Y71 smartphone, one of the best Huawei phones under $200 in 2026"
 slug: "best-huawei-phones-under-200-2026"
 tags: ["huawei", "opinions", "smartphones"]  
+relatedSlugs:
+       - best-huawei-camera-phones-2026
 ---  
 
 ## Table of Contents 
