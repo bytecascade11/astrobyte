@@ -10,6 +10,7 @@ relatedSlugs:
   - best-huawei-phones-under-200-2026
   - best-huawei-phones-2026
   - best-huawei-camera-phones-2026
+  - best-huawei-phones-battery-life-2026
 tags:  
   - huawei  
   - fold
