@@ -10,6 +10,7 @@ tags: ["huawei", "opinions", "smartphones"]
 relatedSlugs:
        - best-huawei-camera-phones-2026
        - best-huawei-phones-2026
+       - best-huawei-phones-battery-life-2026
 ---  
 
 ## Table of Contents 
