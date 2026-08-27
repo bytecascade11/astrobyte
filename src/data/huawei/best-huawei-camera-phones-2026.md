@@ -12,6 +12,7 @@ relatedSlugs:
       - best-huawei-foldable-phones-2026
       - best-huawei-phones-2026
       - best-huawei-phones-under-200-2026
+      - best-huawei-phones-battery-life-2026
 ---
 
 ## Table of Contents 
