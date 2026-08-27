@@ -6,6 +6,8 @@ pubDatetime: 2026-08-26T22:52:00Z
 coverImage: "/assets/xiaomi/best-poco-camera-phones-2026-cover.jpg"
 coverImageAlt: "Five Poco smartphones arranged to show their rear camera modules"
 slug: "best-poco-camera-phones-2026"
+relatedSlugs: 
+    - best-poco-phones-under-200
 ---
 
 ## Table of Contents 
