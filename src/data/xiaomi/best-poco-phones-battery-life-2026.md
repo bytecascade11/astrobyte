@@ -7,7 +7,8 @@ coverImage: "/assets/xiaomi/poco-battery-2026/cover-poco-battery-phones-2026.jpg
 coverImageAlt: "Five POCO smartphones lined up on a table showing their screens and battery percentages"
 slug: best-poco-phones-battery-life-2026
 relatedSlugs:
-  - best-poco-camera-phones-2026/
+  - best-poco-camera-phones-2026
+  - best-poco-phones-under-200
 tags:
   - poco
   - xiaomi
