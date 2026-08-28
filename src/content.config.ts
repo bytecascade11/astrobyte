@@ -320,7 +320,7 @@ const honor = defineCollection({
 });
 // --------------- OnePlus Collection ---------------
 const oneplus = defineCollection({
-  loader: glob({ pattern: "**/[^_]*.md", base: "./src/content/oneplus" }),
+  loader: glob({ pattern: "**/[^_]*.md", base: "./src/data/oneplus" }),
   schema: ({ image }) =>
     z.object({
       title: z.string(),
