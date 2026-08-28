@@ -2,6 +2,7 @@
 title: "Best POCO Phones for Battery Life in 2026: 5 That Last Longer"
 description: "Tired of charging twice a day? Here's how 5 POCO phones actually compare on battery capacity and real-world endurance in 2026, with sourced specs and Naira pricing for Nigerian buyers."
 pubDatetime: 2026-08-28T07:29:00Z
+modDatetime: 2026-08-28T10:53:00Z
 author: iSamuel
 coverImage: "/assets/xiaomi/cover-poco-battery-phones-2026.jpg"
 coverImageAlt: "Five POCO smartphones lined up on a table showing their screens and battery percentages"
