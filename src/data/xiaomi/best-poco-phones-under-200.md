@@ -8,6 +8,7 @@ coverImageAlt: "Five POCO smartphones under $200 lined up side by side showing t
 slug: "best-poco-phones-under-200"
 relatedSlugs: 
     - best-poco-camera-phones-2026
+    - best-poco-phones-battery-life-2026
 ---
 
 ## Table of Contents 
