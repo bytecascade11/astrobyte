@@ -318,6 +318,46 @@ const honor = defineCollection({
       slug: z.string().optional(),
     }),
 });
+// --------------- OnePlus Collection ---------------
+const oneplus = defineCollection({
+  loader: glob({ pattern: "**/[^_]*.md", base: "./src/content/oneplus" }),
+  schema: ({ image }) =>
+    z.object({
+      title: z.string(),
+      slug: z.string().optional(),
+      description: z.string(),
+      pubDatetime: z.date(),
+      lastUpdated: z.string().optional(),
+      draft: z.boolean().default(false),
+      author: z.string().default("iSamuel"),
+      type: z
+        .enum(["review", "comparison", "buying-guide", "news"])
+        .default("review"),
+
+      model: z.string().optional(), // e.g. "13", "Nord 5", "13R"
+      series: z.enum(["Nord", "Numbered", "R"]).default("Numbered"),
+
+      ram: z.string().optional(),
+      storage: z.string().optional(),
+      battery: z.string().optional(),
+      display: z.string().optional(),
+      priceNGN: z.number().optional(),
+
+      // OnePlus-specific differentiators
+      hasselblad: z.boolean().default(false), // Hasselblad camera partnership
+      fastCharging: z.string().optional(), // e.g. "100W SuperVOOC"
+      oxygenOS: z.string().optional(), // e.g. "OxygenOS 15"
+
+      rating: z.number().min(0).max(5).optional(),
+      comparedTo: z.string().optional(),
+      comparedToSlug: z.string().optional(),
+      relatedSlugs: z.array(z.string()).optional(),
+
+      coverImage: image().optional(),
+      coverImageAlt: z.string().optional(),
+      tags: z.array(z.string()).default(["oneplus"]),
+    }),
+});
 
 export const collections = {
   blog,
@@ -331,4 +371,5 @@ export const collections = {
   motorola,
   huawei,
   honor,
+  oneplus,
 };
