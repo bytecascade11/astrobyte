@@ -320,42 +320,38 @@ const honor = defineCollection({
 });
 // --------------- OnePlus Collection ---------------
 const oneplus = defineCollection({
-  loader: glob({ pattern: "**/[^_]*.md", base: "./src/data/oneplus" }),
+  loader: glob({ pattern: "**/[^_]*.{md,mdx}", base: "./src/data/oneplus" }),
   schema: ({ image }) =>
     z.object({
       title: z.string(),
-      slug: z.string().optional(),
       description: z.string(),
-      pubDatetime: z.date(),
+      author: z.string().default(SITE.author),
+      pubDatetime: z.coerce.date(),
+      modDatetime: z.coerce.date().optional().nullable(),
       lastUpdated: z.string().optional(),
-      draft: z.boolean().default(false),
-      author: z.string().default("iSamuel"),
-      type: z
-        .enum(["review", "comparison", "buying-guide", "news"])
-        .default("review"),
-
-      model: z.string().optional(), // e.g. "13", "Nord 5", "13R"
+      ogImage: image().optional().or(z.string().url().optional()),
+      canonicalURL: z.string().url().optional(),
+      coverImage: z.string().optional(),
+      coverImageAlt: z.string().optional(),
+      type: z.enum(["review", "comparison", "buying-guide", "news"]).default("review"),
+      model: z.string().optional(),        // e.g. "13", "Nord 5", "13R"
       series: z.enum(["Nord", "Numbered", "R"]).default("Numbered"),
-
+      fastCharging: z.string().optional(), // e.g. "100W SuperVOOC"
+      hasselblad: z.boolean().optional(),  // Hasselblad camera partnership, OnePlus's brand differentiator
+      oxygenOS: z.string().optional(),     // e.g. "OxygenOS 15"
       ram: z.string().optional(),
       storage: z.string().optional(),
       battery: z.string().optional(),
       display: z.string().optional(),
       priceNGN: z.number().optional(),
-
-      // OnePlus-specific differentiators
-      hasselblad: z.boolean().default(false), // Hasselblad camera partnership
-      fastCharging: z.string().optional(), // e.g. "100W SuperVOOC"
-      oxygenOS: z.string().optional(), // e.g. "OxygenOS 15"
-
       rating: z.number().min(0).max(5).optional(),
+      tags: z.array(z.string()).default(["oneplus"]),
+      featured: z.boolean().optional(),
+      draft: z.boolean().optional().default(false),
+      relatedSlugs: z.array(z.string()).optional(),
       comparedTo: z.string().optional(),
       comparedToSlug: z.string().optional(),
-      relatedSlugs: z.array(z.string()).optional(),
-
-      coverImage: image().optional(),
-      coverImageAlt: z.string().optional(),
-      tags: z.array(z.string()).default(["oneplus"]),
+      slug: z.string().optional(),
     }),
 });
 
