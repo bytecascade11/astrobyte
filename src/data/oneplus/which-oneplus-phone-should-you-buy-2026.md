@@ -7,6 +7,8 @@ coverImage: "/assets/oneplus/oneplus-2026-lineup-cover.jpg"
 coverImageAlt: "OnePlus 15, 15R, 13, 13R and 13s smartphones compared side by side"
 slug: "which-oneplus-phone-should-you-buy-2026"
 tags: ["oneplus", "opinions"]
+relatedSlugs:
+    - oneplus-phones-battery-life-2026
 category: oneplus
 ---
 
