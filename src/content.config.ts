@@ -354,7 +354,33 @@ const oneplus = defineCollection({
       slug: z.string().optional(),
     }),
 });
-
+// --------------- Pixel Collection ---------------
+const pixel = defineCollection({
+  loader: glob({ pattern: "**/[^_]*.{md,mdx}", base: "./src/data/pixel" }),
+  schema: ({ image }) =>
+    z.object({
+      title: z.string(),
+      description: z.string(),
+      author: z.string().default(SITE.author),
+      pubDatetime: z.coerce.date(),
+      modDatetime: z.coerce.date().optional().nullable(),
+      lastUpdated: z.string().optional(),
+      ogImage: image().optional().or(z.string().url().optional()),
+      canonicalURL: z.string().url().optional(),
+      coverImage: z.string().optional(),
+      coverImageAlt: z.string().optional(),
+      type: z.enum(["review", "comparison", "buying-guide", "news"]).default("review"),
+      model: z.string().optional(),        // e.g. "Pixel 10 Pro"
+      tensorChip: z.string().optional(),   // e.g. "Tensor G5"
+      priceNGN: z.number().optional(),
+      rating: z.number().min(0).max(5).optional(),
+      tags: z.array(z.string()).default(["pixel"]),
+      featured: z.boolean().optional(),
+      draft: z.boolean().optional().default(false),
+      relatedSlugs: z.array(z.string()).optional(),
+      slug: z.string().optional(),
+    }),
+});
 export const collections = {
   blog,
   codm,
@@ -368,4 +394,5 @@ export const collections = {
   huawei,
   honor,
   oneplus,
+  pixel,
 };
