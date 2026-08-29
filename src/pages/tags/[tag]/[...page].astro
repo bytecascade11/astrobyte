@@ -24,6 +24,8 @@ export const getStaticPaths: GetStaticPaths = async ({ paginate }) => {
   const motorolaPosts = await getCollection("motorola", ({ data }) => !data.draft);
   const huaweiPosts = await getCollection("huawei", ({ data }) => !data.draft);
   const honorPosts = await getCollection("honor", ({ data }) => !data.draft);
+  const oneplusPosts = await getCollection("oneplus", ({ data }) => !data.draft);
+  const pixelPosts = await getCollection("pixel", ({ data }) => !data.draft);
 
 
   const allPosts: TaggablePost[] = [
@@ -34,6 +36,8 @@ export const getStaticPaths: GetStaticPaths = async ({ paginate }) => {
     ...motorolaPosts.map(p => ({ ...p, hubPath: "motorola" })),
     ...huaweiPosts.map(p => ({ ...p, hubPath: "huawei" })),
     ...honorPosts.map(p => ({ ...p, hubPath: "honor" })),
+    ...oneplusPosts.map(p => ({ ...p, hubPath: "oneplus" })),
+    ...pixelPosts.map(p => ({ ...p, hubPath: "pixel" })),
   ];
 
   const sortedPosts = getSortedPosts(allPosts as any);
