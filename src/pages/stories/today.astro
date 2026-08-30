@@ -1,4 +1,4 @@
- ---
+---
 import { getCollection } from 'astro:content';
 
 const allCollections = ['blog', 'codm', 'efootball', 'pubgmobile', 'mlbb', 'samsung', 'xiaomi', 'tecno', 'motorola', 'huawei', 'honor', 'oneplus', 'pixel'];
@@ -10,8 +10,8 @@ const allPosts = (
 const windowStart = new Date(Date.now() - 48 * 60 * 60 * 1000);
 
 const recentPosts = allPosts
-  .filter((post) => new Date(post.data.pubDate) >= windowStart)
-  .sort((a, b) => new Date(b.data.pubDate) - new Date(a.data.pubDate));
+  .filter((post) => new Date(post.data.pubDatetime) >= windowStart)
+  .sort((a, b) => new Date(b.data.pubDatetime) - new Date(a.data.pubDatetime));
 
 const routeFor = (post) =>
   `https://revibyte.blog/${post.collection === 'blog' ? 'posts' : post.collection}/${post.slug}/`;
