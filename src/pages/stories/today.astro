@@ -1,0 +1,56 @@
+ ---
+import { getCollection } from 'astro:content';
+
+const allCollections = ['blog', 'codm', 'efootball', 'pubgmobile', 'mlbb', 'samsung', 'xiaomi', 'tecno', 'motorola', 'huawei', 'honor', 'oneplus', 'pixel'];
+
+const allPosts = (
+  await Promise.all(allCollections.map((c) => getCollection(c)))
+).flat();
+
+const windowStart = new Date(Date.now() - 48 * 60 * 60 * 1000);
+
+const recentPosts = allPosts
+  .filter((post) => new Date(post.data.pubDate) >= windowStart)
+  .sort((a, b) => new Date(b.data.pubDate) - new Date(a.data.pubDate));
+
+const routeFor = (post) =>
+  `https://revibyte.blog/${post.collection === 'blog' ? 'posts' : post.collection}/${post.slug}/`;
+---
+<!doctype html>
+<html amp lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+  <script async src="https://cdn.ampproject.org/v0.js"></script>
+  <script async custom-element="amp-story" src="https://cdn.ampproject.org/v0/amp-story-1.0.js"></script>
+  <title>ReviByte Top Stories</title>
+  <link rel="canonical" href="https://revibyte.blog/stories/today/">
+  <style amp-custom>
+    h1 { font-size: 2rem; color: #fff; margin: 0 0 12px; }
+    p { font-size: 1.1rem; color: #eee; line-height: 1.4; }
+    a.cta { color: #fff; text-decoration: underline; font-weight: bold; }
+  </style>
+</head>
+<body>
+  <amp-story standalone
+    title="ReviByte Top Stories"
+    publisher="ReviByte"
+    publisher-logo-src="https://revibyte.blog/logo.png"
+    poster-portrait-src={recentPosts[0]?.data.coverImage ?? 'https://revibyte.blog/logo.png'}>
+
+    {recentPosts.map((post, i) => (
+      <amp-story-page id={`page-${i}`}>
+        <amp-story-grid-layer template="fill">
+          <amp-img src={post.data.coverImage} width="720" height="1280" layout="responsive"></amp-img>
+        </amp-story-grid-layer>
+        <amp-story-grid-layer template="vertical">
+          <h1>{post.data.title}</h1>
+          <p>{post.data.description}</p>
+          <a class="cta" href={routeFor(post)}>Read full story →</a>
+        </amp-story-grid-layer>
+      </amp-story-page>
+    ))}
+
+  </amp-story>
+</body>
+</html>
