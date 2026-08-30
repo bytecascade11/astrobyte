@@ -6,6 +6,8 @@ coverImageAlt: Best Motorola gaming phones 2026 - Razr 60 Ultra, Edge 60 Pro and
 author: iSamuel  
 pubDatetime: 2026-08-19T08:33:00Z  
 tags: ["motorola", "games", "opinions"]   
+relatedSlugs: 
+     - motorola-razr-vs-edge-vs-moto-g
 ---
 
 ## Table of Contents 
