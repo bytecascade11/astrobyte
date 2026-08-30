@@ -14,7 +14,7 @@ const recentPosts = allPosts
   .sort((a, b) => new Date(b.data.pubDatetime) - new Date(a.data.pubDatetime));
 
 const routeFor = (post) =>
-  `https://revibyte.blog/${post.collection === 'blog' ? 'posts' : post.collection}/${post.slug}/`;
+  `https://revibyte.blog/${post.collection === 'blog' ? 'posts' : post.collection}/${post.id}/`;
 ---
 <!doctype html>
 <html amp lang="en">
