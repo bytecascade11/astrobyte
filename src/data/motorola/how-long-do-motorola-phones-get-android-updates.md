@@ -11,6 +11,7 @@ relatedSlugs:
   - best-motorola-phones-for-battery-life-2026
   - best-motorola-phones-for-gaming-2026
   - best-motorola-phones-2026-top-picks
+  - motorola-razr-vs-edge-vs-moto-g
 ---
 
 ## Table of Contents 
