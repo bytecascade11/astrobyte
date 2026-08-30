@@ -13,6 +13,7 @@ relatedSlugs:
   - "best-motorola-phones-for-gaming-2026"
   - "best-motorola-phones-for-battery-life-2026"
   - "best-motorola-phones-2026-top-picks"
+  - "how-long-do-motorola-phones-get-android-updates"
 tags:  
   - motorola  
   - opinions 
