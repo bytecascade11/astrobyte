@@ -6,6 +6,8 @@ pubDatetime: 2026-08-17T21:31:00Z
 coverImage: "/assets/motorola/best-motorola-camera-phones-2026.jpg"  
 coverImageAlt: "Best Motorola camera phones 2026 lineup"
 tags: ["motorola", "cameras", "opinions", "ultra"]  
+relatedSlugs: 
+    - how-long-do-motorola-phones-get-android-updates
 ---  
 
 ## Table of Contents 
