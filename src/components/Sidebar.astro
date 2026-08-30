@@ -13,7 +13,7 @@ const isActive = (path: string) => {
   return currentPath === path || currentPath.startsWith(path + "/");
 };
 
-const categories = [
+const tags = [
   { label: "News", href: "/tags/news/" },
   { label: "Samsung", href: "/tags/samsung/" },
   { label: "Apple", href: "/tags/apple/" },
@@ -21,6 +21,17 @@ const categories = [
   { label: "Games", href: "/tags/games/" },
   { label: "AI", href: "/tags/ai/" },
   { label: "Opinions", href: "/tags/opinions/" },
+];
+
+const categories = [
+  { label: "Samsung", href: "/samsung/" },
+  { label: "Xiaomi", href: "/xiaomi/" },
+  { label: "Tecno", href: "/tecno/" },
+  { label: "Motorola", href: "/motorola/" },
+  { label: "Huawei", href: "/huawei/" },
+  { label: "Honor", href: "/honor/" },
+  { label: "OnePlus", href: "/oneplus/" },
+  { label: "Pixel", href: "/pixel/" },
 ];
 
 const tools = [
@@ -67,6 +78,16 @@ const gamingHub = [
       <ul class="space-y-1 [&>li>a]:block [&>li>a]:rounded-lg [&>li>a]:px-3 [&>li>a]:py-2.5 [&>li>a]:font-medium [&>li>a]:hover:bg-black/5 dark:[&>li>a]:hover:bg-white/10 [&>li>a]:hover:text-accent">
         <li><a href="/" aria-current={isActive("/") ? "page" : undefined}>Home</a></li>
         <li><a href="/posts/" aria-current={isActive("/posts") ? "page" : undefined}>Posts</a></li>
+        <li><a href="/stories/today/" aria-current={isActive("/stories") ? "page" : undefined}>Top Stories</a></li>
+      </ul>
+
+      <p class="mt-5 px-3 pb-1 text-xs font-semibold uppercase tracking-wider opacity-60">Tags</p>
+      <ul class="grid grid-cols-2 gap-1 [&>li>a]:block [&>li>a]:rounded-lg [&>li>a]:px-3 [&>li>a]:py-2.5 [&>li>a]:text-sm [&>li>a]:font-medium [&>li>a]:hover:bg-black/5 dark:[&>li>a]:hover:bg-white/10 [&>li>a]:hover:text-accent">
+        {tags.map((t) => (
+          <li>
+            <a href={t.href} aria-current={isActive(t.href.slice(0, -1)) ? "page" : undefined}>{t.label}</a>
+          </li>
+        ))}
       </ul>
 
       <p class="mt-5 px-3 pb-1 text-xs font-semibold uppercase tracking-wider opacity-60">Categories</p>
