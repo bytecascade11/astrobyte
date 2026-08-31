@@ -8,6 +8,8 @@ coverImageAlt: Google Pixel 11 and Pixel 10a phones side by side on a table
 slug: best-google-pixel-phone-for-most-people
 tags: ["google", "pixel", "opinions", "android"]
 category: google
+relatedSlugs:
+    - google-pixel-10-vs-10-pro-vs-10a
 ---
 
 ## Table of Contents 
