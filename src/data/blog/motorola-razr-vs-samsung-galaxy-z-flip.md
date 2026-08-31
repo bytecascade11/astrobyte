@@ -5,6 +5,7 @@ author: iSamuel
 pubDatetime: 2026-08-31T09:45:00Z
 coverImage: "/assets/posts/motorola-razr-vs-samsung-galaxy-z-flip-cover.jpg"
 coverImageAlt: "Motorola Razr and Samsung Galaxy Z Flip 7 folded side by side on a table"
+storyImage: "/assets/posts/motorola-razr.jpg"
 slug: "motorola-razr-vs-samsung-galaxy-z-flip"
 tags: ["motorola", "samsung", "fold", "opinions"]
 ---
