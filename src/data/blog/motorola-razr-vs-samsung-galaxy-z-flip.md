@@ -3,7 +3,7 @@ title: "Motorola Razr vs Samsung Galaxy Z Flip: Which Foldable Is Better?"
 description: "Motorola Razr (2025) and Samsung Galaxy Z Flip 7 go head-to-head on display, cameras, battery, software support, and price to help you pick the right clamshell foldable."
 author: iSamuel
 pubDatetime: 2026-08-31T09:45:00Z
-coverImage: "/images/motorola-razr-vs-samsung-galaxy-z-flip-cover.jpg"
+coverImage: "/assets/posts/motorola-razr-vs-samsung-galaxy-z-flip-cover.jpg"
 coverImageAlt: "Motorola Razr and Samsung Galaxy Z Flip 7 folded side by side on a table"
 slug: "motorola-razr-vs-samsung-galaxy-z-flip"
 tags: ["motorola", "samsung", "fold", "opinions"]
