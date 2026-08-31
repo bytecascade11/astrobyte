@@ -3,7 +3,7 @@ title: "Google Pixel 10 vs 10 Pro vs 10a: Which One Is Right for You?"
 description: "Google's 2026 Pixel lineup splits into three clear lanes — the Pixel 10, the Pixel 10 Pro, and the budget-friendly Pixel 10a. Here's a real breakdown of the camera, battery, display, and price differences so you don't overpay for specs you'll never use."
 coverImage: "/assets/pixel/pixel-lineup.jpg"
 coverImageAlt: "Google Pixel 10, Pixel 10 Pro, and Pixel 10a phones side by side"
-storyImage: pixel-10-pro.jpg
+storyImage: "pixel-10-pro.jpg"
 pubDatetime: 2026-08-31T19:08:00Z
 author: iSamuel
 slug: "google-pixel-10-vs-10-pro-vs-10a"
