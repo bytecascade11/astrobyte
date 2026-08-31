@@ -18,6 +18,12 @@ export const GET: APIRoute = async () => {
   const escape = (str: string) =>
     String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 
+  // Crops any source image to a portrait 720x1280 frame via Vercel's image endpoint
+  const portraitCrop = (src: string, width = 720, height = 1280) => {
+    const absoluteUrl = src.startsWith('http') ? src : `https://revibyte.blog${src}`;
+    return `https://revibyte.blog/_vercel/image?url=${encodeURIComponent(absoluteUrl)}&w=${width}&h=${height}&fit=cover`;
+  };
+
   const publishDate = recentPosts[0]?.data.pubDatetime?.toISOString() ?? new Date().toISOString();
 
   const jsonLd = {
@@ -25,7 +31,7 @@ export const GET: APIRoute = async () => {
     "@type": "NewsArticle",
     "mainEntityOfPage": { "@type": "WebPage", "@id": "https://revibyte.blog/stories/today/" },
     "headline": "ReviByte Top Stories",
-    "image": recentPosts.map((p) => p.data.coverImage),
+    "image": recentPosts.map((p) => portraitCrop(p.data.coverImage)),
     "datePublished": publishDate,
     "dateModified": new Date().toISOString(),
     "author": { "@type": "Organization", "name": "ReviByte" },
@@ -39,7 +45,7 @@ export const GET: APIRoute = async () => {
   const pages = recentPosts.map((post, i) => `
     <amp-story-page id="page-${i}">
       <amp-story-grid-layer template="fill">
-        <amp-img src="${escape(post.data.coverImage)}" width="720" height="1280" layout="responsive"></amp-img>
+        <amp-img src="${portraitCrop(post.data.coverImage)}" width="720" height="1280" layout="responsive"></amp-img>
       </amp-story-grid-layer>
       <amp-story-grid-layer template="vertical">
         <h1>${escape(post.data.title)}</h1>
@@ -48,7 +54,9 @@ export const GET: APIRoute = async () => {
       </amp-story-grid-layer>
     </amp-story-page>`).join('');
 
-  const posterImage = recentPosts[0]?.data.coverImage ?? 'https://revibyte.blog/logo.png';
+  const posterImage = recentPosts[0]?.data.coverImage
+    ? portraitCrop(recentPosts[0].data.coverImage)
+    : 'https://revibyte.blog/logo.png';
 
   const html = `<!doctype html>
 <html amp lang="en">
