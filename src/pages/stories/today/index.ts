@@ -18,9 +18,10 @@ export const GET: APIRoute = async () => {
   const escape = (str: string) =>
     String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 
-  const portraitCrop = (src: string) => {
-  return src.startsWith('http') ? src : `https://revibyte.blog${src}`;
-};
+  const storyImageFor = (post: any) => {
+    const src = post.data.storyImage || post.data.coverImage;
+    return src.startsWith('http') ? src : `https://revibyte.blog${src}`;
+  };
 
   const publishDate = recentPosts[0]?.data.pubDatetime?.toISOString() ?? new Date().toISOString();
 
@@ -29,7 +30,7 @@ export const GET: APIRoute = async () => {
     "@type": "NewsArticle",
     "mainEntityOfPage": { "@type": "WebPage", "@id": "https://revibyte.blog/stories/today/" },
     "headline": "ReviByte Top Stories",
-    "image": recentPosts.map((p) => portraitCrop(p.data.coverImage)),
+    "image": recentPosts.map((p) => storyImageFor(p)),
     "datePublished": publishDate,
     "dateModified": new Date().toISOString(),
     "author": { "@type": "Organization", "name": "ReviByte" },
@@ -43,7 +44,7 @@ export const GET: APIRoute = async () => {
   const pages = recentPosts.map((post, i) => `
     <amp-story-page id="page-${i}">
       <amp-story-grid-layer template="fill">
-        <amp-img src="${portraitCrop(post.data.coverImage)}" width="720" height="1280" layout="responsive"></amp-img>
+        <amp-img src="${storyImageFor(post)}" width="720" height="1280" layout="responsive"></amp-img>
       </amp-story-grid-layer>
       <amp-story-grid-layer template="vertical">
         <h1>${escape(post.data.title)}</h1>
@@ -52,9 +53,7 @@ export const GET: APIRoute = async () => {
       </amp-story-grid-layer>
     </amp-story-page>`).join('');
 
-  const posterImage = recentPosts[0]?.data.coverImage
-    ? portraitCrop(recentPosts[0].data.coverImage)
-    : 'https://revibyte.blog/logo.png';
+  const posterImage = recentPosts[0] ? storyImageFor(recentPosts[0]) : 'https://revibyte.blog/logo.png';
 
   const html = `<!doctype html>
 <html amp lang="en">
