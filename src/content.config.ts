@@ -24,6 +24,7 @@ const blog = defineCollection({
       slug: z.string().optional(),
       coverImage: z.string().optional(),
       coverImageAlt: z.string().optional(),
+      storyImage: z.string().optional(),
       hideEditPost: z.boolean().optional().default(false),
     }),
 });
@@ -43,6 +44,7 @@ const codm = defineCollection({
       canonicalURL: z.string().url().optional(),
       coverImage: z.string().optional(),
       coverImageAlt: z.string().optional(),
+      storyImage: z.string().optional(),
       type: z.enum(["loadout", "tier-list", "guide", "settings", "news"]).default("guide"),
       gameMode: z.enum(["Multiplayer", "Battle Royale", "Ranked", "All Modes"]).optional(),
       season: z.string().optional(),
@@ -69,6 +71,7 @@ const efootball = defineCollection({
       canonicalURL: z.string().url().optional(),
       coverImage: z.string().optional(),
       coverImageAlt: z.string().optional(),
+      storyImage: z.string().optional(),
       type: z.enum(["formation", "guide", "tier-list", "player-review", "news"]).default("guide"),
       formation: z.string().optional(),
       division: z.string().optional(),
@@ -96,6 +99,7 @@ const pubgmobile = defineCollection({
       canonicalURL: z.string().url().optional(),
       coverImage: z.string().optional(),
       coverImageAlt: z.string().optional(),
+      storyImage: z.string().optional(),
       type: z.enum(["loadout", "tier-list", "guide", "settings", "news"]).default("guide"),
       gameMode: z.enum(["Classic", "Arena", "Ranked", "All Modes"]).optional(),
       season: z.string().optional(),
@@ -122,6 +126,7 @@ const mlbb = defineCollection({
       canonicalURL: z.string().url().optional(),
       coverImage: z.string().optional(),
       coverImageAlt: z.string().optional(),
+      storyImage: z.string().optional(),
       type: z.enum(["hero-guide", "tier-list", "guide", "settings", "news"]).default("guide"),
       role: z.enum(["Tank", "Fighter", "Assassin", "Mage", "Marksman", "Support", "All Roles"]).optional(),
       season: z.string().optional(),
@@ -147,6 +152,7 @@ const samsung = defineCollection({
       canonicalURL: z.string().url().optional(),
       coverImage: z.string().optional(),
       coverImageAlt: z.string().optional(),
+      storyImage: z.string().optional(),
       type: z.enum(["review", "comparison", "buying-guide", "news"]).default("review"),
       model: z.string().optional(),        // e.g. "Galaxy S25 Ultra"
       priceNGN: z.number().optional(),
@@ -177,6 +183,7 @@ const xiaomi = defineCollection({
       canonicalURL: z.string().url().optional(),
       coverImage: z.string().optional(),
       coverImageAlt: z.string().optional(),
+      storyImage: z.string().optional(),
       type: z.enum(["review", "comparison", "buying-guide", "news"]).default("review"),
       model: z.string().optional(),        // e.g. "Redmi Note 14 Pro"
       subBrand: z.enum(["xiaomi", "redmi", "poco"]).optional(),
@@ -205,6 +212,7 @@ const tecno = defineCollection({
       canonicalURL: z.string().url().optional(),
       coverImage: z.string().optional(),
       coverImageAlt: z.string().optional(),
+      storyImage: z.string().optional(),
       type: z.enum(["review", "comparison", "buying-guide", "news"]).default("review"),
       model: z.string().optional(),        // e.g. "Camon 40 Pro"
       software: z.string().optional(),     // e.g. "HiOS 15"
@@ -238,6 +246,7 @@ const motorola = defineCollection({
       canonicalURL: z.string().url().optional(),
       coverImage: z.string().optional(),
       coverImageAlt: z.string().optional(),
+      storyImage: z.string().optional(),
       type: z.enum(["review", "comparison", "buying-guide", "news"]).default("review"),
       model: z.string().optional(),        // e.g. "Edge 60 Pro"
       chargingSpeed: z.string().optional(), // e.g. "125W TurboPower"
@@ -266,10 +275,11 @@ const huawei = defineCollection({
       canonicalURL: z.string().url().optional(),
       coverImage: z.string().optional(),
       coverImageAlt: z.string().optional(),
+      storyImage: z.string().optional(),
       type: z.enum(["review", "comparison", "buying-guide", "news"]).default("review"),
       model: z.string().optional(),          // e.g. "Pura 70 Pro"
-      gmsStatus: z.enum(["full", "appgallery", "partial"]).optional(), // Google Play Store availability
-      cameraHighlight: z.string().optional(), // e.g. "50MP Leica-tuned triple camera"
+      gmsStatus: z.enum(["full", "appgallery", "partial"]).optional(),
+      cameraHighlight: z.string().optional(),
       ram: z.string().optional(),
       storage: z.string().optional(),
       battery: z.string().optional(),
@@ -300,9 +310,10 @@ const honor = defineCollection({
       canonicalURL: z.string().url().optional(),
       coverImage: z.string().optional(),
       coverImageAlt: z.string().optional(),
+      storyImage: z.string().optional(),
       type: z.enum(["review", "comparison", "buying-guide", "news"]).default("review"),
       model: z.string().optional(),          // e.g. "Magic 7 Pro"
-      curvedDisplay: z.boolean().optional(), // Honor's brand differentiator spec
+      curvedDisplay: z.boolean().optional(),
       ram: z.string().optional(),
       storage: z.string().optional(),
       battery: z.string().optional(),
@@ -333,12 +344,13 @@ const oneplus = defineCollection({
       canonicalURL: z.string().url().optional(),
       coverImage: z.string().optional(),
       coverImageAlt: z.string().optional(),
+      storyImage: z.string().optional(),
       type: z.enum(["review", "comparison", "buying-guide", "news"]).default("review"),
       model: z.string().optional(),        // e.g. "13", "Nord 5", "13R"
       series: z.enum(["Nord", "Numbered", "R"]).default("Numbered"),
-      fastCharging: z.string().optional(), // e.g. "100W SuperVOOC"
-      hasselblad: z.boolean().optional(),  // Hasselblad camera partnership, OnePlus's brand differentiator
-      oxygenOS: z.string().optional(),     // e.g. "OxygenOS 15"
+      fastCharging: z.string().optional(),
+      hasselblad: z.boolean().optional(),
+      oxygenOS: z.string().optional(),
       ram: z.string().optional(),
       storage: z.string().optional(),
       battery: z.string().optional(),
@@ -369,9 +381,10 @@ const pixel = defineCollection({
       canonicalURL: z.string().url().optional(),
       coverImage: z.string().optional(),
       coverImageAlt: z.string().optional(),
+      storyImage: z.string().optional(),
       type: z.enum(["review", "comparison", "buying-guide", "news"]).default("review"),
       model: z.string().optional(),        // e.g. "Pixel 10 Pro"
-      tensorChip: z.string().optional(),   // e.g. "Tensor G5"
+      tensorChip: z.string().optional(),
       priceNGN: z.number().optional(),
       rating: z.number().min(0).max(5).optional(),
       tags: z.array(z.string()).default(["pixel"]),
