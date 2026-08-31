@@ -18,13 +18,9 @@ export const GET: APIRoute = async () => {
   const escape = (str: string) =>
     String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 
-  // Requests a larger image via Vercel's optimizer (width-only, must match
-  // an allowed size in vercel.json). AMP's template="fill" + object-fit:cover
-  // handles the visual portrait crop automatically — no h/fit param needed.
   const portraitCrop = (src: string) => {
-    const absoluteUrl = src.startsWith('http') ? src : `https://revibyte.blog${src}`;
-    return `https://revibyte.blog/_vercel/image?url=${encodeURIComponent(absoluteUrl)}&w=1200&q=75`;
-  };
+  return src.startsWith('http') ? src : `https://revibyte.blog${src}`;
+};
 
   const publishDate = recentPosts[0]?.data.pubDatetime?.toISOString() ?? new Date().toISOString();
 
