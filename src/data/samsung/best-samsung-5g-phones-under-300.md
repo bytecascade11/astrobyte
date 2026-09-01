@@ -6,12 +6,6 @@ pubDatetime: 2026-08-16T20:58:00Z
 coverImage: "/assets/samsung/best-samsung-5g-under-300-cover.jpg"  
 coverImageAlt: "Samsung Galaxy A-series 5G phones lined up side by side"  
 slug: "best-samsung-5g-phones-under-300"  
-relatedSlugs:  
-  - "samsung-battery-life"  
-  - "top-samsung-phones-best-camera"  
-  - "samsung-phones-that-dont-lag"  
-  - "best-samsung-phones-for-students"
-tags: ["samsung", "android", "opinions", "5g"]
 relatedSlugs:
    - how-long-do-samsung-phones-get-updates
 ---
