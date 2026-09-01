@@ -3,7 +3,7 @@ title: "Best CFs in eFootball 2027: Top 10 Centre-Forwards Ranked (v6.0.0)"
 description: "The strongest CF cards in eFootball 2027 after the v6.0.0 update, ranked using confirmed OVR, available Playing Style data, and formation fit, with the exact card identified where confirmed."
 pubDatetime: 2026-09-01T21:11:00Z
 author: iSamuel
-coverImage: "/images/efootball/top-10-cf-efootball-2027-cover.jpg"
+coverImage: "/assets/efootball/top-10-cf-efootball-2027-cover.jpg"
 coverImageAlt: "Centre-forward striking the ball in an eFootball 2027-themed graphic"
 storyImage: "/assets/efootball/top-cf-efootball-2027.jpg"
 slug: top-10-best-cf-efootball-2027
