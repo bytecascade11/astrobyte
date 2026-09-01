@@ -1,12 +1,14 @@
 ---
 title: "How Long Do Samsung Galaxy Phones Get Updates? Full Software Support Guide"
 description: "A breakdown of Samsung's Android update policy across Galaxy S, Z, A, and Tab series — how many years of OS upgrades and security patches each tier actually gets, and how to check your own device."
-author: iSamuel
-pubDate: 2026-09-01T18:30:00.000Z
+author: "iSamuel"
+pubDate: 2026-09-01T18:30:00Z
 coverImage: "/assets/samsung/samsung-galaxy-software-update-policy-cover.jpg"
 coverImageAlt: "Samsung Galaxy phone displaying a software update screen"
 storyImage: "/assets/samsung/samsung-galaxy-screen.jpg"
 slug: how-long-do-samsung-phones-get-updates
+relatedSlugs: 
+    - best-samsung-5g-phones-under-300
 ---
 
 ## Table of Contents 
