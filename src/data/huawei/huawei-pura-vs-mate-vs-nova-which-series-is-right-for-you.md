@@ -3,7 +3,6 @@ title: "Huawei Pura vs Mate vs Nova: Which Series Is Right for You?"
 description: "Confused about Huawei's lineup? Here's how the Pura, Mate, and nova series actually differ in camera focus, pricing, and who each one is really built for."
 pubDatetime: 2026-09-01T07:45:00Z
 author: iSamuel
-type: guide
 coverImage: "/assets/huawei/huawei-pura-vs-mate-vs-nova-cover.jpg"
 coverImageAlt: "Huawei Pura, Mate, and nova phones placed side by side on a table"
 storyImage: "/assets/huawei/huawei-mate-80-pro.jpg"
@@ -12,12 +11,6 @@ relatedSlugs:
   - best-huawei-foldable-phones-2026
   - best-huawei-phones-under-200-2026
   - best-huawei-camera-phones-2026
-tags:
-  - huawei
-  - pura
-  - mate
-  - nova
-  - opinions 
 ---
 
 ## Table of Contents 
