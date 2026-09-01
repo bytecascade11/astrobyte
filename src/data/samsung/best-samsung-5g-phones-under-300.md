@@ -12,7 +12,8 @@ relatedSlugs:
   - "samsung-phones-that-dont-lag"  
   - "best-samsung-phones-for-students"
 tags: ["samsung", "android", "opinions", "5g"]
-featured: false  
+relatedSlugs:
+   - how-long-do-samsung-phones-get-updates
 ---
 
 ## Table of Contents 
