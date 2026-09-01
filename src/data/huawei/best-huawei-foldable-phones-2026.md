@@ -11,6 +11,7 @@ relatedSlugs:
   - best-huawei-phones-2026
   - best-huawei-camera-phones-2026
   - best-huawei-phones-battery-life-2026
+  - huawei-pura-vs-mate-vs-nova-which-series-is-right-for-you
 tags:  
   - huawei  
   - fold
