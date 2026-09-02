@@ -55,6 +55,8 @@ Battery life reviews have been mixed on this one. [TechRadar's review](https://w
 If you're also comparing folding form factors before you commit to a slab phone, our [Motorola Razr vs. Samsung Galaxy Z Flip comparison](https://www.revibyte.blog/posts/motorola-razr-vs-samsung-galaxy-z-flip/) is worth a look, and if you've been eyeing non-Nothing alternatives entirely, our breakdown of [Huawei's Pura, Mate, and Nova series](https://www.revibyte.blog/huawei/huawei-pura-vs-mate-vs-nova-which-series-is-right-for-you/) covers a very different set of trade-offs at similar price points.
 
 ![Nothing Phone 4a Pro aluminum unibody detail](/assets/nothing/nothing-phone-4a-pro-glyph-matrix.jpg)
+*Image credit: GSMArena*
+
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4896561037705299"
      crossorigin="anonymous"></script>
 <ins class="adsbygoogle"
