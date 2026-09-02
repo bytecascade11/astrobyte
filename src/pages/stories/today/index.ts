@@ -4,7 +4,7 @@ import { getCollection } from 'astro:content';
 export const prerender = true;
 
 export const GET: APIRoute = async () => {
-  const allCollections = ['blog', 'codm', 'efootball', 'pubgmobile', 'mlbb', 'samsung', 'xiaomi', 'tecno', 'motorola', 'huawei', 'honor', 'oneplus', 'pixel'];
+  const allCollections = ['blog', 'codm', 'efootball', 'pubgmobile', 'mlbb', 'samsung', 'xiaomi', 'tecno', 'motorola', 'huawei', 'honor', 'oneplus', 'pixel', 'nothing'];
   const allPosts = (await Promise.all(allCollections.map((c) => getCollection(c)))).flat();
 
   const windowStart = new Date(Date.now() - 48 * 60 * 60 * 1000);
