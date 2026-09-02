@@ -45,9 +45,12 @@ const coverImageAbs = post.data.coverImage
 const postUrl = `${websiteBase}nothing/${post.data.slug ?? post.id}/`;
 const postSlug = post.data.slug ?? post.id;
 
-// No brand-specific differentiator field for Nothing (flat, like Tecno).
-// Hub grouping happens by `series` (Phone / CMF) instead of price tier,
-// so the breadcrumb reflects series rather than a Budget/Mid/Flagship label.
+const price = post.data.priceNGN ?? 0;
+
+// No brand-specific differentiator field for Nothing (flat, like Tecno) —
+// unlike Huawei's tierLabel-in-breadcrumb, Nothing groups by `series`
+// (Phone / CMF) instead of price band, so that's what drives the
+// breadcrumb + badge here.
 const seriesLabel = post.data.series ?? "Phone";
 
 const typeLabels: Record<string, string> = {
@@ -59,8 +62,6 @@ const typeLabels: Record<string, string> = {
 const typeLabel = typeLabels[post.data.type] ?? "Review";
 const shareURL = postUrl;
 const shareTitle = post.data.title;
-
-const price = post.data.priceNGN ?? 0;
 
 const productSchema = post.data.rating ? {
   "@context": "https://schema.org",
@@ -88,6 +89,10 @@ const productSchema = post.data.rating ? {
   },
 } : null;
 
+// No FAQ schema for Nothing — that pattern was specific to Huawei's GMS
+// question. Nothing has no equivalent single recurring buyer question,
+// so there's nothing to target a featured snippet with here.
+
 const specs = [
   post.data.ram && { label: "RAM", value: post.data.ram },
   post.data.storage && { label: "Storage", value: post.data.storage },
@@ -95,35 +100,10 @@ const specs = [
   post.data.cameraHighlight && { label: "Camera", value: post.data.cameraHighlight },
   post.data.display && { label: "Display", value: post.data.display },
 ].filter(Boolean) as { label: string; value: string }[];
-
-// Responsive Vercel-optimized cover image URLs
-const coverSrc = post.data.coverImage
-  ? `/_vercel/image?url=${encodeURIComponent(post.data.coverImage)}&w=1200&q=75`
-  : undefined;
-
-const coverSrcset = post.data.coverImage
-  ? [
-      `/_vercel/image?url=${encodeURIComponent(post.data.coverImage)}&w=400&q=75 400w`,
-      `/_vercel/image?url=${encodeURIComponent(post.data.coverImage)}&w=640&q=75 640w`,
-      `/_vercel/image?url=${encodeURIComponent(post.data.coverImage)}&w=768&q=75 768w`,
-      `/_vercel/image?url=${encodeURIComponent(post.data.coverImage)}&w=1200&q=75 1200w`,
-    ].join(", ")
-  : undefined;
 ---
 
-<!-- Preload LCP cover image before Layout renders -->
-{coverSrc && (
-  <link
-    rel="preload"
-    as="image"
-    href={coverSrc}
-    imagesrcset={coverSrcset}
-    imagesizes="100vw"
-  />
-)}
-
 <Layout title={pageTitle} description={pageDesc} ogImage={ogImage}>
-  <Header slot="header" />
+<Header slot="header" />
 
   <SchemaMarkup
     type="breadcrumb"
@@ -159,7 +139,7 @@ const coverSrcset = post.data.coverImage
       <span>{seriesLabel}</span>
     </nav>
 
-    {coverSrc && (
+    {coverImageAbs && (
       <div class="cover-ad-wrapper">
         <div class="ad-slot ad-slot--top">
           <ins class="adsbygoogle"
@@ -171,18 +151,8 @@ const coverSrcset = post.data.coverImage
         </div>
 
         <div class="hub-cover-wrap">
-          <img
-            src={coverSrc}
-            srcset={coverSrcset}
-            sizes="(max-width: 768px) 100vw, 1200px"
-            alt={post.data.coverImageAlt ?? post.data.title}
-            class="hub-cover-img"
-            loading="eager"
-            fetchpriority="high"
-            width="1200"
-            height="630"
-            decoding="async"
-          />
+          <img src={coverImageAbs} alt={post.data.coverImageAlt ?? post.data.title}
+            class="hub-cover-img" loading="eager" fetchpriority="high" width="1200" height="630" />
         </div>
 
         <div class="ad-slot ad-slot--bottom">
@@ -266,15 +236,8 @@ const coverSrcset = post.data.coverImage
               <a href={`/nothing/${related.data.slug ?? related.id}/`}
                 class="group flex items-start gap-3 rounded-lg border border-skin-line p-3 hover:border-skin-accent transition-colors">
                 {related.data.coverImage && (
-                  <img
-                    src={related.data.coverImage}
-                    alt={related.data.coverImageAlt ?? related.data.title}
-                    class="w-16 h-12 object-cover rounded-lg shrink-0"
-                    loading="lazy"
-                    decoding="async"
-                    width="64"
-                    height="48"
-                  />
+                  <img src={related.data.coverImage} alt={related.data.coverImageAlt ?? related.data.title}
+                    class="w-16 h-12 object-cover rounded-lg shrink-0" loading="lazy" width="64" height="48" />
                 )}
                 {!related.data.coverImage && <span class="text-xl shrink-0">⚪</span>}
                 <div>
@@ -287,18 +250,9 @@ const coverSrcset = post.data.coverImage
         </ul>
       </section>
     )}
-
     <!-- Author card -->
     <div class="author-card">
-      <img
-        src="/assets/isamuel.jpg"
-        alt={SITE.author || "iSamuel"}
-        class="author-avatar"
-        width="52"
-        height="52"
-        loading="lazy"
-        decoding="async"
-      />
+      <img src="/assets/isamuel.jpg" alt={SITE.author || "iSamuel"} class="author-avatar" width="52" height="52" />
       <div class="author-info">
         <p class="author-name">{SITE.author || "iSamuel"}</p>
         <p class="author-bio">
@@ -312,7 +266,6 @@ const coverSrcset = post.data.coverImage
         </a>
       </div>
     </div>
-
     <a href="https://whatsapp.com/channel/0029VbBCXzRKAwEdcyip8841" target="_blank" rel="noopener noreferrer" class="wa-channel-box">
       <span class="wa-channel-icon">
         <svg viewBox="0 0 24 24" width="22" height="22" fill="#25D366">
@@ -330,73 +283,37 @@ const coverSrcset = post.data.coverImage
 
     <AffiliateCarousel />
 
-    <!-- Adsterra: Above Comments — non-blocking -->
     <div style="margin: 1.5rem 0; min-height: 50px; display:flex; justify-content:center; contain: layout;">
       <script is:inline>
-        (function() {
-          window.atOptions = {
-            'key' : '2b0c33ae294502978b9bfb23cc9b43f0',
-            'format' : 'iframe',
-            'height' : 50,
-            'width' : 320,
-            'params' : {}
-          };
-          var s = document.createElement('script');
-          s.async = true;
-          s.src = 'https://www.highperformanceformat.com/2b0c33ae294502978b9bfb23cc9b43f0/invoke.js';
-          document.currentScript.parentNode.appendChild(s);
-        })();
+        atOptions = { 'key' : '2b0c33ae294502978b9bfb23cc9b43f0', 'format' : 'iframe', 'height' : 50, 'width' : 320, 'params' : {} };
       </script>
+      <script is:inline src="https://www.highperformanceformat.com/2b0c33ae294502978b9bfb23cc9b43f0/invoke.js"></script>
     </div>
 
     <a href="https://omg10.com/4/11483020" target="_blank" rel="noopener noreferrer sponsored" class="smart-link-cta">
       🔥 Check This Out
     </a>
-
-    <!-- AdSense (already async) -->
+<!-- AdSense + Adsterra libraries for the cover-image ad-slots above — loaded here, after main content, so they don't compete with early taps for INP -->
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4896561037705299"
          crossorigin="anonymous"></script>
     <script is:inline>
       (adsbygoogle = window.adsbygoogle || []).push({});
     </script>
 
-    <!-- Adsterra cover ad script — non-blocking -->
-    <script is:inline>
-      (function() {
-        var s = document.createElement('script');
-        s.async = true;
-        s.setAttribute('data-cfasync', 'false');
-        s.src = 'https://pl28410703.effectivecpmnetwork.com/100c0408033e7aba877563ba9293a45d/invoke.js';
-        document.currentScript.parentNode.appendChild(s);
-      })();
-    </script>
+    <script async data-cfasync="false" src="https://pl28410703.effectivecpmnetwork.com/100c0408033e7aba877563ba9293a45d/invoke.js"></script>
 
-    <!-- Comments -->
     <Comments slug={postSlug} />
-
     <div class="mt-10 flex items-center gap-4">
       <a href="/" class="text-sm text-skin-accent hover:underline flex items-center gap-1">← Home</a>
       <span class="text-skin-base/30">|</span>
       <a href="/nothing/" class="text-sm text-skin-accent hover:underline flex items-center gap-1">Nothing Hub</a>
     </div>
 
-    <!-- Adsterra: Bottom of Hub (300x250) — non-blocking -->
     <div style="margin: 1.5rem 0; min-height: 250px; display:flex; justify-content:center; contain: layout;">
       <script is:inline>
-        (function() {
-          window.atOptions = {
-            'key' : '3de9102309ceb722a1529e96b401e327',
-            'format' : 'iframe',
-            'height' : 250,
-            'width' : 300,
-            'params' : {}
-          };
-          var s = document.createElement('script');
-          s.async = true;
-          s.src = 'https://www.highperformanceformat.com/3de9102309ceb722a1529e96b401e327/invoke.js';
-          document.currentScript.parentNode.appendChild(s);
-        })();
+        atOptions = { 'key' : '3de9102309ceb722a1529e96b401e327', 'format' : 'iframe', 'height' : 250, 'width' : 300, 'params' : {} };
       </script>
+      <script is:inline src="https://www.highperformanceformat.com/3de9102309ceb722a1529e96b401e327/invoke.js"></script>
     </div>
 
   </main>
@@ -440,9 +357,8 @@ const coverSrcset = post.data.coverImage
     });
   }
 </script>
-
 <style is:global>
-  .cover-ad-wrapper {
+.cover-ad-wrapper {
     display: flex;
     flex-direction: column;
     width: 100%;
@@ -460,15 +376,15 @@ const coverSrcset = post.data.coverImage
 
   .ad-slot--top {
     margin-bottom: 0.5rem;
-    min-height: 280px;
+    min-height: 280px; /* verify against real rendered height in DevTools */
   }
 
   .ad-slot--bottom {
     margin-top: 0.5rem;
     margin-bottom: 0.5rem;
-    min-height: 250px;
+    min-height: 250px; /* verify against real rendered height in DevTools */
   }
-
+  /* ── Author Card ── */
   .author-card {
     display: flex;
     gap: 1.25rem;
@@ -482,13 +398,13 @@ const coverSrcset = post.data.coverImage
   }
 
   .author-avatar {
-    width: 52px;
-    height: 52px;
-    min-width: 52px;
-    border-radius: 14px;
-    object-fit: cover;
-    box-shadow: 0 4px 12px rgba(99,102,241,0.3);
-  }
+  width: 52px;
+  height: 52px;
+  min-width: 52px;
+  border-radius: 14px;
+  object-fit: cover;
+  box-shadow: 0 4px 12px rgba(99,102,241,0.3);
+}
 
   .author-info { flex: 1; }
 
@@ -614,21 +530,21 @@ const coverSrcset = post.data.coverImage
     .share-bar { flex-direction: column; align-items: flex-start; }
     .share-buttons { margin-left: 0; }
   }
-  .smart-link-cta {
-    display: block;
-    text-align: center;
-    margin: 1.5rem 0;
-    padding: 12px 20px;
-    border-radius: 10px;
-    background: var(--accent, #6366f1);
-    color: #fff;
-    font-weight: 700;
-    font-size: 0.9rem;
-    text-decoration: none;
-    transition: opacity 0.15s, transform 0.1s;
-  }
-  .smart-link-cta:hover {
-    opacity: 0.88;
-    transform: translateY(-1px);
-  }
+.smart-link-cta {
+  display: block;
+  text-align: center;
+  margin: 1.5rem 0;
+  padding: 12px 20px;
+  border-radius: 10px;
+  background: var(--accent, #6366f1);
+  color: #fff;
+  font-weight: 700;
+  font-size: 0.9rem;
+  text-decoration: none;
+  transition: opacity 0.15s, transform 0.1s;
+}
+.smart-link-cta:hover {
+  opacity: 0.88;
+  transform: translateY(-1px);
+}
 </style>
