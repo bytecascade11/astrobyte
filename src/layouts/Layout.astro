@@ -3,7 +3,7 @@ import { SITE } from "@/config";
 import SchemaMarkup from "@/components/SchemaMarkup.astro";
 import HeliaraAI from '../components/HeliaraAI.astro';
 import OptimizedCoverImage from '@/components/OptimizedCoverImage.astro';
-import Sidebar from "@/components/Sidebar.astro"; // ← ADD THIS
+import Sidebar from "@/components/Sidebar.astro";
 import Footer from "@/components/Footer.astro";
 import "@/styles/global.css";
 import GoogleSubscribe from '../components/GoogleSubscribe.astro';
@@ -78,10 +78,15 @@ const currentPath = Astro.url.pathname;
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
     <meta name="apple-mobile-web-app-title" content="ReviByte" />
 
-    <!-- LCP cover image preload — highest priority -->
-    {coverImage && (
-      <link rel="preload" as="image" href={coverImage} fetchpriority="high" />
-    )}
+    <!-- Preconnect to Google Fonts (if you use them) and other third-parties -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
+
+    <!-- REMOVED: coverImage preload from here.
+         It was preloading the RAW image while OptimizedCoverImage serves a
+         Vercel-optimized URL, causing a double-download. Pages that need LCP
+         preloading (like CODM guides) should handle it in their own file. -->
 
     <!-- Theme Handling — critical, must stay blocking to prevent flash -->
     <script is:inline>
@@ -182,13 +187,9 @@ const currentPath = Astro.url.pathname;
       }
     }
     </script>
-    <script type="text/javascript">
-        (function(c,l,a,r,i,t,y){
-            c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
-            t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
-            y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
-        })(window, document, "clarity", "script", "xjz9wkvh5l");
-    </script>
+
+    <!-- REMOVED: Microsoft Clarity from here — it was render-blocking LCP.
+         It has been moved to the bottom of <body> with async loading. -->
 
   </head>
 
@@ -293,7 +294,7 @@ const currentPath = Astro.url.pathname;
       })();
     </script>
 
-    <!-- Monetag Vignette — deferred until first scroll or 5s idle, same pattern as OneSignal, so it never competes with early taps/INP -->
+    <!-- Monetag Vignette — deferred until first scroll or 5s idle -->
     <script is:inline>
       (function() {
         function loadVignette() {
@@ -321,9 +322,21 @@ const currentPath = Astro.url.pathname;
         }, 2000);
       });
     </script>
-  <Footer />
+
+    <Footer />
     <!-- SIDEBAR — rendered LAST so it's on top of everything -->
     <Sidebar />
+
+    <!-- Microsoft Clarity — moved here so it does NOT block LCP.
+         Loaded asynchronously after all content has rendered.
+         DELETE THIS ENTIRE BLOCK if you want Clarity fully removed. -->
+    <script is:inline>
+      (function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+      })(window, document, "clarity", "script", "xjz9wkvh5l");
+    </script>
 
     <style>
       .cover-ad-wrapper {
@@ -342,9 +355,6 @@ const currentPath = Astro.url.pathname;
         contain: layout;
       }
 
-      /* Reserved space prevents layout shift while the ad script loads.
-         IMPORTANT: verify these against the real rendered height in DevTools
-         on a live post — adjust if your actual fluid/invoke.js height differs. */
       .ad-slot--top {
         margin-bottom: 0.5rem;
         min-height: 280px;
@@ -356,7 +366,6 @@ const currentPath = Astro.url.pathname;
         min-height: 250px;
       }
 
-      /* Ensure cover image sits cleanly between ads with no extra gaps */
       .cover-ad-wrapper :global(img),
       .cover-ad-wrapper :global(picture) {
         display: block;
