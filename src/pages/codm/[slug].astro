@@ -57,34 +57,14 @@ const typeLabel = typeLabels[guide.data.type] ?? "Guide";
 const shareURL = postUrl;
 const shareTitle = guide.data.title;
 
-// Responsive image srcset for cover image (critical for mobile LCP)
-const coverSrc = guide.data.coverImage
+// Vercel-proxied cover image URL — routes public/ images through on-the-fly optimization
+const coverImageOptimized = guide.data.coverImage
   ? `/_vercel/image?url=${encodeURIComponent(guide.data.coverImage)}&w=1200&q=75`
-  : undefined;
-
-const coverSrcset = guide.data.coverImage
-  ? [
-      `/_vercel/image?url=${encodeURIComponent(guide.data.coverImage)}&w=400&q=75 400w`,
-      `/_vercel/image?url=${encodeURIComponent(guide.data.coverImage)}&w=640&q=75 640w`,
-      `/_vercel/image?url=${encodeURIComponent(guide.data.coverImage)}&w=768&q=75 768w`,
-      `/_vercel/image?url=${encodeURIComponent(guide.data.coverImage)}&w=1200&q=75 1200w`,
-    ].join(", ")
   : undefined;
 ---
 
-<!-- Preload LCP image: discovered by browser before layout render -->
-{coverSrc && (
-  <link
-    rel="preload"
-    as="image"
-    href={coverSrc}
-    imagesrcset={coverSrcset}
-    imagesizes="100vw"
-  />
-)}
-
 <Layout title={pageTitle} description={pageDesc} ogImage={ogImage}>
-  <Header slot="header" />
+<Header slot="header" />
 
   <SchemaMarkup
     type="breadcrumb"
@@ -116,9 +96,7 @@ const coverSrcset = guide.data.coverImage
       <span>/</span>
       <span>{typeLabel}</span>
     </nav>
-
-    <!-- Cover Image + Ads Wrapper -->
-    {coverSrc && (
+{coverImageOptimized && (
       <div class="cover-ad-wrapper">
         <div class="ad-slot ad-slot--top">
           <ins class="adsbygoogle"
@@ -130,18 +108,8 @@ const coverSrcset = guide.data.coverImage
         </div>
 
         <div class="hub-cover-wrap">
-          <img
-            src={coverSrc}
-            srcset={coverSrcset}
-            sizes="(max-width: 768px) 100vw, 1200px"
-            alt={guide.data.coverImageAlt ?? guide.data.title}
-            class="hub-cover-img"
-            loading="eager"
-            fetchpriority="high"
-            width="1200"
-            height="630"
-            decoding="async"
-          />
+          <img src={coverImageOptimized} alt={guide.data.coverImageAlt ?? guide.data.title}
+            class="hub-cover-img" loading="eager" fetchpriority="high" width="1200" height="630" />
         </div>
 
         <div class="ad-slot ad-slot--bottom">
@@ -149,7 +117,6 @@ const coverSrcset = guide.data.coverImage
         </div>
       </div>
     )}
-
     <!-- Header -->
     <div class="mb-6">
       <div class="flex flex-wrap gap-2 mb-3">
@@ -184,7 +151,7 @@ const coverSrcset = guide.data.coverImage
           X
         </a>
         <a href={`https://wa.me/?text=${encodeURIComponent(shareTitle + " " + shareURL)}`} target="_blank" rel="noopener noreferrer" class="share-btn share-btn--wa">
-          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.118.554 4.103 1.522 5.828L.057 23.012a.75.75 0 0 0 .931.931l5.184-1.465A11.945 11.945 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.75a9.724 9.724 0 0 1-4.96-1.355l-.355-.213-3.676 1.04 1.04-3.648-.234-.368a9.725 9.725 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg>
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.118.554 4.103 1.522 5.828L.057 23.012a.75.75 0 0 0 .931.931l5.184-1.465A11.945 11.945 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.75a9.724 9.724 0 0 1-4.96-1.355l-.355-.213-3.676 1.04 1.04-3.574-.234-.368A9.725 9.725 0 0 1 2.25 12C2.25 6.615 6.615 2.25 12 2.25S21.75 6.615 21.75 12 17.385 21.75 12 21.75z"/></svg>
           WhatsApp
         </a>
         <button class="share-btn share-btn--copy" id="copyLinkBtn" data-url={shareURL}>
@@ -216,10 +183,9 @@ const coverSrcset = guide.data.coverImage
         </ul>
       </section>
     )}
-
-    <!-- Author card -->
+<!-- Author card -->
     <div class="author-card">
-      <img src="/assets/isamuel.jpg" alt={SITE.author || "iSamuel"} class="author-avatar" width="52" height="52" loading="lazy" decoding="async" />
+      <img src="/assets/isamuel.jpg" alt={SITE.author || "iSamuel"} class="author-avatar" />
       <div class="author-info">
         <p class="author-name">{SITE.author || "iSamuel"}</p>
         <p class="author-bio">
@@ -233,9 +199,7 @@ const coverSrcset = guide.data.coverImage
         </a>
       </div>
     </div>
-
-    <AffiliateCarousel />
-
+<AffiliateCarousel />
     <!-- WhatsApp Channel CTA -->
     <a href="https://whatsapp.com/channel/0029VbBCXzRKAwEdcyip8841" target="_blank" rel="noopener noreferrer" class="wa-channel-box">
       <span class="wa-channel-icon">
@@ -248,55 +212,38 @@ const coverSrcset = guide.data.coverImage
       <svg viewBox="0 0 24 24" width="15" height="15" class="wa-channel-arrow" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
     </a>
 
-    <!-- Adsterra: Above Comments — non-blocking -->
+    <!-- Adsterra: Above Comments -->
     <div style="margin: 1.5rem 0; min-height: 50px; display:flex; justify-content:center; contain: layout;">
       <script is:inline>
-        (function() {
-          window.atOptions = {
-            'key' : '2b0c33ae294502978b9bfb23cc9b43f0',
-            'format' : 'iframe',
-            'height' : 50,
-            'width' : 320,
-            'params' : {}
-          };
-          var s = document.createElement('script');
-          s.async = true;
-          s.src = 'https://www.highperformanceformat.com/2b0c33ae294502978b9bfb23cc9b43f0/invoke.js';
-          document.currentScript.parentNode.appendChild(s);
-        })();
+        atOptions = {
+          'key' : '2b0c33ae294502978b9bfb23cc9b43f0',
+          'format' : 'iframe',
+          'height' : 50,
+          'width' : 320,
+          'params' : {}
+        };
       </script>
+      <script is:inline src="https://www.highperformanceformat.com/2b0c33ae294502978b9bfb23cc9b43f0/invoke.js"></script>
     </div>
-
-    <a
-      href="https://omg10.com/4/11483020"
-      target="_blank"
-      rel="noopener noreferrer sponsored"
-      class="smart-link-cta"
-    >
-      🔥 Check This Out
-    </a>
-
-    <!-- AdSense (already async) -->
+<a
+  href="https://omg10.com/4/11483020"
+  target="_blank"
+  rel="noopener noreferrer sponsored"
+  class="smart-link-cta"
+>
+  🔥 Check This Out
+</a>
+<!-- AdSense + Adsterra libraries for the cover-image ad-slots above — loaded here, after main content, so they don't compete with early taps for INP -->
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4896561037705299"
          crossorigin="anonymous"></script>
     <script is:inline>
       (adsbygoogle = window.adsbygoogle || []).push({});
     </script>
 
-    <!-- Adsterra cover ad script — non-blocking -->
-    <script is:inline>
-      (function() {
-        var s = document.createElement('script');
-        s.async = true;
-        s.setAttribute('data-cfasync', 'false');
-        s.src = 'https://pl28410703.effectivecpmnetwork.com/100c0408033e7aba877563ba9293a45d/invoke.js';
-        document.currentScript.parentNode.appendChild(s);
-      })();
-    </script>
-
+    <script async data-cfasync="false" src="https://pl28410703.effectivecpmnetwork.com/100c0408033e7aba877563ba9293a45d/invoke.js"></script>
     <!-- Comments -->
     <Comments slug={postSlug} />
-
+    
     <!-- Back links -->
     <div class="mt-10 flex items-center gap-4">
       <a href="/" class="text-sm text-skin-accent hover:underline flex items-center gap-1">← Home</a>
@@ -304,27 +251,21 @@ const coverSrcset = guide.data.coverImage
       <a href="/codm/" class="text-sm text-skin-accent hover:underline flex items-center gap-1">CODM Hub</a>
     </div>
 
-    <!-- Adsterra: Bottom of Hub (300x250) — non-blocking -->
+  <!-- Adsterra: Bottom of Hub (300x250) -->
     <div style="margin: 1.5rem 0; min-height: 250px; display:flex; justify-content:center; contain: layout;">
       <script is:inline>
-        (function() {
-          window.atOptions = {
-            'key' : '3de9102309ceb722a1529e96b401e327',
-            'format' : 'iframe',
-            'height' : 250,
-            'width' : 300,
-            'params' : {}
-          };
-          var s = document.createElement('script');
-          s.async = true;
-          s.src = 'https://www.highperformanceformat.com/3de9102309ceb722a1529e96b401e327/invoke.js';
-          document.currentScript.parentNode.appendChild(s);
-        })();
+        atOptions = {
+          'key' : '3de9102309ceb722a1529e96b401e327',
+          'format' : 'iframe',
+          'height' : 250,
+          'width' : 300,
+          'params' : {}
+        };
       </script>
+      <script is:inline src="https://www.highperformanceformat.com/3de9102309ceb722a1529e96b401e327/invoke.js"></script>
     </div>
   </main>
 </Layout>
-
 <script is:inline>
   // Share button (native mobile share)
   if (navigator.share) {
@@ -345,19 +286,21 @@ const coverSrcset = guide.data.coverImage
   if (copyBtn) {
     copyBtn.addEventListener('click', () => {
       const url = copyBtn.dataset.url || window.location.href;
+
       navigator.clipboard.writeText(url).then(() => {
         const label = document.getElementById('copyBtnText');
         if (label) {
           label.textContent = 'Copied!';
-          setTimeout(() => { label.textContent = 'Copy'; }, 2000);
+          setTimeout(() => {
+            label.textContent = 'Copy';
+          }, 2000);
         }
       }).catch(() => {});
     });
   }
 </script>
-
 <style is:global>
-  .cover-ad-wrapper {
+.cover-ad-wrapper {
     display: flex;
     flex-direction: column;
     width: 100%;
@@ -375,16 +318,15 @@ const coverSrcset = guide.data.coverImage
 
   .ad-slot--top {
     margin-bottom: 0.5rem;
-    min-height: 280px;
+    min-height: 280px; /* verify against real rendered height in DevTools */
   }
 
   .ad-slot--bottom {
     margin-top: 0.5rem;
     margin-bottom: 0.5rem;
-    min-height: 250px;
+    min-height: 250px; /* verify against real rendered height in DevTools */
   }
-
-  /* Author Card */
+  /* ── Author Card ── */
   .author-card {
     display: flex;
     gap: 1.25rem;
@@ -398,13 +340,13 @@ const coverSrcset = guide.data.coverImage
   }
 
   .author-avatar {
-    width: 52px;
-    height: 52px;
-    min-width: 52px;
-    border-radius: 14px;
-    object-fit: cover;
-    box-shadow: 0 4px 12px rgba(99,102,241,0.3);
-  }
+  width: 52px;
+  height: 52px;
+  min-width: 52px;
+  border-radius: 14px;
+  object-fit: cover;
+  box-shadow: 0 4px 12px rgba(99,102,241,0.3);
+}
 
   .author-info { flex: 1; }
 
@@ -474,49 +416,47 @@ const coverSrcset = guide.data.coverImage
   .share-btn--wa { background: #25D366; color: #fff; }
   .share-btn--copy { background: var(--background-light); color: var(--foreground); border-color: var(--border); }
   @media (max-width: 480px) { .share-bar { flex-direction: column; align-items: flex-start; } .share-buttons { margin-left: 0; } }
-
-  .smart-link-cta {
-    display: block;
-    text-align: center;
-    margin: 1.5rem 0;
-    padding: 12px 20px;
-    border-radius: 10px;
-    background: var(--accent, #6366f1);
-    color: #fff;
-    font-weight: 700;
-    font-size: 0.9rem;
-    text-decoration: none;
-    transition: opacity 0.15s, transform 0.1s;
-  }
-  .smart-link-cta:hover {
-    opacity: 0.88;
-    transform: translateY(-1px);
-  }
-
-  .tools-box {
-    margin-top: 1.5rem;
-    padding: 14px 16px;
-    border-radius: 12px;
-    border: 1px solid var(--border, rgba(99,102,241,0.2));
-    background: var(--background-light, rgba(99,102,241,0.06));
-  }
-  .tools-box-title {
-    font-size: 0.85rem;
-    font-weight: 700;
-    margin-bottom: 8px;
-    color: var(--foreground);
-  }
-  .tools-box-list {
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-  }
-  .tools-box-list a {
-    font-size: 0.85rem;
-    color: var(--accent, #6366f1);
-    text-decoration: none;
-  }
-  .tools-box-list a:hover {
-    text-decoration: underline;
-  }
+.smart-link-cta {
+  display: block;
+  text-align: center;
+  margin: 1.5rem 0;
+  padding: 12px 20px;
+  border-radius: 10px;
+  background: var(--accent, #6366f1);
+  color: #fff;
+  font-weight: 700;
+  font-size: 0.9rem;
+  text-decoration: none;
+  transition: opacity 0.15s, transform 0.1s;
+}
+.smart-link-cta:hover {
+  opacity: 0.88;
+  transform: translateY(-1px);
+}
+.tools-box {
+  margin-top: 1.5rem;
+  padding: 14px 16px;
+  border-radius: 12px;
+  border: 1px solid var(--border, rgba(99,102,241,0.2));
+  background: var(--background-light, rgba(99,102,241,0.06));
+}
+.tools-box-title {
+  font-size: 0.85rem;
+  font-weight: 700;
+  margin-bottom: 8px;
+  color: var(--foreground);
+}
+.tools-box-list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.tools-box-list a {
+  font-size: 0.85rem;
+  color: var(--accent, #6366f1);
+  text-decoration: none;
+}
+.tools-box-list a:hover {
+  text-decoration: underline;
+}
 </style>
