@@ -7,6 +7,8 @@ coverImage: "/assets/nothing/nothing-phone-camera-lineup-2026-cover.jpg"
 coverImageAlt: "Five Nothing and CMF phones laid out side by side showing their rear camera modules"
 storyImage: "/assets/nothing/cmf-phone-2-pro.jpg"
 slug: "5-nothing-phones-best-cameras-2026"
+relatedSlugs: 
+    - which-nothing-phone-is-right-for-you-2026
 ---
 
 ## Table of Contents 
