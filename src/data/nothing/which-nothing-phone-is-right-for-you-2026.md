@@ -7,6 +7,8 @@ coverImage: "/assets/nothing/nothing-phone-lineup-2026-cover.jpg"
 coverImageAlt: "Nothing Phone (3), Phone (4a) Pro, and Phone (4a) lined up side by side showing their Glyph interfaces"
 storyImage: "/assets/nothing/phone-4a-pro.jpg"
 slug: "which-nothing-phone-is-right-for-you-2026"
+relatedSlugs: 
+     - 5-nothing-phones-best-cameras-2026
 ---
 
 ## Table of Contents 
