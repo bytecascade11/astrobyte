@@ -101,7 +101,6 @@ The ultrawide is identical to the Pro's 8MP unit, and the front camera steps dow
 
 The (2a) Plus didn't make the top five because it skips telephoto entirely, which counts against it under this list's versatility-first methodology. But it deserves a mention for a hardware trait none of the five phones above have: a full-resolution 50MP ultrawide, using a 1/2.76" Samsung ISOCELL JN1 sensor, instead of the 8MP ultrawides that fund the telephoto lenses on most of this list. If wide-angle landscape or architecture shots matter more to you than reach, and you can find it discounted, it's still a reasonable pickup — just not a 2026-competitive all-rounder anymore.
 
-![Sample low-light photo comparison grid from a Nothing Phone camera test](/assets/nothing/nothing-phone-low-light-camera-sample-comparison-2026.jpg)
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4896561037705299"
      crossorigin="anonymous"></script>
 <ins class="adsbygoogle"
