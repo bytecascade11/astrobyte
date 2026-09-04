@@ -5,7 +5,7 @@ coverImage: "/assets/nothing/cover-nothing-battery-2026.jpg"
 coverImageAlt: "Nothing Phone (3) and Phone (3a) Pro side by side showing battery life comparison"
 storyImage: "/assets/nothing/nothing-phone-3.jpg"
 author: iSamuel 
-pubDatetime: "2026-09-04T08:21:00Z"
+pubDatetime: "2026-09-04T11:40:00Z"
 slug: "nothing-phones-longest-battery-life-2026"
 relatedSlugs:
   - "https://www.revibyte.blog/nothing/5-nothing-phones-best-cameras-2026/"
