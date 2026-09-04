@@ -9,6 +9,7 @@ storyImage: "/assets/nothing/cmf-phone-2-pro.jpg"
 slug: "5-nothing-phones-best-cameras-2026"
 relatedSlugs: 
     - "which-nothing-phone-is-right-for-you-2026"
+    - "nothing-phones-longest-battery-life-2026"
 ---
 
 ## Table of Contents 
