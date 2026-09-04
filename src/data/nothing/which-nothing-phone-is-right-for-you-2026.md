@@ -9,6 +9,7 @@ storyImage: "/assets/nothing/phone-4a-pro.jpg"
 slug: "which-nothing-phone-is-right-for-you-2026"
 relatedSlugs: 
      - 5-nothing-phones-best-cameras-2026
+     - nothing-phones-longest-battery-life-2026
 ---
 
 ## Table of Contents 
