@@ -9,7 +9,7 @@ export async function GET() {
     : `${SITE.website}/`;
 
   // Fetch all collections
-  const [blogPosts, codmPosts, efootballPosts, pubgPosts, mlbbPosts, itelPosts, samsungPosts, xiaomiPosts, motorolaPosts, huaweiPosts] = await Promise.all([
+  const [blogPosts, codmPosts, efootballPosts, pubgPosts, mlbbPosts, itelPosts, samsungPosts, xiaomiPosts, motorolaPosts, huaweiPosts, oneplusPosts, pixelPosts, nothingPosts] = await Promise.all([
     getCollection("blog", ({ data }) => !data.draft),
     getCollection("codm", ({ data }) => !data.draft),
     getCollection("efootball", ({ data }) => !data.draft),
@@ -20,6 +20,9 @@ export async function GET() {
     getCollection("xiaomi", ({ data }) => !data.draft),
     getCollection("motorola", ({ data }) => !data.draft),
     getCollection("huawei", ({ data }) => !data.draft),
+    getCollection("oneplus", ({ data }) => !data.draft),
+    getCollection("pixel", ({ data }) => !data.draft),
+    getCollection("nothing", ({ data }) => !data.draft),
   ]);
 
   // Blog posts — use getPath like before
@@ -119,6 +122,33 @@ export async function GET() {
       return buildEntry(postUrl, imageUrl, g.data.coverImageAlt || g.data.title);
     });
 
+  const oneplusEntries = xiaomiPosts
+    .filter((g) => g.data.coverImage)
+    .map((g) => {
+      const slug = g.data.slug ?? g.id;
+      const postUrl = `${websiteBase}oneplus/${slug}/`;
+      const imageUrl = buildImageUrl(g.data.coverImage as string, websiteBase);
+      return buildEntry(postUrl, imageUrl, g.data.coverImageAlt || g.data.title);
+    });
+
+  const pixelEntries = xiaomiPosts
+    .filter((g) => g.data.coverImage)
+    .map((g) => {
+      const slug = g.data.slug ?? g.id;
+      const postUrl = `${websiteBase}pixel/${slug}/`;
+      const imageUrl = buildImageUrl(g.data.coverImage as string, websiteBase);
+      return buildEntry(postUrl, imageUrl, g.data.coverImageAlt || g.data.title);
+    });
+
+  const nothingEntries = xiaomiPosts
+    .filter((g) => g.data.coverImage)
+    .map((g) => {
+      const slug = g.data.slug ?? g.id;
+      const postUrl = `${websiteBase}nothing/${slug}/`;
+      const imageUrl = buildImageUrl(g.data.coverImage as string, websiteBase);
+      return buildEntry(postUrl, imageUrl, g.data.coverImageAlt || g.data.title);
+    });
+
   const allEntries = [
     ...blogEntries,
     ...codmEntries,
@@ -130,6 +160,9 @@ export async function GET() {
     ...xiaomiEntries,
     ...motorolaEntries,
     ...huaweiEntries,
+    ...oneplusEntries,
+    ...pixelEntries,
+    ...nothingEntries,
   ].join("");
 
   const xml = `<?xml version="1.0" encoding="UTF-8"?>
