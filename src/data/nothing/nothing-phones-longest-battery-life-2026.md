@@ -8,8 +8,9 @@ author: iSamuel
 pubDatetime: "2026-09-04T11:40:00Z"
 slug: "nothing-phones-longest-battery-life-2026"
 relatedSlugs:
-  - "https://www.revibyte.blog/nothing/5-nothing-phones-best-cameras-2026/"
-  - "https://www.revibyte.blog/nothing/which-nothing-phone-is-right-for-you-2026/"
+  - "5-nothing-phones-best-cameras-2026"
+  - "which-nothing-phone-is-right-for-you-2026"
+  - "nothing-phone-3-vs-3a-pro"
 ---
 
 ## Table of Contents 
