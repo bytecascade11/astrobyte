@@ -10,6 +10,7 @@ slug: "5-nothing-phones-best-cameras-2026"
 relatedSlugs: 
     - "which-nothing-phone-is-right-for-you-2026"
     - "nothing-phones-longest-battery-life-2026"
+    - "nothing-phone-3-vs-3a-pro"
 ---
 
 ## Table of Contents 
