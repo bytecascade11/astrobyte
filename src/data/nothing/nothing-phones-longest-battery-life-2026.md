@@ -11,6 +11,7 @@ relatedSlugs:
   - "5-nothing-phones-best-cameras-2026"
   - "which-nothing-phone-is-right-for-you-2026"
   - "nothing-phone-3-vs-3a-pro"
+  - "nothing-phones-under-200-2026"
 ---
 
 ## Table of Contents 
