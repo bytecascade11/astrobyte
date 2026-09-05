@@ -3,7 +3,7 @@ title: "Nothing Phones With the Longest Battery Life in 2026: What Independent T
 description: "A comparison of independent lab tests, official claims, and real-world reports to determine which Nothing and CMF phones genuinely last the longest in 2026 — with sources and test conditions attached to every figure."
 coverImage: "/assets/nothing/cover-nothing-battery-2026.jpg"
 coverImageAlt: "Nothing Phone (3) and Phone (3a) Pro side by side showing battery life comparison"
-storyImage: "/assets/nothing/nothing-phone-3.jpg"
+storyImage: "/assets/nothing/nothing-phone-(3).jpg"
 author: iSamuel 
 pubDatetime: "2026-09-04T11:40:00Z"
 slug: "nothing-phones-longest-battery-life-2026"
