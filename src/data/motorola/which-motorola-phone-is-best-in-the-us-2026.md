@@ -2,7 +2,7 @@
 title: "Which Motorola Phone Is Best in the US in 2026?"
 description: "Motorola's 2026 US lineup spans a $199 basic phone to a $1,899 book-style foldable. Here's which one actually fits your budget, habits, and patience for software updates."
 author: "iSamuel"
-pubDatetime: 2026-09-05T14:27:00Z
+pubDatetime: 2026-09-05T21:33:00Z
 storyImage: "/assets/motorola/motorola-razr-ultra-2026.jpg"
 coverImage: "/assets/motorola/motorola-2026-lineup-cover.jpg"
 coverImageAlt: "Motorola Razr, Edge, and Moto G phones from the 2026 US lineup laid side by side"
