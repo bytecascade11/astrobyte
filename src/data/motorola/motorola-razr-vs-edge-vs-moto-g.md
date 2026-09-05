@@ -12,6 +12,7 @@ relatedSlugs:
   - "best-motorola-phones-2026-top-picks"
   - "best-motorola-phones-for-battery-life-2026"
   - "best-motorola-camera-phones-2026"
+  - "which-motorola-phone-is-best-in-the-us-2026"
 ---
 
 ## Table of Contents 
