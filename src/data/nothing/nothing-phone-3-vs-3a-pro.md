@@ -11,6 +11,7 @@ relatedSlugs:
   - which-nothing-phone-is-right-for-you-2026
   - 5-nothing-phones-best-cameras-2026
   - nothing-phones-longest-battery-life-2026
+  - nothing-phones-under-200-2026
 ---
 
 ## Table of Contents 
