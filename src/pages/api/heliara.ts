@@ -12,7 +12,6 @@ async function fetchPageText(url: string, maxChars = 4000): Promise<string> {
     if (!res.ok) return "";
     const html = await res.text();
 
-    // Remove non-content blocks
     const cleaned = html
       .replace(/<script[\s\S]*?<\/script>/gi, "")
       .replace(/<style[\s\S]*?<\/style>/gi, "")
@@ -21,22 +20,17 @@ async function fetchPageText(url: string, maxChars = 4000): Promise<string> {
       .replace(/<footer[\s\S]*?<\/footer>/gi, "")
       .replace(/<aside[\s\S]*?<\/aside>/gi, "")
       .replace(/<form[\s\S]*?<\/form>/gi, "")
-      // Preserve heading text with a newline prefix
       .replace(/<h[1-6][^>]*>([\s\S]*?)<\/h[1-6]>/gi, "\n## $1\n")
-      // Preserve paragraph breaks
       .replace(/<\/p>/gi, "\n")
       .replace(/<br\s*\/?>/gi, "\n")
       .replace(/<li[^>]*>/gi, "\n- ")
-      // Strip remaining tags
       .replace(/<[^>]+>/g, " ")
-      // Decode entities
       .replace(/&nbsp;/g, " ")
       .replace(/&amp;/g, "&")
       .replace(/&lt;/g, "<")
       .replace(/&gt;/g, ">")
       .replace(/&quot;/g, '"')
       .replace(/&#39;/g, "'")
-      // Collapse whitespace but keep newlines
       .replace(/[ \t]+/g, " ")
       .replace(/\n{3,}/g, "\n\n")
       .trim();
@@ -50,7 +44,6 @@ async function fetchPageText(url: string, maxChars = 4000): Promise<string> {
 // ─── Sitemap URL scorer ──────────────────────────────────────────────────────
 async function getRelevantPostUrls(query: string): Promise<string[]> {
   try {
-    // Try sitemap-index first, fallback to sitemap.xml
     let xml = "";
     for (const sitemapUrl of [
       "https://revibyte.blog/sitemap-index.xml",
@@ -61,7 +54,6 @@ async function getRelevantPostUrls(query: string): Promise<string[]> {
     }
     if (!xml) return [];
 
-    // If it's a sitemap index, fetch child sitemaps and merge
     const childSitemaps = [...xml.matchAll(/<loc>(.*?sitemap.*?)<\/loc>/gi)].map(m => m[1]);
     if (childSitemaps.length > 0) {
       const childXmls = await Promise.all(
@@ -77,7 +69,6 @@ async function getRelevantPostUrls(query: string): Promise<string[]> {
 
     const allUrls = [...xml.matchAll(/<loc>(.*?)<\/loc>/g)].map(m => m[1]);
 
-    // All content hubs + posts
     const contentUrls = allUrls.filter(u =>
       u.includes("/posts/") ||
       u.includes("/codm/") ||
@@ -90,16 +81,12 @@ async function getRelevantPostUrls(query: string): Promise<string[]> {
 
     const queryLower = query.toLowerCase();
 
-    // ── "Latest / recent / new" intent ──────────────────────────────────────
     const isLatestQuery = /\b(latest|recent|new|last|update|just published|newest)\b/.test(queryLower);
     if (isLatestQuery) {
-      // Sitemap lists URLs in document order — last entries tend to be newest.
-      // Return the last 4 post/hub URLs.
       const reversed = [...contentUrls].reverse();
       return reversed.slice(0, 4);
     }
 
-    // ── Keyword scoring for specific queries ─────────────────────────────────
     const queryWords = queryLower.split(/\s+/).filter(w => w.length > 2);
 
     const scored = contentUrls.map(url => {
@@ -135,9 +122,9 @@ export const POST: APIRoute = async ({ request, locals }) => {
   try {
     const { messages } = await request.json();
 
-    const GROQ_API_KEY = locals.runtime.env.GROQ_API_KEY;
+    const GEMINI_API_KEY = locals.runtime.env.GEMINI_API_KEY;
 
-    if (!GROQ_API_KEY) {
+    if (!GEMINI_API_KEY) {
       return new Response(JSON.stringify({ error: "API key not configured" }), {
         status: 500,
         headers: { "Content-Type": "application/json" },
@@ -148,7 +135,6 @@ export const POST: APIRoute = async ({ request, locals }) => {
       .reverse()
       .find(m => m.role === "user")?.content || "";
 
-    // Fetch relevant posts in parallel
     const relevantUrls = await getRelevantPostUrls(latestUserMessage);
 
     const fetchedTexts = await Promise.all(
@@ -235,40 +221,36 @@ iSamuel (full name: Oke Sunday Samuel) is the sole founder, writer, and develope
 - If asked who built Heliara AI or ReviByte Save — iSamuel built both
 ${liveContext ? `\n## Live ReviByte content fetched for this query\n${liveContext}` : ""}`;
 
-    const groqMessages = [
-      { role: "system", content: systemPrompt },
-      ...(messages as { role: string; content: string }[]),
-    ];
+    const geminiContents = (messages as { role: string; content: string }[]).map(m => ({
+      role: m.role === "assistant" ? "model" : "user",
+      parts: [{ text: m.content }],
+    }));
 
-    const groqRes = await fetch("https://api.groq.com/openai/v1/chat/completions", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "Authorization": `Bearer ${GROQ_API_KEY}`,
-      },
-      body: JSON.stringify({
-        model: "llama-3.3-70b-versatile",
-        messages: groqMessages,
-        max_tokens: 1500,
-        temperature: 0.7,
-      }),
-    });
+    const geminiRes = await fetch(
+      `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${GEMINI_API_KEY}`,
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          system_instruction: { parts: [{ text: systemPrompt }] },
+          contents: geminiContents,
+          generationConfig: { maxOutputTokens: 1500, temperature: 0.7 },
+        }),
+      }
+    );
 
-    const data = await groqRes.json();
+    const data = await geminiRes.json();
 
-    if (!groqRes.ok) {
-      console.error("Groq error:", JSON.stringify(data));
-      const errorMessage = groqRes.status === 429
-        ? "Heliara AI is a bit busy right now. Wait a moment and try again."
-        : data.error?.message || "Groq API error";
+    if (!geminiRes.ok) {
+      console.error("Gemini error:", JSON.stringify(data));
       return new Response(
-        JSON.stringify({ error: errorMessage }),
-        { status: groqRes.status, headers: { "Content-Type": "application/json" } }
+        JSON.stringify({ error: data.error?.message || "Gemini API error" }),
+        { status: geminiRes.status, headers: { "Content-Type": "application/json" } }
       );
     }
 
     const reply =
-      data.choices?.[0]?.message?.content ||
+      data.candidates?.[0]?.content?.parts?.[0]?.text ||
       "Sorry, I couldn't generate a response.";
 
     return new Response(JSON.stringify({ reply }), {
