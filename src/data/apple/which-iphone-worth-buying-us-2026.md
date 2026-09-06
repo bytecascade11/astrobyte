@@ -3,7 +3,8 @@ title: "Which iPhone Is Worth Buying in the US? A 2026 Model-by-Model Breakdown"
 description: "A grounded look at Apple's current US iPhone lineup — what each model actually offers, where the price jumps stop making sense, and which one fits your budget without overpaying for specs you won't use."
 author: "iSamuel"
 pubDatetime: 2026-09-06T11:41:00Z
-coverImage: "iphone-lineup-2026-us-buyers-guide-cover.jpg"
+storyImage: "/assets/apple/iphone-17-pro-max.jpg"
+coverImage: "/assets/apple/iphone-lineup-2026-us-buyers-guide-cover.jpg"
 coverImageAlt: "Apple iPhone 17 series lineup displayed side by side against a plain background"
 slug: "which-iphone-worth-buying-us-2026"
 ---
