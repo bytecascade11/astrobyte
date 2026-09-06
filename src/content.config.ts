@@ -424,6 +424,45 @@ const nothing = defineCollection({
       slug: z.string().optional(),
     }),
 });
+// --------------- Apple Collection ---------------
+const apple = defineCollection({
+  loader: glob({ pattern: "**/[^_]*.{md,mdx}", base: "./src/data/apple" }),
+  schema: ({ image }) =>
+    z.object({
+      title: z.string(),
+      description: z.string(),
+      author: z.string().default(SITE.author),
+      pubDatetime: z.coerce.date(),
+      modDatetime: z.coerce.date().optional().nullable(),
+      lastUpdated: z.string().optional(),
+      ogImage: image().optional().or(z.string().url().optional()),
+      canonicalURL: z.string().url().optional(),
+      coverImage: z.string().optional(),
+      coverImageAlt: z.string().optional(),
+      storyImage: z.string().optional(),
+      type: z.enum(["review", "comparison", "buying-guide", "news"]).default("review"),
+
+      // Apple-specific / differentiator fields (in place of Tecno's model/software/ram)
+      productLine: z.enum(["iphone", "ipad", "mac", "watch", "airpods"]),
+      model: z.string().optional(),        // e.g. "iPhone 17 Pro"
+      chip: z.string().optional(),         // e.g. "A19 Pro", "M4" — Apple's differentiator
+      software: z.string().optional(),     // e.g. "iOS 26", "macOS Tahoe"
+      priceNGN: z.number().optional(),
+      rating: z.number().min(0).max(5).optional(),
+      storage: z.string().optional(),      // e.g. "256GB"
+      battery: z.string().optional(),      // e.g. "27hr video playback"
+      display: z.string().optional(),      // e.g. "6.3in Super Retina XDR"
+
+      comparedTo: z.string().optional(),        // e.g. "iPhone 17"
+      comparedToSlug: z.string().optional(),    // slug of the comparison post
+
+      tags: z.array(z.string()).default(["apple"]),
+      featured: z.boolean().optional(),
+      draft: z.boolean().optional().default(false),
+      relatedSlugs: z.array(z.string()).optional(),
+      slug: z.string().optional(),
+    }),
+});
 export const collections = {
   blog,
   codm,
@@ -439,4 +478,5 @@ export const collections = {
   oneplus,
   pixel,
   nothing,
+  apple, 
 };
