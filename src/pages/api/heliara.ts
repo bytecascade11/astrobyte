@@ -131,11 +131,11 @@ async function getRelevantPostUrls(query: string): Promise<string[]> {
 }
 
 // ─── API Route ───────────────────────────────────────────────────────────────
-export const POST: APIRoute = async ({ request }) => {
+export const POST: APIRoute = async ({ request, locals }) => {
   try {
     const { messages } = await request.json();
 
-    const GROQ_API_KEY = process.env.GROQ_API_KEY;
+    const GROQ_API_KEY = locals.runtime.env.GROQ_API_KEY;
 
     if (!GROQ_API_KEY) {
       return new Response(JSON.stringify({ error: "API key not configured" }), {
