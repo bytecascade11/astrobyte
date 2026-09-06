@@ -11,6 +11,42 @@ const posts = await getCollection("blog");
 const sortedPosts = posts
   .filter((post) => !post.data.draft)
   .sort((a, b) => b.data.pubDatetime.valueOf() - a.data.pubDatetime.valueOf());
+
+// Content hubs: each is its own Astro content collection, living at /<hub>/<slug>/
+const hubs = [
+  { name: "codm", label: "COD Mobile" },
+  { name: "efootball", label: "eFootball" },
+  { name: "pubgmobile", label: "PUBG Mobile" },
+  { name: "mlbb", label: "MLBB" },
+  { name: "itel", label: "Itel" },
+  { name: "samsung", label: "Samsung" },
+  { name: "xiaomi", label: "Xiaomi" },
+  { name: "tecno", label: "Tecno" },
+  { name: "motorola", label: "Motorola" },
+  { name: "huawei", label: "Huawei" },
+  { name: "honor", label: "Honor" },
+  { name: "oneplus", label: "OnePlus" },
+  { name: "pixel", label: "Pixel" },
+  { name: "nothing", label: "Nothing" },
+  { name: "apple", label: "Apple" },
+];
+
+const hubData = await Promise.all(
+  hubs.map(async (hub) => {
+    let entries = [];
+    try {
+      entries = await getCollection(hub.name);
+    } catch {
+      entries = [];
+    }
+
+    const sorted = entries
+      .filter((entry) => !entry.data.draft)
+      .sort((a, b) => b.data.pubDatetime.valueOf() - a.data.pubDatetime.valueOf());
+
+    return { ...hub, posts: sorted };
+  })
+);
 ---
 
 <Layout title={title} description={description}>
@@ -26,13 +62,14 @@ const sortedPosts = posts
       <ul class="list-disc pl-8 space-y-3 text-lg">
         <li><a href="/">Home</a></li>
         <li><a href="/posts/">All Posts</a></li>
+        <li><a href="/tools/">ReviByte Tools</a></li>
         <li><a href="/about/">About</a></li>
         <li><a href="/contact/">Contact</a></li>
         <li><a href="/tags/">Tags</a></li>
       </ul>
     </section>
 
-    <section>
+    <section class="mb-16">
       <h2 class="text-2xl font-semibold mb-6">All Blog Posts ({sortedPosts.length})</h2>
 
       {sortedPosts.length === 0 ? (
@@ -56,6 +93,40 @@ const sortedPosts = posts
           ))}
         </ul>
       )}
+    </section>
+
+    <section class="mb-16">
+      <h2 class="text-2xl font-semibold mb-6">Content Hubs</h2>
+
+      {hubData.map((hub) => (
+        <div class="mb-12">
+          <h3 class="text-xl font-semibold mb-4">
+            <a href={`/${hub.name}/`}>{hub.label} Hub</a> ({hub.posts.length})
+          </h3>
+
+          {hub.posts.length === 0 ? (
+            <p class="text-sm italic">No posts yet.</p>
+          ) : (
+            <ul class="list-disc pl-8 space-y-3">
+              {hub.posts.map((entry) => (
+                <li class="leading-relaxed">
+                  <a href={`/${hub.name}/${entry.id}/`} class="font-medium">
+                    {entry.data.title}
+                  </a>
+                  <br />
+                  <small>
+                    {entry.data.pubDatetime.toLocaleDateString('en-US', {
+                      year: 'numeric',
+                      month: 'long',
+                      day: 'numeric'
+                    })}
+                  </small>
+                </li>
+              ))}
+            </ul>
+          )}
+        </div>
+      ))}
     </section>
   </article>
 </Layout>
