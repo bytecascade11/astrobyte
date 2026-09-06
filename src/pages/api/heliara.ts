@@ -118,11 +118,11 @@ async function getRelevantPostUrls(query: string): Promise<string[]> {
 }
 
 // ─── API Route ───────────────────────────────────────────────────────────────
-export const POST: APIRoute = async ({ request, locals }) => {
+export const POST: APIRoute = async ({ request }) => {
   try {
     const { messages } = await request.json();
 
-    const GEMINI_API_KEY = locals.runtime.env.GEMINI_API_KEY;
+    const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
 
     if (!GEMINI_API_KEY) {
       return new Response(JSON.stringify({ error: "API key not configured" }), {
