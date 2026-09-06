@@ -148,3 +148,26 @@ const itemListSchema = {
 
   </main>
 </Layout>
+<style is:global>
+  .hub-thumb {
+    width: 120px; min-width: 120px; height: 72px;
+    object-fit: cover; border-radius: 8px;
+    background: var(--background-light); flex-shrink: 0;
+  }
+  .spec-pill {
+    font-size: 0.7rem;
+    padding: 2px 8px;
+    border-radius: 999px;
+    background: var(--background-light);
+    color: rgb(var(--color-base) / 0.65);
+    border: 1px solid var(--tw-border-opacity, var(--color-border, transparent));
+  }
+  .spec-pill-accent {
+    background: rgb(var(--color-accent) / 0.12);
+    color: rgb(var(--color-accent));
+    border-color: rgb(var(--color-accent) / 0.3);
+  }
+  @media (max-width: 400px) {
+    .hub-thumb { width: 88px; min-width: 88px; height: 56px; }
+  }
+</style>
