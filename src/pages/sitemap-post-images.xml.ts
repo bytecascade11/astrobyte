@@ -23,6 +23,7 @@ export async function GET() {
     getCollection("oneplus", ({ data }) => !data.draft),
     getCollection("pixel", ({ data }) => !data.draft),
     getCollection("nothing", ({ data }) => !data.draft),
+    getCollection("apple", ({ data }) => !data.draft),
   ]);
 
   // Blog posts — use getPath like before
@@ -104,7 +105,7 @@ export async function GET() {
       return buildEntry(postUrl, imageUrl, g.data.coverImageAlt || g.data.title);
     });
 
-  const motorolaEntries = xiaomiPosts
+  const motorolaEntries = motorolaPosts
     .filter((g) => g.data.coverImage)
     .map((g) => {
       const slug = g.data.slug ?? g.id;
@@ -113,7 +114,7 @@ export async function GET() {
       return buildEntry(postUrl, imageUrl, g.data.coverImageAlt || g.data.title);
     });
 
-  const huaweiEntries = xiaomiPosts
+  const huaweiEntries = huaweiPosts
     .filter((g) => g.data.coverImage)
     .map((g) => {
       const slug = g.data.slug ?? g.id;
@@ -122,7 +123,7 @@ export async function GET() {
       return buildEntry(postUrl, imageUrl, g.data.coverImageAlt || g.data.title);
     });
 
-  const oneplusEntries = xiaomiPosts
+  const oneplusEntries = oneplusPosts
     .filter((g) => g.data.coverImage)
     .map((g) => {
       const slug = g.data.slug ?? g.id;
@@ -131,7 +132,7 @@ export async function GET() {
       return buildEntry(postUrl, imageUrl, g.data.coverImageAlt || g.data.title);
     });
 
-  const pixelEntries = xiaomiPosts
+  const pixelEntries = pixelPosts
     .filter((g) => g.data.coverImage)
     .map((g) => {
       const slug = g.data.slug ?? g.id;
@@ -140,11 +141,20 @@ export async function GET() {
       return buildEntry(postUrl, imageUrl, g.data.coverImageAlt || g.data.title);
     });
 
-  const nothingEntries = xiaomiPosts
+  const nothingEntries = nothingPosts
     .filter((g) => g.data.coverImage)
     .map((g) => {
       const slug = g.data.slug ?? g.id;
       const postUrl = `${websiteBase}nothing/${slug}/`;
+      const imageUrl = buildImageUrl(g.data.coverImage as string, websiteBase);
+      return buildEntry(postUrl, imageUrl, g.data.coverImageAlt || g.data.title);
+    });
+
+  const appleEntries = applePosts
+    .filter((g) => g.data.coverImage)
+    .map((g) => {
+      const slug = g.data.slug ?? g.id;
+      const postUrl = `${websiteBase}apple/${slug}/`;
       const imageUrl = buildImageUrl(g.data.coverImage as string, websiteBase);
       return buildEntry(postUrl, imageUrl, g.data.coverImageAlt || g.data.title);
     });
@@ -163,6 +173,7 @@ export async function GET() {
     ...oneplusEntries,
     ...pixelEntries,
     ...nothingEntries,
+    ...appleEntries,
   ].join("");
 
   const xml = `<?xml version="1.0" encoding="UTF-8"?>
