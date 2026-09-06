@@ -7,7 +7,7 @@ storyImage: "/assets/apple/iphone-17-pro-max.jpg"
 coverImage: "/assets/apple/iphone-lineup-2026-us-buyers-guide-cover.jpg"
 coverImageAlt: "Apple iPhone 17 series lineup displayed side by side against a plain background"
 slug: "which-iphone-worth-buying-us-2026"
-productLine: "iPhone"
+productLine: iPhone
 ---
 
 ## Table of Contents 
