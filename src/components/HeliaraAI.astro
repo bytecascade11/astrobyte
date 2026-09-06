@@ -537,7 +537,7 @@ const {
       const data = await res.json();
       typing.remove();
 
-      const reply = data.error ? 'Something went wrong. Please try again.' : data.reply;
+      const reply = data.error ? `DEBUG ERROR: ${data.error}` : data.reply;
       addMessage(reply, 'ai');
       if (!data.error) history.push({ role: 'assistant', content: reply });
 
