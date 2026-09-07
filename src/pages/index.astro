@@ -68,7 +68,7 @@ const taggedApple = applePosts
 
 const taggedOppo = oppoPosts
   .filter(post => !post.data.draft)
-  .map(post => ({ ...post, hubPath: "apple" }));
+  .map(post => ({ ...post, hubPath: "oppo" }));
 
 const sortedPosts = [...taggedBlog, ...taggedSamsung, ...taggedXiaomi, ...taggedTecno, ...taggedMotorola, ...taggedHuawei, ...taggedHonor, ...taggedOnePlus, ...taggedPixel, ...taggedNothing, ...taggedApple, ...taggedOppo]
   .sort((a, b) => b.data.pubDatetime.valueOf() - a.data.pubDatetime.valueOf());
