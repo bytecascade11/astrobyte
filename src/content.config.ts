@@ -463,6 +463,42 @@ const apple = defineCollection({
       slug: z.string().optional(),
     }),
 });
+// --------------- Oppo Collection ---------------
+const oppo = defineCollection({
+  loader: glob({ pattern: "**/[^_]*.{md,mdx}", base: "./src/data/oppo" }),
+  schema: ({ image }) =>
+    z.object({
+      title: z.string(),
+      description: z.string(),
+      author: z.string().default(SITE.author),
+      pubDatetime: z.coerce.date(),
+      modDatetime: z.coerce.date().optional().nullable(),
+      lastUpdated: z.string().optional(),
+      ogImage: image().optional().or(z.string().url().optional()),
+      canonicalURL: z.string().url().optional(),
+      coverImage: z.string().optional(),
+      coverImageAlt: z.string().optional(),
+      storyImage: z.string().optional(),
+      type: z.enum(["review", "comparison", "buying-guide", "news"]).default("review"),
+      model: z.string().optional(),        // e.g. "Reno 13 Pro"
+      series: z.enum(["Find X", "Reno", "A", "Find N"]).optional(),
+      colorOS: z.string().optional(),      // e.g. "ColorOS 15"
+      fastCharging: z.string().optional(), // e.g. "80W SuperVOOC"
+      priceNGN: z.number().optional(),
+      rating: z.number().min(0).max(5).optional(),
+      ram: z.string().optional(),          // e.g. "8GB"
+      storage: z.string().optional(),      // e.g. "256GB"
+      battery: z.string().optional(),      // e.g. "5000mAh"
+      display: z.string().optional(),      // e.g. "6.78in AMOLED"
+      comparedTo: z.string().optional(),        // e.g. "Reno 12 Pro"
+      comparedToSlug: z.string().optional(),    // slug of the comparison post
+      tags: z.array(z.string()).default(["oppo"]),
+      featured: z.boolean().optional(),
+      draft: z.boolean().optional().default(false),
+      relatedSlugs: z.array(z.string()).optional(),
+      slug: z.string().optional(),
+    }),
+});
 export const collections = {
   blog,
   codm,
@@ -479,4 +515,5 @@ export const collections = {
   pixel,
   nothing,
   apple, 
+  oppo,
 };
