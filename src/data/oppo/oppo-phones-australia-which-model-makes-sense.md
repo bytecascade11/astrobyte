@@ -7,6 +7,8 @@ storyImage: "/assets/oppo/oppo-reno16-prol.jpg"
 coverImage: "/assets/oppo/oppo-phones-australia-lineup-cover.jpg"
 coverImageAlt: "OPPO A6, Reno16 Pro, and Find X9 Pro phones laid out side by side against a plain background"
 slug: oppo-phones-australia-which-model-makes-sense
+relatedSlugs: 
+    - how-to-choose-an-oppo-phone-2026
 ---
 
 ## Table of Contents 
