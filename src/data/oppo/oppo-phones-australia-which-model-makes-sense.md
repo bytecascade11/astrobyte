@@ -9,6 +9,7 @@ coverImageAlt: "OPPO A6, Reno16 Pro, and Find X9 Pro phones laid out side by sid
 slug: oppo-phones-australia-which-model-makes-sense
 relatedSlugs: 
     - how-to-choose-an-oppo-phone-2026
+    - oppo-phones-longest-battery-life-2026
 ---
 
 ## Table of Contents 
