@@ -10,6 +10,7 @@ slug: oppo-phones-australia-which-model-makes-sense
 relatedSlugs: 
     - how-to-choose-an-oppo-phone-2026
     - oppo-phones-longest-battery-life-2026
+    - oppo-phones-200-300-2026
 ---
 
 ## Table of Contents 
