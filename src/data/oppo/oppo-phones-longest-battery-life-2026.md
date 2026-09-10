@@ -12,6 +12,7 @@ relatedSlugs:
   - oppo-phones-australia-which-model-makes-sense
   - how-to-choose-an-oppo-phone-2026
   - oppo-phones-200-300-2026
+  - oppo-camera-guide-australia-choosing-the-right-phone-for-photos
 ---
 
 ## Table of Contents 
