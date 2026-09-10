@@ -9,6 +9,7 @@ slug: "best-poco-camera-phones-2026"
 relatedSlugs: 
     - best-poco-phones-under-200
     - best-poco-phones-battery-life-2026
+    - xiaomi-cameras-compared-redmi-poco-xiaomi
 ---
 
 ## Table of Contents 
