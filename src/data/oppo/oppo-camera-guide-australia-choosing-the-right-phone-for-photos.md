@@ -20,6 +20,15 @@ relatedSlugs:
 
 If you've spent any time scrolling through OPPO's Australian lineup, the spec sheets can get overwhelming fast — "200MP" this, "Hasselblad" that. After comparing the camera hardware OPPO currently sells through its official Australian store — the A5 Pro 5G, Reno16 F, Reno16 Pro, Find X9, and Find X9 Pro — against OPPO's own published specifications, one thing becomes clear pretty quickly: megapixel count alone tells you almost nothing. Sensor size, optical image stabilisation, and whether a phone has a dedicated telephoto lens rather than digital cropping matter far more.
 
+<div style="background:#25D366;border-radius:12px;padding:24px 20px;text-align:center;margin:32px 0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;">
+  <div style="width:56px;height:56px;background:#ffffff;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 12px;">
+    <svg width="30" height="30" viewBox="0 0 24 24" fill="#25D366"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38a9.9 9.9 0 0 0 4.74 1.21h.01c5.46 0 9.91-4.45 9.91-9.91C21.96 6.45 17.51 2 12.04 2m0 18.13a8.2 8.2 0 0 1-4.19-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.2 8.2 0 0 1-1.26-4.37c0-4.54 3.7-8.24 8.25-8.24 4.54 0 8.24 3.7 8.24 8.24s-3.7 8.24-8.25 8.24m4.52-6.17c-.25-.12-1.47-.72-1.7-.81-.23-.08-.39-.12-.56.13-.17.24-.64.8-.78.97-.15.17-.29.19-.54.06-.25-.12-1.05-.39-1.99-1.23-.74-.66-1.23-1.46-1.38-1.71-.14-.25-.02-.38.11-.51.11-.11.25-.29.37-.43.12-.15.16-.25.25-.42.08-.16.04-.31-.02-.43-.06-.12-.56-1.35-.77-1.85-.2-.48-.41-.42-.56-.42h-.48c-.16 0-.43.06-.66.31-.22.25-.87.85-.87 2.08s.89 2.41 1.01 2.58c.13.16 1.76 2.69 4.27 3.77.6.26 1.06.41 1.42.53.6.19 1.14.16 1.57.1.48-.07 1.47-.6 1.68-1.19.21-.58.21-1.08.15-1.19-.07-.11-.23-.18-.48-.3"/></svg>
+  </div>
+  <p style="color:#ffffff;font-size:19px;font-weight:700;margin:0 0 6px;">Join ReviByte Community</p>
+  <p style="color:#e9fbf1;font-size:14px;margin:0 0 18px;line-height:1.5;">Get instant alerts on new posts, phone deals, and mobile gaming updates.</p>
+  <a href="https://whatsapp.com/channel/0029VbBCXzRKAwEdcyip8841" target="_blank" rel="noopener noreferrer" style="display:inline-block;background:#ffffff;color:#128C4A;font-weight:700;font-size:15px;padding:10px 28px;border-radius:24px;text-decoration:none;">Join WhatsApp Channel</a>
+</div>
+
 ## What Actually Drives Photo Quality on OPPO Phones
 
 A few things separate a genuinely capable camera phone from one that just has a big number on the box:
