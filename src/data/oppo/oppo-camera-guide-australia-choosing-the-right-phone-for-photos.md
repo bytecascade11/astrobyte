@@ -3,7 +3,7 @@ title: "OPPO Camera Guide Australia: Choosing the Right Phone for Photos"
 description: "A practical, model-specific look at OPPO's current Australian camera lineup — how the A5 Pro 5G, Reno16 series, and Find X9 series differ, and how to pick the right one for the way you actually shoot."
 coverImage: "/assets/oppo/oppo-camera-guide-cover.jpg"
 coverImageAlt: "OPPO A5 Pro 5G, Reno16 Pro, and Find X9 Pro phones side by side showing their rear camera systems, for a guide comparing OPPO's camera lineup in Australia"
-storyImage: "/assets/oppo/oppo-reno16-pro.jpg'
+storyImage: "/assets/oppo/oppo-reno16-pro.jpg"
 slug: "oppo-camera-guide-australia-choosing-the-right-phone-for-photos"
 pubDatetime: 2026-09-10T04:20:00Z
 author: iSamuel 
