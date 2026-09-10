@@ -3,7 +3,6 @@ title: "Xiaomi Cameras Compared: Redmi, POCO, or Xiaomi — Which Actually Takes
 description: "Redmi, POCO, and Xiaomi phones prioritize cameras differently. Here's how their camera hardware, processing, low-light performance, and pricing compare — and which lineup makes the most sense for you."
 pubDatetime: 2026-09-10T15:09:00Z
 author: iSamuel
-type: guide
 storyImage: "/assets/xiaomi/xiaomi-flagship.jpg"
 coverImage: "/assets/xiaomi/xiaomi-cameras-compared-cover.jpg"
 coverImageAlt: "Redmi, POCO, and Xiaomi phones placed side by side showing their rear camera modules"
