@@ -2,6 +2,21 @@ export const prerender = false;
 
 import type { APIRoute } from "astro";
 
+// ─── Device hub registry ────────────────────────────────────────────────────
+const DEVICE_HUBS: Record<string, { path: string; aliases: string[] }> = {
+  samsung:  { path: "/samsung/",  aliases: ["samsung", "galaxy"] },
+  xiaomi:   { path: "/xiaomi/",   aliases: ["xiaomi", "redmi", "poco"] },
+  tecno:    { path: "/tecno/",    aliases: ["tecno", "camon", "spark", "pova"] },
+  motorola: { path: "/motorola/", aliases: ["motorola", "moto "] },
+  huawei:   { path: "/huawei/",   aliases: ["huawei"] },
+  honor:    { path: "/honor/",    aliases: ["honor"] },
+  oneplus:  { path: "/oneplus/",  aliases: ["oneplus", "nord"] },
+  nothing:  { path: "/nothing/",  aliases: ["nothing phone", "cmf"] },
+  pixel:    { path: "/pixel/",    aliases: ["pixel", "google pixel"] },
+  apple:    { path: "/apple/",    aliases: ["apple", "iphone", "ipad", "macbook", "airpods"] },
+  oppo:     { path: "/oppo/",     aliases: ["oppo", "reno", "find x"] },
+};
+
 // ─── Content fetcher ────────────────────────────────────────────────────────
 async function fetchPageText(url: string, maxChars = 4000): Promise<string> {
   try {
@@ -75,8 +90,9 @@ async function getRelevantPostUrls(query: string): Promise<string[]> {
       u.includes("/efootball/") ||
       u.includes("/pubgmobile/") ||
       u.includes("/mlbb/") ||
-      u.includes("/save/") ||
-      u.includes("/heliara/")
+      u.includes("/tools/") ||
+      u.includes("/heliara/") ||
+      Object.values(DEVICE_HUBS).some(hub => u.includes(hub.path))
     );
 
     const queryLower = query.toLowerCase();
@@ -101,8 +117,14 @@ async function getRelevantPostUrls(query: string): Promise<string[]> {
       if ((queryLower.includes("efootball") || queryLower.includes("pes") || queryLower.includes("efoot")) && slug.includes("/efootball/")) score += 3;
       if ((queryLower.includes("pubg") || queryLower.includes("battlegrounds")) && slug.includes("/pubgmobile/")) score += 3;
       if ((queryLower.includes("mlbb") || queryLower.includes("mobile legends") || queryLower.includes("bang bang")) && slug.includes("/mlbb/")) score += 3;
-      if ((queryLower.includes("tiktok") || queryLower.includes("download") || queryLower.includes("save")) && slug.includes("/save/")) score += 3;
+      if ((queryLower.includes("tool") || queryLower.includes("compress") || queryLower.includes("battery") || queryLower.includes("qr code") || queryLower.includes("estimator")) && (slug.includes("/tools/") || slug.includes("/tools/"))) score += 3;
       if ((queryLower.includes("heliara") || queryLower.includes("ai assistant")) && slug.includes("/heliara/")) score += 3;
+
+      for (const hub of Object.values(DEVICE_HUBS)) {
+        if (hub.aliases.some(a => queryLower.includes(a)) && slug.includes(hub.path)) {
+          score += 3;
+        }
+      }
 
       return { url, score };
     });
@@ -157,13 +179,22 @@ iSamuel (full name: Oke Sunday Samuel) is the sole founder, writer, and develope
 
 ## What ReviByte covers
 
-### Smartphones
-- Honest phone reviews and comparisons
-- Budget phone guides with Naira (₦) pricing — under ₦100k, ₦150k, ₦200k, ₦300k
-- Brands covered: Tecno, Infinix, itel, Samsung, Xiaomi/Redmi, iPhone/Apple
+### Device hubs
+Each phone brand has its own dedicated hub with reviews, comparisons, and buying guides:
+- Samsung — revibyte.blog/samsung/
+- Xiaomi/Redmi/POCO — revibyte.blog/xiaomi/
+- Tecno — revibyte.blog/tecno/
+- Motorola — revibyte.blog/motorola/
+- Huawei — revibyte.blog/huawei/
+- Honor — revibyte.blog/honor/
+- OnePlus — revibyte.blog/oneplus/
+- Nothing (Phone/CMF) — revibyte.blog/nothing/
+- Google Pixel — revibyte.blog/pixel/
+- Apple (iPhone/iPad/Mac/Watch/AirPods) — revibyte.blog/apple/
+- Oppo — revibyte.blog/oppo/
+- General/older phone content not yet in a hub still lives at revibyte.blog/posts/
+- Naira (₦) pricing, repairability, battery life, and Nigerian-market context apply across all hubs
 - iSamuel's daily driver: Tecno Camon 30
-- Real-world analysis: battery life, repairability, resale value, performance in Nigerian conditions
-- Android tips, optimization, battery guides, speed improvements
 
 ### COD Mobile Hub — revibyte.blog/codm/
 - Best loadouts updated every season
@@ -188,9 +219,12 @@ iSamuel (full name: Oke Sunday Samuel) is the sole founder, writer, and develope
 - Rank push tips, meta updates
 - Beginner and advanced MLBB strategies
 
-### ReviByte Tools
-- **Heliara AI** — free AI assistant at revibyte.blog/heliara/
-- **ReviByte Save** — free TikTok video downloader at revibyte.blog/save/tok/ (no watermark, MP3 audio option)
+### ReviByte Tools — revibyte.blog/tools/
+- Image Compressor — revibyte.blog/tools/image-compressor/ (client-side, JPG/WebP/PNG, no uploads required)
+- Battery Health / Charging Time Estimator — revibyte.blog/tools/battery-estimator/
+- QR Code Generator — revibyte.blog/tools/qr-code-generator/
+- Heliara AI — free AI assistant at revibyte.blog/heliara/
+- The old TikTok/Instagram video downloaders were retired and are no longer available on the site — never suggest them or link to /save/tok/ or /save/ig/
 
 ### Blog & Tech
 - Built on Astro, deployed on Vercel, DNS via Cloudflare
@@ -227,10 +261,13 @@ ${liveContext ? `\n## Live ReviByte content fetched for this query\n${liveContex
     }));
 
     const geminiRes = await fetch(
-      `https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent?key=${GEMINI_API_KEY}`,
+      "https://generativelanguage.googleapis.com/v1beta/models/gemini-3.5-flash:generateContent",
       {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          "x-goog-api-key": GEMINI_API_KEY,
+        },
         body: JSON.stringify({
           system_instruction: { parts: [{ text: systemPrompt }] },
           contents: geminiContents,
@@ -249,9 +286,20 @@ ${liveContext ? `\n## Live ReviByte content fetched for this query\n${liveContex
       );
     }
 
-    const reply =
-      data.candidates?.[0]?.content?.parts?.[0]?.text ||
-      "Sorry, I couldn't generate a response.";
+    const candidate = data.candidates?.[0];
+    const finishReason = candidate?.finishReason;
+
+    let reply = candidate?.content?.parts?.find((p: any) => !p.thought && p.text)?.text;
+
+    if (!reply) {
+      if (finishReason === "SAFETY") {
+        reply = "I can't answer that one — try rephrasing, or ask me something else about ReviByte.";
+      } else if (finishReason === "MAX_TOKENS") {
+        reply = "That answer got cut off — mind asking a more specific version of that?";
+      } else {
+        reply = "Sorry, I couldn't generate a response.";
+      }
+    }
 
     return new Response(JSON.stringify({ reply }), {
       status: 200,
