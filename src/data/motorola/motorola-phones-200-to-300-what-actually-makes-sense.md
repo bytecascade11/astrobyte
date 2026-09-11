@@ -2,7 +2,7 @@
 title: "Motorola Phones From $200 to $300: What Actually Makes Sense?"
 description: "Motorola's $200-$300 bracket now spans several Moto G models with overlapping specs and shifting prices. Here's which one is verified to be worth the money and why."
 author: iSamuel
-pubdatetime: 2026-09-11T08:34:00Z
+pubDatetime: 2026-09-11T08:34:00Z
 storyImage: /assets/motorola/moto-g-power-2026.jpg
 coverImage: /assets/motorola/motorola-200-to-300-lineup-cover.jpg
 coverImageAlt: Motorola Moto G phones from the $200 to $300 price bracket lined up side by side
