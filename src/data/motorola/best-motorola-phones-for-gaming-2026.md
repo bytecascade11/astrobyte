@@ -8,6 +8,7 @@ pubDatetime: 2026-08-19T08:33:00Z
 tags: ["motorola", "games", "opinions"]   
 relatedSlugs: 
      - motorola-razr-vs-edge-vs-moto-g
+     - motorola-phones-200-to-300-what-actually-makes-sense
 ---
 
 ## Table of Contents 
