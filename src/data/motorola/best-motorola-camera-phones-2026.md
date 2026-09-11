@@ -8,6 +8,7 @@ coverImageAlt: "Best Motorola camera phones 2026 lineup"
 tags: ["motorola", "cameras", "opinions", "ultra"]  
 relatedSlugs: 
     - how-long-do-motorola-phones-get-android-updates
+    - motorola-phones-200-to-300-what-actually-makes-sense
 ---  
 
 ## Table of Contents 
