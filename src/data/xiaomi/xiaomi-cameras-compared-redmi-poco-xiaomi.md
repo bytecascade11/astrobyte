@@ -11,6 +11,7 @@ relatedSlugs:
   - best-poco-camera-phones-2026
   - best-poco-phones-under-200
   - best-poco-phones-battery-life-2026
+  - xiaomi-phones-long-battery-life-2026
 ---
 
 ## Table of Contents 
