@@ -24,6 +24,7 @@ This isn't a "best Motorola phone" ranking — we already covered that ground in
   <p style="color:#e9fbf1;font-size:14px;margin:0 0 18px;line-height:1.5;">Get instant alerts on new posts, phone deals, and mobile gaming updates.</p>
   <a href="https://whatsapp.com/channel/0029VbBCXzRKAwEdcyip8841" target="_blank" rel="noopener noreferrer" style="display:inline-block;background:#ffffff;color:#128C4A;font-weight:700;font-size:15px;padding:10px 28px;border-radius:24px;text-decoration:none;">Join WhatsApp Channel</a>
 </div>
+
 ## Quick answer
 
 - **Around $200 — current generation:** Moto G (2026) — the straightforward, no-surprises current-generation option. Officially launched at $199.99.
