@@ -50,7 +50,7 @@ Look at the chipset column and the same MediaTek Dimensity 6300 appears across a
 
 What actually changes between them is screen resolution (HD+ versus FHD+), RAM (4GB versus 8GB), battery capacity, and durability certification. None of that is trivial — 8GB of RAM and a sharper display are real, usable differences — but it's a narrower set of upgrades than the price jump might suggest.
 
-![Moto G Power 2026 retail packaging and phone shown together, for illustrating the model referenced in this section](/images/motorola/moto-g-power-2026-retail-photo.jpg)
+![Moto G Power 2026 retail packaging and phone shown together, for illustrating the model referenced in this section](/assets/motorola/moto-g-power-2026-retail-photo.jpg)
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4896561037705299"
      crossorigin="anonymous"></script>
 <ins class="adsbygoogle"
@@ -68,7 +68,7 @@ Both current Moto G models covered here use 50MP main cameras, but the camera ha
 
 None of these compete with camera-first budget phones from other brands. If photography is the priority rather than a nice-to-have, our [Oppo camera guide](https://www.revibyte.blog/oppo/oppo-camera-guide-australia-choosing-the-right-phone-for-photos/) and [Xiaomi camera comparison](https://www.revibyte.blog/xiaomi/xiaomi-cameras-compared-redmi-poco-xiaomi/) both cover phones that push harder on imaging at comparable price points, though availability varies by region.
 
-![Close-up of the 50MP main camera module on the Moto G Power, illustrating the OIS-equipped sensor discussed in this section](/images/motorola/moto-g-power-50mp-camera-closeup.jpg)
+![Close-up of the 50MP main camera module on the Moto G Power, illustrating the OIS-equipped sensor discussed in this section](/assets/motorola/moto-g-power-50mp-camera-closeup.jpg)
 
 ## Software support: the same for the base Moto G and Moto G Power
 
@@ -78,7 +78,7 @@ That means the extra $100 you'd spend moving from the base Moto G to the Moto G 
 
 One caveat: this two-OS-upgrade, three-year-security commitment applies to the 2026 models specifically. If you're considering the discounted 2025 Moto G Power instead, don't assume it carries the identical window — check that model's specific update commitment before buying, since Motorola sets these on a per-phone basis and older listings aren't always kept current.
 
-![Motorola software update notification screen on a Moto G phone, used to illustrate the update-support discussion above](/images/motorola/moto-g-software-update-notification.jpg)
+![Motorola software update notification screen on a Moto G phone, used to illustrate the update-support discussion above](/assets/motorola/moto-g-software-update-notification.jpg)
 
 ## The Moto G Power (2025) trade — worth checking before buying new
 
