@@ -71,11 +71,11 @@ const taggedOppo = oppoPosts
   .filter(post => !post.data.draft)
   .map(post => ({ ...post, hubPath: "oppo" }));
 
-const taggedVivo = vivoPosts
+const taggedvivo = vivoPosts
   .filter(post => !post.data.draft)
   .map(post => ({ ...post, hubPath: "vivo" }));
 
-const sortedPosts = [...taggedBlog, ...taggedSamsung, ...taggedXiaomi, ...taggedTecno, ...taggedMotorola, ...taggedHuawei, ...taggedHonor, ...taggedOnePlus, ...taggedPixel, ...taggedNothing, ...taggedApple, ...taggedOppo, ...taggedVivo]
+const sortedPosts = [...taggedBlog, ...taggedSamsung, ...taggedXiaomi, ...taggedTecno, ...taggedMotorola, ...taggedHuawei, ...taggedHonor, ...taggedOnePlus, ...taggedPixel, ...taggedNothing, ...taggedApple, ...taggedOppo, ...taggedvivo]
   .sort((a, b) => b.data.pubDatetime.valueOf() - a.data.pubDatetime.valueOf());
 
 const heroPost = sortedPosts[0];
