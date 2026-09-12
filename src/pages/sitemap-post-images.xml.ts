@@ -9,7 +9,7 @@ export async function GET() {
     : `${SITE.website}/`;
 
   // Fetch all collections
-  const [blogPosts, codmPosts, efootballPosts, pubgPosts, mlbbPosts, itelPosts, samsungPosts, xiaomiPosts, motorolaPosts, huaweiPosts, oneplusPosts, pixelPosts, nothingPosts, applePosts, oppoPosts] = await Promise.all([
+  const [blogPosts, codmPosts, efootballPosts, pubgPosts, mlbbPosts, itelPosts, samsungPosts, xiaomiPosts, motorolaPosts, huaweiPosts, oneplusPosts, pixelPosts, nothingPosts, applePosts, oppoPosts, vivoPosts] = await Promise.all([
     getCollection("blog", ({ data }) => !data.draft),
     getCollection("codm", ({ data }) => !data.draft),
     getCollection("efootball", ({ data }) => !data.draft),
@@ -25,6 +25,7 @@ export async function GET() {
     getCollection("nothing", ({ data }) => !data.draft),
     getCollection("apple", ({ data }) => !data.draft),
     getCollection("oppo", ({ data }) => !data.draft),
+    getCollection("vivo", ({ data }) => !data.draft),
   ]);
 
   // Blog posts — use getPath like before
@@ -169,6 +170,15 @@ export async function GET() {
       return buildEntry(postUrl, imageUrl, g.data.coverImageAlt || g.data.title);
     });
 
+  const vivoEntries = vivoPosts
+    .filter((g) => g.data.coverImage)
+    .map((g) => {
+      const slug = g.data.slug ?? g.id;
+      const postUrl = `${websiteBase}vivo/${slug}/`;
+      const imageUrl = buildImageUrl(g.data.coverImage as string, websiteBase);
+      return buildEntry(postUrl, imageUrl, g.data.coverImageAlt || g.data.title);
+    });
+  
   const allEntries = [
     ...blogEntries,
     ...codmEntries,
@@ -185,6 +195,7 @@ export async function GET() {
     ...nothingEntries,
     ...appleEntries,
     ...oppoEntries,
+    ...vivoEntries,
   ].join("");
 
   const xml = `<?xml version="1.0" encoding="UTF-8"?>
