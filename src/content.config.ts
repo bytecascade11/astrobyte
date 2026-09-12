@@ -499,6 +499,42 @@ const oppo = defineCollection({
       slug: z.string().optional(),
     }),
 });
+// --------------- Vivo Collection ---------------
+const vivo = defineCollection({
+  loader: glob({ pattern: "**/[^_]*.{md,mdx}", base: "./src/data/vivo" }),
+  schema: ({ image }) =>
+    z.object({
+      title: z.string(),
+      description: z.string(),
+      author: z.string().default(SITE.author),
+      pubDatetime: z.coerce.date(),
+      modDatetime: z.coerce.date().optional().nullable(),
+      lastUpdated: z.string().optional(),
+      ogImage: image().optional().or(z.string().url().optional()),
+      canonicalURL: z.string().url().optional(),
+      coverImage: z.string().optional(),
+      coverImageAlt: z.string().optional(),
+      storyImage: z.string().optional(),
+      type: z.enum(["review", "comparison", "buying-guide", "news"]).default("review"),
+      model: z.string().optional(),          // e.g. "X200 Pro"
+      series: z.enum(["X", "V", "Y", "S"]),  // Vivo's product line — hub groups by this
+      zeissOptics: z.boolean().optional(),   // ZEISS co-engineered camera partnership
+      imagingChip: z.string().optional(),    // e.g. "V3+" — Vivo's self-developed imaging chip
+      ram: z.string().optional(),
+      storage: z.string().optional(),
+      battery: z.string().optional(),
+      display: z.string().optional(),
+      priceNGN: z.number().optional(),
+      rating: z.number().min(0).max(5).optional(),
+      tags: z.array(z.string()).default(["vivo"]),
+      featured: z.boolean().optional(),
+      draft: z.boolean().optional().default(false),
+      relatedSlugs: z.array(z.string()).optional(),
+      comparedTo: z.string().optional(),
+      comparedToSlug: z.string().optional(),
+      slug: z.string().optional(),
+    }),
+});
 export const collections = {
   blog,
   codm,
@@ -516,4 +552,5 @@ export const collections = {
   nothing,
   apple, 
   oppo,
+  vivo,
 };
