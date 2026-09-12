@@ -517,7 +517,7 @@ const vivo = defineCollection({
       storyImage: z.string().optional(),
       type: z.enum(["review", "comparison", "buying-guide", "news"]).default("review"),
       model: z.string().optional(),          // e.g. "X200 Pro"
-      series: z.enum(["X", "V", "Y", "S"]),  // Vivo's product line — hub groups by this
+      series: z.enum(["X", "V", "Y", "S"]).optional(),  // Vivo's product line — hub groups by this
       zeissOptics: z.boolean().optional(),   // ZEISS co-engineered camera partnership
       imagingChip: z.string().optional(),    // e.g. "V3+" — Vivo's self-developed imaging chip
       ram: z.string().optional(),
