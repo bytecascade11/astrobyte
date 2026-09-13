@@ -113,7 +113,13 @@ For most people, yes. The camera improvements between an X300 Pro and a V60 are 
 **Does the V series really compete with the X series on cameras?**
 Not entirely, but it's closer than the price gap suggests. The V60 uses a scaled-down version of vivo's ZEISS camera tuning with a genuine 3x periscope telephoto, which is still uncommon in this price bracket. You lose some low-light performance and the top-tier telephoto reach, but daylight and portrait shots hold up well.
 
-<script async src="https://js.onclckmn.com/static/onclicka.js" data-admpid="463912"></script>
+<script>
+  const s = document.createElement('script');
+  s.async = true;
+  s.src = "https://js.onclckmn.com/static/onclicka.js";
+  s.setAttribute('data-admpid', '463912');
+  document.currentScript.parentNode.appendChild(s);
+</script>
 
 
 **Are Y-series and T-series phones good enough for gaming?**
