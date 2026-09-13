@@ -120,6 +120,7 @@ Not entirely, but it's closer than the price gap suggests. The V60 uses a scaled
   s.setAttribute('data-admpid', '463912');
   document.currentScript.parentNode.appendChild(s);
 </script>
+<div data-banner-id="6151607"></div>
 
 
 **Are Y-series and T-series phones good enough for gaming?**
