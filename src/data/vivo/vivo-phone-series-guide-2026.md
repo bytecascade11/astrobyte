@@ -7,6 +7,8 @@ storyImage: /assets/vivo/vivo-v60.jpg
 coverImage: /assets/vivo/vivo-series-guide-2026-cover.jpg
 coverImageAlt: vivo smartphones from the X300, V60, and Y400 series laid out side by side
 slug: vivo-phone-series-guide-2026
+relatedSlugs:
+    - vivo-phones-with-long-battery-life-what-actually-lasts
 ---
 
 ## Table of Contents 
