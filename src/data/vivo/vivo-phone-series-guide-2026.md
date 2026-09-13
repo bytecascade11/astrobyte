@@ -115,6 +115,7 @@ Not entirely, but it's closer than the price gap suggests. The V60 uses a scaled
 
 <script async src="https://js.onclckmn.com/static/onclicka.js" data-admpid="463912"></script>
 
+
 **Are Y-series and T-series phones good enough for gaming?**
 They're built for efficiency and battery life first, not sustained gaming performance. The Snapdragon 4 Gen 2 and Dimensity 7300 chipsets used in current Y-series models handle casual and mid-tier mobile games fine, but expect frame drops in graphically demanding titles at high settings.
 
