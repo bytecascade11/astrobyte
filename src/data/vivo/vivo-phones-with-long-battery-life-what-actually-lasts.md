@@ -9,6 +9,7 @@ coverImageAlt: "Four vivo phones lined up on a table showing their back panels, 
 slug: vivo-phones-with-long-battery-life-what-actually-lasts
 relatedSlugs:
   - vivo-phone-series-guide-2026
+  - vivo-camera-phones-what-do-you-actually-get-in-2026
 ---
 
 ## Table of Contents 
