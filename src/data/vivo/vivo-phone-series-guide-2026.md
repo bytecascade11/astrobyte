@@ -9,6 +9,7 @@ coverImageAlt: vivo smartphones from the X300, V60, and Y400 series laid out sid
 slug: vivo-phone-series-guide-2026
 relatedSlugs:
     - vivo-phones-with-long-battery-life-what-actually-lasts
+    - vivo-camera-phones-what-do-you-actually-get-in-2026
 ---
 
 ## Table of Contents 
