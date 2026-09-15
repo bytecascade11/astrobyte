@@ -113,7 +113,9 @@ For most people, yes. The camera improvements between an X300 Pro and a V60 are 
 
 **Does the V series really compete with the X series on cameras?**
 Not entirely, but it's closer than the price gap suggests. The V60 uses a scaled-down version of vivo's ZEISS camera tuning with a genuine 3x periscope telephoto, which is still uncommon in this price bracket. You lose some low-light performance and the top-tier telephoto reach, but daylight and portrait shots hold up well.
-
+<script async type="application/javascript" src="https://a.magsrv.com/ad-provider.js"></script> 
+ <ins class="eas6a97888e2" data-zoneid="6030580"></ins> 
+ <script>(AdProvider = window.AdProvider || []).push({"serve": {}});</script>
 
 **Are Y-series and T-series phones good enough for gaming?**
 They're built for efficiency and battery life first, not sustained gaming performance. The Snapdragon 4 Gen 2 and Dimensity 7300 chipsets used in current Y-series models handle casual and mid-tier mobile games fine, but expect frame drops in graphically demanding titles at high settings.
