@@ -1,4 +1,4 @@
- ---
+---
 title: "vivo Camera Phones: What Do You Actually Get in 2026?"
 description: "A tier-by-tier breakdown of vivo's 2026 camera lineup — from the ZEISS-tuned X300 Pro down to entry-level Y series phones — explaining what the hardware actually gives you at each level."
 author: iSamuel
