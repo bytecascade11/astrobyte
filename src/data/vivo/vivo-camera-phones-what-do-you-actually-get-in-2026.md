@@ -4,7 +4,7 @@ description: "A tier-by-tier breakdown of vivo's 2026 camera lineup — from the
 author: iSamuel
 pubDatetime: 2026-09-15T08:53:00Z
 storyImage: "/assets/vivo/vivo-x300-pro.jpg"
-coverImage: "/images/vivo/vivo-camera-phones-2026-cover.jpg"
+coverImage: "/assets/vivo/vivo-camera-phones-2026-cover.jpg"
 coverImageAlt: "vivo X300 Pro rear camera module with ZEISS branding visible on the lens ring"
 slug: vivo-camera-phones-what-do-you-actually-get-in-2026
 relatedSlugs:
