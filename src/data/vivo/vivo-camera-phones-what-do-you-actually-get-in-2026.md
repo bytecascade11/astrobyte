@@ -11,6 +11,7 @@ relatedSlugs:
   - vivo-phones-with-long-battery-life-what-actually-lasts
   - vivo-phone-series-guide-2026
   - vivo-2026-lineup-which-phone-should-you-choose
+  - vivo-phones-200-300-what-should-you-look-for
 ---
 
 ## Table of Contents 
