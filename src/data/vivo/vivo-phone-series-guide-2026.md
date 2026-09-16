@@ -10,6 +10,7 @@ slug: vivo-phone-series-guide-2026
 relatedSlugs:
     - vivo-phones-with-long-battery-life-what-actually-lasts
     - vivo-camera-phones-what-do-you-actually-get-in-2026
+    - vivo-2026-lineup-which-phone-should-you-choose
 ---
 
 ## Table of Contents 
