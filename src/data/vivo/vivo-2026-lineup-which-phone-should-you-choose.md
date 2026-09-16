@@ -2,7 +2,7 @@
 title: "Vivo's 2026 Lineup: Which Phone Should You Choose?"
 description: "Vivo's 2026 range spans camera-first X-series flagships, balanced V-series mid-rangers, and long-battery value picks. Here's how the X300 Pro, X300, V70 Elite, V70, and V50 actually compare, and who each one is really for."
 author: iSamuel
-pubDate: 2026-09-16T10:14:00Z
+pubDatetime: 2026-09-16T10:14:00Z
 storyImage: /assets/vivo/vivo-v50.jpg
 coverImage: /assets/vivo/vivo-2026-lineup-comparison-cover.jpg
 coverImageAlt: "vivo X300 Pro, V70 Elite, and V50 smartphones arranged together, representing vivo's 2026 lineup"
