@@ -535,6 +535,33 @@ const vivo = defineCollection({
       slug: z.string().optional(),
     }),
 });
+// --------------- Free Fire Collection ---------------
+const freefire = defineCollection({
+  loader: glob({ pattern: "**/[^_]*.{md,mdx}", base: "./src/data/freefire" }),
+  schema: ({ image }) =>
+    z.object({
+      title: z.string(),
+      description: z.string(),
+      author: z.string().default(SITE.author),
+      pubDatetime: z.coerce.date(),
+      modDatetime: z.coerce.date().optional().nullable(),
+      lastUpdated: z.string().optional(),
+      ogImage: image().optional().or(z.string().url().optional()),
+      canonicalURL: z.string().url().optional(),
+      coverImage: z.string().optional(),
+      coverImageAlt: z.string().optional(),
+      storyImage: z.string().optional(),
+      type: z.enum(["character", "weapon-guide", "tier-list", "redeem-codes", "guide", "news"]).default("guide"),
+      character: z.string().optional(),
+      weapon: z.string().optional(),
+      version: z.string().optional(),
+      tags: z.array(z.string()).default(["freefire"]),
+      featured: z.boolean().optional(),
+      draft: z.boolean().optional().default(false),
+      relatedSlugs: z.array(z.string()).optional(),
+      slug: z.string().optional(),
+    }),
+});
 export const collections = {
   blog,
   codm,
@@ -553,4 +580,5 @@ export const collections = {
   apple, 
   oppo,
   vivo,
+  freefire,
 };
