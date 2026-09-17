@@ -1,4 +1,5 @@
 ---
+// src/pages/posts/[...page].astro
 import type { GetStaticPaths } from "astro";
 import { getCollection } from "astro:content";
 import Main from "@/layouts/Main.astro";
@@ -7,12 +8,57 @@ import Header from "@/components/Header.astro";
 import Footer from "@/components/Footer.astro";
 import Card from "@/components/Card.astro";
 import Pagination from "@/components/Pagination.astro";
-import getSortedPosts from "@/utils/getSortedPosts";
 import { SITE } from "@/config";
 
 export const getStaticPaths = (async ({ paginate }) => {
-  const posts = await getCollection("blog", ({ data }) => !data.draft);
-  return paginate(getSortedPosts(posts), { pageSize: SITE.postPerPage });
+  const blogPosts = await getCollection("blog");
+  const codmPosts = await getCollection("codm");
+  const efootballPosts = await getCollection("efootball");
+  const pubgmobilePosts = await getCollection("pubgmobile");
+  const mlbbPosts = await getCollection("mlbb");
+  const freefirePosts = await getCollection("freefire");
+  const samsungPosts = await getCollection("samsung");
+  const xiaomiPosts = await getCollection("xiaomi");
+  const tecnoPosts = await getCollection("tecno");
+  const motorolaPosts = await getCollection("motorola");
+  const huaweiPosts = await getCollection("huawei");
+  const honorPosts = await getCollection("honor");
+  const oneplusPosts = await getCollection("oneplus");
+  const pixelPosts = await getCollection("pixel");
+  const nothingPosts = await getCollection("nothing");
+  const applePosts = await getCollection("apple");
+  const oppoPosts = await getCollection("oppo");
+  const vivoPosts = await getCollection("vivo");
+
+  const tag = (posts: any[], hubPath: string) =>
+    posts.filter(post => !post.data.draft).map(post => ({ ...post, hubPath }));
+
+  const merged = [
+    ...tag(blogPosts, "posts"),
+    ...tag(codmPosts, "codm"),
+    ...tag(efootballPosts, "efootball"),
+    ...tag(pubgmobilePosts, "pubgmobile"),
+    ...tag(mlbbPosts, "mlbb"),
+    ...tag(freefirePosts, "freefire"),
+    ...tag(samsungPosts, "samsung"),
+    ...tag(xiaomiPosts, "xiaomi"),
+    ...tag(tecnoPosts, "tecno"),
+    ...tag(motorolaPosts, "motorola"),
+    ...tag(huaweiPosts, "huawei"),
+    ...tag(honorPosts, "honor"),
+    ...tag(oneplusPosts, "oneplus"),
+    ...tag(pixelPosts, "pixel"),
+    ...tag(nothingPosts, "nothing"),
+    ...tag(applePosts, "apple"),
+    ...tag(oppoPosts, "oppo"),
+    ...tag(vivoPosts, "vivo"),
+  ].sort((a, b) => {
+    const dateA = a.data.modDatetime ?? a.data.pubDatetime;
+    const dateB = b.data.modDatetime ?? b.data.pubDatetime;
+    return dateB.getTime() - dateA.getTime();
+  });
+
+  return paginate(merged, { pageSize: SITE.postPerPage });
 }) satisfies GetStaticPaths;
 
 const { page } = Astro.props;
@@ -22,7 +68,7 @@ const { page } = Astro.props;
   <Header />
   <Main pageTitle="Posts" pageDesc="All the articles I've posted.">
     <ul>
-      {page.data.map(data => <Card {...data} />)}
+      {page.data.map(post => <Card id={post.id} data={post.data} hubPath={post.hubPath} />)}
     </ul>
   </Main>
 
