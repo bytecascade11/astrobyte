@@ -9,6 +9,12 @@ import { SITE } from "@/config";
 import imageManifest from '@/data/image-manifest.json';
 
 const blogPosts = await getCollection("blog");
+const codmPosts = await getCollection("codm");
+const efootballPosts = await getCollection("efootball");
+const pubgmobilePosts = await getCollection("pubgmobile");
+const mlbbPosts = await getCollection("mlbb");
+const freefirePosts = await getCollection("freefire");
+const itelPosts = await getCollection("itel");
 const samsungPosts = await getCollection("samsung");
 const xiaomiPosts = await getCollection("xiaomi");
 const tecnoPosts = await getCollection("tecno");
@@ -26,6 +32,30 @@ const vivoPosts = await getCollection("vivo");
 const taggedBlog = blogPosts
   .filter(post => !post.data.draft)
   .map(post => ({ ...post, hubPath: "posts" }));
+
+const taggedCodm = codmPosts
+  .filter(post => !post.data.draft)
+  .map(post => ({ ...post, hubPath: "codm" }));
+
+const taggedEfootball = efootballPosts
+  .filter(post => !post.data.draft)
+  .map(post => ({ ...post, hubPath: "efootball" }));
+
+const taggedPubgmobile = pubgmobilePosts
+  .filter(post => !post.data.draft)
+  .map(post => ({ ...post, hubPath: "pubgmobile" }));
+
+const taggedMlbb = mlbbPosts
+  .filter(post => !post.data.draft)
+  .map(post => ({ ...post, hubPath: "mlbb" }));
+
+const taggedFreefire = freefirePosts
+  .filter(post => !post.data.draft)
+  .map(post => ({ ...post, hubPath: "freefire" }));
+
+const taggedItel = itelPosts
+  .filter(post => !post.data.draft)
+  .map(post => ({ ...post, hubPath: "itel" }));
 
 const taggedSamsung = samsungPosts
   .filter(post => !post.data.draft)
@@ -65,7 +95,7 @@ const taggedNothing = nothingPosts
 
 const taggedApple = applePosts
   .filter(post => !post.data.draft)
-  .map(post => ({ ...post, hubPath: "oppo" }));
+  .map(post => ({ ...post, hubPath: "apple" }));
 
 const taggedOppo = oppoPosts
   .filter(post => !post.data.draft)
@@ -75,8 +105,27 @@ const taggedvivo = vivoPosts
   .filter(post => !post.data.draft)
   .map(post => ({ ...post, hubPath: "vivo" }));
 
-const sortedPosts = [...taggedBlog, ...taggedSamsung, ...taggedXiaomi, ...taggedTecno, ...taggedMotorola, ...taggedHuawei, ...taggedHonor, ...taggedOnePlus, ...taggedPixel, ...taggedNothing, ...taggedApple, ...taggedOppo, ...taggedvivo]
-  .sort((a, b) => b.data.pubDatetime.valueOf() - a.data.pubDatetime.valueOf());
+const sortedPosts = [
+  ...taggedBlog,
+  ...taggedCodm,
+  ...taggedEfootball,
+  ...taggedPubgmobile,
+  ...taggedMlbb,
+  ...taggedFreefire,
+  ...taggedItel,
+  ...taggedSamsung,
+  ...taggedXiaomi,
+  ...taggedTecno,
+  ...taggedMotorola,
+  ...taggedHuawei,
+  ...taggedHonor,
+  ...taggedOnePlus,
+  ...taggedPixel,
+  ...taggedNothing,
+  ...taggedApple,
+  ...taggedOppo,
+  ...taggedvivo,
+].sort((a, b) => b.data.pubDatetime.valueOf() - a.data.pubDatetime.valueOf());
 
 const heroPost = sortedPosts[0];
 const sidebarPosts = sortedPosts.filter(p => p.id !== heroPost?.id).slice(0, 6);
@@ -259,6 +308,17 @@ function getSrcset(src: string): string {
             <div class="rb-list-card-info">
               <h3 class="rb-list-card-title">Mobile Legends</h3>
               <p class="rb-list-card-desc">Best hero guides, tier lists, emblem builds, and ranked tips updated every season.</p>
+            </div>
+            <span class="rb-list-card-arrow">→</span>
+          </a>
+        </li>
+
+        <li class="rb-list-card-item">
+          <a href="/freefire/" class="rb-list-card-link">
+            <span class="rb-list-card-icon">🔥</span>
+            <div class="rb-list-card-info">
+              <h3 class="rb-list-card-title">Free Fire</h3>
+              <p class="rb-list-card-desc">Daily redeem codes, character and weapon tier lists, ranked tips and event guides.</p>
             </div>
             <span class="rb-list-card-arrow">→</span>
           </a>
