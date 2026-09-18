@@ -23,8 +23,18 @@ const huaweiPosts = await getCollection("huawei", ({ data }) => !data.draft);
 const honorPosts = await getCollection("honor", ({ data }) => !data.draft);
 const oneplusPosts = await getCollection("oneplus", ({ data }) => !data.draft);
 const pixelPosts = await getCollection("pixel", ({ data }) => !data.draft);
+const vivoPosts = await getCollection("vivo", ({ data }) => !data.draft);
+const freefirePosts = await getCollection("freefire", ({ data }) => !data.draft);
+const oppoPosts = await getCollection("oppo", ({ data }) => !data.draft);
+const applePosts = await getCollection("apple", ({ data }) => !data.draft);
+const nothingPosts = await getCollection("nothing", ({ data }) => !data.draft);
+const efootballPosts = await getCollection("efootball", ({ data }) => !data.draft);
+const mlbbPosts = await getCollection("mlbb", ({ data }) => !data.draft);
+const codmPosts = await getCollection("codm", ({ data }) => !data.draft);
+const pubgmobilePosts = await getCollection("pubgmobile", ({ data }) => !data.draft);
 
-const allPosts = [...blogPosts, ...samsungPosts, ...xiaomiPosts, ...tecnoPosts, ...motorolaPosts, ...huaweiPosts, ...honorPosts, ...oneplusPosts, ...pixelPosts];
+
+const allPosts = [...blogPosts, ...samsungPosts, ...xiaomiPosts, ...tecnoPosts, ...motorolaPosts, ...huaweiPosts, ...honorPosts, ...oneplusPosts, ...pixelPosts, ...vivoPosts, ...freefirePosts, ...oppoPosts, ...applePosts, ...nothingPosts, ...efootballPosts, ...mlbbPosts, ...codmPosts, ...pubgmobilePosts];
 
 const sortedPosts = getSortedPosts(allPosts);
 const tags = getUniqueTags(sortedPosts);
