@@ -26,6 +26,15 @@ export const getStaticPaths: GetStaticPaths = async ({ paginate }) => {
   const honorPosts = await getCollection("honor", ({ data }) => !data.draft);
   const oneplusPosts = await getCollection("oneplus", ({ data }) => !data.draft);
   const pixelPosts = await getCollection("pixel", ({ data }) => !data.draft);
+  const vivoPosts = await getCollection("vivo", ({ data }) => !data.draft);
+  const freefirePosts = await getCollection("freefire", ({ data }) => !data.draft);
+  const oppoPosts = await getCollection("oppo", ({ data }) => !data.draft);
+  const applePosts = await getCollection("apple", ({ data }) => !data.draft);
+  const nothingPosts = await getCollection("nothing", ({ data }) => !data.draft);
+  const efootballPosts = await getCollection("efootball", ({ data }) => !data.draft);
+  const mlbbPosts = await getCollection("mlbb", ({ data }) => !data.draft);
+  const codmPosts = await getCollection("codm", ({ data }) => !data.draft);
+  const pubgmobilePosts = await getCollection("pubgmobile", ({ data }) => !data.draft);
 
 
   const allPosts: TaggablePost[] = [
@@ -38,6 +47,15 @@ export const getStaticPaths: GetStaticPaths = async ({ paginate }) => {
     ...honorPosts.map(p => ({ ...p, hubPath: "honor" })),
     ...oneplusPosts.map(p => ({ ...p, hubPath: "oneplus" })),
     ...pixelPosts.map(p => ({ ...p, hubPath: "pixel" })),
+    ...vivoPosts.map(p => ({ ...p, hubPath: "vivo" })),
+    ...freefirePosts.map(p => ({ ...p, hubPath: "freefire" })),
+    ...oppoPosts.map(p => ({ ...p, hubPath: "oppo" })),
+    ...applePosts.map(p => ({ ...p, hubPath: "apple" })),
+    ...nothingPosts.map(p => ({ ...p, hubPath: "nothing" })),
+    ...efootballPosts.map(p => ({ ...p, hubPath: "efootball" })),
+    ...mlbbPosts.map(p => ({ ...p, hubPath: "mlbb" })),
+    ...codmPosts.map(p => ({ ...p, hubPath: "codm" })),
+    ...pubgmobilePosts.map(p => ({ ...p, hubPath: "pubgmobile" })),
   ];
 
   const sortedPosts = getSortedPosts(allPosts as any);
