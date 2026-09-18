@@ -9,7 +9,7 @@ export async function GET() {
     : `${SITE.website}/`;
 
   // Fetch all collections
-  const [blogPosts, codmPosts, efootballPosts, pubgPosts, mlbbPosts, itelPosts, samsungPosts, xiaomiPosts, motorolaPosts, huaweiPosts, oneplusPosts, pixelPosts, nothingPosts, applePosts, oppoPosts, vivoPosts] = await Promise.all([
+  const [blogPosts, codmPosts, efootballPosts, pubgPosts, mlbbPosts, itelPosts, samsungPosts, xiaomiPosts, motorolaPosts, huaweiPosts, oneplusPosts, pixelPosts, nothingPosts, applePosts, oppoPosts, vivoPosts, freefirePosts] = await Promise.all([
     getCollection("blog", ({ data }) => !data.draft),
     getCollection("codm", ({ data }) => !data.draft),
     getCollection("efootball", ({ data }) => !data.draft),
@@ -26,6 +26,7 @@ export async function GET() {
     getCollection("apple", ({ data }) => !data.draft),
     getCollection("oppo", ({ data }) => !data.draft),
     getCollection("vivo", ({ data }) => !data.draft),
+    getCollection("freefire", ({ data }) => !data.draft),
   ]);
 
   // Blog posts — use getPath like before
