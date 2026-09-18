@@ -3,6 +3,7 @@ title: "Is It Worth Buying a UK-Used iPhone 13 Pro Max vs a New Samsung Galaxy A
 description: "A UK-used iPhone 13 Pro Max or a brand-new Samsung Galaxy A57 — which actually makes sense in 2026? We compare cameras, chips, battery life, software support, and Nigeria pricing context to help you decide."
 author: iSamuel
 pubDatetime: 2026-09-18T17:15:00.000Z
+storyImage: /assets/posts/samsung-galaxy-a57.jpg
 coverImage: /assets/posts/iphone-13-pro-max-vs-galaxy-a57-cover.jpg
 coverImageAlt: iPhone 13 Pro Max and Samsung Galaxy A57 placed side by side on a desk
 slug: iphone-13-pro-max-uk-used-vs-samsung-galaxy-a57-2026
