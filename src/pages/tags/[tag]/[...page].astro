@@ -35,6 +35,7 @@ export const getStaticPaths: GetStaticPaths = async ({ paginate }) => {
   const mlbbPosts = await getCollection("mlbb", ({ data }) => !data.draft);
   const codmPosts = await getCollection("codm", ({ data }) => !data.draft);
   const pubgmobilePosts = await getCollection("pubgmobile", ({ data }) => !data.draft);
+  const infinixPosts = await getCollection("infinix", ({ data }) => !data.draft);
 
 
   const allPosts: TaggablePost[] = [
@@ -56,6 +57,7 @@ export const getStaticPaths: GetStaticPaths = async ({ paginate }) => {
     ...mlbbPosts.map(p => ({ ...p, hubPath: "mlbb" })),
     ...codmPosts.map(p => ({ ...p, hubPath: "codm" })),
     ...pubgmobilePosts.map(p => ({ ...p, hubPath: "pubgmobile" })),
+    ...infinixPosts.map(p => ({ ...p, hubPath: "infinix" })),
   ];
 
   const sortedPosts = getSortedPosts(allPosts as any);
