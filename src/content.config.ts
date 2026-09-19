@@ -562,6 +562,43 @@ const freefire = defineCollection({
       slug: z.string().optional(),
     }),
 });
+// --------------- Infinix Collection ---------------
+const infinix = defineCollection({
+  loader: glob({ pattern: "**/[^_]*.{md,mdx}", base: "./src/data/infinix" }),
+  schema: ({ image }) =>
+    z.object({
+      title: z.string(),
+      description: z.string(),
+      author: z.string().default(SITE.author),
+      pubDatetime: z.coerce.date(),
+      modDatetime: z.coerce.date().optional().nullable(),
+      lastUpdated: z.string().optional(),
+      ogImage: image().optional().or(z.string().url().optional()),
+      canonicalURL: z.string().url().optional(),
+      coverImage: z.string().optional(),
+      coverImageAlt: z.string().optional(),
+      storyImage: z.string().optional(),
+      type: z.enum(["review", "comparison", "buying-guide", "news"]).default("review"),
+      series: z.string().optional(),       // e.g. "Hot", "Note", "Zero", "GT", "Smart"
+      model: z.string().optional(),        // e.g. "Hot 60 Pro"
+      software: z.string().optional(),     // e.g. "XOS 15"
+      priceNGN: z.number().optional(),
+      rating: z.number().min(0).max(5).optional(),
+      chipset: z.string().optional(),      // e.g. "Helio G100"
+      ram: z.string().optional(),          // e.g. "8GB"
+      storage: z.string().optional(),      // e.g. "256GB"
+      battery: z.string().optional(),      // e.g. "5000mAh"
+      display: z.string().optional(),      // e.g. "6.78in AMOLED"
+      camera: z.string().optional(),       // e.g. "50MP main"
+      comparedTo: z.string().optional(),
+      comparedToSlug: z.string().optional(),
+      tags: z.array(z.string()).default(["infinix"]),
+      featured: z.boolean().optional(),
+      draft: z.boolean().optional().default(false),
+      relatedSlugs: z.array(z.string()).optional(),
+      slug: z.string().optional(),
+    }),
+});
 export const collections = {
   blog,
   codm,
@@ -581,4 +618,5 @@ export const collections = {
   oppo,
   vivo,
   freefire,
+  infinix,
 };
