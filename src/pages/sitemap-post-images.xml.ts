@@ -9,7 +9,7 @@ export async function GET() {
     : `${SITE.website}/`;
 
   // Fetch all collections
-  const [blogPosts, codmPosts, efootballPosts, pubgPosts, mlbbPosts, itelPosts, samsungPosts, xiaomiPosts, motorolaPosts, huaweiPosts, oneplusPosts, pixelPosts, nothingPosts, applePosts, oppoPosts, vivoPosts, freefirePosts] = await Promise.all([
+  const [blogPosts, codmPosts, efootballPosts, pubgPosts, mlbbPosts, itelPosts, samsungPosts, xiaomiPosts, motorolaPosts, huaweiPosts, oneplusPosts, pixelPosts, nothingPosts, applePosts, oppoPosts, vivoPosts, freefirePosts, infinixPosts] = await Promise.all([
     getCollection("blog", ({ data }) => !data.draft),
     getCollection("codm", ({ data }) => !data.draft),
     getCollection("efootball", ({ data }) => !data.draft),
@@ -27,6 +27,7 @@ export async function GET() {
     getCollection("oppo", ({ data }) => !data.draft),
     getCollection("vivo", ({ data }) => !data.draft),
     getCollection("freefire", ({ data }) => !data.draft),
+    getCollection("infinix", ({ data }) => !data.draft),
   ]);
 
   // Blog posts — use getPath like before
@@ -179,6 +180,24 @@ export async function GET() {
       const imageUrl = buildImageUrl(g.data.coverImage as string, websiteBase);
       return buildEntry(postUrl, imageUrl, g.data.coverImageAlt || g.data.title);
     });
+
+  const freefireEntries = freefirePosts
+    .filter((g) => g.data.coverImage)
+    .map((g) => {
+      const slug = g.data.slug ?? g.id;
+      const postUrl = `${websiteBase}freefire/${slug}/`;
+      const imageUrl = buildImageUrl(g.data.coverImage as string, websiteBase);
+      return buildEntry(postUrl, imageUrl, g.data.coverImageAlt || g.data.title);
+    });
+  
+  const infinixEntries = infinixPosts
+    .filter((g) => g.data.coverImage)
+    .map((g) => {
+      const slug = g.data.slug ?? g.id;
+      const postUrl = `${websiteBase}infinix/${slug}/`;
+      const imageUrl = buildImageUrl(g.data.coverImage as string, websiteBase);
+      return buildEntry(postUrl, imageUrl, g.data.coverImageAlt || g.data.title);
+    });
   
   const allEntries = [
     ...blogEntries,
@@ -197,6 +216,8 @@ export async function GET() {
     ...appleEntries,
     ...oppoEntries,
     ...vivoEntries,
+    ...freefireEntries,
+    ...infinixEntries,
   ].join("");
 
   const xml = `<?xml version="1.0" encoding="UTF-8"?>
