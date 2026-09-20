@@ -13,6 +13,7 @@ relatedSlugs:
   - how-to-choose-an-oppo-phone-2026
   - oppo-phones-200-300-2026
   - oppo-camera-guide-australia-choosing-the-right-phone-for-photos
+  - oppo-2026-camera-lineup-what-really-changes
 ---
 
 ## Table of Contents 
