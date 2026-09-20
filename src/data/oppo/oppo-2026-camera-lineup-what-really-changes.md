@@ -2,7 +2,7 @@
 title: "OPPO's 2026 Camera Lineup: What Really Changes Between Models?"
 description: "OPPO sells four different camera philosophies in 2026, not one. Here's what actually separates the Find X9, Find X9 Pro, Find X9 Ultra, and Reno 15 Pro on sensor size, zoom range, and real-world shooting."
 author: iSamuel
-pubDate: 2026-09-20T21:11:00Z
+pubDatetime: 2026-09-20T21:11:00Z
 storyImage: /assets/oppo/reno-15-pro.jpg
 coverImage: /assets/oppo/oppo-2026-camera-lineup-cover.jpg
 coverImageAlt: OPPO Find X9 series and Reno 15 Pro rear camera modules side by side
