@@ -10,6 +10,7 @@ slug: "how-to-choose-an-oppo-phone-2026"
 relatedSlugs:
   - oppo-phones-australia-which-model-makes-sense
   - oppo-phones-longest-battery-life-2026
+  - oppo-2026-camera-lineup-what-really-changes
 ---
 
 ## Table of Contents 
