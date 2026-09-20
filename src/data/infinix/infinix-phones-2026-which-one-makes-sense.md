@@ -8,6 +8,8 @@ coverImage: "/assets/infinix/infinix-phones-2026-lineup-comparison.jpg"
 coverImageAlt: "Five Infinix smartphones from 2026 lined up side by side, from entry-level to upper-tier"
 slug: "infinix-phones-2026-which-one-makes-sense"
 tags: ["infinix", "smartphones"]
+relatedSlugs:
+    - infinix-phones-with-long-battery-life-what-actually-lasts
 ---
 
 ## Table of Contents 
