@@ -9,6 +9,8 @@ slug: "free-fire-2026-updates-what-has-changed"
 category: "Gaming"
 gameMode: "Battle Royale"
 season: "OB55 - Chapter One: Nine Tails Strikes"
+relatedSlugs: 
+   - free-fire-movement-guide
 ---
 
 ## Table of Contents 
