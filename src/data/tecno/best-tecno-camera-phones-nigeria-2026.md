@@ -8,10 +8,7 @@ coverImage: "/assets/tecno/best-tecno-camera-phones-nigeria-2026.jpg"
 coverImageAlt: "Five TECNO Camon smartphones lined up showing their rear camera modules"  
 slug: best-tecno-camera-phones-nigeria-2026  
 relatedSlugs:  
-  - best-tecno-phones-under-150-nigeria-2026  
-  - best-tecno-phones-under-200  
-  - best-tecno-5g-phones-nigeria-2026  
-  - best-tecno-camon-phones-camera-2026  
+  - tecno-phones-2026-which-makes-most-sense
 tags:  
   - tecno  
   - camon  
