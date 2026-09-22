@@ -2,7 +2,7 @@
 title: "iPhone 18 Pro Cameras: The Variable Aperture Gamble"
 description: "Apple finally ditched the fixed aperture. We break down how the iPhone 18 Pro's ƒ/1.48-to-ƒ/4.0 mechanical aperture actually works, who it's for, and whether it's worth the upgrade."
 author: iSamuel
-pubDate: 2026-09-22T13:04:00.000Z
+pubDatetime: 2026-09-22T13:04:00.000Z
 storyImage: /assets/apple/iphone-18-pro.jpg
 coverImage: /assets/apple/iphone-18-pro-variable-aperture-cover.jpg
 coverImageAlt: iPhone 18 Pro rear camera module showing the main lens housing the new variable aperture mechanism
