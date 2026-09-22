@@ -8,6 +8,7 @@ coverImage: /assets/apple/iphone-18-pro-variable-aperture-cover.jpg
 coverImageAlt: iPhone 18 Pro rear camera module showing the main lens housing the new variable aperture mechanism
 slug: iphone-18-pro-variable-aperture-camera-review
 type: buying-guide
+productLine: "iphone"
 ---
 
 ## Table of Contents 
