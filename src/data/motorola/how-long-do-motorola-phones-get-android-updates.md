@@ -12,6 +12,7 @@ relatedSlugs:
   - best-motorola-phones-for-gaming-2026
   - best-motorola-phones-2026-top-picks
   - motorola-razr-vs-edge-vs-moto-g
+  - motorola-128gb-vs-256gb-storage
 ---
 
 ## Table of Contents 
