@@ -1,7 +1,7 @@
 ---
 title: "Motorola 128GB vs 256GB: How Much Storage Do You Really Need?"
 description: "A practical, no-fluff breakdown of Motorola's 128GB and 256GB storage options — what actually fills up your phone, who needs the upgrade, and who's just paying for space they'll never touch."
-pubDatetime: 2026-09-22T07:51:00Z
+pubDatetime: 2026-09-22T06:58:56Z
 storyImage: "/assets/motorola/photos-and-videos-storage-usage.jpg
 coverImage: "/assets/motorola/motorola-128gb-vs-256gb-cover.jpg"
 coverImageAlt: "Motorola phone storage settings screen showing space used by apps, photos, and system files"
