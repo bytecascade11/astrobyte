@@ -8,6 +8,8 @@ coverImage: "/assets/apple/iphone-lineup-2026-us-buyers-guide-cover.jpg"
 coverImageAlt: "Apple iPhone 17 series lineup displayed side by side against a plain background"
 slug: "which-iphone-worth-buying-us-2026"
 productLine: "iphone"
+relatedSlugs:
+   - iphone-18-pro-variable-aperture-camera-review
 ---
 
 ## Table of Contents 
