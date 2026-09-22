@@ -11,6 +11,7 @@ relatedSlugs:
   - "best-motorola-camera-phones-2026"
   - "best-motorola-phones-for-gaming-2026"
   - "best-motorola-phones-for-battery-life-2026"
+  - "motorola-128gb-vs-256gb-storage"
 ---
 
 ## Table of Contents 
