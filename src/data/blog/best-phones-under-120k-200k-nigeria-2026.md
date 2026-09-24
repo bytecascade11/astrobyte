@@ -1,26 +1,27 @@
----  
-title: "Best Phones Under ₦120,000 and ₦200,000 in Nigeria (2026)"  
-description: "We researched the best phones under ₦120k and ₦200k in Nigeria for 2026. See the models with the best battery, camera, performance, and value — with sourced specs and real Nigerian market prices."  
-coverImage: "/assets/posts/best-phones-under-120k-200k-nigeria-2026.jpg"  
-coverImageAlt: "Best phones under ₦120k and ₦200k in Nigeria 2026"
-keywords: "budget phones nigeria 2026, phones under 120k nigeria, phones under 200k nigeria, infinix nigeria, tecno phones nigeria, best cheap phones nigeria" 
-pubDatetime: 2026-06-12T07:11:00Z  
-modDatetime: 2026-06-12T07:11:00Z
-tags: ["smartphones", "nigeria", "tecno", "infinix", "itel", "samsung", "android", "opinions"]  
-author: "iSamuel"  
----  
+---
+title: "Phones From ₦120,000 to ₦200,000 in Nigeria: What Actually Makes Sense in 2026"
+description: "Looking for a phone between ₦120k and ₦200k in Nigeria? Here's what the current market actually offers, from battery and performance to cameras, displays, storage and software support."
+coverImage: "/assets/posts/phones-120k-to-200k-nigeria-2026.jpg"
+coverImageAlt: "Phones from ₦120,000 to ₦200,000 in Nigeria 2026"
+slug: "phones-from-120k-to-200k-nigeria-2026"
+keywords: "phones 120k to 200k nigeria, phones under 200k nigeria, budget phones nigeria 2026, phones around 150k nigeria, phones around 200k nigeria, infinix nigeria, tecno nigeria, samsung a17 nigeria, redmi 15c nigeria, itel s25 nigeria"
+pubDatetime: 2026-06-12T07:11:00Z
+modDatetime: 2026-09-23T09:00:00Z
+tags: ["smartphones", "nigeria", "tecno", "infinix", "samsung", "itel", "xiaomi", "android"]
+author: "iSamuel"
+---
 
-## Table of Contents 
-  
-## Best Phones Under ₦120,000 and ₦200,000 in Nigeria (2026)  
-  
-> **Last updated: June 12, 2026.** Phone prices in Nigeria shift with exchange rate movements. All prices in this guide reflect Nigerian market listings as of this date — confirm current pricing before purchase.  
-  
----  
-  
-> **About this guide:** Written by iSamuel, founder of ReviByte. ReviByte covers budget phones, mobile hardware, and practical buying advice for Nigerian users. All models listed here were found in Nigerian retail channels as of mid-2026 — either at Jumia, Slot, or widely stocked local dealers.  
-  
----  
+## Table of Contents
+
+## Phones From ₦120,000 to ₦200,000 in Nigeria: What Actually Makes Sense in 2026
+
+> **Last updated: September 23, 2026.** This guide replaces our June 2026 snapshot of this bracket. Several of the phones we recommended then — the Infinix Note 50 in particular — have effectively left the market or moved into clearance/secondhand territory. Prices below are drawn from cited sources where possible; confirm current pricing before you buy, since Nigerian retail prices shift with naira movements between updates.
+
+---
+
+> **About this guide:** Written by iSamuel, founder of ReviByte. ReviByte covers budget and mid-range phones, mobile hardware, and practical buying advice for Nigerian users. Specs and prices below are sourced individually per phone, with links at the end of this guide.
+
+---
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4896561037705299"
      crossorigin="anonymous"></script>
 <ins class="adsbygoogle"
@@ -32,62 +33,30 @@ author: "iSamuel"
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
-## Quick Picks — Skip Here If You're in a Hurry  
-  
-| Budget | Best Pick | Why |  
-|---|---|---|  
-| Best under ₦120k | **itel City 100** | IP64 + 1.5m drop tested + 4GB/128GB at ~₦110k |  
-| Best value under ₦200k | **Infinix Note 50** | AMOLED 144Hz + OIS camera + 45W — among the most features per naira at this price |  
-| Best display | **Infinix Note 50** | 6.78" AMOLED 144Hz FHD+ — among the strongest displays available at this price |  
-| Best long-term use | **Samsung Galaxy A16** | Up to six generations of OS updates on select variants, per Samsung's update policy |  
-| Best battery | **Infinix Hot 60 Pro** | 6,000mAh + 45W at ~₦195k |  
-  
----  
-  
-## What the Sub-₦120k Bracket Looks Like in 2026
-  
-Phone prices in Nigeria have not come down since the naira repricing of 2023–2025. What used to sit at ₦60,000 now costs ₦100,000–₦120,000 in most stores. That is the market reality going into mid-2026.  
-  
-The other side of it: competition between Infinix, Tecno, itel, and POCO at this tier has pushed specs upward. Under ₦120,000 today, you can reasonably expect 4GB RAM, 128GB storage, a 5,000mAh+ battery, 18W charging, and — something genuinely new at this price bracket — **IP64 dust and water resistance** from multiple brands. Two years ago, IP ratings here were rare. Now Tecno and itel both include them as standard on phones in this range.  
-  
-What you will not find here: 5G, AMOLED, OIS on the camera, or more than two Android OS update cycles. Set those expectations clearly before you walk into a store.  
-  
----  
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4896561037705299"
-     crossorigin="anonymous"></script>
-<ins class="adsbygoogle"
-     style="display:block; text-align:center;"
-     data-ad-layout="in-article"
-     data-ad-format="fluid"
-     data-ad-client="ca-pub-4896561037705299"
-     data-ad-slot="7554701431"></ins>
-<script>
-     (adsbygoogle = window.adsbygoogle || []).push({});
-</script>  
-## Best Phones Under ₦120,000
-  
-### 1. itel City 100 — ~₦110,900 (4GB/128GB)  
-  
-![itel City 100 in Fairy Purple showing its slim 7.65mm profile](/assets/posts/itel-city-100-slim-profile-2026.jpg)  
-*The City 100 is among the slimmest phones at this price point. Available in Navy Blue, Pure Titanium, and Fairy Purple. The 7.65mm body is a genuine differentiator at sub-₦120k.*  
-  
-The itel City 100 is one of the most complete options under ₦120,000 in Nigeria right now. Three things earn it the top spot in this category.  
-  
-**Build durability.** According to manufacturer specifications and multiple Nigerian retail listings, the City 100 carries an **IP64 rating** (dust-tight, splash-resistant) and has been tested to withstand **1.5-metre drops**. At ~₦110,900, that combination is unusual — most phones at this price skip protective ratings entirely.  
-  
-**Storage configuration.** 4GB RAM and 128GB storage at this price is the strongest base configuration in this bracket. Per manufacturer specifications, the storage uses the UFS standard rather than the slower eMMC still common at this tier, which means faster app loading in practice.  
-  
-**Charging speed.** 18W on a 5,200mAh battery is solid for this price range. Based on manufacturer data and user feedback from Nigerian tech publications, the full charge time sits under two hours — meaningfully faster than the 10–15W options still common near this price.  
-  
-The trade-offs are real. The Unisoc T7250 processor handles everyday tasks — WhatsApp, banking apps, Instagram, music — without complaint, but it has no headroom for sustained gaming or heavy multitasking. The 13MP camera is functional for social media and documents in daylight; low-light performance is average. And the phone ships on **Android 14**, one version behind most current competition.  
-  
-One thing worth knowing: some listings for the City 100 show a **6GB RAM variant** — check the listing carefully, as that configuration offers even more headroom for multitasking at a slightly higher price.  
-  
-**Specs per itel official documentation and local store pricing:** Unisoc T7250 (12nm), 6.75" IPS LCD 90Hz HD+, 700 nits peak brightness, IP64 + 1.5m drop tested, 5,200mAh, 18W charging, 13MP rear + 8MP front, 4GB or 6GB RAM / 128GB storage, Android 14, microSD expandable  
-  
-**Where to buy:** Slot, Jumia, 3CHub — from ~₦110,900 (4GB/128GB)  
-  
----  
+
+## What ₦120,000–₦200,000 Gets You in September 2026
+
+One common mistake buyers make in this bracket is assuming that spending another ₦20,000 automatically gets you a better phone. It doesn't — not evenly, anyway. At some points in this range, that extra money buys you more storage and nothing else. At other points, it buys AMOLED, a bigger battery, real software support, or simply a newer generation of chip. Knowing which is which is the actual point of this guide.
+
+### What's changed since June
+
+The lineup has moved more than the prices have. A few shifts worth knowing before you shop:
+
+- **Infinix Note 50 is winding down.** It's still showing up on Jiji and clearance listings, sometimes cheap, but retailers appear to be selling through remaining stock rather than restocking it. Infinix's current mid-range phone is the **Note 60**, which has launched above this bracket in most listings we could find — worth checking current pricing directly with a retailer before assuming it fits this budget at all.
+- **Tecno's naming across the Spark 40 and Spark 50 families is genuinely confusing, and worth knowing before you shop.** "Spark 40" alone could mean the base Spark 40C (Helio G81, IPS LCD), the Spark 40 Pro (Helio G100 Ultimate, AMOLED, 45W), or the Spark 40 Pro+ (same chipset family, 144Hz AMOLED) — three different phones with three different price points sold under overlapping names, confirmed against GSMArena's separate listings for each model (linked in Sources below). The Infinix Hot 60i has a version of the same issue: the 4G Hot 60i (Helio G81 Ultimate, 5,160mAh, 45W charging) and the 5G Hot 60i (Dimensity 6400, 6,000mAh, 18W charging) share a name but are different phones. Always check the exact model number on the box, not just the family name on the price tag.
+- **AMOLED has crept further down the price ladder — but check which specific phone you're looking at.** The Samsung Galaxy A17 and itel's S-series (S25 and up) both put genuine AMOLED panels within reach of the ₦140k–₦200k range, per their official spec sheets. Not everything marketed alongside them is AMOLED, though — some retail listings blur the line, so it's worth confirming on the official spec sheet rather than the store description.
+
+### What buyers should realistically expect
+
+**4G vs 5G.** Most phones we cover in this bracket are 4G-only, though a handful of 5G variants exist alongside their 4G siblings at a premium — Samsung's Galaxy A17 5G is one, and several Infinix and Xiaomi models in this range now ship dual 4G/5G versions under the same family name (see the Hot 60i note above). 5G is worth considering if your carrier offers it where you live and you expect to keep the phone for several years. Check your carrier's current coverage before paying extra for a 5G variant, since coverage in Nigeria varies significantly by area and this is the kind of thing that changes faster than a phone guide can track.
+
+**AMOLED vs LCD.** Below ₦140,000, IPS LCD is the norm among the phones we checked. Between ₦140,000 and ₦200,000, genuine AMOLED options exist — the itel S25 and Samsung Galaxy A17 among them — but LCD is still common at every price point in this range, including some phones with large batteries that skip AMOLED entirely. Don't assume a phone has AMOLED just because it's priced like ones that do; check the specific model's spec sheet.
+
+**128GB vs 256GB.** For a phone you plan to keep for several years, 4GB/128GB is a more comfortable starting point than the 2GB/64GB configurations common below this range — app updates and WhatsApp media accumulate faster in 2026 than a 64GB phone comfortably handles. That said, someone who leans on cloud storage, streams rather than downloads, and doesn't keep much local video can reasonably get by on less. 256GB options start appearing more often as you approach the upper half of this range, although availability depends heavily on the model and current Nigerian stock — it's not a given at any specific price point.
+
+**Battery and charging.** 5,000mAh is the baseline among the phones we checked in this range, with a couple pushing well past it. Charging speed varies more by model than by price: some phones in the ₦120k–₦140k bracket ship with 45W charging while some above ₦180,000 stay at 18W, so check the specific phone rather than assuming charging speed scales with price.
+
+---
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4896561037705299"
      crossorigin="anonymous"></script>
 <ins class="adsbygoogle"
@@ -99,24 +68,40 @@ One thing worth knowing: some listings for the City 100 show a **6GB RAM variant
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
-### 2. Tecno Pop 10 — ₦103,300 (3GB/64GB)  
-  
-The Tecno Pop 10's spec sheet is not the strongest at this price. 3GB RAM and 64GB storage is the genuine limitation — apps fill 64GB faster in 2026 than most buyers expect, and 3GB means the OS will manage background processes aggressively.  
-  
-So why recommend it? Because **Tecno has the widest authorised service network of any brand in this guide**, with centres across Lagos, Abuja, Kano, Ibadan, Enugu, Port Harcourt, and many smaller cities. For buyers outside major cities who need reliable after-sales access when something goes wrong — that matters more than a benchmark number.  
-  
-The IP64 rating is the other reason. Per Tecno's official spec sheet and Nigerian retail listings, the Pop 10 carries the same dust and splash protection as phones costing ₦40,000–₦50,000 more.  
-  
-**One clear recommendation:** The **3GB/128GB variant at ₦117,600** is meaningfully better value than the base 3GB/64GB. The extra 64GB costs ₦14,300 and removes the storage anxiety that will otherwise frustrate you within a year. If ₦117k is within reach, buy that version.  
-  
-For buyers in markets, on construction sites, or anywhere dust and occasional rain are daily realities, that protection has real daily value.  
-  
-**Specs per Tecno official documentation and retail pricing data:** Unisoc T7250 (12nm), 6.67" IPS LCD 120Hz, IP64, 5,000mAh, 15W charging, 13MP + QVGA rear, 5MP front, 3GB/64GB (base) or 3GB/128GB, Android 15/HiOS 15, microSD expandable  
-  
-**Where to buy:** Slot, Jumia, Tecno experience centres nationwide — from ₦103,300 (base); ₦117,600 (128GB variant)  
-  
----  
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4896561037705299"
+
+## Around ₦120,000–₦140,000: The Realistic Floor
+
+This is the lowest end of the bracket where a phone still feels complete rather than compromised — 4GB RAM and 128GB storage, without dropping to the 2GB/64GB configurations that dominate the sub-₦120k market.
+
+![Infinix Hot 60i in Black showing its large display and rear camera module](/assets/posts/infinix-hot-60i-nigeria-2026.jpg)
+*The 4G Hot 60i and 5G Hot 60i are different phones under the same name — the 4G version is the one discussed here.*
+
+**Infinix Hot 60i 4G (4GB/128GB)** runs a MediaTek Helio G81 Ultimate chipset with a 6.7" IPS LCD panel at 120Hz, a 5,160mAh battery, 45W wired charging, and IP64 dust/splash resistance, per GSMArena's spec listing for this exact model (linked in Sources). That's a genuinely well-specced phone for this bracket, particularly the 45W charging, which isn't guaranteed even on some phones costing more.
+
+**itel P65 (4GB/128GB)** is worth naming specifically for its battery configuration, though it's worth being precise about what that configuration actually is. Per itel's own specification sheet, the phone's internal battery is a single 5,000mAh cell with 18W wired charging — the "2,400mAh" figure that shows up in a lot of marketing and retail listings refers to a separate bundled charging case sold with some regional versions, not a second cell inside the phone (confirmed by itel's spec sheet and corroborated in GSMArena user discussion, both linked in Sources). Whether that case ships with the specific unit sold in a given Nigerian store isn't something we could confirm, so treat it as a bonus rather than a guarantee, and judge the phone on its 5,000mAh internal battery on its own terms.
+
+**itel A100C** and similar 2GB/64GB phones sit just under this bracket's floor and are worth mentioning only as a warning: 2GB RAM struggles with 2026's app weight regardless of price. If you can stretch further, the phones above are the better long-term buy.
+
+**Battery:** the itel P65's 5,000mAh cell is a solid, unremarkable capacity for this bracket — reasonable rather than exceptional, and not the multi-day claim some listings imply.
+**Charging speed:** the Hot 60i 4G's 45W charging is unusually fast for this price point, ahead of some phones costing considerably more.
+
+---
+
+## Around ₦140,000–₦160,000: Where the Extra Money Goes
+
+This is a genuinely awkward bracket to shop in, because it's not clearly better than ₦120k–₦140k on paper — the difference shows up in display technology and build polish rather than headline specs.
+
+**Tecno Spark 40C (4GB/128GB)** is the specific Spark 40-family phone we'd point to at this price, not the Spark 40 Pro or Pro+, which cost considerably more and use different chipsets and AMOLED panels. The Spark 40C runs a MediaTek Helio G81 chipset with a 6.67" IPS LCD panel at 120Hz, a 6,000mAh battery, 18W charging, and IP64 dust/splash resistance, per GSMArena's spec sheet (linked in Sources). The main tangible gains here over the ₦120k bracket are the larger battery and the 120Hz display; performance remains firmly in the entry-level class.
+
+**itel S25 (6GB/128GB)** genuinely does bring AMOLED into this bracket — a 6.78" curved AMOLED panel at 120Hz with a notably high peak brightness rating, running on a Unisoc T620 chipset, 5,000mAh battery, and 18W charging, with IP54 splash resistance, per GSMArena's spec listing (linked in Sources). If display quality matters more to you than raw processing power at this budget, it's a genuine option to cross-shop against the Spark 40C.
+
+**Xiaomi Redmi 15C, 6GB/128GB variant**, launched in Nigeria through Xiaomi's own authorised retail network at ₦148,600, per Xiaomi's official Nigeria launch announcement (linked in Sources, dated August 2025). That launch pricing sits in this bracket; current listings over a year later may run higher given naira movement in the interim, so treat that figure as an anchor rather than today's exact price.
+
+**Display:** the itel S25's AMOLED panel is a real step up from anything LCD-based in this bracket, at the cost of a less powerful chipset than some LCD competitors.
+**Gaming and general performance:** the Spark 40C's Helio G81 and 120Hz LCD panel handle everyday use and light gaming comfortably, without the AMOLED premium.
+
+---
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4896561037705299"
      crossorigin="anonymous"></script>
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
@@ -127,34 +112,42 @@ For buyers in markets, on construction sites, or anywhere dust and occasional ra
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
-### 3. POCO C71 — ~₦104,900 (4GB/128GB)  
-  
-The POCO C71 offers the best raw specs-per-naira in this price range: 4GB RAM, 128GB storage, and a MediaTek Helio G81 processor — a step above the Unisoc T7250 in the itel and Tecno options — all for around ₦104,900 on Jumia.  
-  
-The Helio G81 gives the C71 slightly better sustained performance and smoother multitasking compared to the T7250. The difference is not dramatic in daily WhatsApp and Instagram use, but it shows when you have multiple apps running or are loading larger games.  
-  
-The limitation to know clearly: **POCO's authorised service infrastructure in Nigeria is thin**, concentrated primarily in Lagos. If you have a hardware issue outside Lagos after the Jumia return window, resolution will likely require shipping the phone, which adds time and uncertainty. This is not a reason to avoid the phone — it is a reason to factor it into your decision depending on where you live.  
-  
-**Specs per POCO official documentation and Jumia Nigeria listing:** MediaTek Helio G81 (12nm), 6.74" IPS LCD 90Hz HD+, 5,000mAh, 18W charging, 50MP + QVGA rear, 8MP front, 4GB/128GB, Android 15/MIUI for POCO, microSD expandable  
-  
-**Where to buy:** Jumia, Computer Village, select Slot locations — from ~₦104,900  
-  
----  
-  
-### 4. Infinix Smart 10 — ~₦89,000 (4GB/64GB)  
-  
-The sub-₦90,000 option for buyers who genuinely cannot stretch higher. Most phones at this price still ship with 2GB RAM — a configuration that is untenable in 2026. The Smart 10's 4GB RAM avoids that problem.  
-  
-The Unisoc T7250 handles calls, WhatsApp, and basic social media without complaint. The 5,000mAh battery provides full-day use for moderate users. The 10W charging is the slowest in this guide — expect three-plus hours for a full cycle — so this is a phone you charge overnight, not one you top up in short windows.  
-  
-Camera is 8MP front and rear: functional for WhatsApp profile photos and document scanning, nothing more. Manage that expectation honestly and the Smart 10 delivers reliable basic performance for ₦89,000.  
-  
-**Specs per Infinix official documentation and market listings in Nigeria:** Unisoc T7250 (12nm), 6.6" IPS LCD 90Hz, 5,000mAh, 10W charging, 8MP rear + 8MP front, 4GB/64GB, Android 15 Go/XOS 15, microSD expandable  
-  
-**Where to buy:** Slot, Jumia, 3CHub — from ~₦89,000  
-  
----  
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4896561037705299"
+
+## Around ₦160,000–₦180,000: The Most Interesting Bracket
+
+This is where the money starts buying things that are easier to notice day to day — bigger batteries and more storage headroom, even where AMOLED still isn't guaranteed.
+
+![Xiaomi Redmi 15C in Orange showing its large display](/assets/posts/redmi-15c-nigeria-2026.jpg)
+*The Redmi 15C's display is IPS LCD, not AMOLED — worth knowing since it's occasionally marketed alongside AMOLED phones at a similar price.*
+
+**Xiaomi Redmi 15C, 8GB/256GB variant**, launched in Nigeria at ₦174,500 through Xiaomi's official retail network, per the same launch announcement cited above (linked in Sources). To be clear about the display: the Redmi 15C uses a 6.9" IPS LCD panel at 120Hz, not AMOLED — confirmed on GSMArena's spec listing for the model sold in this configuration (also linked in Sources). Where it does stand out is battery: a 6,000mAh cell, larger than most phones in this guide. We don't have a specific camera comparison that would justify recommending it on cameras alone, so we're not making that claim here. Worth noting separately: Xiaomi also sells a "Redmi 15C 5G," a genuinely different phone with a Dimensity 6300 chipset and 33W charging — confirm which one a listing actually refers to.
+
+**itel A100C, Infinix Smart 20, and similar lower-configuration phones** occasionally get discounted into this bracket's price range, but on paper they're not competitive with the Redmi 15C's specs at similar money.
+
+**Battery:** the Redmi 15C's 6,000mAh cell is the largest confirmed capacity in this bracket, ahead of most AMOLED competitors at similar prices.
+**Storage headroom:** the 8GB/256GB Redmi 15C variant removes the "how much room is left" question for years.
+
+---
+
+## Around ₦180,000–₦200,000: Is the Full Budget Worth Spending?
+
+The honest answer: it depends what you're optimizing for, and it's worth being specific about what each phone here actually offers rather than treating this bracket as automatically "the best."
+
+![Samsung Galaxy A17 in Blue showing its flat AMOLED display](/assets/posts/samsung-galaxy-a17-nigeria-2026.jpg)
+*The Galaxy A17's case in this guide rests specifically on Samsung's stated update commitment for this model.*
+
+**Samsung Galaxy A17** stands out here for its software-support commitment. Samsung states a policy of up to six major Android OS upgrades and six years of security updates for the Galaxy A17 from its global launch date, per Samsung's own product documentation and corroborated by independent tracking of Samsung's update policy (both linked in Sources) — a commitment separate from, and more generous than, what some other Galaxy A-series phones have received historically. It carries a 6.7" Super AMOLED display at 90Hz and IP54 splash resistance, per Samsung's own Africa product page. Samsung's LTE Galaxy A17 uses the MediaTek Helio G99, while the Galaxy A17 5G is a separate model with different hardware (an Exynos chipset in some markets) — so the chipset isn't universal across every "Galaxy A17" listing, and it's worth confirming which network variant a given listing actually is. Pricing is genuinely inconsistent across Nigerian retailers right now, spanning a wide range for what appear to be different RAM/storage/Android-batch configurations sold under the same name — too wide a spread to state a single confident figure without a live retailer check. If you find the A17 within this bracket's range, it's worth it specifically for the update commitment; if the listing you find is well above ₦200,000, the case gets weaker relative to the phones below it. Budget for a microSD card and a separate charger, since it doesn't ship with one.
+
+**Tecno Spark 50 4G (4GB/128GB)** launched in Nigeria with a 6,700mAh battery, 18W charging, a MediaTek Helio G81 chipset, and a 6.78" IPS LCD panel at 120Hz — not AMOLED, and not the 45W charging we noted in an earlier draft of this guide, which turned out to be inherited from the unrelated Spark 40 Pro. It also carries IP64 dust/splash resistance and an SGS five-star drop-resistance rating tested to 1.8m, per Tecno's Nigeria launch announcement and a Nigeria-focused buyer's guide (both linked in Sources). Tecno's own Nigeria launch pricing put this variant at ₦174,700, with a direct retailer (SLOT) currently listing it at ₦189,700 — both linked in Sources.
+
+**Is the full ₦200k worth it, or should you buy down?** If Samsung's software-update commitment or a genuine AMOLED panel matters to you, the Galaxy A17 offers something nothing cheaper in this guide does — but only if you can find it priced within this bracket rather than above it. If you mainly want a large battery and a comfortable daily driver without prioritizing AMOLED, the Spark 50 or Redmi 15C can cover those needs without requiring you to spend the full ₦200,000.
+
+**Long-term ownership:** the clearest reason to spend toward the top of this bracket is Samsung's stated update commitment for the Galaxy A17.
+**Battery and durability:** for buyers prioritizing battery capacity and basic durability, the Spark 50's 6,700mAh cell and IP64/drop-resistance rating make it particularly relevant.
+**5G:** the Galaxy A17 5G is the option to check here, typically at a premium over the 4G variant — worth it only if your carrier's coverage map confirms 5G where you actually use your phone.
+
+---
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4896561037705299"
      crossorigin="anonymous"></script>
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
@@ -165,241 +158,79 @@ Camera is 8MP front and rear: functional for WhatsApp profile photos and documen
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
-### Under ₦120k: Full Comparison  
-  
-| Phone | Price | RAM/Storage | Battery | Charging | IP Rating | Standout |  
-|---|---|---|---|---|---|---|  
-| **itel City 100** | ~₦110,900 | 4GB/128GB UFS | 5,200mAh | 18W | **IP64 + 1.5m drop** | Best build + storage combo |  
-| Tecno Pop 10 | ₦103,300 | 3GB/64GB | 5,000mAh | 15W | **IP64** | Best service network |  
-| POCO C71 | ~₦104,900 | **4GB/128GB** | 5,000mAh | 18W | — | Best chip at price |  
-| Infinix Smart 10 | ~₦89,000 | 4GB/64GB | 5,000mAh | 10W | — | Only reliable sub-₦90k |  
-  
-*Specs sourced from manufacturer documentation and Nigerian retail listings (Jumia Nigeria, Slot, NaijaTechGuide) as of June 2026. Prices fluctuate — confirm before purchase.*  
-  
----  
-  
-## What the Sub-₦200k Bracket Looks Like in 2026
-  
-This is where phones become genuinely good. At ₦200,000, AMOLED displays, 8GB RAM, 256GB storage, and 45W charging all become achievable in the same device. The competitive pressure between Infinix, Tecno, and Samsung at this tier has been good for Nigerian buyers — the spec floors have moved up significantly since 2024.  
-  
-What still does not happen here: 5G in most cases, OIS on the camera (with one exception below), or IP68 full waterproofing. Some phones carry IP54; none reach IP68.  
-  
----  
-  
-## Best Phones Under ₦200,000 {#under-200k}  
-  
-### 1. Infinix Note 50 — ~₦165,000–₦185,000 (8GB/256GB)  
-  
-![Infinix Note 50 showing its AMOLED display and rear camera module](/assets/posts/infinix-note-50-nigeria-2026.jpg)  
-*The Note 50's 6.78-inch AMOLED at 144Hz is the clearest display upgrade available under ₦200k in Nigeria. For content consumption — YouTube, Netflix, reading — the difference versus IPS is immediately visible.*  
-  
-The Infinix Note 50 is one of the strongest value options under ₦200,000 in Nigeria in mid-2026. The 6.78-inch AMOLED display at **144Hz and FHD+ resolution** is listed across the official Jumia product page and local store pricing data. At this tier, that display quality is genuinely rare — most phones under ₦200k still use IPS LCD.  
-  
-The **Helio G100 Ultimate on 6nm** handles daily tasks comfortably. 8GB RAM and 256GB storage means apps load quickly and the phone has headroom for multitasking without the OS killing background processes. The **50MP main camera with OIS** — optical image stabilisation, listed on the Note 50 in manufacturer specifications — is notable at this price. OIS makes a practical difference in video recording and low-light stills; it is not common in this budget category.  
-  
-The 5,200mAh battery with **45W charging** is the same specification as several phones in the ₦150k range, which shows how competitive the Note 50's pricing is for what it offers.  
-  
-One important clarification for buyers: the **Infinix Note 50 Pro and Pro+** are different, more expensive phones (₦300,000+). This pick is the **base Note 50** — verify the model number when buying to ensure you are getting what you paid for.  
-  
-**Specs per Infinix official documentation and retail pricing data:** MediaTek Helio G100 Ultimate (6nm), 6.78" AMOLED 144Hz FHD+, 1,300 nits peak brightness, 5,200mAh, 45W charging, 50MP with OIS + 2MP rear, 32MP front, 8GB/256GB, Android 15/XOS 15, microSD expandable  
-  
-**Where to buy:** Slot, Jumia, 3CHub, Royalline — from ~₦165,000–₦185,000  
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4896561037705299"
-     crossorigin="anonymous"></script>
-<ins class="adsbygoogle"
-     style="display:block; text-align:center;"
-     data-ad-layout="in-article"
-     data-ad-format="fluid"
-     data-ad-client="ca-pub-4896561037705299"
-     data-ad-slot="7554701431"></ins>
-<script>
-     (adsbygoogle = window.adsbygoogle || []).push({});
-</script>
----  
-  
-### 2. Tecno Spark 40 Pro — ~₦185,000 (8GB/256GB)  
-  
-The Tecno Spark 40 Pro is the durability-first pick in this category. It carries **IP64 dust and splash resistance alongside a drop resistance certification** — both listed in Tecno's official product documentation. At under ₦200k, that physical protection package is unusual.  
-  
-The upgrade over the base Spark 40 is meaningful: 8GB RAM instead of 4GB, a 50MP front camera for video calls and selfies, and the same MediaTek Helio G99 on 6nm that the Samsung Galaxy A07 4G uses. Real stereo dual speakers carry through from the base model.  
-  
-**45W charging on a 5,200mAh cell** gets you to approximately 50% in around 30 minutes — consistent with manufacturer charging data published for the Spark 40 series.  
-  
-The trade-off against the Note 50 is clear: the Spark 40 Pro uses IPS LCD rather than AMOLED, and the camera system — while improved — does not match the Note 50's OIS setup. What it offers in exchange is a phone built to take physical punishment, with the widest service network in Nigeria behind it.  
-  
-**Specs per Tecno official documentation and local store pricing:** MediaTek Helio G99 (6nm), 6.67" IPS LCD 120Hz FHD+, IP64 + drop resistance, dual stereo speakers, 5,200mAh, 45W charging (~50% in ~30 min), 64MP + 8MP rear, 50MP front, 8GB/256GB, Android 15/HiOS 15  
-  
-**Where to buy:** Slot, Jumia, Tecno experience centres — from ~₦185,000  
-  
----  
-  
-### 3. Samsung Galaxy A16 4G — ~₦172,000 (6GB/128GB)  
-  
-![Samsung Galaxy A16 4G in Light Blue showing its flat AMOLED display design](/assets/posts/samsung-galaxy-a16-4g-nigeria-2026.jpg)  
-*The A16 4G does not lead on raw specs. It leads on time — six years of guaranteed Android updates is a commitment that changes how long this phone stays useful and secure.*  
-  
-Let me be upfront about what the Galaxy A16 4G is not: the strongest spec sheet in this section. The Exynos 1330 processor is capable but trails the Helio G100 in the Note 50 on performance. The 6GB/128GB base configuration is behind the 8GB/256GB combos elsewhere at similar or lower prices. The 25W charging is the slowest here.  
-  
-What it is: the only phone under ₦200k in Nigeria with **a long-term software support policy** — Samsung has publicly committed to up to six generations of Android OS updates and security patches for the Galaxy A16 series, depending on region. No other brand in this guide at this price makes anything close to that promise. Infinix and Tecno typically list two major OS updates on their budget and mid-range phones.  
-  
-If you keep a phone for three to four years — which most Nigerian buyers realistically do — software longevity changes the phone's useful life and eventual resale value in a way that a better chip today does not.  
-  
-Practical notes: the base 6GB/128GB fills faster than you expect with Samsung's One UI skin and pre-installed apps. **Budget for a microSD card on day one.** The phone also ships **without a charger in the box** — factor in the cost of a 25W Samsung adapter (~₦5,000–₦8,000 from authorised dealers).  
-  
-The 6.7" AMOLED at 90Hz is consistent with Samsung's own product page — a sharp, colour-accurate panel for this price tier.  
-  
-**Specs per Samsung official documentation:** Exynos 1330 (4nm), 6.7" AMOLED 90Hz FHD+, IP54, 5,000mAh, 25W charging (no charger in box), 50MP + 5MP + 2MP rear, 13MP front, 6GB/128GB, Android 15/One UI 7, **up to six generations of Android OS updates and security patches, per Samsung's stated update policy**  
-  
-**Where to buy:** Samsung authorised dealers, Slot, Jumia — from ~₦172,000  
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4896561037705299"
-     crossorigin="anonymous"></script>
-<ins class="adsbygoogle"
-     style="display:block; text-align:center;"
-     data-ad-layout="in-article"
-     data-ad-format="fluid"
-     data-ad-client="ca-pub-4896561037705299"
-     data-ad-slot="7554701431"></ins>
-<script>
-     (adsbygoogle = window.adsbygoogle || []).push({});
-</script>
----  
-  
-### 4. Infinix Hot 60 Pro — ~₦195,000 (8GB/256GB)  
-  
-The Infinix Hot 60 Pro is the balanced all-rounder at the top of this category — no single dramatic weakness, and the **largest battery in the under-₦200k section at 6,000mAh**. Combined with 45W charging, that large cell is not a burden: substantial charge is added in short plugged-in windows, and overnight charging from any level is comfortable.  
-  
-The Helio G99 on 6nm is a proven, power-efficient chip used across several budget and mid-range Android phones — thermally stable in daily use and efficient enough to make the most of a large battery. 8GB RAM and 256GB storage on the Hot 60 Pro is the configuration that handles two to three years of app accumulation and OS growth without storage anxiety.  
-  
-The 108MP primary camera is worth contextualising honestly: the phone uses pixel binning, so it does not capture at full 108MP in most shooting conditions. Output detail is good and above average for this price bracket, but the marketing number is not what you will get in daily photos. For social media, WhatsApp, and documentation it performs well; for content creation requiring consistent quality, the Note 50's OIS setup is a better tool.  
-  
-**Specs per Infinix official documentation and local store pricing:** Helio G99 (6nm), 6.78" IPS LCD 120Hz FHD+, 6,000mAh, 45W charging, 108MP + 8MP rear, 32MP front, 8GB/256GB, Android 15/XOS 15.1  
-  
-**Where to buy:** Slot, Jumia, 3CHub — from ~₦195,000  
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4896561037705299"
-     crossorigin="anonymous"></script>
-<ins class="adsbygoogle"
-     style="display:block; text-align:center;"
-     data-ad-layout="in-article"
-     data-ad-format="fluid"
-     data-ad-client="ca-pub-4896561037705299"
-     data-ad-slot="7554701431"></ins>
-<script>
-     (adsbygoogle = window.adsbygoogle || []).push({});
-</script>
----  
-  
-### Under ₦200k: Full Comparison  
-  
-| Phone | Price | RAM/Storage | Battery | Charging | Display | Standout |  
-|---|---|---|---|---|---|---|  
-| **Infinix Note 50** | ~₦165k–₦185k | 8GB/256GB | 5,200mAh | 45W | 6.78" **AMOLED 144Hz** | Strongest display + OIS camera |  
-| Tecno Spark 40 Pro | ~₦185,000 | 8GB/256GB | 5,200mAh | 45W | 6.67" IPS 120Hz | **IP64 + drop cert** |  
-| Samsung Galaxy A16 4G | ~₦172,000 | 6GB/128GB | 5,000mAh | 25W | 6.7" AMOLED 90Hz | **Long-term OS support policy** |  
-| Infinix Hot 60 Pro | ~₦195,000 | 8GB/256GB | **6,000mAh** | 45W | 6.78" IPS 120Hz | Largest battery |  
-  
-*Specs per manufacturer documentation and retail pricing data as of June 2026. Prices vary — confirm before purchase.*  
-  
----  
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4896561037705299"
-     crossorigin="anonymous"></script>
-<ins class="adsbygoogle"
-     style="display:block; text-align:center;"
-     data-ad-layout="in-article"
-     data-ad-format="fluid"
-     data-ad-client="ca-pub-4896561037705299"
-     data-ad-slot="7554701431"></ins>
-<script>
-     (adsbygoogle = window.adsbygoogle || []).push({});
-</script>
-## Who Should Buy What
-  
-| Your Priority | Best Pick | The Reason |  
-|---|---|---|  
-| Best all-rounder under ₦120k | **itel City 100** | 4GB/128GB + IP64 + 1.5m drop protection in one package |  
-| Widest service network | **Tecno Pop 10** | Tecno has the broadest authorised service presence in Nigeria |  
-| Best raw specs under ₦110k | **POCO C71** | Strongest chip + 4GB/128GB at the price |  
-| Tightest budget (sub-₦90k) | **Infinix Smart 10** | The only reliably complete option under ₦90k |  
-| Best display under ₦200k | **Infinix Note 50** | 6.78" AMOLED 144Hz — among the strongest panels at this price |  
-| Best long-term OS support | **Samsung Galaxy A16 4G** | Long-term update policy; up to six generations per Samsung's stated commitment |  
-| Most durable under ₦200k | **Tecno Spark 40 Pro** | IP64 + drop-tested build + real dual speakers |  
-| Best battery under ₦200k | **Infinix Hot 60 Pro** | 6,000mAh + 45W — biggest cell in this category |  
-  
----  
-  
-## Where to Buy in Nigeria  
-  
-**Slot** is the most consistent choice for buyers who want no post-purchase surprises. Prices run ₦5,000–₦15,000 above open market on most models, but the warranty process is reliable and they will not dispute a defective unit during the coverage period.  
-  
-**Jumia fulfilled listings** — specifically listings marked "Sold by Jumia" or from verified brand stores on the platform — are trustworthy. Jumia's return window works. Third-party Jumia sellers are more variable; read seller ratings and reviews before checking out.  
-  
-**Computer Village (Lagos)** offers real savings — sometimes ₦10,000–₦25,000 on popular models — but requires you to do the inspection work yourself. Check the IMEI against the box. Verify storage reads correctly in settings. Run the display for dead pixels. Test charging speed if you have a USB tester. Do not skip this; returned units and spec-swapped boxes exist.  
-  
-**Jiji** secondhand listings follow the same principle as Computer Village: the savings are real and the due diligence is entirely on you. The Spark 40 Pro has been spotted under ₦155,000 from reputable Jiji sellers with original box and accessories intact.  
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4896561037705299"
-     crossorigin="anonymous"></script>
-<ins class="adsbygoogle"
-     style="display:block; text-align:center;"
-     data-ad-layout="in-article"
-     data-ad-format="fluid"
-     data-ad-client="ca-pub-4896561037705299"
-     data-ad-slot="7554701431"></ins>
-<script>
-     (adsbygoogle = window.adsbygoogle || []).push({});
-</script>
----  
-  
+
+## Full Comparison: ₦120,000–₦200,000
+
+| Phone | Typical range | RAM/Storage | Chipset | Display | Battery/Charging |
+|---|---|---|---|---|---|
+| itel P65 | ₦120k–140k | 4GB/128GB | Unisoc T615 | 6.7" IPS LCD 120Hz | 5,000mAh, 18W |
+| Infinix Hot 60i 4G | ₦120k–140k | 4GB/128GB | Helio G81 Ultimate | 6.7" IPS LCD 120Hz | 5,160mAh, 45W |
+| Tecno Spark 40C | ₦140k–160k | 4GB/128GB | Helio G81 | 6.67" IPS LCD 120Hz | 6,000mAh, 18W |
+| itel S25 | ₦140k–160k | 6-8GB/128GB | Unisoc T620 | 6.78" AMOLED 120Hz | 5,000mAh, 18W |
+| Xiaomi Redmi 15C (6/128) | ~₦148,600 launch | 6GB/128GB | Helio G81 Ultra | 6.9" IPS LCD 120Hz | 6,000mAh, 33W |
+| Xiaomi Redmi 15C (8/256) | ~₦174,500 launch | 8GB/256GB | Helio G81 Ultra | 6.9" IPS LCD 120Hz | 6,000mAh, 33W |
+| Samsung Galaxy A17 (4G) | ₦180k–200k+ | 6GB/128GB | Helio G99 | 6.7" Super AMOLED 90Hz | 5,000mAh, 25W |
+| Tecno Spark 50 (4G) | ~₦175k–190k | 4GB/128GB | Helio G81 | 6.78" IPS LCD 120Hz | 6,700mAh, 18W |
+
+*Redmi 15C figures are Xiaomi's official Nigeria launch prices (August 2025); current retail prices may be higher. Spark 50 range reflects Tecno's Nigeria launch price and a current direct-retailer listing. See Sources below for links.*
+
+---
+
+## Where to Buy in Nigeria
+
+**Slot** remains the most consistent choice for buyers who want no post-purchase surprises. Prices typically run above open-market rates, but the warranty process is reliable.
+
+**Jumia fulfilled listings** — specifically those marked "Sold by Jumia" or from verified brand stores — are trustworthy, with a working return window. Third-party sellers on the platform are more variable; check seller ratings before checking out.
+
+**Computer Village (Lagos)** and **Jiji** secondhand listings both offer real savings, but the due diligence is entirely on you.
+
+---
+
 ## FAQ
-  
-**Is ₦120,000 enough for a good phone in Nigeria in 2026?**  
-  
-Yes, with calibrated expectations. At this budget you get a reliable daily driver — 4GB RAM, 128GB storage, IP64 dust and splash protection, and 18W charging are all achievable. What you do not get: AMOLED, 5G, a strong camera in low light, or more than two Android OS update cycles from most brands.  
-  
-**Which brand has the best after-sales support in Nigeria?**  
-  
-Tecno and Samsung both maintain wide authorised service networks. For buyers outside Lagos and Abuja, **Tecno's physical reach is the broadest** — they have service centres in cities that itel, POCO, and Infinix do not consistently cover. Samsung is second for national coverage; their authorised dealer and service network is well established in major cities.  
-  
-**Are the IP ratings on itel and Tecno phones genuine?**  
-  
-Yes. IP64 is a verifiable international standard — not a self-certified marketing claim. Both brands publish IP64 in their official product documentation, and the rating is consistent across Nigerian retail listings for these models. What IP64 means in practice: dust-tight and splash-resistant. It is not submersion-proof — do not drop these phones in water.  
-  
-**Does 5G matter in Nigeria right now?**  
-  
-In mid-2026, 5G coverage is concentrated in specific zones of Lagos, Abuja, and Port Harcourt. Outside those zones your phone runs on 4G LTE regardless of 5G capability. If you plan to keep a phone four or more years and live in or near one of those cities, it is worth factoring in — but no phone in this guide supports 5G. The most affordable confirmed 5G options in Nigerian stores (such as the Samsung Galaxy A16 5G) sit above ₦250,000 at most outlets.  
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4896561037705299"
-     crossorigin="anonymous"></script>
-<ins class="adsbygoogle"
-     style="display:block; text-align:center;"
-     data-ad-layout="in-article"
-     data-ad-format="fluid"
-     data-ad-client="ca-pub-4896561037705299"
-     data-ad-slot="7554701431"></ins>
-<script>
-     (adsbygoogle = window.adsbygoogle || []).push({});
-</script>
-**What is the real difference between the itel City 100 and the POCO C71?**  
-  
-Both offer 4GB/128GB storage and 18W charging at similar prices. The POCO C71 has a stronger processor (Helio G81 vs Unisoc T7250) and a 50MP main camera. The itel City 100 has IP64 plus 1.5m drop protection and a slimmer 7.65mm build. Performance and camera: POCO. Physical durability and protection: itel. After-sales support outside Lagos: Tecno edges both; then itel; then POCO.  
-  
-**How reliable is Samsung's long-term update promise for the Galaxy A16?**  
-  
-Samsung has publicly stated a policy of up to six generations of Android OS updates and security patches for the Galaxy A16 series. This is a stated policy, not an independent guarantee — actual delivery depends on Samsung honouring it over time. That said, Samsung has a strong track record of following through on update commitments for its A-series devices, which is more than can be said for most brands at this price point in Nigeria.  
-  
-**Can I expand storage on all these phones?**  
-  
-Yes — every phone in this guide has a dedicated microSD card slot that works alongside dual SIM. You do not have to choose between a second SIM and extra storage on any of these models.  
-  
----  
-  
-*All prices reflect Nigerian market listings as of June 2026 — Jumia, Slot, and local retail data. Prices shift with exchange rate movements and promotions; treat figures here as baselines and confirm before purchase. Specs are drawn from official manufacturer documentation; verify the exact model variant at point of sale. No affiliate arrangements exist between this guide and any brand or retailer listed.*  
-  
----  
-  
-**Related Posts**  
-- [7 Phones Under ₦150k in Nigeria That Are Actually Worth Buying (April 2026)](/posts/best-phones-under-150k-nigeria-april-2026/)  
-- [Best 5G Budget Phones Under ₦250,000 in Nigeria (2026)](/posts/best-5g-budget-phones-under-250k-nigeria-2026/)  
-- [Best Samsung Phones Under ₦150,000 in Nigeria (2026)](/posts/best-samsung-phones-under-150k-nigeria-2026/)  
-- [itel City 200 Review](/posts/itel-city-200-review/)
-- <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4896561037705299"
+
+**Is ₦120,000 still enough for a decent phone in Nigeria in September 2026?**
+
+For a phone you plan to keep for several years, yes — 4GB RAM and 128GB storage is a more comfortable starting point than the 2GB/64GB phones common just below this range. You won't get AMOLED or more than a couple of Android update cycles at this end of the bracket, though some phones here do offer surprisingly fast charging.
+
+**What happened to the Infinix Note 50, which we recommended in June?**
+
+It's being sold through as clearance and secondhand stock rather than restocked — Infinix has moved on to the Note 60 series, which appears to launch above this guide's ₦200,000 ceiling based on the listings we could find. If you find genuine new Note 50 stock at a steep discount, it can still be a reasonable buy, but don't expect to find it easily.
+
+**Is the Redmi 15C's display AMOLED?**
+
+No. It's a 6.9" IPS LCD panel at 120Hz, per Xiaomi's own specification sheet. It's sometimes shown near AMOLED phones in retail listings at similar prices, which can blur the distinction — worth confirming directly if display technology matters to your decision.
+
+**Does the itel P65 really have a 7,400mAh battery?**
+
+Not built into the phone. Its internal battery is 5,000mAh with 18W charging. Some regional bundles include a separate 2,400mAh charging case, which is where the larger combined figure comes from — that's an accessory, not a second internal cell, and we couldn't confirm whether Nigerian retail units include it.
+
+**What should I check when buying a phone from Computer Village or Jiji?**
+
+Check the exact model number, RAM/storage configuration, IMEI, network compatibility, battery/charging behaviour, and whether the phone is new, refurbished, or used. Don't rely on the model name alone — several phones in this guide (Tecno's Spark 40 and Spark 50 families, and Infinix's Hot 60i) share one name across genuinely different hardware.
+
+**Does 5G matter for a phone bought in this bracket?**
+
+Mainly if your carrier offers usable 5G where you live and you plan to keep the phone several years — check your carrier's current coverage map rather than assuming based on city alone. 5G variants in this range typically cost more than their 4G equivalents.
+
+---
+
+## Sources
+
+- **Infinix Hot 60i 4G** — [GSMArena spec sheet](https://m.gsmarena.com/infinix_hot_60i-ampp-13983.php)
+- **itel P65** — [Full specifications, incl. battery/charging-case breakdown](https://mobiledevices.com.pk/itel-p65); [GSMArena](https://www.gsmarena.com/itel_p65-reviews-13258p7.php)
+- **Tecno Spark 40C** — [GSMArena spec sheet](https://www.gsmarena.com/tecno_spark_40c-14052.php)
+- **itel S25** — [GSMArena spec sheet](https://m.gsmarena.com/itel_s25-ampp-13505.php)
+- **Xiaomi Redmi 15C** — [GSMArena spec sheet](https://www.gsmarena.com/xiaomi_redmi_15c_4g-14005.php); [Xiaomi's official Nigeria launch announcement, Aug 2025](https://guardian.ng/?p=2672184)
+- **Samsung Galaxy A17** — [Samsung Africa product page](https://www.samsung.com/africa_pt/smartphones/galaxy-a/galaxy-a17-gray-128gb-sm-a175fzacafb/); [Update-policy coverage (SamMobile)](https://sammobile.blog/2025/10/14/galaxy-m17-5g-and-a17-5g-software-update-policy/)
+- **Tecno Spark 50 4G** — [Tecno Nigeria launch coverage](https://techeconomy.ng/tag/tecno-spark-50-specs/feed/); [Nigeria buyer's guide with full specs](https://mobility.com.ng/tecno-spark-50-specs-prices-buyers-guide/); [SLOT Nigeria listing](https://slot.ng/tecno-spark-50-4gb128gb-kn4.html)
+
+*This bracket moves fast, and Nigerian retail prices in particular shift with naira movements between updates to this guide — the sources above are dated individually so you can judge how current each figure is.*
+
+---
+
+**Related Posts**
+- [Best Phones Under ₦120,000 and ₦200,000 in Nigeria (June 2026 snapshot — superseded)](/posts/best-phones-under-120k-200k-nigeria-2026/)
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4896561037705299"
      crossorigin="anonymous"></script>
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
