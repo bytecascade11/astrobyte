@@ -294,22 +294,6 @@ const currentPath = Astro.url.pathname;
       })();
     </script>
 
-    <!-- Monetag Vignette — deferred until first scroll or 5s idle -->
-    <script is:inline>
-      (function() {
-        function loadVignette() {
-          if (window.__vignetteLoaded) return;
-          window.__vignetteLoaded = true;
-          var s = document.createElement('script');
-          s.dataset.zone = '11436447';
-          s.src = 'https://n6wxm.com/vignette.min.js';
-          document.body.appendChild(s);
-        }
-        window.addEventListener('scroll', loadVignette, { once: true, passive: true });
-        setTimeout(loadVignette, 5000);
-      })();
-    </script>
-
     <!-- PWA Analytics Event -->
     <script is:inline>
       window.addEventListener('load', function() {
