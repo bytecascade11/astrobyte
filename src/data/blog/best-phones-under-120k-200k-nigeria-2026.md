@@ -6,7 +6,7 @@ coverImageAlt: "Phones from ₦120,000 to ₦200,000 in Nigeria 2026"
 slug: "phones-from-120k-to-200k-nigeria-2026"
 keywords: "phones 120k to 200k nigeria, phones under 200k nigeria, budget phones nigeria 2026, phones around 150k nigeria, phones around 200k nigeria, infinix nigeria, tecno nigeria, samsung a17 nigeria, redmi 15c nigeria, itel s25 nigeria"
 pubDatetime: 2026-06-12T07:11:00Z
-modDatetime: 2026-09-23T09:00:00Z
+modDatetime: 2026-09-24T08:01:00Z
 tags: ["smartphones", "nigeria", "tecno", "infinix", "samsung", "itel", "xiaomi", "android"]
 author: "iSamuel"
 ---
@@ -15,7 +15,7 @@ author: "iSamuel"
 
 ## Phones From ₦120,000 to ₦200,000 in Nigeria: What Actually Makes Sense in 2026
 
-> **Last updated: September 23, 2026.** This guide replaces our June 2026 snapshot of this bracket. Several of the phones we recommended then — the Infinix Note 50 in particular — have effectively left the market or moved into clearance/secondhand territory. Prices below are drawn from cited sources where possible; confirm current pricing before you buy, since Nigerian retail prices shift with naira movements between updates.
+> **Last updated: September 24, 2026.** This guide replaces our June 2026 snapshot of this bracket. Several of the phones we recommended then — the Infinix Note 50 in particular — have effectively left the market or moved into clearance/secondhand territory. Prices below are drawn from cited sources where possible; confirm current pricing before you buy, since Nigerian retail prices shift with naira movements between updates.
 
 ---
 
