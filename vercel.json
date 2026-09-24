@@ -3,10 +3,10 @@
   "cleanUrls": false,
   "redirects": [
     {
-      "source": "/posts/phones-from-120k-to-200k-nigeria-2026",
-      "destination": "/posts/best-phones-under-120k-200k-nigeria-2026",
-      "permanent": true
-    },
+  "source": "/posts/phones-from-120k-to-200k-nigeria-2026/",
+  "destination": "/posts/best-phones-under-120k-200k-nigeria-2026/",
+  "permanent": true
+},
     {
       "source": "/codm/best-quickscope-sniper-loadout-codm-season-14-2026/",
       "destination": "/codm/best-quickscope-sniper-loadout-codm-season-4-2026/",
