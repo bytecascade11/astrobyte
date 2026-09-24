@@ -3,7 +3,7 @@ title: "Phones From ₦120,000 to ₦200,000 in Nigeria: What Actually Makes Sen
 description: "Looking for a phone between ₦120k and ₦200k in Nigeria? Here's what the current market actually offers, from battery and performance to cameras, displays, storage and software support."
 coverImage: "/assets/posts/phones-120k-to-200k-nigeria-2026.jpg"
 coverImageAlt: "Phones from ₦120,000 to ₦200,000 in Nigeria 2026"
-slug: "phones-from-120k-to-200k-nigeria-2026"
+slug: "best-phones-under-120k-200k-nigeria-2026"
 keywords: "phones 120k to 200k nigeria, phones under 200k nigeria, budget phones nigeria 2026, phones around 150k nigeria, phones around 200k nigeria, infinix nigeria, tecno nigeria, samsung a17 nigeria, redmi 15c nigeria, itel s25 nigeria"
 pubDatetime: 2026-06-12T07:11:00Z
 modDatetime: 2026-09-24T08:01:00Z
