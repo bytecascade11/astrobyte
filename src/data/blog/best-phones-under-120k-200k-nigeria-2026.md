@@ -228,8 +228,6 @@ Mainly if your carrier offers usable 5G where you live and you plan to keep the 
 
 ---
 
-**Related Posts**
-- [Best Phones Under ₦120,000 and ₦200,000 in Nigeria (June 2026 snapshot — superseded)](/posts/best-phones-under-120k-200k-nigeria-2026/)
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4896561037705299"
      crossorigin="anonymous"></script>
 <ins class="adsbygoogle"
