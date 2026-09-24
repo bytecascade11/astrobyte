@@ -3,8 +3,8 @@
   "cleanUrls": false,
   "redirects": [
     {
-      "source": "/best-phones-under-120k-200k-nigeria-2026/",
-      "destination": "/phones-from-120k-to-200k-nigeria-2026/",
+      "source": "/posts/best-phones-under-120k-200k-nigeria-2026/",
+      "destination": "/posts/phones-from-120k-to-200k-nigeria-2026/",
       "permanent": true
     },
     {
