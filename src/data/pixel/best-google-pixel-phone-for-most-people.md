@@ -10,6 +10,7 @@ tags: ["google", "pixel", "opinions", "android"]
 category: google
 relatedSlugs:
     - google-pixel-10-vs-10-pro-vs-10a
+    - google-pixel-11-camera-everything-new-2026
 ---
 
 ## Table of Contents 
