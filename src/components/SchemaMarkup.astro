@@ -139,11 +139,13 @@ const breadcrumbSchema = breadcrumbs ? {
 } : null;
 ---
 
-<script is:inline type="application/ld+json" set:html={JSON.stringify(websiteSchema)} />
+{type === 'website' && (
+  <script is:inline type="application/ld+json" set:html={JSON.stringify(websiteSchema)} />
+)}
 
 <script is:inline type="application/ld+json" set:html={JSON.stringify(organizationSchema)} />
 
-{articleSchema && (
+{type === 'article' && articleSchema && (
   <script is:inline type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
 )}
 
