@@ -52,12 +52,20 @@ const socialImageURL = ogImage.startsWith("http")
   : new URL(ogImage, siteBase).toString();
 
 const ogType = pubDatetime ? "article" : "website";
+
+// Declared BEFORE schemaType, which depends on isHomepage.
 const currentPath = Astro.url.pathname;
+const isHomepage = currentPath === "/";
+
+// Tells SchemaMarkup which schemas to emit:
+//   homepage            -> WebSite (+ Organization)
+//   post (has pubDate)  -> BlogPosting (+ Organization)
+//   anything else       -> Organization only
+const schemaType = isHomepage ? "website" : pubDatetime ? "article" : "page";
 
 // SoftwareApplication schema is for the homepage ONLY (Microsoft Store PWA listing).
 // Removed aggregateRating: a self-reported 5.0 from 1 rating is self-serving review
 // markup and a spam-policy risk. Add it back only with real, verifiable ratings.
-const isHomepage = currentPath === "/";
 const softwareAppSchema = {
   "@context": "https://schema.org",
   "@type": "SoftwareApplication",
@@ -161,14 +169,14 @@ const softwareAppSchema = {
     <meta name="twitter:url" content={canonical} />
     <meta name="twitter:image" content={socialImageURL} />
 
-    <!-- NOTE: author is now passed. SchemaMarkup.astro must accept an `author`
-         prop and output it as a Person on BlogPosting for this to take effect. -->
+    <!-- Structured data. `type` controls which schemas SchemaMarkup emits.
+         The `author` prop was removed: SchemaMarkup uses SITE.author internally. -->
     <SchemaMarkup
+      type={schemaType}
       title={title}
       description={description}
       url={canonical}
       image={socialImageURL}
-      author={author}
       datePublished={pubDatetime}
       dateModified={modDatetime}
     />
