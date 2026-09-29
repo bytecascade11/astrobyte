@@ -72,7 +72,10 @@ const organizationSchema = {
     "height": 630
   },
   "sameAs": [
-    SITE.profile
+    SITE.profile,
+    "https://www.wikidata.org/wiki/Q140042752",
+    "https://apps.microsoft.com/detail/9p24dh9bh6sh",
+    "https://www.crunchbase.com/organization/revibyte"
   ]
 };
 
@@ -95,7 +98,11 @@ const articleSchema = title ? {
   "author": {
     "@type": "Person",
     "name": SITE.author,
-    "url": SITE.profile
+    "url": SITE.profile,
+    "sameAs": [
+      "https://www.indiehackers.com/iSamuel",
+      "https://ng.linkedin.com/in/oke-isamuel-16a721268"
+    ]
   },
   "publisher": {
     "@type": "Organization",
