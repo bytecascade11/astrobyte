@@ -2,17 +2,24 @@
 import { SITE } from "@/config";
 
 interface Props {
-  type?: 'website' | 'article' | 'breadcrumb';
+  type?: 'website' | 'article' | 'breadcrumb' | 'page';
   title?: string;
   description?: string;
   url?: string;
   image?: string;
   datePublished?: Date;
   dateModified?: Date | null;
-  breadcrumbs?: Array<{name: string, url: string}>;
+  breadcrumbs?: Array<{ name: string; url: string }>;
+  // Only pass this from genuine review posts where the rating is visible in the article.
+  review?: {
+    productName: string;
+    brand: string;
+    ratingValue: number;
+    bestRating?: number;
+  };
 }
 
-const { 
+const {
   type = 'website',
   title,
   description,
@@ -20,14 +27,15 @@ const {
   image,
   datePublished,
   dateModified,
-  breadcrumbs 
+  breadcrumbs,
+  review
 } = Astro.props;
 
 const siteBase = SITE.website.endsWith("/") ? SITE.website : `${SITE.website}/`;
 const logoUrl = `${siteBase}${SITE.ogImage ?? "og.png"}`;
 
-// ✅ Post cover image — declared as ImageObject with explicit dimensions
-// Google Discover requires: min 1200px wide, 16:9 ratio, ImageObject format
+// Post cover image — declared as ImageObject with explicit dimensions
+// Google Discover requires: min 1200px wide, ImageObject format
 const postImage = image
   ? {
       "@type": "ImageObject",
@@ -42,7 +50,7 @@ const postImage = image
       "height": 630
     };
 
-/* WEBSITE SCHEMA */
+/* WEBSITE SCHEMA — homepage only */
 const websiteSchema = {
   "@context": "https://schema.org",
   "@type": "WebSite",
@@ -59,7 +67,7 @@ const websiteSchema = {
   }
 };
 
-/* ORGANIZATION SCHEMA */
+/* ORGANIZATION SCHEMA — every page */
 const organizationSchema = {
   "@context": "https://schema.org",
   "@type": "Organization",
@@ -79,19 +87,18 @@ const organizationSchema = {
   ]
 };
 
-/* ARTICLE SCHEMA */
+/* ARTICLE SCHEMA — posts only */
 const articleSchema = title ? {
   "@context": "https://schema.org",
   "@type": "BlogPosting",
   "headline": title,
   "description": description || SITE.desc,
-  // ✅ image as ImageObject — triggers large image in Google Discover
   "image": postImage,
   "url": url || SITE.website,
   ...(datePublished instanceof Date && {
     datePublished: datePublished.toISOString()
   }),
-  ...(dateModified instanceof Date 
+  ...(dateModified instanceof Date
     ? { dateModified: dateModified.toISOString() }
     : (datePublished instanceof Date && { dateModified: datePublished.toISOString() })
   ),
@@ -120,7 +127,37 @@ const articleSchema = title ? {
   }
 } : null;
 
-/* BREADCRUMB SCHEMA */
+/* REVIEW SCHEMA — only for posts that pass a `review` prop */
+const reviewSchema = review ? {
+  "@context": "https://schema.org",
+  "@type": "Review",
+  "name": title,
+  "url": url || SITE.website,
+  "reviewRating": {
+    "@type": "Rating",
+    "ratingValue": String(review.ratingValue),
+    "bestRating": String(review.bestRating ?? 5)
+  },
+  "author": {
+    "@type": "Person",
+    "name": SITE.author,
+    "url": SITE.profile
+  },
+  "itemReviewed": {
+    "@type": "Product",
+    "name": review.productName,
+    "brand": {
+      "@type": "Brand",
+      "name": review.brand
+    },
+    "image": postImage.url
+  },
+  ...(datePublished instanceof Date && {
+    datePublished: datePublished.toISOString()
+  })
+} : null;
+
+/* BREADCRUMB SCHEMA — whenever breadcrumbs are passed */
 const breadcrumbSchema = breadcrumbs ? {
   "@context": "https://schema.org",
   "@type": "BreadcrumbList",
@@ -147,6 +184,10 @@ const breadcrumbSchema = breadcrumbs ? {
 
 {type === 'article' && articleSchema && (
   <script is:inline type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
+)}
+
+{type === 'article' && reviewSchema && (
+  <script is:inline type="application/ld+json" set:html={JSON.stringify(reviewSchema)} />
 )}
 
 {breadcrumbSchema && (
