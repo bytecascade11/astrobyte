@@ -53,6 +53,28 @@ const socialImageURL = ogImage.startsWith("http")
 
 const ogType = pubDatetime ? "article" : "website";
 const currentPath = Astro.url.pathname;
+
+// SoftwareApplication schema is for the homepage ONLY (Microsoft Store PWA listing).
+// Removed aggregateRating: a self-reported 5.0 from 1 rating is self-serving review
+// markup and a spam-policy risk. Add it back only with real, verifiable ratings.
+const isHomepage = currentPath === "/";
+const softwareAppSchema = {
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  name: "ReviByte",
+  operatingSystem: "Windows",
+  applicationCategory: "NewsApplication",
+  url: "https://apps.microsoft.com/detail/9p24dh9bh6sh",
+  author: {
+    "@type": "Person",
+    name: "Oke Sunday Samuel",
+  },
+  offers: {
+    "@type": "Offer",
+    price: "0",
+    priceCurrency: "USD",
+  },
+};
 ---
 
 <!doctype html>
@@ -117,7 +139,7 @@ const currentPath = Astro.url.pathname;
     <meta name="author" content={author} />
     <meta name="robots" content="index, follow, max-image-preview:large" />
     <link rel="sitemap" href="/sitemap-index.xml" />
-   
+
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:type" content={ogType} />
@@ -139,11 +161,14 @@ const currentPath = Astro.url.pathname;
     <meta name="twitter:url" content={canonical} />
     <meta name="twitter:image" content={socialImageURL} />
 
+    <!-- NOTE: author is now passed. SchemaMarkup.astro must accept an `author`
+         prop and output it as a Person on BlogPosting for this to take effect. -->
     <SchemaMarkup
       title={title}
       description={description}
       url={canonical}
       image={socialImageURL}
+      author={author}
       datePublished={pubDatetime}
       dateModified={modDatetime}
     />
@@ -163,30 +188,14 @@ const currentPath = Astro.url.pathname;
       gtag('js', new Date());
     </script>
 
-    <script type="application/ld+json" is:inline>
-    {
-      "@context": "https://schema.org",
-      "@type": "SoftwareApplication",
-      "name": "ReviByte",
-      "operatingSystem": "Windows",
-      "applicationCategory": "NewsApplication",
-      "url": "https://apps.microsoft.com/detail/9p24dh9bh6sh",
-      "author": {
-        "@type": "Person",
-        "name": "iSamuel"
-      },
-      "aggregateRating": {
-        "@type": "AggregateRating",
-        "ratingValue": "5.0",
-        "ratingCount": "1"
-      },
-      "offers": {
-        "@type": "Offer",
-        "price": "0",
-        "priceCurrency": "USD"
-      }
-    }
-    </script>
+    <!-- SoftwareApplication schema: HOMEPAGE ONLY -->
+    {isHomepage && (
+      <script
+        type="application/ld+json"
+        is:inline
+        set:html={JSON.stringify(softwareAppSchema)}
+      />
+    )}
 
     <!-- REMOVED: Microsoft Clarity from here — it was render-blocking LCP.
          It has been moved to the idle-loaded script group below. -->
@@ -200,20 +209,14 @@ const currentPath = Astro.url.pathname;
      <slot name="header" />
      <slot name="top-nav" />
 
-    <!-- ========== COVER IMAGE + AD PLACEHOLDERS (scripts moved below, after content) ========== -->
+    <!-- ========== COVER IMAGE + AD ========== -->
+    <!-- Cover image now renders FIRST so the image and H1 are visible without an
+         ad pushing them down on mobile. Adsterra stays exactly where it was
+         (directly below the cover image). AdSense moved from above the image
+         to below Adsterra, with reserved height (no layout shift). -->
 
     {coverImage && (
       <div class="cover-ad-wrapper">
-        <!-- AdSense placeholder: TOP of cover image (script loads after content, idle-triggered below) -->
-        <div class="ad-slot ad-slot--top">
-          <ins class="adsbygoogle"
-               style="display:block"
-               data-ad-format="fluid"
-               data-ad-layout-key="-gf-2b-2i-8t+14w"
-               data-ad-client="ca-pub-4896561037705299"
-               data-ad-slot="2743091672"></ins>
-        </div>
-
         <!-- Cover Image -->
         <OptimizedCoverImage
           src={coverImage}
@@ -224,9 +227,19 @@ const currentPath = Astro.url.pathname;
           sizes="100vw"
         />
 
-        <!-- Adsterra placeholder: BOTTOM of cover image (script loads after content, idle-triggered below) -->
+        <!-- Adsterra: unchanged, BOTTOM of cover image (script loads idle-triggered below) -->
         <div class="ad-slot ad-slot--bottom">
           <div id="container-100c0408033e7aba877563ba9293a45d"></div>
+        </div>
+
+        <!-- AdSense (script loads idle-triggered below) -->
+        <div class="ad-slot ad-slot--after-cover">
+          <ins class="adsbygoogle"
+               style="display:block"
+               data-ad-format="fluid"
+               data-ad-layout-key="-gf-2b-2i-8t+14w"
+               data-ad-client="ca-pub-4896561037705299"
+               data-ad-slot="2743091672"></ins>
         </div>
       </div>
     )}
@@ -243,24 +256,13 @@ const currentPath = Astro.url.pathname;
 
     <!--
       INP FIX — single deferred loader for every non-essential third-party script.
-
-      Previously AdSense, Adsterra, and Microsoft Clarity all fired eagerly on
-      page load (competing with each other and with any early user tap for
-      main-thread time). They now share the same "wait for idle, scroll, or a
-      5s timeout" trigger already used for OneSignal below, so a visitor who
-      starts scrolling or tapping immediately never has these scripts running
-      underneath their interaction.
+      AdSense, Adsterra, and Microsoft Clarity share the same "scroll, touch, or
+      5s timeout" trigger so they never compete with an early user interaction.
 
       REMOVED ENTIRELY — the obfuscated Clickadu script and the
-      bartererfaxtingling.com/bn.js banner. That script ran synchronous
-      WASM instantiation and URL-rewriting logic on every page load, which
-      was almost certainly the dominant cause of the >200ms INP: it blocks
-      the main thread regardless of when it runs, idle-deferred or not.
-      Ad networks that ship obfuscated redirect/WASM payloads like this are
-      also the profile Safe Browsing and Google's ad-quality review flag —
-      the same risk category that got the old /save/ downloader hub pulled.
-      If you want it back, get an unobfuscated snippet directly from the
-      network's dashboard first; don't re-add this exact payload.
+      bartererfaxtingling.com/bn.js banner (synchronous WASM + URL rewriting;
+      likely INP culprit and a Safe Browsing / ad-quality risk). The empty
+      "Advertisement" placeholder div for Clickadu has also been removed.
     -->
     <script is:inline>
       (function () {
@@ -295,9 +297,6 @@ const currentPath = Astro.url.pathname;
           })(window, document, "clarity", "script", "xjz9wkvh5l");
         }
 
-        // Fire on first real user interaction/scroll (native "requestIdleCallback"
-        // isn't reliable enough on its own for this — a fast scroller shouldn't
-        // wait for idle), or after 5s if the visitor never interacts.
         window.addEventListener('scroll', loadDeferredAds, { once: true, passive: true });
         window.addEventListener('touchstart', loadDeferredAds, { once: true, passive: true });
         setTimeout(loadDeferredAds, 5000);
@@ -333,7 +332,8 @@ const currentPath = Astro.url.pathname;
                           cancelButtonText: "Not Now",
                           confirmMessage: "Hit Allow to get instant updates on new posts, phone comparisons, and buying guides that actually help."
                         },
-                        delay: { pageViews: 0, timeDelay: 3 }
+                        // Was 3s. Delayed so new visitors (esp. from Discover) can read first.
+                        delay: { pageViews: 0, timeDelay: 20 }
                       }]
                     }
                   }
@@ -361,13 +361,6 @@ const currentPath = Astro.url.pathname;
       });
     </script>
 
-    <div style="max-width:768px;margin:1.5rem auto;padding:0 1rem;text-align:center;">
-      <p style="font-size:11px;letter-spacing:.08em;text-transform:uppercase;opacity:.5;margin:0 0 .5rem;">Advertisement</p>
-      <div style="min-height:100px;display:flex;justify-content:center;align-items:center;overflow:hidden;">
-        <div data-cl-spot="2147401"></div>
-      </div>
-    </div>
-
     <Footer />
     <!-- SIDEBAR — rendered LAST so it's on top of everything -->
     <Sidebar />
@@ -389,15 +382,16 @@ const currentPath = Astro.url.pathname;
         contain: layout;
       }
 
-      .ad-slot--top {
-        margin-bottom: 0.5rem;
-        min-height: 280px;
-      }
-
       .ad-slot--bottom {
         margin-top: 0.5rem;
         margin-bottom: 0.5rem;
         min-height: 250px;
+      }
+
+      .ad-slot--after-cover {
+        margin-top: 0.5rem;
+        margin-bottom: 0.5rem;
+        min-height: 280px;
       }
 
       .cover-ad-wrapper :global(img),
