@@ -21,6 +21,12 @@ type Props = {
   scrollSmooth?: boolean;
   coverImage?: string;
   coverImageAlt?: string;
+  review?: {
+    productName: string;
+    brand: string;
+    ratingValue: number;
+    bestRating?: number;
+  };
 };
 
 const {
@@ -34,6 +40,7 @@ const {
   scrollSmooth = false,
   coverImage,
   coverImageAlt = "",
+  review,
 } = Astro.props;
 
 const siteBase = SITE.website || "https://www.revibyte.blog/";
@@ -179,6 +186,7 @@ const softwareAppSchema = {
       image={socialImageURL}
       datePublished={pubDatetime}
       dateModified={modDatetime}
+      review={review}
     />
 
     <link rel="alternate" type="application/rss+xml" title={SITE.title} href={`${siteBase}rss.xml`} />
