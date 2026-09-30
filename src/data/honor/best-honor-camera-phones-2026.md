@@ -12,6 +12,7 @@ relatedSlugs:
       - best-honor-phones-fast-charging-2026
       - best-honor-phones-under-200-2026
       - best-honor-foldable-phones-2026
+      - honor-400-camera-200mp-main-camera-features
 --- 
 
 ## Table of Contents 
