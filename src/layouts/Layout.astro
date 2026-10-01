@@ -228,12 +228,14 @@ const softwareAppSchema = {
      <slot name="header" />
      <slot name="top-nav" />
 
-    
+    <!-- ========== COVER IMAGE + AD ========== -->
+    <!-- Cover image renders FIRST so the image and H1 are visible without an
+         ad pushing them down on mobile. Order: Newor Media (top, above the
+         cover image) -> cover image -> Adsterra (directly below the image).
+         Both have reserved heights (no layout shift). -->
+
     {coverImage && (
       <div class="cover-ad-wrapper">
-        <!-- Newor Media: TOP, above the cover image (script is in <head>) -->
-          <script async type="text/javascript" src="//cdn.thisiswaldo.com/static/js/55542.js"></script>
-
         </div>
 
         <!-- Cover Image -->
@@ -264,6 +266,17 @@ const softwareAppSchema = {
       </script>
     )}
 
+    <!--
+      INP FIX — single deferred loader for every non-essential third-party script.
+      AdSense, Adsterra, Newor Media and Microsoft Clarity share the same
+      "scroll, touch, or 5s timeout" trigger so they never compete with an
+      early user interaction.
+
+      REMOVED ENTIRELY — the obfuscated Clickadu script and the
+      bartererfaxtingling.com/bn.js banner (synchronous WASM + URL rewriting;
+      likely INP culprit and a Safe Browsing / ad-quality risk). The empty
+      "Advertisement" placeholder div for Clickadu has also been removed.
+    -->
     <script is:inline>
       (function () {
         let loaded = false;
