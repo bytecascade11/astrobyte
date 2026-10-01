@@ -170,8 +170,13 @@ const postSlug = post.id;
       ]}
     />
     <BackButton />
-<!-- Newor Media: TOP, above the cover image (script is in <head>) -->
-          <script async type="text/javascript" src="//cdn.thisiswaldo.com/static/js/55542.js"></script>
+
+    <!-- Newor Media: right after the Go back button.
+         The Newor script itself is loaded once in Layout.astro <head>. -->
+    <div class="newor-slot">
+      <!-- 728x90/300x250/320x50/468x60 -->
+      <div id="waldo-tag-55824"></div>
+    </div>
   </div>
 
   <main
@@ -320,6 +325,16 @@ const postSlug = post.id;
     gap: 1rem;
     flex-wrap: wrap;
     margin-bottom: 1.5rem;
+  }
+
+  /* ── Newor Media slot (full row under the Go back button) ── */
+  .newor-slot {
+    flex: 0 0 100%;
+    width: 100%;
+    min-height: 100px;
+    display: flex;
+    justify-content: center;
+    contain: layout;
   }
 
   /* ── Post header ── */
