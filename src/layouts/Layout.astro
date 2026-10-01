@@ -216,10 +216,8 @@ const softwareAppSchema = {
     <!-- REMOVED: Microsoft Clarity from here — it was render-blocking LCP.
          It has been moved to the idle-loaded script group below. -->
 
-    <!-- NOTE: Newor Media (Waldo) header script is NOT here on purpose.
-         It is loaded in the idle-triggered loader below to protect INP.
-         If the ad never fills, move it here as:
-         <script is:inline async src="https://cdn.thisiswaldo.com/static/js/55542.js"></script> -->
+    <!-- Newor Media (Waldo) header script — placed in <head> as their dashboard instructs -->
+    <script is:inline async type="text/javascript" src="https://cdn.thisiswaldo.com/static/js/55542.js"></script>
 
   </head>
 
@@ -253,17 +251,6 @@ const softwareAppSchema = {
           <div id="container-100c0408033e7aba877563ba9293a45d"></div>
         </div>
 
-        <!-- AdSense (script loads idle-triggered below) -->
-        <div class="ad-slot ad-slot--after-cover">
-          <ins class="adsbygoogle"
-               style="display:block"
-               data-ad-format="fluid"
-               data-ad-layout-key="-gf-2b-2i-8t+14w"
-               data-ad-client="ca-pub-4896561037705299"
-               data-ad-slot="2743091672"></ins>
-        </div>
-      </div>
-    )}
 
     <slot />
 
@@ -319,13 +306,6 @@ const softwareAppSchema = {
           adsterra.src = "https://pl28410703.effectivecpmnetwork.com/100c0408033e7aba877563ba9293a45d/invoke.js";
           document.body.appendChild(adsterra);
 
-          // Newor Media (Waldo) — only load if the ad slot exists on this page
-          if (document.getElementById('waldo-tag-55824')) {
-            var waldo = document.createElement('script');
-            waldo.async = true;
-            waldo.src = "https://cdn.thisiswaldo.com/static/js/55542.js";
-            document.body.appendChild(waldo);
-          }
         }
 
         window.addEventListener('scroll', loadDeferredAds, { once: true, passive: true });
