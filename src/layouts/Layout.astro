@@ -230,12 +230,18 @@ const softwareAppSchema = {
 
     <!-- ========== COVER IMAGE + AD ========== -->
     <!-- Cover image renders FIRST so the image and H1 are visible without an
-         ad pushing them down on mobile. Order below the image:
-         Adsterra -> AdSense. Newor Media sits at the bottom, after the content.
-         All have reserved heights (no layout shift). -->
+         ad pushing them down on mobile. Order: Newor Media (top, above the
+         cover image) -> cover image -> Adsterra (directly below the image).
+         Both have reserved heights (no layout shift). -->
 
     {coverImage && (
       <div class="cover-ad-wrapper">
+        <!-- Newor Media: TOP, above the cover image (script is in <head>) -->
+        <div class="ad-slot ad-slot--newor">
+          <!-- 728x90/300x250/320x50/468x60 -->
+          <div id="waldo-tag-55824"></div>
+        </div>
+
         <!-- Cover Image -->
         <OptimizedCoverImage
           src={coverImage}
@@ -251,13 +257,10 @@ const softwareAppSchema = {
           <div id="container-100c0408033e7aba877563ba9293a45d"></div>
         </div>
 
-    <!-- Newor Media: BOTTOM of the page, after the post content (script loads idle-triggered below) -->
-    {coverImage && (
-      <div class="ad-slot ad-slot--newor">
-        <!-- 728x90/300x250/320x50/468x60 -->
-        <div id="waldo-tag-55824"></div>
       </div>
     )}
+
+    <slot />
 
     <!-- ================= IDLE-LOADED SCRIPTS (After LCP / content) ================= -->
 
@@ -292,7 +295,9 @@ const softwareAppSchema = {
           ads.src = "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4896561037705299";
           ads.crossOrigin = "anonymous";
           ads.onload = function () {
-            (window.adsbygoogle = window.adsbygoogle || []).push({});
+            try {
+              (window.adsbygoogle = window.adsbygoogle || []).push({});
+            } catch (e) { /* no unfilled AdSense slot on this page */ }
           };
           document.body.appendChild(ads);
 
@@ -400,12 +405,6 @@ const softwareAppSchema = {
         margin-top: 0.5rem;
         margin-bottom: 0.5rem;
         min-height: 250px;
-      }
-
-      .ad-slot--after-cover {
-        margin-top: 0.5rem;
-        margin-bottom: 0.5rem;
-        min-height: 280px;
       }
 
       .cover-ad-wrapper :global(img),
