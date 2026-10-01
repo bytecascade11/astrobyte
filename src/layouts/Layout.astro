@@ -233,7 +233,8 @@ const softwareAppSchema = {
     <!-- ========== COVER IMAGE + AD ========== -->
     <!-- Cover image renders FIRST so the image and H1 are visible without an
          ad pushing them down on mobile. Order below the image:
-         Adsterra -> Newor Media -> AdSense. All have reserved heights (no layout shift). -->
+         Adsterra -> AdSense. Newor Media sits at the bottom, after the content.
+         All have reserved heights (no layout shift). -->
 
     {coverImage && (
       <div class="cover-ad-wrapper">
@@ -252,12 +253,6 @@ const softwareAppSchema = {
           <div id="container-100c0408033e7aba877563ba9293a45d"></div>
         </div>
 
-        <!-- Newor Media (script loads idle-triggered below) -->
-        <div class="ad-slot ad-slot--newor">
-          <!-- 728x90/300x250/320x50/468x60 -->
-          <div id="waldo-tag-55824"></div>
-        </div>
-
         <!-- AdSense (script loads idle-triggered below) -->
         <div class="ad-slot ad-slot--after-cover">
           <ins class="adsbygoogle"
@@ -271,6 +266,14 @@ const softwareAppSchema = {
     )}
 
     <slot />
+
+    <!-- Newor Media: BOTTOM of the page, after the post content (script loads idle-triggered below) -->
+    {coverImage && (
+      <div class="ad-slot ad-slot--newor">
+        <!-- 728x90/300x250/320x50/468x60 -->
+        <div id="waldo-tag-55824"></div>
+      </div>
+    )}
 
     <!-- ================= IDLE-LOADED SCRIPTS (After LCP / content) ================= -->
 
