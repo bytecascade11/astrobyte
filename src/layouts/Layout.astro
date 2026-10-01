@@ -216,6 +216,11 @@ const softwareAppSchema = {
     <!-- REMOVED: Microsoft Clarity from here — it was render-blocking LCP.
          It has been moved to the idle-loaded script group below. -->
 
+    <!-- NOTE: Newor Media (Waldo) header script is NOT here on purpose.
+         It is loaded in the idle-triggered loader below to protect INP.
+         If the ad never fills, move it here as:
+         <script is:inline async src="https://cdn.thisiswaldo.com/static/js/55542.js"></script> -->
+
   </head>
 
   <body>
@@ -226,10 +231,9 @@ const softwareAppSchema = {
      <slot name="top-nav" />
 
     <!-- ========== COVER IMAGE + AD ========== -->
-    <!-- Cover image now renders FIRST so the image and H1 are visible without an
-         ad pushing them down on mobile. Adsterra stays exactly where it was
-         (directly below the cover image). AdSense moved from above the image
-         to below Adsterra, with reserved height (no layout shift). -->
+    <!-- Cover image renders FIRST so the image and H1 are visible without an
+         ad pushing them down on mobile. Order below the image:
+         Adsterra -> Newor Media -> AdSense. All have reserved heights (no layout shift). -->
 
     {coverImage && (
       <div class="cover-ad-wrapper">
@@ -243,9 +247,15 @@ const softwareAppSchema = {
           sizes="100vw"
         />
 
-        <!-- Adsterra: unchanged, BOTTOM of cover image (script loads idle-triggered below) -->
+        <!-- Adsterra: BOTTOM of cover image (script loads idle-triggered below) -->
         <div class="ad-slot ad-slot--bottom">
           <div id="container-100c0408033e7aba877563ba9293a45d"></div>
+        </div>
+
+        <!-- Newor Media (script loads idle-triggered below) -->
+        <div class="ad-slot ad-slot--newor">
+          <!-- 728x90/300x250/320x50/468x60 -->
+          <div id="waldo-tag-55824"></div>
         </div>
 
         <!-- AdSense (script loads idle-triggered below) -->
@@ -272,8 +282,9 @@ const softwareAppSchema = {
 
     <!--
       INP FIX — single deferred loader for every non-essential third-party script.
-      AdSense, Adsterra, and Microsoft Clarity share the same "scroll, touch, or
-      5s timeout" trigger so they never compete with an early user interaction.
+      AdSense, Adsterra, Newor Media and Microsoft Clarity share the same
+      "scroll, touch, or 5s timeout" trigger so they never compete with an
+      early user interaction.
 
       REMOVED ENTIRELY — the obfuscated Clickadu script and the
       bartererfaxtingling.com/bn.js banner (synchronous WASM + URL rewriting;
@@ -281,36 +292,44 @@ const softwareAppSchema = {
       "Advertisement" placeholder div for Clickadu has also been removed.
     -->
     <script is:inline>
-  (function () {
-    let loaded = false;
+      (function () {
+        let loaded = false;
 
-    function loadDeferredAds() {
-      if (loaded) return;
-      loaded = true;
+        function loadDeferredAds() {
+          if (loaded) return;
+          loaded = true;
 
-      // AdSense
-      var ads = document.createElement('script');
-      ads.async = true;
-      ads.src = "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4896561037705299";
-      ads.crossOrigin = "anonymous";
-      ads.onload = function () {
-        (window.adsbygoogle = window.adsbygoogle || []).push({});
-      };
-      document.body.appendChild(ads);
+          // AdSense
+          var ads = document.createElement('script');
+          ads.async = true;
+          ads.src = "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4896561037705299";
+          ads.crossOrigin = "anonymous";
+          ads.onload = function () {
+            (window.adsbygoogle = window.adsbygoogle || []).push({});
+          };
+          document.body.appendChild(ads);
 
-      // Adsterra
-      var adsterra = document.createElement('script');
-      adsterra.async = true;
-      adsterra.setAttribute('data-cfasync', 'false');
-      adsterra.src = "https://pl28410703.effectivecpmnetwork.com/100c0408033e7aba877563ba9293a45d/invoke.js";
-      document.body.appendChild(adsterra);
-    }
+          // Adsterra
+          var adsterra = document.createElement('script');
+          adsterra.async = true;
+          adsterra.setAttribute('data-cfasync', 'false');
+          adsterra.src = "https://pl28410703.effectivecpmnetwork.com/100c0408033e7aba877563ba9293a45d/invoke.js";
+          document.body.appendChild(adsterra);
 
-    window.addEventListener('scroll', loadDeferredAds, { once: true, passive: true });
-    window.addEventListener('touchstart', loadDeferredAds, { once: true, passive: true });
-    setTimeout(loadDeferredAds, 5000);
-  })();
-</script>
+          // Newor Media (Waldo) — only load if the ad slot exists on this page
+          if (document.getElementById('waldo-tag-55824')) {
+            var waldo = document.createElement('script');
+            waldo.async = true;
+            waldo.src = "https://cdn.thisiswaldo.com/static/js/55542.js";
+            document.body.appendChild(waldo);
+          }
+        }
+
+        window.addEventListener('scroll', loadDeferredAds, { once: true, passive: true });
+        window.addEventListener('touchstart', loadDeferredAds, { once: true, passive: true });
+        setTimeout(loadDeferredAds, 5000);
+      })();
+    </script>
 
     <!-- OneSignal -->
     <script is:inline>
@@ -392,6 +411,12 @@ const softwareAppSchema = {
       }
 
       .ad-slot--bottom {
+        margin-top: 0.5rem;
+        margin-bottom: 0.5rem;
+        min-height: 250px;
+      }
+
+      .ad-slot--newor {
         margin-top: 0.5rem;
         margin-bottom: 0.5rem;
         min-height: 250px;
