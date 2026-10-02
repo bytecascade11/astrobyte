@@ -45,6 +45,8 @@ That has a practical side too. A full-resolution 200MP shot can produce a much l
 
 ## Camera specs at a glance
 
+<div id="waldo-tag-55832"></div>
+
 | Camera | Resolution | What it is for |
 |---|---|---|
 | Main | 200MP, 1/1.4-inch sensor, OIS | Everyday shots, low light, cropping |
