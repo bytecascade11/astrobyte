@@ -11,6 +11,7 @@ gameMode: "Battle Royale"
 season: "OB55 - Chapter One: Nine Tails Strikes"
 relatedSlugs: 
    - free-fire-movement-guide
+   - how-to-get-headshots-in-free-fire
 ---
 
 ## Table of Contents 
