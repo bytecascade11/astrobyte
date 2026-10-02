@@ -10,6 +10,7 @@ coverImageAlt: A Free Fire character mid-dodge during a gunfight, illustrating f
 slug: free-fire-movement-guide
 relatedSlugs:
   - free-fire-2026-updates-what-has-changed
+  - how-to-get-headshots-in-free-fire
 ---
 
 ## Table of Contents 
