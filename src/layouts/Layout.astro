@@ -216,15 +216,16 @@ const softwareAppSchema = {
     <!-- REMOVED: Microsoft Clarity from here — it was render-blocking LCP.
          It has been moved to the idle-loaded script group below. -->
 
-    <!-- Newor Media (Waldo) header script — placed in <head> as their dashboard instructs -->
-    <script is:inline async type="text/javascript" src="//cdn.thisiswaldo.com/static/js/55542.js"></script>
-  <script is:inline>
-  document.addEventListener('astro:page-load', () => {
-    if (window.wt && typeof window.wt.init === 'function') {
-      window.wt.init();
-    }
-  });
-</script>
+        <!-- Newor Media (Waldo) header script — placed in <head> as their dashboard instructs -->
+    <script is:inline async type="text/javascript" src="https://thisiswaldo.com"></script>
+    <script is:inline>
+      document.addEventListener('DOMContentLoaded', () => {
+        if (window.wk && typeof window.wk.init === 'function') {
+          window.wk.init();
+        }
+      });
+    </script>
+
   </head>
 
   <body>
