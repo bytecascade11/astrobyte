@@ -2,14 +2,12 @@
 title: "How to Get Free Fire Characters Without Spending Diamonds"
 description: "The legitimate ways to unlock Free Fire characters for free in 2026: Gold purchases, official events, redemption rewards, and the scams to ignore."
 author: "iSamuel"
-pubDate: 2026-10-04T07:29:00Z
+pubDate: 2026-10-04T07:34:00Z
 storyImage: "/assets/freefire/how-to-get-free-fire-characters.jpg"
 coverImage: "/assets/freefire/how-to-get-free-fire-characters-cover.jpg"
 coverImageAlt: "Free Fire character selection screen showing several unlockable characters"
 slug: "how-to-get-free-fire-characters"
-type: "guide"
 gameMode: "Battle Royale"
-season: "2026"
 relatedSlugs:
   - "how-to-get-headshots-in-free-fire"
   - "free-fire-movement-guide"
