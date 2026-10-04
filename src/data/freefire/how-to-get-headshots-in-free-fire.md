@@ -9,6 +9,8 @@ coverImage: /assets/freefire/free-fire-headshot-guide-cover.jpg
 coverImageAlt: "Free Fire in-game screenshot showing a crosshair lined up on an enemy's head"
 type: guide
 gameMode: "Battle Royale"
+relatedSlugs:
+   - how-to-get-free-fire-characters
 ---
 
 When headshots aren't landing, it's easy to blame the phone, the network, or the lobby. But crosshair placement, sensitivity, and firing technique can have a bigger effect on consistency than any of those.
