@@ -11,7 +11,7 @@ tags: ["flip", "foldables", "samsung", "motorola", "2026"]
 
 ## Best Flip Phones in 2026
 
-![Samsung Galaxy Z Flip 8 and Motorola Razr Ultra side by side](/assets/posts/best-flip-phones-2026/galaxy-z-flip-8-vs-razr-ultra-hero.jpg)
+![Samsung Galaxy Z Flip 8 and Motorola Razr Ultra side by side](/assets/posts/galaxy-z-flip-8-vs-razr-ultra-hero.jpg)
 
 Flip phones had a quieter year in 2026. Fewer brands showed up, prices edged upward, and Samsung and Motorola ended up shaping most of the choices you can realistically buy.
 
@@ -47,7 +47,7 @@ Samsung announced the Galaxy Z Flip 8 on July 22, 2026. It costs about $100 more
 
 Samsung's strongest argument is longevity. The company promises up to seven years of software updates, while Motorola's 2026 Razr line is reported to get three major Android updates. If you tend to keep a phone for four or five years, that gap deserves more weight than a spec-sheet lead.
 
-![Samsung Galaxy Z Flip 8 folded and open](/assets/posts/best-flip-phones-2026/galaxy-z-flip-8-folded-open.jpg)
+![Samsung Galaxy Z Flip 8 folded and open](/assets/posts/galaxy-z-flip-8-folded-open.jpg)
 
 The compromise is power. Samsung lists a 4,300mAh battery with 25W wired charging. Light and moderate users will likely be comfortable, though heavy users may find the smaller battery less forgiving.
 
@@ -57,7 +57,7 @@ Motorola confirms a 5,000mAh battery, 68W wired charging, 30W wireless charging 
 
 It starts at $1,499, and the update window is shorter than Samsung's. If you are unsure how much storage you need before paying for a higher tier, our guide to [Motorola 128GB vs 256GB storage](https://www.revibyte.blog/motorola/motorola-128gb-vs-256gb-storage/) can help you decide.
 
-![Motorola Razr Ultra (2026) folded and open](/assets/posts/best-flip-phones-2026/motorola-razr-ultra-folded-open.jpg)
+![Motorola Razr Ultra (2026) folded and open](/assets/posts/motorola-razr-ultra-folded-open.jpg)
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4896561037705299"
      crossorigin="anonymous"></script>
 <ins class="adsbygoogle"
@@ -83,7 +83,7 @@ At $799 in the U.S., the standard Razr is one of the few current mainstream flip
 
 It gives up some of the performance and extras of the higher models. But if you want the clamshell experience without paying flagship money, it is the most accessible way in.
 
-![Motorola Razr (2026) cover display](/assets/posts/best-flip-phones-2026/motorola-razr-2026-cover-display.jpg)
+![Motorola Razr (2026) cover display](/assets/posts/motorola-razr-2026-cover-display.jpg)
 
 ## Head-to-Head: Galaxy Z Flip 8 vs Razr Ultra
 
@@ -103,7 +103,7 @@ Motorola gives the Razr Ultra a more ambitious camera setup on paper, with three
 
 Flip phones also have less room for large camera hardware than slab phones, since the body has to fold. That is why photography remains a compromise on this form factor. If photos are your top priority, compare a flip against a regular flagship before deciding. Our look at the [Google Pixel 11 camera](https://www.revibyte.blog/pixel/google-pixel-11-camera-everything-new-2026/) and the [iPhone 18 Pro variable aperture camera](https://www.revibyte.blog/apple/iphone-18-pro-variable-aperture-camera-review/) shows what a dedicated camera-first phone offers.
 
-![Camera hardware on the Galaxy Z Flip 8 and Razr Ultra](/assets/posts/best-flip-phones-2026/flip-phone-camera-hardware-comparison.jpg)
+![Camera hardware on the Galaxy Z Flip 8 and Razr Ultra](/assets/posts/flip-phone-camera-hardware-comparison.jpg)
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4896561037705299"
      crossorigin="anonymous"></script>
 <ins class="adsbygoogle"
