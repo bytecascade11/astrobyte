@@ -11,6 +11,7 @@ slug: free-fire-movement-guide
 relatedSlugs:
   - free-fire-2026-updates-what-has-changed
   - how-to-get-headshots-in-free-fire
+  - how-to-get-free-fire-characters
 ---
 
 ## Table of Contents 
