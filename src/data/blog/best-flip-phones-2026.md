@@ -125,7 +125,7 @@ Xiaomi's Mix Flip 2 appears on some 2026 roundups, but availability depends on w
 
 Choose the **Galaxy Z Flip 8** for long software support, a slimmer body and a lower price than the Ultra. Choose the **Razr Ultra** if battery, charging speed and cover-screen apps matter most. Choose the **Razr+** for a balance between them, and the **Razr (2026)** if keeping the price down comes first.
 
-![Galaxy Z Flip 8, Razr Ultra and Razr 2026 compared together](/assets/posts/best-flip-phones-2026/flip-phones-2026-lineup-comparison.jpg)
+![Galaxy Z Flip 8, Razr Ultra and Razr 2026 compared together](/assets/posts/flip-phones-2026-lineup-comparison.jpg)
 
 ## FAQ
 
