@@ -2,7 +2,7 @@
 title: "These Are the Best Flip Phones in 2026"
 description: "Galaxy Z Flip 8, Razr Ultra, Razr+ and Razr (2026) compared on price, battery, charging, cover screens, durability and software support, so you can pick the right flip phone."
 storyImage: "/assets/posts/galaxy-z-flip-8.jpg"
-coverImage: "/assets/posts/best-flip-phones-2026/galaxy-z-flip-8-vs-razr-ultra-hero.jpg"
+coverImage: "/assets/posts/galaxy-z-flip-8-vs-razr-ultra-hero.jpg"
 coverImageAlt: "Samsung Galaxy Z Flip 8 and Motorola Razr Ultra side by side"
 pubDatetime: 2026-10-04T20:35:00Z
 author: "iSamuel"
