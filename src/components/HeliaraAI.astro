@@ -95,13 +95,15 @@ const {
 </div>
 
 <style>
+  /* Moved up from 50px so the button clears the sticky footer ad and the
+     WhatsApp banner (which now sits above it). */
   #hl-root {
-  position: fixed;
-  bottom: 50px;
-  right: 28px;
-  z-index: 99999;
-  font-family: 'Outfit', 'DM Sans', 'Segoe UI', sans-serif;
-}
+    position: fixed;
+    bottom: 72px;
+    right: 28px;
+    z-index: 99999;
+    font-family: 'Outfit', 'DM Sans', 'Segoe UI', sans-serif;
+  }
 
   #hl-pulse {
     position: absolute;
@@ -112,7 +114,8 @@ const {
     border-radius: 50%;
     background: var(--hl-accent, #6c63ff);
     opacity: 0.25;
-    animation: hl-pulse 2.5s ease-out infinite;
+    /* Was infinite. Pulses 4 times to draw attention, then stops. */
+    animation: hl-pulse 2.5s ease-out 4 forwards;
     pointer-events: none;
   }
 
@@ -120,6 +123,10 @@ const {
     0%   { transform: scale(1);   opacity: 0.25; }
     70%  { transform: scale(1.7); opacity: 0; }
     100% { transform: scale(1.7); opacity: 0; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    #hl-pulse { animation: none; opacity: 0; }
   }
 
   #hl-toggle {
@@ -142,6 +149,8 @@ const {
   #hl-toggle:hover { transform: scale(1.08); }
   #hl-toggle:active { transform: scale(0.94); }
 
+  /* Closed state uses visibility:hidden so the browser doesn't paint or
+     hit-test the large 348x520 panel and its big shadow on every page. */
   #hl-panel {
     position: absolute;
     bottom: 68px;
@@ -157,15 +166,18 @@ const {
     box-shadow: 0 20px 60px rgba(0, 0, 0, 0.7), 0 0 0 1px rgba(255,255,255,0.06);
     transform: scale(0.9) translateY(16px);
     opacity: 0;
+    visibility: hidden;
     pointer-events: none;
-    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.2s ease;
+    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.2s ease, visibility 0s linear 0.3s;
     transform-origin: bottom right;
   }
 
   #hl-panel.open {
     transform: scale(1) translateY(0);
     opacity: 1;
+    visibility: visible;
     pointer-events: all;
+    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.2s ease, visibility 0s;
   }
 
   #hl-header {
@@ -428,9 +440,9 @@ const {
   #hl-footer a:hover { text-decoration: underline; }
 
   @media (max-width: 420px) {
-  #hl-root { bottom: 38px; right: 16px; }
-  #hl-panel { width: calc(100vw - 32px); right: 0; max-height: 70vh; }
-}
+    #hl-root { bottom: 72px; right: 16px; }
+    #hl-panel { width: calc(100vw - 32px); right: 0; max-height: 70vh; }
+  }
 </style>
 
 <script>
@@ -454,21 +466,43 @@ const {
 
   const GREETING = messagesEl.querySelector('.hl-msg-bubble')?.textContent || '';
 
+  // Escape text before putting it in innerHTML (user input and AI replies
+  // could otherwise inject HTML into the page).
+  function escapeHtml(s: string) {
+    return s
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#39;');
+  }
+
+  function formatText(s: string) {
+    return escapeHtml(s).replace(/\n/g, '<br>');
+  }
+
+  // On phones, focusing the input pops the keyboard, which resizes the page
+  // right when the panel is animating open. Let the user tap the input instead.
+  const isTouch = window.matchMedia('(pointer: coarse)').matches;
+  function focusInput() {
+    if (!isTouch) input.focus();
+  }
+
   // ── Panel toggle ──────────────────────────────────────────────────────────
   function togglePanel() {
-  isOpen = !isOpen;
-  panel.classList.toggle('open', isOpen);
-  panel.setAttribute('aria-hidden', String(!isOpen));
-  if (isOpen) {
-    panel.removeAttribute('inert');
-  } else {
-    panel.setAttribute('inert', '');
+    isOpen = !isOpen;
+    panel.classList.toggle('open', isOpen);
+    panel.setAttribute('aria-hidden', String(!isOpen));
+    if (isOpen) {
+      panel.removeAttribute('inert');
+    } else {
+      panel.setAttribute('inert', '');
+    }
+    btnIcon.style.display = isOpen ? 'none' : 'flex';
+    btnClose.style.display = isOpen ? 'flex' : 'none';
+    pulse.style.display = isOpen ? 'none' : 'block';
+    if (isOpen) { focusInput(); scrollToBottom(); }
   }
-  btnIcon.style.display = isOpen ? 'none' : 'flex';
-  btnClose.style.display = isOpen ? 'flex' : 'none';
-  pulse.style.display = isOpen ? 'none' : 'block';
-  if (isOpen) { input.focus(); scrollToBottom(); }
-}
 
   function scrollToBottom() {
     requestAnimationFrame(() => { messagesEl.scrollTop = messagesEl.scrollHeight; });
@@ -487,9 +521,9 @@ const {
             <circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/>
           </svg>
         </div>
-        <div class="hl-msg-bubble">${text.replace(/\n/g, '<br>')}</div>`;
+        <div class="hl-msg-bubble">${formatText(text)}</div>`;
     } else {
-      wrap.innerHTML = `<div class="hl-msg-bubble">${text.replace(/\n/g, '<br>')}</div>`;
+      wrap.innerHTML = `<div class="hl-msg-bubble">${formatText(text)}</div>`;
     }
 
     messagesEl.appendChild(wrap);
@@ -548,7 +582,7 @@ const {
 
     isLoading = false;
     sendBtn.disabled = false;
-    input.focus();
+    focusInput();
   }
 
   function resetChat() {
@@ -561,7 +595,7 @@ const {
             <circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/>
           </svg>
         </div>
-        <div class="hl-msg-bubble">${GREETING}</div>
+        <div class="hl-msg-bubble">${formatText(GREETING)}</div>
       </div>`;
   }
 
