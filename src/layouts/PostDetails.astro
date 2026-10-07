@@ -153,10 +153,10 @@ const postSlug = post.id;
     ]}
   />
 
-  <!-- Progress Bar -->
+  <!-- Progress Bar (uses transform: scaleX so scrolling doesn't trigger layout) -->
   <div
     id="progress-bar"
-    style="position:fixed;top:0;left:0;z-index:9999;height:2px;width:0%;background:linear-gradient(90deg,#6366f1,#818cf8);transition:width 0.1s linear;"
+    style="position:fixed;top:0;left:0;z-index:9999;height:2px;width:100%;transform:scaleX(0);transform-origin:left;will-change:transform;background:linear-gradient(90deg,#6366f1,#818cf8);"
   ></div>
 
   <Header slot="header" />
@@ -237,20 +237,20 @@ const postSlug = post.id;
       </div>
     </div>
 
-    <!-- AdSense: Before Related Posts -->
+    <!-- AdSense: Before Related Posts.
+         The adsbygoogle.js library is loaded ONCE, late, by the idle loader in
+         Layout.astro. Do not add a second <script src=...adsbygoogle.js> here.
+         The push() below just queues this slot until the library arrives. -->
     <div style="margin: 1.5rem 0; min-height: 300px; contain: layout;">
-      <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4896561037705299"
-     crossorigin="anonymous"></script>
-<ins class="adsbygoogle"
-     style="display:block"
-     data-ad-format="fluid"
-     data-ad-layout-key="-gj-29-23-9s+140"
-     data-ad-client="ca-pub-4896561037705299"
-     data-ad-slot="4900787080"></ins>
-<script is:inline>
-           (adsbygoogle = window.adsbygoogle || []).push({});
+      <ins class="adsbygoogle"
+           style="display:block"
+           data-ad-format="fluid"
+           data-ad-layout-key="-gj-29-23-9s+140"
+           data-ad-client="ca-pub-4896561037705299"
+           data-ad-slot="4900787080"></ins>
+      <script is:inline>
+        (window.adsbygoogle = window.adsbygoogle || []).push({});
       </script>
-      
     </div>
 
     <!-- Prev / Next -->
@@ -272,26 +272,56 @@ const postSlug = post.id;
     )}
 
     <RelatedPosts currentPost={post} allPosts={posts} limit={3} />
-<AffiliateCarousel />
+    <AffiliateCarousel />
 
-    <!-- Adsterra: Bottom of Page (300x250) -->
-    <div style="margin: 1.5rem 0; min-height: 250px; display:flex; justify-content:center; contain: layout;">
-      <script is:inline>
-        atOptions = {
-          'key' : '3de9102309ceb722a1529e96b401e327',
-          'format' : 'iframe',
-          'height' : 250,
-          'width' : 300,
-          'params' : {}
-        };
-      </script>
-      <script is:inline src="https://www.highperformanceformat.com/3de9102309ceb722a1529e96b401e327/invoke.js"></script>
-    </div>
+    <!-- Adsterra: Bottom of Page (300x250).
+         Was a synchronous script that blocked parsing. Now it loads only when
+         the slot is within ~400px of the viewport. Space is reserved. -->
+    <div
+      id="adsterra-bottom"
+      style="margin: 1.5rem 0; min-height: 250px; display:flex; justify-content:center; contain: layout;"
+    ></div>
+    <script is:inline>
+      (function () {
+        var box = document.getElementById('adsterra-bottom');
+        if (!box) return;
+        var done = false;
+
+        function loadAd() {
+          if (done) return;
+          done = true;
+          window.atOptions = {
+            'key': '3de9102309ceb722a1529e96b401e327',
+            'format': 'iframe',
+            'height': 250,
+            'width': 300,
+            'params': {}
+          };
+          var s = document.createElement('script');
+          s.async = true;
+          s.src = 'https://www.highperformanceformat.com/3de9102309ceb722a1529e96b401e327/invoke.js';
+          box.appendChild(s);
+        }
+
+        if ('IntersectionObserver' in window) {
+          var io = new IntersectionObserver(function (entries) {
+            if (entries[0].isIntersecting) {
+              io.disconnect();
+              loadAd();
+            }
+          }, { rootMargin: '400px 0px' });
+          io.observe(box);
+        } else {
+          window.addEventListener('load', function () { setTimeout(loadAd, 3000); });
+        }
+      })();
+    </script>
+
     <Comments slug={post.id} />
   </main>
 
 
-<!-- WhatsApp Channel Side Banner -->
+  <!-- WhatsApp Channel Side Banner -->
   <div id="rb-side-banner" style="position:fixed;right:12px;bottom:80px;z-index:990;width:160px;background:#0d0d0d;border:1px solid #1e1e1e;border-top:2px solid #25D366;border-radius:12px;padding:12px;box-shadow:0 4px 20px rgba(0,0,0,0.4);">
     <button onclick="document.getElementById('rb-side-banner').style.display='none'" style="position:absolute;top:6px;right:8px;background:none;border:none;color:#fff;font-size:12px;cursor:pointer;">✕</button>
     <div style="font-size:8px;letter-spacing:1.5px;text-transform:uppercase;color:#fff;font-weight:600;margin-bottom:8px;">Join Us</div>
@@ -300,16 +330,40 @@ const postSlug = post.id;
     <a href="https://whatsapp.com/channel/0029VbBCXzRKAwEdcyip8841" target="_blank" rel="noopener" style="display:block;background:linear-gradient(135deg,#075E54,#25D366);color:#fff;font-size:10px;font-weight:700;padding:8px;border-radius:6px;text-decoration:none;text-align:center;">Join Channel →</a>
   </div>
 
-  <!-- Progress Bar script only -->
+  <!-- Progress Bar script: batched with requestAnimationFrame, height cached -->
   <script is:inline>
     (function () {
-      const bar = document.getElementById("progress-bar");
-      function updateBar() {
-        const scrollY = window.scrollY || document.documentElement.scrollTop || 0;
-        const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-        if (bar && docHeight > 0) bar.style.width = ((scrollY / docHeight) * 100) + "%";
+      var bar = document.getElementById("progress-bar");
+      if (!bar) return;
+      var docHeight = 0;
+      var ticking = false;
+
+      function measure() {
+        docHeight = document.documentElement.scrollHeight - window.innerHeight;
       }
-      window.addEventListener('scroll', updateBar, { passive: true });
+
+      function update() {
+        ticking = false;
+        var y = window.scrollY || document.documentElement.scrollTop || 0;
+        var p = docHeight > 0 ? Math.min(y / docHeight, 1) : 0;
+        bar.style.transform = "scaleX(" + p + ")";
+      }
+
+      function onScroll() {
+        if (!ticking) {
+          ticking = true;
+          requestAnimationFrame(update);
+        }
+      }
+
+      measure();
+      window.addEventListener("scroll", onScroll, { passive: true });
+      window.addEventListener("resize", function () { measure(); onScroll(); });
+      window.addEventListener("load", measure);
+      // Page height changes as ads and images load
+      if ("ResizeObserver" in window) {
+        new ResizeObserver(measure).observe(document.body);
+      }
     })();
   </script>
 </Layout>
