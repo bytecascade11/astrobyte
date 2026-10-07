@@ -85,26 +85,35 @@ html, body {
   font-size: 1.0625rem;
   overflow-x: hidden;
 }
+
+/* INP FIX: the old background was a 400%-size gradient animated with
+   background-position (gradientMove, 15s, infinite). That can't run on the
+   GPU, so the whole page was repainted every frame and again on every theme
+   change. It's now a static gradient. */
 body {
   display: flex;
   flex-direction: column;
   min-height: 100svh;
   color: var(--foreground);
   position: relative;
-  background: linear-gradient(-45deg, var(--background-dark), #0f172a, var(--background-light), var(--background-dark));
-  background-size: 400% 400%;
-  animation: gradientMove 15s ease infinite;
+  background: linear-gradient(
+    135deg,
+    var(--background-dark) 0%,
+    #0f172a 40%,
+    var(--background-light) 75%,
+    var(--background-dark) 100%
+  );
 }
 
 /* Clean white light mode */
 html[data-theme="light"] body {
   background: #ffffff;
-  animation: none;
 }
 
 /* ========================= */
 /* BACKGROUND TEXT — REVIBYTE */
 /* ========================= */
+/* Only animates transform + opacity, which run on the GPU. */
 body::before {
   content: "REVIBYTE";
   position: fixed;
@@ -130,6 +139,9 @@ html[data-theme="light"] body::before {
 /* ========================= */
 /* GLOW BLOBS                */
 /* ========================= */
+/* INP FIX: removed `filter: blur(80px)`. A full-screen 80px blur is very
+   expensive to re-render on every theme change, and the radial gradients are
+   already soft, so the look is almost identical without it. */
 body::after {
   content: "";
   position: fixed;
@@ -137,7 +149,6 @@ body::after {
   background:
     radial-gradient(circle at 20% 30%, rgba(0,108,172,0.08), transparent 40%),
     radial-gradient(circle at 80% 70%, rgba(255,107,1,0.08), transparent 40%);
-  filter: blur(80px);
   opacity: 0.3;
   pointer-events: none;
   z-index: 0;
@@ -229,14 +240,6 @@ footer {
 }
 
 /* ========================= */
-/* FONT DISPLAY — already have swap, but ensure it */
-/* ========================= */
-@font-face {
-  font-family: 'Source Code Pro';
-  font-display: swap;
-}
-
-/* ========================= */
 /* CONTAINER / MAX WIDTH     */
 /* ========================= */
 section, footer, main {
@@ -257,15 +260,13 @@ section, footer, main {
 /* ========================= */
 /* ANIMATIONS                */
 /* ========================= */
-@keyframes gradientMove {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
-}
-
 @keyframes pulseText {
   0%, 100% { opacity: 1; transform: translate(-50%, -50%) rotate(-20deg) scale(1); }
   50% { opacity: 0.4; transform: translate(-50%, -50%) rotate(-20deg) scale(1.03); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body::before { animation: none; }
 }
 
 /* ========================= */
