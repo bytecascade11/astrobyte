@@ -70,9 +70,9 @@ const isHomepage = currentPath === "/";
 //   anything else       -> Organization only
 const schemaType = isHomepage ? "website" : pubDatetime ? "article" : "page";
 
+const gaId = SITE.analytics?.googleAnalyticsId ?? "";
+
 // SoftwareApplication schema is for the homepage ONLY (Microsoft Store PWA listing).
-// Removed aggregateRating: a self-reported 5.0 from 1 rating is self-serving review
-// markup and a spam-policy risk. Add it back only with real, verifiable ratings.
 const softwareAppSchema = {
   "@context": "https://schema.org",
   "@type": "SoftwareApplication",
@@ -115,15 +115,9 @@ const softwareAppSchema = {
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
     <meta name="apple-mobile-web-app-title" content="ReviByte" />
 
-    <!-- Preconnect to Google Fonts (if you use them) and other third-parties -->
+    <!-- Preconnect to Google Fonts (if you use them) -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
-
-    <!-- REMOVED: coverImage preload from here.
-         It was preloading the RAW image while OptimizedCoverImage serves a
-         Vercel-optimized URL, causing a double-download. Pages that need LCP
-         preloading (like CODM guides) should handle it in their own file. -->
 
     <!-- Theme Handling — critical, must stay blocking to prevent flash -->
     <script is:inline>
@@ -176,8 +170,6 @@ const softwareAppSchema = {
     <meta name="twitter:url" content={canonical} />
     <meta name="twitter:image" content={socialImageURL} />
 
-    <!-- Structured data. `type` controls which schemas SchemaMarkup emits.
-         The `author` prop was removed: SchemaMarkup uses SITE.author internally. -->
     <SchemaMarkup
       type={schemaType}
       title={title}
@@ -195,9 +187,9 @@ const softwareAppSchema = {
       <meta name="google-site-verification" content={PUBLIC_GOOGLE_SITE_VERIFICATION} />
     )}
 
-    {SITE.analytics?.googleAnalyticsId && (
-      <script is:inline async src={`https://www.googletagmanager.com/gtag/js?id=${SITE.analytics.googleAnalyticsId}`}></script>
-    )}
+    <!-- gtag stub only. The real gtag.js is loaded late by the idle loader at
+         the bottom of <body>. Calls made before it loads are queued in
+         dataLayer, so nothing is lost. -->
     <script is:inline>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
@@ -213,10 +205,8 @@ const softwareAppSchema = {
       />
     )}
 
-    <!-- REMOVED: Microsoft Clarity from here — it was render-blocking LCP.
-         It has been moved to the idle-loaded script group below. -->
-
-        <!-- Newor Media (Waldo) header script — placed in <head> as their dashboard instructs -->
+    <!-- Newor Media (Waldo) header script — placed in <head> as their dashboard instructs.
+         NOTE: confirm this src is the full URL from your Newor dashboard. -->
     <script is:inline async type="text/javascript" src="https://thisiswaldo.com"></script>
     <script is:inline>
       document.addEventListener('DOMContentLoaded', () => {
@@ -236,14 +226,8 @@ const softwareAppSchema = {
      <slot name="top-nav" />
 
     <!-- ========== COVER IMAGE + AD ========== -->
-    <!-- Cover image renders FIRST so the image and H1 are visible without an
-         ad pushing them down on mobile. Order: Newor Media (rendered by
-         PostDetails.astro right after the Go back button) -> cover image ->
-         Adsterra (directly below the image). Reserved heights (no layout shift). -->
-
     {coverImage && (
       <div class="cover-ad-wrapper">
-        <!-- Cover Image -->
         <OptimizedCoverImage
           src={coverImage}
           alt={coverImageAlt || title}
@@ -253,7 +237,7 @@ const softwareAppSchema = {
           sizes="100vw"
         />
 
-        <!-- Adsterra: BOTTOM of cover image (script loads idle-triggered below) -->
+        <!-- Adsterra slot (script is loaded by the idle loader below) -->
         <div class="ad-slot ad-slot--bottom">
           <div id="container-100c0408033e7aba877563ba9293a45d"></div>
         </div>
@@ -263,70 +247,62 @@ const softwareAppSchema = {
 
     <slot />
 
-    <!-- ================= IDLE-LOADED SCRIPTS (After LCP / content) ================= -->
-
-    {SITE.analytics?.googleAnalyticsId && (
-      <script is:inline define:vars={{ gaId: SITE.analytics.googleAnalyticsId }}>
-        gtag('config', gaId);
-      </script>
-    )}
-
     <!--
-      INP FIX — single deferred loader for every non-essential third-party script.
-      AdSense, Adsterra, Newor Media and Microsoft Clarity share the same
-      "scroll, touch, or 5s timeout" trigger so they never compete with an
-      early user interaction.
+      INP FIX — one idle loader for every non-essential third-party script.
 
-      REMOVED ENTIRELY — the obfuscated Clickadu script and the
-      bartererfaxtingling.com/bn.js banner (synchronous WASM + URL rewriting;
-      likely INP culprit and a Safe Browsing / ad-quality risk). The empty
-      "Advertisement" placeholder div for Clickadu has also been removed.
+      Why this differs from the old version:
+      1. It does NOT listen for scroll/touchstart. Those are the start of a
+         user interaction, so loading ads then makes the first tap slow.
+      2. It waits for window "load", then requestIdleCallback, so the main
+         thread is free.
+      3. Scripts are staggered ~1s apart instead of all landing at once,
+         so no single long task blocks a tap.
     -->
-    <script is:inline>
+    <script is:inline define:vars={{ gaId }}>
       (function () {
-        let loaded = false;
+        var started = false;
 
-        function loadDeferredAds() {
-          if (loaded) return;
-          loaded = true;
-
-          // AdSense
-          var ads = document.createElement('script');
-          ads.async = true;
-          ads.src = "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4896561037705299";
-          ads.crossOrigin = "anonymous";
-          ads.onload = function () {
-            try {
-              (window.adsbygoogle = window.adsbygoogle || []).push({});
-            } catch (e) { /* no unfilled AdSense slot on this page */ }
-          };
-          document.body.appendChild(ads);
-
-          // Adsterra
-          var adsterra = document.createElement('script');
-          adsterra.async = true;
-          adsterra.setAttribute('data-cfasync', 'false');
-          adsterra.src = "https://pl28410703.effectivecpmnetwork.com/100c0408033e7aba877563ba9293a45d/invoke.js";
-          document.body.appendChild(adsterra);
-
+        function addScript(src, attrs) {
+          var s = document.createElement('script');
+          s.async = true;
+          s.src = src;
+          if (attrs) {
+            for (var k in attrs) s.setAttribute(k, attrs[k]);
+          }
+          document.body.appendChild(s);
+          return s;
         }
 
-        window.addEventListener('scroll', loadDeferredAds, { once: true, passive: true });
-        window.addEventListener('touchstart', loadDeferredAds, { once: true, passive: true });
-        setTimeout(loadDeferredAds, 5000);
-      })();
-    </script>
+        function loadAnalytics() {
+          if (!gaId) return;
+          gtag('config', gaId);
+          addScript('https://www.googletagmanager.com/gtag/js?id=' + gaId);
+        }
 
-    <!-- OneSignal -->
-    <script is:inline>
-      (function() {
+        function loadAdSense() {
+          // Auto ads: loading the script is enough, no push({}) needed.
+          addScript(
+            'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4896561037705299',
+            { crossorigin: 'anonymous' }
+          );
+        }
+
+        function loadAdsterra() {
+          // Only load if the slot exists on this page.
+          if (!document.getElementById('container-100c0408033e7aba877563ba9293a45d')) return;
+          addScript(
+            'https://pl28410703.effectivecpmnetwork.com/100c0408033e7aba877563ba9293a45d/invoke.js',
+            { 'data-cfasync': 'false' }
+          );
+        }
+
         function loadOneSignal() {
           if (window.__oneSignalLoaded) return;
           window.__oneSignalLoaded = true;
-          var s = document.createElement('script');
-          s.src = 'https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js';
+          var s = addScript('https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js');
+          s.async = false;
           s.defer = true;
-          s.onload = function() {
+          s.onload = function () {
             window.OneSignalDeferred = window.OneSignalDeferred || [];
             OneSignalDeferred.push(async function (OneSignal) {
               try {
@@ -346,7 +322,6 @@ const softwareAppSchema = {
                           cancelButtonText: "Not Now",
                           confirmMessage: "Hit Allow to get instant updates on new posts, phone comparisons, and buying guides that actually help."
                         },
-                        // Was 3s. Delayed so new visitors (esp. from Discover) can read first.
                         delay: { pageViews: 0, timeDelay: 20 }
                       }]
                     }
@@ -355,10 +330,30 @@ const softwareAppSchema = {
               } catch (e) { console.error("OneSignal init error:", e); }
             });
           };
-          document.body.appendChild(s);
         }
-        window.addEventListener('scroll', loadOneSignal, { once: true, passive: true });
-        setTimeout(loadOneSignal, 5000);
+
+        function start() {
+          if (started) return;
+          started = true;
+          loadAnalytics();                 // t + 0s
+          setTimeout(loadAdSense, 1000);   // t + 1s
+          setTimeout(loadAdsterra, 2000);  // t + 2s
+          setTimeout(loadOneSignal, 4000); // t + 4s
+        }
+
+        function schedule() {
+          if ('requestIdleCallback' in window) {
+            requestIdleCallback(start, { timeout: 3000 });
+          } else {
+            setTimeout(start, 2000);
+          }
+        }
+
+        if (document.readyState === 'complete') {
+          schedule();
+        } else {
+          window.addEventListener('load', schedule, { once: true });
+        }
       })();
     </script>
 
@@ -379,8 +374,7 @@ const softwareAppSchema = {
     <!-- SIDEBAR — rendered LAST so it's on top of everything -->
     <Sidebar />
 
-<!-- Sticky Footer -->
-    <!-- 728x90/320x50 -->
+    <!-- Sticky Footer (Newor Media) 728x90/320x50 -->
     <div id="waldo-tag-55828"></div>
 
     <style>
