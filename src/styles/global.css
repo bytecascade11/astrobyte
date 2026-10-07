@@ -113,7 +113,9 @@ html[data-theme="light"] body {
 /* ========================= */
 /* BACKGROUND TEXT — REVIBYTE */
 /* ========================= */
-/* Only animates transform + opacity, which run on the GPU. */
+/* INP FIX: the pulse animation is removed. A permanent animation on a huge
+   fixed layer keeps the browser compositing every frame and makes the theme
+   switch more expensive. The watermark is now static. */
 body::before {
   content: "REVIBYTE";
   position: fixed;
@@ -128,12 +130,10 @@ body::before {
   pointer-events: none;
   z-index: 0;
   color: rgba(255, 255, 255, 0.04);
-  animation: pulseText 5s ease-in-out infinite;
 }
 
 html[data-theme="light"] body::before {
   color: rgba(0, 108, 172, 0.04);
-  animation: none;
 }
 
 /* ========================= */
@@ -159,6 +159,17 @@ html[data-theme="light"] body::after {
     radial-gradient(circle at 20% 30%, rgba(0,108,172,0.03), transparent 40%),
     radial-gradient(circle at 80% 70%, rgba(255,107,1,0.03), transparent 40%);
   opacity: 0.2;
+}
+
+/* ========================= */
+/* THEME BUTTON ICON         */
+/* ========================= */
+/* INP FIX: removes the sun/moon swap animation (Tailwind transition-all +
+   dark:scale-0 on the icons inside #theme-btn). The icons now switch
+   instantly. */
+#theme-btn svg,
+#theme-btn svg * {
+  transition: none !important;
 }
 
 /* ========================= */
@@ -255,18 +266,6 @@ section, footer, main {
 /* ========================= */
 :target {
   scroll-margin-block: 1rem;
-}
-
-/* ========================= */
-/* ANIMATIONS                */
-/* ========================= */
-@keyframes pulseText {
-  0%, 100% { opacity: 1; transform: translate(-50%, -50%) rotate(-20deg) scale(1); }
-  50% { opacity: 0.4; transform: translate(-50%, -50%) rotate(-20deg) scale(1.03); }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  body::before { animation: none; }
 }
 
 /* ========================= */
