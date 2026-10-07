@@ -371,6 +371,19 @@ const softwareAppSchema = {
     </script>
 
     <Footer />
+<script is:inline>
+  if (location.search.includes('inpdebug')) {
+    import('https://unpkg.com/web-vitals@4/dist/web-vitals.attribution.js').then(function (m) {
+      var box = document.createElement('pre');
+      box.style.cssText = 'position:fixed;top:0;left:0;right:0;z-index:2147483647;margin:0;padding:6px;font:11px monospace;background:#000;color:#0f0;white-space:pre-wrap;pointer-events:none';
+      document.body.appendChild(box);
+      m.onINP(function (r) {
+        var a = r.attribution;
+        box.textContent = 'INP ' + Math.round(r.value) + 'ms (' + r.rating + ')\n' + a.interactionTarget + ' [' + a.interactionType + ']\ninput ' + Math.round(a.inputDelay) + ' | process ' + Math.round(a.processingDuration) + ' | paint ' + Math.round(a.presentationDelay);
+      }, { reportAllChanges: true });
+    });
+  }
+</script>
     <!-- SIDEBAR — rendered LAST so it's on top of everything -->
     <Sidebar />
 
