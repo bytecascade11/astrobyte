@@ -226,16 +226,9 @@ const softwareAppSchema = {
       />
     )}
 
-    <!-- Newor Media (Waldo) header script — placed in <head> as their dashboard instructs.
-         NOTE: confirm this src is the full URL from your Newor dashboard. -->
-    <script is:inline async type="text/javascript" src="https://thisiswaldo.com"></script>
-    <script is:inline>
-      document.addEventListener('DOMContentLoaded', () => {
-        if (window.wk && typeof window.wk.init === 'function') {
-          window.wk.init();
-        }
-      });
-    </script>
+    <!-- Newor Media (Waldo) header script — exact URL from the Newor dashboard (site 55542).
+         The script initializes itself; no extra init call is needed. -->
+    <script is:inline async type="text/javascript" src="https://cdn.thisiswaldo.com/static/js/55542.js"></script>
 
   </head>
 
