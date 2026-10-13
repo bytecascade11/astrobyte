@@ -383,20 +383,27 @@ const softwareAppSchema = {
       });
     </script>
 
-    <!-- INP DEBUG: only runs when the URL contains "inpdebug". Delete when done. -->
-    <script is:inline>
-      if (location.search.includes('inpdebug')) {
-        import('https://unpkg.com/web-vitals@4/dist/web-vitals.attribution.js').then(function (m) {
-          var box = document.createElement('pre');
-          box.style.cssText = 'position:fixed;top:0;left:0;right:0;z-index:2147483647;margin:0;padding:6px;font:11px monospace;background:#000;color:#0f0;white-space:pre-wrap;pointer-events:none';
-          document.body.appendChild(box);
-          m.onINP(function (r) {
-            var a = r.attribution;
-            box.textContent = 'INP ' + Math.round(r.value) + 'ms (' + r.rating + ')\n' + a.interactionTarget + ' [' + a.interactionType + ']\ninput ' + Math.round(a.inputDelay) + ' | process ' + Math.round(a.processingDuration) + ' | paint ' + Math.round(a.presentationDelay);
-          }, { reportAllChanges: true });
-        });
-      }
-    </script>
+    <!-- WALDO DEBUG: runs only when the URL contains "waldodebug". Delete when done. -->
+<script is:inline>
+  if (location.search.includes('waldodebug')) {
+    setTimeout(function () {
+      var out = [];
+      out.push('waldo script: ' + (typeof waldoGeo !== 'undefined' ? 'loaded, country ' + waldoGeo.country : 'NOT loaded'));
+      out.push('gpt: ' + (window.googletag && googletag.apiReady ? 'ready' : 'NOT ready'));
+      out.push('prebid: ' + (window.pbjs && pbjs.libLoaded ? 'ready' : 'NOT ready'));
+      ['55823','55824','55825','55828'].forEach(function (id) {
+        var d = document.getElementById('waldo-tag-' + id);
+        if (!d) { out.push(id + ': div missing'); return; }
+        out.push(id + ': div ok, parent ' + (d.parentNode.id || d.parentNode.className) +
+          ', iframe ' + !!d.querySelector('iframe') + ', height ' + d.offsetHeight);
+      });
+      var box = document.createElement('pre');
+      box.style.cssText = 'position:fixed;top:0;left:0;right:0;z-index:2147483647;margin:0;padding:6px;font:11px monospace;background:#000;color:#0f0;white-space:pre-wrap';
+      box.textContent = out.join('\n');
+      document.body.appendChild(box);
+    }, 8000);
+  }
+</script>
 
     <Footer />
     <!-- SIDEBAR — rendered LAST so it's on top of everything -->
