@@ -10,6 +10,7 @@ slug: "google-pixel-10-vs-10-pro-vs-10a"
 relatedSlugs:
   - best-google-pixel-phone-for-most-people
   - google-pixel-11-camera-everything-new-2026
+  - google-pixel-10-vs-pixel-10-pro-camera-battery
 ---
 
 ## Table of Contents 
