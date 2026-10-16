@@ -9,6 +9,8 @@ coverImageAlt: iPhone 18 Pro rear camera module showing the main lens housing th
 slug: iphone-18-pro-variable-aperture-camera-review
 type: buying-guide
 productLine: "iphone"
+relatedSlugs: 
+    - iphone-18-pro-vs-iphone-17-whats-changed
 ---
 
 ## Table of Contents 
