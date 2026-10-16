@@ -7,6 +7,7 @@ storyImage: "/assets/apple/iphone-18-pro.jpg"
 coverImage: "/assets/apple/iphone-18-vs-iphone-17-cover.jpg"
 coverImageAlt: "iPhone 18 Pro and iPhone 17 side by side, showing the different rear camera layouts"
 slug: "iphone-18-pro-vs-iphone-17-whats-changed"
+productLine: "iphone"
 ---
 
 ## iPhone 18 Pro vs iPhone 17: What's Actually Changed?
