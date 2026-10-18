@@ -7,7 +7,6 @@ import Sidebar from "@/components/Sidebar.astro";
 import Footer from "@/components/Footer.astro";
 import "@/styles/global.css";
 import GoogleSubscribe from '../components/GoogleSubscribe.astro';
-import InstallBanner from '../components/InstallBanner.astro';
 const { PUBLIC_GOOGLE_SITE_VERIFICATION } = import.meta.env;
 
 type Props = {
@@ -233,7 +232,6 @@ const softwareAppSchema = {
   </head>
 
   <body>
-     <InstallBanner />
      <HeliaraAI />
      <GoogleSubscribe />
      <slot name="header" />
@@ -309,49 +307,12 @@ const softwareAppSchema = {
           );
         }
 
-        function loadOneSignal() {
-          if (window.__oneSignalLoaded) return;
-          window.__oneSignalLoaded = true;
-          var s = addScript('https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js');
-          s.async = false;
-          s.defer = true;
-          s.onload = function () {
-            window.OneSignalDeferred = window.OneSignalDeferred || [];
-            OneSignalDeferred.push(async function (OneSignal) {
-              try {
-                await OneSignal.init({
-                  appId: "bbd38552-99d1-4cda-96f9-5c0cacfba192",
-                  notifyButton: { enable: false },
-                  allowLocalhostAsSecureOrigin: true,
-                  autoResubscribe: true,
-                  promptOptions: {
-                    slidedown: {
-                      prompts: [{
-                        type: "push",
-                        autoPrompt: true,
-                        text: {
-                          actionMessage: "⚡ Stay Ahead in Tech",
-                          acceptButtonText: "Allow 🔔",
-                          cancelButtonText: "Not Now",
-                          confirmMessage: "Hit Allow to get instant updates on new posts, phone comparisons, and buying guides that actually help."
-                        },
-                        delay: { pageViews: 0, timeDelay: 20 }
-                      }]
-                    }
-                  }
-                });
-              } catch (e) { console.error("OneSignal init error:", e); }
-            });
-          };
-        }
-
         function start() {
           if (started) return;
           started = true;
           loadAnalytics();                 // t + 0s
           setTimeout(loadAdSense, 1000);   // t + 1s
           setTimeout(loadAdsterra, 2000);  // t + 2s
-          setTimeout(loadOneSignal, 4000); // t + 4s
         }
 
         function schedule() {
@@ -382,28 +343,6 @@ const softwareAppSchema = {
         }, 2000);
       });
     </script>
-
-    <!-- WALDO DEBUG: runs only when the URL contains "waldodebug". Delete when done. -->
-<script is:inline>
-  if (location.search.includes('waldodebug')) {
-    setTimeout(function () {
-      var out = [];
-      out.push('waldo script: ' + (typeof waldoGeo !== 'undefined' ? 'loaded, country ' + waldoGeo.country : 'NOT loaded'));
-      out.push('gpt: ' + (window.googletag && googletag.apiReady ? 'ready' : 'NOT ready'));
-      out.push('prebid: ' + (window.pbjs && pbjs.libLoaded ? 'ready' : 'NOT ready'));
-      ['55823','55824','55825','55828'].forEach(function (id) {
-        var d = document.getElementById('waldo-tag-' + id);
-        if (!d) { out.push(id + ': div missing'); return; }
-        out.push(id + ': div ok, parent ' + (d.parentNode.id || d.parentNode.className) +
-          ', iframe ' + !!d.querySelector('iframe') + ', height ' + d.offsetHeight);
-      });
-      var box = document.createElement('pre');
-      box.style.cssText = 'position:fixed;top:0;left:0;right:0;z-index:2147483647;margin:0;padding:6px;font:11px monospace;background:#000;color:#0f0;white-space:pre-wrap';
-      box.textContent = out.join('\n');
-      document.body.appendChild(box);
-    }, 8000);
-  }
-</script>
 
     <Footer />
     <!-- SIDEBAR — rendered LAST so it's on top of everything -->
