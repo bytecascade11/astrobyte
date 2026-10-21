@@ -2,7 +2,7 @@
 title: "vivo V50 Battery Life: How Long Does Its 6000mAh Battery Last?"
 description: "A research-based look at vivo V50 battery life: GSMArena's lab figures for gaming and video, charging times against rivals, and what 6000mAh means across a normal day."
 author: "iSamuel"
-pubDatetime: 2026-10-21T19:09:00Z
+pubDatetime: 2026-10-21T10:24:00Z
 storyImage: "/assets/vivo/v40.jpg"
 coverImage: "/assets/vivo/vivo-v50-battery-life-cover.jpg"
 coverImageAlt: "vivo V50 shown from the back and front with a battery icon beside it"
