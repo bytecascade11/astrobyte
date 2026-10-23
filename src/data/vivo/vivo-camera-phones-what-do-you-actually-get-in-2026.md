@@ -13,6 +13,7 @@ relatedSlugs:
   - vivo-2026-lineup-which-phone-should-you-choose
   - vivo-phones-200-300-what-should-you-look-for
   - vivo-v50-battery-life-6000mah
+  - vivo-phones-6000mah-battery-or-larger
 ---
 
 ## Table of Contents 
