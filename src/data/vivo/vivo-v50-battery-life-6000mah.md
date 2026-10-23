@@ -7,6 +7,8 @@ storyImage: "/assets/vivo/v40.jpg"
 coverImage: "/assets/vivo/vivo-v50-battery-life-cover.jpg"
 coverImageAlt: "vivo V50 shown from the back and front with a battery icon beside it"
 slug: "vivo-v50-battery-life-6000mah"
+relatedSlugs: 
+    - vivo-phones-6000mah-battery-or-larger
 ---
 
 ## vivo V50 Battery Life
