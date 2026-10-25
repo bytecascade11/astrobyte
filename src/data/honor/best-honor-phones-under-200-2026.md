@@ -11,6 +11,7 @@ relatedSlugs:
   - "best-honor-camera-phones-2026"  
   - "best-honor-phones-battery-life-2026"
   - "best-honor-foldable-phones-2026"
+  - "honor-600-lite-camera-4k-video"
 ---  
 
 ## Table of Contents 
