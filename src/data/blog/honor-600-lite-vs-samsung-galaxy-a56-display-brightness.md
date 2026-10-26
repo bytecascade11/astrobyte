@@ -7,6 +7,7 @@ storyImage: /assets/posts/samsung-galaxy-a56.jpg
 coverImage: /assets/posts/honor-600-lite-vs-galaxy-a56-display-cover.jpg
 coverImageAlt: "HONOR 600 Lite and Samsung Galaxy A56 shown side by side with screens on"
 slug: honor-600-lite-vs-samsung-galaxy-a56-display-brightness
+tags: ["honor", "Samsung"]
 ---
 
 ## HONOR 600 Lite vs Samsung Galaxy A56: Which Has the Brighter Display?
