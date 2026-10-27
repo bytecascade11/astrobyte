@@ -8,6 +8,7 @@ coverImageAlt: "OnePlus phones with the longest battery life in 2026 lineup"
 slug: "oneplus-phones-battery-life-2026"
 relatedSlugs: 
      - which-oneplus-phone-should-you-buy-2026
+     - oneplus-15-battery-life-7300mah
 ---
 
 ## Table of Contents 
