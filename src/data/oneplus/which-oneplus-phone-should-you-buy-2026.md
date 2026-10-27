@@ -9,6 +9,7 @@ slug: "which-oneplus-phone-should-you-buy-2026"
 tags: ["oneplus", "opinions"]
 relatedSlugs:
     - oneplus-phones-battery-life-2026
+    - oneplus-15-battery-life-7300mah
 category: oneplus
 ---
 
