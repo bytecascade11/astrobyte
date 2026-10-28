@@ -7,6 +7,8 @@ storyImage: "/assets/oneplus/oneplus-15.jpg"
 coverImage: "/assets/oneplus/oneplus-15-battery-life-cover.jpg"
 coverImageAlt: "OnePlus 15 shown from the back and front on a plain background, highlighting its large battery"
 slug: "oneplus-15-battery-life-7300mah"
+relatedSlugs: 
+   - oneplus-nord-5-battery-life-5g
 ---
 
 ## Overview 
