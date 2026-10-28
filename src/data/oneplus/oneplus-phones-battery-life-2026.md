@@ -9,6 +9,7 @@ slug: "oneplus-phones-battery-life-2026"
 relatedSlugs: 
      - which-oneplus-phone-should-you-buy-2026
      - oneplus-15-battery-life-7300mah
+     - oneplus-nord-5-battery-life-5g
 ---
 
 ## Table of Contents 
