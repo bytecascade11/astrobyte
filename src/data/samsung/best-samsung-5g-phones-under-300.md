@@ -8,6 +8,7 @@ coverImageAlt: "Samsung Galaxy A-series 5G phones lined up side by side"
 slug: "best-samsung-5g-phones-under-300"  
 relatedSlugs:
    - how-long-do-samsung-phones-get-updates
+   - samsung-galaxy-z-flip8-vs-flip7-upgrade
 ---
 
 ## Table of Contents 
