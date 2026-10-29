@@ -9,6 +9,7 @@ storyImage: "/assets/samsung/samsung-galaxy-screen.jpg"
 slug: how-long-do-samsung-phones-get-updates
 relatedSlugs: 
     - best-samsung-5g-phones-under-300
+    - samsung-galaxy-z-flip8-vs-flip7-upgrade
 ---
 
 ## Table of Contents 
