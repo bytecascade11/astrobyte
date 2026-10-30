@@ -36,7 +36,8 @@ The EU energy labels, which GSMArena reported on, list slightly lower "rated" fi
 
 ![Galaxy S26 Ultra rear panel and charging port close-up](/assets/samsung/galaxy-s26-ultra-rear-panel-charging-port.jpg)
 
-<div id="waldo-tag-55823"></div>
+<div id="waldo-tag-55824"></div>
+
 
 ## How long they last on 5G
 
@@ -52,7 +53,17 @@ The most useful public numbers come from Tom's Guide, which loops web browsing o
 
 Tom's Guide's S26 and S26+ results reflect its review units and their respective chipsets. The S26+ result above comes from the Snapdragon model, so Exynos versions may deliver different results.
 
-<div id="waldo-tag-55823"></div>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4896561037705299"
+     crossorigin="anonymous"></script>
+<ins class="adsbygoogle"
+     style="display:block; text-align:center;"
+     data-ad-layout="in-article"
+     data-ad-format="fluid"
+     data-ad-client="ca-pub-4896561037705299"
+     data-ad-slot="7554701431"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
 
 Two things stand out. First, the Ultra gets a lot more out of 5,000 mAh than the S26+ gets out of 4,900 mAh, which tells you capacity is only part of the story. Samsung says the Ultra also has a redesigned thermal system with a larger vapor chamber, and the Ultra sold globally runs a Snapdragon chip. Second, the Ultra still sits behind the iPhone 17 Pro Max and a long way behind the OnePlus 15, whose battery is nearly half as large again. Phones with 6,000mAh batteries or larger, like the ones in our [vivo 6,000mAh and larger battery list](https://www.revibyte.blog/vivo/vivo-phones-6000mah-battery-or-larger/), may offer longer endurance, but actual battery life also depends on processor efficiency, display settings and network conditions.
 
@@ -66,7 +77,7 @@ For Nigerian buyers, the practical advice is simple. Before paying for an S26 or
 
 ![Galaxy S26 Settings screen showing battery usage and screen-on time](/assets/samsung/galaxy-s26-battery-usage-screen-on-time.jpg)
 
-<div id="waldo-tag-55823"></div>
+<div id="waldo-tag-55825"></div>
 
 ## Does having 5G on actually drain more?
 
@@ -92,7 +103,8 @@ The base S26 is the one to pick if you want a small phone and can live with a da
 
 Budget is a fair reason to look elsewhere. Our guide to the [best Samsung 5G phones under $300](https://www.revibyte.blog/samsung/best-samsung-5g-phones-under-300/) covers cheaper models, and if you are curious about foldables, the [Galaxy Z Flip8 vs Flip7](https://www.revibyte.blog/samsung/samsung-galaxy-z-flip8-vs-flip7-upgrade/) post looks at how Samsung handles battery in a smaller body.
 
-<div id="waldo-tag-55823"></div>
+<div id="waldo-tag-55826"></div>
+
 
 ## FAQ
 
@@ -126,4 +138,4 @@ The figures in this article come from the published pages below. Lab results com
 - [GSMArena: EU energy labels confirm S26 battery capacities](https://www.gsmarena.com/samsung_galaxy_s26_s26_and_s26_ultras_eu_energy_labels_confirm_their_battery_capacities-news-71683.php) (rated capacities and 1,200-cycle rating)
 - [GSMArena: Exynos 2600 Galaxy S26 disappoints in battery test](https://www.gsmarena.com/exynos_2600equipped_galaxy_s26_disappoints_in_battery_test_-news-72176.php) (report on the Android Addicts Exynos versus Snapdragon test)
 
-<div id="waldo-tag-55823"></div>
+<div id="waldo-tag-55832"></div>
