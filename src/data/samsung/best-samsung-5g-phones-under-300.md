@@ -9,6 +9,7 @@ slug: "best-samsung-5g-phones-under-300"
 relatedSlugs:
    - how-long-do-samsung-phones-get-updates
    - samsung-galaxy-z-flip8-vs-flip7-upgrade
+   - samsung-galaxy-s26-battery-life-5g
 ---
 
 ## Table of Contents 
