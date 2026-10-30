@@ -10,6 +10,7 @@ coverImageAlt: "Samsung Galaxy Z Flip8 and Galaxy Z Flip7 side by side, folded a
 relatedSlugs:
   - how-long-do-samsung-phones-get-updates
   - best-samsung-5g-phones-under-300
+  - samsung-galaxy-s26-battery-life-5g
 ---
 
 ## Table of Contents 
