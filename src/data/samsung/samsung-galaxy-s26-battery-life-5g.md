@@ -20,6 +20,8 @@ Short answer: on a 5G connection, the three Galaxy S26 phones last between rough
 
 This article is built from published lab results and Samsung's own specs. It is not based on personal testing, and the test figures come from different labs, so treat them as a guide and not a promise.
 
+<div id="waldo-tag-55823"></div>
+
 ## Battery sizes: what Samsung actually put in
 
 The base model is the only one that got a bigger cell this year. The S26+ and S26 Ultra kept the capacities of their predecessors.
@@ -33,7 +35,9 @@ The base model is the only one that got a bigger cell this year. The S26+ and S2
 The EU energy labels, which GSMArena reported on, list slightly lower "rated" figures (4,755 mAh for the S26+ and 4,855 mAh for the Ultra). That is normal. Samsung markets the typical capacity, and the rated one is the minimum guaranteed value.
 
 ![Galaxy S26 Ultra rear panel and charging port close-up](/assets/samsung/galaxy-s26-ultra-rear-panel-charging-port.jpg)
+
 <div id="waldo-tag-55823"></div>
+
 ## How long they last on 5G
 
 The most useful public numbers come from Tom's Guide, which loops web browsing over 5G at a fixed 150 nits of brightness until the phone dies. It is a steady, repeatable test, which makes it good for comparing phones and poor for predicting your exact day.
@@ -61,7 +65,9 @@ The YouTube channel Android Addicts ran a drain test on one of each, both S26 un
 For Nigerian buyers, the practical advice is simple. Before paying for an S26 or S26+, ask the seller which chip the exact unit uses, and check the model number on the box. Imported units from different markets can differ.
 
 ![Galaxy S26 Settings screen showing battery usage and screen-on time](/assets/samsung/galaxy-s26-battery-usage-screen-on-time.jpg)
+
 <div id="waldo-tag-55823"></div>
+
 ## Does having 5G on actually drain more?
 
 Honestly, there is no clean public number for it. I could not find a lab that ran the S26 with 5G on and off under identical conditions, so any percentage I gave you would be invented. What is well understood is the cause. A phone drains faster when it holds a weak signal, because the modem raises its transmit power, and when it keeps switching between 5G and 4G.
