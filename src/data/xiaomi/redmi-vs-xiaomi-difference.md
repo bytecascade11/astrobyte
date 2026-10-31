@@ -7,6 +7,8 @@ storyImage: "/assets/xiaomi/xiaomi-15-t.jpg"
 coverImage: "/assets/xiaomi/redmi-vs-xiaomi-cover.jpg"
 coverImageAlt: "Redmi and Xiaomi smartphone logos side by side against a neutral background"
 slug: "redmi-vs-xiaomi-difference"
+relatedSlugs:
+    - xiaomi-17-battery-life-5g
 ---
 
 ## Table of Contents 
