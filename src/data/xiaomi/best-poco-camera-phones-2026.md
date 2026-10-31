@@ -11,6 +11,7 @@ relatedSlugs:
     - best-poco-phones-battery-life-2026
     - xiaomi-cameras-compared-redmi-poco-xiaomi
     - xiaomi-phones-long-battery-life-2026
+    - xiaomi-17-battery-life-5g
 ---
 
 ## Table of Contents 
