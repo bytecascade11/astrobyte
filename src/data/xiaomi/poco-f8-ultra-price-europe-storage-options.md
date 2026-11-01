@@ -2,7 +2,7 @@
 title: "POCO F8 Ultra Price in Europe and Available Storage Options"
 description: "What the POCO F8 Ultra costs in Europe, from the early-bird launch deal to retailer prices, and whether the 256GB or 512GB version is the better buy."
 author: "iSamuel"
-pubDatetime: 2026-11-1T06:55:00Z
+pubDatetime: 2026-11-1T06:58:00Z
 storyImage: "/assets/xiaomi/poco-f8-ultra.jpg"
 coverImage: "/assets/xiaomi/poco-f8-ultra-price-europe-cover.jpg"
 coverImageAlt: "POCO F8 Ultra price in Europe and storage options"
