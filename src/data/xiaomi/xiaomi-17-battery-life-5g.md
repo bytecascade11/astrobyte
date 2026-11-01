@@ -12,6 +12,7 @@ relatedSlugs:
   - "xiaomi-phones-long-battery-life-2026"
   - "best-poco-camera-phones-2026"
   - "best-poco-phones-under-200"
+  - "poco-f8-ultra-price-europe-storage-options"
 ---
 
 ## Table of Contents 
