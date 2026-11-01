@@ -9,6 +9,7 @@ coverImageAlt: "Redmi and Xiaomi smartphone logos side by side against a neutral
 slug: "redmi-vs-xiaomi-difference"
 relatedSlugs:
     - xiaomi-17-battery-life-5g
+    - poco-f8-ultra-price-europe-storage-options
 ---
 
 ## Table of Contents 
