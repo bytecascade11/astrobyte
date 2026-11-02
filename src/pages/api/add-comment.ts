@@ -4,8 +4,10 @@ import { createClient } from "@supabase/supabase-js";
 
 export const prerender = false;
 
-export const POST: APIRoute = async ({ request }) => {
+export const POST: APIRoute = async ({ request, locals }) => {
   try {
+    const env = (locals as any).runtime.env;
+
     const { slug, author_name, content } = await request.json();
 
     if (!slug || !author_name || !content) {
@@ -25,8 +27,8 @@ export const POST: APIRoute = async ({ request }) => {
     }
 
     const supabase = createClient(
-      import.meta.env.PUBLIC_SUPABASE_URL,
-      import.meta.env.SUPABASE_SERVICE_ROLE_KEY
+      env.PUBLIC_SUPABASE_URL,
+      env.SUPABASE_SERVICE_ROLE_KEY
     );
 
     const { error } = await supabase.from("post_comments").insert({
@@ -42,4 +44,3 @@ export const POST: APIRoute = async ({ request }) => {
     return new Response(JSON.stringify({ ok: false, error: err.message }), { status: 500 });
   }
 };
-                        
