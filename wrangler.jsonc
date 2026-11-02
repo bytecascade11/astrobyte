@@ -1,17 +1,13 @@
 {
-  "$schema": "node_modules/wrangler/config-schema.json",
-  "name": "astrobyte",                    // ← change this to your actual project name if different
-  "compatibility_date": "2026-11-02",
-  "main": "./dist/_worker.js/index.js",  // Astro Cloudflare worker entry
+  "name": "astrobyte",
+  "main": "dist/_worker.js/index.js",
+  "compatibility_date": "2025-05-21",
+  "compatibility_flags": ["nodejs_compat"],
   "assets": {
-    "directory": "./dist",
-    "binding": "ASSETS"
+    "binding": "ASSETS",
+    "directory": "./dist"
   },
-  // Optional but useful if you use KV sessions (you had a warning about SESSION)
-  // "kv_namespaces": [
-  //   {
-  //     "binding": "SESSION",
-  //     "id": "your-kv-namespace-id"
-  //   }
-  // ]
+  "vars": {
+    "PUBLIC_SUPABASE_URL": "https://tfkrjruxqiqpaoeckfoh.supabase.co"
+  }
 }
