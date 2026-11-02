@@ -8,18 +8,31 @@ export interface Props {
 
 const { slug } = Astro.props;
 
-const supabase = createClient(
-  import.meta.env.PUBLIC_SUPABASE_URL,
-  import.meta.env.SUPABASE_SERVICE_ROLE_KEY
-);
+const supabaseUrl = import.meta.env.PUBLIC_SUPABASE_URL;
+const supabaseKey = import.meta.env.SUPABASE_SERVICE_ROLE_KEY;
 
-const { data } = await supabase
-  .from("post_comments")
-  .select("id, author_name, content, created_at")
-  .eq("post_slug", slug)
-  .order("created_at", { ascending: false });
+// Only create the client when both values exist (prevents build crash)
+const supabase =
+  supabaseUrl && supabaseKey
+    ? createClient(supabaseUrl, supabaseKey)
+    : null;
 
-const comments = data ?? [];
+let comments: {
+  id: string;
+  author_name: string;
+  content: string;
+  created_at: string;
+}[] = [];
+
+if (supabase) {
+  const { data } = await supabase
+    .from("post_comments")
+    .select("id, author_name, content, created_at")
+    .eq("post_slug", slug)
+    .order("created_at", { ascending: false });
+
+  comments = data ?? [];
+}
 ---
 
 <section class="comments-section">
