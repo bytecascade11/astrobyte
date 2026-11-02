@@ -11,6 +11,7 @@ relatedSlugs:
   - redmi-vs-xiaomi-difference
   - xiaomi-phones-long-battery-life-2026
   - xiaomi-cameras-compared-redmi-poco-xiaomi
+  - redmi-note-15-vs-poco-x7-pro-gaming
 ---
 
 ## Table of Contents 
