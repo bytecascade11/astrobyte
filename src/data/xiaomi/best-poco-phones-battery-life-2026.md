@@ -10,6 +10,7 @@ relatedSlugs:
   - best-poco-camera-phones-2026
   - best-poco-phones-under-200
   - xiaomi-phones-long-battery-life-2026
+  - redmi-note-15-vs-poco-x7-pro-gaming
 tags:
   - poco
   - xiaomi
