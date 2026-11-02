@@ -20,7 +20,7 @@ import cloudflare from "@astrojs/cloudflare";
 export default defineConfig({
   site: SITE.website,
 
-  adapter: cloudflare(),
+  adapter: cloudflare({ imageService: "compile" }),
 
   trailingSlash: "always",
 
@@ -167,11 +167,17 @@ export default defineConfig({
 
   vite: {
     plugins: [tailwindcss()],
+    ssr: {
+      external: ["@resvg/resvg-js"],
+    },
     optimizeDeps: {
       exclude: ["@resvg/resvg-js"],
     },
     build: {
       cssCodeSplit: true,
+      rollupOptions: {
+        external: ["@resvg/resvg-js"],
+      },
     },
   },
 });
