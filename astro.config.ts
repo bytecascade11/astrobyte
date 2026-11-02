@@ -14,19 +14,19 @@ import { SITE } from "./src/config";
 import indexnow from "./src/integrations/indexnow";
 import tailwindcss from "@tailwindcss/vite";
 import AstroPWA from "@vite-pwa/astro";
-import vercel from '@astrojs/vercel';
+import cloudflare from "@astrojs/cloudflare";
 
 
 export default defineConfig({
   site: SITE.website,
 
-  adapter: vercel(),
+  adapter: cloudflare(),
 
   trailingSlash: "always",
 
   build: {
     format: "directory",
-    inlineStylesheets: "auto",  // ← ADDED: Inlines small critical CSS automatically
+    inlineStylesheets: "auto",
   },
 
   image: {
@@ -171,7 +171,7 @@ export default defineConfig({
       exclude: ["@resvg/resvg-js"],
     },
     build: {
-      cssCodeSplit: true,  // ← ADDED: Splits CSS per route for smaller chunks
+      cssCodeSplit: true,
     },
   },
 });
