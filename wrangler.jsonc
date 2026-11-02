@@ -1,6 +1,6 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
-  "name": "revibyte",                    // ← change this to your actual project name if different
+  "name": "astrobyte",                    // ← change this to your actual project name if different
   "compatibility_date": "2026-11-02",
   "main": "./dist/_worker.js/index.js",  // Astro Cloudflare worker entry
   "assets": {
