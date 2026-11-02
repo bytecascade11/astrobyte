@@ -6,7 +6,7 @@ export const onRequest = defineMiddleware((context, next) => {
 
   if (url.hostname === "astrobyte.okesunday503.workers.dev") {
     const destination = new URL(url);
-    destination.hostname = "revibyte.blog";
+    destination.hostname = "www.revibyte.blog";
     destination.protocol = "https:";
 
     return context.redirect(destination.toString(), 301);
