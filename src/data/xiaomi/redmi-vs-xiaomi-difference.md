@@ -10,6 +10,7 @@ slug: "redmi-vs-xiaomi-difference"
 relatedSlugs:
     - xiaomi-17-battery-life-5g
     - poco-f8-ultra-price-europe-storage-options
+    - redmi-note-15-vs-poco-x7-pro-gaming
 ---
 
 ## Table of Contents 
