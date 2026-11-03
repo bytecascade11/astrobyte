@@ -1,7 +1,7 @@
 ---
 title: "OPPO Reno14 vs Reno15: Which One Has Better Battery Life?"
 description: "OPPO Reno14 has a 6,000mAh battery, Reno15 has 6,500mAh. We compare capacity, benchmark runtimes, charging and chipset to see who really lasts longer."
-pubDatetime: 2026-11-03T16:23:00Z
+pubDatetime: 2026-11-03T16:33:00Z
 author: "iSamuel"
 storyImage: /assets/oppo/oppo-reno15.jpg
 coverImage: /assets/oppo/oppo-reno14-vs-reno15-battery-life-cover.jpg
