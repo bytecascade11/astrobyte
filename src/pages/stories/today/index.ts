@@ -13,14 +13,14 @@ export const GET: APIRoute = async () => {
     .sort((a, b) => new Date(b.data.pubDatetime).getTime() - new Date(a.data.pubDatetime).getTime());
 
   const routeFor = (post: any) =>
-    `https://revibyte.blog/${post.collection === 'blog' ? 'posts' : post.collection}/${post.id}/`;
+    `https://www.revibyte.blog/${post.collection === 'blog' ? 'posts' : post.collection}/${post.id}/`;
 
   const escape = (str: string) =>
     String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 
   const storyImageFor = (post: any) => {
     const src = post.data.storyImage || post.data.coverImage;
-    return src.startsWith('http') ? src : `https://revibyte.blog${src}`;
+    return src.startsWith('http') ? src : `https://www.revibyte.blog${src}`;
   };
 
   const publishDate = recentPosts[0]?.data.pubDatetime?.toISOString() ?? new Date().toISOString();
