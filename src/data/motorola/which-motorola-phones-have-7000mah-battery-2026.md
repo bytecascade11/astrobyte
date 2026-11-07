@@ -2,7 +2,7 @@
 title: "Which Motorola Phones Have a 7000mAh Battery in 2026?"
 description: "Motorola now sells several 7,000mAh phones, from budget Moto G Power models to the $1,599 Signature 27. Here is the full list, what differs, and which names to double-check before buying."
 author: "iSamuel"
-pubDatetime: 2026-11-07T21:48:00Z
+pubDatetime: 2026-11-07T18:48:00Z
 storyImage: "/assets/motorola/motorola-edge-70-fusion.jpg"
 coverImage: "/assets/motorola/motorola-7000mah-battery-phones-2026-cover.jpg"
 coverImageAlt: "Several Motorola phones with 7,000mAh batteries lined up, from Moto G Power models to the Signature 27"
