@@ -2,7 +2,7 @@
 title: "Which Motorola Phones Support Wireless Charging? (2026 Guide)"
 description: "Wireless charging on Motorola phones is not as common as you'd think. This research-based guide shows which Razr, Edge and Moto G models have it, how fast it is, and which ones dropped it."
 author: "iSamuel"
-pubDate: "2026-11-09T15:00:00Z"
+pubDatetime: "2026-11-09T15:04:00Z"
 storyImage: "/assets/motorola/motorola-razr-ultra.jpg"
 coverImage: "/assets/motorola/motorola-wireless-charging-phones-cover.jpg"
 coverImageAlt: "Motorola Razr Ultra and Motorola Edge resting on a wireless charging pad"
