@@ -23,7 +23,7 @@ This comparison covers the 4G Camon 50 Pro, the model TECNO Nigeria lists as the
 
 Everything below is independently researched from spec sheets, not hands-on testing, so read the camera and battery sections as what the hardware allows rather than what we measured.
 
-![TECNO Camon 50 Pro in Nebula Titanium, rear view showing the camera island](/images/tecno/tecno-camon-50-pro-rear-camera-island.jpg)
+![TECNO Camon 50 Pro in Nebula Titanium, rear view showing the camera island](/assets/tecno/tecno-camon-50-pro-rear-camera-island.jpg)
 
 <div id="waldo-tag-55825"></div>
 
