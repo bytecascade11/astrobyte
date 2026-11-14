@@ -18,7 +18,7 @@ const text = "BitTopup - fast, low-cost top-ups for mobile games and live-stream
     position: fixed;
     left: 12px;
     /* sits above the mobile anchor ad bar; reduce on desktop */
-    bottom: 100px;
+    bottom: 115px;
     width: min(300px, calc(100vw - 24px));
     z-index: 40;
     padding: 12px 14px 8px;
@@ -40,15 +40,27 @@ const text = "BitTopup - fast, low-cost top-ups for mobile games and live-stream
     background: none; border: 0; font-size: 20px; line-height: 1;
     color: inherit; opacity: 0.6; cursor: pointer; padding: 4px;
   }
-  @media (min-width: 768px) { .sponsor-card { bottom: 140px; } }
+  @media (min-width: 768px) { .sponsor-card { bottom: 155px; } }
   @media (prefers-reduced-motion: reduce) { .sponsor-card { transition: none; } }
 </style>
 
 <script>
   const card = document.getElementById("sponsor-card");
-  let dismissed = false;
-  try { dismissed = sessionStorage.getItem("sponsor-dismissed") === "1"; } catch {}
-  if (card && !dismissed) {
+  const MAX_PER_DAY = 3;
+  let allow = true;
+  try {
+    const today = new Date().toDateString();
+    let data = JSON.parse(localStorage.getItem("sponsor-views") || "{}");
+    if (data.day !== today) data = { day: today, count: 0 };
+    // Count once per visit (browser session), not once per page view
+    if (!sessionStorage.getItem("sponsor-counted")) {
+      sessionStorage.setItem("sponsor-counted", "1");
+      data.count += 1;
+      localStorage.setItem("sponsor-views", JSON.stringify(data));
+    }
+    allow = data.count <= MAX_PER_DAY && sessionStorage.getItem("sponsor-dismissed") !== "1";
+  } catch {}
+  if (card && allow) {
     card.hidden = false;
     setTimeout(() => card.classList.add("show"), 4000);
     card.querySelector(".sponsor-close")?.addEventListener("click", () => {
