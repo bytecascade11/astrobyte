@@ -4,7 +4,7 @@ description: "The TECNO Camon Slim 5G fits a 6,000mAh battery into a 6.39mm body
 author: iSamuel
 pubDatetime: 2026-11-14T08:30:00Z
 slug: tecno-camon-slim-5g-battery-life
-coverImage: /images/tecno/tecno-camon-slim-5g-battery-life-cover.jpg
+coverImage: /assets/tecno/tecno-camon-slim-5g-battery-life-cover.jpg
 coverImageAlt: "TECNO Camon Slim 5G seen from the side to show its 6.39mm profile"
 relatedSlugs:
   - tecno-camon-50-vs-camon-50-pro-difference
