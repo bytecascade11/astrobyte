@@ -1,0 +1,59 @@
+---
+// Place the logo at public/bittopup-logo.png
+const href = "https://bittopup.com";
+const text = "BitTopup - fast, low-cost top-ups for mobile games and live-streaming apps.";
+---
+
+<aside id="sponsor-card" class="sponsor-card" aria-label="Sponsored" hidden>
+  <button type="button" class="sponsor-close" aria-label="Close sponsor card">&times;</button>
+  <a href={href} rel="sponsored noopener" target="_blank" class="sponsor-link">
+    <img src="/bittopup-logo.png" alt="BitTopup" width="96" height="32" loading="lazy" decoding="async" />
+    <p>{text}</p>
+  </a>
+  <span class="sponsor-label">Sponsored</span>
+</aside>
+
+<style>
+  .sponsor-card {
+    position: fixed;
+    left: 12px;
+    /* sits above the mobile anchor ad bar; reduce on desktop */
+    bottom: 72px;
+    width: min(300px, calc(100vw - 24px));
+    z-index: 40;
+    padding: 12px 14px 8px;
+    border-radius: 12px;
+    background: var(--background, #fff);
+    color: var(--foreground, #111);
+    border: 1px solid rgba(128, 128, 128, 0.3);
+    box-shadow: 0 6px 24px rgba(0, 0, 0, 0.18);
+    transform: translateX(-120%);
+    transition: transform 0.4s ease;
+  }
+  .sponsor-card.show { transform: translateX(0); }
+  .sponsor-link { display: block; color: inherit; text-decoration: none; }
+  .sponsor-link img { display: block; height: 32px; width: auto; margin-bottom: 6px; }
+  .sponsor-link p { margin: 0; font-size: 13px; line-height: 1.4; }
+  .sponsor-label { display: block; margin-top: 6px; font-size: 10px; opacity: 0.6; text-transform: uppercase; letter-spacing: 0.05em; }
+  .sponsor-close {
+    position: absolute; top: 4px; right: 8px;
+    background: none; border: 0; font-size: 20px; line-height: 1;
+    color: inherit; opacity: 0.6; cursor: pointer; padding: 4px;
+  }
+  @media (min-width: 768px) { .sponsor-card { bottom: 20px; } }
+  @media (prefers-reduced-motion: reduce) { .sponsor-card { transition: none; } }
+</style>
+
+<script>
+  const card = document.getElementById("sponsor-card");
+  let dismissed = false;
+  try { dismissed = sessionStorage.getItem("sponsor-dismissed") === "1"; } catch {}
+  if (card && !dismissed) {
+    card.hidden = false;
+    setTimeout(() => card.classList.add("show"), 4000);
+    card.querySelector(".sponsor-close")?.addEventListener("click", () => {
+      card.classList.remove("show");
+      try { sessionStorage.setItem("sponsor-dismissed", "1"); } catch {}
+    });
+  }
+</script>
