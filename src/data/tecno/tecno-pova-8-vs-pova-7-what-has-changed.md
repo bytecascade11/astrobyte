@@ -1,4 +1,4 @@
- ---
+---
 title: "TECNO Pova 8 vs Pova 7: What Has Changed?"
 description: "TECNO Pova 8 vs Pova 7 5G: compare battery, wireless charging, chipset, display, cameras and gaming. See what changed and which phone makes more sense."
 author: iSamuel
