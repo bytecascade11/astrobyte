@@ -1,7 +1,7 @@
 ---
 title: "OnePlus 15R Camera Review: How Good Are Its Photos?"
 description: "A research-based look at the OnePlus 15R camera: where reviewers agree, where they split, how the 26MP mode works, and who should look elsewhere."
-pubDatetime: 2026-11-21T08:35Z
+pubDatetime: 2026-11-21T08:37:00Z
 author: iSamuel
 type: review
 storyImage: /assets/oneplus/oneplus-15r.jpg
