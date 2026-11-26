@@ -1,9 +1,8 @@
 ---
 title: "Which vivo Phone Has the Biggest Battery in 2026?"
 description: "The vivo Y600 Pro tops the list at 10,200mAh, but you may not be able to buy it. Here is every big-battery vivo phone of 2026, ranked, with the catches."
-pubDatetime: 2026-11-26T07:42:00Z
+pubDatetime: 2026-11-26T07:48:00Z
 author: iSamuel
-type: Guide
 coverImage: /assets/vivo/vivo-biggest-battery-phone-2026-cover.jpg
 coverImageAlt: "Several vivo phones lined up beside a battery graphic, including the Y600 Pro and V80 Lite 5G"
 slug: vivo-biggest-battery-phone-2026
