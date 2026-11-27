@@ -269,9 +269,41 @@ const softwareAppSchema = {
       }
     </style>
 
-    <!-- Newor Media (Waldo) header script — exact URL from the Newor dashboard (site 55542).
-         The script initializes itself; no extra init call is needed. -->
-    <script is:inline async type="text/javascript" src="https://cdn.thisiswaldo.com/static/js/55542.js"></script>
+    <!-- Newor Media (Waldo) script — exact URL from the Newor dashboard (site 55542).
+         The script initializes itself; no extra init call is needed.
+         It now starts AFTER the page has loaded and the browser is idle, so its
+         heavy ad setup no longer competes with the first taps. All ad containers
+         have reserved space, so starting later causes no layout shift.
+         Add ?nonewor=1 to any URL to test the page without Newor. -->
+    <script is:inline>
+      (function () {
+        if (location.search.indexOf('nonewor=1') !== -1) return;
+        var loaded = false;
+
+        function load() {
+          if (loaded) return;
+          loaded = true;
+          var s = document.createElement('script');
+          s.async = true;
+          s.src = 'https://cdn.thisiswaldo.com/static/js/55542.js';
+          document.head.appendChild(s);
+        }
+
+        function arm() {
+          if ('requestIdleCallback' in window) {
+            requestIdleCallback(load, { timeout: 2500 });
+          } else {
+            setTimeout(load, 2000);
+          }
+        }
+
+        if (document.readyState === 'complete') {
+          arm();
+        } else {
+          window.addEventListener('load', arm, { once: true });
+        }
+      })();
+    </script>
 
   </head>
   <body>
@@ -551,6 +583,7 @@ if (location.search.includes('debug=1')) {
         width: 100%;
         height: auto;
         aspect-ratio: 1200 / 630;   /* reserves image height before it loads */
+        object-fit: cover;
         margin: 0;
       }
 
