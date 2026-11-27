@@ -388,56 +388,87 @@ const softwareAppSchema = {
 <script is:inline>
 if (location.search.includes('debug=1')) {
   const box = document.createElement('pre');
-  box.style.cssText = 'position:fixed;bottom:0;left:0;right:0;max-height:45vh;overflow:auto;margin:0;padding:8px;background:#000c;color:#0f0;font:11px/1.3 monospace;z-index:99999;white-space:pre-wrap';
-  document.body.appendChild(box);
+  box.style.cssText = 'position:fixed;bottom:0;left:0;right:0;max-height:40vh;overflow:auto;margin:0;padding:8px;background:#000d;color:#0f0;font:11px/1.3 monospace;z-index:99999;white-space:pre-wrap;contain:layout paint';
+  const mount = () => document.body.appendChild(box);
+  document.body ? mount() : document.addEventListener('DOMContentLoaded', mount);
+
   const log = (m) => { box.textContent += m + '\n'; box.scrollTop = box.scrollHeight; };
-  const sel = (n) => !n ? '?' : (n.tagName || '') + (n.id ? '#' + n.id : '') + (typeof n.className === 'string' && n.className ? '.' + n.className.trim().split(/\s+/).slice(0,2).join('.') : '');
+  const sel = (n) => !n ? '?' : (n.tagName || '') + (n.id ? '#' + n.id : '') +
+    (typeof n.className === 'string' && n.className ? '.' + n.className.trim().split(/\s+/).slice(0, 2).join('.') : '');
+  const ms = (n) => Math.round(n) + 'ms';
 
   // TTFB
   const nav = performance.getEntriesByType('navigation')[0];
-  if (nav) log('TTFB: ' + Math.round(nav.responseStart) + 'ms');
+  if (nav) log('TTFB: ' + ms(nav.responseStart));
 
   // LCP
   new PerformanceObserver((l) => {
     const e = l.getEntries().pop();
-    log('LCP: ' + Math.round(e.startTime) + 'ms -> ' + sel(e.element) + ' ' + (e.url || ''));
+    log('LCP: ' + ms(e.startTime) + ' -> ' + sel(e.element) + ' ' + (e.url || '').slice(-50));
   }).observe({ type: 'largest-contentful-paint', buffered: true });
 
-  // CLS + what shifted
+  // CLS (ignores the debug box)
   let cls = 0;
   new PerformanceObserver((l) => {
     for (const e of l.getEntries()) {
       if (e.hadRecentInput) continue;
+      const src = (e.sources || []).filter((s) => s.node && !box.contains(s.node));
+      if (!src.length) continue;
       cls += e.value;
-      log('CLS +' + e.value.toFixed(3) + ' (total ' + cls.toFixed(3) + ') <- ' +
-        (e.sources || []).map((s) => sel(s.node)).join(', '));
+      log('CLS +' + e.value.toFixed(3) + ' (total ' + cls.toFixed(3) + ') @' + ms(e.startTime) +
+        ' <- ' + src.map((s) => sel(s.node)).join(', '));
     }
   }).observe({ type: 'layout-shift', buffered: true });
 
-  // Slow interactions (INP candidates)
+  // Slow interactions: real taps/clicks/keys only, one line each, with breakdown
+  const seen = new Set();
   new PerformanceObserver((l) => {
     for (const e of l.getEntries()) {
-      if (e.duration >= 200)
-        log('INP? ' + e.duration + 'ms ' + e.name + ' on ' + sel(e.target));
+      if (!e.interactionId || e.duration < 200) continue;
+      if (e.target && box.contains(e.target)) continue;
+      if (seen.has(e.interactionId)) continue;
+      seen.add(e.interactionId);
+      const delay = e.processingStart - e.startTime;
+      const proc = e.processingEnd - e.processingStart;
+      const paint = e.startTime + e.duration - e.processingEnd;
+      log('INP? ' + e.duration + 'ms ' + e.name + ' on ' + sel(e.target) +
+        ' | delay ' + ms(delay) + ' + handler ' + ms(proc) + ' + render ' + ms(paint));
     }
   }).observe({ type: 'event', durationThreshold: 200, buffered: true });
 
-  // Long tasks
+  // Long tasks (100ms+ only, to cut noise)
   new PerformanceObserver((l) => {
-    for (const e of l.getEntries()) log('LongTask ' + Math.round(e.duration) + 'ms @' + Math.round(e.startTime));
+    for (const e of l.getEntries()) {
+      if (e.duration >= 100) log('LongTask ' + ms(e.duration) + ' @' + ms(e.startTime));
+    }
   }).observe({ type: 'longtask', buffered: true });
 
-  // Heaviest third-party scripts
+  // Long animation frames: names the script that caused the delay (Chrome 123+)
+  try {
+    new PerformanceObserver((l) => {
+      for (const e of l.getEntries()) {
+        if (e.duration < 150) continue;
+        const top = (e.scripts || []).sort((a, b) => b.duration - a.duration)[0];
+        log('SLOW FRAME ' + ms(e.duration) + ' @' + ms(e.startTime) +
+          (top ? ' <- ' + ms(top.duration) + ' ' + (top.sourceURL || top.invoker || '?').slice(0, 60) : ''));
+      }
+    }).observe({ type: 'long-animation-frame', buffered: true });
+  } catch (err) { log('(long-animation-frame not supported)'); }
+
+  // Ad slot sizes + heaviest third-party scripts
   window.addEventListener('load', () => setTimeout(() => {
-    const third = performance.getEntriesByType('resource')
-      .filter((r) => r.initiatorType === 'script' && !r.name.includes(location.host))
-      .sort((a, b) => b.duration - a.duration).slice(0, 6);
+    const s = document.querySelector('.ad-slot--bottom');
+    if (s) log('ad-slot--bottom height: ' + s.offsetHeight + 'px');
+    const w = document.querySelector('[id^="waldo-display-unit"]');
+    if (w) log('waldo unit height: ' + w.offsetHeight + 'px');
     log('--- Slowest 3rd-party scripts ---');
-    third.forEach((r) => log(Math.round(r.duration) + 'ms ' + r.name.slice(0, 70)));
-  }, 1500));
+    performance.getEntriesByType('resource')
+      .filter((r) => r.initiatorType === 'script' && !r.name.includes(location.host))
+      .sort((a, b) => b.duration - a.duration).slice(0, 6)
+      .forEach((r) => log(ms(r.duration) + ' ' + r.name.slice(0, 70)));
+  }, 6000));
 }
 </script>
-
 
     <style>
       .cover-ad-wrapper {
