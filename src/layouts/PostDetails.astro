@@ -172,7 +172,9 @@ const postSlug = post.id;
     <BackButton />
 
     <!-- Newor Media: right after the Go back button.
-         The Newor script itself is loaded once in Layout.astro <head>. -->
+         The Newor script itself is loaded once in Layout.astro <head>.
+         SPACE IS RESERVED (250px) so the cover image, title and article
+         do not jump down when the ad fills in. -->
     <div class="newor-slot">
       <!-- 728x90/300x250/320x50/468x60 -->
       <div id="waldo-tag-55824"></div>
@@ -196,7 +198,7 @@ const postSlug = post.id;
       <div class="post-meta">
         <div class="post-meta-left">
           <Datetime {pubDatetime} {modDatetime} {timezone} size="lg" />
-          
+
         </div>
         <div class="post-share-inline">
           <ShareLinks />
@@ -222,7 +224,7 @@ const postSlug = post.id;
 
     <!-- Author card -->
     <div class="author-card">
-      <img src="/assets/isamuel.jpg" alt={SITE.author || "iSamuel"} class="author-avatar" />
+      <img src="/assets/isamuel.jpg" alt={SITE.author || "iSamuel"} class="author-avatar" width="52" height="52" loading="lazy" decoding="async" />
       <div class="author-info">
         <p class="author-name">{SITE.author || "iSamuel"}</p>
         <p class="author-bio">
@@ -237,8 +239,8 @@ const postSlug = post.id;
       </div>
     </div>
 
-    <!-- Newor Media: Before Related Posts -->
-    <div style="margin: 1.5rem 0; min-height: 250px; display:flex; justify-content:center;">
+    <!-- Newor Media: Before Related Posts (space reserved) -->
+    <div class="newor-before-related">
       <!-- 728x90/300x250/320x50/468x60 -->
       <div id="waldo-tag-55825"></div>
     </div>
@@ -265,8 +267,8 @@ const postSlug = post.id;
     <AffiliateCarousel />
 
     <!-- Adsterra: Bottom of Page (300x250).
-         Was a synchronous script that blocked parsing. Now it loads only when
-         the slot is within ~400px of the viewport. Space is reserved. -->
+         Loads only when the slot is within ~400px of the viewport.
+         Space is reserved. -->
     <div
       id="adsterra-bottom"
       style="margin: 1.5rem 0; min-height: 250px; display:flex; justify-content:center; contain: layout;"
@@ -319,16 +321,28 @@ const postSlug = post.id;
     <a href="https://whatsapp.com/channel/0029VbBCXzRKAwEdcyip8841" target="_blank" rel="noopener" style="display:block;background:linear-gradient(135deg,#075E54,#25D366);color:#fff;font-size:10px;font-weight:700;padding:8px;border-radius:6px;text-decoration:none;text-align:center;">Join Channel →</a>
   </div>
 
-  <!-- Progress Bar script: batched with requestAnimationFrame, height cached -->
+  <!-- Progress Bar script: batched with requestAnimationFrame, height cached.
+       The resize observer is throttled so ad loads don't force repeated layout reads. -->
   <script is:inline>
     (function () {
       var bar = document.getElementById("progress-bar");
       if (!bar) return;
       var docHeight = 0;
       var ticking = false;
+      var measureQueued = false;
 
       function measure() {
+        measureQueued = false;
         docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      }
+
+      function queueMeasure() {
+        if (measureQueued) return;
+        measureQueued = true;
+        setTimeout(function () {
+          if ('requestIdleCallback' in window) requestIdleCallback(measure, { timeout: 500 });
+          else measure();
+        }, 300);
       }
 
       function update() {
@@ -347,11 +361,11 @@ const postSlug = post.id;
 
       measure();
       window.addEventListener("scroll", onScroll, { passive: true });
-      window.addEventListener("resize", function () { measure(); onScroll(); });
-      window.addEventListener("load", measure);
+      window.addEventListener("resize", function () { queueMeasure(); onScroll(); });
+      window.addEventListener("load", queueMeasure);
       // Page height changes as ads and images load
       if ("ResizeObserver" in window) {
-        new ResizeObserver(measure).observe(document.body);
+        new ResizeObserver(queueMeasure).observe(document.body);
       }
     })();
   </script>
@@ -370,13 +384,32 @@ const postSlug = post.id;
     margin-bottom: 0.5rem;
   }
 
-  /* ── Newor Media slot (full row under the Go back button) ── */
+  /* ── Newor Media slot (full row under the Go back button) ──
+     Was min-height: 0, which let the page jump down when the ad loaded.
+     250px matches the tallest common size (300x250). */
   .newor-slot {
     flex: 0 0 100%;
     width: 100%;
-    min-height: 0;
+    min-height: 250px;
     display: flex;
     justify-content: center;
+    align-items: flex-start;
+    contain: layout;
+  }
+
+  /* Newor unit before Related Posts */
+  .newor-before-related {
+    margin: 1.5rem 0;
+    min-height: 250px;
+    display: flex;
+    justify-content: center;
+    contain: layout;
+  }
+
+  /* Injected Newor containers must not add extra margin inside reserved boxes */
+  .newor-slot :global([id^="waldo-display-unit"]),
+  .newor-before-related :global([id^="waldo-display-unit"]) {
+    margin: 0 auto;
   }
 
   /* ── Post header ── */
@@ -420,13 +453,13 @@ const postSlug = post.id;
   }
 
   .author-avatar {
-  width: 52px;
-  height: 52px;
-  min-width: 52px;
-  border-radius: 14px;
-  object-fit: cover;
-  box-shadow: 0 4px 12px rgba(99,102,241,0.3);
-}
+    width: 52px;
+    height: 52px;
+    min-width: 52px;
+    border-radius: 14px;
+    object-fit: cover;
+    box-shadow: 0 4px 12px rgba(99,102,241,0.3);
+  }
 
   .author-info { flex: 1; }
 
