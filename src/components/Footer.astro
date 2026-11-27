@@ -31,8 +31,12 @@ const { noMarginTop = false } = Astro.props;
       <!-- Divider -->
       <div class="footer-divider"></div>
 
-      <!-- Email form script — deferred to prevent blocking -->
-      <script defer src="https://eomail5.com/form/a0ff8318-6b29-11f1-985b-f32f81b6eef6.js" data-form="a0ff8318-6b29-11f1-985b-f32f81b6eef6"></script>
+      <!-- Email form script anchor.
+           The EmailOctopus script is NOT loaded here any more. It is inserted
+           by the loader at the bottom of this file, only after the page has
+           loaded and the footer is close to the screen. -->
+      <div id="eo-form-anchor"></div>
+
       <form
         action="https://api.follow.it/subscription-form/bWZOckxmelNNL2wyVVpERE50M0MxMWVhRC9ON2dBQnBKTEJzTlZJTGNIencrSFYrZVFpQ3FPY211M0dGVVJvZkxoWkcxUjd0TThLYmpMMnJuV1dMN3kzaC9uSkorZXlCYWdEZURrTmkxYW9aRGIxKzBJVW1pQXBVbDNBbGxjM098UDVxajlvNmc3NHYyc2ZJRFp4T1pDRncwNS9hMTBmajBaUlU0L1VrbW9XWT0=/8"
         method="post"
@@ -122,8 +126,8 @@ const { noMarginTop = false } = Astro.props;
         <!-- Divider -->
         <div class="footer-divider"></div>
 
-        <!-- Waldo tag -->
-        <div id="waldo-tag-55832"></div>
+        <!-- Waldo tag — space is reserved so the content below never jumps -->
+        <div id="waldo-tag-55832" class="newor-footer-unit"></div>
 
         <!-- Microsoft Store Badge -->
         <div class="footer-store">
@@ -139,6 +143,8 @@ const { noMarginTop = false } = Astro.props;
               alt="Get it from Microsoft"
               width="140"
               height="46"
+              loading="lazy"
+              decoding="async"
             />
           </a>
         </div>
@@ -432,10 +438,19 @@ const { noMarginTop = false } = Astro.props;
     opacity: 1;
   }
 
+  /* ── Newor Media footer unit: reserved space prevents layout shift ── */
+  .newor-footer-unit {
+    width: 100%;
+    min-height: 250px;
+    margin-bottom: 1rem;
+    contain: layout;
+  }
+
   /* ── Microsoft Store Badge ── */
   .footer-store {
     display: flex;
     justify-content: center;
+    min-height: 46px;
   }
 
   .footer-store-badge {
@@ -556,3 +571,53 @@ const { noMarginTop = false } = Astro.props;
     font-size: 0.55rem;
   }
 </style>
+
+<!-- EmailOctopus loader: waits for page load, then for the footer to be within
+     600px of the screen, then for the browser to be idle. -->
+<script is:inline>
+  (function () {
+    var anchor = document.getElementById('eo-form-anchor');
+    if (!anchor) return;
+
+    var loaded = false;
+    var FORM = 'a0ff8318-6b29-11f1-985b-f32f81b6eef6';
+
+    function load() {
+      if (loaded) return;
+      loaded = true;
+      var s = document.createElement('script');
+      s.async = true;
+      s.src = 'https://eomail5.com/form/' + FORM + '.js';
+      s.setAttribute('data-form', FORM);
+      anchor.parentNode.insertBefore(s, anchor.nextSibling);
+    }
+
+    function whenIdle() {
+      if ('requestIdleCallback' in window) {
+        requestIdleCallback(load, { timeout: 4000 });
+      } else {
+        setTimeout(load, 3000);
+      }
+    }
+
+    function arm() {
+      if (!('IntersectionObserver' in window)) {
+        setTimeout(load, 5000);
+        return;
+      }
+      var io = new IntersectionObserver(function (entries) {
+        if (entries[0].isIntersecting) {
+          io.disconnect();
+          whenIdle();
+        }
+      }, { rootMargin: '600px' });
+      io.observe(anchor);
+    }
+
+    if (document.readyState === 'complete') {
+      arm();
+    } else {
+      window.addEventListener('load', arm, { once: true });
+    }
+  })();
+</script>
