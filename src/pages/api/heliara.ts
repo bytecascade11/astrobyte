@@ -1,18 +1,28 @@
-// Heliara AI — standalone Cloudflare Worker.
-// Secret needed: GEMINI_API_KEY (Worker → Settings → Variables and Secrets).
+export const prerender = false;
 
-const ALLOWED_ORIGINS = [
-  "https://www.revibyte.blog",
-  "https://revibyte.blog",
-];
+import type { APIRoute } from "astro";
+
+const SITE = "https://www.revibyte.blog";
 
 // Tried in order. The second is used if the first is busy or over its limit.
 const MODELS = ["gemini-3.5-flash", "gemini-3.5-flash-lite"];
 
-const SITE = "https://www.revibyte.blog";
+// ─── Environment lookup (works on Cloudflare and Node/Vercel) ───────────────
+async function getEnvVar(name: string, locals: any): Promise<string | undefined> {
+  // Newer @astrojs/cloudflare adapter
+  try {
+    const mod: any = await import("cloudflare:workers");
+    if (mod?.env?.[name]) return mod.env[name];
+  } catch {}
+  // Older @astrojs/cloudflare adapter
+  if (locals?.runtime?.env?.[name]) return locals.runtime.env[name];
+  // Node-style fallbacks
+  if (typeof process !== "undefined" && process.env?.[name]) return process.env[name];
+  return (import.meta as any).env?.[name];
+}
 
 // ─── Device hub registry ────────────────────────────────────────────────────
-const DEVICE_HUBS = {
+const DEVICE_HUBS: Record<string, { path: string; aliases: string[] }> = {
   samsung:  { path: "/samsung/",  aliases: ["samsung", "galaxy"] },
   xiaomi:   { path: "/xiaomi/",   aliases: ["xiaomi", "redmi", "poco"] },
   tecno:    { path: "/tecno/",    aliases: ["tecno", "camon", "spark", "pova"] },
@@ -26,27 +36,8 @@ const DEVICE_HUBS = {
   oppo:     { path: "/oppo/",     aliases: ["oppo", "reno", "find x"] },
 };
 
-// ─── Helpers ────────────────────────────────────────────────────────────────
-function corsHeaders(origin) {
-  const allowed = ALLOWED_ORIGINS.includes(origin) ? origin : ALLOWED_ORIGINS[0];
-  return {
-    "Access-Control-Allow-Origin": allowed,
-    "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
-    "Access-Control-Allow-Headers": "Content-Type",
-    "Access-Control-Max-Age": "86400",
-    "Vary": "Origin",
-  };
-}
-
-function json(body, status, origin) {
-  return new Response(JSON.stringify(body), {
-    status,
-    headers: { "Content-Type": "application/json", ...corsHeaders(origin) },
-  });
-}
-
-// ─── Content fetcher (kept light: the free plan limits CPU time per request) ─
-async function fetchPageText(url, maxChars = 3000) {
+// ─── Content fetcher (kept light: Cloudflare limits CPU time per request) ───
+async function fetchPageText(url: string, maxChars = 3000): Promise<string> {
   try {
     const res = await fetch(url, {
       headers: { "User-Agent": "HeliaraAI/1.0 (ReviByte assistant bot)" },
@@ -88,9 +79,9 @@ async function fetchPageText(url, maxChars = 3000) {
 }
 
 // ─── Sitemap (cached in memory for 10 minutes) ──────────────────────────────
-let sitemapCache = { urls: [], time: 0 };
+let sitemapCache: { urls: string[]; time: number } = { urls: [], time: 0 };
 
-async function getAllContentUrls() {
+async function getAllContentUrls(): Promise<string[]> {
   if (sitemapCache.urls.length && Date.now() - sitemapCache.time < 10 * 60 * 1000) {
     return sitemapCache.urls;
   }
@@ -99,7 +90,6 @@ async function getAllContentUrls() {
   for (const sitemapUrl of [
     `${SITE}/sitemap-index.xml`,
     `${SITE}/sitemap.xml`,
-    "https://revibyte.blog/sitemap-index.xml",
   ]) {
     try {
       const res = await fetch(sitemapUrl, { signal: AbortSignal.timeout(5000) });
@@ -108,10 +98,10 @@ async function getAllContentUrls() {
   }
   if (!xml) return sitemapCache.urls;
 
-  const childSitemaps = [...xml.matchAll(/<loc>(.*?sitemap.*?)<\/loc>/gi)].map((m) => m[1]);
+  const childSitemaps = [...xml.matchAll(/<loc>(.*?sitemap.*?)<\/loc>/gi)].map(m => m[1]);
   if (childSitemaps.length > 0) {
     const childXmls = await Promise.all(
-      childSitemaps.map(async (u) => {
+      childSitemaps.map(async u => {
         try {
           const r = await fetch(u, { signal: AbortSignal.timeout(5000) });
           return r.ok ? r.text() : "";
@@ -121,26 +111,25 @@ async function getAllContentUrls() {
     xml = childXmls.join("\n");
   }
 
-  const allUrls = [...xml.matchAll(/<loc>(.*?)<\/loc>/g)].map((m) => m[1]);
-  const hubPaths = Object.values(DEVICE_HUBS).map((h) => h.path);
+  const allUrls = [...xml.matchAll(/<loc>(.*?)<\/loc>/g)].map(m => m[1]);
+  const hubPaths = Object.values(DEVICE_HUBS).map(h => h.path);
 
-  const contentUrls = allUrls.filter(
-    (u) =>
-      u.includes("/posts/") ||
-      u.includes("/codm/") ||
-      u.includes("/efootball/") ||
-      u.includes("/pubgmobile/") ||
-      u.includes("/mlbb/") ||
-      u.includes("/tools/") ||
-      u.includes("/heliara/") ||
-      hubPaths.some((p) => u.includes(p))
+  const contentUrls = allUrls.filter(u =>
+    u.includes("/posts/") ||
+    u.includes("/codm/") ||
+    u.includes("/efootball/") ||
+    u.includes("/pubgmobile/") ||
+    u.includes("/mlbb/") ||
+    u.includes("/tools/") ||
+    u.includes("/heliara/") ||
+    hubPaths.some(p => u.includes(p))
   );
 
   sitemapCache = { urls: contentUrls, time: Date.now() };
   return contentUrls;
 }
 
-async function getRelevantPostUrls(query) {
+async function getRelevantPostUrls(query: string): Promise<string[]> {
   try {
     const contentUrls = await getAllContentUrls();
     if (!contentUrls.length) return [];
@@ -152,9 +141,9 @@ async function getRelevantPostUrls(query) {
       return [...contentUrls].reverse().slice(0, 2);
     }
 
-    const queryWords = queryLower.split(/\s+/).filter((w) => w.length > 2);
+    const queryWords = queryLower.split(/\s+/).filter(w => w.length > 2);
 
-    const scored = contentUrls.map((url) => {
+    const scored = contentUrls.map(url => {
       const slug = url.toLowerCase();
       let score = 0;
 
@@ -170,7 +159,7 @@ async function getRelevantPostUrls(query) {
       if ((queryLower.includes("heliara") || queryLower.includes("ai assistant")) && slug.includes("/heliara/")) score += 3;
 
       for (const hub of Object.values(DEVICE_HUBS)) {
-        if (hub.aliases.some((a) => queryLower.includes(a)) && slug.includes(hub.path)) {
+        if (hub.aliases.some(a => queryLower.includes(a)) && slug.includes(hub.path)) {
           score += 3;
         }
       }
@@ -179,17 +168,17 @@ async function getRelevantPostUrls(query) {
     });
 
     return scored
-      .filter((s) => s.score > 0)
+      .filter(s => s.score > 0)
       .sort((a, b) => b.score - a.score)
       .slice(0, 2)
-      .map((s) => s.url);
+      .map(s => s.url);
   } catch {
     return [];
   }
 }
 
 // ─── System prompt ──────────────────────────────────────────────────────────
-function buildSystemPrompt(liveContext) {
+function buildSystemPrompt(liveContext: string): string {
   return `You are Heliara AI, a smart and friendly assistant built into ReviByte (revibyte.blog). You have access to live content fetched directly from ReviByte posts and hubs — use it to give accurate, up-to-date answers.
 
 ## Who iSamuel is
@@ -274,125 +263,119 @@ Each phone brand has its own dedicated hub with reviews, comparisons, and buying
 ${liveContext ? `\n## Live ReviByte content fetched for this query\n${liveContext}` : ""}`;
 }
 
-// ─── Worker entry ───────────────────────────────────────────────────────────
-export default {
-  async fetch(request, env) {
-    const origin = request.headers.get("Origin") || "";
+function json(body: unknown, status = 200): Response {
+  return new Response(JSON.stringify(body), {
+    status,
+    headers: { "Content-Type": "application/json" },
+  });
+}
 
-    if (request.method === "OPTIONS") {
-      return new Response(null, { status: 204, headers: corsHeaders(origin) });
+// ─── GET: quick health check. Open /api/heliara/ in a browser.
+//     It only says whether the key is visible; it never prints the key. ─────
+export const GET: APIRoute = async ({ locals }) => {
+  const key = await getEnvVar("GEMINI_API_KEY", locals);
+  return json({ ok: true, key_configured: !!key });
+};
+
+// ─── POST: the chat ─────────────────────────────────────────────────────────
+export const POST: APIRoute = async ({ request, locals }) => {
+  try {
+    const GEMINI_API_KEY = await getEnvVar("GEMINI_API_KEY", locals);
+
+    if (!GEMINI_API_KEY) {
+      return json({ error: "API key not configured", status: 500 }, 500);
     }
 
-    // Open the worker URL in a browser to check that the secret is set.
-    // It never shows the key itself.
-    if (request.method === "GET") {
-      return json({ ok: true, key_configured: !!env.GEMINI_API_KEY }, 200, origin);
+    const body = await request.json().catch(() => null);
+    if (!body || !Array.isArray(body.messages) || body.messages.length === 0) {
+      return json({ error: "Invalid request", status: 400 }, 400);
     }
 
-    if (request.method !== "POST") {
-      return json({ error: "Method not allowed" }, 405, origin);
-    }
-
-    try {
-      const GEMINI_API_KEY = env.GEMINI_API_KEY;
-      if (!GEMINI_API_KEY) {
-        return json({ error: "API key not configured", status: 500 }, 500, origin);
-      }
-
-      const body = await request.json().catch(() => null);
-      if (!body || !Array.isArray(body.messages) || body.messages.length === 0) {
-        return json({ error: "Invalid request", status: 400 }, 400, origin);
-      }
-
-      // Keep the last 12 messages and cap their length
-      const messages = body.messages
-        .slice(-12)
-        .filter((m) => m && typeof m.content === "string" && m.content.trim())
-        .map((m) => ({
-          role: m.role === "assistant" ? "assistant" : "user",
-          content: m.content.slice(0, 1000),
-        }));
-
-      if (messages.length === 0) {
-        return json({ error: "Invalid request", status: 400 }, 400, origin);
-      }
-
-      const latestUserMessage =
-        [...messages].reverse().find((m) => m.role === "user")?.content || "";
-
-      const relevantUrls = await getRelevantPostUrls(latestUserMessage);
-      const fetchedTexts = await Promise.all(
-        relevantUrls.map((url) =>
-          fetchPageText(url, 3000).then((text) =>
-            text ? `\n\n--- From ${url} ---\n${text}` : ""
-          )
-        )
-      );
-      const liveContext = fetchedTexts.filter(Boolean).join("").slice(0, 7000);
-
-      const systemPrompt = buildSystemPrompt(liveContext);
-
-      const geminiContents = messages.map((m) => ({
-        role: m.role === "assistant" ? "model" : "user",
-        parts: [{ text: m.content }],
+    // Keep the last 12 messages and cap their length
+    const messages = (body.messages as { role: string; content: string }[])
+      .slice(-12)
+      .filter(m => m && typeof m.content === "string" && m.content.trim())
+      .map(m => ({
+        role: m.role === "assistant" ? "assistant" : "user",
+        content: m.content.slice(0, 1000),
       }));
 
-      let geminiRes;
-      let data = {};
+    if (messages.length === 0) {
+      return json({ error: "Invalid request", status: 400 }, 400);
+    }
 
-      for (const model of MODELS) {
-        geminiRes = await fetch(
-          `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent`,
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-              "x-goog-api-key": GEMINI_API_KEY,
-            },
-            body: JSON.stringify({
-              system_instruction: { parts: [{ text: systemPrompt }] },
-              contents: geminiContents,
-              generationConfig: { maxOutputTokens: 1500, temperature: 0.7 },
-            }),
-          }
-        );
-        data = await geminiRes.json().catch(() => ({}));
-        if (geminiRes.ok) break;
-        console.error(`Gemini ${model} failed:`, geminiRes.status, JSON.stringify(data));
-        if (![404, 429, 500, 503].includes(geminiRes.status)) break;
-      }
+    const latestUserMessage =
+      [...messages].reverse().find(m => m.role === "user")?.content || "";
 
-      if (!geminiRes.ok) {
-        return json(
-          { error: data?.error?.message || "Gemini API error", status: geminiRes.status },
-          502,
-          origin
-        );
-      }
+    const relevantUrls = await getRelevantPostUrls(latestUserMessage);
 
-      const candidate = data.candidates?.[0];
-      const finishReason = candidate?.finishReason;
+    const fetchedTexts = await Promise.all(
+      relevantUrls.map(url =>
+        fetchPageText(url, 3000).then(text =>
+          text ? `\n\n--- From ${url} ---\n${text}` : ""
+        )
+      )
+    );
 
-      let reply = candidate?.content?.parts?.find((p) => !p.thought && p.text)?.text;
+    const liveContext = fetchedTexts.filter(Boolean).join("").slice(0, 7000);
+    const systemPrompt = buildSystemPrompt(liveContext);
 
-      if (!reply) {
-        if (finishReason === "SAFETY") {
-          reply = "I can't answer that one — try rephrasing, or ask me something else about ReviByte.";
-        } else if (finishReason === "MAX_TOKENS") {
-          reply = "That answer got cut off — mind asking a more specific version of that?";
-        } else {
-          reply = "Sorry, I couldn't generate a response.";
+    const geminiContents = messages.map(m => ({
+      role: m.role === "assistant" ? "model" : "user",
+      parts: [{ text: m.content }],
+    }));
+
+    let geminiRes!: Response;
+    let data: any = {};
+
+    for (const model of MODELS) {
+      geminiRes = await fetch(
+        `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "x-goog-api-key": GEMINI_API_KEY,
+          },
+          body: JSON.stringify({
+            system_instruction: { parts: [{ text: systemPrompt }] },
+            contents: geminiContents,
+            generationConfig: { maxOutputTokens: 1500, temperature: 0.7 },
+          }),
         }
-      }
+      );
+      data = await geminiRes.json().catch(() => ({}));
+      if (geminiRes.ok) break;
+      console.error(`Gemini ${model} failed:`, geminiRes.status, JSON.stringify(data));
+      // Only try the next model for temporary or model-level failures
+      if (![404, 429, 500, 503].includes(geminiRes.status)) break;
+    }
 
-      return json({ reply }, 200, origin);
-    } catch (err) {
-      console.error("Heliara worker exception:", err);
+    if (!geminiRes.ok) {
       return json(
-        { error: "Internal server error", details: String(err), status: 500 },
-        500,
-        origin
+        { error: data?.error?.message || "Gemini API error", status: geminiRes.status },
+        502
       );
     }
-  },
+
+    const candidate = data.candidates?.[0];
+    const finishReason = candidate?.finishReason;
+
+    let reply = candidate?.content?.parts?.find((p: any) => !p.thought && p.text)?.text;
+
+    if (!reply) {
+      if (finishReason === "SAFETY") {
+        reply = "I can't answer that one — try rephrasing, or ask me something else about ReviByte.";
+      } else if (finishReason === "MAX_TOKENS") {
+        reply = "That answer got cut off — mind asking a more specific version of that?";
+      } else {
+        reply = "Sorry, I couldn't generate a response.";
+      }
+    }
+
+    return json({ reply });
+  } catch (err) {
+    console.error("Heliara API exception:", err);
+    return json({ error: "Internal server error", details: String(err), status: 500 }, 500);
+  }
 };
