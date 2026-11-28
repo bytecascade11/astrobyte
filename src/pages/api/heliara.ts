@@ -1,9 +1,18 @@
-export const prerender = false;
+// Heliara AI — standalone Cloudflare Worker.
+// Secret needed: GEMINI_API_KEY (Worker → Settings → Variables and Secrets).
 
-import type { APIRoute } from "astro";
+const ALLOWED_ORIGINS = [
+  "https://www.revibyte.blog",
+  "https://revibyte.blog",
+];
+
+// Tried in order. The second is used if the first is busy or over its limit.
+const MODELS = ["gemini-3.5-flash", "gemini-3.5-flash-lite"];
+
+const SITE = "https://www.revibyte.blog";
 
 // ─── Device hub registry ────────────────────────────────────────────────────
-const DEVICE_HUBS: Record<string, { path: string; aliases: string[] }> = {
+const DEVICE_HUBS = {
   samsung:  { path: "/samsung/",  aliases: ["samsung", "galaxy"] },
   xiaomi:   { path: "/xiaomi/",   aliases: ["xiaomi", "redmi", "poco"] },
   tecno:    { path: "/tecno/",    aliases: ["tecno", "camon", "spark", "pova"] },
@@ -17,22 +26,44 @@ const DEVICE_HUBS: Record<string, { path: string; aliases: string[] }> = {
   oppo:     { path: "/oppo/",     aliases: ["oppo", "reno", "find x"] },
 };
 
-// ─── Content fetcher ────────────────────────────────────────────────────────
-async function fetchPageText(url: string, maxChars = 4000): Promise<string> {
+// ─── Helpers ────────────────────────────────────────────────────────────────
+function corsHeaders(origin) {
+  const allowed = ALLOWED_ORIGINS.includes(origin) ? origin : ALLOWED_ORIGINS[0];
+  return {
+    "Access-Control-Allow-Origin": allowed,
+    "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
+    "Access-Control-Allow-Headers": "Content-Type",
+    "Access-Control-Max-Age": "86400",
+    "Vary": "Origin",
+  };
+}
+
+function json(body, status, origin) {
+  return new Response(JSON.stringify(body), {
+    status,
+    headers: { "Content-Type": "application/json", ...corsHeaders(origin) },
+  });
+}
+
+// ─── Content fetcher (kept light: the free plan limits CPU time per request) ─
+async function fetchPageText(url, maxChars = 3000) {
   try {
     const res = await fetch(url, {
       headers: { "User-Agent": "HeliaraAI/1.0 (ReviByte assistant bot)" },
-      signal: AbortSignal.timeout(8000),
+      signal: AbortSignal.timeout(5000),
     });
     if (!res.ok) return "";
-    const html = await res.text();
+    let html = await res.text();
+
+    // Only process the part of the page that holds the content
+    const mainStart = html.indexOf("<main");
+    if (mainStart !== -1) html = html.slice(mainStart);
+    html = html.slice(0, 60000);
 
     const cleaned = html
       .replace(/<script[\s\S]*?<\/script>/gi, "")
       .replace(/<style[\s\S]*?<\/style>/gi, "")
       .replace(/<nav[\s\S]*?<\/nav>/gi, "")
-      .replace(/<header[\s\S]*?<\/header>/gi, "")
-      .replace(/<footer[\s\S]*?<\/footer>/gi, "")
       .replace(/<aside[\s\S]*?<\/aside>/gi, "")
       .replace(/<form[\s\S]*?<\/form>/gi, "")
       .replace(/<h[1-6][^>]*>([\s\S]*?)<\/h[1-6]>/gi, "\n## $1\n")
@@ -56,35 +87,45 @@ async function fetchPageText(url: string, maxChars = 4000): Promise<string> {
   }
 }
 
-// ─── Sitemap URL scorer ──────────────────────────────────────────────────────
-async function getRelevantPostUrls(query: string): Promise<string[]> {
-  try {
-    let xml = "";
-    for (const sitemapUrl of [
-      "https://revibyte.blog/sitemap-index.xml",
-      "https://revibyte.blog/sitemap.xml",
-    ]) {
-      const res = await fetch(sitemapUrl, { signal: AbortSignal.timeout(8000) });
+// ─── Sitemap (cached in memory for 10 minutes) ──────────────────────────────
+let sitemapCache = { urls: [], time: 0 };
+
+async function getAllContentUrls() {
+  if (sitemapCache.urls.length && Date.now() - sitemapCache.time < 10 * 60 * 1000) {
+    return sitemapCache.urls;
+  }
+
+  let xml = "";
+  for (const sitemapUrl of [
+    `${SITE}/sitemap-index.xml`,
+    `${SITE}/sitemap.xml`,
+    "https://revibyte.blog/sitemap-index.xml",
+  ]) {
+    try {
+      const res = await fetch(sitemapUrl, { signal: AbortSignal.timeout(5000) });
       if (res.ok) { xml = await res.text(); break; }
-    }
-    if (!xml) return [];
+    } catch {}
+  }
+  if (!xml) return sitemapCache.urls;
 
-    const childSitemaps = [...xml.matchAll(/<loc>(.*?sitemap.*?)<\/loc>/gi)].map(m => m[1]);
-    if (childSitemaps.length > 0) {
-      const childXmls = await Promise.all(
-        childSitemaps.map(async u => {
-          try {
-            const r = await fetch(u, { signal: AbortSignal.timeout(6000) });
-            return r.ok ? r.text() : "";
-          } catch { return ""; }
-        })
-      );
-      xml = childXmls.join("\n");
-    }
+  const childSitemaps = [...xml.matchAll(/<loc>(.*?sitemap.*?)<\/loc>/gi)].map((m) => m[1]);
+  if (childSitemaps.length > 0) {
+    const childXmls = await Promise.all(
+      childSitemaps.map(async (u) => {
+        try {
+          const r = await fetch(u, { signal: AbortSignal.timeout(5000) });
+          return r.ok ? r.text() : "";
+        } catch { return ""; }
+      })
+    );
+    xml = childXmls.join("\n");
+  }
 
-    const allUrls = [...xml.matchAll(/<loc>(.*?)<\/loc>/g)].map(m => m[1]);
+  const allUrls = [...xml.matchAll(/<loc>(.*?)<\/loc>/g)].map((m) => m[1]);
+  const hubPaths = Object.values(DEVICE_HUBS).map((h) => h.path);
 
-    const contentUrls = allUrls.filter(u =>
+  const contentUrls = allUrls.filter(
+    (u) =>
       u.includes("/posts/") ||
       u.includes("/codm/") ||
       u.includes("/efootball/") ||
@@ -92,20 +133,28 @@ async function getRelevantPostUrls(query: string): Promise<string[]> {
       u.includes("/mlbb/") ||
       u.includes("/tools/") ||
       u.includes("/heliara/") ||
-      Object.values(DEVICE_HUBS).some(hub => u.includes(hub.path))
-    );
+      hubPaths.some((p) => u.includes(p))
+  );
+
+  sitemapCache = { urls: contentUrls, time: Date.now() };
+  return contentUrls;
+}
+
+async function getRelevantPostUrls(query) {
+  try {
+    const contentUrls = await getAllContentUrls();
+    if (!contentUrls.length) return [];
 
     const queryLower = query.toLowerCase();
 
     const isLatestQuery = /\b(latest|recent|new|last|update|just published|newest)\b/.test(queryLower);
     if (isLatestQuery) {
-      const reversed = [...contentUrls].reverse();
-      return reversed.slice(0, 4);
+      return [...contentUrls].reverse().slice(0, 2);
     }
 
-    const queryWords = queryLower.split(/\s+/).filter(w => w.length > 2);
+    const queryWords = queryLower.split(/\s+/).filter((w) => w.length > 2);
 
-    const scored = contentUrls.map(url => {
+    const scored = contentUrls.map((url) => {
       const slug = url.toLowerCase();
       let score = 0;
 
@@ -117,11 +166,11 @@ async function getRelevantPostUrls(query: string): Promise<string[]> {
       if ((queryLower.includes("efootball") || queryLower.includes("pes") || queryLower.includes("efoot")) && slug.includes("/efootball/")) score += 3;
       if ((queryLower.includes("pubg") || queryLower.includes("battlegrounds")) && slug.includes("/pubgmobile/")) score += 3;
       if ((queryLower.includes("mlbb") || queryLower.includes("mobile legends") || queryLower.includes("bang bang")) && slug.includes("/mlbb/")) score += 3;
-      if ((queryLower.includes("tool") || queryLower.includes("compress") || queryLower.includes("battery") || queryLower.includes("qr code") || queryLower.includes("estimator")) && (slug.includes("/tools/") || slug.includes("/tools/"))) score += 3;
+      if ((queryLower.includes("tool") || queryLower.includes("compress") || queryLower.includes("battery") || queryLower.includes("qr code") || queryLower.includes("estimator")) && slug.includes("/tools/")) score += 3;
       if ((queryLower.includes("heliara") || queryLower.includes("ai assistant")) && slug.includes("/heliara/")) score += 3;
 
       for (const hub of Object.values(DEVICE_HUBS)) {
-        if (hub.aliases.some(a => queryLower.includes(a)) && slug.includes(hub.path)) {
+        if (hub.aliases.some((a) => queryLower.includes(a)) && slug.includes(hub.path)) {
           score += 3;
         }
       }
@@ -130,73 +179,18 @@ async function getRelevantPostUrls(query: string): Promise<string[]> {
     });
 
     return scored
-      .filter(s => s.score > 0)
+      .filter((s) => s.score > 0)
       .sort((a, b) => b.score - a.score)
-      .slice(0, 4)
-      .map(s => s.url);
+      .slice(0, 2)
+      .map((s) => s.url);
   } catch {
     return [];
   }
 }
 
-// ─── API Route ───────────────────────────────────────────────────────────────
-export const POST: APIRoute = async ({ request, locals }) => {
-  try {
-    const { messages } = await request.json();
-
-    // Cloudflare passes secrets through locals.runtime.env; process.env is the Vercel/Node way
-    const cfEnv = (locals as any)?.runtime?.env ?? {};
-    const GEMINI_API_KEY =
-      cfEnv.GEMINI_API_KEY ??
-      (typeof process !== "undefined" ? process.env?.GEMINI_API_KEY : undefined) ??
-      import.meta.env.GEMINI_API_KEY;
-    
-    if (!GEMINI_API_KEY) {
-      return new Response(JSON.stringify({ error: "API key not configured" }), {
-        status: 500,
-        headers: { "Content-Type": "application/json" },
-      });
-    }
-
-    const latestUserMessage = [...(messages as { role: string; content: string }[])]
-      .reverse()
-      .find(m => m.role === "user")?.content || "";
-
-    const relevantUrls = await getRelevantPostUrls(latestUserMessage);
-
-    const fetchedTexts = await Promise.all(
-      relevantUrls.map(url =>
-        fetchPageText(url, 4000).then(text =>
-          text ? `\n\n--- From ${url} ---\n${text}` : ""
-        )
-      )
-    );
-
-    const liveContext = fetchedTexts
-      .filter(Boolean)
-      .join("")
-      .slice(0, 12000);
-
-    const systemPrompt = `You are Heliara AI, a smart and friendly assistant built into ReviByte (revibyte.blog). You have access to live content fetched directly from ReviByte posts and hubs — use it to give accurate, up-to-date answers.
-export const GET: APIRoute = async ({ locals }) => {
-  const cfEnv = (locals as any)?.runtime?.env ?? {};
-  let viaWorkersModule: boolean | string = "unavailable";
-  try {
-    const m: any = await import("cloudflare:workers");
-    viaWorkersModule = !!m.env?.GEMINI_API_KEY;
-  } catch {}
-
-  return new Response(
-    JSON.stringify({
-      locals_runtime_exists: !!(locals as any)?.runtime,
-      key_in_locals_runtime: !!cfEnv.GEMINI_API_KEY,
-      key_in_cloudflare_workers_module: viaWorkersModule,
-      key_in_process_env: typeof process !== "undefined" ? !!process.env?.GEMINI_API_KEY : "no process",
-      key_in_import_meta: !!import.meta.env.GEMINI_API_KEY,
-    }),
-    { headers: { "Content-Type": "application/json" } }
-  );
-};
+// ─── System prompt ──────────────────────────────────────────────────────────
+function buildSystemPrompt(liveContext) {
+  return `You are Heliara AI, a smart and friendly assistant built into ReviByte (revibyte.blog). You have access to live content fetched directly from ReviByte posts and hubs — use it to give accurate, up-to-date answers.
 
 ## Who iSamuel is
 iSamuel (full name: Oke Sunday Samuel) is the sole founder, writer, and developer of ReviByte. He is a Physics and Electronics student in his final year of university. He built ReviByte entirely on mobile — no laptop, ever. The blog launched December 15, 2025 after migrating from Blogger to Astro. He is self-taught in web development. There is no team, no co-founders, no other staff.
@@ -251,7 +245,7 @@ Each phone brand has its own dedicated hub with reviews, comparisons, and buying
 - The old TikTok/Instagram video downloaders were retired and are no longer available on the site — never suggest them or link to /save/tok/ or /save/ig/
 
 ### Blog & Tech
-- Built on Astro, deployed on Vercel, DNS via Cloudflare
+- Built on Astro, deployed on Cloudflare
 - PWA listed on Microsoft Store
 - Google AdSense monetization (pub-4896561037705299)
 - Amazon Associates affiliate links
@@ -278,63 +272,127 @@ Each phone brand has its own dedicated hub with reviews, comparisons, and buying
 - Never invent staff, team members, or co-founders — iSamuel runs ReviByte solo
 - If asked who built Heliara AI or ReviByte Save — iSamuel built both
 ${liveContext ? `\n## Live ReviByte content fetched for this query\n${liveContext}` : ""}`;
+}
 
-    const geminiContents = (messages as { role: string; content: string }[]).map(m => ({
-      role: m.role === "assistant" ? "model" : "user",
-      parts: [{ text: m.content }],
-    }));
+// ─── Worker entry ───────────────────────────────────────────────────────────
+export default {
+  async fetch(request, env) {
+    const origin = request.headers.get("Origin") || "";
 
-    const geminiRes = await fetch(
-      "https://generativelanguage.googleapis.com/v1beta/models/gemini-3.5-flash:generateContent",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "x-goog-api-key": GEMINI_API_KEY,
-        },
-        body: JSON.stringify({
-          system_instruction: { parts: [{ text: systemPrompt }] },
-          contents: geminiContents,
-          generationConfig: { maxOutputTokens: 1500, temperature: 0.7 },
-        }),
+    if (request.method === "OPTIONS") {
+      return new Response(null, { status: 204, headers: corsHeaders(origin) });
+    }
+
+    // Open the worker URL in a browser to check that the secret is set.
+    // It never shows the key itself.
+    if (request.method === "GET") {
+      return json({ ok: true, key_configured: !!env.GEMINI_API_KEY }, 200, origin);
+    }
+
+    if (request.method !== "POST") {
+      return json({ error: "Method not allowed" }, 405, origin);
+    }
+
+    try {
+      const GEMINI_API_KEY = env.GEMINI_API_KEY;
+      if (!GEMINI_API_KEY) {
+        return json({ error: "API key not configured", status: 500 }, 500, origin);
       }
-    );
 
-    const data = await geminiRes.json();
+      const body = await request.json().catch(() => null);
+      if (!body || !Array.isArray(body.messages) || body.messages.length === 0) {
+        return json({ error: "Invalid request", status: 400 }, 400, origin);
+      }
 
-    if (!geminiRes.ok) {
-      console.error("Gemini error:", JSON.stringify(data));
-      return new Response(
-        JSON.stringify({ error: data.error?.message || "Gemini API error" }),
-        { status: geminiRes.status, headers: { "Content-Type": "application/json" } }
+      // Keep the last 12 messages and cap their length
+      const messages = body.messages
+        .slice(-12)
+        .filter((m) => m && typeof m.content === "string" && m.content.trim())
+        .map((m) => ({
+          role: m.role === "assistant" ? "assistant" : "user",
+          content: m.content.slice(0, 1000),
+        }));
+
+      if (messages.length === 0) {
+        return json({ error: "Invalid request", status: 400 }, 400, origin);
+      }
+
+      const latestUserMessage =
+        [...messages].reverse().find((m) => m.role === "user")?.content || "";
+
+      const relevantUrls = await getRelevantPostUrls(latestUserMessage);
+      const fetchedTexts = await Promise.all(
+        relevantUrls.map((url) =>
+          fetchPageText(url, 3000).then((text) =>
+            text ? `\n\n--- From ${url} ---\n${text}` : ""
+          )
+        )
+      );
+      const liveContext = fetchedTexts.filter(Boolean).join("").slice(0, 7000);
+
+      const systemPrompt = buildSystemPrompt(liveContext);
+
+      const geminiContents = messages.map((m) => ({
+        role: m.role === "assistant" ? "model" : "user",
+        parts: [{ text: m.content }],
+      }));
+
+      let geminiRes;
+      let data = {};
+
+      for (const model of MODELS) {
+        geminiRes = await fetch(
+          `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              "x-goog-api-key": GEMINI_API_KEY,
+            },
+            body: JSON.stringify({
+              system_instruction: { parts: [{ text: systemPrompt }] },
+              contents: geminiContents,
+              generationConfig: { maxOutputTokens: 1500, temperature: 0.7 },
+            }),
+          }
+        );
+        data = await geminiRes.json().catch(() => ({}));
+        if (geminiRes.ok) break;
+        console.error(`Gemini ${model} failed:`, geminiRes.status, JSON.stringify(data));
+        if (![404, 429, 500, 503].includes(geminiRes.status)) break;
+      }
+
+      if (!geminiRes.ok) {
+        return json(
+          { error: data?.error?.message || "Gemini API error", status: geminiRes.status },
+          502,
+          origin
+        );
+      }
+
+      const candidate = data.candidates?.[0];
+      const finishReason = candidate?.finishReason;
+
+      let reply = candidate?.content?.parts?.find((p) => !p.thought && p.text)?.text;
+
+      if (!reply) {
+        if (finishReason === "SAFETY") {
+          reply = "I can't answer that one — try rephrasing, or ask me something else about ReviByte.";
+        } else if (finishReason === "MAX_TOKENS") {
+          reply = "That answer got cut off — mind asking a more specific version of that?";
+        } else {
+          reply = "Sorry, I couldn't generate a response.";
+        }
+      }
+
+      return json({ reply }, 200, origin);
+    } catch (err) {
+      console.error("Heliara worker exception:", err);
+      return json(
+        { error: "Internal server error", details: String(err), status: 500 },
+        500,
+        origin
       );
     }
-
-    const candidate = data.candidates?.[0];
-    const finishReason = candidate?.finishReason;
-
-    let reply = candidate?.content?.parts?.find((p: any) => !p.thought && p.text)?.text;
-
-    if (!reply) {
-      if (finishReason === "SAFETY") {
-        reply = "I can't answer that one — try rephrasing, or ask me something else about ReviByte.";
-      } else if (finishReason === "MAX_TOKENS") {
-        reply = "That answer got cut off — mind asking a more specific version of that?";
-      } else {
-        reply = "Sorry, I couldn't generate a response.";
-      }
-    }
-
-    return new Response(JSON.stringify({ reply }), {
-      status: 200,
-      headers: { "Content-Type": "application/json" },
-    });
-
-  } catch (err) {
-    console.error("Heliara API exception:", err);
-    return new Response(
-      JSON.stringify({ error: "Internal server error", details: String(err) }),
-      { status: 500, headers: { "Content-Type": "application/json" } }
-    );
-  }
+  },
 };
