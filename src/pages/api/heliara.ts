@@ -178,6 +178,25 @@ export const POST: APIRoute = async ({ request, locals }) => {
       .slice(0, 12000);
 
     const systemPrompt = `You are Heliara AI, a smart and friendly assistant built into ReviByte (revibyte.blog). You have access to live content fetched directly from ReviByte posts and hubs — use it to give accurate, up-to-date answers.
+export const GET: APIRoute = async ({ locals }) => {
+  const cfEnv = (locals as any)?.runtime?.env ?? {};
+  let viaWorkersModule: boolean | string = "unavailable";
+  try {
+    const m: any = await import("cloudflare:workers");
+    viaWorkersModule = !!m.env?.GEMINI_API_KEY;
+  } catch {}
+
+  return new Response(
+    JSON.stringify({
+      locals_runtime_exists: !!(locals as any)?.runtime,
+      key_in_locals_runtime: !!cfEnv.GEMINI_API_KEY,
+      key_in_cloudflare_workers_module: viaWorkersModule,
+      key_in_process_env: typeof process !== "undefined" ? !!process.env?.GEMINI_API_KEY : "no process",
+      key_in_import_meta: !!import.meta.env.GEMINI_API_KEY,
+    }),
+    { headers: { "Content-Type": "application/json" } }
+  );
+};
 
 ## Who iSamuel is
 iSamuel (full name: Oke Sunday Samuel) is the sole founder, writer, and developer of ReviByte. He is a Physics and Electronics student in his final year of university. He built ReviByte entirely on mobile — no laptop, ever. The blog launched December 15, 2025 after migrating from Blogger to Astro. He is self-taught in web development. There is no team, no co-founders, no other staff.
