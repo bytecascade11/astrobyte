@@ -144,7 +144,7 @@ export const POST: APIRoute = async ({ request }) => {
   try {
     const { messages } = await request.json();
 
-    const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
+    const GEMINI_API_KEY = process.env.GEMINI_API_KEY ?? import.meta.env.GEMINI_API_KEY;
 
     if (!GEMINI_API_KEY) {
       return new Response(JSON.stringify({ error: "API key not configured" }), {
