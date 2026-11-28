@@ -140,12 +140,17 @@ async function getRelevantPostUrls(query: string): Promise<string[]> {
 }
 
 // ─── API Route ───────────────────────────────────────────────────────────────
-export const POST: APIRoute = async ({ request }) => {
+export const POST: APIRoute = async ({ request, locals }) => {
   try {
     const { messages } = await request.json();
 
-    const GEMINI_API_KEY = process.env.GEMINI_API_KEY ?? import.meta.env.GEMINI_API_KEY;
-
+    // Cloudflare passes secrets through locals.runtime.env; process.env is the Vercel/Node way
+    const cfEnv = (locals as any)?.runtime?.env ?? {};
+    const GEMINI_API_KEY =
+      cfEnv.GEMINI_API_KEY ??
+      (typeof process !== "undefined" ? process.env?.GEMINI_API_KEY : undefined) ??
+      import.meta.env.GEMINI_API_KEY;
+    
     if (!GEMINI_API_KEY) {
       return new Response(JSON.stringify({ error: "API key not configured" }), {
         status: 500,
