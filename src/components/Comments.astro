@@ -136,18 +136,32 @@ if (supabase) {
       const initial = name.charAt(0).toUpperCase();
 
       const el = document.createElement("div");
-      el.className = "rb-comment rb-comment--new";
-      el.innerHTML = `
-        <div class="rb-comment-header">
-          <div class="rb-avatar">${initial}</div>
-          <div>
-            <div class="rb-author">${name}</div>
-            <div class="rb-time">${dateStr}</div>
-          </div>
-        </div>
-        <div class="rb-comment-body">${content}</div>
-      `;
-      list.prepend(el);
+el.className = "rb-comment rb-comment--new";
+
+const header = document.createElement("div");
+header.className = "rb-comment-header";
+
+const avatar = document.createElement("div");
+avatar.className = "rb-avatar";
+avatar.textContent = initial;
+
+const info = document.createElement("div");
+const authorEl = document.createElement("div");
+authorEl.className = "rb-author";
+authorEl.textContent = name;
+const timeEl = document.createElement("div");
+timeEl.className = "rb-time";
+timeEl.textContent = dateStr;
+info.append(authorEl, timeEl);
+
+header.append(avatar, info);
+
+const body = document.createElement("div");
+body.className = "rb-comment-body";
+body.textContent = content;
+
+el.append(header, body);
+list.prepend(el);
 
       const countEl = document.querySelector(".rb-count");
       if (countEl) countEl.textContent = String((parseInt(countEl.textContent) || 0) + 1);
