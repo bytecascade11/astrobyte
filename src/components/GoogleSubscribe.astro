@@ -1,16 +1,10 @@
 <div id="google-subscribe-float">
-  <div id="g_id_onload"
-       data-client_id="640428648139-qci7mu4rj24p4ca4t0t34mhr6b5f6lp4.apps.googleusercontent.com"
-       data-callback="handleGoogleSubscribe"
-       data-auto_prompt="true">
-  </div>
-  <button id="subscribe-trigger" aria-label="Subscribe with Google">
+  <button id="subscribe-trigger" type="button" aria-label="Subscribe with Google">
     📧 Subscribe
   </button>
-  <div class="g_id_signin" id="hidden-google-btn" style="display:none;"></div>
+  <!-- Google renders its real sign-in button in here (kept out of sight) -->
+  <div id="hidden-google-btn" aria-hidden="true"></div>
 </div>
-
-<script src="https://accounts.google.com/gsi/client" async defer is:inline></script>
 
 <style>
   #google-subscribe-float {
@@ -29,44 +23,130 @@
     box-shadow: 0 4px 12px rgba(0,0,0,0.2);
     cursor: pointer;
   }
+  #hidden-google-btn {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    opacity: 0;
+    pointer-events: none;
+  }
 </style>
 
+<!--
+  The Google sign-in script (accounts.google.com/gsi/client) is no longer loaded
+  at page start. It loads:
+    1. about 8s after the page has finished loading (then the Gmail prompt shows), or
+    2. immediately if the reader taps the Subscribe button first.
+  This keeps Google's script and the popup out of the busiest first seconds.
+-->
 <script is:inline>
-  function handleGoogleSubscribe(response) {
-    const payload = JSON.parse(atob(response.credential.split('.')[1]));
-    const email = payload.email;
+  (function () {
+    var CLIENT_ID = '640428648139-qci7mu4rj24p4ca4t0t34mhr6b5f6lp4.apps.googleusercontent.com';
+    var WORKER_URL = 'https://revibyte-subscribe.okesunday503.workers.dev/';
+    var AUTO_PROMPT_DELAY = 8000; // ms after the page has loaded
 
-    fetch('https://revibyte-subscribe.okesunday503.workers.dev/', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email })
-    })
-    .then(res => res.json())
-    .then(() => {
-      localStorage.setItem('reviByteSubscribed', 'true');
-      const container = document.getElementById('google-subscribe-float');
-      container.style.transition = 'opacity 0.4s ease';
-      container.style.opacity = '0';
-      setTimeout(() => {
-        container.style.display = 'none';
-      }, 400);
-    })
-    .catch(() => {
-      document.getElementById('subscribe-trigger').textContent = '⚠️ Try again';
-    });
-  }
+    var wrap = document.getElementById('google-subscribe-float');
+    var trigger = document.getElementById('subscribe-trigger');
+    var hiddenBtn = document.getElementById('hidden-google-btn');
+    if (!wrap || !trigger || !hiddenBtn) return;
 
-  document.addEventListener('DOMContentLoaded', () => {
-    if (localStorage.getItem('reviByteSubscribed') === 'true') {
-      document.getElementById('google-subscribe-float').style.display = 'none';
+    function isSubscribed() {
+      try { return localStorage.getItem('reviByteSubscribed') === 'true'; } catch (e) { return false; }
+    }
+    function markSubscribed() {
+      try { localStorage.setItem('reviByteSubscribed', 'true'); } catch (e) {}
+    }
+
+    if (isSubscribed()) {
+      wrap.style.display = 'none';
       return;
     }
 
-    const trigger = document.getElementById('subscribe-trigger');
-    const hiddenBtn = document.getElementById('hidden-google-btn');
-    trigger.addEventListener('click', () => {
-      const realBtn = hiddenBtn.querySelector('div[role="button"]');
-      if (realBtn) realBtn.click();
+    // Called by Google after the reader picks an account
+    window.handleGoogleSubscribe = function (response) {
+      var email;
+      try {
+        var b64 = response.credential.split('.')[1].replace(/-/g, '+').replace(/_/g, '/');
+        email = JSON.parse(atob(b64)).email;
+      } catch (e) {
+        trigger.textContent = '⚠️ Try again';
+        return;
+      }
+
+      fetch(WORKER_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: email })
+      })
+        .then(function (res) { return res.json(); })
+        .then(function () {
+          markSubscribed();
+          wrap.style.transition = 'opacity 0.4s ease';
+          wrap.style.opacity = '0';
+          setTimeout(function () { wrap.style.display = 'none'; }, 400);
+        })
+        .catch(function () {
+          trigger.textContent = '⚠️ Try again';
+        });
+    };
+
+    var state = 'idle'; // idle -> loading -> ready
+    var queue = [];
+
+    function initGoogle() {
+      if (!window.google || !google.accounts || !google.accounts.id) return;
+      google.accounts.id.initialize({
+        client_id: CLIENT_ID,
+        callback: window.handleGoogleSubscribe,
+        auto_select: false
+      });
+      google.accounts.id.renderButton(hiddenBtn, { type: 'standard', size: 'large' });
+      state = 'ready';
+      var fns = queue.slice();
+      queue = [];
+      fns.forEach(function (fn) { fn(); });
+    }
+
+    function loadGoogle(cb) {
+      if (cb) queue.push(cb);
+      if (state === 'ready') { var f = queue.slice(); queue = []; f.forEach(function (fn) { fn(); }); return; }
+      if (state === 'loading') return;
+      state = 'loading';
+      var s = document.createElement('script');
+      s.src = 'https://accounts.google.com/gsi/client';
+      s.async = true;
+      s.onload = initGoogle;
+      s.onerror = function () { state = 'idle'; };
+      document.head.appendChild(s);
+    }
+
+    // Reader taps Subscribe
+    trigger.addEventListener('click', function () {
+      loadGoogle(function () {
+        var realBtn = hiddenBtn.querySelector('div[role="button"]');
+        if (realBtn) {
+          realBtn.click();
+        } else {
+          google.accounts.id.prompt();
+        }
+      });
     });
-  });
+
+    // Automatic Gmail prompt, shown late instead of at page start
+    function scheduleAutoPrompt() {
+      setTimeout(function () {
+        if (isSubscribed()) return;
+        loadGoogle(function () {
+          if (!isSubscribed()) google.accounts.id.prompt();
+        });
+      }, AUTO_PROMPT_DELAY);
+    }
+
+    if (document.readyState === 'complete') {
+      scheduleAutoPrompt();
+    } else {
+      window.addEventListener('load', scheduleAutoPrompt, { once: true });
+    }
+  })();
 </script>
