@@ -571,7 +571,11 @@ const {
       const data = await res.json();
       typing.remove();
 
-      const reply = data.error ? 'Something went wrong. Please try again.' : data.reply;
+      if (data.error) console.error('Heliara error:', data.error);
+const reply = data.error
+  ? `Something went wrong (${data.status || res.status}). Please try again.`
+  : data.reply;
+
       addMessage(reply, 'ai');
       if (!data.error) history.push({ role: 'assistant', content: reply });
 
